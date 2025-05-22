@@ -151,6 +151,24 @@ export default function Rooms() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       >
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                      </svg>
+                      <span>
+                        Dedicated indoor living/work zone, but the <strong>terrace workspace</strong> delivers a
+                        productivity boost thanks to fresh air.
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <svg
+                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
                         <circle cx="12" cy="12" r="5" />
                         <line x1="12" y1="1" x2="12" y2="3" />
                         <line x1="12" y1="21" x2="12" y2="23" />
@@ -226,6 +244,24 @@ export default function Rooms() {
                         <path d="M12 9v12" />
                         <path d="M5 21h14" />
                       </svg>
+                      <span>
+                        Huge <strong>3 m-tall corner window</strong> overlooking the pine forest
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <svg
+                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M17 14l-5-5-5 5" />
+                        <path d="M12 9v12" />
+                        <path d="M5 21h14" />
+                      </svg>
                       <span>Corner window to pine forest</span>
                     </li>
                     <li className="flex items-start">
@@ -257,6 +293,40 @@ export default function Rooms() {
                         <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                       </svg>
                       <span>Enhanced privacy with distinct living areas</span>
+                    </li>
+                    <li className="flex items-start">
+                      <svg
+                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                      </svg>
+                      <span>
+                        Separate bedroom <strong>and</strong> separate living/eating/Netflix area
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <svg
+                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                      </svg>
+                      <span>
+                        Enhanced <em>privacy</em> with clearly divided spaces
+                      </span>
                     </li>
                     <li className="flex items-start">
                       <svg
@@ -371,15 +441,22 @@ export default function Rooms() {
                     </li>
                   </ul>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                     <div className="relative h-[250px] rounded-lg overflow-hidden">
-                      <Image src="/penthouse-suite.png" alt="Penthouse Suite" fill className="object-cover" />
+                      <Image
+                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/penthouse_corner%20window-m9Wog22hf421cCpCzob9Pc2GGzSUJL.webp"
+                        alt="Penthouse Suite - Corner Windows with Forest View"
+                        fill
+                        className="object-cover"
+                      />
                     </div>
                     <div className="relative h-[250px] rounded-lg overflow-hidden">
-                      <Image src="/bathroom-shower.png" alt="Bathroom Shower" fill className="object-cover" />
-                    </div>
-                    <div className="relative h-[250px] rounded-lg overflow-hidden">
-                      <Image src="/bathroom-washer.png" alt="Bathroom with Washer" fill className="object-cover" />
+                      <Image
+                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/sundeck-oUH1lbDSgAhXZkMtFb2s5dnaDxmm1T.webp"
+                        alt="Penthouse Suite - Sundeck with Forest View"
+                        fill
+                        className="object-cover"
+                      />
                     </div>
                   </div>
                 </div>
@@ -394,23 +471,33 @@ export default function Rooms() {
                     </li>
                     <li className="flex items-start">
                       <Thermometer className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
-                      <span>Underfloor heating + air conditioning</span>
+                      <span>
+                        <em>Underfloor</em> heating and air conditioning
+                      </span>
                     </li>
                     <li className="flex items-start">
                       <UtensilsCrossed className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
-                      <span>Kitchen: stove, oven, 300L fridge, microwave, cookware</span>
+                      <span>Kitchen: stove, oven, full-size 300 L fridge, microwave, cookware</span>
                     </li>
                     <li className="flex items-start">
                       <Shower className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
-                      <span>Bathroom: walk-in shower + washer</span>
+                      <span>
+                        Bathroom: walk-in shower + <strong>washer</strong>
+                      </span>
                     </li>
                     <li className="flex items-start">
                       <Bed className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
-                      <span>Dense foam mattress with topper + 5* bedding</span>
+                      <span>
+                        Dense foam mattress with <strong>topper</strong> + 5* bedding
+                      </span>
                     </li>
                     <li className="flex items-start">
                       <LampDesk className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
                       <span>Ergonomic chair (free for stays &gt; 1 month), twin beds on request</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Bed className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                      <span>Twin beds available on request</span>
                     </li>
                   </ul>
                 </div>
