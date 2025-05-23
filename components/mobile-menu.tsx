@@ -55,11 +55,11 @@ export function MobileMenu() {
                 Location
               </Link>
               <Link
-                href="/things-to-do"
+                href="/places-nearby"
                 className="text-lg font-medium hover:text-blue-600 transition-colors py-2"
                 onClick={() => setIsOpen(false)}
               >
-                Things to Do
+                Places Nearby
               </Link>
               <Link
                 href="/contact"

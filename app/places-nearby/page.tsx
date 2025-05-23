@@ -40,10 +40,9 @@ export default function ThingsToDo() {
         <section className="py-12 md:py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">🌴 Things to Do</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">🌴 Places Nearby</h1>
               <p className="text-lg text-gray-700 mb-12 text-center">
-                IL BUCO offers the perfect environment for relaxation, adventure, and productivity in a beautiful
-                natural setting.
+                These are mostly the places we use regularly, with few exception (like sports we don't practice).
               </p>
 
               {/* Tab Navigation */}

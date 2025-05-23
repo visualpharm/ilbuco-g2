@@ -18,8 +18,8 @@ export function SiteHeader() {
           <Link href="/location" className="text-sm font-medium hover:text-blue-600 transition-colors">
             Location
           </Link>
-          <Link href="/things-to-do" className="text-sm font-medium hover:text-blue-600 transition-colors">
-            Things to Do
+          <Link href="/places-nearby" className="text-sm font-medium hover:text-blue-600 transition-colors">
+            Places Nearby
           </Link>
           <Link href="/contact" className="text-sm font-medium hover:text-blue-600 transition-colors">
             Contact
