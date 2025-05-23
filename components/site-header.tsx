@@ -1,5 +1,8 @@
 import Link from "next/link"
 import { MobileMenu } from "./mobile-menu"
+import { LanguageSelector } from "./language-selector"
+import { Translate } from "./translate"
+import { translations } from "@/translations/common"
 
 export function SiteHeader() {
   return (
@@ -8,24 +11,29 @@ export function SiteHeader() {
         <Link href="/" className="text-2xl font-bold tracking-tight">
           IL BUCO
         </Link>
-        <nav className="hidden md:flex space-x-8">
-          <Link href="/the-house" className="text-sm font-medium hover:text-blue-600 transition-colors">
-            The House
-          </Link>
-          <Link href="/rooms" className="text-sm font-medium hover:text-blue-600 transition-colors">
-            Rooms
-          </Link>
-          <Link href="/location" className="text-sm font-medium hover:text-blue-600 transition-colors">
-            Location
-          </Link>
-          <Link href="/places-nearby" className="text-sm font-medium hover:text-blue-600 transition-colors">
-            Places Nearby
-          </Link>
-          <Link href="/contact" className="text-sm font-medium hover:text-blue-600 transition-colors">
-            Contact
-          </Link>
-        </nav>
-        <MobileMenu />
+        <div className="flex items-center">
+          <nav className="hidden md:flex space-x-8 mr-4">
+            <Link href="/the-house" className="text-sm font-medium hover:text-blue-600 transition-colors">
+              <Translate text={translations.nav.theHouse} />
+            </Link>
+            <Link href="/rooms" className="text-sm font-medium hover:text-blue-600 transition-colors">
+              <Translate text={translations.nav.rooms} />
+            </Link>
+            <Link href="/location" className="text-sm font-medium hover:text-blue-600 transition-colors">
+              <Translate text={translations.nav.location} />
+            </Link>
+            <Link href="/places-nearby" className="text-sm font-medium hover:text-blue-600 transition-colors">
+              <Translate text={translations.nav.placesNearby} />
+            </Link>
+            <Link href="/contact" className="text-sm font-medium hover:text-blue-600 transition-colors">
+              <Translate text={translations.nav.contact} />
+            </Link>
+          </nav>
+          <LanguageSelector />
+          <div className="md:hidden ml-4">
+            <MobileMenu />
+          </div>
+        </div>
       </div>
     </header>
   )

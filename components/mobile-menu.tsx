@@ -3,6 +3,9 @@
 import { useState } from "react"
 import Link from "next/link"
 import { X } from "lucide-react"
+import { LanguageSelector } from "./language-selector"
+import { Translate } from "./translate"
+import { translations } from "@/translations/common"
 
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false)
@@ -38,36 +41,39 @@ export function MobileMenu() {
                 className="text-lg font-medium hover:text-blue-600 transition-colors py-2"
                 onClick={() => setIsOpen(false)}
               >
-                The House
+                <Translate text={translations.nav.theHouse} />
               </Link>
               <Link
                 href="/rooms"
                 className="text-lg font-medium hover:text-blue-600 transition-colors py-2"
                 onClick={() => setIsOpen(false)}
               >
-                Rooms
+                <Translate text={translations.nav.rooms} />
               </Link>
               <Link
                 href="/location"
                 className="text-lg font-medium hover:text-blue-600 transition-colors py-2"
                 onClick={() => setIsOpen(false)}
               >
-                Location
+                <Translate text={translations.nav.location} />
               </Link>
               <Link
                 href="/places-nearby"
                 className="text-lg font-medium hover:text-blue-600 transition-colors py-2"
                 onClick={() => setIsOpen(false)}
               >
-                Places Nearby
+                <Translate text={translations.nav.placesNearby} />
               </Link>
               <Link
                 href="/contact"
                 className="text-lg font-medium hover:text-blue-600 transition-colors py-2"
                 onClick={() => setIsOpen(false)}
               >
-                Contact
+                <Translate text={translations.nav.contact} />
               </Link>
+              <div className="py-2">
+                <LanguageSelector />
+              </div>
             </nav>
           </div>
         </div>

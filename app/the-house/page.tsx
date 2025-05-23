@@ -11,7 +11,13 @@ import {
   Monitor,
   Sparkles,
   Calendar,
-  Bike,
+  Wifi,
+  Thermometer,
+  Refrigerator,
+  Bed,
+  Droplet,
+  Building,
+  Shield,
 } from "lucide-react"
 
 export default function TheHouse() {
@@ -37,69 +43,140 @@ export default function TheHouse() {
 
               {/* Highlights Section */}
               <div className="mb-16">
-                <h2 className="text-2xl md:text-3xl font-bold mb-6">Highlights</h2>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                    <p className="text-gray-700">4 bedrooms with private bathrooms and kitchenettes</p>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                    <p className="text-gray-700">Radiant-floor heating and 8 air-conditioners (cool + heat)</p>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                    <p className="text-gray-700">Green roof with grill and large planted terrace</p>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                    <p className="text-gray-700">Solid structure with superior sound insulation</p>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                    <p className="text-gray-700">Water-treatment plant with softener</p>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                    <p className="text-gray-700">500 Mbit Wi-Fi (fiber-to-home + mesh)</p>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                    <p className="text-gray-700">4 bedrooms (2 people each + futon for 2 more)</p>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                    <p className="text-gray-700">Large shared living room with one big couch and common kitchen</p>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                    <p className="text-gray-700">300 L refrigerators in every kitchenette</p>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                    <p className="text-gray-700">5-star bedding on dense foam mattresses</p>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                    <p className="text-gray-700">
-                      Bathrooms: glass shower screens, handheld bidet sprayers, washing machine in each
-                    </p>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                    <p className="text-gray-700">
-                      Solid load-bearing concrete + full insulation; black double-glazed PVC windows (~50% costlier than
-                      white)
-                    </p>
-                  </li>
-                </ul>
+                <h2 className="text-2xl md:text-3xl font-bold mb-8">Highlights</h2>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <div>
+                        <h3 className="text-lg font-semibold">4 Bedrooms</h3>
+                        <p className="text-gray-600">4 bedrooms with private bathrooms and kitchenettes</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Thermometer className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold">Climate Control</h3>
+                        <p className="text-gray-600">Radiant-floor heating and 8 air-conditioners (cool + heat)</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Tree className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold">Green Roof</h3>
+                        <p className="text-gray-600">Green roof with grill and large planted terrace</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Shield className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold">Sound Insulation</h3>
+                        <p className="text-gray-600">Solid structure with superior sound insulation</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Droplet className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold">Water Treatment</h3>
+                        <p className="text-gray-600">Water-treatment plant with softener</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Wifi className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold">High-Speed Internet</h3>
+                        <p className="text-gray-600">500 Mbit Wi-Fi (fiber-to-home + mesh)</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Home className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold">Accommodations</h3>
+                        <p className="text-gray-600">4 bedrooms (2 people each + futon for 2 more)</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Sofa className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold">Common Areas</h3>
+                        <p className="text-gray-600">Large shared living room with one big couch and common kitchen</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Refrigerator className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold">Kitchen Amenities</h3>
+                        <p className="text-gray-600">300 L refrigerators in every kitchenette</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Bed className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold">Premium Bedding</h3>
+                        <p className="text-gray-600">5-star bedding on dense foam mattresses</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Shower className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold">Luxury Bathrooms</h3>
+                        <p className="text-gray-600">
+                          Glass shower screens, handheld bidet sprayers, washing machine in each
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Building className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold">Quality Construction</h3>
+                        <p className="text-gray-600">
+                          Solid load-bearing concrete + full insulation; black double-glazed PVC windows
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Layout & Rooms Section */}
               <div className="mb-16">
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">Layout & Rooms</h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-white p-5 rounded-lg shadow-sm">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
                       <Home className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                       <div>
@@ -109,7 +186,7 @@ export default function TheHouse() {
                     </div>
                   </div>
 
-                  <div className="bg-white p-5 rounded-lg shadow-sm">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
                       <Shower className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                       <div>
@@ -119,7 +196,7 @@ export default function TheHouse() {
                     </div>
                   </div>
 
-                  <div className="bg-white p-5 rounded-lg shadow-sm">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
                       <UtensilsCrossed className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                       <div>
@@ -129,7 +206,7 @@ export default function TheHouse() {
                     </div>
                   </div>
 
-                  <div className="bg-white p-5 rounded-lg shadow-sm">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
                       <Shower className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                       <div>
@@ -144,8 +221,8 @@ export default function TheHouse() {
               {/* Shared Areas Section */}
               <div className="mb-16">
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">Shared Areas</h2>
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="bg-white p-5 rounded-lg shadow-sm">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
                       <Sofa className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                       <div>
@@ -155,7 +232,7 @@ export default function TheHouse() {
                     </div>
                   </div>
 
-                  <div className="bg-white p-5 rounded-lg shadow-sm">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
                       <UtensilsCrossed className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                       <div>
@@ -165,7 +242,7 @@ export default function TheHouse() {
                     </div>
                   </div>
 
-                  <div className="bg-white p-5 rounded-lg shadow-sm">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
                       <Tree className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                       <div>
@@ -180,8 +257,8 @@ export default function TheHouse() {
               {/* Long-Stay Work Package Section */}
               <div className="mb-16">
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">Long-Stay Work Package (6 months +)</h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-white p-5 rounded-lg shadow-sm">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
                       <Calendar className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                       <div>
@@ -191,7 +268,7 @@ export default function TheHouse() {
                     </div>
                   </div>
 
-                  <div className="bg-white p-5 rounded-lg shadow-sm">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
                       <Sofa className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                       <div>
@@ -201,7 +278,7 @@ export default function TheHouse() {
                     </div>
                   </div>
 
-                  <div className="bg-white p-5 rounded-lg shadow-sm">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
                       <Monitor className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                       <div>
@@ -211,7 +288,7 @@ export default function TheHouse() {
                     </div>
                   </div>
 
-                  <div className="bg-white p-5 rounded-lg shadow-sm">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
                       <Calendar className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                       <div>
@@ -226,8 +303,8 @@ export default function TheHouse() {
               {/* Cleaning Section */}
               <div className="mb-16">
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">Cleaning</h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-white p-5 rounded-lg shadow-sm">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
                       <Sparkles className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                       <div>
@@ -237,7 +314,7 @@ export default function TheHouse() {
                     </div>
                   </div>
 
-                  <div className="bg-white p-5 rounded-lg shadow-sm">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
                       <Sparkles className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                       <div>
@@ -252,85 +329,132 @@ export default function TheHouse() {
               {/* House Rules Section */}
               <div className="mb-16">
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">House Rules</h2>
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <ul className="space-y-3">
-                    <li className="flex items-start">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
                       <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                      <p className="text-gray-700">No music audible outside your room</p>
-                    </li>
-                    <li className="flex items-start">
+                      <div>
+                        <h3 className="text-lg font-semibold">Quiet Environment</h3>
+                        <p className="text-gray-600">No music audible outside your room</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
                       <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                      <p className="text-gray-700">No parties — people-counting cameras in common areas</p>
-                    </li>
-                    <li className="flex items-start">
+                      <div>
+                        <h3 className="text-lg font-semibold">No Parties</h3>
+                        <p className="text-gray-600">People-counting cameras in common areas</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
                       <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                      <p className="text-gray-700">Leave common kitchen and grill clean</p>
-                    </li>
-                    <li className="flex items-start">
+                      <div>
+                        <h3 className="text-lg font-semibold">Clean Common Areas</h3>
+                        <p className="text-gray-600">Leave common kitchen and grill clean</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
                       <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                      <p className="text-gray-700">Pets allowed (hypo-allergenic fee + US $300 deposit)</p>
-                    </li>
-                    <li className="flex items-start">
+                      <div>
+                        <h3 className="text-lg font-semibold">Pets Allowed</h3>
+                        <p className="text-gray-600">Hypo-allergenic fee + US $300 deposit</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
                       <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                      <p className="text-gray-700">Check-in flexible: arrive early if free / smart-lock access</p>
-                    </li>
-                    <li className="flex items-start">
+                      <div>
+                        <h3 className="text-lg font-semibold">Flexible Check-in</h3>
+                        <p className="text-gray-600">Arrive early if free / smart-lock access</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
                       <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                      <p className="text-gray-700">Check-out flexible: stay late if no same-day check-in</p>
-                    </li>
-                    <li className="flex items-start">
+                      <div>
+                        <h3 className="text-lg font-semibold">Flexible Check-out</h3>
+                        <p className="text-gray-600">Stay late if no same-day check-in</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
                       <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                      <p className="text-gray-700">
-                        Heating, A/C, internet, electricity, water included — switch off AC & lights when leaving
-                      </p>
-                    </li>
-                  </ul>
+                      <div>
+                        <h3 className="text-lg font-semibold">Utilities Included</h3>
+                        <p className="text-gray-600">Heating, A/C, internet, electricity, water included</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               {/* Availability & Rates Section */}
               <div className="mb-16">
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">Availability & Rates</h2>
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <ul className="space-y-3">
-                    <li className="flex items-start">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
                       <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                      <p className="text-gray-700">Open all year</p>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                      <p className="text-gray-700">High season: December – February</p>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                      <p className="text-gray-700">Best rates: April – October (my favorites: Sept – Nov)</p>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                      <p className="text-gray-700">Minimum stay: 2 days during low season</p>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                      <p className="text-gray-700">12 months + stays enjoy fixed monthly rent</p>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+                      <div>
+                        <h3 className="text-lg font-semibold">Year-Round Availability</h3>
+                        <p className="text-gray-600">Open all year</p>
+                      </div>
+                    </div>
+                  </div>
 
-              {/* Bike Rental Section */}
-              <div className="mb-16">
-                <h2 className="text-2xl md:text-3xl font-bold mb-6">Bike Rental</h2>
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <ul className="space-y-3">
-                    <li className="flex items-start">
-                      <Bike className="h-5 w-5 mr-3 mt-1 text-gray-700" />
-                      <p className="text-gray-700">1 MTB (size L, Shimano Altus) on-site</p>
-                    </li>
-                    <li className="flex items-start">
-                      <Bike className="h-5 w-5 mr-3 mt-1 text-gray-700" />
-                      <p className="text-gray-700">Additional bikes, including fat bikes, rentable in town</p>
-                    </li>
-                  </ul>
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <div>
+                        <h3 className="text-lg font-semibold">High Season</h3>
+                        <p className="text-gray-600">December – February</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <div>
+                        <h3 className="text-lg font-semibold">Best Rates</h3>
+                        <p className="text-gray-600">April – October (my favorites: Sept – Nov)</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <div>
+                        <h3 className="text-lg font-semibold">Minimum Stay</h3>
+                        <p className="text-gray-600">2 days during low season</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <div>
+                        <h3 className="text-lg font-semibold">Long-Term Stays</h3>
+                        <p className="text-gray-600">12 months + stays enjoy fixed monthly rent</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 

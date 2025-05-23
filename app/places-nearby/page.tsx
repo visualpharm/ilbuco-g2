@@ -86,9 +86,10 @@ export default function ThingsToDo() {
                               💻 <strong>Diving into Vibe Coding</strong>
                             </h3>
                             <p className="text-gray-600 mt-2">
-                              Master modern development tools like <em>Cursor</em> and <em>v0</em>. Build that app
-                              you've been dreaming about with our <strong>500 Mbps fiber internet</strong> and
-                              distraction-free environment.
+                              Master modern development tools like <em>Cursor</em> and <em>v0</em>. Nature makes you
+                              enjoy the day even while Claude Sonnet is thinking. Our{" "}
+                              <strong>500 Mbps fiber internet</strong> and distraction-free environment will boost your
+                              productivity.
                             </p>
                           </div>
                         </div>
@@ -99,17 +100,36 @@ export default function ThingsToDo() {
                           <Calculator className="h-6 w-6 mr-3 mt-1 text-green-600 flex-shrink-0" />
                           <div>
                             <h3 className="text-xl font-semibold">
-                              📊 <strong>Master Financial Accounting</strong>
+                              📊 <strong>Finance</strong>
                             </h3>
                             <p className="text-gray-600 mt-2">
-                              Take advantage of the <em>quiet environment</em> to focus on learning financial
-                              principles. Perfect for completing online courses like{" "}
-                              <Link
-                                href="#"
+                              My favorites are{" "}
+                              <a
+                                href="https://www.coursera.org/learn/wharton-accounting"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="text-blue-600 hover:text-blue-800 transition-colors font-medium"
                               >
-                                this comprehensive course
-                              </Link>
+                                this course
+                              </a>{" "}
+                              on financial accounting, the book{" "}
+                              <a
+                                href="https://press.princeton.edu/books/paperback/9780691219691/a-random-walk-down-wall-street"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 transition-colors font-medium"
+                              >
+                                A Random Walk Down Wall Street
+                              </a>
+                              , and{" "}
+                              <a
+                                href="https://www.coursera.org/account/accomplishments/verify/Q75QFJAC9R7D"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 transition-colors font-medium"
+                              >
+                                this international tax course
+                              </a>
                               .
                             </p>
                           </div>
@@ -125,14 +145,16 @@ export default function ThingsToDo() {
                             </h3>
                             <p className="text-gray-600 mt-2">
                               Explore tools like{" "}
-                              <Link
-                                href="#"
+                              <a
+                                href="https://plasticity.xyz/"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="text-blue-600 hover:text-blue-800 transition-colors font-medium"
                               >
                                 Plasticity
-                              </Link>{" "}
+                              </a>{" "}
                               (<em>it's like Figma for 3D</em>) and bring your design ideas to life in our inspiring
-                              forest setting.
+                              forest setting. I'll even borrow you a 3D printer if you try to connect it to local Wi-Fi.
                             </p>
                           </div>
                         </div>
@@ -259,7 +281,7 @@ export default function ThingsToDo() {
                             <ul className="mt-3 text-sm text-gray-600 space-y-1">
                               <li>• 🚲 Regular bike rentals</li>
                               <li>• 🏔️ Fat bike adventures</li>
-                              <li>• 🗺️ Guided cycling tours</li>
+
                               <li>• 🌳 Forest trail cycling</li>
                             </ul>
                           </div>
