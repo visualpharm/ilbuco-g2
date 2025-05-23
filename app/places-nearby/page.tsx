@@ -40,7 +40,7 @@ export default function ThingsToDo() {
         <section className="py-12 md:py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">🌴 Places Nearby</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">Places Nearby</h1>
               <p className="text-lg text-gray-700 mb-12 text-center">
                 These are mostly the places we use regularly, with few exception (like sports we don't practice).
               </p>
@@ -334,16 +334,26 @@ export default function ThingsToDo() {
                               Full-service indoor gym surrounded by forest with daily, weekly, and monthly passes. Good
                               private instruction is included in the price.
                             </p>
-                            <p className="mt-2 flex items-center">
-                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <p className="mt-2">
                               <a
-                                href="https://www.instagram.com/somos_cie/"
+                                href="https://www.google.com/maps/search/?api=1&query=CIE+Centro+de+Entrenamiento+Caril%C3%B3"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                               >
-                                @somos_cie
+                                📍 Google Maps
                               </a>
+                              <span className="flex items-center">
+                                <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                                <a
+                                  href="https://www.instagram.com/somos_cie/"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                >
+                                  @somos_cie
+                                </a>
+                              </span>
                             </p>
                           </div>
                         </div>
@@ -358,16 +368,26 @@ export default function ThingsToDo() {
                               Clay courts, padel, 5-a-side football, and a small indoor gym. They rent rackets and give
                               classes.
                             </p>
-                            <p className="mt-2 flex items-center">
-                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <p className="mt-2">
                               <a
-                                href="https://www.instagram.com/carilotennis.club/"
+                                href="https://www.google.com/maps/search/?api=1&query=Caril%C3%B3+Tennis+Club"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                               >
-                                @carilotennis.club
+                                📍 Google Maps
                               </a>
+                              <span className="flex items-center">
+                                <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                                <a
+                                  href="https://www.instagram.com/carilotennis.club/"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                >
+                                  @carilotennis.club
+                                </a>
+                              </span>
                             </p>
                           </div>
                         </div>
@@ -381,6 +401,16 @@ export default function ThingsToDo() {
                             <p className="text-gray-700 mt-2">
                               Free 24-hour outdoor calisthenics gym with bars and parallettes.
                             </p>
+                            <p className="mt-2">
+                              <a
+                                href="https://www.google.com/maps/search/?api=1&query=Parque+de+Calistenia+Caril%C3%B3"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              >
+                                📍 Google Maps
+                              </a>
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -391,16 +421,26 @@ export default function ThingsToDo() {
                           <div>
                             <h3 className="text-xl font-semibold">Horse Riding</h3>
                             <p className="text-gray-700 mt-2">Horse riding through dunes and forest.</p>
-                            <p className="mt-2 flex items-center">
-                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <p className="mt-2">
                               <a
-                                href="https://www.instagram.com/cabalgatasdosmontes/"
+                                href="https://www.google.com/maps/search/?api=1&query=Cabalgatas+Dos+Montes"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                               >
-                                @cabalgatasdosmontes
+                                📍 Google Maps
                               </a>
+                              <span className="flex items-center">
+                                <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                                <a
+                                  href="https://www.instagram.com/cabalgatasdosmontes/"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                >
+                                  @cabalgatasdosmontes
+                                </a>
+                              </span>
                             </p>
                           </div>
                         </div>
@@ -408,18 +448,26 @@ export default function ThingsToDo() {
 
                       <div className="bg-gradient-to-br from-purple-50 to-violet-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <Bike className="h-6 w-6 mr-3 mt-1 text-purple-600 flex-shrink-0" />
+                          <Bike className="h-6 w-6 mr-3 mt-1 flex-shrink-0" />
                           <div>
                             <h3 className="text-xl font-semibold">Quad & Fatbike Rental</h3>
                             <p className="text-gray-700 mt-2">Quad riding and fatbike rental.</p>
                             <p className="mt-2">
+                              <a
+                                href="https://www.google.com/maps/search/?api=1&query=Motorrad+Caril%C3%B3"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
+                              >
+                                📍 Google Maps
+                              </a>
                               <a
                                 href="https://www.guiadeplaya.com.ar/motorrad-carilo-alquiler-cuatriciclos.html"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                               >
-                                Website
+                                guiadeplaya.com.ar
                               </a>
                             </p>
                           </div>
@@ -434,16 +482,26 @@ export default function ThingsToDo() {
                             <p className="text-gray-700 mt-2">
                               Learn pottery and ceramic arts in a creative environment.
                             </p>
-                            <p className="mt-2 flex items-center">
-                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <p className="mt-2">
                               <a
-                                href="https://www.instagram.com/fusionartedelmar/"
+                                href="https://www.google.com/maps/search/?api=1&query=Fusion+Arte+del+Mar+Valeria+del+Mar"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                               >
-                                @fusionartedelmar
+                                📍 Google Maps
                               </a>
+                              <span className="flex items-center">
+                                <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                                <a
+                                  href="https://www.instagram.com/fusionartedelmar/"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                >
+                                  @fusionartedelmar
+                                </a>
+                              </span>
                             </p>
                           </div>
                         </div>
@@ -455,16 +513,26 @@ export default function ThingsToDo() {
                           <div>
                             <h3 className="text-xl font-semibold">4x4 Driving School</h3>
                             <p className="text-gray-700 mt-2">Learn to drive off-road and navigate sand dunes.</p>
-                            <p className="mt-2 flex items-center">
-                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <p className="mt-2">
                               <a
-                                href="https://www.instagram.com/sandmasters_/"
+                                href="https://www.google.com/maps/search/?api=1&query=Sandmasters+Pinamar"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                               >
-                                @sandmasters_
+                                📍 Google Maps
                               </a>
+                              <span className="flex items-center">
+                                <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                                <a
+                                  href="https://www.instagram.com/sandmasters_/"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                >
+                                  @sandmasters_
+                                </a>
+                              </span>
                             </p>
                           </div>
                         </div>
@@ -523,16 +591,26 @@ export default function ThingsToDo() {
                               </a>{" "}
                               (basic in a good sense).
                             </p>
-                            <p className="mt-2 flex items-center">
-                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <p className="mt-2">
                               <a
-                                href="https://www.instagram.com/lacabrera_carilo/"
+                                href="https://www.google.com/maps/search/?api=1&query=La+Cabrera+Caril%C3%B3"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                               >
-                                @lacabrera_carilo
+                                📍 Google Maps
                               </a>
+                              <span className="flex items-center">
+                                <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                                <a
+                                  href="https://www.instagram.com/lacabrera_carilo/"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                >
+                                  @lacabrera_carilo
+                                </a>
+                              </span>
                             </p>
                           </div>
                         </div>
@@ -546,16 +624,26 @@ export default function ThingsToDo() {
                             <p className="text-gray-700 mt-2">
                               Award-winning Napoletan pizza from the Italian chefs (they also made our sofas).
                             </p>
-                            <p className="mt-2 flex items-center">
-                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <p className="mt-2">
                               <a
-                                href="https://www.instagram.com/__ilgattonero/"
+                                href="https://www.google.com/maps/search/?api=1&query=Il+Gatto+Nero+Valeria+del+Mar"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                               >
-                                @__ilgattonero
+                                📍 Google Maps
                               </a>
+                              <span className="flex items-center">
+                                <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                                <a
+                                  href="https://www.instagram.com/__ilgattonero/"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                >
+                                  @__ilgattonero
+                                </a>
+                              </span>
                             </p>
                           </div>
                         </div>
@@ -567,16 +655,26 @@ export default function ThingsToDo() {
                           <div>
                             <h3 className="text-xl font-semibold">Bakery & Coffee</h3>
                             <p className="text-gray-700 mt-2">Great coffee and baked stuff; best avocado toast.</p>
-                            <p className="mt-2 flex items-center">
-                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <p className="mt-2">
                               <a
-                                href="https://www.instagram.com/panaderia.ilpanettone/"
+                                href="https://www.google.com/maps/search/?api=1&query=Il+Panettone+Caril%C3%B3"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                               >
-                                @panaderia.ilpanettone
+                                📍 Google Maps
                               </a>
+                              <span className="flex items-center">
+                                <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                                <a
+                                  href="https://www.instagram.com/panaderia.ilpanettone/"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                >
+                                  @panaderia.ilpanettone
+                                </a>
+                              </span>
                             </p>
                           </div>
                         </div>
@@ -588,16 +686,26 @@ export default function ThingsToDo() {
                           <div>
                             <h3 className="text-xl font-semibold">Gourmet Burgers</h3>
                             <p className="text-gray-700 mt-2">Best burgers. Also Impeke (Valeria del Mar).</p>
-                            <p className="mt-2 flex items-center">
-                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <p className="mt-2">
                               <a
-                                href="https://www.instagram.com/enris.ar/"
+                                href="https://www.google.com/maps/search/?api=1&query=Enris+Caril%C3%B3"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                               >
-                                @enris.ar
+                                📍 Google Maps
                               </a>
+                              <span className="flex items-center">
+                                <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                                <a
+                                  href="https://www.instagram.com/enris.ar/"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                >
+                                  @enris.ar
+                                </a>
+                              </span>
                             </p>
                           </div>
                         </div>
@@ -609,16 +717,26 @@ export default function ThingsToDo() {
                           <div>
                             <h3 className="text-xl font-semibold">French Café</h3>
                             <p className="text-gray-700 mt-2">Always open.</p>
-                            <p className="mt-2 flex items-center">
-                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <p className="mt-2">
                               <a
-                                href="https://www.instagram.com/masse.carilo/"
+                                href="https://www.google.com/maps/search/?api=1&query=Masse+Caril%C3%B3"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                               >
-                                @masse.carilo
+                                📍 Google Maps
                               </a>
+                              <span className="flex items-center">
+                                <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                                <a
+                                  href="https://www.instagram.com/masse.carilo/"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                >
+                                  @masse.carilo
+                                </a>
+                              </span>
                             </p>
                           </div>
                         </div>
@@ -644,16 +762,26 @@ export default function ThingsToDo() {
                         <p className="text-gray-700">
                           <strong>Chicho</strong> – Best open hours, decent fruit and vegetables.
                         </p>
-                        <p className="mt-2 flex items-center">
-                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                        <p className="mt-2">
                           <a
-                            href="https://www.instagram.com/proveeduria_chicho_esta_loco/"
+                            href="https://www.google.com/maps/search/?api=1&query=Proveedur%C3%ADa+Chicho+Caril%C3%B3"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                           >
-                            @proveeduria_chicho_esta_loco
+                            📍 Google Maps
                           </a>
+                          <span className="flex items-center">
+                            <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <a
+                              href="https://www.instagram.com/proveeduria_chicho_esta_loco/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @proveeduria_chicho_esta_loco
+                            </a>
+                          </span>
                         </p>
                       </div>
 
@@ -663,16 +791,26 @@ export default function ThingsToDo() {
                         <p className="text-gray-700">
                           <strong>La Proveeduría / Menor Coste</strong> – Expensive, mini Whole Foods.
                         </p>
-                        <p className="mt-2 flex items-center">
-                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                        <p className="mt-2">
                           <a
-                            href="https://www.instagram.com/menorcoste/"
+                            href="https://www.google.com/maps/search/?api=1&query=La+Proveedur%C3%ADa+Menor+Coste+Caril%C3%B3"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                           >
-                            @menorcoste
+                            📍 Google Maps
                           </a>
+                          <span className="flex items-center">
+                            <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <a
+                              href="https://www.instagram.com/menorcoste/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @menorcoste
+                            </a>
+                          </span>
                         </p>
                       </div>
 
@@ -685,12 +823,20 @@ export default function ThingsToDo() {
                         </p>
                         <p className="mt-2">
                           <a
+                            href="https://www.google.com/maps/search/?api=1&query=Coto+Pinamar"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
+                          >
+                            📍 Google Maps
+                          </a>
+                          <a
                             href="https://www.cotodigital3.com.ar/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
-                            Website
+                            cotodigital3.com.ar
                           </a>
                         </p>
                       </div>
@@ -703,12 +849,20 @@ export default function ThingsToDo() {
                         </p>
                         <p className="mt-2">
                           <a
+                            href="https://www.google.com/maps/search/?api=1&query=Disco+Pinamar"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
+                          >
+                            📍 Google Maps
+                          </a>
+                          <a
                             href="https://www.disco.com.ar/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
-                            Website
+                            disco.com.ar
                           </a>
                         </p>
                       </div>
@@ -720,6 +874,14 @@ export default function ThingsToDo() {
                           <strong>Belén</strong> – Best fruit and vegetables.
                         </p>
                         <p className="mt-2">
+                          <a
+                            href="https://www.google.com/maps/search/?api=1&query=Verduler%C3%ADa+Bel%C3%A9n+Caril%C3%B3"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
+                          >
+                            📍 Google Maps
+                          </a>
                           <a
                             href="https://waze.com/ul?place=ChIJ4zObzLKdnJUR3db27yKHe_U"
                             target="_blank"
@@ -738,16 +900,26 @@ export default function ThingsToDo() {
                           <strong>Boutique de Frutas</strong> – Self-service, which is not common. Pick the best or
                           blame on someone else.
                         </p>
-                        <p className="mt-2 flex items-center">
-                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                        <p className="mt-2">
                           <a
-                            href="https://www.instagram.com/boutique_de_frutas/"
+                            href="https://www.google.com/maps/search/?api=1&query=Boutique+de+Frutas+Caril%C3%B3"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                           >
-                            @boutique_de_frutas
+                            📍 Google Maps
                           </a>
+                          <span className="flex items-center">
+                            <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <a
+                              href="https://www.instagram.com/boutique_de_frutas/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @boutique_de_frutas
+                            </a>
+                          </span>
                         </p>
                       </div>
 
@@ -757,16 +929,26 @@ export default function ThingsToDo() {
                         <p className="text-gray-700">
                           <strong>Jorjito</strong> – Most complete hardware store.
                         </p>
-                        <p className="mt-2 flex items-center">
-                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                        <p className="mt-2">
                           <a
-                            href="https://www.instagram.com/ferreteria_jorgito/"
+                            href="https://www.google.com/maps/search/?api=1&query=Ferreter%C3%ADa+Jorjito+Caril%C3%B3"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                           >
-                            @ferreteria_jorgito
+                            📍 Google Maps
                           </a>
+                          <span className="flex items-center">
+                            <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <a
+                              href="https://www.instagram.com/ferreteria_jorgito/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @ferreteria_jorgito
+                            </a>
+                          </span>
                         </p>
                       </div>
 
@@ -778,6 +960,14 @@ export default function ThingsToDo() {
                           deliver to Cariló weekly.
                         </p>
                         <p className="mt-2">
+                          <a
+                            href="https://www.google.com/maps/search/?api=1&query=Qu%C3%ADmica+Limpia+Maurito+Pinamar"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
+                          >
+                            📍 Google Maps
+                          </a>
                           <a
                             href="https://www.facebook.com/LMaurito/"
                             target="_blank"
@@ -797,6 +987,14 @@ export default function ThingsToDo() {
                         </p>
                         <p className="mt-2">
                           <a
+                            href="https://www.google.com/maps/search/?api=1&query=Centro+Comercial+Caril%C3%B3"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
+                          >
+                            📍 Google Maps
+                          </a>
+                          <a
                             href="https://maps.app.goo.gl/HSdLEiSF9qGJRWY7A"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -813,16 +1011,26 @@ export default function ThingsToDo() {
                         <p className="text-gray-700">
                           <strong>Cabaña Guerrero</strong> – My favorite meat.
                         </p>
-                        <p className="mt-2 flex items-center">
-                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                        <p className="mt-2">
                           <a
-                            href="https://www.instagram.com/cabana.guerrero/"
+                            href="https://www.google.com/maps/search/?api=1&query=Caba%C3%B1a+Guerrero+Caril%C3%B3"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                           >
-                            @cabana.guerrero
+                            📍 Google Maps
                           </a>
+                          <span className="flex items-center">
+                            <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <a
+                              href="https://www.instagram.com/cabana.guerrero/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @cabana.guerrero
+                            </a>
+                          </span>
                         </p>
                       </div>
 
@@ -833,16 +1041,26 @@ export default function ThingsToDo() {
                           <strong>La Constanza (Cariló)</strong> – Fresh fish, not frozen, even salmon. Closed during
                           low season.
                         </p>
-                        <p className="mt-2 flex items-center">
-                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                        <p className="mt-2">
                           <a
-                            href="https://www.instagram.com/pescaderiasdicostanzoar/"
+                            href="https://www.google.com/maps/search/?api=1&query=Pescader%C3%ADa+La+Constanza+Caril%C3%B3"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                           >
-                            @pescaderiasdicostanzoar
+                            📍 Google Maps
                           </a>
+                          <span className="flex items-center">
+                            <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <a
+                              href="https://www.instagram.com/pescaderiasdicostanzoar/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @pescaderiasdicostanzoar
+                            </a>
+                          </span>
                         </p>
                       </div>
 
@@ -853,16 +1071,26 @@ export default function ThingsToDo() {
                           <strong>La Constanza (Pinamar)</strong> – Open during low season when Cariló's location is
                           closed.
                         </p>
-                        <p className="mt-2 flex items-center">
-                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                        <p className="mt-2">
                           <a
-                            href="https://www.instagram.com/pescaderiasdicostanzoar/"
+                            href="https://www.google.com/maps/search/?api=1&query=Pescader%C3%ADa+La+Constanza+Pinamar"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                           >
-                            @pescaderiasdicostanzoar
+                            📍 Google Maps
                           </a>
+                          <span className="flex items-center">
+                            <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <a
+                              href="https://www.instagram.com/pescaderiasdicostanzoar/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @pescaderiasdicostanzoar
+                            </a>
+                          </span>
                         </p>
                       </div>
 
@@ -872,16 +1100,26 @@ export default function ThingsToDo() {
                         <p className="text-gray-700">
                           <strong>Colonial (Valeria del Mar)</strong> – My favorite ice cream.
                         </p>
-                        <p className="mt-2 flex items-center">
-                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                        <p className="mt-2">
                           <a
-                            href="https://www.instagram.com/colonialhelados/"
+                            href="https://www.google.com/maps/search/?api=1&query=Helader%C3%ADa+Colonial+Valeria+del+Mar"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                           >
-                            @colonialhelados
+                            📍 Google Maps
                           </a>
+                          <span className="flex items-center">
+                            <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <a
+                              href="https://www.instagram.com/colonialhelados/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @colonialhelados
+                            </a>
+                          </span>
                         </p>
                       </div>
 
@@ -891,16 +1129,26 @@ export default function ThingsToDo() {
                         <p className="text-gray-700">
                           <strong>Lucciano's</strong> – The prettiest place.
                         </p>
-                        <p className="mt-2 flex items-center">
-                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                        <p className="mt-2">
                           <a
-                            href="https://www.instagram.com/luccianos_/"
+                            href="https://www.google.com/maps/search/?api=1&query=Lucciano%27s+Pinamar"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                           >
-                            @luccianos_
+                            📍 Google Maps
                           </a>
+                          <span className="flex items-center">
+                            <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <a
+                              href="https://www.instagram.com/luccianos_/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @luccianos_
+                            </a>
+                          </span>
                         </p>
                       </div>
 
@@ -910,16 +1158,26 @@ export default function ThingsToDo() {
                         <p className="text-gray-700">
                           <strong>Panettone</strong> – Simple.
                         </p>
-                        <p className="mt-2 flex items-center">
-                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                        <p className="mt-2">
                           <a
-                            href="https://www.instagram.com/panaderia.ilpanettone/"
+                            href="https://www.google.com/maps/search/?api=1&query=Il+Panettone+Caril%C3%B3"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                           >
-                            @panaderia.ilpanettone
+                            📍 Google Maps
                           </a>
+                          <span className="flex items-center">
+                            <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <a
+                              href="https://www.instagram.com/panaderia.ilpanettone/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @panaderia.ilpanettone
+                            </a>
+                          </span>
                         </p>
                       </div>
 
@@ -929,16 +1187,26 @@ export default function ThingsToDo() {
                         <p className="text-gray-700">
                           <strong>Masse</strong> – Fancy breads with seeds.
                         </p>
-                        <p className="mt-2 flex items-center">
-                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                        <p className="mt-2">
                           <a
-                            href="https://www.instagram.com/masse.carilo/"
+                            href="https://www.google.com/maps/search/?api=1&query=Masse+Caril%C3%B3"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                           >
-                            @masse.carilo
+                            📍 Google Maps
                           </a>
+                          <span className="flex items-center">
+                            <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                            <a
+                              href="https://www.instagram.com/masse.carilo/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @masse.carilo
+                            </a>
+                          </span>
                         </p>
                       </div>
                     </div>
