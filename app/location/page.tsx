@@ -65,45 +65,47 @@ export default function Location() {
                     </div>
                   </li>
 
-                  <li className="flex items-start">
-                    <Bus className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
-                    <div className="w-full">
-                      <div className="flex flex-wrap items-center gap-2 mb-1">
-                        <p className="font-semibold">Bus:</p>
-                        <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs font-semibold">
-                          Recommended without car
-                        </span>
-                      </div>
-
-                      <div className="flex flex-col md:flex-row gap-6">
-                        <div className="flex-grow">
-                          <p className="text-gray-700 mb-2">
-                            Around 10 buses daily from Buenos Aires (
-                            <a
-                              href="https://www.plataforma10.com/"
-                              className="text-blue-600 hover:text-blue-800 transition-colors"
-                              rel="noopener noreferrer"
-                            >
-                              good aggregator
-                            </a>
-                            ). Book a bus to Pinamar. From there, it's a 15 min taxi ride.
-                          </p>
+                  <li className="relative">
+                    <div className="flex items-start">
+                      <Bus className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                      <div className="w-full">
+                        <div className="flex flex-wrap items-center gap-2 mb-1">
+                          <p className="font-semibold">Bus:</p>
+                          <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs font-semibold">
+                            Recommended without car
+                          </span>
                         </div>
 
-                        <div className="flex-shrink-0 w-full md:w-[220px] bg-gray-50 rounded-lg overflow-hidden shadow-sm">
-                          <div className="relative h-[180px] w-full cursor-pointer">
-                            <Image
-                              src="/cama-ejecutivo.png"
-                              alt="Cama Ejecutivo bus seat"
-                              fill
-                              className="object-cover hover:brightness-105 transition-all"
-                            />
-                            <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-10 transition-all flex items-center justify-center">
-                              <span className="sr-only">Click to zoom</span>
-                            </div>
+                        <div className="md:flex md:justify-between">
+                          <div className="md:pr-4 md:max-w-[calc(100%-240px)]">
+                            <p className="text-gray-700 mb-2">
+                              Around 10 buses daily from Buenos Aires (
+                              <a
+                                href="https://www.plataforma10.com/"
+                                className="text-blue-600 hover:text-blue-800 transition-colors"
+                                rel="noopener noreferrer"
+                              >
+                                good aggregator
+                              </a>
+                              ). Book a bus to Pinamar. From there, it's a 15 min taxi ride.
+                            </p>
                           </div>
-                          <div className="p-3 text-sm">
-                            <strong>Bus tip:</strong> Choose "Cama Ejecutivo" for lie-flat business class
+
+                          <div className="mt-4 md:mt-0 md:ml-4 md:float-right w-full md:w-[220px] bg-gray-50 rounded-lg overflow-hidden shadow-sm flex-shrink-0">
+                            <div className="relative h-[180px] w-full cursor-pointer">
+                              <Image
+                                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cama_ejecutivo.jpg-nW5M2EciGfoaFbCppu2LS7uEYekT5e.jpeg"
+                                alt="Cama Ejecutivo bus interior with spacious reclining seats"
+                                fill
+                                className="object-cover hover:brightness-105 transition-all"
+                              />
+                              <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-10 transition-all flex items-center justify-center">
+                                <span className="sr-only">Click to zoom</span>
+                              </div>
+                            </div>
+                            <div className="p-3 text-sm">
+                              <strong>Bus tip:</strong> Choose "Cama Ejecutivo" for lie-flat business class
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -200,17 +202,60 @@ export default function Location() {
               <div className="mb-12">
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">Area Gallery</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {[1, 2, 3, 4, 5, 6].map((num) => (
-                    <div key={num} className="relative aspect-[4/3] rounded-lg overflow-hidden group">
-                      <Image
-                        src={`/carilo-beach-forest.png?height=300&width=400&query=Carilo Argentina pine forest beach scene ${num}`}
-                        alt={`Cariló area view ${num}`}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                    </div>
-                  ))}
+                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                    <Image
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/File%2024-04-2025%2C%2010%2029%2015%20PM.jpeg-zy2r0LsIkjdnZ0czOZgscZzzXDh2gm.png"
+                      alt="Cariló beach with waves and cloudy sky"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                  </div>
+                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                    <Image
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/File%2024-04-2025%2C%2010%2034%2051%20PM%20%286%29%20%281%29.jpeg-JR5Q4JMSI3cscyNAKUeIUqt9EVdyee.png"
+                      alt="Lifeguard station on Cariló beach"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                  </div>
+                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                    <Image
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/File%2024-04-2025%2C%2010%2029%2015%20PM%20%281%29.jpeg-VxGhS3R27n0nduSRtdSZvOOOHslx1M.png"
+                      alt="Modern concrete villa at night in Cariló"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                  </div>
+                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                    <Image
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/File%2024-04-2025%2C%2010%2029%2015%20PM%20%282%29%20%281%29.jpeg-hipfIxZRDSXb3rP4qb5RfARL0KDKWV.png"
+                      alt="Pine trees at night in Cariló"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                  </div>
+                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                    <Image
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/File%2024-04-2025%2C%2010%2034%2051%20PM%20%281%29%20%281%29.jpeg-QJVUPiAglBTZSdYJtL9gt9OXe8R7g8.png"
+                      alt="Coastal vegetation and pine trees in Cariló"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                  </div>
+                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                    <Image
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/File%2024-04-2025%2C%2010%2034%2051%20PM%20%288%29.jpeg-EZAYZRstt3u4q8pxErGu10hgJeiOHa.png"
+                      alt="Pine trees silhouette at dusk in Cariló"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                  </div>
                 </div>
               </div>
 
