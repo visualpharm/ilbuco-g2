@@ -17,15 +17,18 @@ import {
   BookOpen,
   Coffee,
   Camera,
+  Instagram,
+  ShoppingBag,
 } from "lucide-react"
 
 export default function ThingsToDo() {
-  const [activeTab, setActiveTab] = useState("nature")
+  const [activeTab, setActiveTab] = useState("activities")
 
   const tabs = [
-    { id: "nature", label: "🌊 Beach & Nature", icon: Waves },
     { id: "activities", label: "🏞️ Activities", icon: Dumbbell },
     { id: "food", label: "🍽️ Dining", icon: UtensilsCrossed },
+    { id: "shopping", label: "🛍️ Shopping", icon: ShoppingBag },
+    { id: "nature", label: "🌊 Beach & Nature", icon: Waves },
     { id: "work", label: "💻 Work & Learning", icon: Code },
   ]
 
@@ -37,11 +40,10 @@ export default function ThingsToDo() {
         <section className="py-12 md:py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-5xl font-bold mb-8">🎯 Things to Do</h1>
-              <p className="text-lg text-gray-700 mb-12">
-                IL BUCO is designed to be the perfect environment for both <strong>productivity</strong> and{" "}
-                <em>relaxation</em>. Whether you're looking to make progress on work projects, learn new skills, or
-                simply unwind in a beautiful natural setting, our villa offers the ideal backdrop for your goals.
+              <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">🌴 Things to Do</h1>
+              <p className="text-lg text-gray-700 mb-12 text-center">
+                IL BUCO offers the perfect environment for relaxation, adventure, and productivity in a beautiful
+                natural setting.
               </p>
 
               {/* Tab Navigation */}
@@ -77,9 +79,9 @@ export default function ThingsToDo() {
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
-                      <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+                      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <Code className="h-6 w-6 mr-3 mt-1 text-blue-600" />
+                          <Code className="h-6 w-6 mr-3 mt-1 text-blue-600 flex-shrink-0" />
                           <div>
                             <h3 className="text-xl font-semibold">
                               💻 <strong>Diving into Vibe Coding</strong>
@@ -93,9 +95,9 @@ export default function ThingsToDo() {
                         </div>
                       </div>
 
-                      <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-green-500">
+                      <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <Calculator className="h-6 w-6 mr-3 mt-1 text-green-600" />
+                          <Calculator className="h-6 w-6 mr-3 mt-1 text-green-600 flex-shrink-0" />
                           <div>
                             <h3 className="text-xl font-semibold">
                               📊 <strong>Master Financial Accounting</strong>
@@ -115,9 +117,9 @@ export default function ThingsToDo() {
                         </div>
                       </div>
 
-                      <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-purple-500">
+                      <div className="bg-gradient-to-br from-purple-50 to-violet-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <Cube className="h-6 w-6 mr-3 mt-1 text-purple-600" />
+                          <Cube className="h-6 w-6 mr-3 mt-1 text-purple-600 flex-shrink-0" />
                           <div>
                             <h3 className="text-xl font-semibold">
                               🎨 <strong>Learn 3D Modeling</strong>
@@ -137,9 +139,9 @@ export default function ThingsToDo() {
                         </div>
                       </div>
 
-                      <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-orange-500">
+                      <div className="bg-gradient-to-br from-orange-50 to-amber-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <Briefcase className="h-6 w-6 mr-3 mt-1 text-orange-600" />
+                          <Briefcase className="h-6 w-6 mr-3 mt-1 text-orange-600 flex-shrink-0" />
                           <div>
                             <h3 className="text-xl font-semibold">
                               💼 <strong>Boost Your Remote Career</strong>
@@ -152,9 +154,9 @@ export default function ThingsToDo() {
                         </div>
                       </div>
 
-                      <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-red-500">
+                      <div className="bg-gradient-to-br from-red-50 to-pink-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <Rocket className="h-6 w-6 mr-3 mt-1 text-red-600" />
+                          <Rocket className="h-6 w-6 mr-3 mt-1 text-red-600 flex-shrink-0" />
                           <div>
                             <h3 className="text-xl font-semibold">
                               🚀 <strong>Finally Launch Your Startup</strong>
@@ -167,9 +169,9 @@ export default function ThingsToDo() {
                         </div>
                       </div>
 
-                      <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-indigo-500">
+                      <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <BookOpen className="h-6 w-6 mr-3 mt-1 text-indigo-600" />
+                          <BookOpen className="h-6 w-6 mr-3 mt-1 text-cyan-600 flex-shrink-0" />
                           <div>
                             <h3 className="text-xl font-semibold">
                               📚 <strong>Write Your Book or Blog</strong>
@@ -202,7 +204,7 @@ export default function ThingsToDo() {
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <Waves className="h-6 w-6 mr-3 mt-1 text-blue-600" />
+                          <Waves className="h-6 w-6 mr-3 mt-1 text-blue-600 flex-shrink-0" />
                           <div>
                             <h3 className="text-xl font-semibold">
                               🏖️ <strong>Beach Activities</strong>
@@ -224,7 +226,7 @@ export default function ThingsToDo() {
 
                       <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <TreePine className="h-6 w-6 mr-3 mt-1 text-green-600" />
+                          <TreePine className="h-6 w-6 mr-3 mt-1 text-green-600 flex-shrink-0" />
                           <div>
                             <h3 className="text-xl font-semibold">
                               🌲 <strong>Forest Walks & Meditation</strong>
@@ -245,7 +247,7 @@ export default function ThingsToDo() {
 
                       <div className="bg-gradient-to-br from-yellow-50 to-orange-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <Bike className="h-6 w-6 mr-3 mt-1 text-orange-600" />
+                          <Bike className="h-6 w-6 mr-3 mt-1 text-orange-600 flex-shrink-0" />
                           <div>
                             <h3 className="text-xl font-semibold">
                               🚴‍♀️ <strong>Cycling Adventures</strong>
@@ -267,7 +269,7 @@ export default function ThingsToDo() {
 
                       <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <Camera className="h-6 w-6 mr-3 mt-1 text-purple-600" />
+                          <Camera className="h-6 w-6 mr-3 mt-1 text-purple-600 flex-shrink-0" />
                           <div>
                             <h3 className="text-xl font-semibold">
                               📸 <strong>Photography & Art</strong>
@@ -297,44 +299,22 @@ export default function ThingsToDo() {
                         🏞️ <strong>Nearby Activities & Services</strong>
                       </h2>
                       <p className="text-lg text-gray-700">
-                        All destinations are within a 20–30-minute walk or a short drive from Il Buco.
+                        All destinations are within a 25–35-minute walk or a short drive from Il Buco.
                       </p>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
-                      <div className="bg-white p-6 rounded-lg shadow-sm">
+                      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <span className="text-2xl mr-3 mt-1">🎾</span>
+                          <Dumbbell className="h-6 w-6 mr-3 mt-1 text-blue-600 flex-shrink-0" />
                           <div>
-                            <h3 className="text-xl font-semibold">Cariló Tennis Club</h3>
+                            <h3 className="text-xl font-semibold">Gym</h3>
                             <p className="text-gray-700 mt-2">
-                              Clay courts, padel, 5-a-side football, and a small indoor gym. They rent rackets and give
-                              classes.
+                              Full-service indoor gym surrounded by forest with daily, weekly, and monthly passes. Good
+                              private instruction is included in the price.
                             </p>
-                            <p className="mt-2">
-                              <a
-                                href="https://www.instagram.com/carilotennis.club/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
-                              >
-                                @carilotennis.club
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="bg-white p-6 rounded-lg shadow-sm">
-                        <div className="flex items-start mb-4">
-                          <Dumbbell className="h-6 w-6 mr-3 mt-1 text-gray-700" />
-                          <div>
-                            <h3 className="text-xl font-semibold">Centro Integral de Entrenamiento (CIE)</h3>
-                            <p className="text-gray-700 mt-2">
-                              Full-service indoor gym with daily, weekly, and monthly passes. Good private instruction
-                              is included in the price.
-                            </p>
-                            <p className="mt-2">
+                            <p className="mt-2 flex items-center">
+                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
                               <a
                                 href="https://www.instagram.com/somos_cie/"
                                 target="_blank"
@@ -348,11 +328,35 @@ export default function ThingsToDo() {
                         </div>
                       </div>
 
-                      <div className="bg-white p-6 rounded-lg shadow-sm">
+                      <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <Dumbbell className="h-6 w-6 mr-3 mt-1 text-gray-700" />
+                          <span className="text-2xl mr-3 mt-1 flex-shrink-0">🎾</span>
                           <div>
-                            <h3 className="text-xl font-semibold">Aire Libre, Libre</h3>
+                            <h3 className="text-xl font-semibold">Tennis & Padel</h3>
+                            <p className="text-gray-700 mt-2">
+                              Clay courts, padel, 5-a-side football, and a small indoor gym. They rent rackets and give
+                              classes.
+                            </p>
+                            <p className="mt-2 flex items-center">
+                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                              <a
+                                href="https://www.instagram.com/carilotennis.club/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              >
+                                @carilotennis.club
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm">
+                        <div className="flex items-start mb-4">
+                          <Dumbbell className="h-6 w-6 mr-3 mt-1 text-green-600 flex-shrink-0" />
+                          <div>
+                            <h3 className="text-xl font-semibold">Outdoor Calisthenics</h3>
                             <p className="text-gray-700 mt-2">
                               Free 24-hour outdoor calisthenics gym with bars and parallettes.
                             </p>
@@ -360,13 +364,14 @@ export default function ThingsToDo() {
                         </div>
                       </div>
 
-                      <div className="bg-white p-6 rounded-lg shadow-sm">
+                      <div className="bg-gradient-to-br from-orange-50 to-red-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <span className="text-2xl mr-3 mt-1">🐎</span>
+                          <span className="text-2xl mr-3 mt-1 flex-shrink-0">🐎</span>
                           <div>
-                            <h3 className="text-xl font-semibold">Cabalgatas Dos Montes</h3>
+                            <h3 className="text-xl font-semibold">Horse Riding</h3>
                             <p className="text-gray-700 mt-2">Horse riding through dunes and forest.</p>
-                            <p className="mt-2">
+                            <p className="mt-2 flex items-center">
+                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
                               <a
                                 href="https://www.instagram.com/cabalgatasdosmontes/"
                                 target="_blank"
@@ -380,11 +385,11 @@ export default function ThingsToDo() {
                         </div>
                       </div>
 
-                      <div className="bg-white p-6 rounded-lg shadow-sm">
+                      <div className="bg-gradient-to-br from-purple-50 to-violet-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <Bike className="h-6 w-6 mr-3 mt-1 text-gray-700" />
+                          <Bike className="h-6 w-6 mr-3 mt-1 text-purple-600 flex-shrink-0" />
                           <div>
-                            <h3 className="text-xl font-semibold">Motorrad Cariló</h3>
+                            <h3 className="text-xl font-semibold">Quad & Fatbike Rental</h3>
                             <p className="text-gray-700 mt-2">Quad riding and fatbike rental.</p>
                             <p className="mt-2">
                               <a
@@ -394,6 +399,50 @@ export default function ThingsToDo() {
                                 className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                               >
                                 Website
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-6 rounded-lg shadow-sm">
+                        <div className="flex items-start mb-4">
+                          <span className="text-2xl mr-3 mt-1 flex-shrink-0">🎨</span>
+                          <div>
+                            <h3 className="text-xl font-semibold">Ceramic Classes</h3>
+                            <p className="text-gray-700 mt-2">
+                              Learn pottery and ceramic arts in a creative environment.
+                            </p>
+                            <p className="mt-2 flex items-center">
+                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                              <a
+                                href="https://www.instagram.com/fusionartedelmar/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              >
+                                @fusionartedelmar
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-lg shadow-sm">
+                        <div className="flex items-start mb-4">
+                          <span className="text-2xl mr-3 mt-1 flex-shrink-0">🚙</span>
+                          <div>
+                            <h3 className="text-xl font-semibold">4x4 Driving School</h3>
+                            <p className="text-gray-700 mt-2">Learn to drive off-road and navigate sand dunes.</p>
+                            <p className="mt-2 flex items-center">
+                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                              <a
+                                href="https://www.instagram.com/sandmasters_/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              >
+                                @sandmasters_
                               </a>
                             </p>
                           </div>
@@ -417,17 +466,44 @@ export default function ThingsToDo() {
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
-                      <div className="bg-white p-6 rounded-lg shadow-sm">
+                      <div className="bg-gradient-to-br from-red-50 to-pink-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <UtensilsCrossed className="h-6 w-6 mr-3 mt-1 text-gray-700" />
+                          <UtensilsCrossed className="h-6 w-6 mr-3 mt-1 text-red-600 flex-shrink-0" />
                           <div>
-                            <h3 className="text-xl font-semibold">La Cabrera</h3>
+                            <h3 className="text-xl font-semibold">Argentine Parrilla</h3>
                             <p className="text-gray-700 mt-2">The greatest parrilla with lots of free extras.</p>
                             <p className="text-gray-600 mt-1">
-                              Also recommended: Don Benito (poshy), De Mi Campo (salad bar!), La Parrillita (Valeria del
-                              Mar) (basic in a good sense).
+                              Also recommended:{" "}
+                              <a
+                                href="https://www.instagram.com/donbenito_carilo/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 transition-colors"
+                              >
+                                Don Benito
+                              </a>{" "}
+                              (poshy),{" "}
+                              <a
+                                href="https://www.instagram.com/demicampocarilo/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 transition-colors"
+                              >
+                                De Mi Campo
+                              </a>{" "}
+                              (salad bar!),{" "}
+                              <a
+                                href="https://goo.gl/maps/8ZQZgqXH8JZQeULt8"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 transition-colors"
+                              >
+                                La Parrillita
+                              </a>{" "}
+                              (basic in a good sense).
                             </p>
-                            <p className="mt-2">
+                            <p className="mt-2 flex items-center">
+                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
                               <a
                                 href="https://www.instagram.com/lacabrera_carilo/"
                                 target="_blank"
@@ -441,15 +517,16 @@ export default function ThingsToDo() {
                         </div>
                       </div>
 
-                      <div className="bg-white p-6 rounded-lg shadow-sm">
+                      <div className="bg-gradient-to-br from-orange-50 to-amber-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <UtensilsCrossed className="h-6 w-6 mr-3 mt-1 text-gray-700" />
+                          <UtensilsCrossed className="h-6 w-6 mr-3 mt-1 text-orange-600 flex-shrink-0" />
                           <div>
-                            <h3 className="text-xl font-semibold">Il Gatto Nero (Valeria del Mar)</h3>
+                            <h3 className="text-xl font-semibold">Italian Pizza</h3>
                             <p className="text-gray-700 mt-2">
                               Award-winning Napoletan pizza from the Italian chefs (they also made our sofas).
                             </p>
-                            <p className="mt-2">
+                            <p className="mt-2 flex items-center">
+                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
                               <a
                                 href="https://www.instagram.com/__ilgattonero/"
                                 target="_blank"
@@ -463,13 +540,14 @@ export default function ThingsToDo() {
                         </div>
                       </div>
 
-                      <div className="bg-white p-6 rounded-lg shadow-sm">
+                      <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <Coffee className="h-6 w-6 mr-3 mt-1 text-gray-700" />
+                          <Coffee className="h-6 w-6 mr-3 mt-1 text-amber-600 flex-shrink-0" />
                           <div>
-                            <h3 className="text-xl font-semibold">Panettone</h3>
+                            <h3 className="text-xl font-semibold">Bakery & Coffee</h3>
                             <p className="text-gray-700 mt-2">Great coffee and baked stuff; best avocado toast.</p>
-                            <p className="mt-2">
+                            <p className="mt-2 flex items-center">
+                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
                               <a
                                 href="https://www.instagram.com/panaderia.ilpanettone/"
                                 target="_blank"
@@ -483,13 +561,14 @@ export default function ThingsToDo() {
                         </div>
                       </div>
 
-                      <div className="bg-white p-6 rounded-lg shadow-sm">
+                      <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <UtensilsCrossed className="h-6 w-6 mr-3 mt-1 text-gray-700" />
+                          <UtensilsCrossed className="h-6 w-6 mr-3 mt-1 text-green-600 flex-shrink-0" />
                           <div>
-                            <h3 className="text-xl font-semibold">Enri's Cariló</h3>
+                            <h3 className="text-xl font-semibold">Gourmet Burgers</h3>
                             <p className="text-gray-700 mt-2">Best burgers. Also Impeke (Valeria del Mar).</p>
-                            <p className="mt-2">
+                            <p className="mt-2 flex items-center">
+                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
                               <a
                                 href="https://www.instagram.com/enris.ar/"
                                 target="_blank"
@@ -503,13 +582,14 @@ export default function ThingsToDo() {
                         </div>
                       </div>
 
-                      <div className="bg-white p-6 rounded-lg shadow-sm">
+                      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <Coffee className="h-6 w-6 mr-3 mt-1 text-gray-700" />
+                          <Coffee className="h-6 w-6 mr-3 mt-1 text-blue-600 flex-shrink-0" />
                           <div>
-                            <h3 className="text-xl font-semibold">Masse</h3>
+                            <h3 className="text-xl font-semibold">French Café</h3>
                             <p className="text-gray-700 mt-2">Always open.</p>
-                            <p className="mt-2">
+                            <p className="mt-2 flex items-center">
+                              <Instagram className="h-4 w-4 mr-1 text-pink-500" />
                               <a
                                 href="https://www.instagram.com/masse.carilo/"
                                 target="_blank"
@@ -521,6 +601,324 @@ export default function ThingsToDo() {
                             </p>
                           </div>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Shopping Tab */}
+                {activeTab === "shopping" && (
+                  <div className="space-y-8">
+                    <div className="text-center mb-8">
+                      <h2 className="text-3xl font-bold mb-4">
+                        🛍️ <strong>Shopping</strong>
+                      </h2>
+                      <p className="text-lg text-gray-700">My Most Frequented Shops in Cariló & Valeria del Mar</p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                      {/* Chicho */}
+                      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Supermarkets</h3>
+                        <p className="text-gray-700">
+                          <strong>Chicho</strong> – Best open hours, decent fruit and vegetables.
+                        </p>
+                        <p className="mt-2 flex items-center">
+                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                          <a
+                            href="https://www.instagram.com/proveeduria_chicho_esta_loco/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            @proveeduria_chicho_esta_loco
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* Menor Coste */}
+                      <div className="bg-gradient-to-br from-green-50 to-teal-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Supermarkets</h3>
+                        <p className="text-gray-700">
+                          <strong>La Proveeduría / Menor Coste</strong> – Expensive, mini Whole Foods.
+                        </p>
+                        <p className="mt-2 flex items-center">
+                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                          <a
+                            href="https://www.instagram.com/menorcoste/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            @menorcoste
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* Coto */}
+                      <div className="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Supermarkets</h3>
+                        <p className="text-gray-700">
+                          <strong>Coto</strong> – The closest large supermarket; they have everything from food to
+                          furniture and bicycles. Online store with delivery to Cariló.
+                        </p>
+                        <p className="mt-2">
+                          <a
+                            href="https://www.cotodigital3.com.ar/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            Website
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* Disco */}
+                      <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Supermarkets</h3>
+                        <p className="text-gray-700">
+                          <strong>Disco</strong> – Alternative without taking the highway. They also deliver to Cariló.
+                        </p>
+                        <p className="mt-2">
+                          <a
+                            href="https://www.disco.com.ar/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            Website
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* Belén */}
+                      <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Fruit & Vegetables</h3>
+                        <p className="text-gray-700">
+                          <strong>Belén</strong> – Best fruit and vegetables.
+                        </p>
+                        <p className="mt-2">
+                          <a
+                            href="https://waze.com/ul?place=ChIJ4zObzLKdnJUR3db27yKHe_U"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            Open in Waze
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* Boutique de Frutas */}
+                      <div className="bg-gradient-to-br from-yellow-50 to-lime-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Fruit & Vegetables</h3>
+                        <p className="text-gray-700">
+                          <strong>Boutique de Frutas</strong> – Self-service, which is not common. Pick the best or
+                          blame on someone else.
+                        </p>
+                        <p className="mt-2 flex items-center">
+                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                          <a
+                            href="https://www.instagram.com/boutique_de_frutas/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            @boutique_de_frutas
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* Jorjito */}
+                      <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Hardware</h3>
+                        <p className="text-gray-700">
+                          <strong>Jorjito</strong> – Most complete hardware store.
+                        </p>
+                        <p className="mt-2 flex items-center">
+                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                          <a
+                            href="https://www.instagram.com/ferreteria_jorgito/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            @ferreteria_jorgito
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* Quimica Limpia Maurito */}
+                      <div className="bg-gradient-to-br from-cyan-50 to-sky-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Cleaning Products</h3>
+                        <p className="text-gray-700">
+                          <strong>Quimica Limpia Maurito</strong> – In Pinamar, best for bulk cleaning products. They
+                          deliver to Cariló weekly.
+                        </p>
+                        <p className="mt-2">
+                          <a
+                            href="https://www.facebook.com/LMaurito/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            Facebook Page
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* Clothing */}
+                      <div className="bg-gradient-to-br from-purple-50 to-violet-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Clothing</h3>
+                        <p className="text-gray-700">
+                          <strong>Cariló City-Center Boutiques</strong> – All the clothing in Cariló city center.
+                        </p>
+                        <p className="mt-2">
+                          <a
+                            href="https://maps.app.goo.gl/HSdLEiSF9qGJRWY7A"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            Open in Google Maps
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* Cabaña Guerrero */}
+                      <div className="bg-gradient-to-br from-red-50 to-pink-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Meat</h3>
+                        <p className="text-gray-700">
+                          <strong>Cabaña Guerrero</strong> – My favorite meat.
+                        </p>
+                        <p className="mt-2 flex items-center">
+                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                          <a
+                            href="https://www.instagram.com/cabana.guerrero/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            @cabana.guerrero
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* La Constanza Cariló */}
+                      <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Fish</h3>
+                        <p className="text-gray-700">
+                          <strong>La Constanza (Cariló)</strong> – Fresh fish, not frozen, even salmon. Closed during
+                          low season.
+                        </p>
+                        <p className="mt-2 flex items-center">
+                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                          <a
+                            href="https://www.instagram.com/pescaderiasdicostanzoar/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            @pescaderiasdicostanzoar
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* La Constanza Pinamar */}
+                      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Fish</h3>
+                        <p className="text-gray-700">
+                          <strong>La Constanza (Pinamar)</strong> – Open during low season when Cariló's location is
+                          closed.
+                        </p>
+                        <p className="mt-2 flex items-center">
+                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                          <a
+                            href="https://www.instagram.com/pescaderiasdicostanzoar/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            @pescaderiasdicostanzoar
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* Colonial */}
+                      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Ice Cream</h3>
+                        <p className="text-gray-700">
+                          <strong>Colonial (Valeria del Mar)</strong> – My favorite ice cream.
+                        </p>
+                        <p className="mt-2 flex items-center">
+                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                          <a
+                            href="https://www.instagram.com/colonialhelados/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            @colonialhelados
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* Lucciano's */}
+                      <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Ice Cream</h3>
+                        <p className="text-gray-700">
+                          <strong>Lucciano's</strong> – The prettiest place.
+                        </p>
+                        <p className="mt-2 flex items-center">
+                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                          <a
+                            href="https://www.instagram.com/luccianos_/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            @luccianos_
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* Panettone */}
+                      <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Bakeries</h3>
+                        <p className="text-gray-700">
+                          <strong>Panettone</strong> – Simple.
+                        </p>
+                        <p className="mt-2 flex items-center">
+                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                          <a
+                            href="https://www.instagram.com/panaderia.ilpanettone/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            @panaderia.ilpanettone
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* Masse */}
+                      <div className="bg-gradient-to-br from-orange-50 to-amber-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Bakeries</h3>
+                        <p className="text-gray-700">
+                          <strong>Masse</strong> – Fancy breads with seeds.
+                        </p>
+                        <p className="mt-2 flex items-center">
+                          <Instagram className="h-4 w-4 mr-1 text-pink-500" />
+                          <a
+                            href="https://www.instagram.com/masse.carilo/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            @masse.carilo
+                          </a>
+                        </p>
                       </div>
                     </div>
                   </div>
