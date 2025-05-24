@@ -2,7 +2,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
-import { Car, Plane, Bus, UtensilsCrossed, Bike, Dumbbell, Coffee, SailboatIcon as HorseSaddle } from "lucide-react"
+import { Translate } from "@/components/translate"
+import { locationTranslations } from "@/translations/location"
+import { Car, Plane, Bus } from "lucide-react"
 
 export default function Location() {
   return (
@@ -13,8 +15,12 @@ export default function Location() {
         <section className="py-12 md:py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Location</h1>
-              <p className="text-lg text-gray-700 mb-8">Located on Argentinian coast, 360 km from Buenos Aires.</p>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                <Translate text={locationTranslations.pageTitle} />
+              </h1>
+              <p className="text-lg text-gray-700 mb-8">
+                <Translate text={locationTranslations.pageDescription} />
+              </p>
 
               {/* Map Section */}
               <div className="mb-8">
@@ -38,10 +44,9 @@ export default function Location() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center px-6 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
                   >
-                    Open in Google Maps
+                    <Translate text={locationTranslations.mapSection.openInGoogleMaps} />
                   </a>
                   <div>
-    
                     <p className="text-gray-700">
                       Paraiso 324, Cariló (7167)
                       <br />
@@ -54,14 +59,19 @@ export default function Location() {
               {/* Getting Here Section */}
               <div className="mb-12">
                 <h2 className="text-2xl md:text-3xl font-bold mb-6 flex items-center">
-                  <span className="mr-2">🛣️</span> Getting Here
+                  <span className="mr-2">🛣️</span>
+                  <Translate text={locationTranslations.gettingHere.title} />
                 </h2>
                 <ul className="space-y-6">
                   <li className="flex items-start">
                     <Car className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
                     <div>
-                      <p className="font-semibold">Car:</p>
-                      <p className="text-gray-700">360 km from Buenos Aires (4 hour drive)</p>
+                      <p className="font-semibold">
+                        <Translate text={locationTranslations.gettingHere.car.title} />:
+                      </p>
+                      <p className="text-gray-700">
+                        <Translate text={locationTranslations.gettingHere.car.description} />
+                      </p>
                     </div>
                   </li>
 
@@ -70,24 +80,18 @@ export default function Location() {
                       <Bus className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
                       <div className="w-full">
                         <div className="flex flex-wrap items-center gap-2 mb-1">
-                          <p className="font-semibold">Bus:</p>
+                          <p className="font-semibold">
+                            <Translate text={locationTranslations.gettingHere.bus.title} />:
+                          </p>
                           <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs font-semibold">
-                            Recommended without car
+                            <Translate text={locationTranslations.gettingHere.bus.recommended} />
                           </span>
                         </div>
 
                         <div className="md:flex md:justify-between">
                           <div className="md:pr-4 md:max-w-[calc(100%-240px)]">
                             <p className="text-gray-700 mb-2">
-                              Around 10 buses daily from Buenos Aires (
-                              <a
-                                href="https://www.plataforma10.com/"
-                                className="text-blue-600 hover:text-blue-800 transition-colors"
-                                rel="noopener noreferrer"
-                              >
-                                good aggregator
-                              </a>
-                              ). Book a bus to Pinamar. From there, it's a 15 min taxi ride.
+                              <Translate text={locationTranslations.gettingHere.bus.description} />
                             </p>
                           </div>
 
@@ -104,7 +108,9 @@ export default function Location() {
                               </div>
                             </div>
                             <div className="p-3 text-sm">
-                              <strong>Bus tip:</strong> Choose "Cama Ejecutivo" for lie-flat business class
+                              <strong>
+                                <Translate text={locationTranslations.gettingHere.bus.tip} />
+                              </strong>
                             </div>
                           </div>
                         </div>
@@ -115,27 +121,21 @@ export default function Location() {
                   <li className="flex items-start">
                     <Car className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
                     <div>
-                      <p className="font-semibold">Private or shared transfer</p>
+                      <p className="font-semibold">
+                        <Translate
+                          text={{
+                            en: "Private or shared transfer",
+                            es: "Traslado privado o compartido",
+                          }}
+                        />
+                      </p>
                       <p className="text-gray-700">
-                        By car or minibus can be booked via{" "}
-                        <a
-                          href="https://indrive.com/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:text-blue-800 transition-colors"
-                        >
-                          InDrive
-                        </a>{" "}
-                        or{" "}
-                        <a
-                          href="https://listado.mercadolibre.com.ar/pasajes-en-combis-para-carilo"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:text-blue-800 transition-colors"
-                        >
-                          MercadoLibre
-                        </a>
-                        .
+                        <Translate
+                          text={{
+                            en: "By car or minibus can be booked via InDrive or MercadoLibre.",
+                            es: "En auto o minibus se puede reservar vía InDrive o MercadoLibre.",
+                          }}
+                        />
                       </p>
                     </div>
                   </li>
@@ -143,10 +143,22 @@ export default function Location() {
                   <li className="flex items-start">
                     <span className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0">🚂</span>
                     <div>
-                      <p className="font-semibold">Train:</p>
+                      <p className="font-semibold">
+                        <Translate
+                          text={{
+                            en: "Train",
+                            es: "Tren",
+                          }}
+                        />
+                        :
+                      </p>
                       <p className="text-gray-700">
-                        There is a daily train from Buenos Aires to Pinamar, but tickets sell out minutes after release
-                        – not a practical option.
+                        <Translate
+                          text={{
+                            en: "There is a daily train from Buenos Aires to Pinamar, but tickets sell out minutes after release – not a practical option.",
+                            es: "Hay un tren diario desde Buenos Aires a Pinamar, pero los boletos se agotan minutos después de salir a la venta – no es una opción práctica.",
+                          }}
+                        />
                       </p>
                     </div>
                   </li>
@@ -154,8 +166,23 @@ export default function Location() {
                   <li className="flex items-start">
                     <Plane className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
                     <div>
-                      <p className="font-semibold">Flights:</p>
-                      <p className="text-gray-700">There are no regular flights since 2023.</p>
+                      <p className="font-semibold">
+                        <Translate
+                          text={{
+                            en: "Flights",
+                            es: "Vuelos",
+                          }}
+                        />
+                        :
+                      </p>
+                      <p className="text-gray-700">
+                        <Translate
+                          text={{
+                            en: "There are no regular flights since 2023.",
+                            es: "No hay vuelos regulares desde 2023.",
+                          }}
+                        />
+                      </p>
                     </div>
                   </li>
                 </ul>
@@ -164,43 +191,50 @@ export default function Location() {
               {/* Getting Around Section */}
               <div className="mb-12">
                 <h2 className="text-2xl md:text-3xl font-bold mb-6 flex items-center">
-                  <span className="mr-2">🚕</span> Getting around
+                  <span className="mr-2">🚕</span>
+                  <Translate
+                    text={{
+                      en: "Getting around",
+                      es: "Moverse por la zona",
+                    }}
+                  />
                 </h2>
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
                     <p className="text-gray-700">
-                      Uber, Didi, and local taxi with an app (
-                      <a
-                        href="https://apps.apple.com/ar/app/taxis-pinamar/id6738529955"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 transition-colors"
-                      >
-                        iPhone
-                      </a>{" "}
-                      /{" "}
-                      <a
-                        href="https://play.google.com/store/apps/details?id=com.nrs.gael_clientes.taxispinamar&hl=es_AR"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 transition-colors"
-                      >
-                        Android
-                      </a>
-                      ).
+                      <Translate
+                        text={{
+                          en: "Uber, Didi, and local taxi with an app (iPhone / Android).",
+                          es: "Uber, Didi, y taxi local con una app (iPhone / Android).",
+                        }}
+                      />
                     </p>
                   </li>
                   <li className="flex items-start">
                     <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
-                    <p className="text-gray-700">Food and courier app: PedidosYa</p>
+                    <p className="text-gray-700">
+                      <Translate
+                        text={{
+                          en: "Food and courier app: PedidosYa",
+                          es: "App de comida y delivery: PedidosYa",
+                        }}
+                      />
+                    </p>
                   </li>
                 </ul>
               </div>
 
               {/* Photo Gallery Section */}
               <div className="mb-12">
-                <h2 className="text-2xl md:text-3xl font-bold mb-6">Area Gallery</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mb-6">
+                  <Translate
+                    text={{
+                      en: "Area Gallery",
+                      es: "Galería de la Zona",
+                    }}
+                  />
+                </h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
                     <Image
@@ -259,45 +293,54 @@ export default function Location() {
                 </div>
               </div>
 
-              
-
               {/* About Cariló Section */}
               <div className="mb-12">
                 <h2 className="text-2xl md:text-3xl font-bold mb-6 flex items-center">
-                  <span className="mr-2">🌲</span> About Cariló
+                  <span className="mr-2">🌲</span>
+                  <Translate text={locationTranslations.aboutCarilo.title} />
                 </h2>
                 <div className="bg-white p-6 rounded-lg shadow-sm">
                   <p className="text-gray-700 mb-4">
-                    Cariló is a coastal town in Buenos Aires Province, Argentina, known for its pine forests, sand
-                    dunes, and upscale villas. Founded in the early 20th century by Héctor Manuel Guerrero, the town has
-                    sandy, unpaved roads and houses built among mature trees.
+                    <Translate text={locationTranslations.aboutCarilo.description} />
                   </p>
                   <p className="text-gray-700">
-                    Learn more on{" "}
-                    <a
-                      href="https://en.wikipedia.org/wiki/Caril%C3%B3"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 transition-colors"
-                    >
-                      Wikipedia
-                    </a>{" "}
-                    (co-written by Il Buco's founder).
+                    <Translate
+                      text={{
+                        en: "Learn more on Wikipedia (co-written by Il Buco's founder).",
+                        es: "Conocé más en Wikipedia (co-escrito por el fundador de Il Buco).",
+                      }}
+                    />
                   </p>
                 </div>
               </div>
 
               <div className="bg-gray-50 p-6 rounded-lg">
-                <h3 className="text-xl font-bold mb-4">Book Your Stay</h3>
+                <h3 className="text-xl font-bold mb-4">
+                  <Translate
+                    text={{
+                      en: "Book Your Stay",
+                      es: "Reservá tu Estadía",
+                    }}
+                  />
+                </h3>
                 <p className="text-gray-700 mb-4">
-                  Ready to experience IL BUCO and the beautiful surroundings of Cariló? Contact us to check availability
-                  and book your stay.
+                  <Translate
+                    text={{
+                      en: "Ready to experience IL BUCO and the beautiful surroundings of Cariló? Contact us to check availability and book your stay.",
+                      es: "¿Listo para experimentar IL BUCO y los hermosos alrededores de Cariló? Contactanos para verificar disponibilidad y reservar tu estadía.",
+                    }}
+                  />
                 </p>
                 <Link
                   href="/contact"
                   className="inline-flex items-center px-6 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
                 >
-                  Contact Us
+                  <Translate
+                    text={{
+                      en: "Contact Us",
+                      es: "Contactanos",
+                    }}
+                  />
                 </Link>
               </div>
             </div>

@@ -23,6 +23,8 @@ export function LanguageSelector() {
         aria-haspopup="true"
       >
         <span className="mr-1">{language.flag}</span>
+        {/* Show language name on mobile, hide on desktop */}
+        <span className="md:hidden">{language.name}</span>
         <span className="hidden md:inline">{language.name}</span>
         <ChevronDown className="h-4 w-4" />
       </button>
