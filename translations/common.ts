@@ -22,6 +22,10 @@ export const translations = {
       en: "Places Nearby",
       es: "Lugares Cercanos",
     },
+    book: {
+      en: "Book",
+      es: "Reservar",
+    },
     contact: {
       en: "Contact",
       es: "Contacto",

@@ -66,10 +66,10 @@ export function MobileMenu() {
               </Link>
               <Link
                 href="/contact"
-                className="text-lg font-medium hover:text-blue-600 transition-colors py-2"
+                className="inline-flex items-center justify-center px-4 py-3 bg-black text-white text-lg font-medium rounded-md hover:bg-gray-800 transition-colors mt-4"
                 onClick={() => setIsOpen(false)}
               >
-                <Translate text={translations.nav.contact} />
+                <Translate text={translations.nav.book} />
               </Link>
               <div className="py-2">
                 <LanguageSelector />

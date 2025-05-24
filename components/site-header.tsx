@@ -12,7 +12,7 @@ export function SiteHeader() {
           IL BUCO
         </Link>
         <div className="flex items-center">
-          <nav className="hidden md:flex space-x-8 mr-4">
+          <nav className="hidden md:flex items-center space-x-8 mr-4">
             <Link href="/the-house" className="text-sm font-medium hover:text-blue-600 transition-colors">
               <Translate text={translations.nav.theHouse} />
             </Link>
@@ -25,13 +25,18 @@ export function SiteHeader() {
             <Link href="/places-nearby" className="text-sm font-medium hover:text-blue-600 transition-colors">
               <Translate text={translations.nav.placesNearby} />
             </Link>
-            <Link href="/contact" className="text-sm font-medium hover:text-blue-600 transition-colors">
-              <Translate text={translations.nav.contact} />
+            <Link
+              href="/contact"
+              className="inline-flex items-center px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors"
+            >
+              <Translate text={translations.nav.book} />
             </Link>
           </nav>
-          <LanguageSelector />
-          <div className="md:hidden ml-4">
-            <MobileMenu />
+          <div className="flex items-center">
+            <LanguageSelector />
+            <div className="md:hidden ml-4">
+              <MobileMenu />
+            </div>
           </div>
         </div>
       </div>
