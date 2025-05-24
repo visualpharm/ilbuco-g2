@@ -34,16 +34,23 @@ const englishSpeakingCountries = [
   { code: "NZ", flag: "🇳🇿", name: "New Zealand" },
 ]
 
+// Portuguese-speaking countries and their flags
+const portugueseSpeakingCountries = [
+  { code: "BR", flag: "🇧🇷", name: "Brasil" },
+  { code: "PT", flag: "🇵🇹", name: "Portugal" },
+]
+
 // Default flags for each language
 const defaultFlags = {
   es: { flag: "🇦🇷", name: "Argentina" }, // Default Spanish flag is Argentina
   en: { flag: "🇺🇸", name: "United States" }, // Default English flag is USA
+  pt: { flag: "🇧🇷", name: "Brasil" }, // Default Portuguese flag is Brazil
 }
 
 // Interface for the language object
 interface Language {
-  code: string // 'es' or 'en'
-  name: string // 'Español' or 'English'
+  code: string // 'es', 'en', or 'pt'
+  name: string // 'Español', 'English', or 'Português'
   flag: string // Flag emoji
   country: string // Country name
 }
@@ -70,7 +77,7 @@ export function useLanguageDetection() {
         if (savedLanguage && savedFlag && savedCountry) {
           setDetectedLanguage({
             code: savedLanguage,
-            name: savedLanguage === "es" ? "Español" : "English",
+            name: savedLanguage === "es" ? "Español" : savedLanguage === "en" ? "English" : "Português",
             flag: savedFlag,
             country: savedCountry,
           })
@@ -82,7 +89,7 @@ export function useLanguageDetection() {
         const browserLang = navigator.language || "es-AR"
         const [lang, country] = browserLang.split("-")
 
-        // Determine if user is in a Spanish-speaking country using GeoIP
+        // Determine if user is in a Spanish/Portuguese/English-speaking country using GeoIP
         try {
           // Attempt to get user's country via GeoIP API
           const response = await fetch("https://ipapi.co/json/")
@@ -92,9 +99,12 @@ export function useLanguageDetection() {
           if (userCountry) {
             // Check if user is in a Spanish-speaking country
             const isSpanishCountry = spanishSpeakingCountries.some((c) => c.code === userCountry)
+            // Check if user is in a Portuguese-speaking country
+            const isPortugueseCountry = portugueseSpeakingCountries.some((c) => c.code === userCountry)
+            // Check if user is in an English-speaking country
+            const isEnglishCountry = englishSpeakingCountries.some((c) => c.code === userCountry)
 
             if (isSpanishCountry) {
-              // Find the country in our list to get the flag
               const countryInfo = spanishSpeakingCountries.find((c) => c.code === userCountry) || defaultFlags.es
               setDetectedLanguage({
                 code: "es",
@@ -102,36 +112,45 @@ export function useLanguageDetection() {
                 flag: countryInfo.flag,
                 country: countryInfo.name,
               })
+            } else if (isPortugueseCountry) {
+              const countryInfo = portugueseSpeakingCountries.find((c) => c.code === userCountry) || defaultFlags.pt
+              setDetectedLanguage({
+                code: "pt",
+                name: "Português",
+                flag: countryInfo.flag,
+                country: countryInfo.name,
+              })
+            } else if (isEnglishCountry) {
+              const countryInfo = englishSpeakingCountries.find((c) => c.code === userCountry) || defaultFlags.en
+              setDetectedLanguage({
+                code: "en",
+                name: "English",
+                flag: countryInfo.flag,
+                country: countryInfo.name,
+              })
             } else {
-              // Check if user is in an English-speaking country
-              const isEnglishCountry = englishSpeakingCountries.some((c) => c.code === userCountry)
-
-              if (isEnglishCountry) {
-                // Find the country in our list to get the flag
-                const countryInfo = englishSpeakingCountries.find((c) => c.code === userCountry) || defaultFlags.en
+              // For other countries, use browser language to determine language
+              if (lang === "es") {
+                setDetectedLanguage({
+                  code: "es",
+                  name: "Español",
+                  flag: defaultFlags.es.flag,
+                  country: defaultFlags.es.name,
+                })
+              } else if (lang === "pt") {
+                setDetectedLanguage({
+                  code: "pt",
+                  name: "Português",
+                  flag: defaultFlags.pt.flag,
+                  country: defaultFlags.pt.name,
+                })
+              } else {
                 setDetectedLanguage({
                   code: "en",
                   name: "English",
-                  flag: countryInfo.flag,
-                  country: countryInfo.name,
+                  flag: defaultFlags.en.flag,
+                  country: defaultFlags.en.name,
                 })
-              } else {
-                // For other countries, use browser language to determine language
-                if (lang === "es") {
-                  setDetectedLanguage({
-                    code: "es",
-                    name: "Español",
-                    flag: defaultFlags.es.flag,
-                    country: defaultFlags.es.name,
-                  })
-                } else {
-                  setDetectedLanguage({
-                    code: "en",
-                    name: "English",
-                    flag: defaultFlags.en.flag,
-                    country: defaultFlags.en.name,
-                  })
-                }
               }
             }
           } else {
@@ -165,6 +184,13 @@ export function useLanguageDetection() {
           flag: defaultFlags.es.flag,
           country: defaultFlags.es.name,
         })
+      } else if (lang === "pt") {
+        setDetectedLanguage({
+          code: "pt",
+          name: "Português",
+          flag: defaultFlags.pt.flag,
+          country: defaultFlags.pt.name,
+        })
       } else {
         setDetectedLanguage({
           code: "en",
@@ -184,24 +210,29 @@ export function useLanguageDetection() {
 
     if (languageCode === "es") {
       if (countryCode) {
-        // If a specific country is requested
         const countryInfo = spanishSpeakingCountries.find((c) => c.code === countryCode) || defaultFlags.es
         flag = countryInfo.flag
         country = countryInfo.name
       } else {
-        // Use the current flag if already Spanish, or default to Argentina
         flag = detectedLanguage.code === "es" ? detectedLanguage.flag : defaultFlags.es.flag
         country = detectedLanguage.code === "es" ? detectedLanguage.country : defaultFlags.es.name
+      }
+    } else if (languageCode === "pt") {
+      if (countryCode) {
+        const countryInfo = portugueseSpeakingCountries.find((c) => c.code === countryCode) || defaultFlags.pt
+        flag = countryInfo.flag
+        country = countryInfo.name
+      } else {
+        flag = detectedLanguage.code === "pt" ? detectedLanguage.flag : defaultFlags.pt.flag
+        country = detectedLanguage.code === "pt" ? detectedLanguage.country : defaultFlags.pt.name
       }
     } else {
       // For English
       if (countryCode) {
-        // If a specific country is requested
         const countryInfo = englishSpeakingCountries.find((c) => c.code === countryCode) || defaultFlags.en
         flag = countryInfo.flag
         country = countryInfo.name
       } else {
-        // Use the current flag if already English, or default to USA
         flag = detectedLanguage.code === "en" ? detectedLanguage.flag : defaultFlags.en.flag
         country = detectedLanguage.code === "en" ? detectedLanguage.country : defaultFlags.en.name
       }
@@ -209,7 +240,7 @@ export function useLanguageDetection() {
 
     const newLanguage = {
       code: languageCode,
-      name: languageCode === "es" ? "Español" : "English",
+      name: languageCode === "es" ? "Español" : languageCode === "pt" ? "Português" : "English",
       flag,
       country,
     }
@@ -229,6 +260,12 @@ export function useLanguageDetection() {
       country: detectedLanguage.code === "es" ? detectedLanguage.country : defaultFlags.es.name,
     },
     {
+      code: "pt",
+      name: "Português",
+      flag: detectedLanguage.code === "pt" ? detectedLanguage.flag : defaultFlags.pt.flag,
+      country: detectedLanguage.code === "pt" ? detectedLanguage.country : defaultFlags.pt.name,
+    },
+    {
       code: "en",
       name: "English",
       flag: detectedLanguage.code === "en" ? detectedLanguage.flag : defaultFlags.en.flag,
@@ -243,5 +280,6 @@ export function useLanguageDetection() {
     supportedLanguages,
     spanishSpeakingCountries,
     englishSpeakingCountries,
+    portugueseSpeakingCountries,
   }
 }
