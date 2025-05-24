@@ -26,7 +26,7 @@ export function SiteHeader() {
               <Translate text={translations.nav.placesNearby} />
             </Link>
             <Link
-              href="/contact"
+              href="/book"
               className="inline-flex items-center px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors"
             >
               <Translate text={translations.nav.book} />

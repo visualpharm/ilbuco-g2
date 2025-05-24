@@ -22,7 +22,12 @@ export default function Contact() {
                 />
               </h1>
               <p className="text-lg text-gray-700 mb-12 text-center">
-                <Translate text={contactTranslations.pageDescription} />
+                <Translate
+                  text={{
+                    en: "Contact us to book your stay at Il Buco!",
+                    es: "¡Contactanos para reservar tu estadía en Il Buco!",
+                  }}
+                />
               </p>
 
               <div className="grid md:grid-cols-2 gap-12 mb-12">

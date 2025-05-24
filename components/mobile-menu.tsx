@@ -65,7 +65,7 @@ export function MobileMenu() {
                 <Translate text={translations.nav.placesNearby} />
               </Link>
               <Link
-                href="/contact"
+                href="/book"
                 className="inline-flex items-center justify-center px-4 py-3 bg-black text-white text-lg font-medium rounded-md hover:bg-gray-800 transition-colors mt-4"
                 onClick={() => setIsOpen(false)}
               >

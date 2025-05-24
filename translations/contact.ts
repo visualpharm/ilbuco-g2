@@ -10,12 +10,7 @@ export const contactTranslations = {
     es: "¿Listo para reservar tu estadía en IL BUCO o tenés preguntas sobre nuestra residencia? Estamos aquí para ayudarte.",
     pt: "Pronto para reservar sua estadia no IL BUCO ou tem dúvidas sobre nossa residência? Estamos aqui para ajudar.",
   },
-  contacts: {
-    title: {
-      en: "Contacts",
-      es: "Contactos",
-      pt: "Contatos",
-    },
+  contactInfo: {
     email: {
       en: "Email",
       es: "Email",
@@ -35,6 +30,13 @@ export const contactTranslations = {
       en: "(Exact address will be provided upon booking confirmation)",
       es: "(La dirección exacta se proporcionará al confirmar la reserva)",
       pt: "(O endereço exato será fornecido na confirmação da reserva)",
+    },
+  },
+  contacts: {
+    title: {
+      en: "Contacts",
+      es: "Contactos",
+      pt: "Contatos",
     },
   },
   booking: {

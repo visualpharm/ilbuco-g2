@@ -1402,7 +1402,7 @@ export default function ThingsToDo() {
                   <Translate text={placesNearbyTranslations.cta.description} />
                 </p>
                 <Link
-                  href="/contact"
+                  href="/book"
                   className="inline-flex items-center px-8 py-4 bg-black text-white rounded-md hover:bg-gray-800 transition-colors font-semibold"
                 >
                   <Translate text={placesNearbyTranslations.cta.button} />

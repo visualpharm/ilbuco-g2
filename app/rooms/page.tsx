@@ -576,7 +576,7 @@ export default function Rooms() {
 
                 <div className="mt-8">
                   <Link
-                    href="/contact"
+                    href="/book"
                     className="inline-flex items-center px-6 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
                   >
                     <Translate text={roomsTranslations.bookYourStay.button} />

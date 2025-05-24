@@ -299,6 +299,32 @@ export default function TheHouse() {
                       </div>
                     </div>
                   </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Monitor className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          <Translate
+                            text={{
+                              en: "Server Rack",
+                              es: "Rack de Servidores",
+                              pt: "Rack de Servidores",
+                            }}
+                          />
+                        </h3>
+                        <p className="text-gray-600">
+                          <Translate
+                            text={{
+                              en: "Empty slot in server rack - free for small devices, affordable for GPU servers",
+                              es: "Slot vacío en rack de servidores - gratis para dispositivos pequeños, accesible para servidores GPU",
+                              pt: "Slot vazio no rack de servidores - grátis para dispositivos pequenos, acessível para servidores GPU",
+                            }}
+                          />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -958,7 +984,7 @@ export default function TheHouse() {
                   <Translate text={houseTranslations.bookYourStay.description} />
                 </p>
                 <Link
-                  href="/contact"
+                  href="/book"
                   className="inline-flex items-center px-6 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
                 >
                   <Translate text={houseTranslations.bookYourStay.button} />

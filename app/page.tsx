@@ -42,7 +42,7 @@ export default function Home() {
                 </p>
                 <div className="pt-4">
                   <Link
-                    href="/contact"
+                    href="/book"
                     className="inline-flex items-center px-6 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
                   >
                     <Translate text={translations.home.hero.cta} /> <ArrowRight className="ml-2 h-4 w-4" />
