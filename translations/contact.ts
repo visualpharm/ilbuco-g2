@@ -47,9 +47,9 @@ export const contactTranslations = {
       en: "Email",
       es: "Email",
     },
-    phone: {
-      en: "Phone",
-      es: "Teléfono",
+    whatsapp: {
+      en: "WhatsApp",
+      es: "WhatsApp",
     },
     address: {
       en: "Address",
@@ -60,22 +60,28 @@ export const contactTranslations = {
       es: "(La dirección exacta se proporcionará al confirmar la reserva)",
     },
   },
-  bookingInfo: {
+  booking: {
     title: {
-      en: "Booking Information",
-      es: "Información de Reservas",
+      en: "Book Your Stay",
+      es: "Reservá tu Estadía",
     },
-    availability: {
-      en: "Availability: Year-round",
-      es: "Disponibilidad: Todo el año",
+    whatsapp: {
+      description: {
+        en: "Direct booking via WhatsApp",
+        es: "Reserva directa por WhatsApp",
+      },
+      button: {
+        en: "Book Now",
+        es: "Reservar",
+      },
     },
-    capacity: {
-      en: "Capacity: Up to 8 guests (4 bedrooms)",
-      es: "Capacidad: Hasta 8 huéspedes (4 dormitorios)",
+    comingSoon: {
+      en: "Coming soon",
+      es: "Próximamente",
     },
-    minimumStay: {
-      en: "Minimum Stay: 3 nights (longer stays preferred)",
-      es: "Estadía mínima: 3 noches (se prefieren estadías más largas)",
+    comingSoonButton: {
+      en: "Coming Soon",
+      es: "Próximamente",
     },
   },
   faq: {

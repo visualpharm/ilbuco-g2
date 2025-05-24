@@ -2,7 +2,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
 import { contactTranslations } from "@/translations/contact"
-import { Mail, Phone, MapPin, Calendar, Users, Clock } from "lucide-react"
+import { Mail, Phone, MapPin } from "lucide-react"
 
 export default function Contact() {
   return (
@@ -107,17 +107,20 @@ export default function Contact() {
                         <h3 className="text-lg font-semibold">
                           <Translate text={contactTranslations.contactInfo.email} />
                         </h3>
-                        <p className="text-gray-700">info@ilbuco.com.ar</p>
+                        <p className="text-gray-700">ciao@ilbuco.com.ar</p>
                       </div>
                     </div>
 
                     <div className="flex items-start">
                       <Phone className="h-6 w-6 mr-4 mt-1 text-gray-700" />
                       <div>
-                        <h3 className="text-lg font-semibold">
-                          <Translate text={contactTranslations.contactInfo.phone} />
-                        </h3>
-                        <p className="text-gray-700">+54 11 1234 5678</p>
+                        <h3 className="text-lg font-semibold">WhatsApp</h3>
+                        <a
+                          href="https://wa.me/541121275492"
+                          className="text-gray-700 hover:text-green-600 transition-colors"
+                        >
+                          +54 11 2127 5492
+                        </a>
                       </div>
                     </div>
 
@@ -127,7 +130,7 @@ export default function Contact() {
                         <h3 className="text-lg font-semibold">
                           <Translate text={contactTranslations.contactInfo.address} />
                         </h3>
-                        <p className="text-gray-700">Cariló, Buenos Aires Province, Argentina</p>
+                        <p className="text-gray-700">Calle 37 y Av. del Mar, Cariló, Buenos Aires, Argentina</p>
                         <p className="text-gray-700">
                           <Translate text={contactTranslations.contactInfo.addressNote} />
                         </p>
@@ -136,41 +139,101 @@ export default function Contact() {
 
                     <div className="pt-6 border-t border-gray-200">
                       <h3 className="text-lg font-semibold mb-4">
-                        <Translate text={contactTranslations.bookingInfo.title} />
+                        <Translate
+                          text={{
+                            en: "Book Your Stay",
+                            es: "Reservá tu Estadía",
+                          }}
+                        />
                       </h3>
 
                       <div className="space-y-4">
-                        <div className="flex items-start">
-                          <Calendar className="h-5 w-5 mr-3 mt-1 text-gray-700" />
-                          <div>
-                            <p className="text-gray-700">
-                              <span className="font-medium">
-                                <Translate text={contactTranslations.bookingInfo.availability} />
-                              </span>
-                            </p>
+                        <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                          <div className="flex items-center">
+                            <Phone className="h-5 w-5 mr-3 text-green-600" />
+                            <div>
+                              <p className="font-medium">WhatsApp</p>
+                              <p className="text-sm text-gray-600">
+                                <Translate
+                                  text={{
+                                    en: "Direct booking via WhatsApp",
+                                    es: "Reserva directa por WhatsApp",
+                                  }}
+                                />
+                              </p>
+                            </div>
                           </div>
+                          <a
+                            href="https://wa.me/541121275492"
+                            className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                          >
+                            <Translate
+                              text={{
+                                en: "Book Now",
+                                es: "Reservar",
+                              }}
+                            />
+                          </a>
                         </div>
 
-                        <div className="flex items-start">
-                          <Users className="h-5 w-5 mr-3 mt-1 text-gray-700" />
-                          <div>
-                            <p className="text-gray-700">
-                              <span className="font-medium">
-                                <Translate text={contactTranslations.bookingInfo.capacity} />
-                              </span>
-                            </p>
+                        <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg opacity-50">
+                          <div className="flex items-center">
+                            <div className="h-5 w-5 mr-3 bg-red-500 rounded-full flex items-center justify-center">
+                              <span className="text-white text-xs font-bold">A</span>
+                            </div>
+                            <div>
+                              <p className="font-medium">Airbnb</p>
+                              <p className="text-sm text-gray-600">
+                                <Translate
+                                  text={{
+                                    en: "Coming soon",
+                                    es: "Próximamente",
+                                  }}
+                                />
+                              </p>
+                            </div>
                           </div>
+                          <button
+                            disabled
+                            className="px-4 py-2 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed"
+                          >
+                            <Translate
+                              text={{
+                                en: "Coming Soon",
+                                es: "Próximamente",
+                              }}
+                            />
+                          </button>
                         </div>
 
-                        <div className="flex items-start">
-                          <Clock className="h-5 w-5 mr-3 mt-1 text-gray-700" />
-                          <div>
-                            <p className="text-gray-700">
-                              <span className="font-medium">
-                                <Translate text={contactTranslations.bookingInfo.minimumStay} />
-                              </span>
-                            </p>
+                        <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg opacity-50">
+                          <div className="flex items-center">
+                            <div className="h-5 w-5 mr-3 bg-blue-600 rounded-full flex items-center justify-center">
+                              <span className="text-white text-xs font-bold">B</span>
+                            </div>
+                            <div>
+                              <p className="font-medium">Booking.com</p>
+                              <p className="text-sm text-gray-600">
+                                <Translate
+                                  text={{
+                                    en: "Coming soon",
+                                    es: "Próximamente",
+                                  }}
+                                />
+                              </p>
+                            </div>
                           </div>
+                          <button
+                            disabled
+                            className="px-4 py-2 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed"
+                          >
+                            <Translate
+                              text={{
+                                en: "Coming Soon",
+                                es: "Próximamente",
+                              }}
+                            />
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -211,8 +274,8 @@ export default function Contact() {
                     <p className="text-gray-700">
                       <Translate
                         text={{
-                          en: "Unfortunately, we do not allow pets at IL BUCO to maintain the property's cleanliness and accommodate guests with allergies.",
-                          es: "Lamentablemente, no permitimos mascotas en IL BUCO para mantener la limpieza de la propiedad y acomodar a huéspedes con alergias.",
+                          en: "Yes, pets are allowed with a hypo-allergenic fee and US $300 deposit.",
+                          es: "Sí, se permiten mascotas con una tarifa hipoalergénica y depósito de US $300.",
                         }}
                       />
                     </p>
@@ -221,16 +284,34 @@ export default function Contact() {
                     <h4 className="text-lg font-semibold">
                       <Translate
                         text={{
-                          en: "Is there housekeeping service?",
-                          es: "¿Hay servicio de limpieza?",
+                          en: "What are the check-in/check-out policies?",
+                          es: "¿Cuáles son las políticas de check-in/check-out?",
                         }}
                       />
                     </h4>
                     <p className="text-gray-700">
                       <Translate
                         text={{
-                          en: "Yes, we provide weekly housekeeping for stays longer than 7 days. Additional cleaning services can be arranged for an extra fee.",
-                          es: "Sí, proporcionamos limpieza semanal para estadías de más de 7 días. Servicios de limpieza adicionales se pueden organizar por una tarifa extra.",
+                          en: "We offer flexible check-in and check-out times. You can arrive early if your room is available, and stay late if there's no same-day check-in.",
+                          es: "Ofrecemos horarios flexibles de check-in y check-out. Podés llegar temprano si tu habitación está disponible, y quedarte hasta tarde si no hay check-in el mismo día.",
+                        }}
+                      />
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold">
+                      <Translate
+                        text={{
+                          en: "Is housekeeping included?",
+                          es: "¿Está incluida la limpieza?",
+                        }}
+                      />
+                    </h4>
+                    <p className="text-gray-700">
+                      <Translate
+                        text={{
+                          en: "Weekly cleaning of common areas is included. Extra in-room cleaning is available on request for long stays.",
+                          es: "La limpieza semanal de áreas comunes está incluida. Limpieza extra en habitación está disponible bajo pedido para estadías largas.",
                         }}
                       />
                     </p>
