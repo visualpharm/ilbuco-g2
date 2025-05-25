@@ -115,9 +115,9 @@ export const translations = {
           pt: "Acomodação Espaçosa",
         },
         description: {
-          en: "4 bedrooms (2 persons each + futon for 2 more)",
-          es: "4 dormitorios (2 personas cada uno + futón para 2 más)",
-          pt: "4 quartos (2 pessoas cada + futon para mais 2)",
+          en: "4 bedrooms (2 persons each + futon for 2 more with extra payment)",
+          es: "4 dormitorios (2 personas cada uno + futón para 2 más con pago extra)",
+          pt: "4 quartos (2 pessoas cada + futon para mais 2 com pagamento extra)",
         },
       },
       climate: {
@@ -292,6 +292,20 @@ export const translations = {
       en: "View All",
       es: "Ver Todo",
       pt: "Ver Tudo",
+    },
+  },
+
+  // Common terms
+  common: {
+    utilities: {
+      en: "Heating, air, internet, electricity, water included",
+      es: "Calefacción, aire, internet, electricidad, agua incluidos",
+      pt: "Aquecimento, ar, internet, eletricidade, água incluídos",
+    },
+    petFee: {
+      en: "Hypoallergenic cleaning fee + US $300 deposit",
+      es: "Tarifa de limpieza hipoalergénica + depósito de US $300",
+      pt: "Taxa de limpeza hipoalergênica + depósito de US $300",
     },
   },
 }

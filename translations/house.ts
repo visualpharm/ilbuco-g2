@@ -60,6 +60,23 @@ export const houseTranslations = {
       },
     },
   },
+  // Remote work section
+  remoteWork: {
+    title: {
+      en: "Remote Work & Entertainment",
+      es: "Trabajo Remoto y Entretenimiento",
+      pt: "Trabalho Remoto e Entretenimento",
+    },
+  },
+
+  // Kitchen section
+  kitchen: {
+    title: {
+      en: "Kitchen Amenities",
+      es: "Comodidades de Cocina",
+      pt: "Comodidades da Cozinha",
+    },
+  },
   layout: {
     title: {
       en: "Layout & Rooms",
