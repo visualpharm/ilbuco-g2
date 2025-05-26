@@ -27,7 +27,7 @@ export default function TheHouse() {
               {/* Rectangular Image Composition */}
               <div className="mb-12">
                 <div className="w-full h-[600px] rounded-2xl overflow-hidden shadow-lg border border-gray-200">
-                  <div className="grid grid-cols-4 grid-rows-3 h-full gap-0">
+                  <div className="grid grid-cols-3 grid-rows-2 h-full gap-0">
                     {/* Large featured image - spans 2 columns and 2 rows */}
                     <div
                       className="col-span-2 row-span-2 relative cursor-pointer group"
@@ -86,9 +86,9 @@ export default function TheHouse() {
                       <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                     </div>
 
-                    {/* Rooftop terrace with planters - spans 2 columns */}
+                    {/* Rooftop terrace with planters */}
                     <div
-                      className="col-span-2 relative cursor-pointer group"
+                      className="relative cursor-pointer group"
                       onClick={() =>
                         setSelectedImage({
                           src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior5.jpg-wbVpsAQFKVlv11MJL2isf7CTqyslpx.jpeg",
@@ -99,25 +99,6 @@ export default function TheHouse() {
                       <Image
                         src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior5.jpg-wbVpsAQFKVlv11MJL2isf7CTqyslpx.jpeg"
                         alt="Rooftop terrace with planters and forest backdrop"
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                    </div>
-
-                    {/* Patio area */}
-                    <div
-                      className="relative cursor-pointer group"
-                      onClick={() =>
-                        setSelectedImage({
-                          src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior3.jpg-yOCSOAJcVAVoGTgd2JQ3eynSv5Vyie.jpeg",
-                          alt: "Ground level patio with outdoor furniture and garden path",
-                        })
-                      }
-                    >
-                      <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior3.jpg-yOCSOAJcVAVoGTgd2JQ3eynSv5Vyie.jpeg"
-                        alt="Ground level patio with outdoor furniture and garden path"
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
