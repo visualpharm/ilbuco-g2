@@ -24,13 +24,13 @@ export default function TheHouse() {
                 <Translate text={houseTranslations.pageTitle} />
               </h1>
 
-              {/* Enhanced Masonry Gallery */}
+              {/* Rectangular Image Composition */}
               <div className="mb-12">
-                <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
-                  <div className="grid grid-cols-4 gap-4 h-[600px]">
+                <div className="w-full h-[600px] rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+                  <div className="grid grid-cols-4 grid-rows-3 h-full gap-0">
                     {/* Large featured image - spans 2 columns and 2 rows */}
                     <div
-                      className="col-span-2 row-span-2 relative rounded-xl overflow-hidden cursor-pointer group bg-gradient-to-br from-emerald-400 to-teal-500 p-4"
+                      className="col-span-2 row-span-2 relative cursor-pointer group"
                       onClick={() =>
                         setSelectedImage({
                           src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior1.jpg-tCC7xI5HgiC3rvPGEvrMVqYHBaHF3C.jpeg",
@@ -38,21 +38,19 @@ export default function TheHouse() {
                         })
                       }
                     >
-                      <div className="relative w-full h-full rounded-lg overflow-hidden">
-                        <Image
-                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior1.jpg-tCC7xI5HgiC3rvPGEvrMVqYHBaHF3C.jpeg"
-                          alt="IL BUCO modern villa exterior with warm lighting and wooden details"
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                          priority
-                        />
-                      </div>
-                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-xl"></div>
+                      <Image
+                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior1.jpg-tCC7xI5HgiC3rvPGEvrMVqYHBaHF3C.jpeg"
+                        alt="IL BUCO modern villa exterior with warm lighting and wooden details"
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        priority
+                      />
+                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                     </div>
 
                     {/* Rooftop terrace */}
                     <div
-                      className="relative rounded-xl overflow-hidden cursor-pointer group bg-gradient-to-br from-orange-400 to-red-500 p-4"
+                      className="relative cursor-pointer group"
                       onClick={() =>
                         setSelectedImage({
                           src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior6.jpg-gVE7ITTxoPaDiNHT7fasYSwoGjuXIu.jpeg",
@@ -60,20 +58,18 @@ export default function TheHouse() {
                         })
                       }
                     >
-                      <div className="relative w-full h-full rounded-lg overflow-hidden">
-                        <Image
-                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior6.jpg-gVE7ITTxoPaDiNHT7fasYSwoGjuXIu.jpeg"
-                          alt="Rooftop terrace with wooden deck and outdoor dining area"
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-xl"></div>
+                      <Image
+                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior6.jpg-gVE7ITTxoPaDiNHT7fasYSwoGjuXIu.jpeg"
+                        alt="Rooftop terrace with wooden deck and outdoor dining area"
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                     </div>
 
                     {/* Ground terrace */}
                     <div
-                      className="relative rounded-xl overflow-hidden cursor-pointer group bg-gradient-to-br from-blue-400 to-indigo-500 p-4"
+                      className="relative cursor-pointer group"
                       onClick={() =>
                         setSelectedImage({
                           src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior4.jpg-03IwSFoKNZGwpj8rzfgZy4ep2DT1Do.jpeg",
@@ -81,20 +77,18 @@ export default function TheHouse() {
                         })
                       }
                     >
-                      <div className="relative w-full h-full rounded-lg overflow-hidden">
-                        <Image
-                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior4.jpg-03IwSFoKNZGwpj8rzfgZy4ep2DT1Do.jpeg"
-                          alt="Ground level terrace with outdoor seating and forest view"
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-xl"></div>
+                      <Image
+                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior4.jpg-03IwSFoKNZGwpj8rzfgZy4ep2DT1Do.jpeg"
+                        alt="Ground level terrace with outdoor seating and forest view"
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                     </div>
 
                     {/* Rooftop terrace with planters - spans 2 columns */}
                     <div
-                      className="col-span-2 relative rounded-xl overflow-hidden cursor-pointer group bg-gradient-to-br from-purple-400 to-pink-500 p-4"
+                      className="col-span-2 relative cursor-pointer group"
                       onClick={() =>
                         setSelectedImage({
                           src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior5.jpg-wbVpsAQFKVlv11MJL2isf7CTqyslpx.jpeg",
@@ -102,20 +96,18 @@ export default function TheHouse() {
                         })
                       }
                     >
-                      <div className="relative w-full h-full rounded-lg overflow-hidden">
-                        <Image
-                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior5.jpg-wbVpsAQFKVlv11MJL2isf7CTqyslpx.jpeg"
-                          alt="Rooftop terrace with planters and forest backdrop"
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-xl"></div>
+                      <Image
+                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior5.jpg-wbVpsAQFKVlv11MJL2isf7CTqyslpx.jpeg"
+                        alt="Rooftop terrace with planters and forest backdrop"
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                     </div>
 
                     {/* Patio area */}
                     <div
-                      className="relative rounded-xl overflow-hidden cursor-pointer group bg-gradient-to-br from-amber-400 to-orange-500 p-4"
+                      className="relative cursor-pointer group"
                       onClick={() =>
                         setSelectedImage({
                           src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior3.jpg-yOCSOAJcVAVoGTgd2JQ3eynSv5Vyie.jpeg",
@@ -123,20 +115,18 @@ export default function TheHouse() {
                         })
                       }
                     >
-                      <div className="relative w-full h-full rounded-lg overflow-hidden">
-                        <Image
-                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior3.jpg-yOCSOAJcVAVoGTgd2JQ3eynSv5Vyie.jpeg"
-                          alt="Ground level patio with outdoor furniture and garden path"
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-xl"></div>
+                      <Image
+                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior3.jpg-yOCSOAJcVAVoGTgd2JQ3eynSv5Vyie.jpeg"
+                        alt="Ground level patio with outdoor furniture and garden path"
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                     </div>
 
                     {/* Villa in forest */}
                     <div
-                      className="relative rounded-xl overflow-hidden cursor-pointer group bg-gradient-to-br from-cyan-400 to-blue-500 p-4"
+                      className="relative cursor-pointer group"
                       onClick={() =>
                         setSelectedImage({
                           src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior2.jpg-KRxB4RFnd795skUzQAzQ7JvQybj0U9.jpeg",
@@ -144,15 +134,13 @@ export default function TheHouse() {
                         })
                       }
                     >
-                      <div className="relative w-full h-full rounded-lg overflow-hidden">
-                        <Image
-                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior2.jpg-KRxB4RFnd795skUzQAzQ7JvQybj0U9.jpeg"
-                          alt="Modern concrete villa nestled among pine trees"
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-xl"></div>
+                      <Image
+                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/exterior2.jpg-KRxB4RFnd795skUzQAzQ7JvQybj0U9.jpeg"
+                        alt="Modern concrete villa nestled among pine trees"
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                     </div>
                   </div>
                 </div>
