@@ -12,7 +12,7 @@ export function SiteHeader() {
           IL BUCO
         </Link>
         <div className="flex items-center">
-          <nav className="hidden xl:flex items-center space-x-8 mr-4">
+          <nav className="hidden lg:flex items-center space-x-8 mr-4">
             <Link href="/the-house" className="text-sm font-medium hover:text-blue-600 transition-colors">
               <Translate text={translations.nav.theHouse} />
             </Link>
@@ -34,7 +34,7 @@ export function SiteHeader() {
           </nav>
           <div className="flex items-center">
             <LanguageSelector />
-            <div className="xl:hidden ml-4">
+            <div className="lg:hidden ml-4">
               <MobileMenu />
             </div>
           </div>
