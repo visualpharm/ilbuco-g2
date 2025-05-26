@@ -1,8 +1,8 @@
+import Image from "next/image"
 import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
-import { HeroGallery } from "@/components/hero-gallery"
 import { houseTranslations } from "@/translations/house"
 import {
   Sofa,
@@ -35,8 +35,14 @@ export default function TheHouse() {
                 <Translate text={houseTranslations.pageTitle} />
               </h1>
 
-              <div className="mb-12">
-                <HeroGallery />
+              <div className="relative h-[400px] md:h-[500px] rounded-xl overflow-hidden mb-12">
+                <Image
+                  src="/villa-pine-forest-path.jpeg"
+                  alt="IL BUCO Villa exterior"
+                  fill
+                  className="object-cover"
+                  priority
+                />
               </div>
 
               {/* Highlights Section */}
