@@ -3,6 +3,7 @@ import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
+import { AmenitiesToolTip } from "@/components/amenities-tooltip"
 import { translations } from "@/translations/common"
 import {
   ArrowRight,
@@ -38,7 +39,11 @@ export default function Home() {
                   <Translate text={translations.home.hero.title} />
                 </h1>
                 <p className="text-lg text-gray-700 max-w-xl">
-                  <Translate text={translations.home.hero.subtitle} />
+                  <Translate text={translations.home.hero.subtitlePart1} />{" "}
+                  <AmenitiesToolTip>
+                    <Translate text={translations.home.hero.ultraCapitalistAmenities} />
+                  </AmenitiesToolTip>
+                  <Translate text={translations.home.hero.subtitlePart2} />
                 </p>
                 <div className="pt-4">
                   <Link
@@ -51,11 +56,12 @@ export default function Home() {
               </div>
               <div className="relative h-[400px] md:h-[500px] rounded-xl overflow-hidden">
                 <Image
-                  src="/villa-pine-forest-path.jpeg"
-                  alt="IL BUCO Villa in pine forest"
+                  src="/il-buco-hero-exterior.jpeg"
+                  alt="IL BUCO modern villa exterior with warm lighting and pine forest"
                   fill
                   className="object-cover"
                   priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
                 />
               </div>
             </div>

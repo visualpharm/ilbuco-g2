@@ -14,7 +14,8 @@ export function LanguageSelector() {
     { code: "pt", name: "Português", flag: "🇧🇷" },
   ]
 
-  const currentLanguage = languages.find((lang) => lang.code === language) || languages[0]
+  // Use the actual language code from context, not just the first match
+  const currentLanguage = languages.find((lang) => lang.code === language.code) || languages[1] // Default to Spanish
 
   return (
     <div className="relative">
@@ -33,11 +34,11 @@ export function LanguageSelector() {
             <button
               key={lang.code}
               onClick={() => {
-                setLanguage(lang.code as "en" | "es" | "pt")
+                setLanguage(lang.code)
                 setIsOpen(false)
               }}
               className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center space-x-2 ${
-                language === lang.code ? "bg-blue-50 text-blue-600" : ""
+                language.code === lang.code ? "bg-blue-50 text-blue-600" : ""
               }`}
             >
               <span>{lang.flag}</span>

@@ -11,7 +11,7 @@ interface TranslationProps {
 export function Translate({ text }: TranslationProps) {
   const { language } = useLanguage()
 
-  // Get the base language code (es or en)
+  // Get the base language code from the language object
   const baseLanguage = language.code
 
   // Try to get the translation for the current language

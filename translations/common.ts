@@ -47,10 +47,25 @@ export const translations = {
         es: "Residencia tecnológica ultra-moderna en Cariló, Argentina",
         pt: "Villa tecnológica ultra-moderna em Cariló, Argentina",
       },
-      subtitle: {
-        en: "Set in a wild pine forest, steps from the beach and city comforts. Ideal for tech founders and remote workers planning extended stays to achieve long-standing goals.",
-        es: "Ubicada en un bosque de pinos salvaje, a pasos de la playa y comodidades de la ciudad. Ideal para fundadores de tecnología y trabajadores remotos que planean estadías prolongadas para lograr objetivos de largo plazo.",
-        pt: "Localizada em uma floresta de pinheiros selvagem, a poucos passos da praia e do conforto da cidade. Ideal para fundadores de tecnologia e trabalhadores remotos que planejam estadias prolongadas para alcançar objetivos de longo prazo.",
+      subtitlePart1: {
+        en: "Set in a wild pine forest, steps from the beach and",
+        es: "Ubicada en un bosque de pinos salvaje, a pasos de la playa y",
+        pt: "Localizada em uma floresta de pinheiros selvagem, a poucos passos da praia e",
+      },
+      subtitlePart2: {
+        en: ". Ideal for tech founders and remote workers to achieve long-standing goals.",
+        es: ". Ideal para fundadores de tecnología y trabajadores remotos para lograr objetivos de largo plazo.",
+        pt: ". Ideal para fundadores de tecnologia e trabalhadores remotos para alcançar objetivos de longo prazo.",
+      },
+      ultraCapitalistAmenities: {
+        en: "ultra-capitalist amenities",
+        es: "comodidades ultra-capitalistas",
+        pt: "comodidades ultra-capitalistas",
+      },
+      amenitiesHint: {
+        en: "Top restaurants, all kinds of stores, food delivery, Uber, SPA, personal trainers, and plastic surgeon",
+        es: "Restaurantes top, tiendas de todo, entrega de comida, uber, SPA, personal trainers, and plastic surgeon",
+        pt: "Restaurantes top, lojas de tudo, entrega de comida, Uber, SPA, personal trainers, e cirurgião plástico",
       },
       cta: {
         en: "Book your stay",
