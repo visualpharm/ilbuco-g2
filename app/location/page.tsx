@@ -88,14 +88,8 @@ export default function Location() {
                           </span>
                         </div>
 
-                        <div className="md:flex md:justify-between">
-                          <div className="md:pr-4 md:max-w-[calc(100%-240px)]">
-                            <p className="text-gray-700 mb-2">
-                              <Translate text={locationTranslations.gettingHere.bus.description} />
-                            </p>
-                          </div>
-
-                          <div className="mt-4 md:mt-0 md:ml-4 md:float-right w-full md:w-[220px] bg-gray-50 rounded-lg overflow-hidden shadow-sm flex-shrink-0">
+                        <div className="relative">
+                          <div className="float-right ml-4 mb-4 w-full sm:w-[240px] bg-gray-50 rounded-lg overflow-hidden shadow-sm">
                             <div className="relative h-[180px] w-full cursor-pointer">
                               <Image
                                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cama_ejecutivo.jpg-nW5M2EciGfoaFbCppu2LS7uEYekT5e.jpeg"
@@ -112,6 +106,12 @@ export default function Location() {
                                 <Translate text={locationTranslations.gettingHere.bus.tip} />
                               </strong>
                             </div>
+                          </div>
+                          
+                          <div className="text-gray-700">
+                            <p className="mb-2">
+                              <Translate text={locationTranslations.gettingHere.bus.description} />
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -141,7 +141,7 @@ export default function Location() {
                   </li>
 
                   <li className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0">🚂</span>
+                    <span className="h-5 w-5 mr-3 mt-1 text-gray-700">🚂</span>
                     <div>
                       <p className="font-semibold">
                         <Translate

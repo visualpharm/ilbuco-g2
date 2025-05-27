@@ -13,6 +13,7 @@ export default function Rooms() {
     { src: "/photo/giardino/giardino2.jpg", alt: "Giardino Suite - Kitchen with full-size refrigerator" },
     { src: "/photo/giardino/giardino3.jpg", alt: "Giardino Suite - Dining area with garden view" },
     { src: "/photo/giardino/giardino4.jpg", alt: "Giardino Suite - Additional view" },
+    { src: "/photo/giardino/giardino5.jpg", alt: "Giardino Suite - Bedroom view" },
     { src: "/photo/exterior/exterior4.jpg", alt: "Giardino Suite - Exterior view" },
   ]
 
@@ -20,12 +21,18 @@ export default function Rooms() {
     { src: "/photo/terrazzo/terrazzo1.jpg", alt: "Terrace Suite - Large Private Terrace" },
     { src: "/photo/terrazzo/terrazzo2.jpg", alt: "Terrace Suite - Dining Area" },
     { src: "/photo/terrazzo/terrazzo3.jpg", alt: "Terrace Suite - Bedroom" },
+    { src: "/photo/terrazzo/terrazzo4.jpg", alt: "Terrace Suite - Kitchen Area" },
+    { src: "/photo/terrazzo/terrazzo5.jpg", alt: "Terrace Suite - Living Space" },
+    { src: "/photo/terrazzo/terrazzo6.jpg", alt: "Terrace Suite - Additional View" },
   ]
 
   const forestSuiteImages = [
     { src: "/photo/paraiso/paraiso1.jpg", alt: "Forest-View Suite Living Room" },
     { src: "/photo/paraiso/paraiso2.jpg", alt: "Forest-View Suite Kitchen" },
     { src: "/photo/paraiso/paraiso3.jpg", alt: "Forest-View Suite Bedroom" },
+    { src: "/photo/paraiso/paraiso4.jpg", alt: "Forest-View Suite Bathroom" },
+    { src: "/photo/paraiso/paraiso6.jpg", alt: "Forest-View Suite Dining Area" },
+    { src: "/photo/paraiso/paraiso7.jpg", alt: "Forest-View Suite Additional View" },
   ]
 
   const penthouseSuiteImages = [
@@ -131,7 +138,7 @@ export default function Rooms() {
                     </li>
                   </ul>
 
-                  <ImageGallery images={gardenSuiteImages} gridCols="grid-cols-5" />
+                  <ImageGallery images={gardenSuiteImages} gridCols="grid-cols-3" />
 
                 </div>
 
@@ -261,6 +268,29 @@ export default function Rooms() {
                         />
                       </span>
                     </li>
+                    <li className="flex items-start">
+                      <svg
+                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <rect x="4" y="8" width="16" height="12" rx="2" />
+                        <path d="M4 8v-2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2" />
+                        <path d="M8 12h8" />
+                      </svg>
+                      <span>
+                        <Translate
+                          text={{
+                            en: "Futon available for extra bed (fee)",
+                            es: "Futón disponible para cama extra (con cargo)",
+                          }}
+                        />
+                      </span>
+                    </li>
                   </ul>
 
                   <ImageGallery images={terraceSuiteImages} gridCols="grid-cols-3" />
@@ -286,7 +316,7 @@ export default function Rooms() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       >
-                        <path d="M17 14l-5-5-5 5" />
+                        <path d="M17 14l-5-5-5 5v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                         <path d="M12 9v12" />
                         <path d="M5 21h14" />
                       </svg>
@@ -357,6 +387,73 @@ export default function Rooms() {
                         <circle cx="9" cy="7" r="4" />
                         <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                      </svg>
+                      <span>
+                        <Translate
+                          text={{
+                            en: "Ideal for couples or those needing separate work space",
+                            es: "Ideal para parejas o quienes necesitan espacio de trabajo separado",
+                          }}
+                        />
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <svg
+                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <rect x="4" y="8" width="16" height="12" rx="2" />
+                        <path d="M4 8v-2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2" />
+                        <path d="M8 12h8" />
+                      </svg>
+                      <span>
+                        <Translate
+                          text={{
+                            en: "Twin beds that can be joined to form a queen-size bed",
+                            es: "Camas twin que pueden unirse para formar una cama queen-size",
+                          }}
+                        />
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <svg
+                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <rect x="4" y="8" width="16" height="12" rx="2" />
+                        <path d="M4 8v-2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2" />
+                        <path d="M8 12h8" />
+                      </svg>
+                      <span>
+                        <Translate
+                          text={{
+                            en: "Futon available for extra bed (fee)",
+                            es: "Futón disponible para cama extra (con cargo)",
+                          }}
+                        />
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <svg
+                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                       </svg>
                       <span>
                         <Translate
@@ -442,6 +539,29 @@ export default function Rooms() {
                           text={{
                             en: "Our most spacious and luxurious accommodation",
                             es: "Nuestro alojamiento más espacioso y lujoso",
+                          }}
+                        />
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <svg
+                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <rect x="4" y="8" width="16" height="12" rx="2" />
+                        <path d="M4 8v-2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2" />
+                        <path d="M8 12h8" />
+                      </svg>
+                      <span>
+                        <Translate
+                          text={{
+                            en: "Futon available for extra bed (fee)",
+                            es: "Futón disponible para cama extra (con cargo)",
                           }}
                         />
                       </span>

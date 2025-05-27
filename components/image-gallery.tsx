@@ -11,7 +11,7 @@ interface ImageData {
 
 interface ImageGalleryProps {
   images: ImageData[]
-  gridCols?: "grid-cols-2" | "grid-cols-3" | "grid-cols-4" | "grid-cols-5"
+  gridCols?: "grid-cols-2" | "grid-cols-3" | "grid-cols-4" | "grid-cols-5" | "grid-cols-6"
   className?: string
 }
 
