@@ -88,30 +88,24 @@ export default function Location() {
                           </span>
                         </div>
 
-                        <div className="relative">
-                          <div className="float-right ml-4 mb-4 w-full sm:w-[240px] bg-gray-50 rounded-lg overflow-hidden shadow-sm">
-                            <div className="relative h-[180px] w-full cursor-pointer">
-                              <Image
-                                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cama_ejecutivo.jpg-nW5M2EciGfoaFbCppu2LS7uEYekT5e.jpeg"
-                                alt="Cama Ejecutivo bus interior with spacious reclining seats"
-                                fill
-                                className="object-cover hover:brightness-105 transition-all"
-                              />
-                              <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-10 transition-all flex items-center justify-center">
-                                <span className="sr-only">Click to zoom</span>
-                              </div>
-                            </div>
-                            <div className="p-3 text-sm">
-                              <strong>
-                                <Translate text={locationTranslations.gettingHere.bus.tip} />
-                              </strong>
-                            </div>
-                          </div>
-                          
-                          <div className="text-gray-700">
-                            <p className="mb-2">
+                        <div className="block gap-4 mb-4">
+                          <div className="flex-1 order-2 sm:order-1">
+                            <p className="text-gray-700 mb-2">
                               <Translate text={locationTranslations.gettingHere.bus.description} />
                             </p>
+                            <div className="block my-2">
+                              <Image
+                                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cama_ejecutivo.jpg-nW5M2EciGfoaFbCppu2LS7uEYekT5e.jpeg"
+                                alt="Cama Ejecutivo bus interior"
+                                height={120}
+                                width={180}
+                                className="rounded object-cover"
+                                priority
+                              />
+                              <span className="italic text-gray-600 text-sm mt-2 text-left block">
+                                <Translate text={locationTranslations.gettingHere.bus.tip} />
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
