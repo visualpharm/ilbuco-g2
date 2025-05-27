@@ -3,10 +3,36 @@ import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
+import { ImageGallery } from "@/components/image-gallery"
 import { roomsTranslations } from "@/translations/rooms"
 import { Wifi, Thermometer, UtensilsCrossed, ShowerHeadIcon as Shower, Bed, LampDesk } from "lucide-react"
 
 export default function Rooms() {
+  const gardenSuiteImages = [
+    { src: "/photo/giardino/giardino1.jpg", alt: "Giardino Suite - View of living area and bedroom" },
+    { src: "/photo/giardino/giardino2.jpg", alt: "Giardino Suite - Kitchen with full-size refrigerator" },
+    { src: "/photo/giardino/giardino3.jpg", alt: "Giardino Suite - Dining area with garden view" },
+    { src: "/photo/giardino/giardino4.jpg", alt: "Giardino Suite - Additional view" },
+    { src: "/photo/exterior/exterior4.jpg", alt: "Giardino Suite - Exterior view" },
+  ]
+
+  const terraceSuiteImages = [
+    { src: "/photo/terrazzo/terrazzo1.jpg", alt: "Terrace Suite - Large Private Terrace" },
+    { src: "/photo/terrazzo/terrazzo2.jpg", alt: "Terrace Suite - Dining Area" },
+    { src: "/photo/terrazzo/terrazzo3.jpg", alt: "Terrace Suite - Bedroom" },
+  ]
+
+  const forestSuiteImages = [
+    { src: "/photo/paraiso/paraiso1.jpg", alt: "Forest-View Suite Living Room" },
+    { src: "/photo/paraiso/paraiso2.jpg", alt: "Forest-View Suite Kitchen" },
+    { src: "/photo/paraiso/paraiso3.jpg", alt: "Forest-View Suite Bedroom" },
+  ]
+
+  const penthouseSuiteImages = [
+    { src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/penthouse_corner%20window-m9Wog22hf421cCpCzob9Pc2GGzSUJL.webp", alt: "Penthouse Suite - Corner Windows with Forest View" },
+    { src: "/photo/exterior/exterior5.jpg", alt: "Penthouse Suite - Sundeck with Forest View" },
+  ]
+
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
@@ -105,32 +131,8 @@ export default function Rooms() {
                     </li>
                   </ul>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                    <div className="relative h-[250px] rounded-lg overflow-hidden">
-                      <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/giardino_salon_view-RTleH44cmakwqXzZa2wNSPxEbXdjhI.jpeg"
-                        alt="Giardino Suite - View of living area and bedroom"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="relative h-[250px] rounded-lg overflow-hidden">
-                      <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/giardino_kitchen_fridge_corner-yf60SmRsEm7son2oqynRXRFtVXEuFh.jpeg"
-                        alt="Giardino Suite - Kitchen with full-size refrigerator"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="relative h-[250px] rounded-lg overflow-hidden">
-                      <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/giardino_dining_kitchen_gardenview-wJknYcfHtc0oeUbneuLp2bLfdV4fFa.jpeg"
-                        alt="Giardino Suite - Dining area with garden view"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
+                  <ImageGallery images={gardenSuiteImages} gridCols="grid-cols-5" />
+
                 </div>
 
                 {/* Terrace Suite */}
@@ -261,32 +263,8 @@ export default function Rooms() {
                     </li>
                   </ul>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                    <div className="relative h-[250px] rounded-lg overflow-hidden">
-                      <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/terrazo_forest_view-K69FhPNSqtff8uPaGJRPwc9lmDOaBT.jpeg"
-                        alt="Terrace Suite - Large Private Terrace"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="relative h-[250px] rounded-lg overflow-hidden">
-                      <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/terrazo_dining_table_tv-Ab6K9U5vyT46rADnki4xJtPc8g6yLP.jpeg"
-                        alt="Terrace Suite - Dining Area"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="relative h-[250px] rounded-lg overflow-hidden">
-                      <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/terrazo_bedroom_single_longwall-aleGMEOUDcwCzes93z3kVRdM5kpqQd.jpeg"
-                        alt="Terrace Suite - Bedroom"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
+                  <ImageGallery images={terraceSuiteImages} gridCols="grid-cols-3" />
+
                 </div>
 
                 {/* Forest-View Suite */}
@@ -391,32 +369,8 @@ export default function Rooms() {
                     </li>
                   </ul>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                    <div className="relative h-[250px] rounded-lg overflow-hidden">
-                      <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/paraiso_living_room_tv_sofa-xEFtLiFLY5FVFrCNmksJaj9ObRecdl.jpeg"
-                        alt="Forest-View Suite Living Room"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="relative h-[250px] rounded-lg overflow-hidden">
-                      <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/paraiso_kitchen-fGnSfzXKMlGd4miPDdxGhF6NOZmglM.jpeg"
-                        alt="Forest-View Suite Kitchen"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="relative h-[250px] rounded-lg overflow-hidden">
-                      <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/paraiso_bedroom_with_window-zh3u47jltrpQ5ALfGqnlR5luk21AmD.jpeg"
-                        alt="Forest-View Suite Bedroom"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
+                  <ImageGallery images={forestSuiteImages} gridCols="grid-cols-3" />
+
                 </div>
 
                 {/* Penthouse Suite */}
@@ -494,24 +448,8 @@ export default function Rooms() {
                     </li>
                   </ul>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                    <div className="relative h-[250px] rounded-lg overflow-hidden">
-                      <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/penthouse_corner%20window-m9Wog22hf421cCpCzob9Pc2GGzSUJL.webp"
-                        alt="Penthouse Suite - Corner Windows with Forest View"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="relative h-[250px] rounded-lg overflow-hidden">
-                      <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/sundeck-oUH1lbDSgAhXZkMtFb2s5dnaDxmm1T.webp"
-                        alt="Penthouse Suite - Sundeck with Forest View"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
+                  <ImageGallery images={penthouseSuiteImages} gridCols="grid-cols-2" />
+
                 </div>
 
                 {/* All Suites Include */}
