@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { MobileMenu } from "./mobile-menu"
 import { LanguageSelector } from "./language-selector"
 import { Translate } from "./translate"
@@ -12,7 +13,7 @@ export function SiteHeader() {
           IL BUCO
         </Link>
         <div className="flex items-center">
-          <nav className="hidden lg:flex items-center space-x-8 mr-4">
+          <nav className="hidden lg:flex items-center space-x-8">
             <Link href="/the-house" className="text-sm font-medium hover:text-blue-600 transition-colors">
               <Translate text={translations.nav.theHouse} />
             </Link>
@@ -25,16 +26,16 @@ export function SiteHeader() {
             <Link href="/places-nearby" className="text-sm font-medium hover:text-blue-600 transition-colors">
               <Translate text={translations.nav.placesNearby} />
             </Link>
+          </nav>
+          <div className="flex items-center space-x-4 ml-4">
             <Link
               href="/book"
-              className="inline-flex items-center px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors"
+              className="hidden sm:inline-flex items-center space-x-2 px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors whitespace-nowrap"
             >
               <Translate text={translations.nav.book} />
             </Link>
-          </nav>
-          <div className="flex items-center">
             <LanguageSelector />
-            <div className="lg:hidden ml-4">
+            <div className="lg:hidden">
               <MobileMenu />
             </div>
           </div>

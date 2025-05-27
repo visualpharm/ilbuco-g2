@@ -1,10 +1,8 @@
 import type React from "react"
-import "./globals.css"
-import { Inter } from "next/font/google"
+import "@/styles/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/contexts/language-context"
-
-const inter = Inter({ subsets: ["latin"] })
+import Head from "next/head"
 
 export const metadata = {
   title: "IL BUCO - Ultra-modern tech villa in Cariló, Argentina",
@@ -20,7 +18,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <Head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+      </Head>
+      <body>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <LanguageProvider>{children}</LanguageProvider>
         </ThemeProvider>

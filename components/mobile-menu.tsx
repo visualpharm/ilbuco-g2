@@ -38,35 +38,35 @@ export function MobileMenu() {
             <nav className="flex flex-col p-4 space-y-4">
               <Link
                 href="/the-house"
-                className="text-lg font-medium hover:text-blue-600 transition-colors py-2"
+                className="block text-lg font-medium hover:text-blue-600 transition-colors py-3"
                 onClick={() => setIsOpen(false)}
               >
                 <Translate text={translations.nav.theHouse} />
               </Link>
               <Link
                 href="/rooms"
-                className="text-lg font-medium hover:text-blue-600 transition-colors py-2"
+                className="block text-lg font-medium hover:text-blue-600 transition-colors py-3"
                 onClick={() => setIsOpen(false)}
               >
                 <Translate text={translations.nav.rooms} />
               </Link>
               <Link
                 href="/location"
-                className="text-lg font-medium hover:text-blue-600 transition-colors py-2"
+                className="block text-lg font-medium hover:text-blue-600 transition-colors py-3"
                 onClick={() => setIsOpen(false)}
               >
                 <Translate text={translations.nav.location} />
               </Link>
               <Link
                 href="/places-nearby"
-                className="text-lg font-medium hover:text-blue-600 transition-colors py-2"
+                className="block text-lg font-medium hover:text-blue-600 transition-colors py-3"
                 onClick={() => setIsOpen(false)}
               >
                 <Translate text={translations.nav.placesNearby} />
               </Link>
               <Link
                 href="/book"
-                className="inline-flex items-center justify-center px-4 py-3 bg-black text-white text-lg font-medium rounded-md hover:bg-gray-800 transition-colors mt-4"
+                className="block text-center px-4 py-3 bg-black text-white text-lg font-medium rounded-md hover:bg-gray-800 transition-colors mt-4"
                 onClick={() => setIsOpen(false)}
               >
                 <Translate text={translations.nav.book} />
