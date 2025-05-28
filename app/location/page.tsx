@@ -229,8 +229,8 @@ export default function Location() {
                     }}
                   />
                 </h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                <div className="grid grid-cols-3 sm:grid-cols-3 gap-2">
+                  <div className="relative aspect-square min-h-[80px] rounded-lg overflow-hidden group">
                     <Image
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/File%2024-04-2025%2C%2010%2029%2015%20PM.jpeg-zy2r0LsIkjdnZ0czOZgscZzzXDh2gm.png"
                       alt="Cariló beach with waves and cloudy sky"
@@ -239,7 +239,7 @@ export default function Location() {
                     />
                     <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                   </div>
-                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                  <div className="relative aspect-square min-h-[80px] rounded-lg overflow-hidden group">
                     <Image
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/File%2024-04-2025%2C%2010%2034%2051%20PM%20%286%29%20%281%29.jpeg-JR5Q4JMSI3cscyNAKUeIUqt9EVdyee.png"
                       alt="Lifeguard station on Cariló beach"
@@ -248,7 +248,7 @@ export default function Location() {
                     />
                     <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                   </div>
-                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                  <div className="relative aspect-square min-h-[80px] rounded-lg overflow-hidden group">
                     <Image
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/File%2024-04-2025%2C%2010%2029%2015%20PM%20%281%29.jpeg-VxGhS3R27n0nduSRtdSZvOOOHslx1M.png"
                       alt="Modern concrete villa at night in Cariló"
@@ -257,7 +257,7 @@ export default function Location() {
                     />
                     <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                   </div>
-                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                  <div className="relative aspect-square min-h-[80px] rounded-lg overflow-hidden group">
                     <Image
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/File%2024-04-2025%2C%2010%2029%2015%20PM%20%282%29%20%281%29.jpeg-hipfIxZRDSXb3rP4qb5RfARL0KDKWV.png"
                       alt="Pine trees at night in Cariló"
@@ -266,7 +266,7 @@ export default function Location() {
                     />
                     <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                   </div>
-                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                  <div className="relative aspect-square min-h-[80px] rounded-lg overflow-hidden group">
                     <Image
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/File%2024-04-2025%2C%2010%2034%2051%20PM%20%281%29%20%281%29.jpeg-QJVUPiAglBTZSdYJtL9gt9OXe8R7g8.png"
                       alt="Coastal vegetation and pine trees in Cariló"
@@ -275,7 +275,7 @@ export default function Location() {
                     />
                     <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                   </div>
-                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                  <div className="relative aspect-square min-h-[80px] rounded-lg overflow-hidden group">
                     <Image
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/File%2024-04-2025%2C%2010%2034%2051%20PM%20%288%29.jpeg-EZAYZRstt3u4q8pxErGu10hgJeiOHa.png"
                       alt="Pine trees silhouette at dusk in Cariló"
