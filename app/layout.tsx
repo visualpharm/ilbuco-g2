@@ -1,15 +1,10 @@
-import type React from "react"
+"use client"
+
+import { useEffect } from "react"
 import "@/styles/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/contexts/language-context"
 import Head from "next/head"
-
-export const metadata = {
-  title: "IL BUCO - Ultra-modern tech villa in Cariló, Argentina",
-  description:
-    "Set in a wild pine forest, steps from the beach and city comforts. Ideal for tech founders and remote workers planning extended stays.",
-  generator: "v0.dev",
-}
 
 export default function RootLayout({
   children,
@@ -28,7 +23,16 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <LanguageProvider>{children}</LanguageProvider>
         </ThemeProvider>
+        <RemoveExtensionAttribute />
       </body>
     </html>
   )
+}
+
+function RemoveExtensionAttribute() {
+  useEffect(() => {
+    // Remove the attribute after hydration
+    document.body.removeAttribute('data-extension-installed')
+  }, [])
+  return null
 }
