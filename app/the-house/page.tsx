@@ -4,23 +4,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
 import { HeroGallery } from "@/components/hero-gallery"
 import { houseTranslations } from "@/translations/house"
-import {
-  Sofa,
-  TreesIcon as Tree,
-  ShowerHeadIcon as Shower,
-  Home,
-  UtensilsCrossed,
-  Monitor,
-  Sparkles,
-  Calendar,
-  Wifi,
-  Thermometer,
-  Refrigerator,
-  Bed,
-  Droplet,
-  Building,
-  Shield,
-} from "lucide-react"
+import { Win10Icon } from "@/components/win10-icon"
 
 export default function TheHouse() {
   return (
@@ -48,7 +32,7 @@ export default function TheHouse() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <Win10Icon name="bedroom" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate text={houseTranslations.highlights.bedrooms.title} />
@@ -62,7 +46,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Thermometer className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="thermometer" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate text={houseTranslations.highlights.climate.title} />
@@ -76,7 +60,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Tree className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="roof" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate text={houseTranslations.highlights.roof.title} />
@@ -90,7 +74,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Shield className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="soundInsulation" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate text={houseTranslations.highlights.sound.title} />
@@ -104,7 +88,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Droplet className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="droplet" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -130,7 +114,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Wifi className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="wifi" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -156,7 +140,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Home className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="home" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -182,7 +166,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Sofa className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="sofa" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -208,7 +192,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Bed className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="bed" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -234,7 +218,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Shower className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="shower" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -260,7 +244,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Building className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="construction" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -295,7 +279,7 @@ export default function TheHouse() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Sofa className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="ergonomicWorkspace" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -321,7 +305,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Monitor className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="monitor" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -347,7 +331,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Building className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="serverRack" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -373,7 +357,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Monitor className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="monitor" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -408,7 +392,7 @@ export default function TheHouse() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Refrigerator className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="refrigerator" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -434,7 +418,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <UtensilsCrossed className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="utensilsCrossed" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -460,7 +444,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <UtensilsCrossed className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="coffee" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -486,7 +470,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <UtensilsCrossed className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="utensilsCrossed" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -520,7 +504,7 @@ export default function TheHouse() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Home className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="home" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -546,7 +530,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Shower className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="shower" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -572,7 +556,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <UtensilsCrossed className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="utensilsCrossed" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -598,7 +582,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Shower className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="shower" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -632,7 +616,7 @@ export default function TheHouse() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Sofa className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="sofa" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -658,7 +642,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <UtensilsCrossed className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="utensilsCrossed" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -684,7 +668,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Tree className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="plants" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -718,7 +702,7 @@ export default function TheHouse() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Calendar className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="calendar" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -744,7 +728,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Sofa className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="sofa" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -770,7 +754,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Monitor className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="monitor" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -796,7 +780,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Calendar className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="calendar" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -830,7 +814,7 @@ export default function TheHouse() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Sparkles className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="sparkles" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -856,7 +840,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <Sparkles className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                      <Win10Icon name="sparkles" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -890,7 +874,7 @@ export default function TheHouse() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <Win10Icon name="quiet" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -916,7 +900,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <Win10Icon name="noParties" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -942,7 +926,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <Win10Icon name="cleanAreas" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -968,7 +952,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <Win10Icon name="pets" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -994,7 +978,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <Win10Icon name="checkIn" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -1020,7 +1004,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <Win10Icon name="checkOut" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -1046,7 +1030,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <Win10Icon name="utilities" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -1080,7 +1064,7 @@ export default function TheHouse() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <Win10Icon name="yearRound" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -1106,7 +1090,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <Win10Icon name="highSeason" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -1132,7 +1116,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <Win10Icon name="bestRates" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -1158,7 +1142,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <Win10Icon name="minStay" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate
@@ -1184,7 +1168,7 @@ export default function TheHouse() {
 
                   <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex items-start mb-3">
-                      <span className="h-5 w-5 mr-3 mt-1 text-gray-700">•</span>
+                      <Win10Icon name="longTerm" className="mr-3 mt-1" />
                       <div>
                         <h3 className="text-lg font-semibold">
                           <Translate

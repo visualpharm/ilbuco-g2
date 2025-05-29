@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
 import { ImageGallery } from "@/components/image-gallery"
 import { roomsTranslations } from "@/translations/rooms"
-import { Wifi, Thermometer, UtensilsCrossed, ShowerHeadIcon as Shower, Bed, LampDesk } from "lucide-react"
+import { RoomFeatureIcon } from "@/components/room-feature-icon"
 
 export default function Rooms() {
   const gardenSuiteImages = [
@@ -66,19 +66,7 @@ export default function Rooms() {
                   </p>
                   <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <circle cx="12" cy="12" r="10" />
-                        <path d="M12 8v4" />
-                        <path d="M12 16h.01" />
-                      </svg>
+                      <RoomFeatureIcon name="wheelchair" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -89,21 +77,7 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <rect x="2" y="4" width="20" height="16" rx="2" />
-                        <path d="M2 8h20" />
-                        <path d="M12 16v-4" />
-                        <path d="M8 16v-2" />
-                        <path d="M16 16v-2" />
-                      </svg>
+                      <RoomFeatureIcon name="window" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -114,19 +88,7 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <rect x="4" y="8" width="16" height="12" rx="2" />
-                        <path d="M4 8v-2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2" />
-                        <path d="M8 12h8" />
-                      </svg>
+                      <RoomFeatureIcon name="table-and-chair" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -152,19 +114,7 @@ export default function Rooms() {
                   </p>
                   <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <rect x="3" y="3" width="18" height="18" rx="2" />
-                        <path d="M3 9h18" />
-                        <path d="M9 21V9" />
-                      </svg>
+                      <RoomFeatureIcon name="flower" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -175,18 +125,7 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                        <polyline points="9 22 9 12 15 12 15 22" />
-                      </svg>
+                      <RoomFeatureIcon name="window" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -197,18 +136,7 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                        <polyline points="9 22 9 12 15 12 15 22" />
-                      </svg>
+                      <RoomFeatureIcon name="desk" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -219,25 +147,7 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                      </svg>
+                      <RoomFeatureIcon name="window" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -248,17 +158,7 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                      </svg>
+                      <RoomFeatureIcon name="flower" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -269,19 +169,7 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <rect x="4" y="8" width="16" height="12" rx="2" />
-                        <path d="M4 8v-2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2" />
-                        <path d="M8 12h8" />
-                      </svg>
+                      <RoomFeatureIcon name="sofa" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -307,19 +195,7 @@ export default function Rooms() {
                   </p>
                   <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M17 14l-5-5-5 5v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                        <path d="M12 9v12" />
-                        <path d="M5 21h14" />
-                      </svg>
+                      <RoomFeatureIcon name="window" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -330,18 +206,7 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                        <polyline points="9 22 9 12 15 12 15 22" />
-                      </svg>
+                      <RoomFeatureIcon name="desk" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -352,18 +217,7 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                      </svg>
+                      <RoomFeatureIcon name="padlock" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -374,43 +228,18 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                        <circle cx="9" cy="7" r="4" />
-                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                      </svg>
+                      <RoomFeatureIcon name="padlock" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
-                            en: "Ideal for couples or those needing separate work space",
-                            es: "Ideal para parejas o quienes necesitan espacio de trabajo separado",
+                            en: "Enhanced privacy with distinct living areas",
+                            es: "Mayor privacidad con áreas de estar diferenciadas",
                           }}
                         />
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <rect x="4" y="8" width="16" height="12" rx="2" />
-                        <path d="M4 8v-2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2" />
-                        <path d="M8 12h8" />
-                      </svg>
+                      <RoomFeatureIcon name="twin-bed" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -421,45 +250,12 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <rect x="4" y="8" width="16" height="12" rx="2" />
-                        <path d="M4 8v-2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2" />
-                        <path d="M8 12h8" />
-                      </svg>
+                      <RoomFeatureIcon name="sofa" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
                             en: "Futon available for extra bed (fee)",
                             es: "Futón disponible para cama extra (con cargo)",
-                          }}
-                        />
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                      </svg>
-                      <span>
-                        <Translate
-                          text={{
-                            en: "Ideal for couples or those needing separate work space",
-                            es: "Ideal para parejas o quienes necesitan espacio de trabajo separado",
                           }}
                         />
                       </span>
@@ -480,18 +276,7 @@ export default function Rooms() {
                   </p>
                   <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                        <polyline points="9 22 9 12 15 12 15 22" />
-                      </svg>
+                      <RoomFeatureIcon name="flower" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -502,17 +287,7 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />
-                      </svg>
+                      <RoomFeatureIcon name="flower" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -523,17 +298,7 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                      </svg>
+                      <RoomFeatureIcon name="padlock" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -544,19 +309,7 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-5 w-5 mr-3 mt-1 flex-shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <rect x="4" y="8" width="16" height="12" rx="2" />
-                        <path d="M4 8v-2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2" />
-                        <path d="M8 12h8" />
-                      </svg>
+                      <RoomFeatureIcon name="sofa" className="mr-3 mt-1" />
                       <span>
                         <Translate
                           text={{
@@ -579,25 +332,25 @@ export default function Rooms() {
                   </h3>
                   <ul className="space-y-3">
                     <li className="flex items-start">
-                      <Wifi className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                      <RoomFeatureIcon name="wifi" className="mr-3 mt-1 flex-shrink-0" />
                       <span>
                         <Translate text={roomsTranslations.allSuitesInclude.internet} />
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <Thermometer className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                      <RoomFeatureIcon name="thermometer" className="mr-3 mt-1 flex-shrink-0" />
                       <span>
                         <Translate text={roomsTranslations.allSuitesInclude.heating} />
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <UtensilsCrossed className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                      <RoomFeatureIcon name="utensils-crossed" className="mr-3 mt-1 flex-shrink-0" />
                       <span>
                         <Translate text={roomsTranslations.allSuitesInclude.kitchen} />
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <Shower className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                      <RoomFeatureIcon name="shower" className="mr-3 mt-1 flex-shrink-0" />
                       <span>
                         <Translate
                           text={{
@@ -608,7 +361,7 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <Bed className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                      <RoomFeatureIcon name="bed" className="mr-3 mt-1 flex-shrink-0" />
                       <span>
                         <Translate
                           text={{
@@ -619,7 +372,7 @@ export default function Rooms() {
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <LampDesk className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                      <RoomFeatureIcon name="lamp-desk" className="mr-3 mt-1 flex-shrink-0" />
                       <span>
                         <Translate
                           text={{

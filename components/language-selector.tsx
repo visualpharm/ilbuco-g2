@@ -1,7 +1,7 @@
 "use client"
 
 import { useLanguage } from "@/contexts/language-context"
-import { ChevronDown } from "lucide-react"
+// import { ChevronDown } from "lucide-react" // Removed ChevronDown
 import { useEffect, useRef, useState } from "react"
 
 export function LanguageSelector() {
@@ -41,7 +41,7 @@ export function LanguageSelector() {
       >
         <span className="text-xl mr-2">{currentLanguage.flag}</span>
         <span>{currentLanguage.name}</span>
-        <ChevronDown className="ml-auto h-5 w-5 text-gray-500" />
+        {/* <ChevronDown className="ml-auto h-5 w-5 text-gray-500" /> */}
       </button>
 
       {isOpen && (
