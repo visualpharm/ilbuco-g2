@@ -36,14 +36,16 @@ export function LanguageSelector() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-center h-10 w-10 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="flex items-center justify-start h-10 px-3 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
         aria-label="Change language"
       >
-        <span className="text-xl">{currentLanguage.flag}</span>
+        <span className="text-xl mr-2">{currentLanguage.flag}</span>
+        <span>{currentLanguage.name}</span>
+        <ChevronDown className="ml-auto h-5 w-5 text-gray-500" />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 bg-white border border-gray-300 rounded-md shadow-lg z-50 whitespace-nowrap transform transition-all duration-200 ease-out opacity-0 translate-y-1 scale-95 data-[open=true]:opacity-100 data-[open=true]:translate-y-0 data-[open=true]:scale-100"
+        <div className="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg z-50 whitespace-nowrap transform transition-all duration-200 ease-out opacity-0 translate-y-1 scale-95 data-[open=true]:opacity-100 data-[open=true]:translate-y-0 data-[open=true]:scale-100"
              data-open={isOpen}>
           {languages.map((lang) => (
             <button

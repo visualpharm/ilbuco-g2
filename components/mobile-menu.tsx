@@ -71,7 +71,7 @@ export function MobileMenu() {
               >
                 <Translate text={translations.nav.book} />
               </Link>
-              <div className="py-2">
+              <div className="py-3">
                 <LanguageSelector />
               </div>
             </nav>
