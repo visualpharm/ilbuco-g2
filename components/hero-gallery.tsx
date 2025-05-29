@@ -94,7 +94,7 @@ export function HeroGallery() {
 
         {/* Garden View - top right */}
         <div
-          className="col-span-12 md:col-span-5 row-span-2 relative rounded-lg overflow-hidden cursor-pointer group"
+          className="col-span-12 md:col-span-5 row-span-2 relative rounded-lg overflow-hidden cursor-pointer group min-h-[100px]"
           onClick={() => openLightbox(1)}
         >
           <Image
@@ -109,7 +109,7 @@ export function HeroGallery() {
 
         {/* Deck Terrace - bottom left of right side */}
         <div
-          className="col-span-6 md:col-span-2 row-span-2 relative rounded-lg overflow-hidden cursor-pointer group"
+          className="col-span-6 md:col-span-2 row-span-2 relative rounded-lg overflow-hidden cursor-pointer group min-h-[100px]"
           onClick={() => openLightbox(2)}
         >
           <Image
@@ -124,7 +124,7 @@ export function HeroGallery() {
 
         {/* Outdoor Seating - bottom right */}
         <div
-          className="col-span-6 md:col-span-3 row-span-2 relative rounded-lg overflow-hidden cursor-pointer group"
+          className="col-span-6 md:col-span-3 row-span-2 relative rounded-lg overflow-hidden cursor-pointer group min-h-[100px]"
           onClick={() => openLightbox(3)}
         >
           <Image
