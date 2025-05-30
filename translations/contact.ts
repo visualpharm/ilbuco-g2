@@ -26,6 +26,11 @@ export const contactTranslations = {
       es: "Dirección",
       pt: "Endereço",
     },
+    fullAddress: {
+      en: "Paraiso 324, Cariló (7167), Partido de Pinamar, Buenos Aires, Argentina",
+      es: "Paraiso 324, Cariló (7167), Partido de Pinamar, Buenos Aires, Argentina",
+      pt: "Paraiso 324, Cariló (7167), Partido de Pinamar, Buenos Aires, Argentina",
+    },
     addressNote: {
       en: "(Exact address will be provided upon booking confirmation)",
       es: "(La dirección exacta se proporcionará al confirmar la reserva)",

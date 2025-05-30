@@ -76,9 +76,8 @@ export default function Contact() {
                         <h3 className="text-lg font-semibold">
                           <Translate text={contactTranslations.contactInfo.address} />
                         </h3>
-                        <p className="text-gray-700">Calle 37 y Av. del Mar, Cariló, Buenos Aires, Argentina</p>
                         <p className="text-gray-700">
-                          <Translate text={contactTranslations.contactInfo.addressNote} />
+                          <Translate text={contactTranslations.contactInfo.fullAddress} />
                         </p>
                       </div>
                     </div>
@@ -183,88 +182,97 @@ export default function Contact() {
               </div>
 
               <div className="bg-gray-50 p-6 rounded-lg">
-                <h3 className="text-xl font-bold mb-4">
+                <h3 className="text-2xl font-bold mb-6 text-center">
                   <Translate text={contactTranslations.faq.title} />
                 </h3>
-                <div className="space-y-4">
+                <div className="space-y-6 max-w-3xl mx-auto">
                   <div>
-                    <h4 className="text-lg font-semibold">
-                      <Translate text={contactTranslations.faq.checkInOut.question} />
+                    <h4 className="text-lg font-semibold mb-2">
+                      <Translate text={{
+                        en: "How many people can stay?",
+                        es: "¿Cuántas personas pueden alojarse?"
+                      }} />
                     </h4>
                     <p className="text-gray-700">
-                      <Translate text={contactTranslations.faq.checkInOut.answer} />
+                      <Translate text={{
+                        en: "Up to 16 guests: 4 double rooms (2 beds) + a double futon in each room (2 extra beds with charge).",
+                        es: "Hasta 16 huéspedes: 4 habitaciones dobles (2 plazas) + un futón doble en cada habitación (2 plazas extra con cargo)."
+                      }} />
                     </p>
                   </div>
+
                   <div>
-                    <h4 className="text-lg font-semibold">
-                      <Translate
-                        text={{
-                          en: "Is there a security deposit?",
-                          es: "¿Hay depósito de garantía?",
-                        }}
-                      />
+                    <h4 className="text-lg font-semibold mb-2">
+                      <Translate text={{
+                        en: "What are the check-in and check-out times?",
+                        es: "¿Cuál es el horario de check-in y check-out?"
+                      }} />
                     </h4>
                     <p className="text-gray-700">
-                      <Translate
-                        text={{
-                          en: "Yes, we require a security deposit that will be refunded at checkout, assuming no damages.",
-                          es: "Sí, requerimos un depósito de garantía que será devuelto al checkout, asumiendo que no hay daños.",
-                        }}
-                      />
+                      <Translate text={{
+                        en: "Check-in: 3 PM (self check-in with smart lock)\nCheck-out: 11 AM\nCan be adjusted if the room is available before or after.",
+                        es: "Check-in: 15 h (entrada autónoma con cerradura inteligente)\nCheck-out: 11 h\nSe puede ajustar si la habitación está libre antes o después."
+                      }} />
                     </p>
                   </div>
+
                   <div>
-                    <h4 className="text-lg font-semibold">
-                      <Translate
-                        text={{
-                          en: "Are pets allowed?",
-                          es: "¿Se permiten mascotas?",
-                        }}
-                      />
+                    <h4 className="text-lg font-semibold mb-2">
+                      <Translate text={{
+                        en: "Are pets allowed?",
+                        es: "¿Se permiten mascotas?"
+                      }} />
                     </h4>
                     <p className="text-gray-700">
-                      <Translate
-                        text={{
-                          en: "Yes, pets are allowed with a hypo-allergenic fee and US $300 deposit.",
-                          es: "Sí, se permiten mascotas con una tarifa hipoalergénica y depósito de US $300.",
-                        }}
-                      />
+                      <Translate text={{
+                        en: "Yes. A hypoallergenic cleaning fee plus a refundable $300 USD deposit applies.",
+                        es: "Sí. Se aplica una tarifa de limpieza hipoalergénica más un depósito de US$300 reembolsable."
+                      }} />
                     </p>
                   </div>
+
                   <div>
-                    <h4 className="text-lg font-semibold">
-                      <Translate
-                        text={{
-                          en: "What are the check-in/check-out policies?",
-                          es: "¿Cuáles son las políticas de check-in/check-out?",
-                        }}
-                      />
+                    <h4 className="text-lg font-semibold mb-2">
+                      <Translate text={{
+                        en: "Is cleaning included in the rate?",
+                        es: "¿La tarifa incluye limpieza?"
+                      }} />
                     </h4>
                     <p className="text-gray-700">
-                      <Translate
-                        text={{
-                          en: "We offer flexible check-in and check-out times. You can arrive early if your room is available, and stay late if there's no same-day check-in.",
-                          es: "Ofrecemos horarios flexibles de check-in y check-out. Podés llegar temprano si tu habitación está disponible, y quedarte hasta tarde si no hay check-in el mismo día.",
-                        }}
-                      />
+                      <Translate text={{
+                        en: "Weekly cleaning of common areas is included.\nAdditional room cleaning is available for long stays.",
+                        es: "Limpieza semanal de áreas comunes incluida.\nLimpieza adicional en la habitación disponible para estadías largas."
+                      }} />
                     </p>
                   </div>
+
                   <div>
-                    <h4 className="text-lg font-semibold">
-                      <Translate
-                        text={{
-                          en: "Is housekeeping included?",
-                          es: "¿Está incluida la limpieza?",
-                        }}
-                      />
+                    <h4 className="text-lg font-semibold mb-2">
+                      <Translate text={{
+                        en: "Are sheets and towels provided?",
+                        es: "¿Hay sábanas y toallas?"
+                      }} />
                     </h4>
                     <p className="text-gray-700">
-                      <Translate
-                        text={{
-                          en: "Weekly cleaning of common areas is included. Extra in-room cleaning is available on request for long stays.",
-                          es: "La limpieza semanal de áreas comunes está incluida. Limpieza extra en habitación está disponible bajo pedido para estadías largas.",
-                        }}
-                      />
+                      <Translate text={{
+                        en: "Yes, included: 180-thread-count percal sheets and 420 g/m² hotel-style towels.",
+                        es: "Sí, están incluidas: sábanas de percal 180 hilos y toallas de 420 g/m² estilo hotel."
+                      }} />
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-lg font-semibold mb-2">
+                      <Translate text={{
+                        en: "What is the minimum stay?",
+                        es: "¿Cuál es la estadía mínima?"
+                      }} />
+                    </h4>
+                    <p className="text-gray-700">
+                      <Translate text={{
+                        en: "Low season (April to October): 2 nights\nHigh season (December to February): 7 nights",
+                        es: "Temporada baja (abril a octubre): 2 noches\nTemporada alta (diciembre a febrero): 7 noches"
+                      }} />
                     </p>
                   </div>
                 </div>
