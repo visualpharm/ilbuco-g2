@@ -27,12 +27,12 @@ export default function Rooms() {
   ]
 
   const forestSuiteImages = [
-    { src: "/photo/paraiso/paraiso1.jpg", alt: "Forest-View Suite Living Room" },
-    { src: "/photo/paraiso/paraiso2.jpg", alt: "Forest-View Suite Kitchen" },
-    { src: "/photo/paraiso/paraiso3.jpg", alt: "Forest-View Suite Bedroom" },
+    { src: "/photo/paraiso/paraiso1.jpg", alt: "Forest-View Suite Kitchen and Dining" }, // Was Living Room
+    { src: "/photo/paraiso/paraiso7.jpg", alt: "Forest-View Suite Bedroom" }, // Moved from 5th, replaced paraiso2
+    { src: "/photo/paraiso/paraiso3.jpg", alt: "Forest-View Suite Living Area with Sofa" }, // Alt text corrected
     { src: "/photo/paraiso/paraiso4.jpg", alt: "Forest-View Suite Bathroom" },
-    { src: "/photo/paraiso/paraiso6.jpg", alt: "Forest-View Suite Dining Area" },
-    { src: "/photo/paraiso/paraiso7.jpg", alt: "Forest-View Suite Additional View" },
+    { src: "/photo/paraiso/paraiso2.jpg", alt: "Forest-View Suite Living Area and Window View" }, // Moved from 2nd
+    // { src: "/photo/paraiso/paraiso6.jpg", alt: "Forest-View Suite Dining Area" }, // Remains removed
   ]
 
   const penthouseSuiteImages = [
@@ -100,7 +100,7 @@ export default function Rooms() {
                     </li>
                   </ul>
 
-                  <ImageGallery images={gardenSuiteImages} gridCols="grid-cols-3" />
+                  <ImageGallery images={gardenSuiteImages} />
 
                 </div>
 
@@ -181,7 +181,7 @@ export default function Rooms() {
                     </li>
                   </ul>
 
-                  <ImageGallery images={terraceSuiteImages} gridCols="grid-cols-3" />
+                  <ImageGallery images={terraceSuiteImages} />
 
                 </div>
 
@@ -262,7 +262,7 @@ export default function Rooms() {
                     </li>
                   </ul>
 
-                  <ImageGallery images={forestSuiteImages} gridCols="grid-cols-3" />
+                  <ImageGallery images={forestSuiteImages} />
 
                 </div>
 
@@ -321,7 +321,7 @@ export default function Rooms() {
                     </li>
                   </ul>
 
-                  <ImageGallery images={penthouseSuiteImages} gridCols="grid-cols-2" />
+                  <ImageGallery images={penthouseSuiteImages} />
 
                 </div>
 

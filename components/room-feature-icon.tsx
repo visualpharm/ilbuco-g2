@@ -14,9 +14,9 @@ export const RoomFeatureIcon: React.FC<RoomFeatureIconProps> = ({
   // Map of feature names to their Windows 10 style icon paths (direct URLs)
   const iconMap: Record<string, string> = {
     // Direct URLs to ensure images load properly
-    "window": "https://img.icons8.com/ios/50/window.png",
+    "window": "https://img.icons8.com/ios/50/closed-window.png",
     "wheelchair": "https://img.icons8.com/ios/50/wheelchair.png",
-    "table-and-chair": "https://img.icons8.com/ios/50/dining-table.png",
+    "table-and-chair": "https://img.icons8.com/ios/50/living-room.png",
     "desk": "https://img.icons8.com/ios/50/workstation.png", 
     "twin-bed": "https://img.icons8.com/ios/50/sleeping-in-bed.png",
     "sofa": "https://img.icons8.com/ios/50/sofa.png",
