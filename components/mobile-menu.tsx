@@ -2,13 +2,20 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { X } from "lucide-react"
 import { LanguageSelector } from "./language-selector"
 import { Translate } from "./translate"
 import { translations } from "@/translations/common"
+import { useLanguage } from "@/contexts/language-context"
 
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false)
+  const { language } = useLanguage()
+  const pathname = usePathname()
+  
+  // Determine language prefix based on current language code
+  const langPrefix = language.code === "es" ? "" : `/${language.code}`
 
   return (
     <div>
@@ -28,44 +35,44 @@ export function MobileMenu() {
         <div className="fixed inset-0 z-50 bg-white">
           <div className="flex flex-col h-full">
             <div className="flex justify-between items-center p-4 border-b">
-              <Link href="/" className="text-2xl font-bold tracking-tight" onClick={() => setIsOpen(false)}>
+              <Link href={langPrefix || "/"} className="text-2xl font-bold tracking-tight" onClick={() => setIsOpen(false)}>
                 IL BUCO
               </Link>
               <button onClick={() => setIsOpen(false)} aria-label="Close menu">
                 <X className="h-6 w-6" />
               </button>
             </div>
-            <nav className="flex flex-col p-4 space-y-4">
+            <nav className="flex flex-col p-4 space-y-4 max-h-[calc(100vh-80px)] overflow-y-auto">
               <Link
-                href="/the-house"
+                href={`${langPrefix}/the-house`}
                 className="block text-lg font-medium hover:text-blue-600 transition-colors py-3"
                 onClick={() => setIsOpen(false)}
               >
                 <Translate text={translations.nav.theHouse} />
               </Link>
               <Link
-                href="/rooms"
+                href={`${langPrefix}/rooms`}
                 className="block text-lg font-medium hover:text-blue-600 transition-colors py-3"
                 onClick={() => setIsOpen(false)}
               >
                 <Translate text={translations.nav.rooms} />
               </Link>
               <Link
-                href="/location"
+                href={`${langPrefix}/location`}
                 className="block text-lg font-medium hover:text-blue-600 transition-colors py-3"
                 onClick={() => setIsOpen(false)}
               >
                 <Translate text={translations.nav.location} />
               </Link>
               <Link
-                href="/places-nearby"
+                href={`${langPrefix}/places-nearby`}
                 className="block text-lg font-medium hover:text-blue-600 transition-colors py-3"
                 onClick={() => setIsOpen(false)}
               >
                 <Translate text={translations.nav.placesNearby} />
               </Link>
               <Link
-                href="/book"
+                href={`${langPrefix}/book`}
                 className="block text-center px-4 py-3 bg-black text-white text-lg font-medium rounded-md hover:bg-gray-800 transition-colors mt-4"
                 onClick={() => setIsOpen(false)}
               >
