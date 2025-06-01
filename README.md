@@ -1,4 +1,4 @@
-![Il Buco — forest-side eco-lodge](/photo/exterior/exterior1.jpg)
+![Il Buco — forest-side eco-lodge](public/photo/exterior/exterior1.jpg)
 
 **Il Buco** is an expansive luxury house for **tech founders** and **remote professionals** to get their long-standing plans done. 
 
