@@ -1,9 +1,15 @@
 "use client"
 
-import { useLanguage } from "@/contexts/language-context"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
+
+// Languages configuration
+const languages = [
+  { code: "es", path: "", name: "Español", flag: "🇦🇷" },
+  { code: "en", path: "en", name: "English", flag: "🇺🇸" },
+  { code: "pt", path: "pt", name: "Português", flag: "🇧🇷" },
+]
 
 /**
  * Maps a path from one language to another
@@ -16,8 +22,8 @@ function getEquivalentPath(currentPath: string, targetLang: string): string {
   }
 
   // Check if path already has a language prefix
-  const enMatch = currentPath.match(/^\/en\/?(.*)/) 
-  const ptMatch = currentPath.match(/^\/pt\/?(.*)/) 
+  const enMatch = currentPath.match(/^\/en\/?(.*)/)
+  const ptMatch = currentPath.match(/^\/pt\/?(.*)/)
 
   if (enMatch) {
     // Current path has /en/ prefix
@@ -39,11 +45,18 @@ function getEquivalentPath(currentPath: string, targetLang: string): string {
   }
 }
 
-export function LanguageSelector() {
-  const { language } = useLanguage()
+export function LanguageSelectorUrl() {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
   const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // Determine current language based on URL path
+  let currentLanguage = languages[0] // Default to Spanish
+  if (pathname.startsWith("/en/") || pathname === "/en") {
+    currentLanguage = languages[1] // English
+  } else if (pathname.startsWith("/pt/") || pathname === "/pt") {
+    currentLanguage = languages[2] // Portuguese
+  }
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -58,15 +71,6 @@ export function LanguageSelector() {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [])
-
-  const languages = [
-    { code: "es", name: "Español", flag: "🇦🇷" },
-    { code: "en", name: "English", flag: "🇺🇸" },
-    { code: "pt", name: "Português", flag: "🇧🇷" },
-  ]
-
-  // Use the actual language code from context, not just the first match
-  const currentLanguage = languages.find((lang) => lang.code === language.code) || languages[0] // Default to Spanish
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -83,15 +87,13 @@ export function LanguageSelector() {
         <div className="absolute right-0 mt-2 w-36 bg-white border border-gray-300 rounded-md shadow-lg z-50 whitespace-nowrap transform transition-all duration-200 ease-out"
              data-open={isOpen}>
           {languages.map((lang) => {
-            // Get the equivalent path for the target language
             const targetPath = getEquivalentPath(pathname, lang.code)
-            
             return (
               <Link
                 key={lang.code}
                 href={targetPath}
                 className={`px-4 py-2 text-sm hover:bg-gray-100 flex items-center space-x-2 w-full ${
-                  language.code === lang.code ? "bg-blue-50 text-blue-600" : ""
+                  currentLanguage.code === lang.code ? "bg-blue-50 text-blue-600" : ""
                 }`}
                 onClick={() => setIsOpen(false)}
               >

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
 
 // List of Spanish-speaking countries and their flags
 const spanishSpeakingCountries = [
@@ -56,199 +57,83 @@ interface Language {
 }
 
 export function useLanguageDetection() {
-  const [detectedLanguage, setDetectedLanguage] = useState<Language>({
+  // Default to Spanish (Argentina)
+  const defaultLang = {
     code: "es",
     name: "Español",
     flag: defaultFlags.es.flag,
     country: defaultFlags.es.name,
-  })
-  const [isLoading, setIsLoading] = useState(true)
+  }
+  
+  const pathname = usePathname()
+  const [detectedLanguage, setDetectedLanguage] = useState<Language>(defaultLang)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    const detectLanguage = async () => {
-      try {
-        setIsLoading(true)
-
-        // Check for saved preference
-        const savedLanguage = localStorage.getItem("preferredLanguage")
-        const savedFlag = localStorage.getItem("preferredFlag")
-        const savedCountry = localStorage.getItem("preferredCountry")
-
-        if (savedLanguage && savedFlag && savedCountry) {
-          setDetectedLanguage({
-            code: savedLanguage,
-            name: savedLanguage === "es" ? "Español" : savedLanguage === "en" ? "English" : "Português",
-            flag: savedFlag,
-            country: savedCountry,
-          })
-          setIsLoading(false)
-          return
-        }
-
-        // Get browser language
-        const browserLang = navigator.language || "es-AR"
-        const [lang, country] = browserLang.split("-")
-
-        // Determine if user is in a Spanish/Portuguese/English-speaking country using GeoIP
-        try {
-          // Attempt to get user's country via GeoIP API
-          const response = await fetch("https://ipapi.co/json/")
-          const data = await response.json()
-          const userCountry = data.country_code
-
-          if (userCountry) {
-            // Check if user is in a Spanish-speaking country
-            const isSpanishCountry = spanishSpeakingCountries.some((c) => c.code === userCountry)
-            // Check if user is in a Portuguese-speaking country
-            const isPortugueseCountry = portugueseSpeakingCountries.some((c) => c.code === userCountry)
-            // Check if user is in an English-speaking country
-            const isEnglishCountry = englishSpeakingCountries.some((c) => c.code === userCountry)
-
-            if (isSpanishCountry) {
-              const countryInfo = spanishSpeakingCountries.find((c) => c.code === userCountry) || defaultFlags.es
-              setDetectedLanguage({
-                code: "es",
-                name: "Español",
-                flag: countryInfo.flag,
-                country: countryInfo.name,
-              })
-            } else if (isPortugueseCountry) {
-              const countryInfo = portugueseSpeakingCountries.find((c) => c.code === userCountry) || defaultFlags.pt
-              setDetectedLanguage({
-                code: "pt",
-                name: "Português",
-                flag: countryInfo.flag,
-                country: countryInfo.name,
-              })
-            } else if (isEnglishCountry) {
-              const countryInfo = englishSpeakingCountries.find((c) => c.code === userCountry) || defaultFlags.en
-              setDetectedLanguage({
-                code: "en",
-                name: "English",
-                flag: countryInfo.flag,
-                country: countryInfo.name,
-              })
-            } else {
-              // For other countries, use browser language to determine language
-              if (lang === "es") {
-                setDetectedLanguage({
-                  code: "es",
-                  name: "Español",
-                  flag: defaultFlags.es.flag,
-                  country: defaultFlags.es.name,
-                })
-              } else if (lang === "pt") {
-                setDetectedLanguage({
-                  code: "pt",
-                  name: "Português",
-                  flag: defaultFlags.pt.flag,
-                  country: defaultFlags.pt.name,
-                })
-              } else {
-                setDetectedLanguage({
-                  code: "en",
-                  name: "English",
-                  flag: defaultFlags.en.flag,
-                  country: defaultFlags.en.name,
-                })
-              }
-            }
-          } else {
-            // Fallback to browser language if GeoIP fails
-            fallbackToBrowserLanguage(lang)
-          }
-        } catch (error) {
-          console.error("Error fetching GeoIP data:", error)
-          // Fallback to browser language if GeoIP fails
-          fallbackToBrowserLanguage(lang)
-        }
-      } catch (error) {
-        console.error("Error detecting language:", error)
-        // Default to Spanish (Argentina) in case of error
-        setDetectedLanguage({
-          code: "es",
-          name: "Español",
-          flag: defaultFlags.es.flag,
-          country: defaultFlags.es.name,
-        })
-      } finally {
-        setIsLoading(false)
-      }
+    // Detect language based on URL path
+    let langCode = "es" // Default is Spanish
+    let countryCode = "AR" // Default country for Spanish
+    
+    // Check URL path for language code
+    if (pathname.startsWith("/en")) {
+      langCode = "en"
+      countryCode = "US" // Default country for English
+    } else if (pathname.startsWith("/pt")) {
+      langCode = "pt"
+      countryCode = "BR" // Default country for Portuguese
     }
-
-    const fallbackToBrowserLanguage = (lang: string) => {
-      if (lang === "es") {
-        setDetectedLanguage({
-          code: "es",
-          name: "Español",
-          flag: defaultFlags.es.flag,
-          country: defaultFlags.es.name,
-        })
-      } else if (lang === "pt") {
-        setDetectedLanguage({
-          code: "pt",
-          name: "Português",
-          flag: defaultFlags.pt.flag,
-          country: defaultFlags.pt.name,
-        })
-      } else {
-        setDetectedLanguage({
-          code: "en",
-          name: "English",
-          flag: defaultFlags.en.flag,
-          country: defaultFlags.en.name,
-        })
-      }
+    
+    // Set language based on URL path
+    if (langCode === "es") {
+      const countryInfo = spanishSpeakingCountries.find(c => c.code === countryCode) || defaultFlags.es
+      setDetectedLanguage({
+        code: "es",
+        name: "Español",
+        flag: countryInfo.flag,
+        country: countryInfo.name,
+      })
+    } else if (langCode === "pt") {
+      const countryInfo = portugueseSpeakingCountries.find(c => c.code === countryCode) || defaultFlags.pt
+      setDetectedLanguage({
+        code: "pt",
+        name: "Português",
+        flag: countryInfo.flag,
+        country: countryInfo.name,
+      })
+    } else if (langCode === "en") {
+      const countryInfo = englishSpeakingCountries.find(c => c.code === countryCode) || defaultFlags.en
+      setDetectedLanguage({
+        code: "en",
+        name: "English",
+        flag: countryInfo.flag,
+        country: countryInfo.name,
+      })
     }
+  }, [pathname])
 
-    detectLanguage()
-  }, [])
-
+  // Instead of setting the language through state/localStorage,
+  // we redirect to the appropriate URL based on the language
   const setLanguage = (languageCode: string, countryCode?: string) => {
-    let flag = ""
-    let country = ""
-
-    if (languageCode === "es") {
-      if (countryCode) {
-        const countryInfo = spanishSpeakingCountries.find((c) => c.code === countryCode) || defaultFlags.es
-        flag = countryInfo.flag
-        country = countryInfo.name
-      } else {
-        flag = detectedLanguage.code === "es" ? detectedLanguage.flag : defaultFlags.es.flag
-        country = detectedLanguage.code === "es" ? detectedLanguage.country : defaultFlags.es.name
-      }
-    } else if (languageCode === "pt") {
-      if (countryCode) {
-        const countryInfo = portugueseSpeakingCountries.find((c) => c.code === countryCode) || defaultFlags.pt
-        flag = countryInfo.flag
-        country = countryInfo.name
-      } else {
-        flag = detectedLanguage.code === "pt" ? detectedLanguage.flag : defaultFlags.pt.flag
-        country = detectedLanguage.code === "pt" ? detectedLanguage.country : defaultFlags.pt.name
-      }
+    // Get the current path without language prefix
+    let path = pathname
+    if (pathname.startsWith('/en/')) {
+      path = pathname.replace('/en/', '/')
+    } else if (pathname === '/en') {
+      path = '/'
+    } else if (pathname.startsWith('/pt/')) {
+      path = pathname.replace('/pt/', '/')
+    } else if (pathname === '/pt') {
+      path = '/'
+    }
+    
+    // Redirect to the appropriate language version
+    if (languageCode === 'es') {
+      // For Spanish, remove any language prefix
+      window.location.href = path
     } else {
-      // For English
-      if (countryCode) {
-        const countryInfo = englishSpeakingCountries.find((c) => c.code === countryCode) || defaultFlags.en
-        flag = countryInfo.flag
-        country = countryInfo.name
-      } else {
-        flag = detectedLanguage.code === "en" ? detectedLanguage.flag : defaultFlags.en.flag
-        country = detectedLanguage.code === "en" ? detectedLanguage.country : defaultFlags.en.name
-      }
+      // For other languages, add the language prefix
+      window.location.href = `/${languageCode}${path === '/' ? '' : path}`
     }
-
-    const newLanguage = {
-      code: languageCode,
-      name: languageCode === "es" ? "Español" : languageCode === "pt" ? "Português" : "English",
-      flag,
-      country,
-    }
-
-    setDetectedLanguage(newLanguage)
-    localStorage.setItem("preferredLanguage", languageCode)
-    localStorage.setItem("preferredFlag", flag)
-    localStorage.setItem("preferredCountry", country)
   }
 
   // List of supported languages with their flags
