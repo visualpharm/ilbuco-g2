@@ -1,30 +1,23 @@
-# Ilbuco Frontpage Design
+![Il Buco — forest-side eco-lodge](/photo/exterior/exterior1.jpg)
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+**Il Buco** is an expansive luxury house for **tech founders** and **remote professionals** to get their long-standing plans done. 
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/ivans-projects-34d98afc/v0-ilbuco-frontpage-design)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/6itgxMmS38g)
+### About Il Buco
 
-## Overview
+Solid build, 500 Mbps fiber to the house, server rack space, ergonomic chairs, and all the luxuries of four- and five-star hotels. 
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+Plus the autonomy of your own home: 
+- private washer
+- full kitchen
+- dedicated workspace
+- green terraces (work best for concentration).
 
-## Deployment
+### Links
 
-Your project is live at:
+- 🇺🇸 [Il Buco — Coliving in the beach forest in Argentina](https://ilbuco.com.ar/)
+- 🇦🇷 [Il Buco — Alquiler de una casa tecnológica en Cariló](https://ilbuco.com.ar/es)
+- 🇧🇷 [Il Buco — Coliving na praia na Argentina](https://ilbuco.com.ar/pt)
 
-**[https://vercel.com/ivans-projects-34d98afc/v0-ilbuco-frontpage-design](https://vercel.com/ivans-projects-34d98afc/v0-ilbuco-frontpage-design)**
+### Built by
 
-## Build your app
-
-Continue building your app on:
-
-**[https://v0.dev/chat/projects/6itgxMmS38g](https://v0.dev/chat/projects/6itgxMmS38g)**
-
-## How It Works
-
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+Built by [Ivan Braun — AI Keynote Speaker](https://aiandtractors.com) to bring like-minded people closer together.
