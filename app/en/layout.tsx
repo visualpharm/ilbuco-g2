@@ -20,7 +20,7 @@ export default function EnglishLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <>
       <head>
         {/* SEO hreflang tags for English */}
         <link rel="alternate" hrefLang="es-AR" href="https://ilbuco.com.ar/" />
@@ -28,9 +28,7 @@ export default function EnglishLayout({
         <link rel="alternate" hrefLang="pt-BR" href="https://ilbuco.com.ar/pt/" />
         <link rel="alternate" hrefLang="x-default" href="https://ilbuco.com.ar/" />
       </head>
-      <body suppressHydrationWarning>
-        {children}
-      </body>
-    </html>
+      {children}
+    </>
   )
 }

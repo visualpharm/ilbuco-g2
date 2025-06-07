@@ -1,7 +1,6 @@
 "use client"
 import Link from "next/link"
 import { useState } from "react"
-import { useLanguageDetection } from "@/hooks/use-language-detection"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
@@ -82,6 +81,7 @@ const Icons = {
   )
 }
 
+
 function removePalmFromTranslations(obj: Record<string, string>) {
   const palmRegex = /🌴/g;
   return Object.fromEntries(
@@ -89,52 +89,15 @@ function removePalmFromTranslations(obj: Record<string, string>) {
   );
 }
 
-function BeachDescription() {
-  const { language } = useLanguageDetection();
-  
-  if (language.code === 'pt') {
-    return (
-      <p className="text-gray-700 mt-2">
-        As belas <Link href="/pt/argentina-praia" className="text-gray-700 hover:text-gray-900 no-underline">praias de Cariló</Link> estão a apenas uma curta caminhada. Desfrute de natação, banhos de sol, vôlei de praia, ou simplesmente relaxe junto ao oceano com o som das ondas.
-      </p>
-    );
-  }
-  
-  return (
-    <p className="text-gray-700 mt-2">
-      <Translate
-        text={{
-          en: "Cariló's beautiful beaches are just a short walk away. Enjoy swimming, sunbathing, beach volleyball, or simply relaxing by the ocean with the sound of waves.",
-          es: "Las hermosas playas de Cariló están a solo un corto paseo. Disfrutá nadar, tomar sol, jugar al vóley playa, o simplemente relajarte junto al océano con el sonido de las olas.",
-        }}
-      />
-    </p>
-  );
-}
-
 export default function ThingsToDo() {
   const [activeTab, setActiveTab] = useState("activities")
 
-  // Tab-specific icons without margins
-  const TabIcons = {
-    Gym: ({ color }: { color: string }) => <Dumbbell className={`w-full h-full ${color}`} />,
-    Restaurant: ({ color }: { color: string }) => <UtensilsCrossed className={`w-full h-full ${color}`} />,
-    ShoppingBag: ({ color }: { color: string }) => <ShoppingBag className={`w-full h-full ${color}`} />,
-    Beach: ({ color }: { color: string }) => <Waves className={`w-full h-full ${color}`} />,
-    Laptop: ({ color }: { color: string }) => (
-      <svg className={`w-full h-full ${color}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <rect x="3" y="7" width="18" height="14" rx="2" ry="2"></rect>
-        <path d="M17 7V4a2 2 0 00-2-2H9a2 2 0 00-2 2v3"></path>
-      </svg>
-    ),
-  }
-
   const tabs = [
-    { id: "activities", label: placesNearbyTranslations.tabs.activities, icon: ({color}: {color: string}) => <TabIcons.Gym color={color} /> },
-    { id: "food", label: placesNearbyTranslations.tabs.food, icon: ({color}: {color: string}) => <TabIcons.Restaurant color={color} /> },
-    { id: "shopping", label: placesNearbyTranslations.tabs.shopping, icon: ({color}: {color: string}) => <TabIcons.ShoppingBag color={color} /> },
-    { id: "nature", label: placesNearbyTranslations.tabs.nature, icon: ({color}: {color: string}) => <TabIcons.Beach color={color} /> },
-    { id: "work", label: placesNearbyTranslations.tabs.work, icon: ({color}: {color: string}) => <TabIcons.Laptop color={color} /> },
+    { id: "activities", label: placesNearbyTranslations.tabs.activities, icon: ({color}: {color: string}) => <Icons.Gym color={color} /> },
+    { id: "food", label: placesNearbyTranslations.tabs.food, icon: ({color}: {color: string}) => <Icons.Restaurant color={color} /> },
+    { id: "shopping", label: placesNearbyTranslations.tabs.shopping, icon: ({color}: {color: string}) => <Icons.ShoppingBag color={color} /> },
+    { id: "nature", label: placesNearbyTranslations.tabs.nature, icon: ({color}: {color: string}) => <Icons.Beach color={color} /> },
+    { id: "work", label: placesNearbyTranslations.tabs.work, icon: ({color}: {color: string}) => <Icons.Laptop color={color} /> },
   ]
 
   return (
@@ -153,21 +116,19 @@ export default function ThingsToDo() {
               </p>
 
               {/* Tab Navigation */}
-              <div className="flex flex-nowrap overflow-x-auto gap-1 lg:gap-2 mb-8 border-b border-gray-200 justify-start lg:justify-center px-4 lg:px-0">
+              <div className="flex flex-wrap gap-2 mb-8 border-b border-gray-200 justify-center">
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`px-2 lg:px-4 py-3 text-xs lg:text-sm font-medium rounded-t-lg transition-colors flex items-center space-x-1 lg:space-x-2 flex-shrink-0 ${
+                    className={`px-4 py-3 text-sm font-medium rounded-t-lg transition-colors flex items-center space-x-2 ${
                       activeTab === tab.id
                         ? "bg-black text-white border-b-2 border-black"
                         : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                     }`}
                   >
-                    <div className="w-4 h-4 lg:w-5 lg:h-5 flex-shrink-0">
-                      {tab.icon({ color: activeTab === tab.id ? "text-white" : "text-gray-600" })}
-                    </div>
-                    <span className="whitespace-nowrap text-xs lg:text-sm"><Translate text={tab.label} /></span>
+                    {tab.icon({ color: activeTab === tab.id ? "text-white" : "text-gray-600" })}
+                    <span><Translate text={tab.label} /></span>
                   </button>
                 ))}
               </div>
@@ -196,7 +157,6 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "Diving into Vibe Coding",
                                   es: "Sumergirse en la Programación Vibe",
-                                  pt: "Mergulhar na Programação Vibe",
                                 }}
                               />
                             </h3>
@@ -205,7 +165,6 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "Master modern development tools like Cursor and v0. Nature makes you enjoy the day even while Claude Sonnet is thinking. Our 500 Mbps fiber internet and distraction-free environment will boost your productivity.",
                                   es: "Dominá herramientas de desarrollo modernas como Cursor y v0. La naturaleza te hace disfrutar el día incluso mientras Claude Sonnet está pensando. Nuestro internet de fibra de 500 Mbps y ambiente libre de distracciones aumentará tu productividad.",
-                                  pt: "Domine ferramentas modernas de desenvolvimento como Cursor e v0. A natureza faz você aproveitar o dia mesmo enquanto Claude Sonnet está pensando. Nossa internet de fibra de 500 Mbps e ambiente livre de distrações aumentará sua produtividade.",
                                 }}
                               />
                             </p>
@@ -222,7 +181,6 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "Learn 3D Modeling",
                                   es: "Aprender Modelado 3D",
-                                  pt: "Aprender Modelagem 3D",
                                 }}
                               />
                             </h3>
@@ -231,7 +189,6 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "Explore tools like Plasticity (it's like Figma for 3D) and bring your design ideas to life in our inspiring forest setting. I'll even borrow you a 3D printer if you try to connect it to local Wi-Fi.",
                                   es: "Explorá herramientas como Plasticity (es como Figma para 3D) y da vida a tus ideas de diseño en nuestro entorno inspirador del bosque. Incluso te presto una impresora 3D si intentás conectarla al Wi-Fi local.",
-                                  pt: "Explore ferramentas como Plasticity (é como Figma para 3D) e dê vida às suas ideias de design em nosso ambiente inspirador da floresta. Eu até empresto uma impressora 3D se você tentar conectá-la ao Wi-Fi local.",
                                 }}
                               />
                             </p>
@@ -248,7 +205,6 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "Boost Your Remote Career",
                                   es: "Impulsa tu Carrera Remota",
-                                  pt: "Impulsione sua Carreira Remota",
                                 }}
                               />
                             </h3>
@@ -257,7 +213,6 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "Use your time at IL BUCO to refine your remote work skills, update your portfolio, or network with other professionals staying at the villa.",
                                   es: "Usá tu tiempo en IL BUCO para perfeccionar tus habilidades de trabajo remoto, actualizar tu portafolio, o hacer networking con otros profesionales que se hospedan en la villa.",
-                                  pt: "Use seu tempo no IL BUCO para aperfeiçoar suas habilidades de trabalho remoto, atualizar seu portfólio, ou fazer networking com outros profissionais hospedados na villa.",
                                 }}
                               />
                             </p>
@@ -274,7 +229,6 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "Finally Launch Your Startup",
                                   es: "Finalmente Lanza tu Startup",
-                                  pt: "Finalmente Lance sua Startup",
                                 }}
                               />
                             </h3>
@@ -283,7 +237,6 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "The peaceful environment and minimal distractions make IL BUCO ideal for developing your business plan, building your MVP, or preparing for launch.",
                                   es: "El ambiente pacífico y las mínimas distracciones hacen que IL BUCO sea ideal para desarrollar tu plan de negocios, construir tu MVP, o prepararte para el lanzamiento.",
-                                  pt: "O ambiente pacífico e as mínimas distrações fazem do IL BUCO ideal para desenvolver seu plano de negócios, construir seu MVP, ou se preparar para o lançamento.",
                                 }}
                               />
                             </p>
@@ -300,7 +253,6 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "Finance",
                                   es: "Finanzas",
-                                  pt: "Finanças",
                                 }}
                               />
                             </h3>
@@ -309,7 +261,6 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "My favorites are this course on financial accounting, the book A Random Walk Down Wall Street, and this international tax course.",
                                   es: "Mis favoritos son este curso de contabilidad financiera, el libro A Random Walk Down Wall Street, y este curso de impuestos internacionales.",
-                                  pt: "Meus favoritos são este curso de contabilidade financeira, o livro A Random Walk Down Wall Street, e este curso de impostos internacionais.",
                                 }}
                               />
                             </p>
@@ -326,7 +277,6 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "Write Your Book or Blog",
                                   es: "Escribí tu Libro o Blog",
-                                  pt: "Escreva seu Livro ou Blog",
                                 }}
                               />
                             </h3>
@@ -335,7 +285,6 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "Many guests find that the tranquil setting of IL BUCO, surrounded by swaying pine trees, provides the perfect inspiration for writing projects.",
                                   es: "Muchos huéspedes encuentran que el entorno tranquilo de IL BUCO, rodeado de pinos que se mecen, proporciona la inspiración perfecta para proyectos de escritura.",
-                                  pt: "Muitos hóspedes descobrem que o ambiente tranquilo do IL BUCO, cercado por pinheiros balançantes, oferece a inspiração perfeita para projetos de escrita.",
                                 }}
                               />
                             </p>
@@ -351,10 +300,22 @@ export default function ThingsToDo() {
                   <div className="space-y-8">
                     <div className="text-center mb-8">
                       <h2 className="text-3xl font-bold mb-4">
-                        <Translate text={placesNearbyTranslations.nature.title} />
+                        <Translate
+                          text={{
+                            en: "Beach & Forest Adventures",
+                            es: "Aventuras de Playa y Bosque",
+                            pt: "Aventuras de Praia e Floresta",
+                          }}
+                        />
                       </h2>
                       <p className="text-lg text-gray-700">
-                        <Translate text={placesNearbyTranslations.nature.description} />
+                        <Translate
+                          text={{
+                            en: "Cariló's unique combination of pristine beaches and wild pine forests offers endless opportunities for outdoor exploration.",
+                            es: "La combinación única de Cariló de playas prístinas y bosques de pinos salvajes ofrece infinitas oportunidades para la exploración al aire libre.",
+                            pt: "A combinação única de Cariló de praias pristinas e florestas de pinheiros selvagens oferece infinitas oportunidades para exploração ao ar livre.",
+                          }}
+                        />
                       </p>
                     </div>
 
@@ -372,7 +333,15 @@ export default function ThingsToDo() {
                                 }}
                               />
                             </h3>
-                            <BeachDescription />
+                            <p className="text-gray-700 mt-2">
+                              <Translate
+                                text={{
+                                  en: "Cariló's beautiful beaches are just a short walk away. Enjoy swimming, sunbathing, beach volleyball, or simply relaxing by the ocean with the sound of waves.",
+                                  es: "Las hermosas playas de Cariló están a solo un corto paseo. Disfrutá nadar, tomar sol, jugar al vóley playa, o simplemente relajarte junto al océano con el sonido de las olas.",
+                                  pt: <>As belas <Link href="/pt/argentina-praia" className="text-gray-700 hover:text-gray-900 no-underline">praias de Cariló</Link> estão a apenas uma curta caminhada. Desfrute de natação, banhos de sol, vôlei de praia, ou simplesmente relaxe junto ao oceano com o som das ondas.</>,
+                                }}
+                              />
+                            </p>
                             <ul className="mt-3 text-sm text-gray-600 space-y-1">
                               <li>
                                 • <Translate text={{ en: "Swimming in the Atlantic", es: "Nadar en el Atlántico", pt: "Natação no Atlântico" }} />
@@ -395,7 +364,7 @@ export default function ThingsToDo() {
 
                       <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <span className="text-emerald-600 text-2xl flex-shrink-0 mr-3 mt-1">🌲</span>
+                          <span className="text-emerald-600 text-2xl flex-shrink-0">􀣽</span>
                           <div>
                             <h3 className="text-xl font-semibold">
                               <Translate
@@ -441,13 +410,23 @@ export default function ThingsToDo() {
 
                       <div className="bg-gradient-to-br from-yellow-50 to-orange-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <span className="text-orange-600 text-2xl flex-shrink-0 mr-3 mt-1">🚴</span>
+                          <span className="text-orange-600 text-2xl flex-shrink-0">🚴</span>
                           <div>
                             <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.nature.cycling.title} />
+                              <Translate
+                                text={{
+                                  en: "Cycling Adventures",
+                                  es: "Aventuras en Bicicleta",
+                                }}
+                              />
                             </h3>
                             <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.nature.cycling.description} />
+                              <Translate
+                                text={{
+                                  en: "Rent bicycles and explore Cariló and surrounding areas. The town's unpaved sandy streets and natural setting make for a pleasant cycling experience.",
+                                  es: "Alquilá bicicletas y explorá Cariló y las áreas circundantes. Las calles de arena sin pavimentar y el entorno natural de la ciudad hacen que la experiencia de ciclismo sea agradable.",
+                                }}
+                              />
                             </p>
                             <ul className="mt-3 text-sm text-gray-600 space-y-1">
                               <li>
@@ -458,6 +437,7 @@ export default function ThingsToDo() {
                               <li>
                                 • <Translate text={{ en: "Fat bike adventures", es: "Aventuras en fat bike", pt: "Aventuras de fat bike" }} />
                               </li>
+
                               <li>
                                 • <Translate
                                   text={{ en: "Forest trail cycling", es: "Ciclismo por senderos forestales", pt: "Ciclismo por trilhas na floresta" }}
@@ -470,13 +450,23 @@ export default function ThingsToDo() {
 
                       <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <span className="text-rose-600 text-2xl flex-shrink-0 mr-3 mt-1">📸</span>
+                          <span className="text-rose-600 text-2xl flex-shrink-0">􀢹</span>
                           <div>
                             <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.nature.photography.title} />
+                              <Translate
+                                text={{
+                                  en: "Photography & Art",
+                                  es: "Fotografía y Arte",
+                                }}
+                              />
                             </h3>
                             <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.nature.photography.description} />
+                              <Translate
+                                text={{
+                                  en: "The natural light and inspiring views make IL BUCO perfect for photography, drawing, painting, or other creative pursuits.",
+                                  es: "La luz natural y las vistas inspiradoras hacen que IL BUCO sea perfecto para la fotografía, el dibujo, la pintura u otras actividades creativas.",
+                                }}
+                              />
                             </p>
                             <ul className="mt-3 text-sm text-gray-600 space-y-1">
                               <li>
@@ -504,10 +494,20 @@ export default function ThingsToDo() {
                   <div className="space-y-8">
                     <div className="text-center mb-8">
                       <h2 className="text-3xl font-bold mb-4">
-                        <Translate text={placesNearbyTranslations.activities.title} />
+                        <Translate
+                          text={{
+                            en: "Nearby Activities & Services",
+                            es: "Actividades y Servicios Cercanos",
+                          }}
+                        />
                       </h2>
                       <p className="text-lg text-gray-700">
-                        <Translate text={placesNearbyTranslations.activities.description} />
+                        <Translate
+                          text={{
+                            en: "All destinations are within a 25–35-minute walk or a short drive from Il Buco.",
+                            es: "Todos los destinos están a 25–35 minutos caminando o un corto viaje en auto desde Il Buco.",
+                          }}
+                        />
                       </p>
                     </div>
 
@@ -516,18 +516,17 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Gym color="text-indigo-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.activities.gym.title} />
-                            </h3>
+                            <h3 className="text-xl font-semibold">Gym</h3>
                             <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.activities.gym.description} />
+                              Full-service indoor gym surrounded by forest with daily, weekly, and monthly passes. Good
+                              private instruction is included in the price.
                             </p>
                             <p className="mt-2">
                               <a
                                 href="https://www.google.com/maps/search/?api=1&query=CIE+Centro+de+Entrenamiento+Caril%C3%B3"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm inline-flex items-center mr-3"
+                                className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
                               >
                                 <Icons.GoogleMaps />
                                 <span>Google Maps</span>
@@ -550,11 +549,10 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Windsurfing color="text-cyan-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.activities.windsurfing.title} />
-                            </h3>
+                            <h3 className="text-xl font-semibold">Windsurfing</h3>
                             <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.activities.windsurfing.description} />
+                              Learn windsurfing on the Atlantic coast with professional instruction and equipment
+                              rental.
                             </p>
                             <p className="mt-2">
                               <a
@@ -584,11 +582,10 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Tennis color="text-violet-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.activities.tennis.title} />
-                            </h3>
+                            <h3 className="text-xl font-semibold">Tennis & Padel</h3>
                             <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.activities.tennis.description} />
+                              Clay courts, padel, 5-a-side football, and a small indoor gym. They rent rackets and give
+                              classes.
                             </p>
                             <p className="mt-2">
                               <a
@@ -618,11 +615,9 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Calisthenics color="text-indigo-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.activities.calisthenics.title} />
-                            </h3>
+                            <h3 className="text-xl font-semibold">Outdoor Calisthenics</h3>
                             <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.activities.calisthenics.description} />
+                              Free 24-hour outdoor calisthenics gym with bars and parallettes.
                             </p>
                             <p className="mt-2">
                               <a
@@ -643,12 +638,8 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Horse color="text-amber-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.activities.horseRiding.title} />
-                            </h3>
-                            <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.activities.horseRiding.description} />
-                            </p>
+                            <h3 className="text-xl font-semibold">Horse Riding</h3>
+                            <p className="text-gray-700 mt-2">Horse riding through dunes and forest.</p>
                             <p className="mt-2">
                               <a
                                 href="https://www.google.com/maps/search/?api=1&query=Cabalgatas+Dos+Montes"
@@ -677,12 +668,8 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Quad color="text-green-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.activities.quadBike.title} />
-                            </h3>
-                            <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.activities.quadBike.description} />
-                            </p>
+                            <h3 className="text-xl font-semibold">Quad & Fatbike Rental</h3>
+                            <p className="text-gray-700 mt-2">Quad riding and fatbike rental.</p>
                             <p className="mt-2">
                               <a
                                 href="https://www.google.com/maps/search/?api=1&query=Motorrad+Caril%C3%B3"
@@ -711,11 +698,9 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Art color="text-pink-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.activities.ceramics.title} />
-                            </h3>
+                            <h3 className="text-xl font-semibold">Ceramic Classes</h3>
                             <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.activities.ceramics.description} />
+                              Learn pottery and ceramic arts in a creative environment.
                             </p>
                             <p className="mt-2">
                               <a
@@ -745,12 +730,8 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Car4x4 color="text-green-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.activities.driving.title} />
-                            </h3>
-                            <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.activities.driving.description} />
-                            </p>
+                            <h3 className="text-xl font-semibold">4x4 Driving School</h3>
+                            <p className="text-gray-700 mt-2">Learn to drive off-road and navigate sand dunes.</p>
                             <p className="mt-2">
                               <a
                                 href="https://www.google.com/maps/search/?api=1&query=Sandmasters+Pinamar"
@@ -783,10 +764,20 @@ export default function ThingsToDo() {
                   <div className="space-y-8">
                     <div className="text-center mb-8">
                       <h2 className="text-3xl font-bold mb-4">
-                        <Translate text={placesNearbyTranslations.food.title} />
+                        <Translate
+                          text={{
+                            en: "Dining & Coffee Recommendations",
+                            es: "Recomendaciones de Gastronomía y Café",
+                          }}
+                        />
                       </h2>
                       <p className="text-lg text-gray-700">
-                        <Translate text={placesNearbyTranslations.food.description} />
+                        <Translate
+                          text={{
+                            en: "From world-class Argentine steakhouses to artisanal coffee shops, Cariló offers a sophisticated dining scene in a relaxed coastal setting.",
+                            es: "Desde parrillas argentinas de clase mundial hasta cafeterías artesanales, Cariló ofrece una escena gastronómica sofisticada en un entorno costero relajado.",
+                          }}
+                        />
                       </p>
                     </div>
 
@@ -795,14 +786,38 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Meat color="text-amber-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.food.parrilla.title} />
-                            </h3>
-                            <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.food.parrilla.description} />
-                            </p>
-                            <p className="text-gray-600 mt-1 text-sm">
-                              <Translate text={placesNearbyTranslations.food.parrilla.recommendations} />
+                            <h3 className="text-xl font-semibold">Argentine Parrilla</h3>
+                            <p className="text-gray-700 mt-2">The greatest parrilla with lots of free extras.</p>
+                            <p className="text-gray-600 mt-1">
+                              Also recommended:{" "}
+                              <a
+                                href="https://www.instagram.com/donbenito_carilo/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 transition-colors"
+                              >
+                                Don Benito
+                              </a>{" "}
+                              (poshy),{" "}
+                              <a
+                                href="https://www.instagram.com/demicampocarilo/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 transition-colors"
+                              >
+                                De Mi Campo
+                              </a>{" "}
+                              (salad bar!),{" "}
+                              <a
+                                href="https://goo.gl/maps/8ZQZgqXH8JZQeULt8"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3 inline-flex items-center"
+                              >
+                                <Icons.GoogleMaps />
+                                <span>La Parrillita</span>
+                              </a>{" "}
+                              (basic in a good sense).
                             </p>
                             <p className="mt-2">
                               <a
@@ -832,11 +847,9 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Pizza color="text-red-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.food.pizza.title} />
-                            </h3>
+                            <h3 className="text-xl font-semibold">Italian Pizza</h3>
                             <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.food.pizza.description} />
+                              Award-winning Napoletan pizza from the Italian chefs (they also made our sofas).
                             </p>
                             <p className="mt-2">
                               <a
@@ -866,12 +879,8 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Restaurant color="text-amber-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.food.bakery.title} />
-                            </h3>
-                            <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.food.bakery.description} />
-                            </p>
+                            <h3 className="text-xl font-semibold">Bakery & Coffee</h3>
+                            <p className="text-gray-700 mt-2">Great coffee and baked stuff; best avocado toast.</p>
                             <p className="mt-2">
                               <a
                                 href="https://www.google.com/maps/search/?api=1&query=Il+Panettone+Caril%C3%B3"
@@ -900,12 +909,8 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Restaurant color="text-amber-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.food.burgers.title} />
-                            </h3>
-                            <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.food.burgers.description} />
-                            </p>
+                            <h3 className="text-xl font-semibold">Gourmet Burgers</h3>
+                            <p className="text-gray-700 mt-2">Best burgers. Also Impeke (Valeria del Mar).</p>
                             <p className="mt-2">
                               <a
                                 href="https://www.google.com/maps/search/?api=1&query=Enris+Caril%C3%B3"
@@ -934,31 +939,29 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Restaurant color="text-amber-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.food.frenchCafe.title} />
-                            </h3>
-                            <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.food.frenchCafe.description} />
-                            </p>
+                            <h3 className="text-xl font-semibold">French Café</h3>
+                            <p className="text-gray-700 mt-2">Always open.</p>
                             <p className="mt-2">
                               <a
                                 href="https://www.google.com/maps/search/?api=1&query=Masse+Caril%C3%B3"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                                className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3 flex items-center"
                               >
                                 <Icons.GoogleMaps />
                                 <span>Google Maps</span>
                               </a>
-                              <a
-                                href="https://www.instagram.com/masse.carilo/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
-                              >
+                              <span className="flex items-center">
                                 <Icons.Instagram />
-                                <span>@masse.carilo</span>
-                              </a>
+                                <a
+                                  href="https://www.instagram.com/masse.carilo/"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                                >
+                                  @masse.carilo
+                                </a>
+                              </span>
                             </p>
                           </div>
                         </div>
@@ -972,88 +975,97 @@ export default function ThingsToDo() {
                   <div className="space-y-8">
                     <div className="text-center mb-8">
                       <h2 className="text-3xl font-bold mb-4">
-                        <Translate text={placesNearbyTranslations.shopping.title} />
+                        <Translate
+                          text={{
+                            en: "Shopping",
+                            es: "Compras",
+                          }}
+                        />
                       </h2>
                       <p className="text-lg text-gray-700">
-                        <Translate text={placesNearbyTranslations.shopping.description} />
+                        <Translate
+                          text={{
+                            en: "My Most Frequented Shops in Cariló & Valeria del Mar",
+                            es: "Mis Tiendas Más Frecuentadas en Cariló y Valeria del Mar",
+                          }}
+                        />
                       </p>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Chicho */}
                       <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">
-                          <Translate text={placesNearbyTranslations.shopping.supermarkets.title} />
-                        </h3>
+                        <h3 className="text-lg font-semibold mb-2">Supermarkets</h3>
                         <p className="text-gray-700">
-                          <Translate text={placesNearbyTranslations.shopping.supermarkets.chicho.description} />
+                          <strong>Chicho</strong> – Best open hours, decent fruit and vegetables.
                         </p>
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Proveedur%C3%ADa+Chicho+Caril%C3%B3"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
                           </a>
-                          <a
-                            href="https://www.instagram.com/proveeduria_chicho_esta_loco/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
-                          >
+                          <span className="flex items-center">
                             <Icons.Instagram />
-                            @proveeduria_chicho_esta_loco
-                          </a>
+                            <a
+                              href="https://www.instagram.com/proveeduria_chicho_esta_loco/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @proveeduria_chicho_esta_loco
+                            </a>
+                          </span>
                         </p>
                       </div>
 
                       {/* Menor Coste */}
                       <div className="bg-gradient-to-br from-green-50 to-teal-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">
-                          <Translate text={placesNearbyTranslations.shopping.supermarkets.title} />
-                        </h3>
+                        <h3 className="text-lg font-semibold mb-2">Supermarkets</h3>
                         <p className="text-gray-700">
-                          <Translate text={placesNearbyTranslations.shopping.supermarkets.menorCoste.description} />
+                          <strong>La Proveeduría / Menor Coste</strong> – Expensive, mini Whole Foods.
                         </p>
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=La+Proveedur%C3%ADa+Menor+Coste+Caril%C3%B3"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
                           </a>
-                          <a
-                            href="https://www.instagram.com/menorcoste/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
-                          >
+                          <span className="flex items-center">
                             <Icons.Instagram />
-                            @menorcoste
-                          </a>
+                            <a
+                              href="https://www.instagram.com/menorcoste/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @menorcoste
+                            </a>
+                          </span>
                         </p>
                       </div>
 
                       {/* Coto */}
                       <div className="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">
-                          <Translate text={placesNearbyTranslations.shopping.supermarkets.title} />
-                        </h3>
+                        <h3 className="text-lg font-semibold mb-2">Supermarkets</h3>
                         <p className="text-gray-700">
-                          <Translate text={placesNearbyTranslations.shopping.supermarkets.coto.description} />
+                          <strong>Coto</strong> – The closest large supermarket; they have everything from food to
+                          furniture and bicycles. Online store with delivery to Cariló.
                         </p>
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Coto+Pinamar"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
@@ -1062,9 +1074,8 @@ export default function ThingsToDo() {
                             href="https://www.cotodigital3.com.ar/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gray-600 hover:text-gray-800 transition-colors text-sm inline-flex items-center"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
-                            <Icons.Website />
                             cotodigital3.com.ar
                           </a>
                         </p>
@@ -1072,18 +1083,16 @@ export default function ThingsToDo() {
 
                       {/* Disco */}
                       <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">
-                          <Translate text={placesNearbyTranslations.shopping.supermarkets.title} />
-                        </h3>
+                        <h3 className="text-lg font-semibold mb-2">Supermarkets</h3>
                         <p className="text-gray-700">
-                          <Translate text={placesNearbyTranslations.shopping.supermarkets.disco.description} />
+                          <strong>Disco</strong> – Alternative without taking the highway. They also deliver to Cariló.
                         </p>
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Disco+Pinamar"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
@@ -1092,9 +1101,8 @@ export default function ThingsToDo() {
                             href="https://www.disco.com.ar/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gray-600 hover:text-gray-800 transition-colors text-sm inline-flex items-center"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
-                            <Icons.Website />
                             disco.com.ar
                           </a>
                         </p>
@@ -1102,52 +1110,356 @@ export default function ThingsToDo() {
 
                       {/* Belén */}
                       <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">
-                          <Translate text={placesNearbyTranslations.shopping.fruitVeg.title} />
-                        </h3>
+                        <h3 className="text-lg font-semibold mb-2">Fruit & Vegetables</h3>
                         <p className="text-gray-700">
-                          <Translate text={placesNearbyTranslations.shopping.fruitVeg.belen.description} />
+                          <strong>Belén</strong> – Best fruit and vegetables.
                         </p>
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Verduler%C3%ADa+Bel%C3%A9n+Caril%C3%B3"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
+                          </a>
+                          <a
+                            href="https://waze.com/ul?place=ChIJ4zObzLKdnJUR3db27yKHe_U"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            Open in Waze
                           </a>
                         </p>
                       </div>
 
                       {/* Boutique de Frutas */}
                       <div className="bg-gradient-to-br from-yellow-50 to-lime-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">
-                          <Translate text={placesNearbyTranslations.shopping.fruitVeg.title} />
-                        </h3>
+                        <h3 className="text-lg font-semibold mb-2">Fruit & Vegetables</h3>
                         <p className="text-gray-700">
-                          <Translate text={placesNearbyTranslations.shopping.fruitVeg.boutique.description} />
+                          <strong>Boutique de Frutas</strong> – Self-service, which is not common. Pick the best or
+                          blame on someone else.
                         </p>
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Boutique+de+Frutas+Caril%C3%B3"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            <Icons.GoogleMaps />
+                            Google Maps
+                          </a>
+                          <span className="flex items-center">
+                            <Icons.Instagram />
+                            <a
+                              href="https://www.instagram.com/boutique_de_frutas/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @boutique_de_frutas
+                            </a>
+                          </span>
+                        </p>
+                      </div>
+
+                      {/* Jorjito */}
+                      <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Hardware</h3>
+                        <p className="text-gray-700">
+                          <strong>Jorjito</strong> – Most complete hardware store.
+                        </p>
+                        <p className="mt-2">
+                          <a
+                            href="https://www.google.com/maps/search/?api=1&query=Ferreter%C3%ADa+Jorjito+Caril%C3%B3"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            <Icons.GoogleMaps />
+                            Google Maps
+                          </a>
+                          <span className="flex items-center">
+                            <Icons.Instagram />
+                            <a
+                              href="https://www.instagram.com/ferreteria_jorgito/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @ferreteria_jorgito
+                            </a>
+                          </span>
+                        </p>
+                      </div>
+
+                      {/* Quimica Limpia Maurito */}
+                      <div className="bg-gradient-to-br from-cyan-50 to-sky-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Cleaning Products</h3>
+                        <p className="text-gray-700">
+                          <strong>Quimica Limpia Maurito</strong> – In Pinamar, best for bulk cleaning products. They
+                          deliver to Cariló weekly.
+                        </p>
+                        <p className="mt-2">
+                          <a
+                            href="https://www.google.com/maps/search/?api=1&query=Qu%C3%ADmica+Limpia+Maurito+Pinamar"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
                           </a>
                           <a
-                            href="https://www.instagram.com/boutique_de_frutas/"
+                            href="https://www.facebook.com/LMaurito/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
-                            <Icons.Instagram />
-                            @boutique_de_frutas
+                            Facebook Page
                           </a>
+                        </p>
+                      </div>
+
+                      {/* Clothing */}
+                      <div className="bg-gradient-to-br from-purple-50 to-violet-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Clothing</h3>
+                        <p className="text-gray-700">
+                          <strong>Cariló City-Center Boutiques</strong> – All the clothing in Cariló city center.
+                        </p>
+                        <p className="mt-2">
+                          <a
+                            href="https://www.google.com/maps/search/?api=1&query=Centro+Comercial+Caril%C3%B3"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            <Icons.GoogleMaps />
+                            Google Maps
+                          </a>
+                          <a
+                            href="https://maps.app.goo.gl/HSdLEiSF9qGJRWY7A"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            Open in Google Maps
+                          </a>
+                        </p>
+                      </div>
+
+                      {/* Cabaña Guerrero */}
+                      <div className="bg-gradient-to-br from-red-50 to-pink-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Meat</h3>
+                        <p className="text-gray-700">
+                          <strong>Cabaña Guerrero</strong> – My favorite meat.
+                        </p>
+                        <p className="mt-2">
+                          <a
+                            href="https://www.google.com/maps/search/?api=1&query=Caba%C3%B1a+Guerrero+Caril%C3%B3"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            <Icons.GoogleMaps />
+                            Google Maps
+                          </a>
+                          <span className="flex items-center">
+                            <Icons.Instagram />
+                            <a
+                              href="https://www.instagram.com/cabana.guerrero/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @cabana.guerrero
+                            </a>
+                          </span>
+                        </p>
+                      </div>
+
+                      {/* La Constanza Cariló */}
+                      <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Fish</h3>
+                        <p className="text-gray-700">
+                          <strong>La Constanza (Cariló)</strong> – Fresh fish, not frozen, even salmon. Closed during
+                          low season.
+                        </p>
+                        <p className="mt-2">
+                          <a
+                            href="https://www.google.com/maps/search/?api=1&query=Pescader%C3%ADa+La+Constanza+Caril%C3%B3"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            <Icons.GoogleMaps />
+                            Google Maps
+                          </a>
+                          <span className="flex items-center">
+                            <Icons.Instagram />
+                            <a
+                              href="https://www.instagram.com/pescaderiasdicostanzoar/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @pescaderiasdicostanzoar
+                            </a>
+                          </span>
+                        </p>
+                      </div>
+
+                      {/* La Constanza Pinamar */}
+                      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Fish</h3>
+                        <p className="text-gray-700">
+                          <strong>La Constanza (Pinamar)</strong> – Open during low season when Cariló's location is
+                          closed.
+                        </p>
+                        <p className="mt-2">
+                          <a
+                            href="https://www.google.com/maps/search/?api=1&query=Pescader%C3%ADa+La+Constanza+Pinamar"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            <Icons.GoogleMaps />
+                            Google Maps
+                          </a>
+                          <span className="flex items-center">
+                            <Icons.Instagram />
+                            <a
+                              href="https://www.instagram.com/pescaderiasdicostanzoar/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @pescaderiasdicostanzoar
+                            </a>
+                          </span>
+                        </p>
+                      </div>
+
+                      {/* Colonial */}
+                      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Ice Cream</h3>
+                        <p className="text-gray-700">
+                          <strong>Colonial (Valeria del Mar)</strong> – My favorite ice cream.
+                        </p>
+                        <p className="mt-2">
+                          <a
+                            href="https://www.google.com/maps/search/?api=1&query=Helader%C3%ADa+Colonial+Valeria+del+Mar"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                          >
+                            <Icons.GoogleMaps />
+                            Google Maps
+                          </a>
+                          <span className="flex items-center">
+                            <Icons.Instagram />
+                            <a
+                              href="https://www.instagram.com/colonialhelados/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @colonialhelados
+                            </a>
+                          </span>
+                        </p>
+                      </div>
+
+                      {/* Lucciano's */}
+                      <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Ice Cream</h3>
+                        <p className="text-gray-700">
+                          <strong>Lucciano's</strong> – The prettiest place.
+                        </p>
+                        <p className="mt-2">
+                          <a
+                            href="https://www.google.com/maps/search/?api=1&query=Lucciano%27s+Pinamar"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
+                          >
+                            <Icons.GoogleMaps />
+                            Google Maps
+                          </a>
+                          <span className="flex items-center">
+                            <Icons.Instagram />
+                            <a
+                              href="https://www.instagram.com/luccianos_/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @luccianos_
+                            </a>
+                          </span>
+                        </p>
+                      </div>
+
+                      {/* Panettone */}
+                      <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Bakeries</h3>
+                        <p className="text-gray-700">
+                          <strong>Panettone</strong> – Simple.
+                        </p>
+                        <p className="mt-2">
+                          <a
+                            href="https://www.google.com/maps/search/?api=1&query=Il+Panettone+Caril%C3%B3"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
+                          >
+                            <Icons.GoogleMaps />
+                            Google Maps
+                          </a>
+                          <span className="flex items-center">
+                            <Icons.Instagram />
+                            <a
+                              href="https://www.instagram.com/panaderia.ilpanettone/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @panaderia.ilpanettone
+                            </a>
+                          </span>
+                        </p>
+                      </div>
+
+                      {/* Masse */}
+                      <div className="bg-gradient-to-br from-orange-50 to-amber-50 p-6 rounded-lg shadow-sm">
+                        <h3 className="text-lg font-semibold mb-2">Bakeries</h3>
+                        <p className="text-gray-700">
+                          <strong>Masse</strong> – Fancy breads with seeds.
+                        </p>
+                        <p className="mt-2">
+                          <a
+                            href="https://www.google.com/maps/search/?api=1&query=Masse+Caril%C3%B3"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
+                          >
+                            <Icons.GoogleMaps />
+                            Google Maps
+                          </a>
+                          <span className="flex items-center">
+                            <Icons.Instagram />
+                            <a
+                              href="https://www.instagram.com/masse.carilo/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            >
+                              @masse.carilo
+                            </a>
+                          </span>
                         </p>
                       </div>
                     </div>
