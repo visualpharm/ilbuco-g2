@@ -22,9 +22,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://ilbuco.com.ar',
     languages: {
-      'es-AR': 'https://ilbuco.com.ar',
+      'es': 'https://ilbuco.com.ar',
       'en': 'https://ilbuco.com.ar/en',
-      'pt-BR': 'https://ilbuco.com.ar/pt',
+      'pt': 'https://ilbuco.com.ar/pt',
     }
   }
 }

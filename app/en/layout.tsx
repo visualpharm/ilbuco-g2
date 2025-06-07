@@ -1,17 +1,18 @@
 import type { Metadata } from 'next'
-import "@/styles/globals.css"
+import { HreflangTags } from '@/components/hreflang-tags'
+import { ClientLayout } from '@/components/client-layout'
 
 export const metadata: Metadata = {
-  title: 'IL BUCO',
-  description: 'Ultra-modern tech villa in Cariló, Argentina',
+  title: 'IL BUCO | Modern House in Pinamar, Argentina',
+  description: 'Luxury vacation home in Pinamar with pool, high-speed WiFi, and more for professionals and digital nomads',
   alternates: {
     canonical: 'https://ilbuco.com.ar/en',
     languages: {
-      'es-AR': 'https://ilbuco.com.ar',
+      'es': 'https://ilbuco.com.ar/',
       'en': 'https://ilbuco.com.ar/en',
-      'pt-BR': 'https://ilbuco.com.ar/pt',
-    }
-  }
+      'pt': 'https://ilbuco.com.ar/pt',
+    },
+  },
 }
 
 export default function EnglishLayout({
@@ -20,15 +21,9 @@ export default function EnglishLayout({
   children: React.ReactNode
 }) {
   return (
-    <>
-      <head>
-        {/* SEO hreflang tags for English */}
-        <link rel="alternate" hrefLang="es-AR" href="https://ilbuco.com.ar/" />
-        <link rel="alternate" hrefLang="en" href="https://ilbuco.com.ar/en/" />
-        <link rel="alternate" hrefLang="pt-BR" href="https://ilbuco.com.ar/pt/" />
-        <link rel="alternate" hrefLang="x-default" href="https://ilbuco.com.ar/" />
-      </head>
+    <ClientLayout>
+      <HreflangTags />
       {children}
-    </>
+    </ClientLayout>
   )
 }

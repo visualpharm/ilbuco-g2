@@ -516,10 +516,11 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Gym color="text-indigo-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">Gym</h3>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.gym.title} />
+                            </h3>
                             <p className="text-gray-700 mt-2">
-                              Full-service indoor gym surrounded by forest with daily, weekly, and monthly passes. Good
-                              private instruction is included in the price.
+                              <Translate text={placesNearbyTranslations.activities.gym.description} />
                             </p>
                             <p className="mt-2">
                               <a
@@ -549,10 +550,11 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Windsurfing color="text-cyan-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">Windsurfing</h3>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.windsurfing.title} />
+                            </h3>
                             <p className="text-gray-700 mt-2">
-                              Learn windsurfing on the Atlantic coast with professional instruction and equipment
-                              rental.
+                              <Translate text={placesNearbyTranslations.activities.windsurfing.description} />
                             </p>
                             <p className="mt-2">
                               <a
@@ -582,10 +584,11 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Tennis color="text-violet-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">Tennis & Padel</h3>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.tennis.title} />
+                            </h3>
                             <p className="text-gray-700 mt-2">
-                              Clay courts, padel, 5-a-side football, and a small indoor gym. They rent rackets and give
-                              classes.
+                              <Translate text={placesNearbyTranslations.activities.tennis.description} />
                             </p>
                             <p className="mt-2">
                               <a
@@ -615,9 +618,11 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Calisthenics color="text-indigo-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">Outdoor Calisthenics</h3>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.calisthenics.title} />
+                            </h3>
                             <p className="text-gray-700 mt-2">
-                              Free 24-hour outdoor calisthenics gym with bars and parallettes.
+                              <Translate text={placesNearbyTranslations.activities.calisthenics.description} />
                             </p>
                             <p className="mt-2">
                               <a
@@ -638,8 +643,12 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Horse color="text-amber-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">Horse Riding</h3>
-                            <p className="text-gray-700 mt-2">Horse riding through dunes and forest.</p>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.horseRiding.title} />
+                            </h3>
+                            <p className="text-gray-700 mt-2">
+                              <Translate text={placesNearbyTranslations.activities.horseRiding.description} />
+                            </p>
                             <p className="mt-2">
                               <a
                                 href="https://www.google.com/maps/search/?api=1&query=Cabalgatas+Dos+Montes"
@@ -668,8 +677,12 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Quad color="text-green-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">Quad & Fatbike Rental</h3>
-                            <p className="text-gray-700 mt-2">Quad riding and fatbike rental.</p>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.quadBike.title} />
+                            </h3>
+                            <p className="text-gray-700 mt-2">
+                              <Translate text={placesNearbyTranslations.activities.quadBike.description} />
+                            </p>
                             <p className="mt-2">
                               <a
                                 href="https://www.google.com/maps/search/?api=1&query=Motorrad+Caril%C3%B3"
@@ -694,13 +707,49 @@ export default function ThingsToDo() {
                         </div>
                       </div>
 
+                      <div className="bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-lg shadow-sm">
+                        <div className="flex items-start mb-4">
+                          <Icons.Car4x4 color="text-green-700" />
+                          <div>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.driving.title} />
+                            </h3>
+                            <p className="text-gray-700 mt-2">
+                              <Translate text={placesNearbyTranslations.activities.driving.description} />
+                            </p>
+                            <p className="mt-2">
+                              <a
+                                href="https://www.google.com/maps/search/?api=1&query=Sandmasters+Pinamar"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                              >
+                                <Icons.GoogleMaps />
+                                <span>Google Maps</span>
+                              </a>
+                              <a
+                                href="https://www.instagram.com/sandmasters_/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
+                              >
+                                <Icons.Instagram />
+                                <span>@sandmasters_</span>
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
                       <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
                           <Icons.Art color="text-pink-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">Ceramic Classes</h3>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.ceramics.title} />
+                            </h3>
                             <p className="text-gray-700 mt-2">
-                              Learn pottery and ceramic arts in a creative environment.
+                              <Translate text={placesNearbyTranslations.activities.ceramics.description} />
                             </p>
                             <p className="mt-2">
                               <a
@@ -730,8 +779,12 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Car4x4 color="text-green-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">4x4 Driving School</h3>
-                            <p className="text-gray-700 mt-2">Learn to drive off-road and navigate sand dunes.</p>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.driving.title} />
+                            </h3>
+                            <p className="text-gray-700 mt-2">
+                              <Translate text={placesNearbyTranslations.activities.driving.description} />
+                            </p>
                             <p className="mt-2">
                               <a
                                 href="https://www.google.com/maps/search/?api=1&query=Sandmasters+Pinamar"
