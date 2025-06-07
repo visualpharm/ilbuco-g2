@@ -43,7 +43,7 @@ export default function PortugueseHomePage() {
                   <AmenitiesToolTip>
                     <Translate text={translations.home.hero.ultraCapitalistAmenities} />
                   </AmenitiesToolTip>
-                  <Translate text={translations.home.hero.subtitlePart2} />
+                  <Translate text={translations.home.hero.subtitlePart2} /> Perfeita para experiências de <Link href="/pt/coliving-argentina" className="text-gray-700 no-underline hover:text-gray-600">coliving Argentina</Link>.
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
@@ -104,7 +104,7 @@ export default function PortugueseHomePage() {
                   <Briefcase className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
-                      <Translate text={translations.home.goals.remoteWork} />
+                      <Translate text={translations.home.goals.remoteWork} /> em um ambiente de <Link href="/pt/coliving" className="text-gray-900 no-underline hover:text-gray-700">coliving</Link>
                     </p>
                   </div>
                 </li>
@@ -151,7 +151,7 @@ export default function PortugueseHomePage() {
                       <Translate text={translations.home.highlights.accommodation.title} />
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.accommodation.description} />
+                      <Translate text={translations.home.highlights.accommodation.description} /> a 150 metros da <Link href="/pt/argentina-praia" className="text-gray-600 no-underline hover:text-gray-500">praia</Link> e do <Link href="/pt/argentina-mar" className="text-gray-600 no-underline hover:text-gray-500">mar</Link>
                     </p>
                   </div>
                 </div>
@@ -179,7 +179,7 @@ export default function PortugueseHomePage() {
                       <Translate text={translations.home.highlights.commonAreas.title} />
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.commonAreas.description} />
+                      <Translate text={translations.home.highlights.commonAreas.description} />. Descubra <Link href="/pt/carilo-argentina-o-que-fazer" className="text-gray-600 no-underline hover:text-gray-500">o que fazer</Link> na região.
                     </p>
                   </div>
                 </div>

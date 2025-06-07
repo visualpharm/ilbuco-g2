@@ -43,7 +43,7 @@ export default function Home() {
                   <AmenitiesToolTip>
                     <Translate text={translations.home.hero.ultraCapitalistAmenities} />
                   </AmenitiesToolTip>
-                  <Translate text={translations.home.hero.subtitlePart2} />
+                  <Translate text={translations.home.hero.subtitlePart2} /> Perfecta para <Link href="/casas-en-carilo-alquiler" className="text-gray-700 no-underline hover:text-gray-600">casas</Link> de lujo en <Link href="/carilo-alquiler" className="text-gray-700 no-underline hover:text-gray-600">Cariló</Link>.
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
@@ -104,7 +104,7 @@ export default function Home() {
                   <Briefcase className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
-                      <Translate text={translations.home.goals.remoteWork} />
+                      <Translate text={translations.home.goals.remoteWork} /> en un <Link href="/carilo-alojamiento" className="text-gray-900 no-underline hover:text-gray-700">alojamiento</Link> ideal
                     </p>
                   </div>
                 </li>
@@ -148,10 +148,10 @@ export default function Home() {
                   <span className="h-5 w-5 mr-3 mt-1 text-gray-700">🏠</span>
                   <div>
                     <h3 className="text-lg font-semibold">
-                      <Translate text={translations.home.highlights.accommodation.title} />
+                      <Link href="/apart-hotel-en-carilo" className="text-gray-900 no-underline hover:text-gray-700"><Translate text={translations.home.highlights.accommodation.title} /></Link>
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.accommodation.description} />
+                      <Translate text={translations.home.highlights.accommodation.description} /> a 150 metros del <Link href="/casas-en-carilo-frente-al-mar" className="text-gray-600 no-underline hover:text-gray-500">mar</Link>
                     </p>
                   </div>
                 </div>
@@ -179,7 +179,7 @@ export default function Home() {
                       <Translate text={translations.home.highlights.commonAreas.title} />
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.commonAreas.description} />
+                      <Translate text={translations.home.highlights.commonAreas.description} />. Descubrí <Link href="/que-hacer-en-carilo" className="text-gray-600 no-underline hover:text-gray-500">qué hacer</Link> en los alrededores.
                     </p>
                   </div>
                 </div>

@@ -19,7 +19,7 @@ export default function Location() {
                 <Translate text={locationTranslations.pageTitle} />
               </h1>
               <p className="text-lg text-gray-700 mb-8">
-                <Translate text={locationTranslations.pageDescription} />
+                <Translate text={locationTranslations.pageDescription} /> Una ubicación privilegiada en <Link href="/carilo-alojamiento" className="text-gray-700 no-underline hover:text-gray-600">Cariló</Link> cerca del <Link href="/casas-en-carilo-frente-al-mar" className="text-gray-700 no-underline hover:text-gray-600">mar</Link>.
               </p>
 
               {/* Map Section */}

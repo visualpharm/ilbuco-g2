@@ -83,7 +83,7 @@ export default function ArgentinaPraiaPage() {
                   <Waves className="h-5 w-5 mr-3 mt-1 text-blue-600 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
-                      <strong>150 metros da praia:</strong> Acesso direto às praias virgens do Atlântico Sul, perfeitas para relaxar após o trabalho.
+                      <strong>150 metros da praia:</strong> Acesso direto às praias virgens do <Link href="/pt/argentina-mar" className="text-gray-900 no-underline hover:text-gray-700">Atlântico Sul</Link>, perfeitas para relaxar após o trabalho.
                     </p>
                   </div>
                 </li>

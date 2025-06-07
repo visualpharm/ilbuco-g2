@@ -52,7 +52,7 @@ export default function Rooms() {
                 <Translate text={roomsTranslations.pageTitle} />
               </h1>
               <p className="text-lg text-gray-700 mb-12">
-                <Translate text={roomsTranslations.pageDescription} />
+                <Translate text={roomsTranslations.pageDescription} /> Perfectas para <Link href="/alquiler-carilo" className="text-gray-700 no-underline hover:text-gray-600">alquiler</Link> en <Link href="/carilo-alquiler" className="text-gray-700 no-underline hover:text-gray-600">Cariló</Link>.
               </p>
 
               <div className="space-y-16">
@@ -110,7 +110,7 @@ export default function Rooms() {
                     <Translate text={roomsTranslations.terraceSuite.title} />
                   </h2>
                   <p className="text-gray-600 mb-6">
-                    <Translate text={roomsTranslations.terraceSuite.subtitle} />
+                    <Translate text={roomsTranslations.terraceSuite.subtitle} /> Ideal como <Link href="/casas-en-carilo-alquiler" className="text-gray-600 no-underline hover:text-gray-500">casa</Link> de lujo.
                   </p>
                   <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
                     <li className="flex items-start">

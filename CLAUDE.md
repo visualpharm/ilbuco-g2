@@ -94,13 +94,10 @@ Content in Spanish, English, and Portuguese is **not direct translations**. Each
 
 The structure of each CO page is adapted to reflect the most relevant terms per audience, maximizing organic reach in each language.
 
-### 🌐 Language & Flag Policy
+### Keywords
+For each of the keywords there should be a landing page. This landing page should be for the specified language only. I.e. alquiler cariló must be only for spanish version. 
 
-- **English**: Always use the 🇺🇸 **U.S. flag**, regardless of user location.  
-- **Spanish**: Use the 🇦🇷 **Argentinian flag** by default.  
-- **Portuguese**: Use the 🇧🇷 **Brazilian flag**.
-
-### 🇦🇷 Spanish Keywords
+#### 🇦🇷 Spanish Keywords
 - alquiler cariló  
 - cariló alquiler  
 - apart hotel en cariló  
@@ -111,7 +108,7 @@ The structure of each CO page is adapted to reflect the most relevant terms per 
 - qué hacer en cariló  
 - qué hacer en cariló cuando llueve  
 
-### 🇺🇸 English Keywords
+#### 🇺🇸 English Keywords
 - digital nomad argentina  
 - argentina remote work visa  
 - coliving south america  
@@ -120,15 +117,34 @@ The structure of each CO page is adapted to reflect the most relevant terms per 
 - eco lodge argentina  
 - digital nomad retreats  
 
-### 🇧🇷 Portuguese Keywords
+#### 🇧🇷 Portuguese Keywords
 - coliving  
 - argentina praia  
 - argentina mar  
 - carilo argentina o que fazer  
 - coliving argentina  
 
-## Keyword linking strategy
+### Keyword linking strategy
 - Direct URLs (SEO traffic from Google)
 - Internal SEO linking (if strategically placed within content)
 
 Find the texts on the website that could be linked to a landing page, and link them with an invisible link (not marked with blue or underline). For example, for the landing page /pt/argentina-praia, find the word praia elsewhere and link it. 
+
+### Sitemap
+The website must have a sitemap with all pages in all languages and all landing pages. 
+
+## 🌐 Language & Flag Policy
+
+- **English**: Always use the 🇺🇸 **U.S. flag**, regardless of user location.  
+- **Spanish**: Use the 🇦🇷 **Argentinian flag** by default.  
+- **Portuguese**: Use the 🇧🇷 **Brazilian flag**.
+
+## Fact checking policy
+This is a must: all text must rely on facts from /the-house, /rooms, /places-nearby, /location. We don't invent any additional facts unless I provide them by typing, including:
+- testimonials
+- room types such as private, shared bathroom etc. (we have a high class living and all of them are of course private, and have private bathroom, not worth mentioning)
+- prices, daily rates
+- amenities
+- features like filtering water (when the-house states we have a water softener only).
+
+If we bring some information about the location, we must have at least 2 sources that confirm it. Say, we want to write about surfing in Carilo - we need two independent web pages that say we have surfing. 

@@ -104,7 +104,7 @@ export default function TrabalhoRemotoArgentinaPage() {
                   <Briefcase className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
-                      <Translate text={translations.home.goals.remoteWork} />
+                      <Translate text={translations.home.goals.remoteWork} /> em uma experiência de <Link href="/pt/coliving" className="text-gray-900 no-underline hover:text-gray-700">coliving</Link> premium
                     </p>
                   </div>
                 </li>
