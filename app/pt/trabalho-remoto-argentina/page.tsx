@@ -24,7 +24,7 @@ import {
   Shield,
 } from "lucide-react"
 
-export default function PortugueseHomePage() {
+export default function TrabalhoRemotoArgentinaPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />

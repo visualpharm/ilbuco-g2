@@ -9,6 +9,7 @@ export function SiteFooter() {
   const copyrightText = {
     en: translations.footer.copyright.en.replace("{year}", currentYear.toString()),
     es: translations.footer.copyright.es.replace("{year}", currentYear.toString()),
+    pt: translations.footer.copyright.pt.replace("{year}", currentYear.toString()),
   }
 
   return (

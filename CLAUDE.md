@@ -126,3 +126,9 @@ The structure of each CO page is adapted to reflect the most relevant terms per 
 - argentina mar  
 - carilo argentina o que fazer  
 - coliving argentina  
+
+## Keyword linking strategy
+- Direct URLs (SEO traffic from Google)
+- Internal SEO linking (if strategically placed within content)
+
+Find the texts on the website that could be linked to a landing page, and link them with an invisible link (not marked with blue or underline). For example, for the landing page /pt/argentina-praia, find the word praia elsewhere and link it. 
