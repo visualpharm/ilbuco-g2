@@ -5,24 +5,8 @@ import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
 import { AmenitiesToolTip } from "@/components/amenities-tooltip"
 import { translations } from "@/translations/common"
-import {
-  ArrowRight,
-  Wifi,
-  Code,
-  Calculator,
-  CuboidIcon as Cube,
-  Briefcase,
-  Rocket,
-  Thermometer,
-  Sofa,
-  TreesIcon as Tree,
-  Refrigerator,
-  Bed,
-  ShowerHeadIcon as Shower,
-  Droplet,
-  Building,
-  Shield,
-} from "lucide-react"
+// Windows 11 style icons replaced Lucide React icons
+// Icons are now served as SVG files from /public/icons/
 
 export default function EnglishHomePage() {
   return (
@@ -50,7 +34,7 @@ export default function EnglishHomePage() {
                     href="/en/book"
                     className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
-                    <Translate text={translations.home.hero.cta} /> <ArrowRight className="ml-2 h-4 w-4" />
+                    <Translate text={translations.home.hero.cta} /> <Image src="/icons/icons8/arrow-right.svg" alt="" width={24} height={24} className="ml-2" />
                   </Link>
                 </div>
               </div>
@@ -77,7 +61,7 @@ export default function EnglishHomePage() {
               </h2>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <Code className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                  <Image src="/icons/icons8/code.svg" alt="" width={24} height={24} className="mr-3 mt-1 flex-shrink-0" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <p className="text-lg">
                       <Translate text={translations.home.goals.vibeCoding} />
@@ -85,7 +69,7 @@ export default function EnglishHomePage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Calculator className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                  <Image src="/icons/icons8/calculator.svg" alt="" width={24} height={24} className="mr-3 mt-1 flex-shrink-0" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <p className="text-lg">
                       <Translate text={translations.home.goals.finance} />
@@ -93,7 +77,7 @@ export default function EnglishHomePage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Cube className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                  <Image src="/icons/icons8/cube.svg" alt="" width={24} height={24} className="mr-3 mt-1 flex-shrink-0" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <p className="text-lg">
                       <Translate text={translations.home.goals.modeling} />
@@ -101,7 +85,7 @@ export default function EnglishHomePage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Briefcase className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                  <Image src="/icons/icons8/briefcase.svg" alt="" width={24} height={24} className="mr-3 mt-1 flex-shrink-0" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <p className="text-lg">
                       <Translate text={translations.home.goals.remoteWork} /> with <Link href="/en/argentina-remote-work-visa" className="text-gray-900 no-underline hover:text-gray-700">visa</Link> support in a <Link href="/en/coliving-south-america" className="text-gray-900 no-underline hover:text-gray-700">South America</Link> location
@@ -109,7 +93,7 @@ export default function EnglishHomePage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Rocket className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                  <Image src="/icons/icons8/rocket.svg" alt="" width={24} height={24} className="mr-3 mt-1 flex-shrink-0" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <p className="text-lg">
                       <Translate text={translations.home.goals.startup} />
@@ -131,7 +115,7 @@ export default function EnglishHomePage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Wifi className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                  <Image src="/icons/icons8/wifi.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <h3 className="text-lg font-semibold">
                       <Translate text={translations.home.highlights.internet.title} />
@@ -145,7 +129,7 @@ export default function EnglishHomePage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-gray-700">🏠</span>
+                  <Image src="/icons/icons8/house.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <h3 className="text-lg font-semibold">
                       <Link href="/en/eco-lodge-argentina" className="text-gray-900 no-underline hover:text-gray-700"><Translate text={translations.home.highlights.accommodation.title} /></Link>
@@ -159,7 +143,7 @@ export default function EnglishHomePage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Thermometer className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                  <Image src="/icons/icons8/thermometer.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <h3 className="text-lg font-semibold">
                       <Translate text={translations.home.highlights.climate.title} />
@@ -173,7 +157,7 @@ export default function EnglishHomePage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Sofa className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                  <Image src="/icons/icons8/sofa.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <h3 className="text-lg font-semibold">
                       <Translate text={translations.home.highlights.commonAreas.title} />
@@ -187,7 +171,7 @@ export default function EnglishHomePage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Tree className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                  <Image src="/icons/icons8/tree.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <h3 className="text-lg font-semibold">
                       <Translate text={translations.home.highlights.outdoorSpace.title} />
@@ -201,7 +185,7 @@ export default function EnglishHomePage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Refrigerator className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                  <Image src="/icons/icons8/refrigerator.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <h3 className="text-lg font-semibold">
                       <Translate text={translations.home.highlights.kitchen.title} />
@@ -215,7 +199,7 @@ export default function EnglishHomePage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Bed className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                  <Image src="/icons/icons8/bed.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <h3 className="text-lg font-semibold">
                       <Translate text={translations.home.highlights.bedding.title} />
@@ -229,7 +213,7 @@ export default function EnglishHomePage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Shower className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                  <Image src="/icons/icons8/shower.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <h3 className="text-lg font-semibold">
                       <Translate text={translations.home.highlights.bathrooms.title} />
@@ -243,7 +227,7 @@ export default function EnglishHomePage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Droplet className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                  <Image src="/icons/icons8/droplet.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <h3 className="text-lg font-semibold">
                       <Translate text={translations.home.highlights.waterTreatment.title} />
@@ -257,7 +241,7 @@ export default function EnglishHomePage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Building className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                  <Image src="/icons/icons8/speaker.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <h3 className="text-lg font-semibold">
                       <Translate text={translations.home.highlights.soundInsulation.title} />
@@ -271,7 +255,7 @@ export default function EnglishHomePage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Shield className="h-5 w-5 mr-3 mt-1 text-gray-700" />
+                  <Image src="/icons/icons8/temperature.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <h3 className="text-lg font-semibold">
                       <Translate text={translations.home.highlights.fullInsulation.title} />
@@ -285,7 +269,7 @@ export default function EnglishHomePage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <Link href="/en/the-house" className="flex items-start mb-3 group">
-                  <ArrowRight className="h-5 w-5 mr-3 mt-1 text-blue-600 group-hover:text-blue-800 transition-colors" />
+                  <Image src="/icons/icons8/arrow-right.svg" alt="" width={24} height={24} className="mr-3 mt-1 transition-colors" style={{filter: 'brightness(0) saturate(100%) invert(33%) sepia(79%) saturate(1515%) hue-rotate(219deg) brightness(101%) contrast(101%)'}} />
                   <div>
                     <h3 className="text-lg font-semibold text-blue-600 group-hover:text-blue-800 transition-colors">
                       <Translate text={translations.home.highlights.allFeatures.title} />

@@ -150,14 +150,43 @@ This is a must: all text must rely on facts from /the-house, /rooms, /places-nea
 If we bring some information about the location, we must have at least 2 sources that confirm it. Say, we want to write about surfing in Carilo - we need two independent web pages that say we have surfing. 
 
 ## Icons style
-We use Windows 11 icons style from Icons8. When on a light colored background, we use the dark version of the color, for example when the background is pink, the icon is red or dark red. 
+We use Apple SF Symbols Regular style from Icons8. When on a light colored background, we use the dark version of the color, for example when the background is pink, the icon is red or dark red. 
 
-Icons are 24x24 by default. Smaller version is 16x16.
+Icons are 24x24 by default. 
 
-We use icons in the SVG format wherever possible, stored in `/public/icons/`. 
+We use icons in the SVG format wherever possible, stored in `/public/icons/icons8/`. 
+
+Some of the icon metaphors:
+- Baños de Lujo — plumbing (not bathtub, as we don't have it, and not a palm tree)
+- Aislamiento Acústico — speaker (sound insulation)
+- Windsurfing — sail boat (water sports)
+- Calisthenics — target (precision training/fitness goals)
+- Gimnasio — dumbbell (gym/fitness equipment)
+- Horse Riding — horse/year of horse (equestrian activities)
+- Tennis — tennis racquet (racquet sports)
+- Laptop/Work — laptop computer (remote work)
+- Meat/Parrilla — rack of lamb (high-quality meat/barbecue)
+
+
+
+**IMPORTANT**: All icons must be sourced through Icons8 MCP (Model Context Protocol). No icons should be used without going through the Icons8 MCP system. This ensures consistency and proper licensing. 
 
 ## Image Policy
 We use the imagekit for scaling down the images to the visible size. 
 
 The endpoint is: https://ik.imagekit.io/icons8/ilbuco/
 Therefore, if we want to scale down https://ilbuco.com.ar/gallery/hero-villa-exterior.jpeg, we use the following URL: https://ik.imagekit.io/icons8/ilbuco/gallery/hero-villa-exterior.jpeg?tr=w-400,h-300
+
+
+## Automatic Testing
+Add automatic tests to the repo that run after `npm run build`, covering:
+
+1. Internal and external broken links (using linkinator)
+2. Missing images (HTTP 404s on <img> and next/image)
+3. Missing alt texts (ESLint jsx-a11y plugin)
+4. Translation completeness: all translation objects must have 'es', 'en', 'pt'
+5. hreflang and canonical link correctness for all language versions
+6. Sitemap must include every static route in all 3 languages
+7. Check that internal keyword links are invisible (no underline, no color change)
+
+These tests should run with `npm run test:site`, and optionally run on build via a postbuild script.

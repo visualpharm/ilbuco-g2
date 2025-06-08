@@ -4,7 +4,8 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
 import { locationTranslations } from "@/translations/location"
-import { Car, Plane, Bus } from "lucide-react"
+// Windows 11 style icons replaced Lucide React icons
+// Icons are now served as SVG files from /public/icons/
 
 export default function EnglishLocation() {
   return (
@@ -64,7 +65,7 @@ export default function EnglishLocation() {
                 </h2>
                 <ul className="space-y-6">
                   <li className="flex items-start">
-                    <Car className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                    <Image src="/icons/car.svg" alt="" width={16} height={16} className="mr-3 mt-1 flex-shrink-0" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                     <div>
                       <p className="font-semibold">
                         <Translate text={locationTranslations.gettingHere.car.title} />:
@@ -77,7 +78,7 @@ export default function EnglishLocation() {
 
                   <li className="relative">
                     <div className="flex items-start">
-                      <Bus className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                      <Image src="/icons/bus.svg" alt="" width={16} height={16} className="mr-3 mt-1 flex-shrink-0" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                       <div>
                         <p className="font-semibold">
                           <Translate text={locationTranslations.gettingHere.bus.title} />:
@@ -90,7 +91,7 @@ export default function EnglishLocation() {
                   </li>
 
                   <li className="flex items-start">
-                    <Plane className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                    <Image src="/icons/plane.svg" alt="" width={16} height={16} className="mr-3 mt-1 flex-shrink-0" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                     <div>
                       <p className="font-semibold">
                         <Translate text={locationTranslations.gettingHere.plane.title} />:

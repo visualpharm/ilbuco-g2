@@ -5,79 +5,74 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
 import { placesNearbyTranslations } from "@/translations/places-nearby"
-import {
-  Dumbbell,
-  Target,
-  Users,
-  Gamepad2,
-  Car,
-  Bike,
-  Palette,
-  MapPin,
-  Instagram,
-  Globe,
-  UtensilsCrossed,
-  Pizza,
-  Coffee,
-  ShoppingBag,
-  ShoppingCart,
-  Apple,
-  Waves,
-  Trees,
-  Calculator
-} from "lucide-react"
+import Image from "next/image"
+// Windows 11 style icons replaced Lucide React icons
+// Icons are now served as SVG files from /public/icons/
 
-// Icon components with dynamic colors using Lucide React
+// Helper function to convert Tailwind color classes to CSS filters
+function getColorFilter(colorClass: string): React.CSSProperties {
+  const colorMap: { [key: string]: string } = {
+    'text-indigo-700': 'brightness(0) saturate(100%) invert(26%) sepia(100%) saturate(2878%) hue-rotate(231deg) brightness(101%) contrast(103%)',
+    'text-cyan-700': 'brightness(0) saturate(100%) invert(26%) sepia(96%) saturate(6121%) hue-rotate(191deg) brightness(101%) contrast(103%)',
+    'text-violet-700': 'brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(3597%) hue-rotate(271deg) brightness(101%) contrast(103%)',
+    'text-amber-700': 'brightness(0) saturate(100%) invert(49%) sepia(98%) saturate(987%) hue-rotate(2deg) brightness(101%) contrast(103%)',
+    'text-green-700': 'brightness(0) saturate(100%) invert(33%) sepia(100%) saturate(1352%) hue-rotate(87deg) brightness(101%) contrast(103%)',
+    'text-pink-700': 'brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(3597%) hue-rotate(314deg) brightness(101%) contrast(103%)',
+    'text-red-700': 'brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(3597%) hue-rotate(354deg) brightness(101%) contrast(103%)',
+    'text-emerald-700': 'brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(3597%) hue-rotate(140deg) brightness(101%) contrast(103%)',
+    'text-gray-700': 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)',
+    'text-white': 'brightness(0) saturate(100%) invert(100%)',
+    'text-gray-600': 'brightness(0) saturate(100%) invert(49%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'
+  }
+  
+  return { filter: colorMap[colorClass] || 'none' }
+}
+
+// Icon components with Windows 11 style using SVG files
 const Icons = {
   // Activity Icons
-  Gym: ({ color }: { color: string }) => <Dumbbell className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
-  Windsurfing: ({ color }: { color: string }) => (
-    <svg className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3 21L12 3l9 18H3z" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 15l6-6" />
-    </svg>
-  ),
-  Calisthenics: ({ color }: { color: string }) => <Target className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
-  Horse: ({ color }: { color: string }) => <Users className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
-  Tennis: ({ color }: { color: string }) => <Gamepad2 className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
-  Quad: ({ color }: { color: string }) => <Car className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
-  Car4x4: ({ color }: { color: string }) => <Car className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
-  Bike: ({ color }: { color: string }) => <Bike className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
-  Art: ({ color }: { color: string }) => <Palette className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  Gym: ({ color }: { color: string }) => <Image src="/icons/icons8/dumbbell.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Windsurfing: ({ color }: { color: string }) => <Image src="/icons/icons8/sail-boat.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Calisthenics: ({ color }: { color: string }) => <Image src="/icons/icons8/target-calisthenics.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Horse: ({ color }: { color: string }) => <Image src="/icons/icons8/horse-riding.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Tennis: ({ color }: { color: string }) => <Image src="/icons/icons8/tennis-racquet.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Quad: ({ color }: { color: string }) => <Image src="/icons/icons8/car.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Car4x4: ({ color }: { color: string }) => <Image src="/icons/icons8/car.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Bike: ({ color }: { color: string }) => <Image src="/icons/icons8/bike.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Art: ({ color }: { color: string }) => <Image src="/icons/icons8/palette.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   
   // Food Icons
-  Restaurant: ({ color }: { color: string }) => <UtensilsCrossed className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
-  Pizza: ({ color }: { color: string }) => <Pizza className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
-  Meat: ({ color }: { color: string }) => <UtensilsCrossed className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  Restaurant: ({ color }: { color: string }) => <Image src="/icons/icons8/utensils.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Pizza: ({ color }: { color: string }) => <Image src="/icons/icons8/pizza.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Meat: ({ color }: { color: string }) => <Image src="/icons/icons8/rack-of-lamb.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   
   // Shopping Icons
-  ShoppingBag: ({ color }: { color: string }) => <ShoppingBag className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
-  ShoppingCart: ({ color }: { color: string }) => <ShoppingCart className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
-  Fruit: ({ color }: { color: string }) => <Apple className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  ShoppingBag: ({ color }: { color: string }) => <Image src="/icons/icons8/shopping-bag.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  ShoppingCart: ({ color }: { color: string }) => <Image src="/icons/icons8/shopping-cart.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Fruit: ({ color }: { color: string }) => <Image src="/icons/icons8/apple.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Shop: ({ color }: { color: string }) => <Image src="/icons/icons8/shop.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Tools: ({ color }: { color: string }) => <Image src="/icons/icons8/tools.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   
   // Nature Icons
-  Beach: ({ color }: { color: string }) => <Waves className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
-  Tree: ({ color }: { color: string }) => <Trees className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  Beach: ({ color }: { color: string }) => <Image src="/icons/icons8/waves.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Tree: ({ color }: { color: string }) => <Image src="/icons/icons8/tree.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Trail: ({ color }: { color: string }) => <Image src="/icons/icons8/trail.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Bicycle: ({ color }: { color: string }) => <Image src="/icons/icons8/bicycle.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Camera: ({ color }: { color: string }) => <Image src="/icons/icons8/camera.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   
   // Work Icons
-  Laptop: ({ color }: { color: string }) => (
-    <svg className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-      <rect x="3" y="7" width="18" height="14" rx="2" ry="2"></rect>
-      <path d="M17 7V4a2 2 0 00-2-2H9a2 2 0 00-2 2v3"></path>
-    </svg>
-  ),
-  Finance: ({ color }: { color: string }) => <Calculator className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  Laptop: ({ color }: { color: string }) => <Image src="/icons/icons8/laptop-computer.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Finance: ({ color }: { color: string }) => <Image src="/icons/icons8/calculator.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
 
   // Social & Web Links (Windows 11 Style)
   GoogleMaps: ({ className = "" }: { className?: string }) => (
-    <MapPin className={`w-5 h-5 inline-block mr-1.5 text-[#4285F4] ${className}`} />
+    <Image src="/icons/icons8/map-pin.svg" alt="" width={24} height={24} className={`inline-block mr-1.5 ${className}`} style={{filter: 'brightness(0) saturate(100%) invert(33%) sepia(79%) saturate(1515%) hue-rotate(219deg) brightness(101%) contrast(101%)'}} />
   ),
   Instagram: ({ className = "" }: { className?: string }) => (
-    <Instagram className={`w-5 h-5 inline-block mr-1.5 text-[#E1306C] ${className}`} />
+    <Image src="/icons/icons8/instagram.svg" alt="" width={24} height={24} className={`inline-block mr-1.5 ${className}`} style={{filter: 'brightness(0) saturate(100%) invert(14%) sepia(100%) saturate(7284%) hue-rotate(317deg) brightness(94%) contrast(91%)'}} />
   ),
   Website: ({ className = "" }: { className?: string }) => (
-    <Globe className={`w-5 h-5 inline-block mr-1.5 text-gray-600 ${className}`} />
+    <Image src="/icons/icons8/globe.svg" alt="" width={24} height={24} className={`inline-block mr-1.5 ${className}`} style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
   )
 }
 
@@ -364,7 +359,7 @@ export default function ThingsToDo() {
 
                       <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <span className="text-emerald-600 text-2xl flex-shrink-0">􀣽</span>
+                          <Icons.Trail color="text-emerald-700" />
                           <div>
                             <h3 className="text-xl font-semibold">
                               <Translate
@@ -410,7 +405,7 @@ export default function ThingsToDo() {
 
                       <div className="bg-gradient-to-br from-yellow-50 to-orange-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <span className="text-orange-600 text-2xl flex-shrink-0">🚴</span>
+                          <Icons.Bicycle color="text-orange-700" />
                           <div>
                             <h3 className="text-xl font-semibold">
                               <Translate
@@ -450,7 +445,7 @@ export default function ThingsToDo() {
 
                       <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <span className="text-rose-600 text-2xl flex-shrink-0">􀢹</span>
+                          <Icons.Camera color="text-pink-700" />
                           <div>
                             <h3 className="text-xl font-semibold">
                               <Translate
@@ -1048,10 +1043,13 @@ export default function ThingsToDo() {
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Chicho */}
                       <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Supermarkets</h3>
-                        <p className="text-gray-700">
-                          <strong>Chicho</strong> – Best open hours, decent fruit and vegetables.
-                        </p>
+                        <div className="flex items-start mb-4">
+                          <Icons.Shop color="text-indigo-700" />
+                          <div>
+                            <h3 className="text-lg font-semibold mb-2">Supermarkets</h3>
+                            <p className="text-gray-700">
+                              <strong>Chicho</strong> – Best open hours, decent fruit and vegetables.
+                            </p>
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Proveedur%C3%ADa+Chicho+Caril%C3%B3"
@@ -1074,6 +1072,8 @@ export default function ThingsToDo() {
                             </a>
                           </span>
                         </p>
+                          </div>
+                        </div>
                       </div>
 
                       {/* Menor Coste */}
@@ -1221,10 +1221,13 @@ export default function ThingsToDo() {
 
                       {/* Jorjito */}
                       <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Hardware</h3>
-                        <p className="text-gray-700">
-                          <strong>Jorjito</strong> – Most complete hardware store.
-                        </p>
+                        <div className="flex items-start mb-4">
+                          <Icons.Tools color="text-amber-700" />
+                          <div>
+                            <h3 className="text-lg font-semibold mb-2">Hardware</h3>
+                            <p className="text-gray-700">
+                              <strong>Jorjito</strong> – Most complete hardware store.
+                            </p>
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Ferreter%C3%ADa+Jorjito+Caril%C3%B3"
@@ -1247,6 +1250,8 @@ export default function ThingsToDo() {
                             </a>
                           </span>
                         </p>
+                          </div>
+                        </div>
                       </div>
 
                       {/* Quimica Limpia Maurito */}

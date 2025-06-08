@@ -4,7 +4,8 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
 import { locationTranslations } from "@/translations/location"
-import { Car, Plane, Bus } from "lucide-react"
+// Windows 11 style icons replaced Lucide React icons
+// Icons are now served as SVG files from /public/icons/
 
 export default function Location() {
   return (
@@ -64,7 +65,7 @@ export default function Location() {
                 </h2>
                 <ul className="space-y-6">
                   <li className="flex items-start">
-                    <Car className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                    <Image src="/icons/car.svg" alt="" width={16} height={16} className="mr-3 mt-1 flex-shrink-0" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                     <div>
                       <p className="font-semibold">
                         <Translate text={locationTranslations.gettingHere.car.title} />:
@@ -77,7 +78,7 @@ export default function Location() {
 
                   <li className="relative">
                     <div className="flex items-start">
-                      <Bus className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                      <Image src="/icons/bus.svg" alt="" width={16} height={16} className="mr-3 mt-1 flex-shrink-0" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                       <div className="w-full">
                         <div className="flex flex-wrap items-center gap-2 mb-1">
                           <p className="font-semibold">
@@ -113,7 +114,7 @@ export default function Location() {
                   </li>
 
                   <li className="flex items-start">
-                    <Car className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                    <Image src="/icons/car.svg" alt="" width={16} height={16} className="mr-3 mt-1 flex-shrink-0" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                     <div>
                       <p className="font-semibold">
                         <Translate
@@ -158,7 +159,7 @@ export default function Location() {
                   </li>
 
                   <li className="flex items-start">
-                    <Plane className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                    <Image src="/icons/plane.svg" alt="" width={16} height={16} className="mr-3 mt-1 flex-shrink-0" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                     <div>
                       <p className="font-semibold">
                         <Translate
