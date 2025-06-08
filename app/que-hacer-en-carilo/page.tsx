@@ -11,7 +11,7 @@ import {
   Camera,
   Bike,
   UtensilsCrossed,
-  Shopping,
+  ShoppingBag as Shopping,
   Music,
   Sunrise,
 } from "lucide-react"

@@ -9,7 +9,7 @@ import {
   Book,
   Music,
   UtensilsCrossed,
-  Shopping,
+  ShoppingBag as Shopping,
   Gamepad2,
   Palette,
   Home,

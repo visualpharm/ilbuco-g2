@@ -148,3 +148,16 @@ This is a must: all text must rely on facts from /the-house, /rooms, /places-nea
 - features like filtering water (when the-house states we have a water softener only).
 
 If we bring some information about the location, we must have at least 2 sources that confirm it. Say, we want to write about surfing in Carilo - we need two independent web pages that say we have surfing. 
+
+## Icons style
+We use Windows 11 icons style from Icons8. When on a light colored background, we use the dark version of the color, for example when the background is pink, the icon is red or dark red. 
+
+Icons are 24x24 by default. Smaller version is 16x16.
+
+We use icons in the SVG format wherever possible, stored in `/public/icons/`. 
+
+## Image Policy
+We use the imagekit for scaling down the images to the visible size. 
+
+The endpoint is: https://ik.imagekit.io/icons8/ilbuco/
+Therefore, if we want to scale down https://ilbuco.com.ar/gallery/hero-villa-exterior.jpeg, we use the following URL: https://ik.imagekit.io/icons8/ilbuco/gallery/hero-villa-exterior.jpeg?tr=w-400,h-300
