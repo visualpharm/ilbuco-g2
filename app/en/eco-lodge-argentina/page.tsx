@@ -13,7 +13,7 @@ import {
   Droplet,
   Bird,
   Recycle,
-  Solar,
+  Sun as Solar,
   Heart,
   Mountain,
   Flower,

@@ -10,7 +10,7 @@ import {
   Camera,
   Utensils,
   Bike,
-  Hiking,
+  Mountain as Hiking,
   Sunset,
   Coffee,
   Star,

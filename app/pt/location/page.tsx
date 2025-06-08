@@ -5,6 +5,13 @@ import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
 import { locationTranslations } from "@/translations/location"
 import { Car, Plane, Bus } from "lucide-react"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Nossa Localização - Cariló, Argentina | IL BUCO",
+  description: "Descubra a localização perfeita do IL BUCO em Cariló, Argentina. A 360 km de Buenos Aires, rodeado por florestas de pinheiros e praias pristinas.",
+  keywords: "localização carilo, como chegar carilo, carilo argentina localização, il buco localização",
+}
 
 export default function PortugueseLocation() {
   return (
