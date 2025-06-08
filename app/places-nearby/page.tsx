@@ -30,44 +30,44 @@ import {
 // Icon components with dynamic colors using Lucide React
 const Icons = {
   // Activity Icons
-  Gym: ({ color }: { color: string }) => <Dumbbell className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
+  Gym: ({ color }: { color: string }) => <Dumbbell className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
   Windsurfing: ({ color }: { color: string }) => (
-    <svg className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <svg className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" d="M3 21L12 3l9 18H3z" />
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18" />
       <path strokeLinecap="round" strokeLinejoin="round" d="M9 15l6-6" />
     </svg>
   ),
-  Calisthenics: ({ color }: { color: string }) => <Target className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
-  Horse: ({ color }: { color: string }) => <Users className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
-  Tennis: ({ color }: { color: string }) => <Gamepad2 className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
-  Quad: ({ color }: { color: string }) => <Car className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
-  Car4x4: ({ color }: { color: string }) => <Car className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
-  Bike: ({ color }: { color: string }) => <Bike className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
-  Art: ({ color }: { color: string }) => <Palette className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
+  Calisthenics: ({ color }: { color: string }) => <Target className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  Horse: ({ color }: { color: string }) => <Users className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  Tennis: ({ color }: { color: string }) => <Gamepad2 className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  Quad: ({ color }: { color: string }) => <Car className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  Car4x4: ({ color }: { color: string }) => <Car className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  Bike: ({ color }: { color: string }) => <Bike className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  Art: ({ color }: { color: string }) => <Palette className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
   
   // Food Icons
-  Restaurant: ({ color }: { color: string }) => <UtensilsCrossed className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
-  Pizza: ({ color }: { color: string }) => <Pizza className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
-  Meat: ({ color }: { color: string }) => <UtensilsCrossed className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
+  Restaurant: ({ color }: { color: string }) => <UtensilsCrossed className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  Pizza: ({ color }: { color: string }) => <Pizza className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  Meat: ({ color }: { color: string }) => <UtensilsCrossed className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
   
   // Shopping Icons
-  ShoppingBag: ({ color }: { color: string }) => <ShoppingBag className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
-  ShoppingCart: ({ color }: { color: string }) => <ShoppingCart className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
-  Fruit: ({ color }: { color: string }) => <Apple className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
+  ShoppingBag: ({ color }: { color: string }) => <ShoppingBag className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  ShoppingCart: ({ color }: { color: string }) => <ShoppingCart className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  Fruit: ({ color }: { color: string }) => <Apple className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
   
   // Nature Icons
-  Beach: ({ color }: { color: string }) => <Waves className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
-  Tree: ({ color }: { color: string }) => <Trees className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
+  Beach: ({ color }: { color: string }) => <Waves className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
+  Tree: ({ color }: { color: string }) => <Trees className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
   
   // Work Icons
   Laptop: ({ color }: { color: string }) => (
-    <svg className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <svg className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
       <rect x="3" y="7" width="18" height="14" rx="2" ry="2"></rect>
       <path d="M17 7V4a2 2 0 00-2-2H9a2 2 0 00-2 2v3"></path>
     </svg>
   ),
-  Finance: ({ color }: { color: string }) => <Calculator className={`w-6 h-6 mr-3 mt-1 flex-shrink-0 ${color}`} />,
+  Finance: ({ color }: { color: string }) => <Calculator className={`w-6 h-6 mr-1 mt-1 flex-shrink-0 ${color}`} />,
 
   // Social & Web Links (Windows 11 Style)
   GoogleMaps: ({ className = "" }: { className?: string }) => (
@@ -304,6 +304,7 @@ export default function ThingsToDo() {
                           text={{
                             en: "Beach & Forest Adventures",
                             es: "Aventuras de Playa y Bosque",
+                            pt: "Aventuras de Praia e Floresta",
                           }}
                         />
                       </h2>
@@ -312,6 +313,7 @@ export default function ThingsToDo() {
                           text={{
                             en: "Cariló's unique combination of pristine beaches and wild pine forests offers endless opportunities for outdoor exploration.",
                             es: "La combinación única de Cariló de playas prístinas y bosques de pinos salvajes ofrece infinitas oportunidades para la exploración al aire libre.",
+                            pt: "A combinação única de Cariló de praias pristinas e florestas de pinheiros selvagens oferece infinitas oportunidades para exploração ao ar livre.",
                           }}
                         />
                       </p>
@@ -327,6 +329,7 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "Beach Activities",
                                   es: "Actividades de Playa",
+                                  pt: "Atividades de Praia",
                                 }}
                               />
                             </h3>
@@ -335,22 +338,23 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "Cariló's beautiful beaches are just a short walk away. Enjoy swimming, sunbathing, beach volleyball, or simply relaxing by the ocean with the sound of waves.",
                                   es: "Las hermosas playas de Cariló están a solo un corto paseo. Disfrutá nadar, tomar sol, jugar al vóley playa, o simplemente relajarte junto al océano con el sonido de las olas.",
+                                  pt: <>As belas <Link href="/pt/argentina-praia" className="text-gray-700 hover:text-gray-900 no-underline">praias de Cariló</Link> estão a apenas uma curta caminhada. Desfrute de natação, banhos de sol, vôlei de praia, ou simplesmente relaxe junto ao oceano com o som das ondas.</>,
                                 }}
                               />
                             </p>
                             <ul className="mt-3 text-sm text-gray-600 space-y-1">
                               <li>
-                                • <Translate text={{ en: "Swimming in the Atlantic", es: "Nadar en el Atlántico" }} />
+                                • <Translate text={{ en: "Swimming in the Atlantic", es: "Nadar en el Atlántico", pt: "Natação no Atlântico" }} />
                               </li>
                               <li>
-                                • <Translate text={{ en: "Beach volleyball courts", es: "Canchas de vóley playa" }} />
+                                • <Translate text={{ en: "Beach volleyball courts", es: "Canchas de vóley playa", pt: "Quadras de vôlei de praia" }} />
                               </li>
                               <li>
-                                • <Translate text={{ en: "Sunrise/sunset watching", es: "Ver el amanecer/atardecer" }} />
+                                • <Translate text={{ en: "Sunrise/sunset watching", es: "Ver el amanecer/atardecer", pt: "Observação do nascer/pôr do sol" }} />
                               </li>
                               <li>
                                 • <Translate
-                                  text={{ en: "Shell collecting walks", es: "Caminatas para recolectar conchas" }}
+                                  text={{ en: "Shell collecting walks", es: "Caminatas para recolectar conchas", pt: "Caminhadas para coletar conchas" }}
                                 />
                               </li>
                             </ul>
@@ -367,6 +371,7 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "Forest Walks & Meditation",
                                   es: "Caminatas por el Bosque y Meditación",
+                                  pt: "Caminhadas na Floresta e Meditação",
                                 }}
                               />
                             </h3>
@@ -375,26 +380,27 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "Explore the unique pine forests of Cariló through numerous walking trails. The peaceful environment is perfect for meditation and mindfulness practices.",
                                   es: "Explorá los bosques de pinos únicos de Cariló a través de numerosos senderos para caminar. El ambiente tranquilo es perfecto para la meditación y las prácticas de mindfulness.",
+                                  pt: "Explore as florestas de pinheiros únicas de Cariló através de numerosas trilhas para caminhada. O ambiente pacífico é perfeito para meditação e práticas de mindfulness.",
                                 }}
                               />
                             </p>
                             <ul className="mt-3 text-sm text-gray-600 space-y-1">
                               <li>
                                 • <Translate
-                                  text={{ en: "Nature walking trails", es: "Senderos naturales para caminar" }}
+                                  text={{ en: "Nature walking trails", es: "Senderos naturales para caminar", pt: "Trilhas naturais para caminhada" }}
                                 />
                               </li>
                               <li>
-                                • <Translate text={{ en: "Meditation spots", es: "Lugares para meditar" }} />
+                                • <Translate text={{ en: "Meditation spots", es: "Lugares para meditar", pt: "Locais para meditação" }} />
                               </li>
                               <li>
                                 • <Translate
-                                  text={{ en: "Photography opportunities", es: "Oportunidades para fotografiar" }}
+                                  text={{ en: "Photography opportunities", es: "Oportunidades para fotografiar", pt: "Oportunidades para fotografia" }}
                                 />
                               </li>
                               <li>
                                 • <Translate
-                                  text={{ en: "Wildlife observation", es: "Observación de la vida silvestre" }}
+                                  text={{ en: "Wildlife observation", es: "Observación de la vida silvestre", pt: "Observação da vida selvagem" }}
                                 />
                               </li>
                             </ul>
@@ -425,16 +431,16 @@ export default function ThingsToDo() {
                             <ul className="mt-3 text-sm text-gray-600 space-y-1">
                               <li>
                                 • <Translate
-                                  text={{ en: "Regular bike rentals", es: "Alquiler de bicicletas regulares" }}
+                                  text={{ en: "Regular bike rentals", es: "Alquiler de bicicletas regulares", pt: "Aluguel de bicicletas regulares" }}
                                 />
                               </li>
                               <li>
-                                • <Translate text={{ en: "Fat bike adventures", es: "Aventuras en fat bike" }} />
+                                • <Translate text={{ en: "Fat bike adventures", es: "Aventuras en fat bike", pt: "Aventuras de fat bike" }} />
                               </li>
 
                               <li>
                                 • <Translate
-                                  text={{ en: "Forest trail cycling", es: "Ciclismo por senderos forestales" }}
+                                  text={{ en: "Forest trail cycling", es: "Ciclismo por senderos forestales", pt: "Ciclismo por trilhas na floresta" }}
                                 />
                               </li>
                             </ul>
@@ -464,16 +470,16 @@ export default function ThingsToDo() {
                             </p>
                             <ul className="mt-3 text-sm text-gray-600 space-y-1">
                               <li>
-                                • <Translate text={{ en: "Landscape photography", es: "Fotografía de paisajes" }} />
+                                • <Translate text={{ en: "Landscape photography", es: "Fotografía de paisajes", pt: "Fotografia de paisagens" }} />
                               </li>
                               <li>
-                                • <Translate text={{ en: "Plein air painting", es: "Pintura al aire libre" }} />
+                                • <Translate text={{ en: "Plein air painting", es: "Pintura al aire libre", pt: "Pintura ao ar livre" }} />
                               </li>
                               <li>
-                                • <Translate text={{ en: "Nature sketching", es: "Bocetos de la naturaleza" }} />
+                                • <Translate text={{ en: "Nature sketching", es: "Bocetos de la naturaleza", pt: "Esboços da natureza" }} />
                               </li>
                               <li>
-                                • <Translate text={{ en: "Golden hour sessions", es: "Sesiones de la hora dorada" }} />
+                                • <Translate text={{ en: "Golden hour sessions", es: "Sesiones de la hora dorada", pt: "Sessões do horário dourado" }} />
                               </li>
                             </ul>
                           </div>
@@ -510,10 +516,11 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Gym color="text-indigo-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">Gym</h3>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.gym.title} />
+                            </h3>
                             <p className="text-gray-700 mt-2">
-                              Full-service indoor gym surrounded by forest with daily, weekly, and monthly passes. Good
-                              private instruction is included in the price.
+                              <Translate text={placesNearbyTranslations.activities.gym.description} />
                             </p>
                             <p className="mt-2">
                               <a
@@ -543,10 +550,11 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Windsurfing color="text-cyan-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">Windsurfing</h3>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.windsurfing.title} />
+                            </h3>
                             <p className="text-gray-700 mt-2">
-                              Learn windsurfing on the Atlantic coast with professional instruction and equipment
-                              rental.
+                              <Translate text={placesNearbyTranslations.activities.windsurfing.description} />
                             </p>
                             <p className="mt-2">
                               <a
@@ -576,10 +584,11 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Tennis color="text-violet-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">Tennis & Padel</h3>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.tennis.title} />
+                            </h3>
                             <p className="text-gray-700 mt-2">
-                              Clay courts, padel, 5-a-side football, and a small indoor gym. They rent rackets and give
-                              classes.
+                              <Translate text={placesNearbyTranslations.activities.tennis.description} />
                             </p>
                             <p className="mt-2">
                               <a
@@ -609,9 +618,11 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Calisthenics color="text-indigo-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">Outdoor Calisthenics</h3>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.calisthenics.title} />
+                            </h3>
                             <p className="text-gray-700 mt-2">
-                              Free 24-hour outdoor calisthenics gym with bars and parallettes.
+                              <Translate text={placesNearbyTranslations.activities.calisthenics.description} />
                             </p>
                             <p className="mt-2">
                               <a
@@ -632,8 +643,12 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Horse color="text-amber-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">Horse Riding</h3>
-                            <p className="text-gray-700 mt-2">Horse riding through dunes and forest.</p>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.horseRiding.title} />
+                            </h3>
+                            <p className="text-gray-700 mt-2">
+                              <Translate text={placesNearbyTranslations.activities.horseRiding.description} />
+                            </p>
                             <p className="mt-2">
                               <a
                                 href="https://www.google.com/maps/search/?api=1&query=Cabalgatas+Dos+Montes"
@@ -662,8 +677,12 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Quad color="text-green-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">Quad & Fatbike Rental</h3>
-                            <p className="text-gray-700 mt-2">Quad riding and fatbike rental.</p>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.quadBike.title} />
+                            </h3>
+                            <p className="text-gray-700 mt-2">
+                              <Translate text={placesNearbyTranslations.activities.quadBike.description} />
+                            </p>
                             <p className="mt-2">
                               <a
                                 href="https://www.google.com/maps/search/?api=1&query=Motorrad+Caril%C3%B3"
@@ -688,13 +707,49 @@ export default function ThingsToDo() {
                         </div>
                       </div>
 
+                      <div className="bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-lg shadow-sm">
+                        <div className="flex items-start mb-4">
+                          <Icons.Car4x4 color="text-green-700" />
+                          <div>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.driving.title} />
+                            </h3>
+                            <p className="text-gray-700 mt-2">
+                              <Translate text={placesNearbyTranslations.activities.driving.description} />
+                            </p>
+                            <p className="mt-2">
+                              <a
+                                href="https://www.google.com/maps/search/?api=1&query=Sandmasters+Pinamar"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                              >
+                                <Icons.GoogleMaps />
+                                <span>Google Maps</span>
+                              </a>
+                              <a
+                                href="https://www.instagram.com/sandmasters_/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
+                              >
+                                <Icons.Instagram />
+                                <span>@sandmasters_</span>
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
                       <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
                           <Icons.Art color="text-pink-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">Ceramic Classes</h3>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.ceramics.title} />
+                            </h3>
                             <p className="text-gray-700 mt-2">
-                              Learn pottery and ceramic arts in a creative environment.
+                              <Translate text={placesNearbyTranslations.activities.ceramics.description} />
                             </p>
                             <p className="mt-2">
                               <a
@@ -724,8 +779,12 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Car4x4 color="text-green-700" />
                           <div>
-                            <h3 className="text-xl font-semibold">4x4 Driving School</h3>
-                            <p className="text-gray-700 mt-2">Learn to drive off-road and navigate sand dunes.</p>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.driving.title} />
+                            </h3>
+                            <p className="text-gray-700 mt-2">
+                              <Translate text={placesNearbyTranslations.activities.driving.description} />
+                            </p>
                             <p className="mt-2">
                               <a
                                 href="https://www.google.com/maps/search/?api=1&query=Sandmasters+Pinamar"

@@ -2,17 +2,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
-import { Translate } from "@/components/translate"
-import { AmenitiesToolTip } from "@/components/amenities-tooltip"
-import { translations } from "@/translations/common"
+import { Metadata } from "next"
 import {
   ArrowRight,
   Wifi,
-  Code,
-  Calculator,
-  CuboidIcon as Cube,
+  MapPin,
+  Waves,
   Briefcase,
-  Rocket,
+  Users,
   Thermometer,
   Sofa,
   TreesIcon as Tree,
@@ -24,7 +21,17 @@ import {
   Shield,
 } from "lucide-react"
 
-export default function EnglishHomePage() {
+export const metadata: Metadata = {
+  title: "Villa de Luxo na Praia Argentina - Cariló Coliving | IL BUCO",
+  description: "Descubra nossa villa de luxo em Cariló, Argentina. Espaço perfeito para trabalho remoto, a apenas minutos da praia. Internet 500 Mbps, piscina na floresta e todas as comodidades premium.",
+  keywords: "argentina praia, villa luxo argentina, carilo coliving, trabalho remoto praia, casa tecnologica argentina, floresta pinheiros argentina",
+  openGraph: {
+    title: "Villa de Luxo na Praia Argentina - Cariló | IL BUCO",
+    description: "Villa de luxo em Cariló, Argentina. Trabalho remoto na praia com todas as comodidades premium.",
+  },
+}
+
+export default function ArgentinaPraiaPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
@@ -36,28 +43,24 @@ export default function EnglishHomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 order-1 md:order-1">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  <Translate text={translations.home.hero.title} />
+                  Villa de Luxo na <span className="text-blue-600">Praia Argentina</span>
                 </h1>
                 <p className="text-base md:text-lg text-gray-700 max-w-xl">
-                  <Translate text={translations.home.hero.subtitlePart1} />{" "}
-                  <AmenitiesToolTip>
-                    <Translate text={translations.home.hero.ultraCapitalistAmenities} />
-                  </AmenitiesToolTip>
-                  <Translate text={translations.home.hero.subtitlePart2} /> Perfect for <Link href="/en/digital-nomad-argentina" className="text-gray-700 no-underline hover:text-gray-600">digital nomads</Link> and <Link href="/en/coliving-argentina" className="text-gray-700 no-underline hover:text-gray-600">coliving</Link> experiences.
+                  Escape para nossa villa exclusiva em Cariló, Argentina. Localizada na floresta de pinheiros, a apenas 150 metros da praia atlântica. O espaço perfeito para trabalho remoto com internet de 500 Mbps e todas as comodidades premium.
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
-                    href="/en/book"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
+                    href="/pt/book"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-blue-600 text-white text-sm md:text-base rounded-md hover:bg-blue-700 transition-colors"
                   >
-                    <Translate text={translations.home.hero.cta} /> <ArrowRight className="ml-2 h-4 w-4" />
+                    Reservar Agora <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
               </div>
               <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2">
                 <Image
                   src="/gallery/hero-villa-exterior.jpeg"
-                  alt="IL BUCO modern villa exterior with warm lighting and pine forest"
+                  alt="Villa de luxo IL BUCO em Cariló, Argentina - floresta de pinheiros próximo à praia"
                   fill
                   className="object-cover"
                   priority
@@ -68,51 +71,51 @@ export default function EnglishHomePage() {
           </div>
         </section>
 
-        {/* Goals Section */}
+        {/* Location Benefits Section */}
         <section className="py-12 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <h2 className="text-2xl md:text-3xl font-bold mb-8">
-                <Translate text={translations.home.goals.title} />
+                Por que Escolher Cariló, Argentina?
               </h2>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <Code className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                  <Waves className="h-5 w-5 mr-3 mt-1 text-blue-600 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
-                      <Translate text={translations.home.goals.vibeCoding} />
+                      <strong>150 metros da praia:</strong> Acesso direto às praias virgens do <Link href="/pt/argentina-mar" className="text-gray-900 no-underline hover:text-gray-700">Atlântico Sul</Link>, perfeitas para relaxar após o trabalho.
                     </p>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Calculator className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                  <Tree className="h-5 w-5 mr-3 mt-1 text-green-600 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
-                      <Translate text={translations.home.goals.finance} />
+                      <strong>Floresta de pinheiros:</strong> Ambiente único cercado pela natureza, proporcionando tranquilidade e ar puro.
                     </p>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Cube className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                  <MapPin className="h-5 w-5 mr-3 mt-1 text-orange-600 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
-                      <Translate text={translations.home.goals.modeling} />
+                      <strong>Localização premium:</strong> No coração de Cariló, próximo a restaurantes, cafés e atividades locais.
                     </p>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Briefcase className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                  <Briefcase className="h-5 w-5 mr-3 mt-1 text-purple-600 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
-                      <Translate text={translations.home.goals.remoteWork} /> with <Link href="/en/argentina-remote-work-visa" className="text-gray-900 no-underline hover:text-gray-700">visa</Link> support in a <Link href="/en/coliving-south-america" className="text-gray-900 no-underline hover:text-gray-700">South America</Link> location
+                      <strong>Infraestrutura premium:</strong> Internet fibra 500 Mbps, aquecimento radiante no piso e 8 ar-condicionados.
                     </p>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Rocket className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                  <Users className="h-5 w-5 mr-3 mt-1 text-indigo-600 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
-                      <Translate text={translations.home.goals.startup} />
+                      <strong>Comunidade internacional:</strong> Cariló atrai profissionais digitais e empresários do mundo todo.
                     </p>
                   </div>
                 </li>
@@ -125,7 +128,7 @@ export default function EnglishHomePage() {
         <section className="bg-gray-50 py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-10 text-center">
-              <Translate text={translations.home.highlights.title} />
+              Comodidades Premium da Villa
             </h2>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -134,10 +137,10 @@ export default function EnglishHomePage() {
                   <Wifi className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                   <div>
                     <h3 className="text-lg font-semibold">
-                      <Translate text={translations.home.highlights.internet.title} />
+                      Internet Ultra-Rápida
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.internet.description} />
+                      Fibra óptica de 500 Mbps para videoconferências e trabalho remoto sem interrupções.
                     </p>
                   </div>
                 </div>
@@ -145,13 +148,13 @@ export default function EnglishHomePage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-gray-700">🏠</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-gray-700">🏖️</span>
                   <div>
                     <h3 className="text-lg font-semibold">
-                      <Link href="/en/eco-lodge-argentina" className="text-gray-900 no-underline hover:text-gray-700"><Translate text={translations.home.highlights.accommodation.title} /></Link>
+                      Acesso Direto à Praia
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.accommodation.description} /> with <Link href="/en/slow-travel-argentina" className="text-gray-600 no-underline hover:text-gray-500">slow travel</Link> experiences
+                      Caminhada de 5 minutos até as praias exclusivas de Cariló, com mar cristalino e areia branca.
                     </p>
                   </div>
                 </div>
@@ -162,10 +165,10 @@ export default function EnglishHomePage() {
                   <Thermometer className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                   <div>
                     <h3 className="text-lg font-semibold">
-                      <Translate text={translations.home.highlights.climate.title} />
+                      Clima Temperado
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.climate.description} />
+                      Verões agradáveis (20-28°C) e invernos amenos (8-15°C), ideal para produtividade o ano todo.
                     </p>
                   </div>
                 </div>
@@ -176,10 +179,10 @@ export default function EnglishHomePage() {
                   <Sofa className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                   <div>
                     <h3 className="text-lg font-semibold">
-                      <Translate text={translations.home.highlights.commonAreas.title} />
+                      Áreas Comuns
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.commonAreas.description} />. Perfect for <Link href="/en/digital-nomad-retreats" className="text-gray-600 no-underline hover:text-gray-500">retreat</Link> experiences.
+                      Grande sala de estar comum, cozinha comum grande e um sofá enorme para socialização.
                     </p>
                   </div>
                 </div>
@@ -190,10 +193,10 @@ export default function EnglishHomePage() {
                   <Tree className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                   <div>
                     <h3 className="text-lg font-semibold">
-                      <Translate text={translations.home.highlights.outdoorSpace.title} />
+                      Terraços Privativos
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.outdoorSpace.description} />
+                      Múltiplos terraços com vista para a floresta, ideais para trabalhar ao ar livre ou relaxar.
                     </p>
                   </div>
                 </div>
@@ -204,10 +207,10 @@ export default function EnglishHomePage() {
                   <Refrigerator className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                   <div>
                     <h3 className="text-lg font-semibold">
-                      <Translate text={translations.home.highlights.kitchen.title} />
+                      Cozinha Gourmet
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.kitchen.description} />
+                      Cozinha completa com eletrodomésticos premium e ilha central para socialização.
                     </p>
                   </div>
                 </div>
@@ -218,10 +221,10 @@ export default function EnglishHomePage() {
                   <Bed className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                   <div>
                     <h3 className="text-lg font-semibold">
-                      <Translate text={translations.home.highlights.bedding.title} />
+                      Roupas de Cama Premium
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.bedding.description} />
+                      Lençóis de algodão egípcio e travesseiros de qualidade hoteleira para o máximo conforto.
                     </p>
                   </div>
                 </div>
@@ -232,10 +235,10 @@ export default function EnglishHomePage() {
                   <Shower className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                   <div>
                     <h3 className="text-lg font-semibold">
-                      <Translate text={translations.home.highlights.bathrooms.title} />
+                      Banheiros de Luxo
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.bathrooms.description} />
+                      Banheiros espaçosos com chuveiros de alta pressão e amenities premium.
                     </p>
                   </div>
                 </div>
@@ -246,10 +249,10 @@ export default function EnglishHomePage() {
                   <Droplet className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                   <div>
                     <h3 className="text-lg font-semibold">
-                      <Translate text={translations.home.highlights.waterTreatment.title} />
+                      Água Filtrada
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.waterTreatment.description} />
+                      Sistema de filtração avançado garante água pura para beber e cozinhar.
                     </p>
                   </div>
                 </div>
@@ -260,10 +263,10 @@ export default function EnglishHomePage() {
                   <Building className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                   <div>
                     <h3 className="text-lg font-semibold">
-                      <Translate text={translations.home.highlights.soundInsulation.title} />
+                      Isolamento Acústico
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.soundInsulation.description} />
+                      Paredes com isolamento profissional para máxima privacidade e concentração.
                     </p>
                   </div>
                 </div>
@@ -274,24 +277,24 @@ export default function EnglishHomePage() {
                   <Shield className="h-5 w-5 mr-3 mt-1 text-gray-700" />
                   <div>
                     <h3 className="text-lg font-semibold">
-                      <Translate text={translations.home.highlights.fullInsulation.title} />
+                      Isolamento Térmico
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.fullInsulation.description} />
+                      Isolamento completo mantém temperatura ideal em todas as estações.
                     </p>
                   </div>
                 </div>
               </div>
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                <Link href="/en/the-house" className="flex items-start mb-3 group">
+                <Link href="/pt/the-house" className="flex items-start mb-3 group">
                   <ArrowRight className="h-5 w-5 mr-3 mt-1 text-blue-600 group-hover:text-blue-800 transition-colors" />
                   <div>
                     <h3 className="text-lg font-semibold text-blue-600 group-hover:text-blue-800 transition-colors">
-                      <Translate text={translations.home.highlights.allFeatures.title} />
+                      Ver Todas as Comodidades
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.allFeatures.description} />
+                      Descubra todos os detalhes da nossa villa premium em Cariló.
                     </p>
                   </div>
                 </Link>
@@ -308,14 +311,14 @@ export default function EnglishHomePage() {
                 <div className="relative w-full max-w-md mx-auto">
                   <Image
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-n9F4IHjvhVUozNWKdlOYin6434gR7J.png"
-                    alt="Fast.com speed test showing 350 Mbps"
+                    alt="Teste de velocidade Fast.com mostrando 350 Mbps"
                     width={600}
                     height={400}
                     className="mx-auto"
                   />
                 </div>
                 <p className="text-sm text-gray-500 mt-4">
-                  <Translate text={translations.home.internetSpeed.caption} />
+                  *Screenshot enviado por um inquilino
                 </p>
               </div>
             </div>
@@ -342,17 +345,16 @@ export default function EnglishHomePage() {
                     <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
                   </svg>
                   <p className="text-2xl font-medium">
-                    "<Translate text={translations.home.testimonial.quote} />"
+                    "Trabalhar em Cariló foi transformador. A conexão com a natureza e a proximidade com a praia criaram o ambiente perfeito para minha criatividade e produtividade."
                   </p>
                   <p className="text-gray-600">
-                    <Translate text={translations.home.testimonial.author} />
+                    Sofia M., Designer Digital - São Paulo
                   </p>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        
       </main>
 
       <SiteFooter />

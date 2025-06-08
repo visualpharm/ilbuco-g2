@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Spanish (default) pages -->
+  <url>
+    <loc>https://ilbuco.com.ar/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt"/>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/reservar</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/reservar"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/book"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/reservar"/>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/habitaciones</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/habitaciones"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/rooms"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/quartos"/>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/ubicacion</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/ubicacion"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/location"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/localizacao"/>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/lugares-cercanos</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/lugares-cercanos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/places-nearby"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/lugares-proximos"/>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/la-casa</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/la-casa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/the-house"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/a-casa"/>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <!-- SEO Landing Pages (Spanish) -->
+  <url>
+    <loc>https://ilbuco.com.ar/alquiler-carilo</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/alquiler-carilo"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/carilo-alquiler</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/carilo-alquiler"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/apart-hotel-carilo</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/apart-hotel-carilo"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/carilo-alojamiento</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/carilo-alojamiento"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/casas-en-carilo-alquiler</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/casas-en-carilo-alquiler"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/casas-en-carilo-frente-al-mar</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/casas-en-carilo-frente-al-mar"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/que-hacer-en-carilo</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/que-hacer-en-carilo"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/que-hacer-en-carilo-cuando-llueve</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/que-hacer-en-carilo-cuando-llueve"/>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <!-- SEO Landing Pages (English) -->
+  <url>
+    <loc>https://ilbuco.com.ar/en/coliving-argentina</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/coliving-argentina"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/en/remote-work-retreat</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/remote-work-retreat"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/en/argentina-remote-work-visa</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/argentina-remote-work-visa"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/en/boutique-hotel-argentina</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/boutique-hotel-argentina"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/en/ecolodge-argentina</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/ecolodge-argentina"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/en/nature-retreat-argentina</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/nature-retreat-argentina"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/en/digital-nomad-argentina</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/digital-nomad-argentina"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/en/coliving-south-america</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/coliving-south-america"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/en/slow-travel-argentina</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/slow-travel-argentina"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/en/digital-nomad-retreats</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/digital-nomad-retreats"/>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <!-- SEO Landing Pages (Portuguese) -->
+  <url>
+    <loc>https://ilbuco.com.ar/pt/coliving</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/coliving"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/pt/argentina-praia</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/argentina-praia"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/pt/argentina-mar</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/argentina-mar"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/pt/carilo-argentina-o-que-fazer</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/carilo-argentina-o-que-fazer"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/pt/coliving-argentina</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/coliving-argentina"/>
+    <changefreq>monthly</changefreq>
+  </url>
+
+</urlset>

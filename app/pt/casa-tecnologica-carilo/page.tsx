@@ -24,7 +24,7 @@ import {
   Shield,
 } from "lucide-react"
 
-export default function EnglishHomePage() {
+export default function CasaTecnologicaCariloPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
@@ -43,11 +43,11 @@ export default function EnglishHomePage() {
                   <AmenitiesToolTip>
                     <Translate text={translations.home.hero.ultraCapitalistAmenities} />
                   </AmenitiesToolTip>
-                  <Translate text={translations.home.hero.subtitlePart2} /> Perfect for <Link href="/en/digital-nomad-argentina" className="text-gray-700 no-underline hover:text-gray-600">digital nomads</Link> and <Link href="/en/coliving-argentina" className="text-gray-700 no-underline hover:text-gray-600">coliving</Link> experiences.
+                  <Translate text={translations.home.hero.subtitlePart2} />
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
-                    href="/en/book"
+                    href="/pt/book"
                     className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
                     <Translate text={translations.home.hero.cta} /> <ArrowRight className="ml-2 h-4 w-4" />
@@ -104,7 +104,7 @@ export default function EnglishHomePage() {
                   <Briefcase className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
-                      <Translate text={translations.home.goals.remoteWork} /> with <Link href="/en/argentina-remote-work-visa" className="text-gray-900 no-underline hover:text-gray-700">visa</Link> support in a <Link href="/en/coliving-south-america" className="text-gray-900 no-underline hover:text-gray-700">South America</Link> location
+                      <Translate text={translations.home.goals.remoteWork} />
                     </p>
                   </div>
                 </li>
@@ -148,10 +148,10 @@ export default function EnglishHomePage() {
                   <span className="h-5 w-5 mr-3 mt-1 text-gray-700">🏠</span>
                   <div>
                     <h3 className="text-lg font-semibold">
-                      <Link href="/en/eco-lodge-argentina" className="text-gray-900 no-underline hover:text-gray-700"><Translate text={translations.home.highlights.accommodation.title} /></Link>
+                      <Translate text={translations.home.highlights.accommodation.title} />
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.accommodation.description} /> with <Link href="/en/slow-travel-argentina" className="text-gray-600 no-underline hover:text-gray-500">slow travel</Link> experiences
+                      <Translate text={translations.home.highlights.accommodation.description} />
                     </p>
                   </div>
                 </div>
@@ -179,7 +179,7 @@ export default function EnglishHomePage() {
                       <Translate text={translations.home.highlights.commonAreas.title} />
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.commonAreas.description} />. Perfect for <Link href="/en/digital-nomad-retreats" className="text-gray-600 no-underline hover:text-gray-500">retreat</Link> experiences.
+                      <Translate text={translations.home.highlights.commonAreas.description} />
                     </p>
                   </div>
                 </div>
@@ -284,7 +284,7 @@ export default function EnglishHomePage() {
               </div>
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                <Link href="/en/the-house" className="flex items-start mb-3 group">
+                <Link href="/pt/the-house" className="flex items-start mb-3 group">
                   <ArrowRight className="h-5 w-5 mr-3 mt-1 text-blue-600 group-hover:text-blue-800 transition-colors" />
                   <div>
                     <h3 className="text-lg font-semibold text-blue-600 group-hover:text-blue-800 transition-colors">
@@ -352,7 +352,6 @@ export default function EnglishHomePage() {
             </div>
           </div>
         </section>
-        
       </main>
 
       <SiteFooter />

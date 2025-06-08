@@ -1,1 +1,149 @@
-export { default } from '../../location/page'
+import Image from "next/image"
+import Link from "next/link"
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
+import { Translate } from "@/components/translate"
+import { locationTranslations } from "@/translations/location"
+import { Car, Plane, Bus } from "lucide-react"
+
+export default function EnglishLocation() {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <SiteHeader />
+
+      <main className="flex-1">
+        <section className="py-12 md:py-20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                <Translate text={locationTranslations.pageTitle} />
+              </h1>
+              <p className="text-lg text-gray-700 mb-8">
+                <Translate text={locationTranslations.pageDescription} /> Perfect for <Link href="/en/digital-nomad-argentina" className="text-gray-700 no-underline hover:text-gray-600">digital nomads</Link> seeking <Link href="/en/coliving-south-america" className="text-gray-700 no-underline hover:text-gray-600">coliving in South America</Link>.
+              </p>
+
+              {/* Map Section */}
+              <div className="mb-8">
+                <div className="relative w-full h-[400px] md:h-[500px] rounded-xl overflow-hidden mb-4">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3216.1234567890123!2d-56.9918!3d-37.1656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959c1e5c5a8f9c5f%3A0x5e5a5e5a5e5a5e5a!2sParaiso%20324%2C%20B7167%20Caril%C3%B3%2C%20Buenos%20Aires%20Province%2C%20Argentina!5e0!3m2!1sen!2sus!4v1623456789012!5m2!1sen!2sus"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Il Buco Location"
+                    className="absolute inset-0"
+                  />
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mb-6">
+                  <a
+                    href="https://maps.app.goo.gl/McARi7xe1wzBr64P9"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-6 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+                  >
+                    <Translate text={locationTranslations.mapSection.openInGoogleMaps} />
+                  </a>
+                  <div>
+                    <p className="text-gray-700">
+                      Paraiso 324, Cariló (7167)
+                      <br />
+                      Partido de Pinamar, Provincia de Buenos Aires, Argentina
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Getting Here Section */}
+              <div className="mb-12">
+                <h2 className="text-2xl md:text-3xl font-bold mb-6 flex items-center">
+                  <span className="mr-2">🛣️</span>
+                  <Translate text={locationTranslations.gettingHere.title} />
+                </h2>
+                <ul className="space-y-6">
+                  <li className="flex items-start">
+                    <Car className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold">
+                        <Translate text={locationTranslations.gettingHere.car.title} />:
+                      </p>
+                      <p className="text-gray-700">
+                        <Translate text={locationTranslations.gettingHere.car.description} /> Perfect for <Link href="/en/slow-travel-argentina" className="text-gray-700 no-underline hover:text-gray-600">slow travel</Link> experiences.
+                      </p>
+                    </div>
+                  </li>
+
+                  <li className="relative">
+                    <div className="flex items-start">
+                      <Bus className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                      <div>
+                        <p className="font-semibold">
+                          <Translate text={locationTranslations.gettingHere.bus.title} />:
+                        </p>
+                        <p className="text-gray-700">
+                          <Translate text={locationTranslations.gettingHere.bus.description} /> Ideal for those with <Link href="/en/argentina-remote-work-visa" className="text-gray-700 no-underline hover:text-gray-600">remote work visas</Link>.
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li className="flex items-start">
+                    <Plane className="h-5 w-5 mr-3 mt-1 text-gray-700 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold">
+                        <Translate text={locationTranslations.gettingHere.plane.title} />:
+                      </p>
+                      <p className="text-gray-700">
+                        <Translate text={locationTranslations.gettingHere.plane.description} /> Perfect for <Link href="/en/digital-nomad-retreats" className="text-gray-700 no-underline hover:text-gray-600">retreat</Link> experiences.
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Surrounding Area Section */}
+              <div className="mb-12">
+                <h2 className="text-2xl md:text-3xl font-bold mb-6 flex items-center">
+                  <span className="mr-2">🌲</span>
+                  <Translate text={locationTranslations.surroundingArea.title} />
+                </h2>
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3">
+                      <Translate text={locationTranslations.surroundingArea.nature.title} />
+                    </h3>
+                    <p className="text-gray-700 mb-4">
+                      <Translate text={locationTranslations.surroundingArea.nature.description} /> Perfect for <Link href="/en/eco-lodge-argentina" className="text-gray-700 no-underline hover:text-gray-600">eco-lodge</Link> experiences.
+                    </p>
+                    <ul className="list-disc pl-6 space-y-1 text-gray-700">
+                      <li><Translate text={locationTranslations.surroundingArea.nature.features.forests} /></li>
+                      <li><Translate text={locationTranslations.surroundingArea.nature.features.beach} /></li>
+                      <li><Translate text={locationTranslations.surroundingArea.nature.features.wildlife} /></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3">
+                      <Translate text={locationTranslations.surroundingArea.amenities.title} />
+                    </h3>
+                    <p className="text-gray-700 mb-4">
+                      <Translate text={locationTranslations.surroundingArea.amenities.description} />
+                    </p>
+                    <ul className="list-disc pl-6 space-y-1 text-gray-700">
+                      <li><Translate text={locationTranslations.surroundingArea.amenities.features.restaurants} /></li>
+                      <li><Translate text={locationTranslations.surroundingArea.amenities.features.shops} /></li>
+                      <li><Translate text={locationTranslations.surroundingArea.amenities.features.services} /></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <SiteFooter />
+    </div>
+  )
+}

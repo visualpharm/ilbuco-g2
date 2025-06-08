@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { HreflangTags } from '@/components/hreflang-tags'
+import { ClientLayout } from '@/components/client-layout'
 
 export const metadata: Metadata = {
   title: 'IL BUCO | Casa moderna em Pinamar, Argentina',
@@ -20,9 +21,9 @@ export default function PTLayout({
   children: React.ReactNode
 }) {
   return (
-    <>
+    <ClientLayout>
       <HreflangTags />
       {children}
-    </>
+    </ClientLayout>
   )
 }
