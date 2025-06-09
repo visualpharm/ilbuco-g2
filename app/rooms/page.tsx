@@ -359,23 +359,13 @@ export default function Rooms() {
                     <li className="flex items-start">
                       <RoomFeatureIcon name="shower" className="mr-3 mt-1 flex-shrink-0" />
                       <span>
-                        <Translate
-                          text={{
-                            en: "Bathroom: walk-in shower + washer",
-                            es: "Baño: ducha walk-in + lavarropas",
-                          }}
-                        />
+                        <Translate text={roomsTranslations.allSuitesInclude.bathroom} />
                       </span>
                     </li>
                     <li className="flex items-start">
                       <RoomFeatureIcon name="bed" className="mr-3 mt-1 flex-shrink-0" />
                       <span>
-                        <Translate
-                          text={{
-                            en: "Dense foam mattress with topper + 5* bedding",
-                            es: "Colchón de espuma densa con topper + ropa de cama 5*",
-                          }}
-                        />
+                        <Translate text={roomsTranslations.allSuitesInclude.mattress} />
                       </span>
                     </li>
                     <li className="flex items-start">
