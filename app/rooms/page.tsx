@@ -56,55 +56,7 @@ export default function Rooms() {
               </p>
 
               <div className="space-y-16">
-                {/* Garden Suite */}
-                <div>
-                  <h2 className="text-2xl font-bold mb-2">
-                    <Translate text={roomsTranslations.gardenSuite.title} />
-                  </h2>
-                  <p className="text-gray-600 mb-6">
-                    <Translate text={roomsTranslations.gardenSuite.subtitle} />
-                  </p>
-                  <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
-                    <li className="flex items-start">
-                      <RoomFeatureIcon name="wheelchair" className="mr-3 mt-1" />
-                      <span>
-                        <Translate
-                          text={{
-                            en: "Step-free access for wheelchairs, strollers, and heavy luggage.",
-                            es: "Acceso sin escalones para sillas de ruedas, cochecitos y equipaje pesado.",
-                          }}
-                        />
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <RoomFeatureIcon name="window" className="mr-3 mt-1" />
-                      <span>
-                        <Translate
-                          text={{
-                            en: "Corner window facing garden, dedicated entry hall",
-                            es: "Ventana en esquina con vista al jardín, hall de entrada dedicado",
-                          }}
-                        />
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <RoomFeatureIcon name="table-and-chair" className="mr-3 mt-1" />
-                      <span>
-                        <Translate
-                          text={{
-                            en: "Window-side dining/work table, futon for extra bed (fee)",
-                            es: "Mesa de comedor/trabajo junto a la ventana, futón para cama extra (con cargo)",
-                          }}
-                        />
-                      </span>
-                    </li>
-                  </ul>
-
-                  <ImageGallery images={gardenSuiteImages} />
-
-                </div>
-
-                {/* Terrace Suite */}
+                {/* Terrace Suite (Terrazo) */}
                 <div>
                   <h2 className="text-2xl font-bold mb-2">
                     <Translate text={roomsTranslations.terraceSuite.title} />
@@ -185,7 +137,114 @@ export default function Rooms() {
 
                 </div>
 
-                {/* Forest-View Suite */}
+                {/* Penthouse Suite */}
+                <div>
+                  <h2 className="text-2xl font-bold mb-2">
+                    <Translate text={roomsTranslations.penthouseSuite.title} />
+                  </h2>
+                  <p className="text-gray-600 mb-6">
+                    <Translate text={roomsTranslations.penthouseSuite.subtitle} />
+                  </p>
+                  <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
+                    <li className="flex items-start">
+                      <RoomFeatureIcon name="flower" className="mr-3 mt-1" />
+                      <span>
+                        <Translate
+                          text={{
+                            en: "Top-floor suite with direct terrace access",
+                            es: "Suite en planta alta con acceso directo a la terraza",
+                          }}
+                        />
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <RoomFeatureIcon name="flower" className="mr-3 mt-1" />
+                      <span>
+                        <Translate
+                          text={{
+                            en: "Optional exclusive-use terrace (extra fee)",
+                            es: "Terraza de uso exclusivo opcional (cargo extra)",
+                          }}
+                        />
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <RoomFeatureIcon name="padlock" className="mr-3 mt-1" />
+                      <span>
+                        <Translate
+                          text={{
+                            en: "Our most spacious and luxurious accommodation",
+                            es: "Nuestro alojamiento más espacioso y lujoso",
+                          }}
+                        />
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <RoomFeatureIcon name="sofa" className="mr-3 mt-1" />
+                      <span>
+                        <Translate
+                          text={{
+                            en: "Futon available for extra bed (fee)",
+                            es: "Futón disponible para cama extra (con cargo)",
+                          }}
+                        />
+                      </span>
+                    </li>
+                  </ul>
+
+                  <ImageGallery images={penthouseSuiteImages} />
+
+                </div>
+
+                {/* Garden Suite (Giardino) */}
+                <div>
+                  <h2 className="text-2xl font-bold mb-2">
+                    <Translate text={roomsTranslations.gardenSuite.title} />
+                  </h2>
+                  <p className="text-gray-600 mb-6">
+                    <Translate text={roomsTranslations.gardenSuite.subtitle} />
+                  </p>
+                  <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
+                    <li className="flex items-start">
+                      <RoomFeatureIcon name="wheelchair" className="mr-3 mt-1" />
+                      <span>
+                        <Translate
+                          text={{
+                            en: "Step-free access for wheelchairs, strollers, and heavy luggage.",
+                            es: "Acceso sin escalones para sillas de ruedas, cochecitos y equipaje pesado.",
+                          }}
+                        />
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <RoomFeatureIcon name="window" className="mr-3 mt-1" />
+                      <span>
+                        <Translate
+                          text={{
+                            en: "Corner window facing garden, dedicated entry hall",
+                            es: "Ventana en esquina con vista al jardín, hall de entrada dedicado",
+                          }}
+                        />
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <RoomFeatureIcon name="table-and-chair" className="mr-3 mt-1" />
+                      <span>
+                        <Translate
+                          text={{
+                            en: "Window-side dining/work table, futon for extra bed (fee)",
+                            es: "Mesa de comedor/trabajo junto a la ventana, futón para cama extra (con cargo)",
+                          }}
+                        />
+                      </span>
+                    </li>
+                  </ul>
+
+                  <ImageGallery images={gardenSuiteImages} />
+
+                </div>
+
+                {/* Forest-View Suite (Paraiso) */}
                 <div>
                   <h2 className="text-2xl font-bold mb-2">
                     <Translate text={roomsTranslations.forestSuite.title} />
@@ -263,65 +322,6 @@ export default function Rooms() {
                   </ul>
 
                   <ImageGallery images={forestSuiteImages} />
-
-                </div>
-
-                {/* Penthouse Suite */}
-                <div>
-                  <h2 className="text-2xl font-bold mb-2">
-                    <Translate text={roomsTranslations.penthouseSuite.title} />
-                  </h2>
-                  <p className="text-gray-600 mb-6">
-                    <Translate text={roomsTranslations.penthouseSuite.subtitle} />
-                  </p>
-                  <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
-                    <li className="flex items-start">
-                      <RoomFeatureIcon name="flower" className="mr-3 mt-1" />
-                      <span>
-                        <Translate
-                          text={{
-                            en: "Top-floor suite with direct terrace access",
-                            es: "Suite en planta alta con acceso directo a la terraza",
-                          }}
-                        />
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <RoomFeatureIcon name="flower" className="mr-3 mt-1" />
-                      <span>
-                        <Translate
-                          text={{
-                            en: "Optional exclusive-use terrace (extra fee)",
-                            es: "Terraza de uso exclusivo opcional (cargo extra)",
-                          }}
-                        />
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <RoomFeatureIcon name="padlock" className="mr-3 mt-1" />
-                      <span>
-                        <Translate
-                          text={{
-                            en: "Our most spacious and luxurious accommodation",
-                            es: "Nuestro alojamiento más espacioso y lujoso",
-                          }}
-                        />
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <RoomFeatureIcon name="sofa" className="mr-3 mt-1" />
-                      <span>
-                        <Translate
-                          text={{
-                            en: "Futon available for extra bed (fee)",
-                            es: "Futón disponible para cama extra (con cargo)",
-                          }}
-                        />
-                      </span>
-                    </li>
-                  </ul>
-
-                  <ImageGallery images={penthouseSuiteImages} />
 
                 </div>
 

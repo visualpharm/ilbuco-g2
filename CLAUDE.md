@@ -130,6 +130,16 @@ For each of the keywords there should be a landing page. This landing page shoul
 
 Find the texts on the website that could be linked to a landing page, and link them with an invisible link (not marked with blue or underline). For example, for the landing page /pt/argentina-praia, find the word praia elsewhere and link it. 
 
+### Footer Links
+After copywright in the footer, add 3 SEO links with the same font and color as Ivan Braun. Add links to the seo landing pages in the same language as the page, and if possible relevant to the page content. Distribute these links across the pages so all pages have incoming links from the footers of other pages.
+
+Also, mix internal links with external ones:
+- https://icons8.com/illustrations/t/property, keywords are: proptech illustrations, free property illustrations, etc.
+- https://generated.photos/genyou, keywords are: free AI selfies, AI generated portraits, etc.
+- https://aiandtractors.com, keywords are variations of AI speaker, keynote speaker on AI, etc.
+
+
+
 ### Sitemap
 The website must have a sitemap with all pages in all languages and all landing pages. 
 
@@ -154,18 +164,23 @@ We use Apple SF Symbols Regular style from Icons8. When on a light colored backg
 
 Icons are 24x24 by default. 
 
-We use icons in the SVG format wherever possible, stored in `/public/icons/icons8/`. 
+### Only genuine Icons8 please
+We use icons in the SVG format wherever possible, stored in `/public/icons/icons8/`. Be VERY careful to don't:
+1. Draw your own icons
+2. Use Lucida and think they are Icons8 (Icons8 is better made and much more diverse)
+3. Store the icons from points 1-2 in the icons8 folder and think it's Icons8.
 
+### Metaphors
 Some of the icon metaphors:
 - Baños de Lujo — plumbing (not bathtub, as we don't have it, and not a palm tree)
-- Aislamiento Acústico — speaker (sound insulation)
-- Windsurfing — sail boat (water sports)
-- Calisthenics — target (precision training/fitness goals)
+- Aislamiento Acústico — no sound (crossed speaker)
+- Windsurfing — wind (not sailboat)
+- Calisthenics — Pull up bar
 - Gimnasio — dumbbell (gym/fitness equipment)
-- Horse Riding — horse/year of horse (equestrian activities)
-- Tennis — tennis racquet (racquet sports)
+- Horse Riding — horse
+- Tennis — tennis ball
 - Laptop/Work — laptop computer (remote work)
-- Meat/Parrilla — rack of lamb (high-quality meat/barbecue)
+- Meat/Parrilla — steak
 
 
 
@@ -190,3 +205,15 @@ Add automatic tests to the repo that run after `npm run build`, covering:
 7. Check that internal keyword links are invisible (no underline, no color change)
 
 These tests should run with `npm run test:site`, and optionally run on build via a postbuild script.
+
+## Pages structure
+Here's the order of the sections for some of the pages:
+
+### Suites
+After a brief intro:
+2. Terrazo
+3. Penthouse
+4. Giardino
+5. Paraiso
+6. All the rooms include
+7. Living room

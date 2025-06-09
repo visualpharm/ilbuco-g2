@@ -33,7 +33,7 @@ const Icons = {
   // Activity Icons
   Gym: ({ color }: { color: string }) => <Image src="/icons/icons8/dumbbell.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   Windsurfing: ({ color }: { color: string }) => <Image src="/icons/icons8/sail-boat.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
-  Calisthenics: ({ color }: { color: string }) => <Image src="/icons/icons8/target-calisthenics.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Calisthenics: ({ color }: { color: string }) => <Image src="/icons/icons8/target.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   Horse: ({ color }: { color: string }) => <Image src="/icons/icons8/horse-riding.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   Tennis: ({ color }: { color: string }) => <Image src="/icons/icons8/tennis-racquet.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   Quad: ({ color }: { color: string }) => <Image src="/icons/icons8/car.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
