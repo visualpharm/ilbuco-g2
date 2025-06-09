@@ -40,6 +40,13 @@ export default function Rooms() {
     { src: "/photo/exterior/exterior5.jpg", alt: "Penthouse Suite - Sundeck with Forest View" },
   ]
 
+  const livingRoomImages = [
+    { src: "/photo/living/living3.jpg", alt: "Living Room - Seating Area" },
+    { src: "/photo/living/living1.jpg", alt: "Living Room - Common Area with Forest View" },
+    { src: "/photo/living/File 24-04-2025, 10 29 16 PM-Edit.jpg", alt: "Living Room - Dining and Kitchen Area" },
+    { src: "/photo/living/living4.jpg", alt: "Living Room - Stairs and Access" },
+  ]
+
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
@@ -383,6 +390,80 @@ export default function Rooms() {
                       </span>
                     </li>
                   </ul>
+                </div>
+
+                {/* Living Room */}
+                <div>
+                  <h2 className="text-2xl font-bold mb-2">
+                    <Translate text={roomsTranslations.livingRoom.title} />
+                  </h2>
+                  <p className="text-gray-600 mb-6">
+                    <Translate text={roomsTranslations.livingRoom.subtitle} />
+                  </p>
+                  <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
+                     <li className="flex items-start">
+                      <RoomFeatureIcon name="window" className="mr-3 mt-1" />
+                      <span>
+                        <Translate
+                          text={{
+                            en: "Wall-to-wall, floor-to-ceiling front windows overlooking the surrounding pine forest",
+                            es: "Grandes ventanales con vistas al bosque de pinos circundante",
+                            pt: "Grandes janelas oferecendo vista da floresta de pinheiros circundante",
+                          }}
+                        />
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <RoomFeatureIcon name="sofa" className="mr-3 mt-1" />
+                      <span>
+                        <Translate
+                          text={{
+                            en: "4m long modular sofa. It feels nothing like IKEA and the secret is expensive foam.",
+                            es: "Sofá modular de 4m. No se siente como IKEA y el secreto es la espuma cara.",
+                            pt: "Sofá modular de 4m. Não parece nada com IKEA e o segredo é a espuma cara.",
+                          }}
+                        />
+                      </span>
+                    </li>
+                   
+                    <li className="flex items-start">
+                      <RoomFeatureIcon name="users" className="mr-3 mt-1" />
+                      <span>
+                        <span>
+                          <Translate
+                            text={{
+                              en: "Large full size kitchen with cooking plate, oven, and ",
+                              es: "Cocina grande y completa con placa de cocina, horno y nevera ",
+                              pt: "Cozinha grande e completa com fogão, forno e geladeira ",
+                            }}
+                          />
+                          <strong>side by side</strong>
+                          <Translate
+                            text={{
+                              en: " fridge",
+                              es: "",
+                              pt: "",
+                            }}
+                          />
+                        </span>
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <RoomFeatureIcon name="thermometer" className="mr-3 mt-1" />
+                      <span>
+                        <Translate
+                          text={{
+                            en: "Climate controlled for year-round comfort",
+                            es: "Climatizado para comodidad durante todo el año",
+                            pt: "Climatizado para conforto durante todo o ano",
+                          }}
+                        />
+                      </span>
+                    </li>
+                  </ul>
+
+                  <ImageGallery images={livingRoomImages} />
+
                 </div>
 
                 <div className="mt-8">

@@ -79,6 +79,33 @@ export const roomsTranslations = {
       es: "Cocina: anafe, horno, heladera de 300 L, microondas, utensilios de cocina",
       pt: "Cozinha: fogão, forno, geladeira de 300 L, micro-ondas, utensílios de cozinha",
     },
+    bathroom: {
+      en: "Bathroom: walk-in shower + washer",
+      es: "Baño: ducha walk-in + lavarropas",
+      pt: "Banheiro: chuveiro walk-in + lavadora",
+    },
+    mattress: {
+      en: "Dense foam mattress with topper + 5* bedding",
+      es: "Colchón de espuma densa con topper + ropa de cama 5*",
+      pt: "Colchão de espuma densa com topper + roupa de cama 5*",
+    },
+    chair: {
+      en: "Ergonomic chair (free for stays > 1 month), twin beds on request",
+      es: "Silla ergonómica (gratis para estadías > 1 mes), camas individuales bajo pedido",
+      pt: "Cadeira ergonômica (grátis para estadias > 1 mês), camas individuais sob pedido",
+    },
+  },
+  livingRoom: {
+    title: {
+      en: "Living Room",
+      es: "Living Room",
+      pt: "Living Room",
+    },
+    subtitle: {
+      en: "Shared common area: coworking, socializing. Most of the time it's empty; you can stay on the sofa with your laptop all alone.",
+      es: "Área Común Compartida: coworking, socialización. La mayor parte del tiempo está vacía; puedes quedarte en el sofá con tu portátil todo solo.",
+      pt: "Área Comum Compartilhada: coworking, socialização. A maior parte do tempo está vazia; você pode ficar no sofá com seu laptop sozinho.",
+    },
   },
   bookYourStay: {
     title: {
