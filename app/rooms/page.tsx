@@ -371,12 +371,7 @@ export default function Rooms() {
                     <li className="flex items-start">
                       <RoomFeatureIcon name="lamp-desk" className="mr-3 mt-1 flex-shrink-0" />
                       <span>
-                        <Translate
-                          text={{
-                            en: "Ergonomic chair (free for stays > 1 month), twin beds on request",
-                            es: "Silla ergonómica (gratis para estadías > 1 mes), camas individuales bajo pedido",
-                          }}
-                        />
+                        <Translate text={roomsTranslations.allSuitesInclude.chair} />
                       </span>
                     </li>
                   </ul>
