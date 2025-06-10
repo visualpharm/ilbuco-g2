@@ -46,6 +46,27 @@
     <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/a-casa"/>
     <changefreq>weekly</changefreq>
   </url>
+  <url>
+    <loc>https://ilbuco.com.ar/rooms</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/rooms"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/rooms"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/rooms"/>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/book</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/book"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/book"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/book"/>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/activities</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/activities"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/activities"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/activities"/>
+    <changefreq>weekly</changefreq>
+  </url>
 
   <!-- SEO Landing Pages (Spanish) -->
   <url>
@@ -86,6 +107,16 @@
   <url>
     <loc>https://ilbuco.com.ar/que-hacer-en-carilo-cuando-llueve</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/que-hacer-en-carilo-cuando-llueve"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/casas-en-alquiler-en-carilo-frente-al-mar</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/casas-en-alquiler-en-carilo-frente-al-mar"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/apart-hotel-en-carilo</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/apart-hotel-en-carilo"/>
     <changefreq>monthly</changefreq>
   </url>
 
@@ -165,6 +196,28 @@
   <url>
     <loc>https://ilbuco.com.ar/pt/coliving-argentina</loc>
     <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/coliving-argentina"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/pt/carilo-coliving</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/carilo-coliving"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/pt/casa-tecnologica-carilo</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/casa-tecnologica-carilo"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/pt/trabalho-remoto-argentina</loc>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ilbuco.com.ar/pt/trabalho-remoto-argentina"/>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <!-- Missing English SEO pages -->
+  <url>
+    <loc>https://ilbuco.com.ar/en/eco-lodge-argentina</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/eco-lodge-argentina"/>
     <changefreq>monthly</changefreq>
   </url>
 

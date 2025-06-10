@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# SEO optimized sitemap
+Sitemap: https://ilbuco.com.ar/sitemap.xml
+
+# Block crawling of admin areas (if any)
+Disallow: /admin/
+Disallow: /.well-known/
+
+# Allow all search engines to index
+# IL BUCO - Coliving space in Cariló, Argentina
