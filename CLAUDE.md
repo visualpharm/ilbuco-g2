@@ -165,10 +165,13 @@ We use Apple SF Symbols Regular style from Icons8. When on a light colored backg
 Icons are 24x24 by default. 
 
 ### Only genuine Icons8 please
+
+**IMPORTANT**: All icons must be sourced through Icons8 MCP (Model Context Protocol). No icons should be used without going through the Icons8 MCP system. This ensures consistency and proper licensing. 
+
 We use icons in the SVG format wherever possible, stored in `/public/icons/icons8/`. Be VERY careful to don't:
-1. Draw your own icons
-2. Use Lucida and think they are Icons8 (Icons8 is better made and much more diverse)
-3. Store the icons from points 1-2 in the icons8 folder and think it's Icons8.
+☠️ Draw your own icons
+☠️ Use Lucida and think they are Icons8 (Icons8 is better made and much more diverse)
+☠️ Store third party icons from points 1-2 in the icons8 folder and think it's Icons8.
 
 ### Metaphors
 Some of the icon metaphors:
@@ -183,8 +186,6 @@ Some of the icon metaphors:
 - Meat/Parrilla — steak
 
 
-
-**IMPORTANT**: All icons must be sourced through Icons8 MCP (Model Context Protocol). No icons should be used without going through the Icons8 MCP system. This ensures consistency and proper licensing. 
 
 ## Image Policy
 We use the imagekit for scaling down the images to the visible size. 
