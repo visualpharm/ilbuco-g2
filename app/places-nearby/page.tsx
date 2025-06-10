@@ -20,6 +20,7 @@ function getColorFilter(colorClass: string): React.CSSProperties {
     'text-pink-700': 'brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(3597%) hue-rotate(314deg) brightness(101%) contrast(103%)',
     'text-red-700': 'brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(3597%) hue-rotate(354deg) brightness(101%) contrast(103%)',
     'text-emerald-700': 'brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(3597%) hue-rotate(140deg) brightness(101%) contrast(103%)',
+    'text-teal-700': 'brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(3597%) hue-rotate(180deg) brightness(101%) contrast(103%)',
     'text-gray-700': 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)',
     'text-white': 'brightness(0) saturate(100%) invert(100%)',
     'text-gray-600': 'brightness(0) saturate(100%) invert(49%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'
@@ -32,8 +33,8 @@ function getColorFilter(colorClass: string): React.CSSProperties {
 const Icons = {
   // Activity Icons
   Gym: ({ color }: { color: string }) => <Image src="/icons/icons8/dumbbell.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
-  Windsurfing: ({ color }: { color: string }) => <Image src="/icons/icons8/sail-boat.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
-  Calisthenics: ({ color }: { color: string }) => <Image src="/icons/icons8/target.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Windsurfing: ({ color }: { color: string }) => <Image src="/icons/icons8/wind.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Calisthenics: ({ color }: { color: string }) => <Image src="/icons/icons8/pull-up-bar.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   Horse: ({ color }: { color: string }) => <Image src="/icons/icons8/horse-riding.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   Tennis: ({ color }: { color: string }) => <Image src="/icons/icons8/tennis-racquet.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   Quad: ({ color }: { color: string }) => <Image src="/icons/icons8/car.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
@@ -43,7 +44,7 @@ const Icons = {
   // Food Icons
   Restaurant: ({ color }: { color: string }) => <Image src="/icons/icons8/utensils.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   Pizza: ({ color }: { color: string }) => <Image src="/icons/icons8/pizza.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
-  Meat: ({ color }: { color: string }) => <Image src="/icons/icons8/rack-of-lamb.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Meat: ({ color }: { color: string }) => <Image src="/icons/icons8/steak.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   
   // Shopping Icons
   ShoppingBag: ({ color }: { color: string }) => <Image src="/icons/icons8/shopping-bag.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
@@ -62,6 +63,12 @@ const Icons = {
   // Work Icons
   Laptop: ({ color }: { color: string }) => <Image src="/icons/icons8/laptop-computer.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   Finance: ({ color }: { color: string }) => <Image src="/icons/icons8/calculator.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Cube: ({ color }: { color: string }) => <Image src="/icons/icons8/cube.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Fish: ({ color }: { color: string }) => <Image src="/icons/icons8/fish.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  IceCream: ({ color }: { color: string }) => <Image src="/icons/icons8/ice-cream.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Bread: ({ color }: { color: string }) => <Image src="/icons/icons8/bread.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  TShirt: ({ color }: { color: string }) => <Image src="/icons/icons8/t-shirt.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
+  Spray: ({ color }: { color: string }) => <Image src="/icons/icons8/spray.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
 
   // Social & Web Links (Windows 11 Style)
   GoogleMaps: ({ className = "" }: { className?: string }) => (
@@ -168,7 +175,7 @@ export default function ThingsToDo() {
 
                       <div className="bg-gradient-to-br from-purple-50 to-violet-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <Icons.Tennis color="text-violet-700" />
+                          <Icons.Cube color="text-violet-700" />
                           <div>
                             <h3 className="text-xl font-semibold">
                               <Translate
@@ -332,7 +339,7 @@ export default function ThingsToDo() {
                                 text={{
                                   en: "Cariló's beautiful beaches are just a short walk away. Enjoy swimming, sunbathing, beach volleyball, or simply relaxing by the ocean with the sound of waves.",
                                   es: "Las hermosas playas de Cariló están a solo un corto paseo. Disfrutá nadar, tomar sol, jugar al vóley playa, o simplemente relajarte junto al océano con el sonido de las olas.",
-                                  pt: <>As belas <Link href="/pt/argentina-praia" className="text-gray-700 hover:text-gray-900 no-underline">praias de Cariló</Link> estão a apenas uma curta caminhada. Desfrute de natação, banhos de sol, vôlei de praia, ou simplesmente relaxe junto ao oceano com o som das ondas.</>,
+                                  pt: "As belas praias de Cariló estão a apenas uma curta caminhada. Desfrute de natação, banhos de sol, vôlei de praia, ou simplesmente relaxe junto ao oceano com o som das ondas.",
                                 }}
                               />
                             </p>
@@ -1006,14 +1013,27 @@ export default function ThingsToDo() {
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
+                      {/* Near grocery stores section */}
+                      <div className="col-span-2 mb-6">
+                        <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">
+                          <Translate
+                            text={{
+                              en: "Near Grocery Stores",
+                              es: "Almacenes Cerquita",
+                              pt: "Mercearias Pertinho",
+                            }}
+                          />
+                        </h3>
+                      </div>
+
                       {/* Chicho */}
                       <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
                           <Icons.Shop color="text-indigo-700" />
                           <div>
-                            <h3 className="text-lg font-semibold mb-2">Supermarkets</h3>
+                            <h3 className="text-lg font-semibold mb-2">Chicho</h3>
                             <p className="text-gray-700">
-                              <strong>Chicho</strong> – Best open hours, decent fruit and vegetables.
+                              Expect a village store with the cheaper side variety of products. Best open hours, decent fruit and vegetables. They have a butcher. 
                             </p>
                         <p className="mt-2">
                           <a
@@ -1043,9 +1063,12 @@ export default function ThingsToDo() {
 
                       {/* Menor Coste */}
                       <div className="bg-gradient-to-br from-green-50 to-teal-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Supermarkets</h3>
+                        <div className="flex items-start mb-4">
+                          <Icons.Shop color="text-teal-700" />
+                          <div>
+                        <h3 className="text-lg font-semibold mb-2">La Proveeduría / Menor Coste</h3>
                         <p className="text-gray-700">
-                          <strong>La Proveeduría / Menor Coste</strong> – Expensive, mini Whole Foods.
+                          Mini Whole Foods: kale chips in a glass jar. Jamon leg for 800 dollars. Whole Foods prices aside, that's a nice place and a beautiful walk to it.
                         </p>
                         <p className="mt-2">
                           <a
@@ -1069,13 +1092,31 @@ export default function ThingsToDo() {
                             </a>
                           </span>
                         </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Far big boxes section */}
+                      <div className="col-span-2 mb-6 mt-8">
+                        <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">
+                          <Translate
+                            text={{
+                              en: "Far Big Boxes",
+                              es: "Híper Lejanos",
+                              pt: "Hipermercados Distantes",
+                            }}
+                          />
+                        </h3>
                       </div>
 
                       {/* Coto */}
                       <div className="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Supermarkets</h3>
+                        <div className="flex items-start mb-4">
+                          <Icons.ShoppingCart color="text-red-700" />
+                          <div>
+                        <h3 className="text-lg font-semibold mb-2">Coto</h3>
                         <p className="text-gray-700">
-                          <strong>Coto</strong> – The closest large supermarket; they have everything from food to
+                          The closest large supermarket; they have everything from food to
                           furniture and bicycles. Online store with delivery to Cariló.
                         </p>
                         <p className="mt-2">
@@ -1097,13 +1138,18 @@ export default function ThingsToDo() {
                             cotodigital3.com.ar
                           </a>
                         </p>
+                          </div>
+                        </div>
                       </div>
 
                       {/* Disco */}
                       <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Supermarkets</h3>
+                        <div className="flex items-start mb-4">
+                          <Icons.ShoppingCart color="text-blue-700" />
+                          <div>
+                        <h3 className="text-lg font-semibold mb-2">Disco</h3>
                         <p className="text-gray-700">
-                          <strong>Disco</strong> – Alternative without taking the highway. They also deliver to Cariló.
+                          Alternative without taking the highway. They also deliver to Cariló.
                         </p>
                         <p className="mt-2">
                           <a
@@ -1124,13 +1170,31 @@ export default function ThingsToDo() {
                             disco.com.ar
                           </a>
                         </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Fruit & Vegetables section */}
+                      <div className="col-span-2 mb-6 mt-8">
+                        <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">
+                          <Translate
+                            text={{
+                              en: "Fruit & Vegetables",
+                              es: "Frutas y Verduras",
+                              pt: "Frutas e Verduras",
+                            }}
+                          />
+                        </h3>
                       </div>
 
                       {/* Belén */}
                       <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Fruit & Vegetables</h3>
+                        <div className="flex items-start mb-4">
+                          <Icons.Fruit color="text-emerald-700" />
+                          <div>
+                        <h3 className="text-lg font-semibold mb-2">Belén</h3>
                         <p className="text-gray-700">
-                          <strong>Belén</strong> – Best fruit and vegetables.
+                          Best fruit and vegetables.
                         </p>
                         <p className="mt-2">
                           <a
@@ -1151,13 +1215,18 @@ export default function ThingsToDo() {
                             Open in Waze
                           </a>
                         </p>
+                          </div>
+                        </div>
                       </div>
 
                       {/* Boutique de Frutas */}
                       <div className="bg-gradient-to-br from-yellow-50 to-lime-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Fruit & Vegetables</h3>
+                        <div className="flex items-start mb-4">
+                          <Icons.Fruit color="text-green-700" />
+                          <div>
+                        <h3 className="text-lg font-semibold mb-2">Boutique de Frutas</h3>
                         <p className="text-gray-700">
-                          <strong>Boutique de Frutas</strong> – Self-service, which is not common. Pick the best or
+                          Self-service, which is not common. Pick the best or
                           blame on someone else.
                         </p>
                         <p className="mt-2">
@@ -1182,6 +1251,21 @@ export default function ThingsToDo() {
                             </a>
                           </span>
                         </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Specialty Stores section */}
+                      <div className="col-span-2 mb-6 mt-8">
+                        <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">
+                          <Translate
+                            text={{
+                              en: "Specialty Stores",
+                              es: "Tiendas Especializadas",
+                              pt: "Lojas Especializadas",
+                            }}
+                          />
+                        </h3>
                       </div>
 
                       {/* Jorjito */}
@@ -1189,9 +1273,9 @@ export default function ThingsToDo() {
                         <div className="flex items-start mb-4">
                           <Icons.Tools color="text-amber-700" />
                           <div>
-                            <h3 className="text-lg font-semibold mb-2">Hardware</h3>
+                            <h3 className="text-lg font-semibold mb-2">Jorjito</h3>
                             <p className="text-gray-700">
-                              <strong>Jorjito</strong> – Most complete hardware store.
+                              Most complete hardware store.
                             </p>
                         <p className="mt-2">
                           <a
@@ -1221,9 +1305,12 @@ export default function ThingsToDo() {
 
                       {/* Quimica Limpia Maurito */}
                       <div className="bg-gradient-to-br from-cyan-50 to-sky-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Cleaning Products</h3>
+                        <div className="flex items-start mb-4">
+                          <Icons.Spray color="text-cyan-700" />
+                          <div>
+                        <h3 className="text-lg font-semibold mb-2">Quimica Limpia Maurito</h3>
                         <p className="text-gray-700">
-                          <strong>Quimica Limpia Maurito</strong> – In Pinamar, best for bulk cleaning products. They
+                          In Pinamar, best for bulk cleaning products. They
                           deliver to Cariló weekly.
                         </p>
                         <p className="mt-2">
@@ -1245,13 +1332,18 @@ export default function ThingsToDo() {
                             Facebook Page
                           </a>
                         </p>
+                          </div>
+                        </div>
                       </div>
 
                       {/* Clothing */}
                       <div className="bg-gradient-to-br from-purple-50 to-violet-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Clothing</h3>
+                        <div className="flex items-start mb-4">
+                          <Icons.TShirt color="text-violet-700" />
+                          <div>
+                        <h3 className="text-lg font-semibold mb-2">Cariló City-Center Boutiques</h3>
                         <p className="text-gray-700">
-                          <strong>Cariló City-Center Boutiques</strong> – All the clothing in Cariló city center.
+                          All the clothing in Cariló city center.
                         </p>
                         <p className="mt-2">
                           <a
@@ -1272,13 +1364,18 @@ export default function ThingsToDo() {
                             Open in Google Maps
                           </a>
                         </p>
+                          </div>
+                        </div>
                       </div>
 
                       {/* Cabaña Guerrero */}
                       <div className="bg-gradient-to-br from-red-50 to-pink-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Meat</h3>
+                        <div className="flex items-start mb-4">
+                          <Icons.Meat color="text-red-700" />
+                          <div>
+                        <h3 className="text-lg font-semibold mb-2">Cabaña Guerrero</h3>
                         <p className="text-gray-700">
-                          <strong>Cabaña Guerrero</strong> – My favorite meat.
+                          My favorite meat.
                         </p>
                         <p className="mt-2">
                           <a
@@ -1302,13 +1399,18 @@ export default function ThingsToDo() {
                             </a>
                           </span>
                         </p>
+                          </div>
+                        </div>
                       </div>
 
                       {/* La Constanza Cariló */}
                       <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Fish</h3>
+                        <div className="flex items-start mb-4">
+                          <Icons.Fish color="text-cyan-700" />
+                          <div>
+                        <h3 className="text-lg font-semibold mb-2">La Constanza (Cariló)</h3>
                         <p className="text-gray-700">
-                          <strong>La Constanza (Cariló)</strong> – Fresh fish, not frozen, even salmon. Closed during
+                          Fresh fish, not frozen, even salmon. Closed during
                           low season.
                         </p>
                         <p className="mt-2">
@@ -1333,13 +1435,18 @@ export default function ThingsToDo() {
                             </a>
                           </span>
                         </p>
+                          </div>
+                        </div>
                       </div>
 
                       {/* La Constanza Pinamar */}
                       <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Fish</h3>
+                        <div className="flex items-start mb-4">
+                          <Icons.Fish color="text-blue-700" />
+                          <div>
+                        <h3 className="text-lg font-semibold mb-2">La Constanza (Pinamar)</h3>
                         <p className="text-gray-700">
-                          <strong>La Constanza (Pinamar)</strong> – Open during low season when Cariló's location is
+                          Open during low season when Cariló's location is
                           closed.
                         </p>
                         <p className="mt-2">
@@ -1364,13 +1471,18 @@ export default function ThingsToDo() {
                             </a>
                           </span>
                         </p>
+                          </div>
+                        </div>
                       </div>
 
                       {/* Colonial */}
                       <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Ice Cream</h3>
+                        <div className="flex items-start mb-4">
+                          <Icons.IceCream color="text-blue-700" />
+                          <div>
+                        <h3 className="text-lg font-semibold mb-2">Colonial (Valeria del Mar)</h3>
                         <p className="text-gray-700">
-                          <strong>Colonial (Valeria del Mar)</strong> – My favorite ice cream.
+                          My favorite ice cream.
                         </p>
                         <p className="mt-2">
                           <a
@@ -1394,13 +1506,18 @@ export default function ThingsToDo() {
                             </a>
                           </span>
                         </p>
+                          </div>
+                        </div>
                       </div>
 
                       {/* Lucciano's */}
                       <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Ice Cream</h3>
+                        <div className="flex items-start mb-4">
+                          <Icons.IceCream color="text-pink-700" />
+                          <div>
+                        <h3 className="text-lg font-semibold mb-2">Lucciano's</h3>
                         <p className="text-gray-700">
-                          <strong>Lucciano's</strong> – The prettiest place.
+                          The prettiest place.
                         </p>
                         <p className="mt-2">
                           <a
@@ -1424,13 +1541,18 @@ export default function ThingsToDo() {
                             </a>
                           </span>
                         </p>
+                          </div>
+                        </div>
                       </div>
 
                       {/* Panettone */}
                       <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Bakeries</h3>
+                        <div className="flex items-start mb-4">
+                          <Icons.Bread color="text-amber-700" />
+                          <div>
+                        <h3 className="text-lg font-semibold mb-2">Panettone</h3>
                         <p className="text-gray-700">
-                          <strong>Panettone</strong> – Simple.
+                          Simple.
                         </p>
                         <p className="mt-2">
                           <a
@@ -1454,13 +1576,18 @@ export default function ThingsToDo() {
                             </a>
                           </span>
                         </p>
+                          </div>
+                        </div>
                       </div>
 
                       {/* Masse */}
                       <div className="bg-gradient-to-br from-orange-50 to-amber-50 p-6 rounded-lg shadow-sm">
-                        <h3 className="text-lg font-semibold mb-2">Bakeries</h3>
+                        <div className="flex items-start mb-4">
+                          <Icons.Bread color="text-orange-700" />
+                          <div>
+                        <h3 className="text-lg font-semibold mb-2">Masse</h3>
                         <p className="text-gray-700">
-                          <strong>Masse</strong> – Fancy breads with seeds.
+                          Fancy breads with seeds.
                         </p>
                         <p className="mt-2">
                           <a
@@ -1484,6 +1611,8 @@ export default function ThingsToDo() {
                             </a>
                           </span>
                         </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
