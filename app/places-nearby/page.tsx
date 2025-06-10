@@ -37,7 +37,6 @@ const Icons = {
   Horse: ({ color }: { color: string }) => <Image src="/icons/icons8/horse-riding.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   Tennis: ({ color }: { color: string }) => <Image src="/icons/icons8/tennis-racquet.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   Quad: ({ color }: { color: string }) => <Image src="/icons/icons8/car.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
-  Car4x4: ({ color }: { color: string }) => <Image src="/icons/icons8/car.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   Bike: ({ color }: { color: string }) => <Image src="/icons/icons8/bike.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   Art: ({ color }: { color: string }) => <Image src="/icons/icons8/palette.svg" alt="" width={24} height={24} className={`mr-1 mt-1 flex-shrink-0`} style={getColorFilter(color)} />,
   
@@ -704,7 +703,7 @@ export default function ThingsToDo() {
 
                       <div className="bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-lg shadow-sm">
                         <div className="flex items-start mb-4">
-                          <Icons.Car4x4 color="text-green-700" />
+                          <Icons.Quad color="text-green-700" />
                           <div>
                             <h3 className="text-xl font-semibold">
                               <Translate text={placesNearbyTranslations.activities.driving.title} />
@@ -764,40 +763,6 @@ export default function ThingsToDo() {
                               >
                                 <Icons.Instagram />
                                 <span>@fusionartedelmar</span>
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-lg shadow-sm">
-                        <div className="flex items-start mb-4">
-                          <Icons.Car4x4 color="text-green-700" />
-                          <div>
-                            <h3 className="text-xl font-semibold">
-                              <Translate text={placesNearbyTranslations.activities.driving.title} />
-                            </h3>
-                            <p className="text-gray-700 mt-2">
-                              <Translate text={placesNearbyTranslations.activities.driving.description} />
-                            </p>
-                            <p className="mt-2">
-                              <a
-                                href="https://www.google.com/maps/search/?api=1&query=Sandmasters+Pinamar"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
-                              >
-                                <Icons.GoogleMaps />
-                                <span>Google Maps</span>
-                              </a>
-                              <a
-                                href="https://www.instagram.com/sandmasters_/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
-                              >
-                                <Icons.Instagram />
-                                <span>@sandmasters_</span>
                               </a>
                             </p>
                           </div>
