@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: "Il Buco Coliving",
     images: [
       {
-        url: "/carilo-beach-forest.png",
+        url: "/photo/zona/File 24-04-2025, 10 36 15 PM (5).jpg",
         width: 1200,
         height: 630,
         alt: "Eco lodge Argentina - sustainable accommodation in forest setting",
@@ -77,7 +77,7 @@ export default function EcoLodgeArgentinaPage() {
               </div>
               <div className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/carilo-beach-forest.png"
+                  src="/photo/zona/File 24-04-2025, 10 36 15 PM (5).jpg"
                   alt="Eco lodge Argentina surrounded by forest and nature"
                   fill
                   className="object-cover"

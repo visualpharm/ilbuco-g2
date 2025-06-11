@@ -252,7 +252,7 @@ export default function SlowTravelArgentinaPage() {
               <div className="space-y-6">
                 <div className="relative h-64 rounded-xl overflow-hidden shadow-lg">
                   <Image
-                    src="/carilo-beach-forest.png"
+                    src="/photo/exterior/exterior5.jpg"
                     alt="Carilo beach and forest for slow travel meditation"
                     fill
                     className="object-cover"

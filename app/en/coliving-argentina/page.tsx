@@ -76,7 +76,7 @@ export default function ColivingArgentinaPage() {
               </div>
               <div className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/modern-living-room-pine-forest.png"
+                  src="/photo/living/living4.jpg"
                   alt="Modern coliving space in Argentina with forest views"
                   fill
                   className="object-cover"
@@ -248,7 +248,7 @@ export default function ColivingArgentinaPage() {
               
               <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-xl">
                 <Image
-                  src="/garden-suite-living.png"
+                  src="/photo/giardino/giardino1.jpg"
                   alt="Shared living space in Argentina coliving house"
                   fill
                   className="object-cover"
@@ -293,7 +293,7 @@ export default function ColivingArgentinaPage() {
               <div className="text-center">
                 <div className="relative h-48 rounded-xl overflow-hidden mb-6 shadow-lg">
                   <Image
-                    src="/carilo-beach-forest.png"
+                    src="/photo/zona/File 24-04-2025, 10 36 14 PM (8).jpg"
                     alt="Pine forest surroundings of Argentina coliving"
                     fill
                     className="object-cover"
@@ -311,7 +311,7 @@ export default function ColivingArgentinaPage() {
               <div className="text-center">
                 <div className="relative h-48 rounded-xl overflow-hidden mb-6 shadow-lg">
                   <Image
-                    src="/modern-villa-pine-forest.png"
+                    src="/photo/exterior/IMG_2337.jpg"
                     alt="Exclusive community for Argentina coliving"
                     fill
                     className="object-cover"
@@ -392,96 +392,6 @@ export default function ColivingArgentinaPage() {
         </section>
 
         {/* Pricing & Packages */}
-        <section className="py-16 md:py-24 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Flexible Coliving Packages
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Choose the package that fits your lifestyle and budget. All packages include 
-                accommodation, utilities, cleaning, and access to community amenities.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-gray-50 p-8 rounded-xl border-2 border-gray-200">
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  Monthly Stay
-                </h3>
-                <div className="text-3xl font-bold text-gray-900 mb-2">
-                  From $800
-                  <span className="text-lg font-normal text-gray-600">/month</span>
-                </div>
-                <p className="text-gray-600 mb-6">
-                  Perfect for extended remote work or digital nomad lifestyle
-                </p>
-                <ul className="space-y-2 text-sm text-gray-600 mb-8">
-                  <li>• Private room with workspace</li>
-                  <li>• All utilities included</li>
-                  <li>• Weekly cleaning service</li>
-                  <li>• Community events access</li>
-                </ul>
-                <Link
-                  href="/en/book"
-                  className="w-full inline-flex items-center justify-center px-6 py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-colors"
-                >
-                  Learn More
-                </Link>
-              </div>
-              
-              <div className="bg-blue-50 p-8 rounded-xl border-2 border-blue-200">
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  Quarterly Stay
-                </h3>
-                <div className="text-3xl font-bold text-gray-900 mb-2">
-                  From $700
-                  <span className="text-lg font-normal text-gray-600">/month</span>
-                </div>
-                <p className="text-gray-600 mb-6">
-                  Ideal for seasonal living and deeper community integration
-                </p>
-                <ul className="space-y-2 text-sm text-gray-600 mb-8">
-                  <li>• Everything in Monthly plan</li>
-                  <li>• Discounted local activities</li>
-                  <li>• Priority room selection</li>
-                  <li>• Member networking events</li>
-                </ul>
-                <Link
-                  href="/en/book"
-                  className="w-full inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Book Now
-                </Link>
-              </div>
-              
-              <div className="bg-purple-50 p-8 rounded-xl border-2 border-purple-200">
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  Annual Membership
-                </h3>
-                <div className="text-3xl font-bold text-gray-900 mb-2">
-                  From $600
-                  <span className="text-lg font-normal text-gray-600">/month</span>
-                </div>
-                <p className="text-gray-600 mb-6">
-                  Best value for long-term residents and location independence
-                </p>
-                <ul className="space-y-2 text-sm text-gray-600 mb-8">
-                  <li>• Everything in Quarterly plan</li>
-                  <li>• Flexible scheduling</li>
-                  <li>• Guest privileges</li>
-                  <li>• Alumni network access</li>
-                </ul>
-                <Link
-                  href="/en/book"
-                  className="w-full inline-flex items-center justify-center px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors"
-                >
-                  Join Community
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* CTA Section */}
         <section className="py-16 md:py-24 bg-gradient-to-br from-blue-600 to-purple-700 text-white">

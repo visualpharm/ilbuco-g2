@@ -162,7 +162,7 @@ export default function DigitalNomadRetreatsPage() {
               <div className="bg-white p-8 rounded-xl shadow-lg">
                 <div className="relative h-48 rounded-xl overflow-hidden mb-6">
                   <Image
-                    src="/person-pine-window.png"
+                    src="/photo/giardino/giardino4.jpg"
                     alt="Productivity-focused digital nomad retreat"
                     fill
                     className="object-cover"
@@ -246,7 +246,7 @@ export default function DigitalNomadRetreatsPage() {
               <div className="bg-white p-8 rounded-xl shadow-lg">
                 <div className="relative h-48 rounded-xl overflow-hidden mb-6">
                   <Image
-                    src="/modern-living-room-pine-forest.png"
+                    src="/photo/living/living1.jpg"
                     alt="Leadership digital nomad retreat program"
                     fill
                     className="object-cover"
@@ -288,7 +288,7 @@ export default function DigitalNomadRetreatsPage() {
               <div className="bg-white p-8 rounded-xl shadow-lg">
                 <div className="relative h-48 rounded-xl overflow-hidden mb-6">
                   <Image
-                    src="/carilo-beach-forest.png"
+                    src="/photo/zona/File 24-04-2025, 10 34 51 PM (5).jpg"
                     alt="Wellness-focused digital nomad retreat"
                     fill
                     className="object-cover"

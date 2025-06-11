@@ -264,7 +264,7 @@ export default function ColivingPage() {
                 <div className="md:col-span-3">
                   <div className="relative h-[400px] rounded-xl overflow-hidden">
                     <Image
-                      src="/person-pine-window.png"
+                      src="/photo/paraiso/paraiso2.jpg"
                       alt="Profissional trabalhando no coliving IL BUCO com vista para floresta"
                       fill
                       className="object-cover"

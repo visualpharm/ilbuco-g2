@@ -76,7 +76,7 @@ export default function DigitalNomadArgentinaPage() {
               </div>
               <div className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/modern-living-room-pine-forest.png"
+                  src="/photo/living/living3.jpg"
                   alt="Modern workspace for digital nomads in Argentina"
                   fill
                   className="object-cover"
@@ -149,7 +149,7 @@ export default function DigitalNomadArgentinaPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl">
                 <Image
-                  src="/person-pine-window.png"
+                  src="/photo/terrazzo/terrazzo3.jpg"
                   alt="Digital nomad working with pine forest view"
                   fill
                   className="object-cover"
@@ -246,7 +246,7 @@ export default function DigitalNomadArgentinaPage() {
               <div className="text-center">
                 <div className="relative h-48 rounded-xl overflow-hidden mb-6 shadow-lg">
                   <Image
-                    src="/carilo-beach-forest.png"
+                    src="/photo/exterior/exterior3.jpg"
                     alt="Carilo beach and forest for digital nomads"
                     fill
                     className="object-cover"

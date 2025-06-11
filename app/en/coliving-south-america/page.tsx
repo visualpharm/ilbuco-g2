@@ -265,7 +265,7 @@ export default function ColivingSouthAmericaPage() {
               <div className="text-center">
                 <div className="relative h-48 rounded-xl overflow-hidden mb-6 shadow-lg">
                   <Image
-                    src="/carilo-beach-forest.png"
+                    src="/photo/exterior/exterior6.jpg"
                     alt="Pine forest surrounding coliving space"
                     fill
                     className="object-cover"

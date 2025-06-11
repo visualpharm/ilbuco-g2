@@ -54,7 +54,7 @@ export default function QueHacerEnCariloPage() {
               </div>
               <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2">
                 <Image
-                  src="/carilo-beach-forest.png"
+                  src="/photo/zona/File 24-04-2025, 10 36 15 PM (5) (1).jpg"
                   alt="Qué hacer en Cariló - vista panorámica de playa y bosque de pinos"
                   fill
                   className="object-cover"

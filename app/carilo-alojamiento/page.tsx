@@ -223,7 +223,7 @@ export default function CariloAlojamientoPage() {
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div className="relative h-[350px] rounded-xl overflow-hidden">
                   <Image
-                    src="/carilo-beach-forest.png"
+                    src="/photo/zona/File 24-04-2025, 10 36 15 PM (7).jpg"
                     alt="Playa y bosque de Cariló - entorno único del alojamiento"
                     fill
                     className="object-cover"

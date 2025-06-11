@@ -54,7 +54,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
               </div>
               <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2">
                 <Image
-                  src="/modern-living-room-pine-forest.png"
+                  src="/photo/living/living1.jpg"
                   alt="Qué hacer en Cariló cuando llueve - interior acogedor con vista al bosque"
                   fill
                   className="object-cover"
@@ -241,7 +241,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
               </div>
               <div className="relative h-[400px] rounded-xl overflow-hidden">
                 <Image
-                  src="/minimalist-modern-bedroom.png"
+                  src="/photo/terrazzo/terrazzo1.jpg"
                   alt="Interior acogedor para días de lluvia en Cariló"
                   fill
                   className="object-cover"
@@ -343,7 +343,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div className="relative h-[350px] rounded-xl overflow-hidden">
                   <Image
-                    src="/modern-bedroom-queen-bed.png"
+                    src="/photo/paraiso/paraiso1.jpg"
                     alt="Ambiente acogedor durante lluvia en villa Cariló"
                     fill
                     className="object-cover"

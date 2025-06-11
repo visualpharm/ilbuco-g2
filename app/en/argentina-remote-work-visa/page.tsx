@@ -227,7 +227,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
               
               <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl">
                 <Image
-                  src="/modern-bedroom-queen-bed.png"
+                  src="/photo/paraiso/paraiso3.jpg"
                   alt="Comfortable accommodation while waiting for visa processing"
                   fill
                   className="object-cover"

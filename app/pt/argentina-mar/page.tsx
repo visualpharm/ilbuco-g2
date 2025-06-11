@@ -290,7 +290,7 @@ export default function ArgentinaMarPage() {
             <div className="grid md:grid-cols-2 gap-6">
               <div className="relative h-[300px] rounded-xl overflow-hidden">
                 <Image
-                  src="/carilo-beach-forest.png"
+                  src="/photo/exterior/exterior4.jpg"
                   alt="Praia de Cariló com floresta de pinheiros - vista única na Argentina"
                   fill
                   className="object-cover"

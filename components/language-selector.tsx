@@ -6,10 +6,59 @@ import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 
 /**
+ * Checks if the current path is a SEO landing page (not translated between languages)
+ */
+function isSeoLandingPage(path: string): boolean {
+  // Spanish SEO pages (at root level)
+  const spanishSeoPages = [
+    '/alquiler-carilo',
+    '/carilo-alquiler', 
+    '/apart-hotel-en-carilo',
+    '/carilo-alojamiento',
+    '/casas-en-carilo-alquiler',
+    '/casas-en-carilo-frente-al-mar',
+    '/casas-en-alquiler-en-carilo-frente-al-mar',
+    '/que-hacer-en-carilo',
+    '/que-hacer-en-carilo-cuando-llueve'
+  ]
+  
+  // English SEO pages (under /en/)
+  const englishSeoPages = [
+    '/en/digital-nomad-argentina',
+    '/en/argentina-remote-work-visa',
+    '/en/coliving-south-america',
+    '/en/slow-travel-argentina',
+    '/en/coliving-argentina',
+    '/en/eco-lodge-argentina',
+    '/en/digital-nomad-retreats'
+  ]
+  
+  // Portuguese SEO pages (under /pt/)
+  const portugueseSeoPages = [
+    '/pt/coliving',
+    '/pt/argentina-praia',
+    '/pt/argentina-mar',
+    '/pt/carilo-argentina-o-que-fazer',
+    '/pt/coliving-argentina',
+    '/pt/trabalho-remoto-argentina'
+  ]
+  
+  return spanishSeoPages.includes(path) || 
+         englishSeoPages.includes(path) || 
+         portugueseSeoPages.includes(path)
+}
+
+/**
  * Maps a path from one language to another
  * e.g. /en/the-house -> /pt/the-house or / -> /en/ or /pt/rooms -> /en/rooms
+ * For SEO landing pages, redirects to frontpage of target language
  */
 function getEquivalentPath(currentPath: string, targetLang: string): string {
+  // Check if we're on a SEO landing page - if so, redirect to frontpage
+  if (isSeoLandingPage(currentPath)) {
+    return targetLang === "es" ? "/" : `/${targetLang}/`
+  }
+  
   // Default paths for the root
   if (currentPath === "/") {
     return targetLang === "es" ? "/" : `/${targetLang}/`

@@ -53,7 +53,7 @@ export default function CasasEnCariloAlquilerPage() {
               </div>
               <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2">
                 <Image
-                  src="/modern-villa-pine-forest.png"
+                  src="/photo/exterior/exterior1.jpg"
                   alt="Casa moderna en alquiler en Cariló - villa IL BUCO en bosque de pinos"
                   fill
                   className="object-cover"

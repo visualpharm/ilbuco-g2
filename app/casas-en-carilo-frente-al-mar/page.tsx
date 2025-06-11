@@ -53,7 +53,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
               </div>
               <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2">
                 <Image
-                  src="/carilo-beach.png"
+                  src="/photo/zona/File 24-04-2025, 10 36 15 PM (8).jpg"
                   alt="Casa frente al mar en Cariló - vista desde la playa hacia villa IL BUCO"
                   fill
                   className="object-cover"

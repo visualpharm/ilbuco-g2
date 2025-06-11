@@ -56,7 +56,7 @@ export default function CariloArgentinaOQueFazerPage() {
               </div>
               <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2">
                 <Image
-                  src="/carilo-beach-forest.png"
+                  src="/photo/exterior/exterior2.jpg"
                   alt="Praia de Cariló com floresta de pinheiros - destino único na Argentina"
                   fill
                   className="object-cover"

@@ -272,7 +272,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
                 <div className="md:col-span-3">
                   <div className="relative h-[400px] rounded-xl overflow-hidden">
                     <Image
-                      src="/person-pine-window.png"
+                      src="/photo/giardino/giardino2.jpg"
                       alt="Huésped disfrutando vista al mar desde villa IL BUCO"
                       fill
                       className="object-cover"

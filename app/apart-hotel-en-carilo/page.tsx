@@ -221,7 +221,7 @@ export default function ApartHotelEnCariloPage() {
                 <div className="md:col-span-3">
                   <div className="relative h-[400px] rounded-xl overflow-hidden">
                     <Image
-                      src="/modern-living-room-pine-forest.png"
+                      src="/photo/living/File 24-04-2025, 10 29 16 PM-Edit.jpg"
                       alt="Living premium en apart hotel IL BUCO Cariló"
                       fill
                       className="object-cover"
