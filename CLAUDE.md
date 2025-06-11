@@ -187,6 +187,45 @@ Some of the icon metaphors:
 
 
 
+## Airbnb & Marketing Copy Guidelines
+
+### What NOT to Write
+**Avoid these common mistakes in property descriptions:**
+
+1. **Self-referential branding** - Guests don't know what "Il Buco" is yet when reading the listing
+2. **Marketing jargon** - "signature suite" sounds like promotional copy rather than useful description  
+3. **Lacks immediate value** - Doesn't tell guests what they actually get
+4. **Generic language** - Could apply to any property's "best" room
+5. **Airbnb algorithm unfriendly** - Doesn't include searchable keywords guests use
+
+**Examples of bad openings:**
+- ❌ "Il Buco's signature suite..."
+- ❌ "Experience our most unique accommodation..."
+- ❌ "Discover luxury at its finest..."
+- ❌ "Welcome to our premium offering..."
+
+### What TO Write
+**Follow these principles for compelling descriptions:**
+
+- **Lead with tangible benefits** guests can visualize
+- **Use searchable keywords** (private terrace, garden, forest, beach)
+- **Focus on unique features** rather than marketing claims
+- **Make it immediately compelling** without brand context
+- **Write from guest perspective** - what will they see, feel, do?
+
+**Examples of good openings:**
+- ✅ "Wake up surrounded by live plants on your own private garden terrace..."
+- ✅ "Your suite opens directly onto a private terrace filled with thriving plants..."
+- ✅ "Live at the top of a forest villa with panoramic pine tree views..."
+- ✅ "Corner suite with floor-to-ceiling windows on two sides..."
+
+### Structure for Property Descriptions
+1. **Compelling hook** (what makes this special)
+2. **Unique features** (terrace, views, layout)
+3. **Complete amenities** (kitchen, bathroom, tech)
+4. **Location benefits** (beach, forest, restaurants) 
+5. **Target guest types** (couples, remote workers, etc.)
+
 ## Image Policy
 We use the imagekit for scaling down the images to the visible size. 
 
@@ -219,3 +258,17 @@ After a brief intro:
 5. Paraiso
 6. All the rooms include
 7. Living room
+
+## Texts for channels
+
+
+> you have a pretty nice context now. prepare the airbnb 
+  descriptions for each of the rooms in some file that would be 
+  easier to copy to airbnb or channel management software. talk 
+  about the marvels of the house, then about the room (but don't
+   make it two parts, write it as if it was a separate house 
+  with the suite inside, common spaces, and nothing more). if 
+  needed, educate yourself about the length of airbnb desc and 
+  what is working.
+
+Start summaries with what the customer wants, jobs to be done style. Don't load her with our internal naming: il buco, terrazzo. Talk like about what she would search for on Airbnb, like "spacious 1-bedroom suite in the forest near the beach". "Green roof terrace with BBQ", large private terrace with live plants growing there, not just pots. The best place to concentrate on work, or relax with a book, or have a glass of wine in the evening.
