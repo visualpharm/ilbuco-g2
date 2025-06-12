@@ -33,6 +33,52 @@ export function MarkdownViewer({
   const [isSaving, setIsSaving] = useState(false)
   const [copiedSection, setCopiedSection] = useState<string | null>(null)
   const [hoveredElement, setHoveredElement] = useState<string | null>(null)
+
+  // Extract H2 headings for TOC with content for copying
+  const extractH2Headings = (markdown: string) => {
+    const lines = markdown.split('\n')
+    const headings: { id: string, title: string, content: string }[] = []
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i]
+      if (line.startsWith('## ') && !line.startsWith('### ')) {
+        const title = line.replace('## ', '').trim()
+        const id = `h2-${title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')}`
+        
+        // Extract content for this section
+        let sectionContent = ''
+        for (let j = i + 1; j < lines.length; j++) {
+          const nextLine = lines[j]
+          if (nextLine.startsWith('## ')) break // Stop at next H2
+          sectionContent += nextLine + '\n'
+        }
+        
+        // Clean up the content - remove markdown formatting
+        const cleanContent = sectionContent
+          .replace(/^#{1,6}\s+/gm, '') // Remove heading markers
+          .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold
+          .replace(/\*(.*?)\*/g, '$1') // Remove italic
+          .replace(/`(.*?)`/g, '$1') // Remove inline code
+          .replace(/^\s*[-*+]\s+/gm, '• ') // Convert lists to bullet points
+          .replace(/\n{3,}/g, '\n\n') // Reduce multiple newlines
+          .trim()
+        
+        headings.push({ id, title, content: cleanContent })
+      }
+    }
+    
+    return headings
+  }
+
+  const tocHeadings = extractH2Headings(content)
+
+  // Scroll to section function
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
   
   // Get the text that will be copied for a given element
   const getTextToCopy = (elementType: string, elementContent: string) => {
@@ -318,43 +364,50 @@ export function MarkdownViewer({
   const roomSections = extractRoomSections(content)
 
   return (
-    <div className={`space-y-6 ${className}`}>
-      {/* Copy Buttons for Each Room */}
-      {roomSections.length > 0 && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h3 className="text-lg font-semibold text-blue-900 mb-3">
-            📋 Copy Room Descriptions for Airbnb/Channels
-          </h3>
-          <p className="text-sm text-blue-700 mb-4">
-            Click to copy formatted descriptions ready for Airbnb or channel management software
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {roomSections.map((section) => (
-              <Button
-                key={section.name}
-                onClick={() => copyToClipboard(formatForAirbnb(section), section.name)}
-                variant="outline"
-                className="justify-start h-auto p-3 text-left"
-              >
-                <div className="flex items-center justify-between w-full">
-                  <div>
-                    <div className="font-medium text-gray-900">{section.name}</div>
-                    <div className="text-xs text-gray-500 mt-1">{section.title}</div>
+    <div className={`${className}`}>
+      {/* Main Layout: Sidebar + Content */}
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Left Sidebar: Combined TOC + Copy */}
+        <div className="lg:w-80 lg:flex-shrink-0 order-1 lg:order-none">
+          {tocHeadings.length > 0 && (
+            <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm lg:fixed lg:top-6 lg:w-80 lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">📑 Contents & Copy</h3>
+              <nav className="space-y-2">
+                {tocHeadings.map((heading) => (
+                  <div
+                    key={heading.id}
+                    className="flex items-center justify-between p-2 rounded hover:bg-gray-50 group"
+                  >
+                    {/* Title - clickable for navigation */}
+                    <button
+                      onClick={() => scrollToSection(heading.id)}
+                      className="flex-1 text-left text-sm text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                    >
+                      {heading.title}
+                    </button>
+                    
+                    {/* Copy icon */}
+                    <button
+                      onClick={() => copyToClipboard(heading.content, heading.id)}
+                      className="ml-2 p-1 rounded hover:bg-blue-100 transition-colors"
+                      title="Copy section content"
+                    >
+                      {copiedSection === heading.id ? (
+                        <Check className="w-4 h-4 text-green-600" />
+                      ) : (
+                        <Copy className="w-4 h-4 text-gray-400 hover:text-blue-600" />
+                      )}
+                    </button>
                   </div>
-                  {copiedSection === section.name ? (
-                    <Check className="w-4 h-4 text-green-600 ml-2" />
-                  ) : (
-                    <Copy className="w-4 h-4 text-gray-400 ml-2" />
-                  )}
-                </div>
-              </Button>
-            ))}
-          </div>
+                ))}
+              </nav>
+            </div>
+          )}
         </div>
-      )}
 
-      {/* Main Markdown Content */}
-      <div className="relative group">
+        {/* Main Markdown Content */}
+        <div className="flex-1 min-w-0 order-2 lg:order-none">
+          <div className="relative group bg-white border border-gray-200 rounded-lg shadow-sm">
         {editable && onSave && (
           <Button
             onClick={() => setIsEditing(true)}
@@ -386,6 +439,7 @@ export function MarkdownViewer({
             ),
             h2: ({ children, ...props }) => {
               const textContent = children?.toString() || ''
+              const id = `h2-${textContent.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')}`
               const handleClick = () => {
                 const textToCopy = getTextToCopy('h2', textContent)
                 copyToClipboard(textToCopy, `h2-${textContent}`)
@@ -396,6 +450,7 @@ export function MarkdownViewer({
               
               return (
                 <h2 
+                  id={id}
                   className={`text-2xl font-semibold mb-3 mt-8 cursor-pointer rounded p-2 transition-colors ${
                     isHighlighted 
                       ? 'bg-blue-200 text-blue-900 border-2 border-blue-400' 
@@ -593,6 +648,8 @@ export function MarkdownViewer({
         >
           {content}
         </ReactMarkdown>
+            </div>
+          </div>
         </div>
       </div>
     </div>

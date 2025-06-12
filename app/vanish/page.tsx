@@ -3,14 +3,11 @@
 import { useState, useEffect } from "react"
 import { MarkdownViewer } from "@/components/markdown-viewer"
 
-type Language = 'es' | 'en' | 'pt'
-
 export default function VanishPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [password, setPassword] = useState("")
   const [markdownContent, setMarkdownContent] = useState("")
   const [loading, setLoading] = useState(true)
-  const [currentLanguage, setCurrentLanguage] = useState<Language>('es')
 
   // Check authentication on mount
   useEffect(() => {
@@ -22,13 +19,6 @@ export default function VanishPage() {
       setLoading(false)
     }
   }, [])
-
-  // Load content when language changes
-  useEffect(() => {
-    if (isAuthenticated) {
-      loadContent()
-    }
-  }, [currentLanguage, isAuthenticated])
 
   const handleLogin = () => {
     if (password === 'spotless') {
@@ -42,7 +32,7 @@ export default function VanishPage() {
 
   const loadContent = async () => {
     try {
-      const response = await fetch(`/api/vanish/content?lang=${currentLanguage}`)
+      const response = await fetch('/api/vanish/content')
       const data = await response.json()
       if (data.success) {
         setMarkdownContent(data.content)
@@ -61,7 +51,7 @@ export default function VanishPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ content, lang: currentLanguage })
+        body: JSON.stringify({ content })
       })
 
       if (!response.ok) {
@@ -111,63 +101,14 @@ export default function VanishPage() {
     )
   }
 
-  const languageLabels = {
-    es: { flag: '🇦🇷', name: 'Español' },
-    en: { flag: '🇺🇸', name: 'English' },
-    pt: { flag: '🇧🇷', name: 'Português' }
-  }
-
   return (
     <div className="min-h-screen bg-gray-50 py-8">
-<<<<<<< HEAD
       <div className="container mx-auto px-4 max-w-7xl">
-        {/* Language Switcher */}
-        <div className="mb-6 flex justify-center">
-          <div className="bg-white border border-gray-200 rounded-lg p-2 shadow-sm">
-            <div className="flex gap-1">
-              {(Object.keys(languageLabels) as Language[]).map((lang) => (
-                <button
-                  key={lang}
-                  onClick={() => setCurrentLanguage(lang)}
-                  className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-                    currentLanguage === lang
-                      ? 'bg-blue-600 text-white'
-                      : 'text-gray-600 hover:bg-gray-100'
-                  }`}
-                >
-                  {languageLabels[lang].flag} {languageLabels[lang].name}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
         <MarkdownViewer
           content={markdownContent}
           onSave={saveMarkdown}
-          editable={false}
+          editable={true}
         />
-=======
-      <div className="container mx-auto px-4 max-w-4xl">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Markdown Editor</h1>
-          <p className="text-gray-600">Beautiful markdown rendering with inline editing capabilities. Click Edit to modify the content.</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="mt-2 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors"
-          >
-            Refresh Content
-          </button>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-sm border p-6">
-          <MarkdownViewer
-            content={markdownContent}
-            onSave={saveMarkdown}
-            editable={true}
-          />
-        </div>
->>>>>>> parent of 496d3c0 (good layout of vanish)
       </div>
     </div>
   )
