@@ -290,7 +290,9 @@ Step outside to your own planted terrace with floor-to-ceiling windows connectin
 1. Clicking "## 🌿 Private Garden Terrace 5 Min from Beach" copies this title, without hashes.
 2. Clicking "### Full Description" copies the whole description text, without the title "Full Description".
 3. Clicking "#### 🌿 Your Private Garden Terrace" or anywhere in this paragraph copies the text under this heading, *with* the heading.
-4. Clicking the text "Wake up surrounded by live plants..." copies the entire text from that point onward, till the end of summary and beginning of the Full description.
+4. Clicking paragraph text:
+   - **Inside "Full Description" section**: Copy the entire Full Description content
+   - **Outside "Full Description" section**: Copy only that paragraph's text
 5. When unsure what to copy, think what users would need to fill. Usually they fill the title, summary, full description, location description, things to do. If they fill most of these things, they don't need the title; exception is the full description where we have multiple headings.
 6. 🌿 Private Garden Terrace 5 Min from Beach must copy itself when clicked. 
 

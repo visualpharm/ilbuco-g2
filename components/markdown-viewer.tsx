@@ -82,10 +82,14 @@ export function MarkdownViewer({
   
   // Get the text that will be copied for a given element
   const getTextToCopy = (elementType: string, elementContent: string) => {
+    // COPY FUNCTIONALITY DISABLED
+    return ''
+    
+    /* COMMENTED OUT - Copy functionality disabled
     const lines = content.split('\n')
     
     if (elementType === 'h2') {
-      // Rule 1: Copy title without hashes
+      // Rule 1: Copy title without hashes - just the title text itself
       return elementContent
     }
     
@@ -118,24 +122,51 @@ export function MarkdownViewer({
     }
     
     if (elementType === 'p') {
-      // Rule 4: Copy from this point until "### Full Description"
+      // Rule 4: Paragraph behavior depends on location
       const pIndex = lines.findIndex(line => line.includes(elementContent.substring(0, 50)))
       if (pIndex === -1) return ''
       
-      let contentToCopy = ''
-      for (let i = pIndex; i < lines.length; i++) {
+      // Check if this paragraph is inside "Full Description" section
+      let isInFullDescription = false
+      for (let i = pIndex; i >= 0; i--) {
         const line = lines[i]
-        if (line.startsWith('### Full Description')) break
-        if (line.trim() && !line.startsWith('#')) contentToCopy += line + '\n'
+        if (line.startsWith('### Full Description')) {
+          isInFullDescription = true
+          break
+        }
+        if (line.startsWith('### ') && !line.includes('Full Description')) {
+          break // Found another H3, not in Full Description
+        }
       }
-      return contentToCopy.trim()
+      
+      if (isInFullDescription) {
+        // Copy entire Full Description content
+        const fullDescIndex = lines.findIndex(line => line.startsWith('### Full Description'))
+        if (fullDescIndex === -1) return ''
+        
+        let contentToCopy = ''
+        for (let i = fullDescIndex + 1; i < lines.length; i++) {
+          const line = lines[i]
+          if (line.startsWith('## ')) break // Stop at next H2
+          contentToCopy += line + '\n'
+        }
+        return contentToCopy.trim()
+      } else {
+        // Copy only this paragraph
+        return elementContent
+      }
     }
     
     return ''
+    */
   }
 
   // Function to determine if text should be highlighted based on what will be copied
   const shouldHighlight = (elementType: string, elementContent: string) => {
+    // HIGHLIGHTING FUNCTIONALITY DISABLED
+    return false
+    
+    /* COMMENTED OUT - Highlighting functionality disabled
     if (!hoveredElement) return false
     
     const [hoveredType, ...hoveredContentParts] = hoveredElement.split('-')
@@ -199,7 +230,7 @@ export function MarkdownViewer({
       }
     }
     
-    // Rule 4: Paragraphs highlight from that point until "### Full Description"
+    // Rule 4: Paragraph highlighting depends on location
     if (hoveredType === 'p') {
       if (elementType === 'p') {
         const lines = content.split('\n')
@@ -208,20 +239,42 @@ export function MarkdownViewer({
         
         if (hoveredPIndex === -1 || currentPIndex === -1) return false
         
-        // Find where "Full Description" starts
-        let fullDescIndex = lines.length
-        for (let i = hoveredPIndex; i < lines.length; i++) {
-          if (lines[i].startsWith('### Full Description')) {
-            fullDescIndex = i
+        // Check if hovered paragraph is inside "Full Description" section
+        let isHoveredInFullDescription = false
+        for (let i = hoveredPIndex; i >= 0; i--) {
+          const line = lines[i]
+          if (line.startsWith('### Full Description')) {
+            isHoveredInFullDescription = true
+            break
+          }
+          if (line.startsWith('### ') && !line.includes('Full Description')) {
             break
           }
         }
         
-        return currentPIndex >= hoveredPIndex && currentPIndex < fullDescIndex
+        if (isHoveredInFullDescription) {
+          // Highlight entire Full Description content
+          const fullDescIndex = lines.findIndex(line => line.startsWith('### Full Description'))
+          if (fullDescIndex === -1) return false
+          
+          let nextH2Index = lines.length
+          for (let i = fullDescIndex + 1; i < lines.length; i++) {
+            if (lines[i].startsWith('## ')) {
+              nextH2Index = i
+              break
+            }
+          }
+          
+          return currentPIndex > fullDescIndex && currentPIndex < nextH2Index
+        } else {
+          // Only highlight the specific paragraph
+          return currentPIndex === hoveredPIndex
+        }
       }
     }
     
     return false
+    */
   }
 
   const handleSave = async () => {
@@ -440,92 +493,32 @@ export function MarkdownViewer({
             h2: ({ children, ...props }) => {
               const textContent = children?.toString() || ''
               const id = `h2-${textContent.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')}`
-              const handleClick = () => {
-                const textToCopy = getTextToCopy('h2', textContent)
-                copyToClipboard(textToCopy, `h2-${textContent}`)
-              }
-              const handleMouseEnter = () => setHoveredElement(`h2-${textContent}`)
-              const handleMouseLeave = () => setHoveredElement(null)
-              const isHighlighted = shouldHighlight('h2', textContent)
               
               return (
                 <h2 
                   id={id}
-                  className={`text-2xl font-semibold mb-3 mt-8 cursor-pointer rounded p-2 transition-colors ${
-                    isHighlighted 
-                      ? 'bg-blue-200 text-blue-900 border-2 border-blue-400' 
-                      : 'text-gray-800 border-2 border-transparent hover:bg-blue-100 hover:border-blue-300'
-                  }`}
-                  onClick={handleClick}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  title="Click to copy title"
+                  className="text-2xl font-semibold mb-3 mt-8 text-gray-800"
                 >
                   {children}
                 </h2>
               )
             },
             h3: ({ children, ...props }) => {
-              const textContent = children?.toString() || ''
-              const handleClick = () => {
-                const textToCopy = getTextToCopy('h3', textContent)
-                copyToClipboard(textToCopy, `h3-${textContent}`)
-              }
-              const handleMouseEnter = () => setHoveredElement(`h3-${textContent}`)
-              const handleMouseLeave = () => setHoveredElement(null)
-              const isHighlighted = shouldHighlight('h3', textContent)
-              
               return (
-                <h3 
-                  className={`text-xl font-medium mb-2 mt-6 cursor-pointer rounded p-2 transition-colors ${
-                    isHighlighted 
-                      ? 'bg-blue-200 text-blue-900 border-2 border-blue-400' 
-                      : 'text-gray-700 border-2 border-transparent hover:bg-blue-100 hover:border-blue-300'
-                  }`}
-                  onClick={handleClick}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  title="Click to copy section content"
-                >
+                <h3 className="text-xl font-medium mb-2 mt-6 text-gray-700">
                   {children}
                 </h3>
               )
             },
             h4: ({ children, ...props }) => {
-              const textContent = children?.toString() || ''
-              const handleClick = () => {
-                const textToCopy = getTextToCopy('h4', textContent)
-                copyToClipboard(textToCopy, `h4-${textContent}`)
-              }
-              const handleMouseEnter = () => setHoveredElement(`h4-${textContent}`)
-              const handleMouseLeave = () => setHoveredElement(null)
-              const isHighlighted = shouldHighlight('h4', textContent)
-              
               return (
-                <h4 
-                  className={`text-lg font-medium mb-2 mt-4 cursor-pointer rounded p-2 transition-colors ${
-                    isHighlighted 
-                      ? 'bg-blue-200 text-blue-900 border-2 border-blue-400' 
-                      : 'text-gray-600 border-2 border-transparent hover:bg-blue-100 hover:border-blue-300'
-                  }`}
-                  onClick={handleClick}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  title="Click to copy heading with content"
-                >
+                <h4 className="text-lg font-medium mb-2 mt-4 text-gray-600">
                   {children}
                 </h4>
               )
             },
             p: ({ children, ...props }) => {
               const textContent = children?.toString() || ''
-              const handleClick = () => {
-                const textToCopy = getTextToCopy('p', textContent)
-                copyToClipboard(textToCopy, `p-${textContent.substring(0, 20)}`)
-              }
-              const handleMouseEnter = () => setHoveredElement(`p-${textContent.substring(0, 20)}`)
-              const handleMouseLeave = () => setHoveredElement(null)
-              const isHighlighted = shouldHighlight('p', textContent)
               
               // Check if this paragraph contains multiple emoji items
               const emojiCount = (textContent.match(/[💻🌡️📱🪑✔️🌿🏠📶🌤️🏗️📍🌲🛏️🍽️💼🎯✨]/g) || []).length
@@ -542,17 +535,7 @@ export function MarkdownViewer({
               }
               
               return (
-                <div 
-                  className={`leading-relaxed mb-4 cursor-pointer rounded p-2 transition-colors ${
-                    isHighlighted 
-                      ? 'bg-blue-200 text-blue-900 border-2 border-blue-400' 
-                      : 'text-gray-600 border-2 border-transparent hover:bg-blue-100 hover:border-blue-300'
-                  }`}
-                  onClick={handleClick}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  title="Click to copy summary text"
-                >
+                <div className="leading-relaxed mb-4 text-gray-600">
                   {hasEmojiList ? (
                     // Render emoji lists as separate lines
                     <div className="space-y-2">
