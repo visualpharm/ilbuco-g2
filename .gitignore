@@ -50,3 +50,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Data directory for persistent user-generated content
+# /data/
