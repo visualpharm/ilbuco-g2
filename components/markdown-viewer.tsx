@@ -33,32 +33,6 @@ export function MarkdownViewer({
   const [isSaving, setIsSaving] = useState(false)
   const [copiedSection, setCopiedSection] = useState<string | null>(null)
   const [hoveredElement, setHoveredElement] = useState<string | null>(null)
-
-  // Extract H2 headings for TOC
-  const extractH2Headings = (markdown: string) => {
-    const lines = markdown.split('\n')
-    const headings: { id: string, title: string }[] = []
-    
-    lines.forEach((line, index) => {
-      if (line.startsWith('## ') && !line.startsWith('### ')) {
-        const title = line.replace('## ', '').trim()
-        const id = `h2-${title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')}`
-        headings.push({ id, title })
-      }
-    })
-    
-    return headings
-  }
-
-  const tocHeadings = extractH2Headings(content)
-
-  // Scroll to section function
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
-  }
   
   // Get the text that will be copied for a given element
   const getTextToCopy = (elementType: string, elementContent: string) => {
@@ -344,74 +318,56 @@ export function MarkdownViewer({
   const roomSections = extractRoomSections(content)
 
   return (
-    <div className={`${className}`}>
-      {/* Main Layout */}
-      <div className="flex flex-col lg:flex-row gap-6">
-        {/* Mobile: Copy Buttons first, Desktop: Left Sidebar */}
-        <div className="lg:w-80 lg:flex-shrink-0 order-1 lg:order-none space-y-6">
-          {/* TOC - Mobile: middle, Desktop: top of sidebar */}
-          {tocHeadings.length > 0 && (
-            <div className="order-2 lg:order-1 bg-white border border-gray-200 rounded-lg p-3 shadow-sm lg:fixed lg:top-6 lg:w-80">
-              <h3 className="text-base font-semibold text-gray-900 mb-2">📑 Contents</h3>
-              <nav className="flex flex-wrap gap-1 lg:flex-col lg:space-y-1 lg:gap-0">
-                {tocHeadings.map((heading) => (
-                  <button
-                    key={heading.id}
-                    onClick={() => scrollToSection(heading.id)}
-                    className="px-2 py-1 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors lg:block lg:text-left lg:w-full flex-shrink-0"
-                  >
-                    {heading.title}
-                  </button>
-                ))}
-              </nav>
-            </div>
-          )}
-
-          {/* Copy Buttons - Mobile: top, Desktop: bottom of sidebar */}
-          {roomSections.length > 0 && (
-            <div className="order-1 lg:order-2 bg-blue-50 border border-blue-200 rounded-lg p-3 shadow-sm lg:fixed lg:bottom-6 lg:w-80">
-              <h3 className="text-base font-semibold text-blue-900 mb-2">
-                📋 Copy Room Descriptions
-              </h3>
-              <div className="grid grid-cols-1 gap-1">
-                {roomSections.map((section) => (
-                  <Button
-                    key={section.name}
-                    onClick={() => copyToClipboard(formatForAirbnb(section), section.name)}
-                    variant="outline"
-                    className="justify-start h-auto p-2 text-left text-sm"
-                  >
-                    <div className="flex items-center justify-between w-full">
-                      <div className="font-medium text-gray-900">{section.name}</div>
-                      {copiedSection === section.name ? (
-                        <Check className="w-3 h-3 text-green-600 ml-2" />
-                      ) : (
-                        <Copy className="w-3 h-3 text-gray-400 ml-2" />
-                      )}
-                    </div>
-                  </Button>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Main Markdown Content */}
-        <div className="flex-1 min-w-0 order-3 lg:order-none">
-          <div className="relative group bg-white border border-gray-200 rounded-lg shadow-sm">
-            {editable && onSave && (
+    <div className={`space-y-6 ${className}`}>
+      {/* Copy Buttons for Each Room */}
+      {roomSections.length > 0 && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <h3 className="text-lg font-semibold text-blue-900 mb-3">
+            📋 Copy Room Descriptions for Airbnb/Channels
+          </h3>
+          <p className="text-sm text-blue-700 mb-4">
+            Click to copy formatted descriptions ready for Airbnb or channel management software
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {roomSections.map((section) => (
               <Button
-                onClick={() => setIsEditing(true)}
+                key={section.name}
+                onClick={() => copyToClipboard(formatForAirbnb(section), section.name)}
                 variant="outline"
-                size="sm"
-                className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10"
+                className="justify-start h-auto p-3 text-left"
               >
-                <Edit2 className="w-4 h-4 mr-1" />
-                Edit
+                <div className="flex items-center justify-between w-full">
+                  <div>
+                    <div className="font-medium text-gray-900">{section.name}</div>
+                    <div className="text-xs text-gray-500 mt-1">{section.title}</div>
+                  </div>
+                  {copiedSection === section.name ? (
+                    <Check className="w-4 h-4 text-green-600 ml-2" />
+                  ) : (
+                    <Copy className="w-4 h-4 text-gray-400 ml-2" />
+                  )}
+                </div>
               </Button>
-            )}
-          
-          <div className="prose prose-gray max-w-none p-6">
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Main Markdown Content */}
+      <div className="relative group">
+        {editable && onSave && (
+          <Button
+            onClick={() => setIsEditing(true)}
+            variant="outline"
+            size="sm"
+            className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10"
+          >
+            <Edit2 className="w-4 h-4 mr-1" />
+            Edit
+          </Button>
+        )}
+      
+      <div className="prose prose-gray max-w-none rounded-lg p-4">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[
@@ -430,7 +386,6 @@ export function MarkdownViewer({
             ),
             h2: ({ children, ...props }) => {
               const textContent = children?.toString() || ''
-              const id = `h2-${textContent.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')}`
               const handleClick = () => {
                 const textToCopy = getTextToCopy('h2', textContent)
                 copyToClipboard(textToCopy, `h2-${textContent}`)
@@ -441,7 +396,6 @@ export function MarkdownViewer({
               
               return (
                 <h2 
-                  id={id}
                   className={`text-2xl font-semibold mb-3 mt-8 cursor-pointer rounded p-2 transition-colors ${
                     isHighlighted 
                       ? 'bg-blue-200 text-blue-900 border-2 border-blue-400' 
@@ -639,8 +593,6 @@ export function MarkdownViewer({
         >
           {content}
         </ReactMarkdown>
-          </div>
-          </div>
         </div>
       </div>
     </div>

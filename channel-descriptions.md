@@ -158,16 +158,16 @@ Surrounded by Cariló's ancient pine forests with walking trails leading to pris
 💧 Water treatment plant with softener system
 🔇 Superior sound isolation for peaceful rest
 
-## 📝 House Guidelines
+### 📝 House Guidelines
 
 🤫 Quiet environment maintained (no music audible outside rooms)🚫 No parties (monitoring cameras in common areas only)🧹 Clean shared spaces after use🐶 Pets welcome (deposit + hypoallergenic cleaning fee required)🔑 Flexible check-in/out when schedule permitsPerfect for: Couples, remote workers, digital nomads, nature lovers, extended stays, creative retreats, or anyone seeking luxury comfort in Argentina's most beautiful coastal forest community.
 
-## 🗺️ How to find your stay
+### 🗺️ How to find your stay
 
 If you drive, Google Maps or Waze would get you to the door. Also, it's a large new house that is easy to spot. Park anywhere on the street or get down to the garage door.
 If you take a bus, go from Retiro station in Buenos Aires to Pinamar.The bus ride takes about 4 hours and runs about 10 times a day. From Pinamar station, take a 15 minute taxi or Uber to the house.
 
-## 📍 Location Details
+### 📍 Location Details
 
 #### 🎯 What You Can Do Here:
 🏖️ Walk 3 minutes to uncrowded Atlantic beaches for swimming and sunbathing
