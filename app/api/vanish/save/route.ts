@@ -1,39 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { writeFileSync, readFileSync } from 'fs'
+import { writeFileSync } from 'fs'
 import { join } from 'path'
-
-interface Section {
-  id: string
-  title: string
-  content: string
-  type: 'title' | 'subtitle' | 'description' | 'list' | 'text'
-}
 
 export async function POST(request: NextRequest) {
   try {
-    const { sections }: { sections: Section[] } = await request.json()
-    
-    // Convert sections back to markdown format
-    let markdownContent = ''
-    
-    for (const section of sections) {
-      if (section.title) {
-        if (section.type === 'title') {
-          markdownContent += `# ${section.title}\n\n`
-        } else if (section.type === 'subtitle') {
-          markdownContent += `## ${section.title}\n\n`
-        } else if (section.type === 'description') {
-          markdownContent += `### ${section.title}\n\n`
-        }
-      }
-      
-      if (section.content) {
-        markdownContent += `${section.content}\n\n`
-      }
-    }
+    const { content }: { content: string } = await request.json()
     
     const filePath = join(process.cwd(), 'channel-descriptions.md')
-    writeFileSync(filePath, markdownContent.trim())
+    writeFileSync(filePath, content)
     
     return NextResponse.json({
       success: true,

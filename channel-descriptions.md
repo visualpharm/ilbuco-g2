@@ -9,20 +9,26 @@ Wake up surrounded by live plants on your own private garden terrace in Cariló'
 ### Full Description
 
 Your suite opens directly onto a private terrace filled with thriving plants – like having your own secret garden in the forest. Located in Cariló's pine woods, you're 5 minutes from Argentina's most beautiful beaches.
-🌿 **Your Private Garden Terrace**
+
+#### 🌿 Your Private Garden Terrace
 Step outside to your own planted terrace with floor-to-ceiling windows connecting indoor and outdoor spaces. Enjoy morning coffee, work sessions, or evening relaxation surrounded by greenery and forest sounds.
-🏠 **Everything You Need Inside**
+
+#### 🏠 Everything You Need Inside
 Sleep on a premium dense foam mattress with luxury 5-star bedding. Your full kitchen includes a 300L fridge, vitroceramic stove, oven, microwave, and quality cookware – perfect for real meals, not just snacks. Private bathroom with glass walk-in shower and your own washing machine.
-📶 **Stay Connected & Comfortable**
+
+#### 📶 Stay Connected & Comfortable
 ✔️ 500 Mbps fiber internet throughout
 ✔️ Underfloor heating + air conditioning
 ✔️ Smart TV with Netflix, Disney+, Max streaming
 ✔️ Ergonomic chair included (free for stays over 1 month)
-🌤️ **Shared Rooftop Paradise**
+
+#### 🌤️ Shared Rooftop Paradise
 Access the green roof terrace with BBQ grill – shared space that can be reserved privately for special occasions. Plus a quiet common living room when you want to socialize.
-🏗️ **Solid Construction**
+
+#### 🏗️ Solid Construction
 Newly built with concrete structure, full insulation, double-glazed windows, and water treatment system ensuring peace, quiet, and pure water.
-📍 **Perfect Location**
+
+#### 📍 Perfect Location
 Walk 5 minutes through pine forest paths to reach pristine beaches. Surrounded by world-class restaurants, boutique shops, and forest trails in Argentina's most exclusive coastal town.
 
 ## Penthouse
@@ -34,20 +40,26 @@ Top floor suite with stunning forest views and direct access to green rooftop te
 ### Full Description
 
 Live at the top of a newly built forest villa with panoramic pine tree views and exclusive access to the rooftop terrace. Walk 5 minutes to Cariló's pristine Atlantic beaches.
-🌲 **Elevated Forest Views**
+#### 🌲 Elevated Forest Views
+
 Your top-floor position offers unobstructed views over the pine canopy through large windows. Natural light floods the space all day, creating a bright, airy atmosphere high above the forest floor.
-🏠 **Complete Living Setup**
+#### 🏠 Complete Living Setup
+
 Premium dense foam mattress with luxury bedding ensures perfect sleep. Full kitchen with 300L fridge, vitroceramic cooktop, oven, microwave, and complete cookware. Private bathroom with glass walk-in shower and personal washing machine.
-📱 **Technology & Climate**
+#### 📱 Technology & Climate
+
 💻 500 Mbps fiber internet + mesh WiFi
 🌡️ Individual underfloor heating + A/C
 📱 Smart TV with Netflix, Disney+, Max streaming
 🪑 Ergonomic workspace chair (free for stays over 1 month)
-🌅 **Your Rooftop Sanctuary**
+#### 🌅 Your Rooftop Sanctuary
+
 Direct access to the green roof terrace with BBQ facilities. Shared with other guests but can be reserved for private use. Also includes access to quiet downstairs living room and shared kitchen.
-🏗️ **Premium Construction**
+#### 🏗️ Premium Construction
+
 Solid concrete structure with full insulation, black double-glazed windows, and water treatment plant ensuring perfect sound isolation and pure water throughout.
-🌲 **Forest Location**
+#### 🌲 Forest Location
+
 Nestled in Cariló's prestigious pine forest community with sandy streets, world-class dining, and boutique shopping all within walking distance.
 
 ## Giardino
@@ -59,20 +71,26 @@ Corner suite with floor-to-ceiling windows on two sides offering 180-degree gard
 ### Full Description
 
 Wake up surrounded by windows on two sides, creating a luminous corner sanctuary with 180-degree views of gardens and towering pine trees. Step-free access makes this suite wheelchair accessible for guests with mobility needs. Walk 5 minutes to Argentina's pristine coastline.
-🌲 **Panoramic Forest Immersion**
+#### 🌲 Panoramic Forest Immersion
+
 Floor-to-ceiling corner windows wrap around your bed and living space, bringing the forest inside. Watch light filter through pine needles and observe wildlife from the comfort of your bed.
-🛏️ **Complete Comfort**
+#### 🛏️ Complete Comfort
+
 Sleep on a premium dense foam mattress with luxury 5-star bedding. Full kitchen includes 300L fridge, vitroceramic cooktop, oven, microwave, and quality cookware. Private bathroom with glass walk-in shower and washing machine.
-📶 **Connected & Climate Controlled**
+#### 📶 Connected & Climate Controlled
+
 💻 500 Mbps fiber internet throughout
 🌡️ Underfloor radiant heating + air conditioning
 📱 Smart TV with Netflix, Disney+, Max streaming
 🪑 Ergonomic work chair (free for monthly+ stays)
-🌿 **Shared Green Spaces**
+#### 🌿 Shared Green Spaces
+
 Access rooftop terrace with BBQ (reservable for private use) plus quiet common living area and additional shared kitchen for larger meal prep.
-🏗️ **Quality Construction**
+#### 🏗️ Quality Construction
+
 Newly built with solid concrete, complete insulation, water treatment plant, and black double-glazed windows providing superior sound isolation.
-🌲 **Cariló Forest Setting**
+#### 🌲 Cariló Forest Setting
+
 Surrounded by pine forest trails, boutique restaurants, and artisan shops, all accessible via charming unpaved sandy streets perfect for walking or cycling.
 
 ## Paraiso
@@ -84,20 +102,27 @@ Largest suite with separate bedroom and living area in Cariló's pine forest, 5 
 ### Full Description
 
 Enjoy extra space and privacy with a separate bedroom in this forest retreat. The largest accommodation option, perfect for longer stays or when you want more room to spread out.
-🛏️ **Separate Bedroom Layout**
+#### 🛏️ Separate Bedroom Layout
+
 Unlike hotel-style suites, your bedroom is completely separate from the living/kitchen area. Large windows frame forest views while maintaining the peaceful, private atmosphere throughout both spaces.
-🍽️ **Full Kitchen & Dining**
+#### 🍽️ Full Kitchen & Dining
+
 Real kitchen with 300L full-size fridge, vitroceramic cooktop, oven, microwave, and complete cookware set. Dining area perfect for working or enjoying meals with extra space to move around.
-🛏️ **Luxury Bedroom**
+#### 🛏️ Luxury Bedroom
+
 Premium dense foam mattress with luxury bedding in your private bedroom. Blackout options available for perfect sleep. Private bathroom with glass walk-in shower and personal washing machine.
-💼 **Work & Entertainment**
+#### 💼 Work & Entertainment
+
 💻 500 Mbps fiber internet + mesh WiFi coverage
 🌡️ Individual underfloor heating + air conditioning
 📱 Smart TV with Netflix, Disney+, Max streaming
 🪑 Ergonomic workspace furniture (free for stays over 1 month)
-🌿 **Shared Amenities**
+
+#### 🌿 Shared Amenities
+
 Green roof BBQ terrace (private reservations available), quiet common living room, and additional shared kitchen for entertaining or larger cooking projects.
-🌲 **Forest Paradise Location**
+#### 🌲 Forest Paradise Location
+
 Surrounded by Cariló's ancient pine forests with walking trails leading to pristine beaches in 5 minutes. World-class restaurants and boutique shopping within easy walking distance.
 
 ## Common Features
@@ -144,7 +169,7 @@ If you take a bus, go from Retiro station in Buenos Aires to Pinamar.The bus rid
 
 ### 📍 Location Details
 
-🎯 **What You Can Do Here:**
+#### 🎯 What You Can Do Here:
 🏖️ Walk 3 minutes to uncrowded Atlantic beaches for swimming and sunbathing
 🌲 Take forest trails directly from the property for morning runs or evening walks
 🏠 Favorite activity of the visitors: walk around, judge the architecture, and think if they would like to live here
@@ -152,5 +177,5 @@ If you take a bus, go from Retiro station in Buenos Aires to Pinamar.The bus rid
 ☕ Work from cafés with fast WiFi or concentrate in complete forest quiet
 🚴 Rent bikes to explore sandy streets (no cars, very peaceful)
 🏨 Play tennis, try windsurfing lessons, or use free outdoor gym equipment
-✨ **Why Guests Choose This Area:**
+#### ✨ Why Guests Choose This Area:
 No tall buildings or traffic noise - just pine trees, sandy paths, and ocean sounds. Perfect for remote work, romantic getaways, or family beach time without crowds.
