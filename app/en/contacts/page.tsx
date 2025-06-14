@@ -1,1 +1,1 @@
-export { default } from '../../book/page'
+export { default } from '../../contacts/page'
