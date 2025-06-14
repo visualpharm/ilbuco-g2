@@ -135,8 +135,6 @@ export default function Activities() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=CIE+Centro+de+Entrenamiento+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
@@ -144,8 +142,6 @@ export default function Activities() {
                           </a>
                           <a
                             href="https://www.instagram.com/somos_cie/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
                           >
                             <Icons.Instagram />
@@ -169,8 +165,6 @@ export default function Activities() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Coco+Surf+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
@@ -178,8 +172,6 @@ export default function Activities() {
                           </a>
                           <a
                             href="https://www.instagram.com/coco.surf.carilo/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
                           >
                             <Icons.Instagram />
@@ -203,8 +195,6 @@ export default function Activities() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Caril%C3%B3+Tennis+Club"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
@@ -212,8 +202,6 @@ export default function Activities() {
                           </a>
                           <a
                             href="https://www.instagram.com/carilotennis.club/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
                           >
                             <Icons.Instagram />
@@ -237,8 +225,6 @@ export default function Activities() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Parque+de+Calistenia+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
@@ -262,8 +248,6 @@ export default function Activities() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Cabalgatas+Dos+Montes"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
@@ -271,8 +255,6 @@ export default function Activities() {
                           </a>
                           <a
                             href="https://www.instagram.com/cabalgatasdosmontes/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
                           >
                             <Icons.Instagram />
@@ -296,8 +278,6 @@ export default function Activities() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Motorrad+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
@@ -305,8 +285,6 @@ export default function Activities() {
                           </a>
                           <a
                             href="https://www.guiadeplaya.com.ar/motorrad-carilo-alquiler-cuatriciclos.html"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-gray-600 hover:text-gray-800 transition-colors text-sm inline-flex items-center"
                           >
                             <Icons.Website />
@@ -330,8 +308,6 @@ export default function Activities() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Sandmasters+Pinamar"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
@@ -339,8 +315,6 @@ export default function Activities() {
                           </a>
                           <a
                             href="https://www.instagram.com/sandmasters_/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
                           >
                             <Icons.Instagram />
@@ -364,8 +338,6 @@ export default function Activities() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Fusion+Arte+del+Mar+Valeria+del+Mar"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
@@ -373,8 +345,6 @@ export default function Activities() {
                           </a>
                           <a
                             href="https://www.instagram.com/fusionartedelmar/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
                           >
                             <Icons.Instagram />

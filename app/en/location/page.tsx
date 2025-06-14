@@ -41,8 +41,6 @@ export default function EnglishLocation() {
                 <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mb-6">
                   <a
                     href="https://maps.app.goo.gl/McARi7xe1wzBr64P9"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="inline-flex items-center px-6 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
                   >
                     <Translate text={locationTranslations.mapSection.openInGoogleMaps} />

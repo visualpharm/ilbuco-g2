@@ -604,8 +604,6 @@ export function MarkdownViewer({
               <a 
                 href={href}
                 className="text-blue-600 hover:text-blue-800 underline"
-                target="_blank"
-                rel="noopener noreferrer"
               >
                 {children}
               </a>

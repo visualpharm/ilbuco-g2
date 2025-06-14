@@ -59,14 +59,21 @@ export default function Contact() {
 
                     <div className="flex items-start">
                       <Phone className="h-6 w-6 mr-4 mt-1 text-gray-700" />
-                      <div>
+                      <div className="flex-1">
                         <h3 className="text-lg font-semibold">WhatsApp</h3>
-                        <a
-                          href="https://wa.me/541121275492"
-                          className="text-gray-700 hover:text-green-600 transition-colors"
-                        >
-                          +54 11 2127 5492
-                        </a>
+                        <div className="flex items-center gap-3">
+                          <span className="text-gray-700">+54 11 2127 5492</span>
+                          <a
+                            href="https://wa.me/541121275492"
+                            className="px-3 py-1 bg-green-600 text-white text-sm rounded-md hover:bg-green-700 transition-colors"
+                          >
+                            <Translate text={{
+                              en: "Message",
+                              es: "Mensaje",
+                              pt: "Mensagem"
+                            }} />
+                          </a>
+                        </div>
                       </div>
                     </div>
 
@@ -116,8 +123,6 @@ export default function Contact() {
                       <a
                         href="https://book.ilbuco.com.ar/"
                         className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
-                        target="_blank"
-                        rel="noopener noreferrer"
                       >
                         <Translate
                           text={{
@@ -128,36 +133,10 @@ export default function Contact() {
                       </a>
                     </div>
 
-                    <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
-                      <div className="flex items-center">
-                        <Phone className="h-5 w-5 mr-3 text-green-600" />
-                        <div>
-                          <p className="font-medium">WhatsApp</p>
-                          <p className="text-sm text-gray-600">
-                            <Translate
-                              text={{
-                                en: "Direct booking via WhatsApp",
-                                es: "Reserva directa por WhatsApp",
-                              }}
-                            />
-                          </p>
-                        </div>
-                      </div>
-                      <a
-                        href="https://wa.me/541121275492?text=Hola!%20Me%20interesa%20reservar%20en%20IL%20BUCO.%20¿Podrían%20ayudarme%20con%20la%20disponibilidad?"
-                        className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
-                      >
-                        <Translate
-                          text={{
-                            en: "Book Now",
-                            es: "Reservar",
-                          }}
-                        />
-                      </a>
-                    </div>
 
-                    <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg opacity-50">
-                      <div className="flex items-center">
+                    {/* Airbnb */}
+                    <div className="p-4 border border-gray-200 rounded-lg">
+                      <div className="flex items-center mb-4">
                         <div className="h-5 w-5 mr-3 bg-red-500 rounded-full flex items-center justify-center">
                           <span className="text-white text-xs font-bold">A</span>
                         </div>
@@ -166,21 +145,41 @@ export default function Contact() {
                           <p className="text-sm text-gray-600">
                             <Translate
                               text={{
-                                en: "Coming soon",
-                                es: "Próximamente",
+                                en: "Book individual rooms",
+                                es: "Reservar habitaciones individuales",
                               }}
                             />
                           </p>
                         </div>
                       </div>
-                      <button disabled className="px-4 py-2 bg-gray-300 text-gray-500 rounded-md cursor-not-allowed">
-                        <Translate
-                          text={{
-                            en: "Coming Soon",
-                            es: "Próximamente",
-                          }}
-                        />
-                      </button>
+                      <div className="grid grid-cols-2 gap-3">
+                        <a
+                          href="https://www.airbnb.com/rooms/1432871950272757223?source_impression_id=p3_1749914100_P3tMGIELo0p9Q-SO"
+                          className="px-3 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600 transition-colors text-center"
+                        >
+                          Paraiso
+                        </a>
+                        <a
+                          href="https://www.airbnb.com/rooms/1393460027877444232?source_impression_id=p3_1749914061_P3lDo2XWX43_1NS0"
+                          className="px-3 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600 transition-colors text-center"
+                        >
+                          Giardino
+                        </a>
+                        <a
+                          href="https://www.airbnb.com/rooms/1422046866284999348?source_impression_id=p3_1749914061_P38mVIuZYIb4ompa"
+                          className="px-3 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600 transition-colors text-center"
+                        >
+                          Terrazzo
+                        </a>
+                        <div className="px-3 py-2 bg-gray-300 text-gray-500 text-sm rounded-md text-center cursor-not-allowed">
+                          <Translate
+                            text={{
+                              en: "Penthouse",
+                              es: "Penthouse",
+                            }}
+                          />
+                        </div>
+                      </div>
                     </div>
 
                     <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg opacity-50">

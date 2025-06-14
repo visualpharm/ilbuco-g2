@@ -48,8 +48,6 @@ export function SiteHeader() {
             <a
               href="https://book.ilbuco.com.ar/"
               className="hidden sm:inline-flex items-center space-x-2 px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors whitespace-nowrap"
-              target="_blank"
-              rel="noopener noreferrer"
             >
               <Translate text={translations.nav.book} />
             </a>

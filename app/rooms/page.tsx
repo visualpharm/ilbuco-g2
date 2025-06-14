@@ -72,8 +72,6 @@ export default function Rooms() {
                     <a
                       href="https://book.ilbuco.com.ar/listing/110801"
                       className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
-                      target="_blank"
-                      rel="noopener noreferrer"
                     >
                       <Translate text={{
                         en: "Book Terrezzo",
@@ -167,8 +165,6 @@ export default function Rooms() {
                     <a
                       href="https://book.ilbuco.com.ar/listing/110803"
                       className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
-                      target="_blank"
-                      rel="noopener noreferrer"
                     >
                       <Translate text={{
                         en: "Book Penthouse",
@@ -240,8 +236,6 @@ export default function Rooms() {
                     <a
                       href="https://book.ilbuco.com.ar/listing/110800"
                       className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
-                      target="_blank"
-                      rel="noopener noreferrer"
                     >
                       <Translate text={{
                         en: "Book Giardino",
@@ -302,8 +296,6 @@ export default function Rooms() {
                     <a
                       href="https://book.ilbuco.com.ar/listing/110802"
                       className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
-                      target="_blank"
-                      rel="noopener noreferrer"
                     >
                       <Translate text={{
                         en: "Book Paraiso",
@@ -511,8 +503,6 @@ export default function Rooms() {
                   <a
                     href="https://book.ilbuco.com.ar/"
                     className="inline-flex items-center px-6 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
-                    target="_blank"
-                    rel="noopener noreferrer"
                   >
                     <Translate text={roomsTranslations.bookYourStay.button} />
                   </a>

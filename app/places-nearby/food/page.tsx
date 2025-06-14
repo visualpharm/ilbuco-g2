@@ -125,8 +125,6 @@ export default function Food() {
                           Also recommended:{" "}
                           <a
                             href="https://www.instagram.com/donbenito_carilo/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors"
                           >
                             Don Benito
@@ -134,8 +132,6 @@ export default function Food() {
                           (poshy),{" "}
                           <a
                             href="https://www.instagram.com/demicampocarilo/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors"
                           >
                             De Mi Campo
@@ -143,8 +139,6 @@ export default function Food() {
                           (salad bar!),{" "}
                           <a
                             href="https://goo.gl/maps/8ZQZgqXH8JZQeULt8"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
@@ -155,8 +149,6 @@ export default function Food() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=La+Cabrera+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
@@ -164,8 +156,6 @@ export default function Food() {
                           </a>
                           <a
                             href="https://www.instagram.com/lacabrera_carilo/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
                           >
                             <Icons.Instagram />
@@ -187,8 +177,6 @@ export default function Food() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Il+Gatto+Nero+Valeria+del+Mar"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
@@ -196,8 +184,6 @@ export default function Food() {
                           </a>
                           <a
                             href="https://www.instagram.com/__ilgattonero/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
                           >
                             <Icons.Instagram />
@@ -217,8 +203,6 @@ export default function Food() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Il+Panettone+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
@@ -226,8 +210,6 @@ export default function Food() {
                           </a>
                           <a
                             href="https://www.instagram.com/panaderia.ilpanettone/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
                           >
                             <Icons.Instagram />
@@ -247,8 +229,6 @@ export default function Food() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Enris+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
@@ -256,8 +236,6 @@ export default function Food() {
                           </a>
                           <a
                             href="https://www.instagram.com/enris.ar/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
                           >
                             <Icons.Instagram />
@@ -277,8 +255,6 @@ export default function Food() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Masse+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3 flex items-center"
                           >
                             <Icons.GoogleMaps />
@@ -288,8 +264,6 @@ export default function Food() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/masse.carilo/"
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                             >
                               @masse.carilo

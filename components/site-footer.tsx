@@ -86,14 +86,14 @@ export function SiteFooter() {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
           <div className="text-gray-500 text-center md:text-left">
-            © {currentYear} <a href="https://aiandtractors.com" target="_blank" rel="noopener noreferrer" className="hover:underline">Ivan Braun</a>
+            © {currentYear} <a href="https://aiandtractors.com"  className="hover:underline">Ivan Braun</a>
             {footerLinks.length > 0 && (
               <span className="ml-4 space-x-4">
                 {footerLinks.map((link, index) => (
                   <a
                     key={index}
                     href={link.href}
-                    {...(link.href.startsWith('http') ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    {...(link.href.startsWith('http') ? {} : {})}
                     className="text-gray-500 hover:text-gray-700 no-underline"
                   >
                     {link.text}

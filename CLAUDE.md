@@ -309,3 +309,9 @@ Every room on /rooms leads to its own booking page:
 - **Giardino**: https://book.ilbuco.com.ar/listing/110800
 
 Add booking button next to each room on /rooms page.
+
+Airbnb bookings links are:
+paraiso https://www.airbnb.com/rooms/1432871950272757223?source_impression_id=p3_1749914100_P3tMGIELo0p9Q-SO
+giardino https://www.airbnb.com/rooms/1393460027877444232?source_impression_id=p3_1749914061_P3lDo2XWX43_1NS0
+terrazzo https://www.airbnb.com/rooms/1422046866284999348?source_impression_id=p3_1749914061_P38mVIuZYIb4ompa
+(penthous is on a long term rental, so no airbnb link)

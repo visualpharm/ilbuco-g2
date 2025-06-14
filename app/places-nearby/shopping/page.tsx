@@ -150,8 +150,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Proveedur%C3%ADa+Chicho+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
@@ -161,8 +159,6 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/proveeduria_chicho_esta_loco/"
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                             >
                               @proveeduria_chicho_esta_loco
@@ -191,8 +187,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=La+Proveedur%C3%ADa+Menor+Coste+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
@@ -202,8 +196,6 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/menorcoste/"
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                             >
                               @menorcoste
@@ -240,8 +232,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Coto+Pinamar"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
@@ -249,8 +239,6 @@ export default function Shopping() {
                           </a>
                           <a
                             href="https://www.cotodigital3.com.ar/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             cotodigital3.com.ar
@@ -272,8 +260,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Disco+Pinamar"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
@@ -281,8 +267,6 @@ export default function Shopping() {
                           </a>
                           <a
                             href="https://www.disco.com.ar/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             disco.com.ar
@@ -317,8 +301,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Verduler%C3%ADa+Bel%C3%A9n+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
@@ -326,8 +308,6 @@ export default function Shopping() {
                           </a>
                           <a
                             href="https://waze.com/ul?place=ChIJ4zObzLKdnJUR3db27yKHe_U"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             Open in Waze
@@ -350,8 +330,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Boutique+de+Frutas+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
@@ -361,8 +339,6 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/boutique_de_frutas/"
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                             >
                               @boutique_de_frutas
@@ -399,8 +375,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Ferreter%C3%ADa+Jorjito+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
@@ -410,8 +384,6 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/ferreteria_jorgito/"
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                             >
                               @ferreteria_jorgito
@@ -436,8 +408,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Qu%C3%ADmica+Limpia+Maurito+Pinamar"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
@@ -445,8 +415,6 @@ export default function Shopping() {
                           </a>
                           <a
                             href="https://www.facebook.com/LMaurito/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             Facebook Page
@@ -468,8 +436,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Centro+Comercial+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
@@ -477,8 +443,6 @@ export default function Shopping() {
                           </a>
                           <a
                             href="https://maps.app.goo.gl/HSdLEiSF9qGJRWY7A"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             Open in Google Maps
@@ -500,8 +464,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Caba%C3%B1a+Guerrero+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
@@ -511,8 +473,6 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/cabana.guerrero/"
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                             >
                               @cabana.guerrero
@@ -536,8 +496,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Pescader%C3%ADa+La+Constanza+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
@@ -547,8 +505,6 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/pescaderiasdicostanzoar/"
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                             >
                               @pescaderiasdicostanzoar
@@ -572,8 +528,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Pescader%C3%ADa+La+Constanza+Pinamar"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
@@ -583,8 +537,6 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/pescaderiasdicostanzoar/"
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                             >
                               @pescaderiasdicostanzoar
@@ -607,8 +559,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Helader%C3%ADa+Colonial+Valeria+del+Mar"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                           >
                             <Icons.GoogleMaps />
@@ -618,8 +568,6 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/colonialhelados/"
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                             >
                               @colonialhelados
@@ -642,8 +590,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Lucciano%27s+Pinamar"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                           >
                             <Icons.GoogleMaps />
@@ -653,8 +599,6 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/luccianos_/"
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                             >
                               @luccianos_
@@ -677,8 +621,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Il+Panettone+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                           >
                             <Icons.GoogleMaps />
@@ -688,8 +630,6 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/panaderia.ilpanettone/"
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                             >
                               @panaderia.ilpanettone
@@ -712,8 +652,6 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Masse+Caril%C3%B3"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
                           >
                             <Icons.GoogleMaps />
@@ -723,8 +661,6 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/masse.carilo/"
-                              target="_blank"
-                              rel="noopener noreferrer"
                               className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
                             >
                               @masse.carilo
