@@ -48,46 +48,46 @@ export function BookingPopup({ isOpen, onClose }: BookingPopupProps) {
         <div className="space-y-4">
           {/* Direct Booking */}
           <div className="p-6 border-2 border-black rounded-lg bg-gray-50">
-            <div className="flex items-start justify-between mb-4">
+            <div className="sm:flex sm:items-start sm:justify-between sm:mb-4">
               <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-2">
+                <h3 className="text-xl font-bold mb-2">
+                  <Translate
+                    text={{
+                      en: "Direct Booking",
+                      es: "Reserva Directa",
+                      pt: "Reserva Direta",
+                    }}
+                  />
+                </h3>
+                <div className="space-y-2">
+                  <p className="text-base text-gray-700 font-medium">
                     <Translate
                       text={{
-                        en: "Direct Booking",
-                        es: "Reserva Directa",
-                        pt: "Reserva Direta",
+                        en: "🏆 Best price guarantee",
+                        es: "🏆 Garantía de mejor precio",
+                        pt: "🏆 Garantia de melhor preço",
                       }}
                     />
-                  </h3>
-                  <div className="space-y-2">
-                    <p className="text-base text-gray-700 font-medium">
+                  </p>
+                  <div>
+                    <p className="text-sm font-medium text-gray-600 mb-1">
                       <Translate
                         text={{
-                          en: "🏆 Best price guarantee",
-                          es: "🏆 Garantía de mejor precio",
-                          pt: "🏆 Garantia de melhor preço",
+                          en: "Accepted payment methods:",
+                          es: "Métodos de pago aceptados:",
+                          pt: "Métodos de pagamento aceitos:",
                         }}
                       />
                     </p>
-                    <div>
-                      <p className="text-sm font-medium text-gray-600 mb-1">
-                        <Translate
-                          text={{
-                            en: "Accepted payment methods:",
-                            es: "Métodos de pago aceptados:",
-                            pt: "Métodos de pagamento aceitos:",
-                          }}
-                        />
-                      </p>
-                      <p className="text-sm text-gray-600 leading-relaxed">
-                        {getPaymentOptions()}
-                      </p>
-                    </div>
+                    <p className="text-sm text-gray-600 leading-relaxed mb-4 sm:mb-0">
+                      {getPaymentOptions()}
+                    </p>
                   </div>
                 </div>
+              </div>
               <a
                 href="https://book.ilbuco.com.ar/"
-                className="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-medium text-lg ml-4 flex-shrink-0"
+                className="block w-full sm:w-auto text-center px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-medium text-lg sm:ml-4 sm:flex-shrink-0"
               >
                 <Translate
                   text={{

@@ -118,40 +118,42 @@ export default function Contact() {
 
                   <div className="space-y-4">
                     {/* Direct Booking */}
-                    <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
-                      <div>
-                        <p className="font-medium">
+                    <div className="p-4 border border-gray-200 rounded-lg">
+                      <div className="sm:flex sm:items-center sm:justify-between">
+                        <div>
+                          <p className="font-medium">
+                            <Translate
+                              text={{
+                                en: "Direct Booking",
+                                es: "Reserva Directa",
+                                pt: "Reserva Direta",
+                              }}
+                            />
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            <Translate
+                              text={{
+                                en: "Best price guarantee",
+                                es: "Garantía de mejor precio",
+                              }}
+                            />
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1 mb-3 sm:mb-0">
+                            {getPaymentOptions()}
+                          </p>
+                        </div>
+                        <a
+                          href="https://book.ilbuco.com.ar/"
+                          className="block w-full sm:w-auto text-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors sm:ml-4"
+                        >
                           <Translate
                             text={{
-                              en: "Direct Booking",
-                              es: "Reserva Directa",
-                              pt: "Reserva Direta",
+                              en: "Book Now",
+                              es: "Reservar",
                             }}
                           />
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          <Translate
-                            text={{
-                              en: "Best price guarantee",
-                              es: "Garantía de mejor precio",
-                            }}
-                          />
-                        </p>
-                        <p className="text-xs text-gray-500 mt-1">
-                          {getPaymentOptions()}
-                        </p>
+                        </a>
                       </div>
-                      <a
-                        href="https://book.ilbuco.com.ar/"
-                        className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
-                      >
-                        <Translate
-                          text={{
-                            en: "Book Now",
-                            es: "Reservar",
-                          }}
-                        />
-                      </a>
                     </div>
 
                     {/* Airbnb */}
