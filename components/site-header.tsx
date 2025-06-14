@@ -40,14 +40,19 @@ export function SiteHeader() {
             <Link href={`${langPrefix}/places-nearby`} className="text-sm font-medium hover:text-blue-600 transition-colors">
               <Translate text={translations.nav.placesNearby} />
             </Link>
+            <Link href={`${langPrefix}/contacts`} className="text-sm font-medium hover:text-blue-600 transition-colors">
+              <Translate text={translations.nav.contact} />
+            </Link>
           </nav>
           <div className="flex items-center space-x-4 ml-4">
-            <Link
-              href={`${langPrefix}/book`}
+            <a
+              href="https://book.ilbuco.com.ar/"
               className="hidden sm:inline-flex items-center space-x-2 px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors whitespace-nowrap"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <Translate text={translations.nav.book} />
-            </Link>
+            </a>
             <LanguageSelector />
             <div className="lg:hidden">
               <MobileMenu />

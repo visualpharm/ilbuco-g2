@@ -65,9 +65,23 @@ export default function Rooms() {
               <div className="space-y-16">
                 {/* Terrace Suite (Terrazo) */}
                 <div>
-                  <h2 className="text-2xl font-bold mb-2">
-                    <Translate text={roomsTranslations.terraceSuite.title} />
-                  </h2>
+                  <div className="flex items-center justify-between mb-2">
+                    <h2 className="text-2xl font-bold">
+                      <Translate text={roomsTranslations.terraceSuite.title} />
+                    </h2>
+                    <a
+                      href="https://book.ilbuco.com.ar/listing/110801"
+                      className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Translate text={{
+                        en: "Book Terrezzo",
+                        es: "Reservar Terrezzo",
+                        pt: "Reservar Terrezzo"
+                      }} />
+                    </a>
+                  </div>
                   <p className="text-gray-600 mb-6">
                     <Translate text={roomsTranslations.terraceSuite.subtitle} /> Ideal como <Link href="/casas-en-carilo-alquiler" className="text-gray-600 no-underline hover:text-gray-500">casa</Link> de lujo.
                   </p>
@@ -146,9 +160,23 @@ export default function Rooms() {
 
                 {/* Penthouse Suite */}
                 <div>
-                  <h2 className="text-2xl font-bold mb-2">
-                    <Translate text={roomsTranslations.penthouseSuite.title} />
-                  </h2>
+                  <div className="flex items-center justify-between mb-2">
+                    <h2 className="text-2xl font-bold">
+                      <Translate text={roomsTranslations.penthouseSuite.title} />
+                    </h2>
+                    <a
+                      href="https://book.ilbuco.com.ar/listing/110803"
+                      className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Translate text={{
+                        en: "Book Penthouse",
+                        es: "Reservar Penthouse",
+                        pt: "Reservar Penthouse"
+                      }} />
+                    </a>
+                  </div>
                   <p className="text-gray-600 mb-6">
                     <Translate text={roomsTranslations.penthouseSuite.subtitle} />
                   </p>
@@ -205,9 +233,23 @@ export default function Rooms() {
 
                 {/* Garden Suite (Giardino) */}
                 <div>
-                  <h2 className="text-2xl font-bold mb-2">
-                    <Translate text={roomsTranslations.gardenSuite.title} />
-                  </h2>
+                  <div className="flex items-center justify-between mb-2">
+                    <h2 className="text-2xl font-bold">
+                      <Translate text={roomsTranslations.gardenSuite.title} />
+                    </h2>
+                    <a
+                      href="https://book.ilbuco.com.ar/listing/110800"
+                      className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Translate text={{
+                        en: "Book Giardino",
+                        es: "Reservar Giardino",
+                        pt: "Reservar Giardino"
+                      }} />
+                    </a>
+                  </div>
                   <p className="text-gray-600 mb-6">
                     <Translate text={roomsTranslations.gardenSuite.subtitle} />
                   </p>
@@ -253,9 +295,23 @@ export default function Rooms() {
 
                 {/* Forest-View Suite (Paraiso) */}
                 <div>
-                  <h2 className="text-2xl font-bold mb-2">
-                    <Translate text={roomsTranslations.forestSuite.title} />
-                  </h2>
+                  <div className="flex items-center justify-between mb-2">
+                    <h2 className="text-2xl font-bold">
+                      <Translate text={roomsTranslations.forestSuite.title} />
+                    </h2>
+                    <a
+                      href="https://book.ilbuco.com.ar/listing/110802"
+                      className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Translate text={{
+                        en: "Book Paraiso",
+                        es: "Reservar Paraíso",
+                        pt: "Reservar Paraíso"
+                      }} />
+                    </a>
+                  </div>
                   <p className="text-gray-600 mb-6">
                     <Translate text={roomsTranslations.forestSuite.subtitle} />
                   </p>
@@ -452,12 +508,14 @@ export default function Rooms() {
                 </div>
 
                 <div className="mt-8">
-                  <Link
-                    href="/book"
+                  <a
+                    href="https://book.ilbuco.com.ar/"
                     className="inline-flex items-center px-6 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <Translate text={roomsTranslations.bookYourStay.button} />
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>

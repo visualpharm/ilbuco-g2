@@ -98,6 +98,38 @@ export default function Contact() {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
                       <div className="flex items-center">
+                        <div className="h-5 w-5 mr-3 bg-black rounded-full flex items-center justify-center">
+                          <span className="text-white text-xs font-bold">B</span>
+                        </div>
+                        <div>
+                          <p className="font-medium">Online Booking</p>
+                          <p className="text-sm text-gray-600">
+                            <Translate
+                              text={{
+                                en: "Direct booking online",
+                                es: "Reserva directa online",
+                              }}
+                            />
+                          </p>
+                        </div>
+                      </div>
+                      <a
+                        href="https://book.ilbuco.com.ar/"
+                        className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Translate
+                          text={{
+                            en: "Book Now",
+                            es: "Reservar",
+                          }}
+                        />
+                      </a>
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                      <div className="flex items-center">
                         <Phone className="h-5 w-5 mr-3 text-green-600" />
                         <div>
                           <p className="font-medium">WhatsApp</p>

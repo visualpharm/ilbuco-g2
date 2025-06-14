@@ -297,3 +297,15 @@ Step outside to your own planted terrace with floor-to-ceiling windows connectin
 6. 🌿 Private Garden Terrace 5 Min from Beach must copy itself when clicked. 
 
 Important behavior of the app: on hover, let's highlight the text that will be copied.
+
+## Booking policy
+Book now button leads to https://book.ilbuco.com.ar/
+
+Every room on /rooms leads to its own booking page:
+
+- **Penthouse**: https://book.ilbuco.com.ar/listing/110803
+- **Paraiso**: https://book.ilbuco.com.ar/listing/110802
+- **Terrazzo** (Italian; not terrazzo or something else feminine): https://book.ilbuco.com.ar/listing/110801
+- **Giardino**: https://book.ilbuco.com.ar/listing/110800
+
+Add booking button next to each room on /rooms page.

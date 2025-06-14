@@ -72,12 +72,21 @@ export function MobileMenu() {
                 <Translate text={translations.nav.placesNearby} />
               </Link>
               <Link
-                href={`${langPrefix}/book`}
+                href={`${langPrefix}/contacts`}
+                className="block text-lg font-medium hover:text-blue-600 transition-colors py-3"
+                onClick={() => setIsOpen(false)}
+              >
+                <Translate text={translations.nav.contact} />
+              </Link>
+              <a
+                href="https://book.ilbuco.com.ar/"
                 className="block text-center px-4 py-3 bg-black text-white text-lg font-medium rounded-md hover:bg-gray-800 transition-colors mt-4"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setIsOpen(false)}
               >
                 <Translate text={translations.nav.book} />
-              </Link>
+              </a>
               <div className="py-3">
                 <LanguageSelector />
               </div>
