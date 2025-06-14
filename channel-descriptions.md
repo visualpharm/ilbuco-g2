@@ -2,128 +2,115 @@
 
 ## Terrazzo
 
-### 🌿 Private Garden Terrace 5 Min from Beach
-
-Wake up surrounded by live plants on your own private garden terrace in Cariló's pine forest. Full kitchen, luxury bedding, in-room washer, underfloor heating, fast WiFi, and Smart TV. Walk 5 minutes to pristine Atlantic beaches. Shared rooftop BBQ available. Perfect for couples, remote workers, or nature lovers seeking forest tranquility.
+### 🌿 Private Garden Terrace · 5 min to Beach
+Wake up on **your own live-plant terrace** in Cariló’s pine forest. Real kitchen, luxury bedding, in-suite washer, under-floor heating, 500 Mbps fiber, and Smart TV. Five-minute stroll to Atlantic beaches. Shared green-roof BBQ when the grill mood strikes. Ideal for couples, remote workers, or anyone craving forest calm.
 
 ### Full Description
+#### 🌿 Secret Garden at Your Door  
+Slide open floor-to-ceiling windows and step into a **10 m² planted terrace**. Morning coffee with birdsong, a shaded laptop sprint at noon, or a Malbec wind-down at dusk—all framed by pine needles.
 
-Your suite opens directly onto a private terrace filled with thriving plants – like having your own secret garden in the forest. Located in Cariló's pine woods, you're 5 minutes from Argentina's most beautiful beaches.
+#### 🏠 Inside, Built for Real Living  
+- **Full kitchenette**: 300 L fridge, vitroceramic cooktop, oven, microwave, chef-grade pans.  
+- **Queen high-density mattress** with 5-star linens for deep rest.  
+- **Private bathroom**: glass walk-in shower, softened water, and your **own washer**—no chore queue.
 
-#### 🌿 Your Private Garden Terrace
-Step outside to your own planted terrace with floor-to-ceiling windows connecting indoor and outdoor spaces. Enjoy morning coffee, work sessions, or evening relaxation surrounded by greenery and forest sounds.
+#### ⚡ Comfort & Tech in One Step  
+Under-floor heating for crisp nights, split A/C for summer highs, plus silent **black PVC double-glazed windows**. Stream away on a **43″ Smart TV** (Netflix, Disney+, Max) while 500 Mbps fiber keeps video calls flawless.
 
-#### 🏠 Everything You Need Inside
-Sleep on a premium dense foam mattress with luxury 5-star bedding. Your full kitchen includes a 300L fridge, vitroceramic stove, oven, microwave, and quality cookware – perfect for real meals, not just snacks. Private bathroom with glass walk-in shower and your own washing machine.
+#### 🌤️ Green-Roof BBQ & Lounge  
+Head upstairs to the **shared roof terrace**—reserve it for private asados or mingle with fellow guests. A spacious common living room downstairs offers extra seating when you feel social.
 
-#### 📶 Stay Connected & Comfortable
-✔️ 500 Mbps fiber internet throughout
-✔️ Underfloor heating + air conditioning
-✔️ Smart TV with Netflix, Disney+, Max streaming
-✔️ Ergonomic chair included (free for stays over 1 month)
+#### 🏗️ Quiet, Solid & Pure  
+Il Buco is solid concrete with full insulation; the soft-water system keeps pipes (and skin) happy, while thick walls mute every outside sound.
 
-#### 🌤️ Shared Rooftop Paradise
-Access the green roof terrace with BBQ grill – shared space that can be reserved privately for special occasions. Plus a quiet common living room when you want to socialize.
+#### 📍 Forest-Meets-Beach Location  
+A five-minute forest path lands you on a wide, crowd-free beach; boutique dining and craft shops dot sandy streets all around. Park free at the door or arrive by taxi from Pinamar bus station.
 
-#### 🏗️ Solid Construction
-Newly built with concrete structure, full insulation, double-glazed windows, and water treatment system ensuring peace, quiet, and pure water.
-
-#### 📍 Perfect Location
-Walk 5 minutes through pine forest paths to reach pristine beaches. Surrounded by world-class restaurants, boutique shops, and forest trails in Argentina's most exclusive coastal town.
+---
 
 ## Penthouse
 
-### 🏢 Penthouse Suite + Private Rooftop BBQ Access
-
-Top floor suite with stunning forest views and direct access to green rooftop terrace with BBQ. Located in Cariló's pine forest, 5 minutes from beach. Full kitchen, luxury bedding, in-room washer, fast WiFi, Smart TV. Newly built villa with premium construction. Ideal for couples, remote workers, or travelers wanting elevated forest living.
+### 🏢 Top-Floor Suite + Direct Rooftop Access
+Live above the pines with wide forest views and **private stairs to the green-roof BBQ**. Five-minute forest walk to the beach, full kitchen, luxury bedding, washer, 500 Mbps fiber, and Smart TV. Perfect for couples or remote workers who like life at the top.
 
 ### Full Description
+#### 🌲 Forest-View Outlook  
+Large windows draw in filtered light and give you a broad view over the surrounding pines. At night, blackout shades and dense insulation seal in silence.
 
-Live at the top of a newly built forest villa with panoramic pine tree views and exclusive access to the rooftop terrace. Walk 5 minutes to Cariló's pristine Atlantic beaches.
-#### 🌲 Elevated Forest Views
+#### 🍳 Kitchen & Sleep, Elevated  
+A complete kitchen (300 L fridge, oven, cooktop, microwave, quality cookware) sits opposite the lounge. Beyond, a **queen high-density mattress** with 5-star sheets guarantees restful nights; the ensuite bath offers softened-water showers and an in-suite washer.
 
-Your top-floor position offers unobstructed views over the pine canopy through large windows. Natural light floods the space all day, creating a bright, airy atmosphere high above the forest floor.
-#### 🏠 Complete Living Setup
+#### 🎛️ Seamless Work-Life Setup  
+- 500 Mbps fiber + mesh Wi-Fi  
+- 43″ Smart TV with Netflix, Disney+, Max  
+- Under-floor heating + A/C  
+- Optional **ergonomic chair** free on monthly stays  
 
-Premium dense foam mattress with luxury bedding ensures perfect sleep. Full kitchen with 300L fridge, vitroceramic cooktop, oven, microwave, and complete cookware. Private bathroom with glass walk-in shower and personal washing machine.
-#### 📱 Technology & Climate
+#### 🌅 Your Rooftop Extension  
+Open your door, climb six steps, and you’re on the **living green roof** with BBQ and lounge. Book it for private dinners or share sunset beers with neighbors.
 
-💻 500 Mbps fiber internet + mesh WiFi
-🌡️ Individual underfloor heating + A/C
-📱 Smart TV with Netflix, Disney+, Max streaming
-🪑 Ergonomic workspace chair (free for stays over 1 month)
-#### 🌅 Your Rooftop Sanctuary
+#### 🏗️ Engineered for Peace  
+Concrete shell, **black PVC double-glazed windows**, and full insulation shut out wind and summer buzz. The water softener means spotless glassware and gentle showers.
 
-Direct access to the green roof terrace with BBQ facilities. Shared with other guests but can be reserved for private use. Also includes access to quiet downstairs living room and shared kitchen.
-#### 🏗️ Premium Construction
+#### 🌲 Everything at Foot Level  
+Stroll sandy lanes to cafés, boutique stores, and the beach in minutes—no car required. If you drive, off-street parking is free and easy.
 
-Solid concrete structure with full insulation, black double-glazed windows, and water treatment plant ensuring perfect sound isolation and pure water throughout.
-#### 🌲 Forest Location
-
-Nestled in Cariló's prestigious pine forest community with sandy streets, world-class dining, and boutique shopping all within walking distance.
+---
 
 ## Giardino
 
-### 🪟 Corner Suite with Panoramic Garden Views
-
-Corner suite with floor-to-ceiling windows on two sides offering 180-degree garden and forest views. Step-free wheelchair accessible. Located in Cariló's pine forest, 5 minutes from beach. Full kitchen, luxury bedding, in-room washer, fast WiFi, Smart TV. Shared rooftop BBQ access. Perfect for nature lovers, couples, or remote workers wanting natural light and forest immersion.
-
-### Full Description
-
-Wake up surrounded by windows on two sides, creating a luminous corner sanctuary with 180-degree views of gardens and towering pine trees. Step-free access makes this suite wheelchair accessible for guests with mobility needs. Walk 5 minutes to Argentina's pristine coastline.
-#### 🌲 Panoramic Forest Immersion
-
-Floor-to-ceiling corner windows wrap around your bed and living space, bringing the forest inside. Watch light filter through pine needles and observe wildlife from the comfort of your bed.
-#### 🛏️ Complete Comfort
-
-Sleep on a premium dense foam mattress with luxury 5-star bedding. Full kitchen includes 300L fridge, vitroceramic cooktop, oven, microwave, and quality cookware. Private bathroom with glass walk-in shower and washing machine.
-#### 📶 Connected & Climate Controlled
-
-💻 500 Mbps fiber internet throughout
-🌡️ Underfloor radiant heating + air conditioning
-📱 Smart TV with Netflix, Disney+, Max streaming
-🪑 Ergonomic work chair (free for monthly+ stays)
-#### 🌿 Shared Green Spaces
-
-Access rooftop terrace with BBQ (reservable for private use) plus quiet common living area and additional shared kitchen for larger meal prep.
-#### 🏗️ Quality Construction
-
-Newly built with solid concrete, complete insulation, water treatment plant, and black double-glazed windows providing superior sound isolation.
-#### 🌲 Cariló Forest Setting
-
-Surrounded by pine forest trails, boutique restaurants, and artisan shops, all accessible via charming unpaved sandy streets perfect for walking or cycling.
-
-## Paraiso
-
-### 🛏️ Spacious 1-Bedroom Suite in Pine Forest
-
-Largest suite with separate bedroom and living area in Cariló's pine forest, 5 minutes from beach. Full kitchen, luxury bedding, in-room washer, fast WiFi, Smart TV. Extra space perfect for extended stays, couples, or remote workers. Shared rooftop BBQ access. Newly built villa with premium construction and forest tranquility.
+### 🪟 Corner Suite · 180° Garden Views
+Wheelchair-friendly corner suite wrapped in glass on two sides, immersing you in forest greens. Full kitchen, washer, 500 Mbps fiber, Smart TV, under-floor heating. Shared green-roof BBQ. Designed for light lovers, creatives, and accessible travel.
 
 ### Full Description
+#### 🌳 Nature Through Two Walls of Glass  
+From bed to dining table, watch sunlight filter through pines. The step-free entry and wide interior doors make every space accessible.
 
-Enjoy extra space and privacy with a separate bedroom in this forest retreat. The largest accommodation option, perfect for longer stays or when you want more room to spread out.
-#### 🛏️ Separate Bedroom Layout
+#### 🏡 Cook, Sleep, Refresh—Effortlessly  
+- Chef-ready kitchen (300 L fridge, oven, cooktop, microwave, premium cookware).  
+- **Queen high-density mattress** with hotel-grade linens.  
+- Ensuite with glass shower, softened water, and private washer ensures independence for longer stays.
 
-Unlike hotel-style suites, your bedroom is completely separate from the living/kitchen area. Large windows frame forest views while maintaining the peaceful, private atmosphere throughout both spaces.
-#### 🍽️ Full Kitchen & Dining
+#### 📶 Quiet Powerhouse  
+Under-floor heating, A/C, 43″ Smart TV, and 500 Mbps fiber keep both body and workflow in perfect condition—shielded by **double-glazed windows** and thick concrete.
 
-Real kitchen with 300L full-size fridge, vitroceramic cooktop, oven, microwave, and complete cookware set. Dining area perfect for working or enjoying meals with extra space to move around.
-#### 🛏️ Luxury Bedroom
+#### 🌿 Shared Spaces Made Better  
+Reserve the rooftop BBQ for private gatherings or enjoy communal asados; the downstairs lounge extends your living room when you feel sociable.
 
-Premium dense foam mattress with luxury bedding in your private bedroom. Blackout options available for perfect sleep. Private bathroom with glass walk-in shower and personal washing machine.
-#### 💼 Work & Entertainment
+#### 🏗️ Built to Last & Last  
+Concrete + full insulation silence the outside, while our soft-water system protects appliances and your skin alike.
 
-💻 500 Mbps fiber internet + mesh WiFi coverage
-🌡️ Individual underfloor heating + air conditioning
-📱 Smart TV with Netflix, Disney+, Max streaming
-🪑 Ergonomic workspace furniture (free for stays over 1 month)
+#### 📍 Where Forest Meets Sea  
+Step onto sandy streets, breathe pine-salt air, and reach the Atlantic in five minutes. Artisan markets and laid-back eateries line your path.
 
-#### 🌿 Shared Amenities
+---
 
-Green roof BBQ terrace (private reservations available), quiet common living room, and additional shared kitchen for entertaining or larger cooking projects.
-#### 🌲 Forest Paradise Location
+## Paraíso
 
-Surrounded by Cariló's ancient pine forests with walking trails leading to pristine beaches in 5 minutes. World-class restaurants and boutique shopping within easy walking distance.
+### 🛏️ Spacious 1-Bedroom Retreat · Separate Bedroom
+Our largest suite gives you a true **one-bedroom layout**—ideal for long stays or spreading out. Five-minute forest walk to the beach, full kitchen, washer, 500 Mbps fiber, Smart TV, under-floor heating. Shared green-roof BBQ. Perfect for couples or digital nomads desiring elbow room.
+
+### Full Description
+#### 🛏️ Real Bedroom, Real Privacy  
+Close the door on a generous king-size sleeping space with **high-density mattress** and blackout curtains. Wake to filtered forest light through **double-glazed windows**.
+
+#### 🍽️ Kitchen & Dining Table That Work  
+A 300 L fridge, oven, cooktop, microwave, and serious cookware let you shop once and cook for the week. A four-seat table doubles as a workspace (ergonomic chair free on monthly stays).
+
+#### 🚿 Ensuite Comfort + Laundry  
+Soft-water glass shower, hotel towels, and your own washer—no collecting coins or scheduling loads.
+
+#### 📡 Life-Proof Tech & Climate  
+500 Mbps fiber, mesh Wi-Fi, 43″ Smart TV, under-floor heating, and A/C keep you productive and comfy year-round.
+
+#### 🌤️ Expand Upstairs  
+Book the rooftop BBQ terrace for a private dinner or mingle during happy hour. A ground-floor lounge offers sofa space and an extra kitchen for big cooking projects.
+
+#### 🏗️ Sound, Water, Silence  
+Concrete, insulation, and pine-softened corridors hush the world outside. Softened water and brand-new plumbing keep everything spotless.
+
+#### 🌲 Why Stay Here?  
+More square metres, same forest charm: perfect for workations, creative retreats, or extended beach escapes without sacrificing privacy.
 
 ## Common Features
 
