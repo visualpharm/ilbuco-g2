@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
@@ -8,10 +9,12 @@ import { LanguageSelector } from "./language-selector"
 import { Translate } from "./translate"
 import { translations } from "@/translations/common"
 import { useLanguage } from "@/contexts/language-context"
+import { BookingPopup } from "./booking-popup"
 
 export function SiteHeader() {
   const { language } = useLanguage()
   const pathname = usePathname()
+  const [isBookingPopupOpen, setIsBookingPopupOpen] = useState(false)
   
   // Determine language prefix based on current language code
   const langPrefix = language.code === "es" ? "" : `/${language.code}`
@@ -45,12 +48,12 @@ export function SiteHeader() {
             </Link>
           </nav>
           <div className="flex items-center space-x-4 ml-4">
-            <a
-              href="https://book.ilbuco.com.ar/"
+            <button
+              onClick={() => setIsBookingPopupOpen(true)}
               className="hidden sm:inline-flex items-center space-x-2 px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors whitespace-nowrap"
             >
               <Translate text={translations.nav.book} />
-            </a>
+            </button>
             <LanguageSelector />
             <div className="lg:hidden">
               <MobileMenu />
@@ -58,6 +61,10 @@ export function SiteHeader() {
           </div>
         </div>
       </div>
+      <BookingPopup 
+        isOpen={isBookingPopupOpen} 
+        onClose={() => setIsBookingPopupOpen(false)} 
+      />
     </header>
   )
 }

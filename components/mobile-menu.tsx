@@ -8,9 +8,11 @@ import { LanguageSelector } from "./language-selector"
 import { Translate } from "./translate"
 import { translations } from "@/translations/common"
 import { useLanguage } from "@/contexts/language-context"
+import { BookingPopup } from "./booking-popup"
 
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isBookingPopupOpen, setIsBookingPopupOpen] = useState(false)
   const { language } = useLanguage()
   const pathname = usePathname()
   
@@ -78,13 +80,15 @@ export function MobileMenu() {
               >
                 <Translate text={translations.nav.contact} />
               </Link>
-              <a
-                href="https://book.ilbuco.com.ar/"
-                className="block text-center px-4 py-3 bg-black text-white text-lg font-medium rounded-md hover:bg-gray-800 transition-colors mt-4"
-                onClick={() => setIsOpen(false)}
+              <button
+                onClick={() => {
+                  setIsOpen(false)
+                  setIsBookingPopupOpen(true)
+                }}
+                className="block text-center px-4 py-3 bg-black text-white text-lg font-medium rounded-md hover:bg-gray-800 transition-colors mt-4 w-full"
               >
                 <Translate text={translations.nav.book} />
-              </a>
+              </button>
               <div className="py-3">
                 <LanguageSelector />
               </div>
@@ -92,6 +96,10 @@ export function MobileMenu() {
           </div>
         </div>
       )}
+      <BookingPopup 
+        isOpen={isBookingPopupOpen} 
+        onClose={() => setIsBookingPopupOpen(false)} 
+      />
     </div>
   )
 }

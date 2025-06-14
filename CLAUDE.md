@@ -315,3 +315,8 @@ paraiso https://www.airbnb.com/rooms/1432871950272757223?source_impression_id=p3
 giardino https://www.airbnb.com/rooms/1393460027877444232?source_impression_id=p3_1749914061_P3lDo2XWX43_1NS0
 terrazzo https://www.airbnb.com/rooms/1422046866284999348?source_impression_id=p3_1749914061_P38mVIuZYIb4ompa
 (penthous is on a long term rental, so no airbnb link)
+
+## Payment options
+For spanish version, direct booking button should have the payement options: CBU, Mercado Pago, tarjetas internacionales Visa, Mastercard, Amex, etc., PayPal, USDT.
+
+For english and portuguese versions, direct booking button should have the payment options: Visa, Mastercard, Amex etc, PayPal, USDT.
