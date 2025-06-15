@@ -1,8 +1,23 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import GuestPage from "../../guest/page"
+
+export default function GuestPageEN() {
+  return <GuestPage lang="en" />
+}
+
+
+// (removed old component code), useEffect } from "react"
 import Link from "next/link"
 import { guestTranslations } from "@/translations/guest"
+import { useRouter } from "next/navigation"
+
+import GuestPage from "../guest/page"
+
+export default function GuestPageEN() {
+  return <GuestPage lang="en" />
+}
+
 import ReactMarkdown from 'react-markdown'
 
 // Business card component
@@ -241,13 +256,13 @@ export default function GuestPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gray-100 relative">
-        <div className="absolute top-4 right-4 z-10">
-          <LanguageSwitcher currentLang={currentLang} onLanguageChange={handleLanguageChange} />
-        </div>
+      <div className="min-h-screen bg-gray-100">
         <div className="min-h-screen flex items-center justify-center">
-          <div className="bg-white p-8 rounded-lg shadow-md w-96">
-            <div className="mb-6">
+          <div className="bg-white p-8 rounded-lg shadow-md w-96 relative">
+            <div className="absolute top-4 right-4">
+              <LanguageSwitcher currentLang={currentLang} onLanguageChange={handleLanguageChange} />
+            </div>
+            <div className="mb-6 pr-16">
               <h1 className="text-2xl font-bold">
                 {guestTranslations.passwordPrompt[currentLang as keyof typeof guestTranslations.passwordPrompt]}
               </h1>

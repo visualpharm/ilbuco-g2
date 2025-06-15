@@ -169,6 +169,9 @@ If you take a bus, go from Retiro station in Buenos Aires to Pinamar.The bus rid
 
 ## 📍 Location Details
 
+#### Address:
+Paraiso 324, Cariló 7167, Buenos Aires Province, Argentina
+
 #### 🎯 What You Can Do Here:
 🏖️ Walk 3 minutes to uncrowded Atlantic beaches for swimming and sunbathing
 🌲 Take forest trails directly from the property for morning runs or evening walks

@@ -20,44 +20,41 @@ export const guestTranslations = {
 🔑 **Contraseña:** *terminator2*
 
 🔍 **Si no encuentras la red:**
-- Busca redes abiertas estándar de **TP-Link**
-- Esto pasa cuando alguien reinicia el punto de acceso
+- Buscá redes abiertas llamadas **TP-Link_XXXX**: son nuestros puntos de acceso cuando se resetean
 - *dormitorio1* **no es nuestra red** ❌
 
 🚫 **Si no hay internet:**
 El problema probablemente sea con el **cable de fibra óptica**. Contacta al proveedor:
 
-<div class="fibra-card">fibraalhogar.com.ar</div>
+<div class="fibra-card">Carilo Digital aka Fibra al Hogar.com.ar</div>
 
 Han tenido mal servicio, lo siento 😕`,
       en: `📍 **WiFi Network:** *Il Buco*  
 🔑 **Password:** *terminator2*
 
 🔍 **If you can't find the network:**
-- Look for **TP-Link** standard open networks
-- That happens when someone restarts the access point
-- *dormitorio1* **is not ours** ❌
+- Look for open networks called **TP-Link_XXXX**: these are our access points when they reset
+- *dormitorio1* **is not our network** ❌
 
 🚫 **If there's no internet:**
-The problem is most likely with the **fiber optic cable**. Contact the provider:
+The problem is probably with the **fiber optic cable**. Contact the provider:
 
-<div class="fibra-card">fibraalhogar.com.ar</div>
+<div class="fibra-card">Carilo Digital aka Fibra al Hogar.com.ar</div>
 
-They had bad service, sorry 😕`,
+They have had bad service, sorry 😕`,
       pt: `📍 **Rede WiFi:** *Il Buco*  
 🔑 **Senha:** *terminator2*
 
-🔍 **Se não conseguir encontrar a rede:**
-- Procure por redes abertas padrão **TP-Link**
-- Isso acontece quando alguém reinicia o ponto de acesso
-- *dormitorio1* **não é nossa** ❌
+🔍 **Se você não encontrar a rede:**
+- Procure por redes abertas chamadas **TP-Link_XXXX**: são nossos pontos de acesso quando são resetados
+- *dormitorio1* **não é nossa rede** ❌
 
 🚫 **Se não houver internet:**
-O problema provavelmente é com o **cabo de fibra óptica**. Entre em contato com o provedor:
+O problema provavelmente está no **cabo de fibra óptica**. Contate o provedor:
 
-<div class="fibra-card">fibraalhogar.com.ar</div>
+<div class="fibra-card">Carilo Digital aka Fibra al Hogar.com.ar</div>
 
-Eles tiveram serviço ruim, desculpe 😕`
+Eles têm tido um serviço ruim, desculpe 😕`
     }
   },
   electricity: {
@@ -89,7 +86,7 @@ Eles tiveram serviço ruim, desculpe 😕`
       <span class="text-2xl">⚡</span>
     </div>
     <div>
-      <h3 class="font-bold text-gray-900 text-lg">David</h3>
+      <h3 class="font-bold text-gray-900 text-lg">David aka Washington</h3>
       <p class="text-gray-600 text-sm">Electricista</p>
       <a href="https://wa.me/541158783996" class="text-green-600 font-medium text-sm hover:underline">
         📱 +54 9 11 5878-3996
@@ -99,15 +96,15 @@ Eles tiveram serviço ruim, desculpe 😕`
 </div>`,
       en: `🏠 **Location of electrical equipment:**
 - Go to the **basement** and turn right **twice**
-- Everything electrical is in the **machine room**
+- All electrical equipment is in the **machine room**
 
-🔌 **Check breakers:**
+🔌 **Check the breakers:**
 - Look for **breakers that are down** 📋
 - Try to turn them on
-- ⚠️ **If they jump back**, don't try until you find the problem
+- ⚠️ **If they trip again**, do not try again until you find the problem
 
-🌧️ **If it's wet outside:**
-- It's probably **water in the outdoor light fixture**
+🌧️ **If it is wet outside:**
+- There is probably **water in the outdoor lamp**
 - Turn off the **outdoor lights** 💡
 - Try the breaker again
 
@@ -119,7 +116,7 @@ Eles tiveram serviço ruim, desculpe 😕`
       <span class="text-2xl">⚡</span>
     </div>
     <div>
-      <h3 class="font-bold text-gray-900 text-lg">David</h3>
+      <h3 class="font-bold text-gray-900 text-lg">David aka Washington</h3>
       <p class="text-gray-600 text-sm">Electrician</p>
       <a href="https://wa.me/541158783996" class="text-green-600 font-medium text-sm hover:underline">
         📱 +54 9 11 5878-3996
@@ -129,12 +126,12 @@ Eles tiveram serviço ruim, desculpe 😕`
 </div>`,
       pt: `🏠 **Localização dos equipamentos elétricos:**
 - Vá ao **porão** e vire à direita **duas vezes**
-- Tudo elétrico está na **sala de máquinas**
+- Todo o equipamento elétrico está na **sala de máquinas**
 
-🔌 **Verificar disjuntores:**
+🔌 **Verifique os disjuntores:**
 - Procure por **disjuntores desligados** 📋
 - Tente ligá-los
-- ⚠️ **Se eles saltarem de volta**, não tente até encontrar o problema
+- ⚠️ **Se eles desarmarem novamente**, não tente até encontrar o problema
 
 🌧️ **Se estiver molhado lá fora:**
 - Provavelmente há **água na luminária externa**
@@ -149,7 +146,7 @@ Eles tiveram serviço ruim, desculpe 😕`
       <span class="text-2xl">⚡</span>
     </div>
     <div>
-      <h3 class="font-bold text-gray-900 text-lg">David</h3>
+      <h3 class="font-bold text-gray-900 text-lg">David aka Washington</h3>
       <p class="text-gray-600 text-sm">Eletricista</p>
       <a href="https://wa.me/541158783996" class="text-green-600 font-medium text-sm hover:underline">
         📱 +54 9 11 5878-3996
@@ -167,7 +164,7 @@ Eles tiveram serviço ruim, desculpe 😕`
     },
     content: {
       es: `🚰 **Si NO hay agua:**
-Probablemente sea un **problema eléctrico**. Contacta a David (electricista).
+Probablemente sea un **problema eléctrico**. Contacta a David aka Washington (electricista).
 
 <div class="bg-white border-2 border-yellow-400 rounded-lg p-4 shadow-md max-w-sm mx-auto mt-4">
   <div class="flex items-center space-x-3">
@@ -175,7 +172,7 @@ Probablemente sea un **problema eléctrico**. Contacta a David (electricista).
       <span class="text-2xl">⚡</span>
     </div>
     <div>
-      <h3 class="font-bold text-gray-900 text-lg">David</h3>
+      <h3 class="font-bold text-gray-900 text-lg">David aka Washington</h3>
       <p class="text-gray-600 text-sm">Electricista</p>
       <a href="https://wa.me/541158783996" class="text-green-600 font-medium text-sm hover:underline">
         📱 +54 9 11 5878-3996
@@ -201,8 +198,8 @@ Es trabajo del **plomero**.
     </div>
   </div>
 </div>`,
-      en: `🚰 **If there's NO water:**
-That's probably an **electrical problem**. Contact David (electrician).
+      en: `🚰 **If there is NO water:**
+It is probably an **electrical problem**. Contact David aka Washington (electrician).
 
 <div class="bg-white border-2 border-yellow-400 rounded-lg p-4 shadow-md max-w-sm mx-auto mt-4">
   <div class="flex items-center space-x-3">
@@ -210,7 +207,7 @@ That's probably an **electrical problem**. Contact David (electrician).
       <span class="text-2xl">⚡</span>
     </div>
     <div>
-      <h3 class="font-bold text-gray-900 text-lg">David</h3>
+      <h3 class="font-bold text-gray-900 text-lg">David aka Washington</h3>
       <p class="text-gray-600 text-sm">Electrician</p>
       <a href="https://wa.me/541158783996" class="text-green-600 font-medium text-sm hover:underline">
         📱 +54 9 11 5878-3996
@@ -219,8 +216,8 @@ That's probably an **electrical problem**. Contact David (electrician).
   </div>
 </div>
 
-🌊 **If there's EXCESS water or bad smell:**
-It's the **plumber's job**.
+🌊 **If there is EXCESS water or bad smell:**
+This is a **plumber's job**.
 
 <div class="bg-white border-2 border-blue-400 rounded-lg p-4 shadow-md max-w-sm mx-auto mt-4">
   <div class="flex items-center space-x-3">
@@ -237,7 +234,7 @@ It's the **plumber's job**.
   </div>
 </div>`,
       pt: `🚰 **Se NÃO houver água:**
-Provavelmente é um **problema elétrico**. Entre em contato com David (eletricista).
+Provavelmente é um **problema elétrico**. Entre em contato com David aka Washington (eletricista).
 
 <div class="bg-white border-2 border-yellow-400 rounded-lg p-4 shadow-md max-w-sm mx-auto mt-4">
   <div class="flex items-center space-x-3">
@@ -245,7 +242,7 @@ Provavelmente é um **problema elétrico**. Entre em contato com David (eletrici
       <span class="text-2xl">⚡</span>
     </div>
     <div>
-      <h3 class="font-bold text-gray-900 text-lg">David</h3>
+      <h3 class="font-bold text-gray-900 text-lg">David aka Washington</h3>
       <p class="text-gray-600 text-sm">Eletricista</p>
       <a href="https://wa.me/541158783996" class="text-green-600 font-medium text-sm hover:underline">
         📱 +54 9 11 5878-3996
@@ -255,7 +252,7 @@ Provavelmente é um **problema elétrico**. Entre em contato com David (eletrici
 </div>
 
 🌊 **Se houver EXCESSO de água ou cheiro ruim:**
-É trabalho do **encanador**.
+Isso é trabalho de **encanador**.
 
 <div class="bg-white border-2 border-blue-400 rounded-lg p-4 shadow-md max-w-sm mx-auto mt-4">
   <div class="flex items-center space-x-3">
@@ -274,9 +271,9 @@ Provavelmente é um **problema elétrico**. Entre em contato com David (eletrici
     }
   },
   passwordPrompt: {
-    es: "🔐 Solo huéspedes",
-    en: "🔐 Guests only", 
-    pt: "🔐 Apenas hóspedes"
+    es: "Solo para huéspedes",
+    en: "Only for guests", 
+    pt: "Apenas para hóspedes"
   },
   passwordPlaceholder: {
     es: "Ingresa la contraseña",
@@ -284,9 +281,9 @@ Provavelmente é um **problema elétrico**. Entre em contato com David (eletrici
     pt: "Digite a senha"
   },
   accessButton: {
-    es: "🚪 Acceder",
-    en: "🚪 Access",
-    pt: "🚪 Acessar"
+    es: "Acceder",
+    en: "Access",
+    pt: "Acessar"
   },
   incorrectPassword: {
     es: "❌ Contraseña incorrecta",

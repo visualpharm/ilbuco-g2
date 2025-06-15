@@ -58,7 +58,7 @@ function renderFormattedContent(content: string, lang: string) {
         return (
           <BusinessCard 
             key={index}
-            name="David"
+            name="David aka Washington"
             role={lang === 'es' ? 'Electricista' : lang === 'pt' ? 'Eletricista' : 'Electrician'}
             phone="+54 9 11 5878-3996"
             icon="⚡"
@@ -80,10 +80,10 @@ function renderFormattedContent(content: string, lang: string) {
         return (
           <BusinessCard 
             key={index}
-            name="Fibra al Hogar"
+            name="Carilo Digital aka Fibra al Hogar"
             role={lang === 'es' ? 'Proveedor de Internet' : lang === 'pt' ? 'Provedor de Internet' : 'Internet Provider'}
-            website="https://fibraalhogar.com.ar/"
-            icon="🌐"
+            website="https://fibraalhogar.com.ar"
+            icon="🛜"
             color="border-blue-500"
           />
         )
@@ -197,11 +197,18 @@ function LanguageSwitcher({ currentLang, onLanguageChange }: {
   )
 }
 
-export default function GuestPage() {
+import { useRouter } from "next/navigation"
+
+interface GuestPageProps {
+  lang?: "es" | "en" | "pt"
+}
+
+export default function GuestPage({ lang = "es" }: GuestPageProps) {
+  const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(true)
-  const [currentLang, setCurrentLang] = useState("es")
+  const [currentLang, setCurrentLang] = useState<"es" | "en" | "pt">(lang)
 
   // Check authentication on mount
   useEffect(() => {
@@ -222,7 +229,15 @@ export default function GuestPage() {
   }
 
   const handleLanguageChange = (lang: string) => {
-    setCurrentLang(lang)
+    // Only allow supported languages
+    if (lang === "es" || lang === "en" || lang === "pt") {
+      setCurrentLang(lang)
+      if (lang === "es") {
+        router.push("/guest")
+      } else {
+        router.push(`/${lang}/guest`)
+      }
+    }
   }
 
   if (loading) {
@@ -235,35 +250,42 @@ export default function GuestPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gray-100 relative">
-        <div className="absolute top-4 right-4 z-10">
-          <LanguageSwitcher currentLang={currentLang} onLanguageChange={handleLanguageChange} />
-        </div>
+      <div className="min-h-screen bg-gray-100 p-4">
         <div className="min-h-screen flex items-center justify-center">
-          <div className="bg-white p-8 rounded-lg shadow-md w-96">
-            <div className="mb-6">
-              <h1 className="text-2xl font-bold">
-                {guestTranslations.passwordPrompt[currentLang as keyof typeof guestTranslations.passwordPrompt]}
-              </h1>
+          <div className="flex flex-col items-end">
+            <div className="mb-4">
+              <LanguageSwitcher currentLang={currentLang} onLanguageChange={handleLanguageChange} />
             </div>
-          <div className="space-y-4">
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
-              placeholder={guestTranslations.passwordPlaceholder[currentLang as keyof typeof guestTranslations.passwordPlaceholder]}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button
-              onClick={handleLogin}
-              className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors"
-            >
-              {guestTranslations.accessButton[currentLang as keyof typeof guestTranslations.accessButton]}
-            </button>
+            <div className="bg-white p-8 rounded-lg shadow-md w-full">
+              <div className="mb-6">
+                <h1 className="text-2xl font-bold">
+                  {guestTranslations.passwordPrompt[currentLang as keyof typeof guestTranslations.passwordPrompt]}
+                </h1>
+                {currentLang === 'es' && (
+                  <p className="text-gray-600 text-sm mt-2">
+                    Solo para huéspedes
+                  </p>
+                )}
+              </div>
+              <div className="space-y-4">
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
+                  placeholder={guestTranslations.passwordPlaceholder[currentLang as keyof typeof guestTranslations.passwordPlaceholder]}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                  onClick={handleLogin}
+                  className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors"
+                >
+                  {guestTranslations.accessButton[currentLang as keyof typeof guestTranslations.accessButton]}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     )
   }
