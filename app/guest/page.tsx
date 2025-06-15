@@ -235,14 +235,17 @@ export default function GuestPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="bg-white p-8 rounded-lg shadow-md w-96">
-          <div className="flex justify-between items-start mb-6">
-            <h1 className="text-2xl font-bold flex-1 mr-4">
-              {guestTranslations.passwordPrompt[currentLang as keyof typeof guestTranslations.passwordPrompt]}
-            </h1>
-            <LanguageSwitcher currentLang={currentLang} onLanguageChange={handleLanguageChange} />
-          </div>
+      <div className="min-h-screen bg-gray-100 relative">
+        <div className="absolute top-4 right-4 z-10">
+          <LanguageSwitcher currentLang={currentLang} onLanguageChange={handleLanguageChange} />
+        </div>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="bg-white p-8 rounded-lg shadow-md w-96">
+            <div className="mb-6">
+              <h1 className="text-2xl font-bold">
+                {guestTranslations.passwordPrompt[currentLang as keyof typeof guestTranslations.passwordPrompt]}
+              </h1>
+            </div>
           <div className="space-y-4">
             <input
               type="password"
@@ -260,6 +263,7 @@ export default function GuestPage() {
             </button>
           </div>
         </div>
+      </div>
       </div>
     )
   }

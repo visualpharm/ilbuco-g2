@@ -274,9 +274,9 @@ Provavelmente é um **problema elétrico**. Entre em contato com David (eletrici
     }
   },
   passwordPrompt: {
-    es: "🔐 Acceso Requerido",
-    en: "🔐 Access Required",
-    pt: "🔐 Acesso Requerido"
+    es: "🔐 Solo huéspedes",
+    en: "🔐 Guests only", 
+    pt: "🔐 Apenas hóspedes"
   },
   passwordPlaceholder: {
     es: "Ingresa la contraseña",
