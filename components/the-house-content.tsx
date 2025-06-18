@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
 import { HeroGallery } from "@/components/hero-gallery"
 import { houseTranslations } from "@/translations/house"
+import { translations } from "@/translations/common"
 import { Win10Icon } from "@/components/win10-icon"
 import { ImageLightbox } from "@/components/image-lightbox"
 
@@ -78,9 +79,9 @@ export function TheHouseContent() {
                   <p className="text-lg leading-relaxed">
                     <Translate 
                       text={{
-                        en: "Il Buco is a newly built, premium coliving house constructed on the site of an 8-meter deep natural hole – hence the name, which means 'The Hole' in Italian.",
-                        es: "Il Buco es una casa de coliving premium recién construida en el sitio de un agujero natural de 8 metros de profundidad, de ahí el nombre, que significa 'El Agujero' en italiano.",
-                        pt: "Il Buco é uma casa de coliving premium recém-construída no local de um buraco natural de 8 metros de profundidade – daí o nome, que significa 'O Buraco' em italiano."
+                        en: "Il Buco is a newly built, premium coliving house constructed on the site of a 4-meter deep natural hole – hence the name, which means 'The Hole' in Italian.",
+                        es: "Il Buco es una casa de coliving premium recién construida en el sitio de un agujero natural de 4 metros de profundidad, de ahí el nombre, que significa 'El Agujero' en italiano.",
+                        pt: "Il Buco é uma casa de coliving premium recém-construída no local de um buraco natural de 4 metros de profundidade – daí o nome, que significa 'O Buraco' em italiano."
                       }} 
                     />
                   </p>
@@ -187,15 +188,201 @@ export function TheHouseContent() {
                       }} 
                     />
                   </p>
-                  <p className="text-lg font-medium text-center mt-6 text-gray-800">
-                    <Translate 
-                      text={{
-                        en: "And yes – it all started with a hole.",
-                        es: "Y sí – todo comenzó con un agujero.",
-                        pt: "E sim – tudo começou com um buraco."
-                      }} 
+                  <div className="mt-8">
+                    <p className="text-lg font-medium text-center mb-4 text-gray-800">
+                      <Translate 
+                        text={{
+                          en: "And yes – it all started with a hole.",
+                          es: "Y sí – todo comenzó con un agujero.",
+                          pt: "E sim – tudo começou com um buraco."
+                        }} 
+                      />
+                    </p>
+                    <Image 
+                      src="/photo/history/altimetria.jpg"
+                      alt="Site altimetry showing the natural hole"
+                      width={800}
+                      height={400}
+                      className="w-full rounded-lg shadow-md"
                     />
-                  </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Highlights/Amenities Section */}
+              <div className="mb-16">
+                <h2 className="text-3xl font-bold mb-10 text-center">
+                  <Translate text={translations.home.highlights.title} />
+                </h2>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Image src="/icons/icons8/wifi.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          <Translate text={translations.home.highlights.internet.title} />
+                        </h3>
+                        <p className="text-gray-600">
+                          <Translate text={translations.home.highlights.internet.description} />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Image src="/icons/icons8/house.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          <Translate text={translations.home.highlights.accommodation.title} />
+                        </h3>
+                        <p className="text-gray-600">
+                          <Translate text={translations.home.highlights.accommodation.description} />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Image src="/icons/icons8/thermometer.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          <Translate text={translations.home.highlights.climate.title} />
+                        </h3>
+                        <p className="text-gray-600">
+                          <Translate text={translations.home.highlights.climate.description} />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Image src="/icons/icons8/sofa.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          <Translate text={translations.home.highlights.commonAreas.title} />
+                        </h3>
+                        <p className="text-gray-600">
+                          <Translate text={translations.home.highlights.commonAreas.description} />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Image src="/icons/icons8/tree.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          <Translate text={translations.home.highlights.outdoorSpace.title} />
+                        </h3>
+                        <p className="text-gray-600">
+                          <Translate text={translations.home.highlights.outdoorSpace.description} />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Image src="/icons/icons8/refrigerator.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          <Translate text={translations.home.highlights.kitchen.title} />
+                        </h3>
+                        <p className="text-gray-600">
+                          <Translate text={translations.home.highlights.kitchen.description} />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Image src="/icons/icons8/bed.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          <Translate text={translations.home.highlights.bedding.title} />
+                        </h3>
+                        <p className="text-gray-600">
+                          <Translate text={translations.home.highlights.bedding.description} />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Image src="/icons/icons8/shower.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          <Translate text={translations.home.highlights.bathrooms.title} />
+                        </h3>
+                        <p className="text-gray-600">
+                          <Translate text={translations.home.highlights.bathrooms.description} />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Image src="/icons/icons8/droplet.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          <Translate text={translations.home.highlights.waterTreatment.title} />
+                        </h3>
+                        <p className="text-gray-600">
+                          <Translate text={translations.home.highlights.waterTreatment.description} />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Image src="/icons/icons8/speaker.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          <Translate text={translations.home.highlights.soundInsulation.title} />
+                        </h3>
+                        <p className="text-gray-600">
+                          <Translate text={translations.home.highlights.soundInsulation.description} />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Image src="/icons/icons8/thermometer.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          <Translate text={translations.home.highlights.fullInsulation.title} />
+                        </h3>
+                        <p className="text-gray-600">
+                          <Translate text={translations.home.highlights.fullInsulation.description} />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-start mb-3">
+                      <Image src="/icons/icons8/target.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          <Translate text={translations.home.highlights.allFeatures.title} />
+                        </h3>
+                        <p className="text-gray-600">
+                          <Translate text={translations.home.highlights.allFeatures.description} />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
