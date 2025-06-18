@@ -86,14 +86,14 @@ export function BookingPopup({ isOpen, onClose }: BookingPopupProps) {
                 </div>
               </div>
               <a
-                href="https://book.ilbuco.com.ar/"
+                href="/contacts"
                 className="block w-full sm:w-auto text-center px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-medium text-lg sm:ml-4 sm:flex-shrink-0"
               >
                 <Translate
                   text={{
-                    en: "Book Now",
-                    es: "Reservar",
-                    pt: "Reservar",
+                    en: "Contact Us",
+                    es: "Contactar",
+                    pt: "Contatar",
                   }}
                 />
               </a>
