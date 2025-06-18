@@ -220,5 +220,10 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/eco-lodge-argentina"/>
     <changefreq>monthly</changefreq>
   </url>
+  <url>
+    <loc>https://ilbuco.com.ar/en/digital-nomad-visa</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ilbuco.com.ar/en/digital-nomad-visa"/>
+    <changefreq>monthly</changefreq>
+  </url>
 
 </urlset>

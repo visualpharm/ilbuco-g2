@@ -22,6 +22,7 @@ const seoLinks = {
   en: [
     { href: "/en/digital-nomad-argentina", text: "Digital Nomad Argentina" },
     { href: "/en/argentina-remote-work-visa", text: "Argentina Remote Work Visa" },
+    { href: "/en/digital-nomad-visa", text: "Digital Nomad Visa" },
     { href: "/en/coliving-south-america", text: "Coliving South America" },
     { href: "/en/slow-travel-argentina", text: "Slow Travel Argentina" },
     { href: "/en/coliving-argentina", text: "Coliving Argentina" },
