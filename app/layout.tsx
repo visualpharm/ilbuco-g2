@@ -9,8 +9,8 @@ import Script from 'next/script'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'IL BUCO',
-  description: 'Residencia tecnológica ultra-moderna en Cariló, Argentina',
+  title: 'Cariló Alojamiento Alquiler | IL BUCO',
+  description: 'Cariló alojamiento y alquiler de casa moderna. Residencia tecnológica ultra-moderna en Cariló, Argentina.',
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '16x16' },

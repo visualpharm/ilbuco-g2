@@ -3,8 +3,8 @@ import { HreflangTags } from '@/components/hreflang-tags'
 import { ClientLayout } from '@/components/client-layout'
 
 export const metadata: Metadata = {
-  title: 'IL BUCO | Modern House in Pinamar, Argentina',
-  description: 'Luxury vacation home in Pinamar with pool, high-speed WiFi, and more for professionals and digital nomads',
+  title: 'Coliving South America | IL BUCO',
+  description: 'Coliving South America in modern house. Luxury accommodation in Carilo with pool, high-speed WiFi for remote workers and digital nomads.',
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '16x16' },

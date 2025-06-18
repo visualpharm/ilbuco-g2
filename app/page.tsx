@@ -1,14 +1,20 @@
+"use client"
+
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
 import { AmenitiesToolTip } from "@/components/amenities-tooltip"
+import { BookingPopup } from "@/components/booking-popup"
 import { translations } from "@/translations/common"
 // Windows 11 style icons replaced Lucide React icons
 // Icons are now served as SVG files from /public/icons/
 
 export default function Home() {
+  const [isBookingPopupOpen, setIsBookingPopupOpen] = useState(false)
+  
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
@@ -30,12 +36,13 @@ export default function Home() {
                   <Translate text={translations.home.hero.subtitlePart2} /> Perfecta para <Link href="/casas-en-carilo-alquiler" className="text-gray-700 no-underline hover:text-gray-600">casas</Link> de lujo en <Link href="/carilo-alquiler" className="text-gray-700 no-underline hover:text-gray-600">Cariló</Link>.
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
-                  <Link
-                    href="/book"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
+                  <button
+                    onClick={() => setIsBookingPopupOpen(true)}
+                    className="inline-flex items-center justify-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
-                    <Translate text={translations.home.hero.cta} /> <Image src="/icons/icons8/arrow-right.svg" alt="" width={24} height={24} className="ml-2" />
-                  </Link>
+                    <span><Translate text={translations.home.hero.cta} /></span>
+                    <Image src="/icons/icons8/arrow-right.svg" alt="" width={20} height={20} className="ml-2" />
+                  </button>
                 </div>
               </div>
               <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2">
@@ -339,6 +346,11 @@ export default function Home() {
       </main>
 
       <SiteFooter />
+      
+      <BookingPopup 
+        isOpen={isBookingPopupOpen} 
+        onClose={() => setIsBookingPopupOpen(false)} 
+      />
     </div>
   )
 }
