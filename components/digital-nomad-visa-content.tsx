@@ -206,8 +206,12 @@ export function DigitalNomadVisaContent() {
                     <p className="text-yellow-800 text-sm mb-3">
                       Immigration enforcement here is very relaxed. Unlike most countries, <strong>overstaying is not technically illegal</strong> in Argentina. If you overstay your tourist visa, you simply pay a fine before you leave.
                     </p>
+                    <p className="text-yellow-800 text-sm mb-3">
+                      <strong>Overstay Fine (Habilitación de Salida):</strong><br />
+                      If you overstay your permitted time in Argentina, you must pay a fixed fine of <strong>ARS 40,000 (about USD 40 as of June 2025)</strong> before departure.
+                    </p>
                     <p className="text-yellow-800 text-sm">
-                      The overstay fine is minimal – approximately <strong>$100 USD per year</strong> or less, making it a manageable option for many digital nomads.
+                      This amount is the same no matter how long you overstayed — 1 day or 3 months, the fine does not change.
                     </p>
                   </div>
                   

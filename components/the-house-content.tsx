@@ -57,7 +57,11 @@ export function TheHouseContent() {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-5xl font-bold mb-8">
-                <Translate text={houseTranslations.pageTitle} />
+                <Translate text={{
+                  en: "Coliving House South America",
+                  es: "Casa Cariló Alquiler",
+                  pt: "Casa Coliving América do Sul"
+                }} />
               </h1>
 
               <div className="mb-12">

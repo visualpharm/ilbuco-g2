@@ -8,12 +8,31 @@ import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
 import { AmenitiesToolTip } from "@/components/amenities-tooltip"
 import { BookingPopup } from "@/components/booking-popup"
+import { ImageLightbox } from "@/components/image-lightbox"
 import { translations } from "@/translations/common"
 // Windows 11 style icons replaced Lucide React icons
 // Icons are now served as SVG files from /public/icons/
 
 export default function Home() {
   const [isBookingPopupOpen, setIsBookingPopupOpen] = useState(false)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  
+  const heroImages = [
+    {
+      src: "/gallery/hero-villa-exterior.jpeg",
+      alt: "IL BUCO modern villa exterior with warm lighting and pine forest"
+    }
+  ]
+
+  const openLightbox = () => {
+    setCurrentImageIndex(0)
+    setLightboxOpen(true)
+  }
+
+  const closeLightbox = () => {
+    setLightboxOpen(false)
+  }
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -45,16 +64,24 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-              <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2">
+              <button
+                onClick={openLightbox}
+                className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2 group cursor-pointer w-full"
+              >
                 <Image
                   src="/gallery/hero-villa-exterior.jpeg"
                   alt="IL BUCO modern villa exterior with warm lighting and pine forest"
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
                 />
-              </div>
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white text-sm font-medium bg-black bg-opacity-50 px-3 py-1 rounded">
+                    <Translate text={translations.common.clickToEnlarge} />
+                  </div>
+                </div>
+              </button>
             </div>
           </div>
         </section>
@@ -350,6 +377,15 @@ export default function Home() {
       <BookingPopup 
         isOpen={isBookingPopupOpen} 
         onClose={() => setIsBookingPopupOpen(false)} 
+      />
+      
+      <ImageLightbox
+        images={heroImages}
+        isOpen={lightboxOpen}
+        currentIndex={currentImageIndex}
+        onClose={closeLightbox}
+        onNext={() => {}} // Only one image, so no navigation needed
+        onPrevious={() => {}} // Only one image, so no navigation needed
       />
     </div>
   )

@@ -322,5 +322,10 @@ export const translations = {
       es: "Tarifa de limpieza hipoalergénica + depósito de US $300",
       pt: "Taxa de limpeza hipoalergênica + depósito de US $300",
     },
+    clickToEnlarge: {
+      en: "Click to enlarge",
+      es: "Hacer clic para ampliar",
+      pt: "Clique para ampliar",
+    },
   },
 }
