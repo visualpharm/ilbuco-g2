@@ -52,7 +52,7 @@ export default function DigitalNomadArgentinaPage() {
               <div className="space-y-6">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-900">
                   Digital Nomad
-                  <span className="text-blue-600"> Argentina</span>
+                  <span className="text-gray-600"> Argentina</span>
                 </h1>
                 <p className="text-xl text-gray-700 leading-relaxed">
                   Escape the ordinary and join Argentina's premier digital nomad community in Carilo. 
@@ -61,10 +61,10 @@ export default function DigitalNomadArgentinaPage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
-                    href="/en/book"
-                    className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                    href="/en/the-house"
+                    className="inline-flex items-center justify-center px-8 py-4 bg-black text-white text-lg font-semibold rounded-lg hover:bg-gray-800 transition-colors"
                   >
-                    Start Your Journey <ArrowRight className="ml-2 h-5 w-5" />
+                    See House <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                   <Link
                     href="/en/rooms"
@@ -116,7 +116,7 @@ export default function DigitalNomadArgentinaPage() {
               
               <div className="bg-gray-50 p-8 rounded-xl">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                  <Clock className="h-6 w-6 text-blue-600" />
+                  <Clock className="h-6 w-6 text-gray-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">
                   Compatible Time Zones
@@ -170,7 +170,7 @@ export default function DigitalNomadArgentinaPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="flex items-start space-x-4">
                     <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Wifi className="h-5 w-5 text-blue-600" />
+                      <Wifi className="h-5 w-5 text-gray-600" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-2">
@@ -298,7 +298,7 @@ export default function DigitalNomadArgentinaPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 md:py-24 bg-gradient-to-br from-blue-600 to-purple-700 text-white">
+        <section className="py-16 md:py-24 bg-gradient-to-br from-black to-gray-800 text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Ready to Become a Digital Nomad in Argentina?
@@ -309,14 +309,14 @@ export default function DigitalNomadArgentinaPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/en/book"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-600 text-lg font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+                href="/en/the-house"
+                className="inline-flex items-center justify-center px-8 py-4 bg-white text-black text-lg font-semibold rounded-lg hover:bg-gray-100 transition-colors"
               >
-                Book Your Stay <ArrowRight className="ml-2 h-5 w-5" />
+                See House <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
                 href="/en/location"
-                className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white text-lg font-semibold rounded-lg hover:bg-white hover:text-blue-600 transition-colors"
+                className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white text-lg font-semibold rounded-lg hover:bg-white hover:text-gray-600 transition-colors"
               >
                 Learn More
               </Link>

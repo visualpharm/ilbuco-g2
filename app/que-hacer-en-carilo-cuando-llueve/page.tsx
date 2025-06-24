@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { HeroImage } from "@/components/hero-image"
 import { Metadata } from "next"
 import {
   ArrowRight,
@@ -38,26 +39,24 @@ export default function QueHacerEnCariloWhenItRainsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 order-1 md:order-1">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  Qué Hacer en Cariló <span className="text-blue-600">Cuando Llueve</span>
+                  Qué Hacer en Cariló <span className="text-gray-600">Cuando Llueve</span>
                 </h1>
                 <p className="text-base md:text-lg text-gray-700 max-w-xl">
                   Los días de lluvia en Cariló pueden ser igual de mágicos. Descubre actividades cubiertas, experiencias gastronómicas, entretenimiento y relajación que harán que disfrutes tu estadía sin importar el clima.
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
-                    href="/book"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-blue-600 text-white text-sm md:text-base rounded-md hover:bg-blue-700 transition-colors"
+                    href="/the-house"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
-                    Refugiate en Cariló <ArrowRight className="ml-2 h-4 w-4" />
+                    Ver Casa <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
               </div>
-              <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2">
-                <Image
+              <div className="order-2 md:order-2">
+                <HeroImage 
                   src="/photo/living/living1.jpg"
                   alt="Qué hacer en Cariló cuando llueve - interior acogedor con vista al bosque"
-                  fill
-                  className="object-cover"
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
                 />
@@ -75,7 +74,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
               </h2>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <Home className="h-5 w-5 mr-3 mt-1 text-blue-600 flex-shrink-0" />
+                  <Home className="h-5 w-5 mr-3 mt-1 text-gray-600 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Villa con calefacción radiante:</strong> Nuestra casa cuenta con calefacción por suelo radiante que mantiene una temperatura perfecta en toda la propiedad.
@@ -83,7 +82,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Wifi className="h-5 w-5 mr-3 mt-1 text-green-600 flex-shrink-0" />
+                  <Wifi className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Internet ultra rápido:</strong> Fibra óptica de 500 Mbps para trabajo remoto, streaming, videollamadas y entretenimiento sin límites.
@@ -91,7 +90,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <span className="h-5 w-5 mr-3 mt-1 text-orange-600">🔥</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">🔥</span>
                   <div>
                     <p className="text-lg">
                       <strong>Espacios acogedores:</strong> Living con ventanales panorámicos al bosque, perfecto para disfrutar la lluvia entre los pinos con una taza de café.
@@ -99,7 +98,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <span className="h-5 w-5 mr-3 mt-1 text-purple-600">📺</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">📺</span>
                   <div>
                     <p className="text-lg">
                       <strong>Entertainment center:</strong> Smart TV, Netflix, Spotify y sistemas de audio para maratones de series y música relajante.
@@ -121,7 +120,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-4">
-                  <UtensilsCrossed className="h-6 w-6 mr-3 mt-1 text-orange-600" />
+                  <UtensilsCrossed className="h-6 w-6 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Restaurantes con Chimenea</h3>
                     <p className="text-gray-700">
@@ -133,7 +132,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
 
               <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-4">
-                  <Coffee className="h-6 w-6 mr-3 mt-1 text-brown-600" />
+                  <Coffee className="h-6 w-6 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Cafés y Librerías</h3>
                     <p className="text-gray-700">
@@ -145,7 +144,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
 
               <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-purple-600">🍷</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">🍷</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Cata de Vinos</h3>
                     <p className="text-gray-700">
@@ -157,7 +156,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
 
               <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-red-600">🧑‍🍳</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">🧑‍🍳</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Clases de Cocina</h3>
                     <p className="text-gray-700">
@@ -169,7 +168,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
 
               <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-yellow-600">🫖</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">🫖</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Casas de Té</h3>
                     <p className="text-gray-700">
@@ -181,7 +180,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
 
               <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-green-600">🥐</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">🥐</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Panaderías Artesanales</h3>
                     <p className="text-gray-700">
@@ -203,7 +202,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <Palette className="h-6 w-6 mr-3 mt-1 text-blue-600" />
+                  <Palette className="h-6 w-6 mr-3 mt-1 text-gray-600" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Galerías de Arte</h3>
                     <p className="text-gray-700">
@@ -212,7 +211,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <Music className="h-6 w-6 mr-3 mt-1 text-green-600" />
+                  <Music className="h-6 w-6 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Música en Vivo Interior</h3>
                     <p className="text-gray-700">
@@ -221,7 +220,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <Book className="h-6 w-6 mr-3 mt-1 text-purple-600" />
+                  <Book className="h-6 w-6 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Bibliotecas y Espacios de Lectura</h3>
                     <p className="text-gray-700">
@@ -230,7 +229,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <Gamepad2 className="h-6 w-6 mr-3 mt-1 text-orange-600" />
+                  <Gamepad2 className="h-6 w-6 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Entretenimiento Familiar</h3>
                     <p className="text-gray-700">
@@ -260,7 +259,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-white p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <Shopping className="h-6 w-6 mr-3 mt-1 text-blue-600" />
+                  <Shopping className="h-6 w-6 mr-3 mt-1 text-gray-600" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Centros Comerciales Cubiertos</h3>
                     <p className="text-gray-700">
@@ -272,7 +271,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
 
               <div className="bg-white p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-green-600">💆</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">💆</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Spas y Centros de Bienestar</h3>
                     <p className="text-gray-700">
@@ -284,7 +283,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
 
               <div className="bg-white p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-purple-600">🧘</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">🧘</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Yoga y Meditación</h3>
                     <p className="text-gray-700">
@@ -296,7 +295,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
 
               <div className="bg-white p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-orange-600">🏋️</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">🏋️</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Gimnasios y Fitness</h3>
                     <p className="text-gray-700">
@@ -308,7 +307,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
 
               <div className="bg-white p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-red-600">🎭</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">🎭</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Teatro y Espectáculos</h3>
                     <p className="text-gray-700">
@@ -320,7 +319,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
 
               <div className="bg-white p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-yellow-600">🎨</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">🎨</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Talleres Creativos</h3>
                     <p className="text-gray-700">
@@ -366,7 +365,7 @@ export default function QueHacerEnCariloWhenItRainsPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-blue-600 text-white">
+        <section className="py-16 bg-black text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
               ¿Listo para Disfrutar Cariló sin Importar el Clima?
@@ -375,10 +374,10 @@ export default function QueHacerEnCariloWhenItRainsPage() {
               Reserva tu estadía en nuestra villa premium y descubre que los días de lluvia en Cariló pueden ser igual de mágicos que los soleados.
             </p>
             <Link
-              href="/book"
-              className="inline-flex items-center px-8 py-3 bg-white text-blue-600 text-lg rounded-md hover:bg-gray-100 transition-colors"
+              href="/the-house"
+              className="inline-flex items-center px-8 py-3 bg-white text-black text-lg rounded-md hover:bg-gray-100 transition-colors"
             >
-              Reservar tu Refugio en Cariló <ArrowRight className="ml-2 h-5 w-5" />
+              Ver Casa <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </div>
         </section>

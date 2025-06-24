@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { HeroImage } from "@/components/hero-image"
 import { Metadata } from "next"
 import {
   ArrowRight,
@@ -37,26 +38,24 @@ export default function CariloAlojamientoPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 order-1 md:order-1">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  <span className="text-blue-600">Cariló Alojamiento</span> de Lujo
+                  <span className="text-gray-900">Cariló Alojamiento</span> de Lujo
                 </h1>
                 <p className="text-base md:text-lg text-gray-700 max-w-xl">
                   Descubre el mejor alojamiento en Cariló. Nuestra villa exclusiva te ofrece una experiencia única en el corazón del bosque de pinos, a solo pasos de las mejores playas de la costa argentina. Hospedaje premium para huéspedes exigentes.
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
-                    href="/book"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-blue-600 text-white text-sm md:text-base rounded-md hover:bg-blue-700 transition-colors"
+                    href="/the-house"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
-                    Consultar Alojamiento <ArrowRight className="ml-2 h-4 w-4" />
+                    Ver Casa <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
               </div>
-              <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2">
-                <Image
+              <div className="order-2 md:order-2">
+                <HeroImage 
                   src="/gallery/hero-terrace-view.jpeg"
                   alt="Alojamiento premium IL BUCO en Cariló - terraza con vista panorámica"
-                  fill
-                  className="object-cover"
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
                 />
@@ -74,7 +73,7 @@ export default function CariloAlojamientoPage() {
               </h2>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <Tree className="h-5 w-5 mr-3 mt-1 text-green-600 flex-shrink-0" />
+                  <Tree className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Ubicación única:</strong> El único alojamiento en Cariló que combina privacidad del bosque con cercanía inmediata a la playa.
@@ -82,7 +81,7 @@ export default function CariloAlojamientoPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Star className="h-5 w-5 mr-3 mt-1 text-yellow-600 flex-shrink-0" />
+                  <Star className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Hospedaje premium:</strong> Villa de lujo con servicios de primera clase y atención personalizada para cada huésped.
@@ -90,7 +89,7 @@ export default function CariloAlojamientoPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Users className="h-5 w-5 mr-3 mt-1 text-purple-600 flex-shrink-0" />
+                  <Users className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Capacidad flexible:</strong> Alojamiento ideal para parejas, familias o grupos de hasta 8 personas con privacidad garantizada.
@@ -98,7 +97,7 @@ export default function CariloAlojamientoPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <MapPin className="h-5 w-5 mr-3 mt-1 text-blue-600 flex-shrink-0" />
+                  <MapPin className="h-5 w-5 mr-3 mt-1 text-gray-600 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Acceso exclusivo:</strong> A 150 metros de la playa por sendero privado a través del bosque de pinos centenario.
@@ -106,7 +105,7 @@ export default function CariloAlojamientoPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Wifi className="h-5 w-5 mr-3 mt-1 text-orange-600 flex-shrink-0" />
+                  <Wifi className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Conectividad superior:</strong> Internet fibra óptica de alta velocidad para huéspedes que trabajan remotamente.
@@ -128,7 +127,7 @@ export default function CariloAlojamientoPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Bed className="h-5 w-5 mr-3 mt-1 text-blue-600" />
+                  <Bed className="h-5 w-5 mr-3 mt-1 text-gray-600" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       4 Habitaciones de Lujo
@@ -142,7 +141,7 @@ export default function CariloAlojamientoPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-green-600">🛁</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">🛁</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       3 Baños Completos
@@ -156,7 +155,7 @@ export default function CariloAlojamientoPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Coffee className="h-5 w-5 mr-3 mt-1 text-orange-600" />
+                  <Coffee className="h-5 w-5 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       Cocina Gourmet
@@ -170,7 +169,7 @@ export default function CariloAlojamientoPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-purple-600">🌲</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">🌲</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Terrazas con Vista al Bosque
@@ -184,7 +183,7 @@ export default function CariloAlojamientoPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Car className="h-5 w-5 mr-3 mt-1 text-red-600" />
+                  <Car className="h-5 w-5 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       Estacionamiento Privado
@@ -198,7 +197,7 @@ export default function CariloAlojamientoPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-yellow-600">🔥</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">🔥</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Calefacción Radiante
@@ -243,7 +242,7 @@ export default function CariloAlojamientoPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-blue-600 text-white">
+        <section className="py-16 bg-black text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
               ¿Listo para tu Alojamiento en Cariló?
@@ -252,10 +251,10 @@ export default function CariloAlojamientoPage() {
               Reserva tu estadía en nuestro alojamiento premium y vive la experiencia única de Cariló en primera persona.
             </p>
             <Link
-              href="/book"
-              className="inline-flex items-center px-8 py-3 bg-white text-blue-600 text-lg rounded-md hover:bg-gray-100 transition-colors"
+              href="/the-house"
+              className="inline-flex items-center px-8 py-3 bg-white text-black text-lg rounded-md hover:bg-gray-100 transition-colors"
             >
-              Reservar Alojamiento <ArrowRight className="ml-2 h-5 w-5" />
+              Ver Casa <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </div>
         </section>

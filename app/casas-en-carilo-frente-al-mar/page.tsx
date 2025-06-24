@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { HeroImage } from "@/components/hero-image"
 import { Metadata } from "next"
 import {
   ArrowRight,
@@ -37,26 +38,24 @@ export default function CasasEnCariloFrenteAlMarPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 order-1 md:order-1">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  <span className="text-blue-600">Casas en Cariló</span> Frente al Mar
+                  <span className="text-gray-600">Casas en Cariló</span> Frente al Mar
                 </h1>
                 <p className="text-base md:text-lg text-gray-700 max-w-xl">
                   Vive la experiencia única de una casa frente al mar en Cariló. Nuestra villa premium combina la serenidad del bosque de pinos con vistas espectaculares al océano Atlántico. A solo 150 metros de la playa con acceso directo.
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
-                    href="/book"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-blue-600 text-white text-sm md:text-base rounded-md hover:bg-blue-700 transition-colors"
+                    href="/the-house"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
                     Ver Casa Frente al Mar <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
               </div>
-              <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2">
-                <Image
+              <div className="order-2 md:order-2">
+                <HeroImage 
                   src="/photo/zona/File 24-04-2025, 10 36 15 PM (8).jpg"
                   alt="Casa frente al mar en Cariló - vista desde la playa hacia villa IL BUCO"
-                  fill
-                  className="object-cover"
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
                 />
@@ -74,7 +73,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
               </h2>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <Waves className="h-5 w-5 mr-3 mt-1 text-blue-600 flex-shrink-0" />
+                  <Waves className="h-5 w-5 mr-3 mt-1 text-gray-600 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Acceso directo al océano:</strong> Camina 150 metros a través del bosque y llegás directamente a las mejores playas de Cariló.
@@ -82,7 +81,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Eye className="h-5 w-5 mr-3 mt-1 text-green-600 flex-shrink-0" />
+                  <Eye className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Vistas panorámicas:</strong> Desde las terrazas superiores podés disfrutar vistas al mar entre las copas de los pinos centenarios.
@@ -90,7 +89,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Tree className="h-5 w-5 mr-3 mt-1 text-green-800 flex-shrink-0" />
+                  <Tree className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Microclima único:</strong> La combinación de bosque y mar crea un ambiente fresco y saludable todo el año.
@@ -98,7 +97,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Navigation className="h-5 w-5 mr-3 mt-1 text-orange-600 flex-shrink-0" />
+                  <Navigation className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Ubicación privilegiada:</strong> En la zona más exclusiva de Cariló, entre residencias de alta gama frente al mar.
@@ -106,7 +105,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Sunrise className="h-5 w-5 mr-3 mt-1 text-yellow-600 flex-shrink-0" />
+                  <Sunrise className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Amaneceres espectaculares:</strong> Despertá con la vista del sol naciendo sobre el océano Atlántico cada mañana.
@@ -128,7 +127,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Home className="h-5 w-5 mr-3 mt-1 text-blue-600" />
+                  <Home className="h-5 w-5 mr-3 mt-1 text-gray-600" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       4 Habitaciones con Vista
@@ -142,7 +141,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-blue-600">🌊</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-gray-600">🌊</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Terrazas Vista al Mar
@@ -156,7 +155,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <MapPin className="h-5 w-5 mr-3 mt-1 text-green-600" />
+                  <MapPin className="h-5 w-5 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       Sendero Privado a Playa
@@ -170,7 +169,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Users className="h-5 w-5 mr-3 mt-1 text-purple-600" />
+                  <Users className="h-5 w-5 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       Espacios para Grupos
@@ -184,7 +183,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-orange-600">🌅</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">🌅</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Orientación Este
@@ -198,7 +197,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-green-600">🏖️</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">🏖️</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Equipamiento Playa
@@ -231,7 +230,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-blue-600">🏄</span>
+                    <span className="h-5 w-5 mr-3 mt-1 text-black">🏄</span>
                     <div>
                       <p className="text-lg">
                         <strong>Deportes acuáticos:</strong> Surf, paddleboard y kayak con alquiler disponible en la playa.
@@ -239,7 +238,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
                     </div>
                   </div>
                   <div className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-green-600">🚶</span>
+                    <span className="h-5 w-5 mr-3 mt-1 text-black">🚶</span>
                     <div>
                       <p className="text-lg">
                         <strong>Caminatas costeras:</strong> Kilómetros de playa virgen para caminar al amanecer y atardecer.
@@ -247,7 +246,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
                     </div>
                   </div>
                   <div className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-orange-600">🎣</span>
+                    <span className="h-5 w-5 mr-3 mt-1 text-black">🎣</span>
                     <div>
                       <p className="text-lg">
                         <strong>Pesca deportiva:</strong> Acceso directo a zonas de pesca desde la orilla o embarcado.
@@ -255,7 +254,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
                     </div>
                   </div>
                   <div className="flex items-start">
-                    <span className="h-5 w-5 mr-3 mt-1 text-purple-600">🌅</span>
+                    <span className="h-5 w-5 mr-3 mt-1 text-black">🌅</span>
                     <div>
                       <p className="text-lg">
                         <strong>Fotografía marina:</strong> Vistas únicas para capturar la belleza del océano y bosque.
@@ -269,7 +268,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-blue-600 text-white">
+        <section className="py-16 bg-black text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
               ¿Listo para tu Casa Frente al Mar en Cariló?
@@ -278,10 +277,10 @@ export default function CasasEnCariloFrenteAlMarPage() {
               Reserva tu estadía en nuestra villa frente al mar y vive la experiencia única de despertar con vista al océano en Cariló.
             </p>
             <Link
-              href="/book"
-              className="inline-flex items-center px-8 py-3 bg-white text-blue-600 text-lg rounded-md hover:bg-gray-100 transition-colors"
+              href="/the-house"
+              className="inline-flex items-center px-8 py-3 bg-white text-gray-600 text-lg rounded-md hover:bg-gray-100 transition-colors"
             >
-              Reservar Casa Frente al Mar <ArrowRight className="ml-2 h-5 w-5" />
+              Ver Casa Frente al Mar <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </div>
         </section>

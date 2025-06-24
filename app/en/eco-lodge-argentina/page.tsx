@@ -62,10 +62,10 @@ export default function EcoLodgeArgentinaPage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
-                    href="/en/book"
+                    href="/en/the-house"
                     className="inline-flex items-center justify-center px-8 py-4 bg-green-600 text-white text-lg font-semibold rounded-lg hover:bg-green-700 transition-colors"
                   >
-                    Book Eco Stay <ArrowRight className="ml-2 h-5 w-5" />
+                    See House <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                   <Link
                     href="/en/the-house"
@@ -117,7 +117,7 @@ export default function EcoLodgeArgentinaPage() {
               
               <div className="bg-gradient-to-br from-blue-50 to-cyan-100 p-8 rounded-xl">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                  <Droplet className="h-6 w-6 text-blue-600" />
+                  <Droplet className="h-6 w-6 text-gray-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">
                   Rainwater Harvesting
@@ -216,7 +216,7 @@ export default function EcoLodgeArgentinaPage() {
                   
                   <div className="flex items-start space-x-4">
                     <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Bird className="h-5 w-5 text-blue-600" />
+                      <Bird className="h-5 w-5 text-gray-600" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-2">
@@ -301,7 +301,7 @@ export default function EcoLodgeArgentinaPage() {
               
               <div className="text-center group">
                 <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
-                  <Waves className="h-8 w-8 text-blue-600" />
+                  <Waves className="h-8 w-8 text-gray-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Beach Cleanup
@@ -378,7 +378,7 @@ export default function EcoLodgeArgentinaPage() {
                     Solar-powered amenities
                   </li>
                   <li className="flex items-center">
-                    <Droplet className="h-4 w-4 text-blue-500 mr-2" />
+                    <Droplet className="h-4 w-4 text-gray-500 mr-2" />
                     Low-flow water fixtures
                   </li>
                 </ul>
@@ -406,7 +406,7 @@ export default function EcoLodgeArgentinaPage() {
                     Bamboo furniture
                   </li>
                   <li className="flex items-center">
-                    <Wind className="h-4 w-4 text-blue-500 mr-2" />
+                    <Wind className="h-4 w-4 text-gray-500 mr-2" />
                     Natural ventilation
                   </li>
                   <li className="flex items-center">
@@ -438,7 +438,7 @@ export default function EcoLodgeArgentinaPage() {
                     Green roof garden
                   </li>
                   <li className="flex items-center">
-                    <Recycle className="h-4 w-4 text-blue-500 mr-2" />
+                    <Recycle className="h-4 w-4 text-gray-500 mr-2" />
                     Recycled materials
                   </li>
                   <li className="flex items-center">
@@ -478,7 +478,7 @@ export default function EcoLodgeArgentinaPage() {
               
               <div className="text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Droplet className="h-8 w-8 text-blue-600" />
+                  <Droplet className="h-8 w-8 text-gray-600" />
                 </div>
                 <div className="text-3xl font-bold text-gray-900 mb-2">80%</div>
                 <h3 className="font-semibold text-gray-900 mb-2">Water Conservation</h3>
@@ -524,10 +524,10 @@ export default function EcoLodgeArgentinaPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/en/book"
+                href="/en/the-house"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-green-600 text-lg font-semibold rounded-lg hover:bg-gray-100 transition-colors"
               >
-                Book Eco Stay <ArrowRight className="ml-2 h-5 w-5" />
+                See House <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
                 href="/en/location"

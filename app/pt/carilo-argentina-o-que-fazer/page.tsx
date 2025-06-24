@@ -40,17 +40,17 @@ export default function CariloArgentinaOQueFazerPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 order-1 md:order-1">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  <span className="text-blue-600">Cariló Argentina</span> O Que Fazer
+                  <span className="text-gray-600">Cariló Argentina</span> O Que Fazer
                 </h1>
                 <p className="text-base md:text-lg text-gray-700 max-w-xl">
                   Descubra todas as atividades incríveis que Cariló oferece. Desde praias virgens até trilhas na floresta de pinheiros, gastronomia premium e experiências únicas que fazem deste destino um dos mais exclusivos da Argentina.
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
-                    href="/pt/book"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-blue-600 text-white text-sm md:text-base rounded-md hover:bg-blue-700 transition-colors"
+                    href="/pt/the-house"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
-                    Planejar Viagem <ArrowRight className="ml-2 h-4 w-4" />
+                    Ver Casa <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
               </div>
@@ -77,7 +77,7 @@ export default function CariloArgentinaOQueFazerPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-gray-50 p-5 rounded-lg">
                 <div className="flex items-start mb-3">
-                  <Waves className="h-5 w-5 mr-3 mt-1 text-blue-600" />
+                  <Waves className="h-5 w-5 mr-3 mt-1 text-gray-600" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       Surf e Bodyboard
@@ -147,7 +147,7 @@ export default function CariloArgentinaOQueFazerPage() {
 
               <div className="bg-gray-50 p-5 rounded-lg">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-blue-600">🏇</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-gray-600">🏇</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Cavalgadas na Praia
@@ -185,7 +185,7 @@ export default function CariloArgentinaOQueFazerPage() {
 
               <div className="bg-white p-5 rounded-lg">
                 <div className="flex items-start mb-3">
-                  <Bike className="h-5 w-5 mr-3 mt-1 text-blue-600" />
+                  <Bike className="h-5 w-5 mr-3 mt-1 text-gray-600" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       Ciclismo na Floresta
@@ -287,7 +287,7 @@ export default function CariloArgentinaOQueFazerPage() {
 
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <span className="h-6 w-6 mr-4 mt-1 text-blue-600">🍷</span>
+                  <span className="h-6 w-6 mr-4 mt-1 text-gray-600">🍷</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Vinhos Argentinos</h3>
                     <p className="text-gray-600">
@@ -374,7 +374,7 @@ export default function CariloArgentinaOQueFazerPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-blue-600 text-white">
+        <section className="py-16 bg-black text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
               Pronto para Explorar Cariló?
@@ -383,10 +383,10 @@ export default function CariloArgentinaOQueFazerPage() {
               Reserve sua estadia no IL BUCO e tenha acesso privilegiado a todas essas experiências únicas em Cariló, Argentina.
             </p>
             <Link
-              href="/pt/book"
-              className="inline-flex items-center px-8 py-3 bg-white text-blue-600 text-lg rounded-md hover:bg-gray-100 transition-colors"
+              href="/pt/the-house"
+              className="inline-flex items-center px-8 py-3 bg-white text-gray-600 text-lg rounded-md hover:bg-gray-100 transition-colors"
             >
-              Planejar Viagem <ArrowRight className="ml-2 h-5 w-5" />
+              Ver Casa <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </div>
         </section>

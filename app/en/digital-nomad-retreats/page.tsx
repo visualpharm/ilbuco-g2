@@ -62,10 +62,10 @@ export default function DigitalNomadRetreatsPage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
-                    href="/en/book"
+                    href="/en/the-house"
                     className="inline-flex items-center justify-center px-8 py-4 bg-purple-600 text-white text-lg font-semibold rounded-lg hover:bg-purple-700 transition-colors"
                   >
-                    Join Next Retreat <ArrowRight className="ml-2 h-5 w-5" />
+                    See House <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                   <Link
                     href="/en/location"
@@ -105,7 +105,7 @@ export default function DigitalNomadRetreatsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="bg-gradient-to-br from-blue-50 to-indigo-100 p-8 rounded-xl">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                  <Target className="h-6 w-6 text-blue-600" />
+                  <Target className="h-6 w-6 text-gray-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">
                   Goal-Oriented Framework
@@ -177,7 +177,7 @@ export default function DigitalNomadRetreatsPage() {
                 </p>
                 <div className="space-y-3 mb-6">
                   <div className="flex items-center space-x-3">
-                    <Clock className="h-5 w-5 text-blue-600" />
+                    <Clock className="h-5 w-5 text-gray-600" />
                     <span className="text-gray-700">Deep work sessions with Pomodoro techniques</span>
                   </div>
                   <div className="flex items-center space-x-3">
@@ -194,10 +194,10 @@ export default function DigitalNomadRetreatsPage() {
                   </div>
                 </div>
                 <Link
-                  href="/en/book"
-                  className="w-full inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                  href="/en/the-house"
+                  className="w-full inline-flex items-center justify-center px-6 py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-800 transition-colors"
                 >
-                  Join Productivity Retreat
+                  See House
                 </Link>
               </div>
               
@@ -223,7 +223,7 @@ export default function DigitalNomadRetreatsPage() {
                     <span className="text-gray-700">Business plan development sessions</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <Users className="h-5 w-5 text-blue-600" />
+                    <Users className="h-5 w-5 text-gray-600" />
                     <span className="text-gray-700">Mentor matching and feedback sessions</span>
                   </div>
                   <div className="flex items-center space-x-3">
@@ -236,10 +236,10 @@ export default function DigitalNomadRetreatsPage() {
                   </div>
                 </div>
                 <Link
-                  href="/en/book"
+                  href="/en/the-house"
                   className="w-full inline-flex items-center justify-center px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors"
                 >
-                  Join Entrepreneur Retreat
+                  See House
                 </Link>
               </div>
               
@@ -261,7 +261,7 @@ export default function DigitalNomadRetreatsPage() {
                 </p>
                 <div className="space-y-3 mb-6">
                   <div className="flex items-center space-x-3">
-                    <Users className="h-5 w-5 text-blue-600" />
+                    <Users className="h-5 w-5 text-gray-600" />
                     <span className="text-gray-700">Remote team management strategies</span>
                   </div>
                   <div className="flex items-center space-x-3">
@@ -278,10 +278,10 @@ export default function DigitalNomadRetreatsPage() {
                   </div>
                 </div>
                 <Link
-                  href="/en/book"
+                  href="/en/the-house"
                   className="w-full inline-flex items-center justify-center px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors"
                 >
-                  Join Leadership Retreat
+                  See House
                 </Link>
               </div>
               
@@ -311,7 +311,7 @@ export default function DigitalNomadRetreatsPage() {
                     <span className="text-gray-700">Digital detox and nature immersion</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <Clock className="h-5 w-5 text-blue-600" />
+                    <Clock className="h-5 w-5 text-gray-600" />
                     <span className="text-gray-700">Boundary setting workshops</span>
                   </div>
                   <div className="flex items-center space-x-3">
@@ -320,10 +320,10 @@ export default function DigitalNomadRetreatsPage() {
                   </div>
                 </div>
                 <Link
-                  href="/en/book"
+                  href="/en/the-house"
                   className="w-full inline-flex items-center justify-center px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors"
                 >
-                  Join Wellness Retreat
+                  See House
                 </Link>
               </div>
             </div>
@@ -360,7 +360,7 @@ export default function DigitalNomadRetreatsPage() {
                   
                   <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
                     <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span className="text-blue-600 font-semibold">9:00</span>
+                      <span className="text-gray-600 font-semibold">9:00</span>
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-2">Deep Work Session</h3>
@@ -436,7 +436,7 @@ export default function DigitalNomadRetreatsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               <div className="text-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Target className="h-8 w-8 text-blue-600" />
+                  <Target className="h-8 w-8 text-gray-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Goal Achievement
@@ -500,7 +500,7 @@ export default function DigitalNomadRetreatsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="bg-blue-50 border-2 border-blue-200 p-8 rounded-xl">
                 <div className="flex items-center space-x-4 mb-6">
-                  <Calendar className="h-8 w-8 text-blue-600" />
+                  <Calendar className="h-8 w-8 text-gray-600" />
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900">March 15-29</h3>
                     <p className="text-gray-600">Productivity Intensive</p>
@@ -515,10 +515,10 @@ export default function DigitalNomadRetreatsPage() {
                   <p>• Includes accommodation & meals</p>
                 </div>
                 <Link
-                  href="/en/book"
-                  className="w-full inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                  href="/en/the-house"
+                  className="w-full inline-flex items-center justify-center px-6 py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-800 transition-colors"
                 >
-                  Reserve Spot
+                  See House
                 </Link>
               </div>
               
@@ -539,10 +539,10 @@ export default function DigitalNomadRetreatsPage() {
                   <p>• Includes mentorship & materials</p>
                 </div>
                 <Link
-                  href="/en/book"
+                  href="/en/the-house"
                   className="w-full inline-flex items-center justify-center px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors"
                 >
-                  Apply Now
+                  See House
                 </Link>
               </div>
               
@@ -563,10 +563,10 @@ export default function DigitalNomadRetreatsPage() {
                   <p>• Executive coaching included</p>
                 </div>
                 <Link
-                  href="/en/book"
+                  href="/en/the-house"
                   className="w-full inline-flex items-center justify-center px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors"
                 >
-                  Join Waitlist
+                  See House
                 </Link>
               </div>
             </div>
@@ -585,10 +585,10 @@ export default function DigitalNomadRetreatsPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/en/book"
+                href="/en/the-house"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-purple-600 text-lg font-semibold rounded-lg hover:bg-gray-100 transition-colors"
               >
-                Apply for Next Retreat <ArrowRight className="ml-2 h-5 w-5" />
+                See House <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
                 href="/en/rooms"

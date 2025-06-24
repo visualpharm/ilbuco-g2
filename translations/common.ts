@@ -327,5 +327,10 @@ export const translations = {
       es: "Hacer clic para ampliar",
       pt: "Clique para ampliar",
     },
+    clickToViewGallery: {
+      en: "Click to view gallery",
+      es: "Hacer clic para ver galería",
+      pt: "Clique para ver galeria",
+    },
   },
 }

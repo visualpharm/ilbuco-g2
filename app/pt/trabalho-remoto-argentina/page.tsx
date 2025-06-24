@@ -47,10 +47,10 @@ export default function TrabalhoRemotoArgentinaPage() {
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
-                    href="/pt/book"
+                    href="/pt/the-house"
                     className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
-                    <Translate text={translations.home.hero.cta} /> <ArrowRight className="ml-2 h-4 w-4" />
+                    Ver Casa <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
               </div>
@@ -285,9 +285,9 @@ export default function TrabalhoRemotoArgentinaPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <Link href="/pt/the-house" className="flex items-start mb-3 group">
-                  <ArrowRight className="h-5 w-5 mr-3 mt-1 text-blue-600 group-hover:text-blue-800 transition-colors" />
+                  <ArrowRight className="h-5 w-5 mr-3 mt-1 text-gray-600 group-hover:text-gray-800 transition-colors" />
                   <div>
-                    <h3 className="text-lg font-semibold text-blue-600 group-hover:text-blue-800 transition-colors">
+                    <h3 className="text-lg font-semibold text-gray-600 group-hover:text-gray-800 transition-colors">
                       <Translate text={translations.home.highlights.allFeatures.title} />
                     </h3>
                     <p className="text-gray-600">

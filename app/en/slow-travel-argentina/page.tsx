@@ -61,10 +61,10 @@ export default function SlowTravelArgentinaPage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
-                    href="/en/book"
+                    href="/en/the-house"
                     className="inline-flex items-center justify-center px-8 py-4 bg-green-600 text-white text-lg font-semibold rounded-lg hover:bg-green-700 transition-colors"
                   >
-                    Plan Extended Stay <ArrowRight className="ml-2 h-5 w-5" />
+                    See House <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                   <Link
                     href="/en/location"
@@ -104,7 +104,7 @@ export default function SlowTravelArgentinaPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="bg-gradient-to-br from-blue-50 to-indigo-100 p-8 rounded-xl">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                  <Clock className="h-6 w-6 text-blue-600" />
+                  <Clock className="h-6 w-6 text-gray-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">
                   Time to Breathe
@@ -187,7 +187,7 @@ export default function SlowTravelArgentinaPage() {
                   
                   <div className="flex items-start space-x-4">
                     <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Coffee className="h-5 w-5 text-blue-600" />
+                      <Coffee className="h-5 w-5 text-gray-600" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-2">
@@ -308,7 +308,7 @@ export default function SlowTravelArgentinaPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               <div className="text-center group">
                 <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
-                  <Sunrise className="h-8 w-8 text-blue-600" />
+                  <Sunrise className="h-8 w-8 text-gray-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Morning Meditation
@@ -369,7 +369,7 @@ export default function SlowTravelArgentinaPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="bg-blue-50 p-8 rounded-xl">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                  <Clock className="h-6 w-6 text-blue-600" />
+                  <Clock className="h-6 w-6 text-gray-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">
                   Reduced Stress
@@ -421,10 +421,10 @@ export default function SlowTravelArgentinaPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/en/book"
+                href="/en/the-house"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-green-600 text-lg font-semibold rounded-lg hover:bg-gray-100 transition-colors"
               >
-                Plan Extended Stay <ArrowRight className="ml-2 h-5 w-5" />
+                See House <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
                 href="/en/the-house"

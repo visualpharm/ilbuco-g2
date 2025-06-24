@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { HeroImage } from "@/components/hero-image"
 import { Metadata } from "next"
 import {
   ArrowRight,
@@ -37,26 +38,24 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 order-1 md:order-1">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  <span className="text-blue-600">Casas en Alquiler</span> en Cariló Frente al Mar
+                  <span className="text-gray-900">Casas en Alquiler</span> en Cariló Frente al Mar
                 </h1>
                 <p className="text-base md:text-lg text-gray-700 max-w-xl">
                   Alquila la villa premium frente al mar en Cariló. Nuestra casa exclusiva combina la magia del bosque de pinos con vistas al océano Atlántico. 4 habitaciones de lujo a 150 metros de la playa con sendero privado.
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
-                    href="/book"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-blue-600 text-white text-sm md:text-base rounded-md hover:bg-blue-700 transition-colors"
+                    href="/the-house"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
-                    Alquilar Villa Frente al Mar <ArrowRight className="ml-2 h-4 w-4" />
+                    Ver Casa <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
               </div>
-              <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2">
-                <Image
+              <div className="order-2 md:order-2">
+                <HeroImage 
                   src="/gallery/hero-villa-garden.jpeg"
                   alt="Villa en alquiler frente al mar en Cariló - jardín con vista al océano"
-                  fill
-                  className="object-cover"
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
                 />
@@ -74,7 +73,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
               </h2>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <Waves className="h-5 w-5 mr-3 mt-1 text-blue-600 flex-shrink-0" />
+                  <Waves className="h-5 w-5 mr-3 mt-1 text-gray-600 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Posición única frente al mar:</strong> La casa está estratégicamente ubicada para maximizar vistas al océano y acceso directo a la playa.
@@ -82,7 +81,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Home className="h-5 w-5 mr-3 mt-1 text-green-600 flex-shrink-0" />
+                  <Home className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Villa completa en alquiler:</strong> 4 habitaciones privadas, 3 baños, cocina gourmet y espacios comunes con vista panorámica.
@@ -90,7 +89,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Tree className="h-5 w-5 mr-3 mt-1 text-green-800 flex-shrink-0" />
+                  <Tree className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Entorno bosque-mar único:</strong> El único alquiler en Argentina donde pinos centenarios se encuentran con el océano Atlántico.
@@ -98,7 +97,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Eye className="h-5 w-5 mr-3 mt-1 text-purple-600 flex-shrink-0" />
+                  <Eye className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Vistas espectaculares:</strong> Terrazas diseñadas para capturar amaneceres sobre el mar y atardeceres en el bosque.
@@ -106,7 +105,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Star className="h-5 w-5 mr-3 mt-1 text-yellow-600 flex-shrink-0" />
+                  <Star className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Alquiler de lujo:</strong> Amenities premium, lencería de alta calidad y servicios opcionales de concierge.
@@ -128,7 +127,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="text-center mb-4">
-                  <Calendar className="h-8 w-8 mx-auto mb-2 text-blue-600" />
+                  <Calendar className="h-8 w-8 mx-auto mb-2 text-gray-600" />
                   <h3 className="text-xl font-semibold">Alquiler por Días</h3>
                 </div>
                 <ul className="space-y-2 text-gray-600">
@@ -141,7 +140,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
 
               <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow border-2 border-blue-200">
                 <div className="text-center mb-4">
-                  <Calendar className="h-8 w-8 mx-auto mb-2 text-green-600" />
+                  <Calendar className="h-8 w-8 mx-auto mb-2 text-black" />
                   <h3 className="text-xl font-semibold">Alquiler Semanal</h3>
                   <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded">Más Popular</span>
                 </div>
@@ -155,7 +154,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
 
               <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="text-center mb-4">
-                  <Calendar className="h-8 w-8 mx-auto mb-2 text-purple-600" />
+                  <Calendar className="h-8 w-8 mx-auto mb-2 text-black" />
                   <h3 className="text-xl font-semibold">Alquiler Mensual</h3>
                 </div>
                 <ul className="space-y-2 text-gray-600">
@@ -179,7 +178,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-gray-50 p-5 rounded-lg">
                 <div className="flex items-start mb-3">
-                  <Home className="h-5 w-5 mr-3 mt-1 text-blue-600" />
+                  <Home className="h-5 w-5 mr-3 mt-1 text-gray-600" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       4 Habitaciones Premium
@@ -193,7 +192,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
 
               <div className="bg-gray-50 p-5 rounded-lg">
                 <div className="flex items-start mb-3">
-                  <Waves className="h-5 w-5 mr-3 mt-1 text-blue-600" />
+                  <Waves className="h-5 w-5 mr-3 mt-1 text-gray-600" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       Terrazas Vista Océano
@@ -207,7 +206,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
 
               <div className="bg-gray-50 p-5 rounded-lg">
                 <div className="flex items-start mb-3">
-                  <MapPin className="h-5 w-5 mr-3 mt-1 text-green-600" />
+                  <MapPin className="h-5 w-5 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       Acceso Privado Playa
@@ -221,7 +220,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
 
               <div className="bg-gray-50 p-5 rounded-lg">
                 <div className="flex items-start mb-3">
-                  <Users className="h-5 w-5 mr-3 mt-1 text-purple-600" />
+                  <Users className="h-5 w-5 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       Espacios Sociales
@@ -235,7 +234,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
 
               <div className="bg-gray-50 p-5 rounded-lg">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-orange-600">🌐</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">🌐</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Conectividad Premium
@@ -249,7 +248,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
 
               <div className="bg-gray-50 p-5 rounded-lg">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-yellow-600">🏖️</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">🏖️</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Equipamiento Incluido
@@ -296,7 +295,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-blue-600 text-white">
+        <section className="py-16 bg-black text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
               ¿Listo para Alquilar tu Villa Frente al Mar en Cariló?
@@ -305,10 +304,10 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
               Reserva nuestra villa premium frente al mar y vive la experiencia única de Cariló con vistas espectaculares al océano.
             </p>
             <Link
-              href="/book"
-              className="inline-flex items-center px-8 py-3 bg-white text-blue-600 text-lg rounded-md hover:bg-gray-100 transition-colors"
+              href="/the-house"
+              className="inline-flex items-center px-8 py-3 bg-white text-black text-lg rounded-md hover:bg-gray-100 transition-colors"
             >
-              Reservar Villa Frente al Mar <ArrowRight className="ml-2 h-5 w-5" />
+              Ver Casa <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </div>
         </section>

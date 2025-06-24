@@ -423,6 +423,19 @@ export default function Rooms() {
                       </span>
                     </li>
                   </ul>
+                  
+                  <div className="mt-6">
+                    <Image
+                      src="/photo/highlights/highlights3.jpg"
+                      alt="Kitchenware that comes in every room at IL BUCO"
+                      width={600}
+                      height={400}
+                      className="w-full h-64 object-cover rounded-lg"
+                    />
+                    <p className="text-sm text-gray-600 mt-3 font-medium">
+                      Kitchenware that comes in every room
+                    </p>
+                  </div>
                 </div>
 
                 {/* Living Room */}
@@ -497,15 +510,6 @@ export default function Rooms() {
 
                   <ImageGallery images={livingRoomImages} />
 
-                </div>
-
-                <div className="mt-8">
-                  <a
-                    href="https://book.ilbuco.com.ar/"
-                    className="inline-flex items-center px-6 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
-                  >
-                    <Translate text={roomsTranslations.bookYourStay.button} />
-                  </a>
                 </div>
               </div>
             </div>

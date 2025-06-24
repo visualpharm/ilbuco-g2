@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { HeroImage } from "@/components/hero-image"
 import { Metadata } from "next"
 import {
   ArrowRight,
@@ -35,7 +36,7 @@ export default function CariloAlquilerPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 order-1 md:order-1">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  <span className="text-blue-600">Cariló Alquiler</span> Casa Premium
+                  Cariló Alquiler Casa Premium
                 </h1>
                 <p className="text-base md:text-lg text-gray-700 max-w-xl">
                   Descubre nuestra casa premium en alquiler en Cariló. Ubicada en el corazón del bosque de pinos, a solo 150 metros de las mejores playas de la costa argentina. Un refugio moderno con todas las comodidades.
@@ -43,18 +44,16 @@ export default function CariloAlquilerPage() {
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
                     href="/book"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-blue-600 text-white text-sm md:text-base rounded-md hover:bg-blue-700 transition-colors"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
                     Ver Disponibilidad <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
               </div>
-              <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2">
-                <Image
+              <div className="order-2 md:order-2">
+                <HeroImage 
                   src="/gallery/hero-deck-terrace.jpeg"
                   alt="Casa premium IL BUCO en Cariló - terraza con vista al bosque de pinos"
-                  fill
-                  className="object-cover"
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
                 />
@@ -72,7 +71,7 @@ export default function CariloAlquilerPage() {
               </h2>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <Tree className="h-5 w-5 mr-3 mt-1 text-green-600 flex-shrink-0" />
+                  <Tree className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Entorno único:</strong> Cariló es el único lugar de Argentina donde el bosque de pinos llega hasta la playa del océano.
@@ -80,7 +79,7 @@ export default function CariloAlquilerPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <MapPin className="h-5 w-5 mr-3 mt-1 text-blue-600 flex-shrink-0" />
+                  <MapPin className="h-5 w-5 mr-3 mt-1 text-gray-600 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Ubicación exclusiva:</strong> Destino premium frecuentado por familias acomodadas y profesionales exitosos.
@@ -88,7 +87,7 @@ export default function CariloAlquilerPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Users className="h-5 w-5 mr-3 mt-1 text-purple-600 flex-shrink-0" />
+                  <Users className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Comunidad selecta:</strong> Ambiente tranquilo y seguro, ideal para familias y trabajo remoto.
@@ -96,7 +95,7 @@ export default function CariloAlquilerPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Car className="h-5 w-5 mr-3 mt-1 text-orange-600 flex-shrink-0" />
+                  <Car className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Fácil acceso:</strong> A solo 4 horas de Buenos Aires por autopista, conexión directa en auto o bus.
@@ -118,7 +117,7 @@ export default function CariloAlquilerPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Home className="h-5 w-5 mr-3 mt-1 text-blue-600" />
+                  <Home className="h-5 w-5 mr-3 mt-1 text-gray-600" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       4 Habitaciones Premium
@@ -132,7 +131,7 @@ export default function CariloAlquilerPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Wifi className="h-5 w-5 mr-3 mt-1 text-green-600" />
+                  <Wifi className="h-5 w-5 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       Internet Ultra Rápido
@@ -146,7 +145,7 @@ export default function CariloAlquilerPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-orange-600">🔥</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">🔥</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Calefacción Radiante
@@ -160,7 +159,7 @@ export default function CariloAlquilerPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-blue-600">🍽️</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-gray-600">🍽️</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Cocina Gourmet
@@ -174,7 +173,7 @@ export default function CariloAlquilerPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-green-600">🌲</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">🌲</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Terrazas Privadas
@@ -188,7 +187,7 @@ export default function CariloAlquilerPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-purple-600">🏖️</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">🏖️</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Acceso Directo a Playa

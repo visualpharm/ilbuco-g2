@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { HeroImage } from "@/components/hero-image"
 import { Metadata } from "next"
 import {
   ArrowRight,
@@ -37,26 +38,24 @@ export default function CasasEnCariloAlquilerPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 order-1 md:order-1">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  <span className="text-blue-600">Casas en Cariló</span> para Alquiler
+                  <span className="text-gray-600">Casas en Cariló</span> para Alquiler
                 </h1>
                 <p className="text-base md:text-lg text-gray-700 max-w-xl">
                   Encuentra la mejor casa en alquiler en Cariló. Nuestra villa premium de 4 habitaciones está ubicada en el corazón del bosque de pinos, ofreciendo la experiencia perfecta para familias y grupos que buscan exclusividad y confort.
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
-                    href="/book"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-blue-600 text-white text-sm md:text-base rounded-md hover:bg-blue-700 transition-colors"
+                    href="/the-house"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
-                    Alquilar Casa <ArrowRight className="ml-2 h-4 w-4" />
+                    Ver Casa <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
               </div>
-              <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2">
-                <Image
+              <div className="order-2 md:order-2">
+                <HeroImage 
                   src="/photo/exterior/exterior1.jpg"
                   alt="Casa moderna en alquiler en Cariló - villa IL BUCO en bosque de pinos"
-                  fill
-                  className="object-cover"
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
                 />
@@ -74,7 +73,7 @@ export default function CasasEnCariloAlquilerPage() {
               </h2>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <Home className="h-5 w-5 mr-3 mt-1 text-blue-600 flex-shrink-0" />
+                  <Home className="h-5 w-5 mr-3 mt-1 text-gray-600 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Casa completa para tu grupo:</strong> Privacidad total con 4 habitaciones, 3 baños y espacios comunes amplios para toda la familia.
@@ -82,7 +81,7 @@ export default function CasasEnCariloAlquilerPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Tree className="h-5 w-5 mr-3 mt-1 text-green-600 flex-shrink-0" />
+                  <Tree className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Entorno natural único:</strong> Cariló es el único lugar donde el bosque de pinos centenario se encuentra con el océano atlántico.
@@ -90,7 +89,7 @@ export default function CasasEnCariloAlquilerPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Users className="h-5 w-5 mr-3 mt-1 text-purple-600 flex-shrink-0" />
+                  <Users className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Ideal para grupos:</strong> Capacidad para 8 personas con la comodidad y flexibilidad que solo una casa completa puede ofrecer.
@@ -98,7 +97,7 @@ export default function CasasEnCariloAlquilerPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <MapPin className="h-5 w-5 mr-3 mt-1 text-orange-600 flex-shrink-0" />
+                  <MapPin className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Ubicación estratégica:</strong> A 150 metros de la playa y cerca del centro comercial de Cariló con fácil acceso a pie.
@@ -106,7 +105,7 @@ export default function CasasEnCariloAlquilerPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Key className="h-5 w-5 mr-3 mt-1 text-red-600 flex-shrink-0" />
+                  <Key className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Autonomía total:</strong> Check-in sin contacto y acceso libre a la casa durante toda tu estadía sin horarios restrictivos.
@@ -128,7 +127,7 @@ export default function CasasEnCariloAlquilerPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Home className="h-5 w-5 mr-3 mt-1 text-blue-600" />
+                  <Home className="h-5 w-5 mr-3 mt-1 text-gray-600" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       4 Dormitorios Amplios
@@ -142,7 +141,7 @@ export default function CasasEnCariloAlquilerPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-green-600">🍳</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">🍳</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Cocina Totalmente Equipada
@@ -156,7 +155,7 @@ export default function CasasEnCariloAlquilerPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-purple-600">🛋️</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">🛋️</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Espacios de Estar Amplios
@@ -170,7 +169,7 @@ export default function CasasEnCariloAlquilerPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Car className="h-5 w-5 mr-3 mt-1 text-orange-600" />
+                  <Car className="h-5 w-5 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       Garage y Estacionamiento
@@ -184,7 +183,7 @@ export default function CasasEnCariloAlquilerPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-yellow-600">🔥</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">🔥</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Calefacción Central
@@ -198,7 +197,7 @@ export default function CasasEnCariloAlquilerPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-blue-600">🌐</span>
+                  <span className="h-5 w-5 mr-3 mt-1 text-black">🌐</span>
                   <div>
                     <h3 className="text-lg font-semibold">
                       Internet Alta Velocidad
@@ -222,21 +221,21 @@ export default function CasasEnCariloAlquilerPage() {
               </h2>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="text-center p-6 border rounded-lg hover:shadow-md transition-shadow">
-                  <Calendar className="h-8 w-8 mx-auto mb-4 text-blue-600" />
+                  <Calendar className="h-8 w-8 mx-auto mb-4 text-gray-600" />
                   <h3 className="text-xl font-semibold mb-2">Fines de Semana</h3>
                   <p className="text-gray-600">
                     Escapadas perfectas de 2-3 días para desconectar en el bosque de pinos de Cariló.
                   </p>
                 </div>
                 <div className="text-center p-6 border rounded-lg hover:shadow-md transition-shadow">
-                  <Calendar className="h-8 w-8 mx-auto mb-4 text-green-600" />
+                  <Calendar className="h-8 w-8 mx-auto mb-4 text-black" />
                   <h3 className="text-xl font-semibold mb-2">Vacaciones Semanales</h3>
                   <p className="text-gray-600">
                     Estadías de 7-14 días ideales para familias que buscan vacaciones completas.
                   </p>
                 </div>
                 <div className="text-center p-6 border rounded-lg hover:shadow-md transition-shadow">
-                  <Calendar className="h-8 w-8 mx-auto mb-4 text-purple-600" />
+                  <Calendar className="h-8 w-8 mx-auto mb-4 text-black" />
                   <h3 className="text-xl font-semibold mb-2">Temporadas Largas</h3>
                   <p className="text-gray-600">
                     Alquileres mensuales para profesionales que trabajan remotamente desde Cariló.
@@ -248,7 +247,7 @@ export default function CasasEnCariloAlquilerPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-blue-600 text-white">
+        <section className="py-16 bg-black text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
               ¿Listo para Alquilar tu Casa en Cariló?
@@ -257,10 +256,10 @@ export default function CasasEnCariloAlquilerPage() {
               Reserva nuestra villa premium y disfruta de la experiencia única de tener una casa completa en el paraíso de Cariló.
             </p>
             <Link
-              href="/book"
-              className="inline-flex items-center px-8 py-3 bg-white text-blue-600 text-lg rounded-md hover:bg-gray-100 transition-colors"
+              href="/the-house"
+              className="inline-flex items-center px-8 py-3 bg-white text-black text-lg rounded-md hover:bg-gray-100 transition-colors"
             >
-              Consultar Disponibilidad <ArrowRight className="ml-2 h-5 w-5" />
+              Ver Casa <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </div>
         </section>

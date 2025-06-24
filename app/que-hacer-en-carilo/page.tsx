@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { HeroImage } from "@/components/hero-image"
 import { Metadata } from "next"
 import {
   ArrowRight,
@@ -38,26 +39,24 @@ export default function QueHacerEnCariloPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 order-1 md:order-1">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  <span className="text-blue-600">Qué Hacer</span> en Cariló
+                  <span className="text-gray-600">Qué Hacer</span> en Cariló
                 </h1>
                 <p className="text-base md:text-lg text-gray-700 max-w-xl">
                   Descubre todo lo que puedes hacer en Cariló, el destino costero más exclusivo de Argentina. Desde relajarte en playas vírgenes hasta explorar el bosque de pinos centenario. Tu guía completa para aprovechar al máximo tu estadía.
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
-                    href="/book"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-blue-600 text-white text-sm md:text-base rounded-md hover:bg-blue-700 transition-colors"
+                    href="/the-house"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
-                    Planifica tu Estadía <ArrowRight className="ml-2 h-4 w-4" />
+                    Ver Casa <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
               </div>
-              <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden order-2 md:order-2">
-                <Image
+              <div className="order-2 md:order-2">
+                <HeroImage 
                   src="/photo/zona/File 24-04-2025, 10 36 15 PM (5) (1).jpg"
                   alt="Qué hacer en Cariló - vista panorámica de playa y bosque de pinos"
-                  fill
-                  className="object-cover"
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
                 />
@@ -75,7 +74,7 @@ export default function QueHacerEnCariloPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-blue-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <Waves className="h-6 w-6 mr-3 mt-1 text-blue-600" />
+                  <Waves className="h-6 w-6 mr-3 mt-1 text-gray-600" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Deportes Acuáticos</h3>
                     <p className="text-gray-700">
@@ -87,7 +86,7 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-green-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-green-600">🏐</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">🏐</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Deportes de Playa</h3>
                     <p className="text-gray-700">
@@ -99,7 +98,7 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-orange-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <Sunrise className="h-6 w-6 mr-3 mt-1 text-orange-600" />
+                  <Sunrise className="h-6 w-6 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Amaneceres y Atardeceres</h3>
                     <p className="text-gray-700">
@@ -111,7 +110,7 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-purple-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-purple-600">🎣</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">🎣</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Pesca Deportiva</h3>
                     <p className="text-gray-700">
@@ -123,7 +122,7 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-yellow-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-yellow-600">🏖️</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">🏖️</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Relax en la Arena</h3>
                     <p className="text-gray-700">
@@ -135,7 +134,7 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-blue-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-blue-600">🚤</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-gray-600">🚤</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Navegación</h3>
                     <p className="text-gray-700">
@@ -165,7 +164,7 @@ export default function QueHacerEnCariloPage() {
               </div>
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <Tree className="h-6 w-6 mr-3 mt-1 text-green-600" />
+                  <Tree className="h-6 w-6 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Trekking y Senderismo</h3>
                     <p className="text-gray-700">
@@ -174,7 +173,7 @@ export default function QueHacerEnCariloPage() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <Bike className="h-6 w-6 mr-3 mt-1 text-blue-600" />
+                  <Bike className="h-6 w-6 mr-3 mt-1 text-gray-600" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Ciclismo</h3>
                     <p className="text-gray-700">
@@ -183,7 +182,7 @@ export default function QueHacerEnCariloPage() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <Camera className="h-6 w-6 mr-3 mt-1 text-purple-600" />
+                  <Camera className="h-6 w-6 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Fotografía de Naturaleza</h3>
                     <p className="text-gray-700">
@@ -205,7 +204,7 @@ export default function QueHacerEnCariloPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-orange-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <UtensilsCrossed className="h-6 w-6 mr-3 mt-1 text-orange-600" />
+                  <UtensilsCrossed className="h-6 w-6 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Restaurantes Gourmet</h3>
                     <p className="text-gray-700">
@@ -217,7 +216,7 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-green-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-green-600">🍷</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">🍷</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Bares y Vinotecas</h3>
                     <p className="text-gray-700">
@@ -229,7 +228,7 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-blue-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <Shopping className="h-6 w-6 mr-3 mt-1 text-blue-600" />
+                  <Shopping className="h-6 w-6 mr-3 mt-1 text-gray-600" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Boutiques Exclusivas</h3>
                     <p className="text-gray-700">
@@ -241,7 +240,7 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-purple-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-purple-600">☕</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">☕</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Cafés y Pastelerías</h3>
                     <p className="text-gray-700">
@@ -253,7 +252,7 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-yellow-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-yellow-600">🛍️</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">🛍️</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Mercado Local</h3>
                     <p className="text-gray-700">
@@ -265,7 +264,7 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-red-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <Music className="h-6 w-6 mr-3 mt-1 text-red-600" />
+                  <Music className="h-6 w-6 mr-3 mt-1 text-black" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Vida Nocturna</h3>
                     <p className="text-gray-700">
@@ -287,7 +286,7 @@ export default function QueHacerEnCariloPage() {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <span className="h-6 w-6 mr-3 mt-1 text-blue-600">🎨</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-gray-600">🎨</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Galerías de Arte</h3>
                     <p className="text-gray-700">
@@ -296,7 +295,7 @@ export default function QueHacerEnCariloPage() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <span className="h-6 w-6 mr-3 mt-1 text-green-600">🧘</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">🧘</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Yoga y Meditación</h3>
                     <p className="text-gray-700">
@@ -305,7 +304,7 @@ export default function QueHacerEnCariloPage() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <span className="h-6 w-6 mr-3 mt-1 text-purple-600">💆</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-black">💆</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Spa y Wellness</h3>
                     <p className="text-gray-700">
@@ -335,7 +334,7 @@ export default function QueHacerEnCariloPage() {
               </h2>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="p-6 border rounded-lg">
-                  <MapPin className="h-8 w-8 mx-auto mb-4 text-blue-600" />
+                  <MapPin className="h-8 w-8 mx-auto mb-4 text-gray-600" />
                   <h3 className="text-xl font-semibold mb-2">Mejor Época</h3>
                   <p className="text-gray-600">
                     Diciembre a marzo para playa, abril-mayo y septiembre-noviembre para clima suave y menos gente.
@@ -361,7 +360,7 @@ export default function QueHacerEnCariloPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-blue-600 text-white">
+        <section className="py-16 bg-black text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
               ¿Listo para Descubrir Todo lo que Cariló Tiene para Ofrecer?
@@ -370,10 +369,10 @@ export default function QueHacerEnCariloPage() {
               Reserva tu estadía en nuestra villa premium y vive todas estas experiencias únicas desde la comodidad de tu hogar en el bosque de pinos.
             </p>
             <Link
-              href="/book"
-              className="inline-flex items-center px-8 py-3 bg-white text-blue-600 text-lg rounded-md hover:bg-gray-100 transition-colors"
+              href="/the-house"
+              className="inline-flex items-center px-8 py-3 bg-white text-black text-lg rounded-md hover:bg-gray-100 transition-colors"
             >
-              Planifica tu Aventura en Cariló <ArrowRight className="ml-2 h-5 w-5" />
+              Ver Casa <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </div>
         </section>

@@ -60,10 +60,10 @@ export default function ArgentinaRemoteWorkVisaPage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
-                    href="/en/book"
+                    href="/en/the-house"
                     className="inline-flex items-center justify-center px-8 py-4 bg-green-600 text-white text-lg font-semibold rounded-lg hover:bg-green-700 transition-colors"
                   >
-                    Plan Your Stay <ArrowRight className="ml-2 h-5 w-5" />
+                    See House <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                   <Link
                     href="/en/location"
@@ -102,7 +102,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="bg-blue-50 border-2 border-blue-200 p-8 rounded-xl">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                  <Globe className="h-6 w-6 text-blue-600" />
+                  <Globe className="h-6 w-6 text-gray-600" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">
                   Tourist Visa (90 Days)
@@ -170,7 +170,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
               <div className="space-y-8">
                 <div className="flex items-start space-x-4">
                   <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-blue-600 font-bold">1</span>
+                    <span className="text-gray-600 font-bold">1</span>
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
@@ -254,7 +254,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                 
                 <div className="space-y-4">
                   <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
-                    <FileText className="h-6 w-6 text-blue-600 mt-1 flex-shrink-0" />
+                    <FileText className="h-6 w-6 text-gray-600 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-gray-900">Valid Passport</h4>
                       <p className="text-gray-600 text-sm">Must be valid for at least 6 months beyond intended stay</p>
@@ -295,7 +295,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                 <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-xl">
                   <div className="space-y-6">
                     <div className="flex items-center space-x-4">
-                      <DollarSign className="h-8 w-8 text-blue-600" />
+                      <DollarSign className="h-8 w-8 text-gray-600" />
                       <div>
                         <h4 className="text-xl font-semibold text-gray-900">Monthly Income</h4>
                         <p className="text-gray-600">Minimum $2,000 USD/month for temporary residence</p>
@@ -349,10 +349,10 @@ export default function ArgentinaRemoteWorkVisaPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/en/book"
+                href="/en/the-house"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-green-600 text-lg font-semibold rounded-lg hover:bg-gray-100 transition-colors"
               >
-                Book Your Stay <ArrowRight className="ml-2 h-5 w-5" />
+                See House <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
                 href="/en/rooms"

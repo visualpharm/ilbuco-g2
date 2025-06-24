@@ -430,15 +430,15 @@ export function DigitalNomadVisaContent() {
             </div>
             
             <div className="text-center">
-              <button 
-                onClick={() => setIsBookingPopupOpen(true)}
+              <a 
+                href="/en/the-house"
                 className="inline-flex items-center px-8 py-4 bg-green-600 text-white text-lg font-semibold rounded-2xl hover:bg-green-700 transition-colors shadow-lg hover:shadow-xl"
               >
-                Book Your Stay & Get Digital Nomad Visa Support
+                See House
                 <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </button>
+              </a>
               <p className="text-gray-600 text-sm mt-4">Perfect for 3+ month stays • Cariló, Argentina</p>
             </div>
           </div>
@@ -458,7 +458,7 @@ export function DigitalNomadVisaContent() {
                   This article is not a reprint of official sources. It is based on experience, forum reports, and practical knowledge compiled for real-world use.
                 </p>
                 <p className="text-gray-600 text-sm">
-                  For questions or to stay at Il Buco: <button onClick={() => setIsBookingPopupOpen(true)} className="text-green-600 hover:underline font-medium">Contact us here</button>
+                  For questions or to stay at Il Buco: <a href="/en/the-house" className="text-green-600 hover:underline font-medium">Contact us here</a>
                 </p>
               </div>
             </div>
@@ -632,15 +632,15 @@ export function DigitalNomadVisaContent() {
             </div>
             
             <div className="text-center">
-              <button 
-                onClick={() => setIsBookingPopupOpen(true)}
+              <a 
+                href="/en/the-house"
                 className="inline-flex items-center px-8 py-4 bg-green-600 text-white text-lg font-semibold rounded-2xl hover:bg-green-700 transition-colors shadow-lg hover:shadow-xl"
               >
-                Start Your Digital Nomad Visa Application Journey
+                See House
                 <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </button>
+              </a>
               <p className="text-gray-600 text-sm mt-4">Perfect for 3+ month digital nomad stays • Cariló, Argentina</p>
             </div>
           </div>

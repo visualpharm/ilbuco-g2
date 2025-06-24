@@ -43,17 +43,17 @@ export default function ArgentinaPraiaPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 order-1 md:order-1">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  Villa de Luxo na <span className="text-blue-600">Praia Argentina</span>
+                  Villa de Luxo na <span className="text-gray-600">Praia Argentina</span>
                 </h1>
                 <p className="text-base md:text-lg text-gray-700 max-w-xl">
                   Escape para nossa villa exclusiva em Cariló, Argentina. Localizada na floresta de pinheiros, a apenas 150 metros da praia atlântica. O espaço perfeito para trabalho remoto com internet de 500 Mbps e todas as comodidades premium.
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
-                    href="/pt/book"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-blue-600 text-white text-sm md:text-base rounded-md hover:bg-blue-700 transition-colors"
+                    href="/pt/the-house"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
-                    Reservar Agora <ArrowRight className="ml-2 h-4 w-4" />
+                    Ver Casa <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
               </div>
@@ -80,7 +80,7 @@ export default function ArgentinaPraiaPage() {
               </h2>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <Waves className="h-5 w-5 mr-3 mt-1 text-blue-600 flex-shrink-0" />
+                  <Waves className="h-5 w-5 mr-3 mt-1 text-gray-600 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>150 metros da praia:</strong> Acesso direto às praias virgens do <Link href="/pt/argentina-mar" className="text-gray-900 no-underline hover:text-gray-700">Atlântico Sul</Link>, perfeitas para relaxar após o trabalho.
@@ -288,9 +288,9 @@ export default function ArgentinaPraiaPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <Link href="/pt/the-house" className="flex items-start mb-3 group">
-                  <ArrowRight className="h-5 w-5 mr-3 mt-1 text-blue-600 group-hover:text-blue-800 transition-colors" />
+                  <ArrowRight className="h-5 w-5 mr-3 mt-1 text-gray-600 group-hover:text-blue-800 transition-colors" />
                   <div>
-                    <h3 className="text-lg font-semibold text-blue-600 group-hover:text-blue-800 transition-colors">
+                    <h3 className="text-lg font-semibold text-gray-600 group-hover:text-blue-800 transition-colors">
                       Ver Todas as Comodidades
                     </h3>
                     <p className="text-gray-600">

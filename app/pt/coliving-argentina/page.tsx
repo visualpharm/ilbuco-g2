@@ -40,17 +40,17 @@ export default function ColivingArgentinaPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 order-1 md:order-1">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  <span className="text-blue-600">Coliving Argentina</span> Premium
+                  <span className="text-gray-600">Coliving Argentina</span> Premium
                 </h1>
                 <p className="text-base md:text-lg text-gray-700 max-w-xl">
                   Experimente o melhor coliving da Argentina em Cariló. Nossa villa premium abriga uma comunidade internacional de profissionais, empreendedores e criativos em um ambiente único entre floresta e oceano.
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
-                    href="/pt/book"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-blue-600 text-white text-sm md:text-base rounded-md hover:bg-blue-700 transition-colors"
+                    href="/pt/the-house"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
-                    Juntar-se à Comunidade <ArrowRight className="ml-2 h-4 w-4" />
+                    Ver Casa <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
               </div>
@@ -77,7 +77,7 @@ export default function ColivingArgentinaPage() {
               </h2>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <Globe className="h-5 w-5 mr-3 mt-1 text-blue-600 flex-shrink-0" />
+                  <Globe className="h-5 w-5 mr-3 mt-1 text-gray-600 flex-shrink-0" />
                   <div>
                     <p className="text-lg">
                       <strong>Fuso horário estratégico:</strong> Ideal para trabalhar com EUA, Europa e Brasil simultaneamente.
@@ -131,7 +131,7 @@ export default function ColivingArgentinaPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <Users className="h-5 w-5 mr-3 mt-1 text-blue-600" />
+                  <Users className="h-5 w-5 mr-3 mt-1 text-gray-600" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       Comunidade Internacional
@@ -233,7 +233,7 @@ export default function ColivingArgentinaPage() {
                   <li>• Armário completo</li>
                   <li>• Ar condicionado individual</li>
                 </ul>
-                <p className="text-lg font-semibold text-blue-600">A partir de $45/dia</p>
+                <p className="text-lg font-semibold text-gray-600">A partir de $45/dia</p>
               </div>
 
               <div className="bg-gray-50 p-6 rounded-lg">
@@ -245,7 +245,7 @@ export default function ColivingArgentinaPage() {
                   <li>• Vista para floresta ou jardim</li>
                   <li>• Frigobar e amenities premium</li>
                 </ul>
-                <p className="text-lg font-semibold text-blue-600">A partir de $65/dia</p>
+                <p className="text-lg font-semibold text-gray-600">A partir de $65/dia</p>
               </div>
             </div>
 
@@ -255,7 +255,7 @@ export default function ColivingArgentinaPage() {
               </p>
               <Link
                 href="/pt/rooms"
-                className="inline-flex items-center px-6 py-2 text-blue-600 hover:text-blue-800 transition-colors"
+                className="inline-flex items-center px-6 py-2 text-gray-600 hover:text-blue-800 transition-colors"
               >
                 Ver Todos os Quartos <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
@@ -307,7 +307,7 @@ export default function ColivingArgentinaPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-blue-600 text-white">
+        <section className="py-16 bg-black text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
               Pronto para Sua Experiência de Coliving na Argentina?
@@ -317,14 +317,14 @@ export default function ColivingArgentinaPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/pt/book"
-                className="inline-flex items-center px-8 py-3 bg-white text-blue-600 text-lg rounded-md hover:bg-gray-100 transition-colors"
+                href="/pt/the-house"
+                className="inline-flex items-center px-8 py-3 bg-white text-gray-600 text-lg rounded-md hover:bg-gray-100 transition-colors"
               >
-                Reservar Agora <ArrowRight className="ml-2 h-5 w-5" />
+                Ver Casa <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
                 href="/pt/the-house"
-                className="inline-flex items-center px-8 py-3 border-2 border-white text-white text-lg rounded-md hover:bg-white hover:text-blue-600 transition-colors"
+                className="inline-flex items-center px-8 py-3 border-2 border-white text-white text-lg rounded-md hover:bg-white hover:text-gray-600 transition-colors"
               >
                 Conhecer a Villa <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
