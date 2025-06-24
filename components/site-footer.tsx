@@ -2,7 +2,7 @@
 
 import { Translate } from "./translate"
 import { translations } from "@/translations/common"
-import { Mail, Phone } from "lucide-react"
+import { Mail, Phone, Instagram } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 import { usePathname } from "next/navigation"
 
@@ -85,25 +85,30 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-gray-200 bg-white py-6">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
-          <div className="text-gray-500 text-center md:text-left">
-            © {currentYear} <a href="https://aiandtractors.com"  className="hover:underline">Ivan Braun</a>
-            {footerLinks.length > 0 && (
-              <span className="ml-4 space-x-4">
-                {footerLinks.map((link, index) => (
-                  <a
-                    key={index}
-                    href={link.href}
-                    {...(link.href.startsWith('http') ? {} : {})}
-                    className="text-gray-500 hover:text-gray-700 no-underline"
-                  >
-                    {link.text}
-                  </a>
-                ))}
-              </span>
-            )}
+        <div className="space-y-4 text-sm">
+          {/* First Line: Copyright and SEO Links */}
+          <div className="flex flex-col items-center gap-4 text-center">
+            <div className="text-gray-500">
+              © {currentYear} <a href="https://aiandtractors.com" className="hover:underline">Ivan Braun</a>
+              {footerLinks.length > 0 && (
+                <span className="ml-4 space-x-4">
+                  {footerLinks.map((link, index) => (
+                    <a
+                      key={index}
+                      href={link.href}
+                      {...(link.href.startsWith('http') ? {} : {})}
+                      className="text-gray-500 hover:text-gray-700 no-underline"
+                    >
+                      {link.text}
+                    </a>
+                  ))}
+                </span>
+              )}
+            </div>
           </div>
-          <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 text-gray-600">
+          
+          {/* Second Line: Contact Info and Social */}
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 text-gray-600">
             <div className="flex items-center gap-2">
               <Mail className="h-4 w-4 flex-shrink-0" />
               <a href="mailto:ciao@ilbuco.com.ar" className="hover:text-gray-800 transition-colors whitespace-nowrap">
@@ -117,6 +122,17 @@ export function SiteFooter() {
                 className="hover:text-green-600 transition-colors whitespace-nowrap"
               >
                 +54 11 2127 5492
+              </a>
+            </div>
+            <div className="flex items-center gap-2">
+              <Instagram className="h-4 w-4 flex-shrink-0" />
+              <a
+                href="https://www.instagram.com/il.buco.carilo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-pink-600 transition-colors whitespace-nowrap"
+              >
+                @il.buco.carilo
               </a>
             </div>
           </div>

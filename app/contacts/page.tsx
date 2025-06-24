@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
 import { contactTranslations } from "@/translations/contact"
-import { Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin, Instagram } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 
 export default function Contact() {
@@ -100,6 +100,28 @@ export default function Contact() {
                         <p className="text-gray-700">
                           <Translate text={contactTranslations.contactInfo.fullAddress} />
                         </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start">
+                      <Instagram className="h-6 w-6 mr-4 mt-1 text-gray-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold">Instagram</h3>
+                        <div className="flex items-center gap-3">
+                          <span className="text-gray-700">@il.buco.carilo</span>
+                          <a
+                            href="https://www.instagram.com/il.buco.carilo"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-3 py-1 bg-pink-600 text-white text-sm rounded-md hover:bg-pink-700 transition-colors"
+                          >
+                            <Translate text={{
+                              en: "Follow",
+                              es: "Seguir",
+                              pt: "Seguir"
+                            }} />
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
