@@ -1,9 +1,9 @@
-import Image from "next/image"
-import Link from "next/link"
+import { Metadata } from "next"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { HeroImage } from "@/components/hero-image"
-import { Metadata } from "next"
+import Link from "next/link"
+import Image from "next/image"
 import {
   ArrowRight,
   Waves,
@@ -18,16 +18,19 @@ import {
 } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Qué Hacer en Cariló - Guía Completa de Actividades | IL BUCO",
-  description: "Descubre qué hacer en Cariló. Guía completa de actividades: playas, bosque de pinos, gastronomía, deportes acuáticos y vida nocturna. Planifica tu estadía perfecta.",
-  keywords: "que hacer en carilo, actividades carilo, turismo carilo, lugares para visitar carilo, planes carilo",
-  openGraph: {
-    title: "Qué Hacer en Cariló - Guía de Actividades | IL BUCO",
-    description: "Guía completa de actividades y lugares para visitar en Cariló. Desde playas hasta gastronomía local.",
+  title: 'Qué Hacer en Cariló: Guía Completa de Actividades y Turismo 2025',
+  description: 'Descubre qué hacer en Cariló con nuestra guía completa. Actividades, deportes, gastronomía y lugares para visitar en Cariló y Pinamar. ¡Planifica tu viaje!',
+  alternates: {
+    canonical: 'https://ilbuco.com.ar/que-hacer-en-carilo',
+    languages: {
+      'es': 'https://ilbuco.com.ar/que-hacer-en-carilo',
+      'en': 'https://ilbuco.com.ar/en/things-to-do-carilo',
+      'pt': 'https://ilbuco.com.ar/pt/o-que-fazer-em-carilo',
+    },
   },
 }
 
-export default function QueHacerEnCariloPage() {
+export default function QueHacerEnCarilo() {
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
@@ -42,14 +45,14 @@ export default function QueHacerEnCariloPage() {
                   <span className="text-gray-600">Qué Hacer</span> en Cariló
                 </h1>
                 <p className="text-base md:text-lg text-gray-700 max-w-xl">
-                  Descubre todo lo que puedes hacer en Cariló, el destino costero más exclusivo de Argentina. Desde relajarte en playas vírgenes hasta explorar el bosque de pinos centenario. Tu guía completa para aprovechar al máximo tu estadía.
+                  Cariló ofrece una combinación única de actividades al aire libre, espacios para el desarrollo personal y experiencias gastronómicas. Desde Il Buco, tenés acceso fácil a todas las actividades que te detallamos a continuación.
                 </p>
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
-                    href="/the-house"
+                    href="/book"
                     className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
-                    Ver Casa <ArrowRight className="ml-2 h-4 w-4" />
+                    Reservá tu Estadía <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
               </div>
@@ -69,16 +72,16 @@ export default function QueHacerEnCariloPage() {
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-10 text-center">
-              Actividades en la Playa
+              Playas y Naturaleza en Cariló
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-blue-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <Waves className="h-6 w-6 mr-3 mt-1 text-gray-600" />
+                  <Waves className="h-6 w-6 mr-3 mt-1 text-blue-600" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Deportes Acuáticos</h3>
+                    <h3 className="text-xl font-semibold mb-2">Surf y Windsurf</h3>
                     <p className="text-gray-700">
-                      Surf, paddleboard, kayak y windsurf. Alquiler de equipos disponible en la playa con instructores certificados.
+                      Escuelas de surf y windsurf en toda la playa de Cariló. Aprendé windsurf en la costa atlántica con instrucción profesional y alquiler de equipos disponible en múltiples escuelas.
                     </p>
                   </div>
                 </div>
@@ -86,11 +89,11 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-green-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">🏐</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-green-600">🏖️</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Deportes de Playa</h3>
+                    <h3 className="text-xl font-semibold mb-2">Actividades de Playa</h3>
                     <p className="text-gray-700">
-                      Vóley playero, fútbol, tenis de playa y juegos familiares en la arena blanca de Cariló.
+                      La playa de Cariló ofrece amplias oportunidades para surf, windsurf, y simplemente relajarse en la arena. El entorno natural único combina bosque de pinos con costa atlántica.
                     </p>
                   </div>
                 </div>
@@ -98,7 +101,31 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-orange-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <Sunrise className="h-6 w-6 mr-3 mt-1 text-black" />
+                  <Bike className="h-6 w-6 mr-3 mt-1 text-orange-600" />
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Aventuras en Bicicleta</h3>
+                    <p className="text-gray-700">
+                      Alquilá bicicletas y explorá Cariló y las áreas circundantes. Las calles de arena sin pavimentar y el entorno natural de la ciudad hacen que la experiencia de ciclismo sea agradable.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-purple-50 p-6 rounded-lg">
+                <div className="flex items-start mb-4">
+                  <Camera className="h-6 w-6 mr-3 mt-1 text-purple-600" />
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Fotografía de Naturaleza</h3>
+                    <p className="text-gray-700">
+                      La luz natural y las vistas inspiradoras hacen que IL BUCO sea perfecto para la fotografía, el dibujo, la pintura u otras actividades creativas.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-yellow-50 p-6 rounded-lg">
+                <div className="flex items-start mb-4">
+                  <Sunrise className="h-6 w-6 mr-3 mt-1 text-yellow-600" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Amaneceres y Atardeceres</h3>
                     <p className="text-gray-700">
@@ -108,37 +135,13 @@ export default function QueHacerEnCariloPage() {
                 </div>
               </div>
 
-              <div className="bg-purple-50 p-6 rounded-lg">
+              <div className="bg-teal-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">🎣</span>
+                  <Tree className="h-6 w-6 mr-3 mt-1 text-teal-600" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Pesca Deportiva</h3>
+                    <h3 className="text-xl font-semibold mb-2">Bosque de Pinos</h3>
                     <p className="text-gray-700">
-                      Pesca desde la orilla o embarcado. Excursiones de pesca deportiva con guías locales especializados.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-yellow-50 p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">🏖️</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Relax en la Arena</h3>
-                    <p className="text-gray-700">
-                      Tomar sol, lectura bajo sombrillas y masajes en la playa. Balnearios exclusivos con servicios premium.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-blue-50 p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-gray-600">🚤</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Navegación</h3>
-                    <p className="text-gray-700">
-                      Paseos en lancha, jet ski y catamarán. Excursiones a islas cercanas y avistamiento de fauna marina.
+                      Explorá senderos naturales entre pinos centenarios. Rutas de diferentes dificultades con flora y fauna local única.
                     </p>
                   </div>
                 </div>
@@ -147,46 +150,80 @@ export default function QueHacerEnCariloPage() {
           </div>
         </section>
 
-        {/* Forest Activities Section */}
+        {/* Sports Activities Section */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-10 text-center">
-              Actividades en el Bosque de Pinos
+              Deportes y Actividades al Aire Libre
             </h2>
-            <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
-              <div className="relative h-[350px] rounded-xl overflow-hidden">
-                <Image
-                  src="/villa-pine-forest-path.jpeg"
-                  alt="Senderos del bosque de pinos en Cariló para hacer trekking"
-                  fill
-                  className="object-cover"
-                />
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
+                <div className="flex items-start mb-4">
+                  <span className="h-6 w-6 mr-3 mt-1 text-indigo-600">🏋️</span>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Gimnasio</h3>
+                    <p className="text-gray-700">
+                      Gimnasio interior de servicio completo rodeado de bosque con pases diarios, semanales y mensuales. La buena instrucción privada está incluida en el precio.
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <Tree className="h-6 w-6 mr-3 mt-1 text-black" />
+
+              <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-6 rounded-lg shadow-sm">
+                <div className="flex items-start mb-4">
+                  <span className="h-6 w-6 mr-3 mt-1 text-cyan-600">🎾</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Trekking y Senderismo</h3>
+                    <h3 className="text-xl font-semibold mb-2">Tenis y Pádel</h3>
                     <p className="text-gray-700">
-                      Explora senderos naturales entre pinos centenarios. Rutas de diferentes dificultades con guías especializados en flora y fauna local.
+                      Canchas de polvo de ladrillo, pádel, fútbol 5, y un pequeño gimnasio interior. Alquilan raquetas y dan clases.
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start">
-                  <Bike className="h-6 w-6 mr-3 mt-1 text-gray-600" />
+              </div>
+
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm">
+                <div className="flex items-start mb-4">
+                  <span className="h-6 w-6 mr-3 mt-1 text-green-600">💪</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Ciclismo</h3>
+                    <h3 className="text-xl font-semibold mb-2">Calistenia al Aire Libre</h3>
                     <p className="text-gray-700">
-                      Alquiler de bicicletas para recorrer senderos forestales. Circuitos temáticos y mountain bike para aventureros.
+                      Gimnasio de calistenia al aire libre gratuito las 24 horas con barras y paralelas.
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start">
-                  <Camera className="h-6 w-6 mr-3 mt-1 text-black" />
+              </div>
+
+              <div className="bg-gradient-to-br from-orange-50 to-red-50 p-6 rounded-lg shadow-sm">
+                <div className="flex items-start mb-4">
+                  <span className="h-6 w-6 mr-3 mt-1 text-orange-600">🐎</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Fotografía de Naturaleza</h3>
+                    <h3 className="text-xl font-semibold mb-2">Cabalgatas</h3>
                     <p className="text-gray-700">
-                      Tours fotográficos especializados. Captura la magia del bosque, vida silvestre y paisajes únicos de Cariló.
+                      Cabalgatas por dunas y bosque. Una experiencia única para conectar con la naturaleza de Cariló.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-purple-50 to-violet-50 p-6 rounded-lg shadow-sm">
+                <div className="flex items-start mb-4">
+                  <span className="h-6 w-6 mr-3 mt-1 text-purple-600">🏍️</span>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Cuatriciclos y Fatbike</h3>
+                    <p className="text-gray-700">
+                      Paseos en cuatriciclo y alquiler de fatbike para explorar dunas y senderos forestales.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-lg shadow-sm">
+                <div className="flex items-start mb-4">
+                  <span className="h-6 w-6 mr-3 mt-1 text-yellow-600">🚗</span>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Escuela de Manejo 4x4</h3>
+                    <p className="text-gray-700">
+                      Aprendé a manejar off-road y navegar dunas de arena. Ideal para aventureros que buscan nuevas experiencias.
                     </p>
                   </div>
                 </div>
@@ -199,16 +236,16 @@ export default function QueHacerEnCariloPage() {
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-10 text-center">
-              Gastronomía y Compras
+              Carilo Turismo: Gastronomía y Vida Nocturna
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-orange-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <UtensilsCrossed className="h-6 w-6 mr-3 mt-1 text-black" />
+                  <UtensilsCrossed className="h-6 w-6 mr-3 mt-1 text-orange-600" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Restaurantes Gourmet</h3>
-                    <p className="text-gray-700">
-                      Alta gastronomía con vista al mar. Mariscos frescos, asados argentinos y cocina internacional en ambientes únicos.
+                    <h3 className="text-xl font-semibold mb-2">Parrillas y Asados</h3>
+                    <p className="text-gray-700 mb-3">
+                      Parrilla Argentina (la mejor), Don Benito (elegante), De Mi Campo (barra de ensaladas), La Parrillita (auténtico).
                     </p>
                   </div>
                 </div>
@@ -216,11 +253,11 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-green-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">🍷</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-green-600">☕</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Bares y Vinotecas</h3>
+                    <h3 className="text-xl font-semibold mb-2">Cafés y Panaderías</h3>
                     <p className="text-gray-700">
-                      Cata de vinos argentinos, cocktails de autor y ambientes sofisticados para disfrutar al atardecer.
+                      Panadería y Café (mejor tostada de palta), Café Francés (siempre abierto), Panettone, Masse (panes con semillas).
                     </p>
                   </div>
                 </div>
@@ -228,11 +265,11 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-blue-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <Shopping className="h-6 w-6 mr-3 mt-1 text-gray-600" />
+                  <span className="h-6 w-6 mr-3 mt-1 text-blue-600">🍕</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Boutiques Exclusivas</h3>
+                    <h3 className="text-xl font-semibold mb-2">Comida Internacional</h3>
                     <p className="text-gray-700">
-                      Tiendas de diseño, artesanías locales y marcas premium. Shopping al aire libre en el centro de Cariló.
+                      Pizza napolitana premiada de chefs italianos. Hamburguesas gourmet e Impeke en Valeria del Mar.
                     </p>
                   </div>
                 </div>
@@ -240,11 +277,11 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-purple-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">☕</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-purple-600">🍨</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Cafés y Pastelerías</h3>
+                    <h3 className="text-xl font-semibold mb-2">Heladerías</h3>
                     <p className="text-gray-700">
-                      Cafés gourmet, pastelerías artesanales y heladerías premium para disfrutar entre el bosque de pinos.
+                      Colonial en Valeria del Mar (el favorito) y Lucciano's (el lugar más bonito para disfrutar helados).
                     </p>
                   </div>
                 </div>
@@ -252,11 +289,11 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-yellow-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">🛍️</span>
+                  <Shopping className="h-6 w-6 mr-3 mt-1 text-yellow-600" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Mercado Local</h3>
+                    <h3 className="text-xl font-semibold mb-2">Boutiques y Compras</h3>
                     <p className="text-gray-700">
-                      Productos regionales, dulces caseros y souvenirs únicos. Ferias de artesanos los fines de semana.
+                      Boutiques del centro de Cariló, supermercados Chicho, Coto, Disco con entrega a domicilio.
                     </p>
                   </div>
                 </div>
@@ -264,11 +301,11 @@ export default function QueHacerEnCariloPage() {
 
               <div className="bg-red-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
-                  <Music className="h-6 w-6 mr-3 mt-1 text-black" />
+                  <Music className="h-6 w-6 mr-3 mt-1 text-red-600" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Vida Nocturna</h3>
                     <p className="text-gray-700">
-                      Pubs, discotecas y eventos culturales. Música en vivo y espectáculos durante la temporada alta.
+                      Bares, vinotecas con vinos argentinos, y ambientes sofisticados para disfrutar al atardecer.
                     </p>
                   </div>
                 </div>
@@ -277,83 +314,190 @@ export default function QueHacerEnCariloPage() {
           </div>
         </section>
 
-        {/* Cultural Activities Section */}
+              {/* Qué hacer cuando llueve */}
+              <section className="mb-12">
+                <h2 className="text-3xl font-bold mb-6">Qué Hacer en Cariló Cuando Llueve</h2>
+                
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3">Clases de Cerámica</h3>
+                    <p className="text-gray-700">Aprendé alfarería y artes cerámicas en un ambiente creativo en Valeria del Mar. Perfecto para días lluviosos.</p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3">Gastronomía Local - Espacios Cubiertos</h3>
+                    <p className="text-gray-700 mb-3">Los mejores restaurantes de Cariló ofrecen espacios cubiertos y acogedores:</p>
+                    <ul className="space-y-2 text-gray-700 ml-4">
+                      <li><strong>Parrilla Argentina:</strong> La mejor parrilla con muchos extras gratuitos. También recomendado: Don Benito (elegante), De Mi Campo (¡barra de ensaladas!), La Parrillita (básico en el buen sentido).</li>
+                      <li><strong>Pizza Italiana:</strong> Pizza napolitana premiada de los chefs italianos (también hicieron nuestros sofás).</li>
+                      <li><strong>Café Francés:</strong> Siempre abierto.</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3">Compras en el Centro</h3>
+                    <p className="text-gray-700">Las boutiques del centro de Cariló y supermercados como Chicho con buenos horarios de apertura para días de lluvia.</p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Actividades de invierno */}
+              <section className="mb-12">
+                <h2 className="text-3xl font-bold mb-6">Actividades en Cariló en Invierno</h2>
+                
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3">Cabalgatas de Invierno</h3>
+                    <p className="text-gray-700">Las temperaturas más frescas hacen que la experiencia de cabalgatas sea más cómoda durante los meses de invierno.</p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3">Escuela de Manejo 4x4 en Temporada Baja</h3>
+                    <p className="text-gray-700">Ideal para la temporada baja con menos tráfico. Mejor momento para aprender sin multitudes.</p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3">Fotografía y Arte</h3>
+                    <p className="text-gray-700">El entorno natural de Il Buco y los alrededores de Cariló ofrecen luz natural e vistas inspiradoras perfectas para la fotografía, el dibujo, la pintura u otras actividades creativas durante los meses más tranquilos.</p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3">Trabajo y Concentración</h3>
+                    <p className="text-gray-700">Con nuestro internet de alta velocidad y espacios de trabajo cómodos, IL BUCO es el lugar perfecto para concentrarte en tus proyectos más importantes durante el invierno.</p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Alrededores */}
+              <section className="mb-12">
+                <h2 className="text-3xl font-bold mb-6">Alrededores de Cariló</h2>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4">Pinamar Lugares para Visitar</h3>
+                    <ul className="space-y-2 text-gray-700">
+                      <li><strong>Sandmasters:</strong> Escuela de manejo 4x4 especializada en dunas</li>
+                      <li><strong>La Constanza Pinamar:</strong> Pescadería abierta en temporada baja</li>
+                      <li><strong>Quimica Limpia Maurito:</strong> Productos de limpieza al por mayor</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4">Valeria del Mar</h3>
+                    <ul className="space-y-2 text-gray-700">
+                      <li><strong>Impeke:</strong> Hamburguesas gourmet destacadas</li>
+                      <li><strong>Colonial:</strong> La mejor heladería de la zona</li>
+                      <li><strong>Fusion Arte del Mar:</strong> Clases de cerámica y arte</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3">Mar de las Pampas</h3>
+                    <p className="text-gray-700">Localidad costera tranquila ideal para escapadas de un día. Ambiente bohemio y relajado con cafeterías artesanales y galerías de arte.</p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3">Faro Querandí</h3>
+                    <p className="text-gray-700">Faro histórico ubicado en las dunas. Perfecto para caminatas y fotografía de paisajes costeros. Vista panorámica de la costa atlántica.</p>
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <h3 className="text-xl font-semibold mb-3">Recharge Retreat</h3>
+                    <p className="text-gray-700">Gran estancia con cabaña para alquilar. Retiro de recarga en ambiente rural con actividades de rancho y naturaleza.</p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Compras */}
+              <section className="mb-12">
+                <h2 className="text-3xl font-bold mb-6">Compras y Servicios en Cariló</h2>
+                
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4">Supermercados</h3>
+                    <ul className="space-y-2 text-gray-700">
+                      <li><strong>Chicho:</strong> Los mejores horarios de apertura, frutas y verduras decentes</li>
+                      <li><strong>La Proveeduría / Menor Coste:</strong> Caro, mini Whole Foods</li>
+                      <li><strong>Coto:</strong> El supermercado grande más cercano; tienen de todo, desde comida hasta muebles y bicicletas. Tienda online con entrega a Cariló</li>
+                      <li><strong>Disco:</strong> Alternativa sin tomar la autopista. También entregan a Cariló</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4">Productos Frescos</h3>
+                    <ul className="space-y-2 text-gray-700">
+                      <li><strong>Belén:</strong> Las mejores frutas y verduras</li>
+                      <li><strong>Boutique de Frutas:</strong> Autoservicio, lo cual no es común. Elegí las mejores o culpá a alguien más</li>
+                      <li><strong>Cabaña Guerrero:</strong> Mi carne favorita</li>
+                      <li><strong>La Constanza (Cariló):</strong> Pescado fresco, no congelado, incluso salmón. Cerrado durante temporada baja</li>
+                      <li><strong>La Constanza (Pinamar):</strong> Abierto durante temporada baja cuando la ubicación de Cariló está cerrada</li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+
+        {/* Weather & Winter Activities */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-10 text-center">
-              Actividades Culturales y Relajación
-            </h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <span className="h-6 w-6 mr-3 mt-1 text-gray-600">🎨</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Galerías de Arte</h3>
-                    <p className="text-gray-700">
-                      Exposiciones de artistas locales y nacionales. Galerías al aire libre y talleres de arte durante el verano.
-                    </p>
-                  </div>
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold mb-10 text-center">Qué Hacer en Cariló Cuando Llueve</h2>
+              
+              <div className="grid md:grid-cols-2 gap-8 mb-12">
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="text-xl font-semibold mb-3">🎨 Clases de Cerámica</h3>
+                  <p className="text-gray-700">Aprendé alfarería y artes cerámicas en un ambiente creativo en Valeria del Mar. Perfecto para días lluviosos.</p>
                 </div>
-                <div className="flex items-start">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">🧘</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Yoga y Meditación</h3>
-                    <p className="text-gray-700">
-                      Clases de yoga en la playa al amanecer. Retiros de meditación y bienestar en contacto con la naturaleza.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">💆</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Spa y Wellness</h3>
-                    <p className="text-gray-700">
-                      Tratamientos de relajación, masajes terapéuticos y terapias alternativas en spas de lujo.
-                    </p>
-                  </div>
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="text-xl font-semibold mb-3">🍽️ Espacios Cubiertos</h3>
+                  <p className="text-gray-700">Los mejores restaurantes de Cariló ofrecen espacios cubiertos: parrillas, pizzerías y cafés para días de lluvia.</p>
                 </div>
               </div>
-              <div className="relative h-[400px] rounded-xl overflow-hidden">
-                <Image
-                  src="/modern-bedroom-pine-view.png"
-                  alt="Actividades de relajación en Cariló - vista serena desde habitación"
-                  fill
-                  className="object-cover"
-                />
+
+              <h2 className="text-3xl font-bold mb-10 text-center">Actividades en Cariló en Invierno</h2>
+              
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="text-xl font-semibold mb-3">🐎 Cabalgatas de Invierno</h3>
+                  <p className="text-gray-700">Las temperaturas más frescas hacen que la experiencia de cabalgatas sea más cómoda durante los meses de invierno.</p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="text-xl font-semibold mb-3">💻 Trabajo y Concentración</h3>
+                  <p className="text-gray-700">Con internet de alta velocidad y espacios cómodos, IL BUCO es perfecto para concentrarte en proyectos importantes durante el invierno.</p>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Planning Tips Section */}
+        {/* Surrounding Areas */}
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-8">
-                Tips para Planificar tu Estadía en Cariló
-              </h2>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="p-6 border rounded-lg">
-                  <MapPin className="h-8 w-8 mx-auto mb-4 text-gray-600" />
-                  <h3 className="text-xl font-semibold mb-2">Mejor Época</h3>
-                  <p className="text-gray-600">
-                    Diciembre a marzo para playa, abril-mayo y septiembre-noviembre para clima suave y menos gente.
-                  </p>
-                </div>
-                <div className="p-6 border rounded-lg">
-                  <span className="text-3xl block mb-4">🚗</span>
-                  <h3 className="text-xl font-semibold mb-2">Cómo Llegar</h3>
-                  <p className="text-gray-600">
-                    4 horas en auto desde Buenos Aires por Ruta 2. También disponible transporte público y remises.
-                  </p>
-                </div>
-                <div className="p-6 border rounded-lg">
-                  <span className="text-3xl block mb-4">📅</span>
-                  <h3 className="text-xl font-semibold mb-2">Reserva Anticipada</h3>
-                  <p className="text-gray-600">
-                    Reserva tu alojamiento con anticipación, especialmente para temporada alta y fines de semana largos.
-                  </p>
-                </div>
+            <h2 className="text-3xl font-bold mb-10 text-center">Alrededores de Cariló</h2>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-blue-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-3">🏖️ Pinamar</h3>
+                <p className="text-gray-700">Sandmasters (4x4), La Constanza (pescadería), servicios especializados.</p>
+              </div>
+              
+              <div className="bg-green-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-3">🍔 Valeria del Mar</h3>
+                <p className="text-gray-700">Impeke (hamburguesas), Colonial (helados), Fusion Arte del Mar (cerámica).</p>
+              </div>
+              
+              <div className="bg-purple-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-3">🎨 Mar de las Pampas</h3>
+                <p className="text-gray-700">Localidad costera tranquila con ambiente bohemio, cafeterías artesanales y galerías de arte.</p>
+              </div>
+              
+              <div className="bg-orange-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-3">📸 Faro Querandí</h3>
+                <p className="text-gray-700">Faro histórico en las dunas, perfecto para caminatas y fotografía de paisajes costeros.</p>
+              </div>
+              
+              <div className="bg-yellow-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-3">🏡 Recharge Retreat</h3>
+                <p className="text-gray-700">Gran estancia con cabaña para alquilar. Retiro en ambiente rural con actividades de rancho.</p>
               </div>
             </div>
           </div>
@@ -366,13 +510,13 @@ export default function QueHacerEnCariloPage() {
               ¿Listo para Descubrir Todo lo que Cariló Tiene para Ofrecer?
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Reserva tu estadía en nuestra villa premium y vive todas estas experiencias únicas desde la comodidad de tu hogar en el bosque de pinos.
+              Descubrí todas estas actividades y más alojándote en Il Buco. Ubicado estratégicamente para acceder a las mejores experiencias de Cariló.
             </p>
             <Link
-              href="/the-house"
+              href="/book"
               className="inline-flex items-center px-8 py-3 bg-white text-black text-lg rounded-md hover:bg-gray-100 transition-colors"
             >
-              Ver Casa <ArrowRight className="ml-2 h-5 w-5" />
+              Reservá tu Estadía <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </div>
         </section>
