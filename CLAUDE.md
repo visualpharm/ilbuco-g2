@@ -345,3 +345,68 @@ Thank you for staying in our house! As any house, it comes with maintenance. Her
 #### Water
 - If there's **no water**, that's probably the electrical problem, so it's still David.
 - If there's an **excess of water** or poor smell, it's probably the plumber's job. Contact plomeros Martinez, whatsapp +54 9 2254 44-0021.
+
+---
+
+## Places Nearby SEO Reorganization Plan
+
+### Overview
+Transform `/places-nearby/activities` into `/que-hacer-en-carilo` for Spanish SEO optimization.
+
+### URL Structure
+- **Spanish**: `/que-hacer-en-carilo`
+- **English**: `/en/things-to-do-carilo` 
+- **Portuguese**: `/pt/o-que-fazer-em-carilo`
+
+### SEO Keywords (Spanish Focus)
+- qué hacer en cariló (primary)
+- carilo que hacer
+- actividades en carilo  
+- carilo turismo / cariló turismo
+- que hacer en cariló cuando llueve
+- que hacer en cariló en invierno
+- cosas para hacer en carilo
+- pinamar lugares para visitar
+
+### Content Structure (Reference: cadaviajeunmundo.com)
+```
+H1: Qué Hacer en Cariló: Guía Completa de Actividades y Turismo [YEAR]
+├── H2: Mejores Actividades en Cariló
+│   ├── H3: Deportes y Actividades al Aire Libre
+│   ├── H3: Qué Hacer en Cariló Cuando Llueve (indoor activities)
+│   └── H3: Actividades en Cariló en Invierno (seasonal content)
+├── H2: Playas y Naturaleza en Cariló
+├── H2: Carilo Turismo: Gastronomía y Vida Nocturna
+├── H2: Compras y Servicios en Cariló
+└── H2: Pinamar Lugares para Visitar (nearby attractions)
+```
+
+### Activity Clustering by Intent & Type
+- **Sports & Fitness**: Gym, tennis, calisthenics, windsurfing/surf
+- **Nature & Beach**: Cycling, photography, beach activities  
+- **Adventure**: Horse riding, quad bikes, 4x4 driving
+- **Creative**: Ceramics, art activities
+- **Food & Dining**: Restaurants by type (parrilla, pizza, burgers)
+- **Shopping**: By category (supermarkets, boutiques, hardware)
+- **City Center**: Activities within walking distance of center
+- **Valeria del Mar**: Nearby town attractions
+- **Pinamar**: Day trip destinations
+
+### Distance Measurement
+- **Use Google Maps API** to measure accurate distances from Il Buco (Paraiso 324, Cariló)
+- **API Environment**: `GOOGLE_MAPS_API_KEY` stored in `.env.local`
+- **Example**: CIE gym = 1.7 km (24 min walk) from Il Buco
+- **Include Google Maps links** for all activity locations
+
+### Writing Style
+- **Maintain existing direct, factual tone** (no promotional language)
+- **Borrow structure only** from reference site, not writing style
+- **Add Il Buco context** naturally throughout content
+- **Include seasonal and weather considerations**
+
+### Dynamic Year Implementation
+```
+// TODO: Implement dynamic year in titles and metadata
+// Logic: December 1st+ shows next year (Dec 1, 2025 → "2026")
+// Title: "Qué Hacer en Cariló: Guía Completa ${currentYear}"
+```
