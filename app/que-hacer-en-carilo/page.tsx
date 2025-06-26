@@ -776,17 +776,43 @@ export default function QueHacerEnCarilo() {
                 <div className="bg-green-50 p-6 rounded-lg">
                   <h3 className="text-xl font-semibold mb-4">Supermercados</h3>
                   <ul className="text-gray-700 space-y-2">
-                    <li><strong>Supermercado Local:</strong> Productos básicos</li>
-                    <li><strong>Maxikiosco:</strong> Artículos de conveniencia</li>
-                    <li><strong>Carrefour Express (Pinamar):</strong> Mayor variedad</li>
+                    <li className="flex items-start">
+                      <span className="font-semibold mr-2">• Chicho:</span>
+                      <span>Los mejores horarios de apertura, frutas y verduras decentes.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="font-semibold mr-2">• La Proveeduría / Menor Coste:</span>
+                      <span>Estilo mini Whole Foods, opción más premium.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="font-semibold mr-2">• Coto:</span>
+                      <span>El supermercado grande más cercano, con entrega a domicilio en Cariló.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="font-semibold mr-2">• Disco:</span>
+                      <span>Buena alternativa con entrega a domicilio.</span>
+                    </li>
                   </ul>
                 </div>
                 <div className="bg-orange-50 p-6 rounded-lg">
                   <h3 className="text-xl font-semibold mb-4">Productos Frescos</h3>
                   <ul className="text-gray-700 space-y-2">
-                    <li><strong>Verdulería Local:</strong> Frutas y verduras frescas</li>
-                    <li><strong>Panadería:</strong> Pan fresco diario</li>
-                    <li><strong>Carnicería (Pinamar):</strong> Carnes de calidad</li>
+                    <li className="flex items-start">
+                      <span className="font-semibold mr-2">• Belén:</span>
+                      <span>Las mejores frutas y verduras de la zona.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="font-semibold mr-2">• Boutique de Frutas:</span>
+                      <span>Autoservicio con productos seleccionados.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="font-semibold mr-2">• Cabaña Guerrero:</span>
+                      <span>Excelente selección de carnes.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="font-semibold mr-2">• Pescadería La Constanza:</span>
+                      <span>Pescado fresco (no congelado), incluyendo salmón. Cerrada en temporada baja.</span>
+                    </li>
                   </ul>
                 </div>
                 <div className="bg-purple-50 p-6 rounded-lg">
@@ -794,7 +820,7 @@ export default function QueHacerEnCarilo() {
                   <ul className="text-gray-700 space-y-2">
                     <li><strong>Farmacia:</strong> Medicamentos básicos</li>
                     <li><strong>Cajero Automático:</strong> Banco Macro</li>
-                    <li><strong>Quimica Limpia Maurito:</strong> Limpieza (Pinamar)</li>
+                    <li><strong>Sandmasters (Pinamar):</strong> Escuela de manejo 4x4</li>
                   </ul>
                 </div>
               </div>
