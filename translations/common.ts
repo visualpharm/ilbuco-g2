@@ -23,9 +23,9 @@ export const translations = {
       pt: "Localização",
     },
     placesNearby: {
-      en: "Places Nearby",
-      es: "Lugares Cercanos",
-      pt: "Lugares Próximos",
+      en: "What to Do",
+      es: "Qué Hacer",
+      pt: "O Que Fazer",
     },
     book: {
       en: "Book",
