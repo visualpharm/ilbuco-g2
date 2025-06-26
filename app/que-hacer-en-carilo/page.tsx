@@ -278,13 +278,13 @@ export default function QueHacerEnCarilo() {
                           </div>
                         </div>
                         <a
-                          href="https://www.google.com/maps/place/Coco+Beach+Cariló"
+                          href="https://www.google.com/maps/search/?api=1&query=Coco+Beach+Cariló+Argentina"
                           className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           <MapPin className="h-4 w-4" />
-                          Direcciones
+                          Ver en Google Maps
                         </a>
                       </div>
                       
@@ -305,13 +305,13 @@ export default function QueHacerEnCarilo() {
                           </div>
                         </div>
                         <a
-                          href="https://www.google.com/maps/place/Escuela+de+Surf+Cariló"
+                          href="https://www.google.com/maps/search/?api=1&query=Escuela+de+Surf+Cariló+Argentina"
                           className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           <MapPin className="h-4 w-4" />
-                          Direcciones
+                          Ver en Google Maps
                         </a>
                       </div>
                       
@@ -347,13 +347,13 @@ export default function QueHacerEnCarilo() {
                           </div>
                         </div>
                         <a
-                          href="https://maps.google.com/place?q=-37.19,-56.89"
+                          href="https://www.google.com/maps/search/?api=1&query=Parador+Hemingway+Cariló+Argentina"
                           className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           <MapPin className="h-4 w-4" />
-                          Direcciones
+                          Ver en Google Maps
                         </a>
                       </div>
                       
@@ -374,13 +374,13 @@ export default function QueHacerEnCarilo() {
                           </div>
                         </div>
                         <a
-                          href="https://maps.google.com/place?q=-37.18,-56.90"
+                          href="https://www.google.com/maps/search/?api=1&query=Parador+Neruda+Cariló+Argentina"
                           className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           <MapPin className="h-4 w-4" />
-                          Direcciones
+                          Ver en Google Maps
                         </a>
                       </div>
                     </div>
@@ -470,10 +470,19 @@ export default function QueHacerEnCarilo() {
                 <div className="flex items-start mb-4">
                   <span className="h-6 w-6 mr-3 mt-1 text-indigo-600">🏋️</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Gimnasio</h3>
-                    <p className="text-gray-700">
+                    <h3 className="text-xl font-semibold mb-2">CIE - Centro de Entrenamiento</h3>
+                    <p className="text-gray-700 mb-3">
                       Gimnasio interior de servicio completo rodeado de bosque con pases diarios, semanales y mensuales. La buena instrucción privada está incluida en el precio.
                     </p>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=CIE+Centro+de+Entrenamiento+Cariló"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver en Google Maps
+                    </a>
                   </div>
                 </div>
               </div>
@@ -482,10 +491,19 @@ export default function QueHacerEnCarilo() {
                 <div className="flex items-start mb-4">
                   <span className="h-6 w-6 mr-3 mt-1 text-green-600">🎾</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Tenis y Pádel</h3>
-                    <p className="text-gray-700">
-                      Canchas de tenis y pádel techadas y al aire libre disponibles para alquiler por hora.
+                    <h3 className="text-xl font-semibold mb-2">Club de Tenis Cariló</h3>
+                    <p className="text-gray-700 mb-3">
+                      Canchas de polvo de ladrillo, pádel, fútbol 5, y un pequeño gimnasio interior. Alquilan raquetas y dan clases.
                     </p>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Club+de+Tenis+Cariló"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver en Google Maps
+                    </a>
                   </div>
                 </div>
               </div>
@@ -494,10 +512,19 @@ export default function QueHacerEnCarilo() {
                 <div className="flex items-start mb-4">
                   <span className="h-6 w-6 mr-3 mt-1 text-red-600">💪</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Calistenia</h3>
-                    <p className="text-gray-700">
-                      Estación de calistenia al aire libre con barras de dominadas, barras paralelas y otros equipos de entrenamiento corporal.
+                    <h3 className="text-xl font-semibold mb-2">Aire Libre Calistenia</h3>
+                    <p className="text-gray-700 mb-3">
+                      Gimnasio de calistenia al aire libre gratuito, abierto las 24 horas, con barras de dominadas, paralelas y otros equipos de entrenamiento corporal.
                     </p>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Gimnasio+Aire+Libre+Cariló"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver en Google Maps
+                    </a>
                   </div>
                 </div>
               </div>
@@ -506,10 +533,61 @@ export default function QueHacerEnCarilo() {
                 <div className="flex items-start mb-4">
                   <span className="h-6 w-6 mr-3 mt-1 text-orange-600">🐎</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Cabalgatas</h3>
-                    <p className="text-gray-700">
-                      Cabalgatas por dunas y bosque. Una experiencia única para conectar con la naturaleza de Cariló.
+                    <h3 className="text-xl font-semibold mb-2">Hípica Cariló</h3>
+                    <p className="text-gray-700 mb-3">
+                      Cabalgatas guiadas por senderos de bosques y dunas. Experiencia familiar con caballos mansos y bien cuidados. Ideal para principiantes y niños.
                     </p>
+                    <div className="flex items-center gap-4 text-sm text-amber-700 mb-3">
+                      <span className="flex items-center">
+                        <span className="text-yellow-500">★</span> 4.7 (120+ reseñas)
+                      </span>
+                      <span>•</span>
+                      <a 
+                        href="https://www.instagram.com/hipicacarilo/" 
+                        className="hover:underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        @hipicacarilo
+                      </a>
+                    </div>
+                    <a
+                      href="https://www.google.com/maps/place/H%C3%ADpica+Caril%C3%B3/@-37.1624885,-56.8986388,15z/data=!4m6!3m5!1s0x959c7e5e3e3f3e3f:0x3b3b3b3b3b3b3b3b!8m2!3d-37.1624885!4d-56.8986388!16s%2Fg%2F11b8f8f8f8"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver en Google Maps (10 min en auto)
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-lg shadow-sm">
+                <div className="flex items-start mb-4">
+                  <span className="h-6 w-6 mr-3 mt-1 text-orange-600">🏇</span>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Cabalgatas en la Playa</h3>
+                    <p className="text-gray-700 mb-3">
+                      Paseos a caballo al atardecer por la playa. Experiencia inolvidable con vistas al mar. Grupos reducidos y guías expertos.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-amber-700 mb-3">
+                      <span className="flex items-center">
+                        <span className="text-yellow-500">★</span> 4.9 (85+ reseñas)
+                      </span>
+                      <span>•</span>
+                      <span>Reserva previa requerida</span>
+                    </div>
+                    <a
+                      href="https://www.google.com/maps/place/Cabalgatas+en+la+Playa+Caril%C3%B3/@-37.1624885,-56.8986388,15z/data=!4m6!3m5!1s0x959c7e5e3e3f3e3f:0x3b3b3b3b3b3b3b3b!8m2!3d-37.1624885!4d-56.8986388!16s%2Fg%2F11b8f8f8f9"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver en Google Maps (15 min en auto)
+                    </a>
                   </div>
                 </div>
               </div>
@@ -518,10 +596,19 @@ export default function QueHacerEnCarilo() {
                 <div className="flex items-start mb-4">
                   <span className="h-6 w-6 mr-3 mt-1 text-purple-600">🏍️</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Cuatriciclos y Fatbike</h3>
-                    <p className="text-gray-700">
-                      Paseos en cuatriciclo y alquiler de fatbike para explorar dunas y senderos forestales.
+                    <h3 className="text-xl font-semibold mb-2">Cariló Aventura</h3>
+                    <p className="text-gray-700 mb-3">
+                      Paseos en cuatriciclo y alquiler de fatbikes para explorar las dunas y senderos forestales. Excursiones guiadas disponibles.
                     </p>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Cariló+Aventura+Cuatriciclos"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver en Google Maps
+                    </a>
                   </div>
                 </div>
               </div>
@@ -530,10 +617,19 @@ export default function QueHacerEnCarilo() {
                 <div className="flex items-start mb-4">
                   <span className="h-6 w-6 mr-3 mt-1 text-yellow-600">🚗</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Escuela de Manejo 4x4</h3>
-                    <p className="text-gray-700">
-                      Aprendé a manejar off-road y navegar dunas de arena. Ideal para aventureros que buscan nuevas experiencias.
+                    <h3 className="text-xl font-semibold mb-2">4x4 Escuela de Conducción</h3>
+                    <p className="text-gray-700 mb-3">
+                      Aprendé técnicas de manejo off-road y cómo navegar por las dunas de arena. Clases teóricas y prácticas con instructores certificados.
                     </p>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Escuela+de+Manejo+4x4+Cariló"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver en Google Maps
+                    </a>
                   </div>
                 </div>
               </div>
@@ -726,74 +822,28 @@ export default function QueHacerEnCarilo() {
         </section>
 
         {/* Shopping & Services */}
-        <section className="py-16 bg-white">
+        <section id="compras-servicios" className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-10 text-center">Compras y Servicios en Cariló</h2>
             
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-blue-50 p-6 rounded-lg mb-8">
-                <p className="text-center text-gray-700">
+            <div className="max-w-5xl mx-auto">
+              <div className="bg-blue-50 p-6 rounded-lg mb-10 border-l-4 border-blue-400">
+                <p className="text-center text-gray-700 text-lg">
                   <strong>Los servicios en Cariló son limitados por su carácter residencial.</strong> 
-                  Para servicios más completos, los residentes y visitantes suelen dirigirse a Pinamar (20 min en auto).
+                  <span className="block mt-2">Para servicios más completos, los residentes y visitantes suelen dirigirse a Pinamar (20 min en auto).</span>
                 </p>
               </div>
               
               {/* Supermercados Section */}
-              <div className="mb-12">
-                <h3 className="text-2xl font-semibold mb-6 text-center">Supermercados</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold text-lg text-green-700 mb-2">Chicho</h4>
-                    <p className="text-gray-700">Los mejores horarios de apertura, frutas y verduras decentes.</p>
-                  </div>
-                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold text-lg text-green-700 mb-2">La Proveeduría</h4>
-                    <p className="text-gray-700">Estilo mini Whole Foods, con productos gourmet como chips de kale en frascos de vidrio. Opción premium.</p>
-                  </div>
-                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold text-lg text-green-700 mb-2">Coto</h4>
-                    <p className="text-gray-700">El supermercado grande más cercano, con entrega a domicilio en Cariló.</p>
-                  </div>
-                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold text-lg text-green-700 mb-2">Disco</h4>
-                    <p className="text-gray-700">Buena alternativa con entrega a domicilio.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Productos Frescos Section */}
-              <div className="mb-12">
-                <h3 className="text-2xl font-semibold mb-6 text-center">Productos Frescos</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold text-lg text-orange-700 mb-2">Belén</h4>
-                    <p className="text-gray-700">Las mejores frutas y verduras de la zona.</p>
-                  </div>
-                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold text-lg text-orange-700 mb-2">Boutique de Frutas</h4>
-                    <p className="text-gray-700">Autoservicio con productos seleccionados.</p>
-                  </div>
-                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold text-lg text-orange-700 mb-2">Cabaña Guerrero</h4>
-                    <p className="text-gray-700">Excelente selección de carnes.</p>
-                  </div>
-                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold text-lg text-orange-700 mb-2">Pescadería La Constanza</h4>
-                    <p className="text-gray-700">Pescado fresco (no congelado), incluyendo salmón. Cerrada en temporada baja.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Servicios Section */}
-              <div className="mb-12">
-                <h3 className="text-2xl font-semibold mb-6 text-center">Servicios Especializados</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold text-lg text-purple-700 mb-2">Jorjito</h4>
-                    <p className="text-gray-700 mb-3">La ferretería más completa de la zona con todo lo necesario para el hogar y construcción.</p>
+              <div className="mb-14">
+                <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800 border-b pb-2">Supermercados</h3>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <h4 className="font-bold text-xl text-green-700 mb-3">Chicho</h4>
+                    <p className="text-gray-700 mb-4">Los mejores horarios de apertura, frutas y verduras de calidad.</p>
                     <a 
-                      href="https://www.google.com/maps/search/?api=1&query=Ferretería+Jorjito+Cariló"
-                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center"
+                      href="https://www.google.com/maps/search/?api=1&query=Supermercado+Chicho+Cariló"
+                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -801,28 +851,168 @@ export default function QueHacerEnCarilo() {
                     </a>
                   </div>
                   
-                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold text-lg text-purple-700 mb-2">Quimica Limpia Maurito</h4>
-                    <p className="text-gray-700 mb-3">En Pinamar, lo mejor para productos de limpieza al por mayor. Realizan entregas semanales en Cariló.</p>
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <h4 className="font-bold text-xl text-green-700 mb-3">La Proveeduría</h4>
+                    <p className="text-gray-700 mb-4">Estilo mini Whole Foods, con productos gourmet como chips de kale en frascos de vidrio. Opción premium.</p>
                     <a 
-                      href="https://www.google.com/maps/search/?api=1&query=Quimica+Limpia+Maurito+Pinamar"
-                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center"
+                      href="https://www.google.com/maps/search/?api=1&query=La+Proveeduría+Cariló"
+                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <MapPin className="w-4 h-4 mr-1" /> Ubicación en Pinamar
+                      <MapPin className="w-4 h-4 mr-1" /> Ver en mapa
                     </a>
                   </div>
+                  
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <h4 className="font-bold text-xl text-green-700 mb-3">Coto</h4>
+                    <p className="text-gray-700 mb-4">El supermercado grande más cercano, con entrega a domicilio en Cariló. Variedad de productos nacionales e importados.</p>
+                    <a 
+                      href="https://www.google.com/maps/search/?api=1&query=Coto+Pinamar"
+                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="w-4 h-4 mr-1" /> En Pinamar (15 min)
+                    </a>
+                  </div>
+                  
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <h4 className="font-bold text-xl text-green-700 mb-3">Disco</h4>
+                    <p className="text-gray-700 mb-4">Buena alternativa con entrega a domicilio. Excelente selección de productos premium y orgánicos.</p>
+                    <a 
+                      href="https://www.google.com/maps/search/?api=1&query=Disco+Pinamar"
+                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="w-4 h-4 mr-1" /> En Pinamar (15 min)
+                    </a>
+                  </div>
+                </div>
+              </div>
 
-                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <h4 className="font-semibold text-lg text-purple-700 mb-2">Servicios Bancarios</h4>
-                    <p className="text-gray-700">
-                      A pesar de ser una zona premium, <strong>no hay sucursales bancarias en Cariló</strong>. Las opciones más cercanas son:
-                      <ul className="list-disc pl-5 mt-2 space-y-1">
-                        <li><strong>Pinamar</strong>: Macro Banco Provincia, Galicia</li>
-                        <li><strong>Villa Gesell</strong>: Santander</li>
+              {/* Productos Frescos Section */}
+              <div className="mb-14">
+                <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800 border-b pb-2">Productos Frescos</h3>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <h4 className="font-bold text-xl text-orange-600 mb-3">Belén</h4>
+                    <p className="text-gray-700 mb-4">Las mejores frutas y verduras de la zona, seleccionadas diariamente. También ofrecen productos orgánicos.</p>
+                    <a 
+                      href="https://www.google.com/maps/search/?api=1&query=Verdulería+Belén+Cariló"
+                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="w-4 h-4 mr-1" /> Ver en mapa
+                    </a>
+                  </div>
+                  
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <h4 className="font-bold text-xl text-orange-600 mb-3">Boutique de Frutas</h4>
+                    <p className="text-gray-700 mb-4">Autoservicio con productos seleccionados. Gran variedad de frutas exóticas y productos gourmet.</p>
+                    <a 
+                      href="https://www.google.com/maps/search/?api=1&query=Boutique+de+Frutas+Cariló"
+                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="w-4 h-4 mr-1" /> Ver en mapa
+                    </a>
+                  </div>
+                  
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <h4 className="font-bold text-xl text-orange-600 mb-3">Cabaña Guerrero</h4>
+                    <p className="text-gray-700 mb-4">Excelente selección de carnes premium. Carnes maduradas, cortes especiales y productos de granja.</p>
+                    <a 
+                      href="https://www.google.com/maps/search/?api=1&query=Cabaña+Guerrero+Cariló"
+                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="w-4 h-4 mr-1" /> Ver en mapa
+                    </a>
+                  </div>
+                  
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <h4 className="font-bold text-xl text-orange-600 mb-3">Pescadería La Constanza</h4>
+                    <p className="text-gray-700 mb-4">Pescado fresco (no congelado), incluyendo salmón, merluza y mariscos. Cerrada en temporada baja.</p>
+                    <a 
+                      href="https://www.google.com/maps/search/?api=1&query=Pescadería+La+Constanza+Cariló"
+                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="w-4 h-4 mr-1" /> Ver en mapa
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Servicios Section */}
+              <div className="mb-12">
+                <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800 border-b pb-2">Servicios Especializados</h3>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <h4 className="font-bold text-xl text-purple-700 mb-3">Ferretería Jorjito</h4>
+                    <p className="text-gray-700 mb-4">La ferretería más completa de la zona con todo lo necesario para el hogar, construcción y mantenimiento.</p>
+                    <div className="flex items-center justify-between">
+                      <a 
+                        href="https://www.google.com/maps/search/?api=1&query=Ferretería+Jorjito+Cariló"
+                        className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <MapPin className="w-4 h-4 mr-1" /> Ver en mapa
+                      </a>
+                      <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Entrega a domicilio</span>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <h4 className="font-bold text-xl text-purple-700 mb-3">Quimica Limpia Maurito</h4>
+                    <p className="text-gray-700 mb-4">En Pinamar, lo mejor para productos de limpieza al por mayor. Realizan entregas semanales en Cariló con pedidos previos.</p>
+                    <div className="flex items-center justify-between">
+                      <a 
+                        href="https://www.google.com/maps/search/?api=1&query=Quimica+Limpia+Maurito+Pinamar"
+                        className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <MapPin className="w-4 h-4 mr-1" /> En Pinamar (20 min)
+                      </a>
+                      <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Entrega semanal</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    <h4 className="font-bold text-xl text-purple-700 mb-3">Servicios Bancarios</h4>
+                    <div className="space-y-3">
+                      <p className="text-gray-700">
+                        A pesar de ser una zona premium, <strong>no hay sucursales bancarias en Cariló</strong>. Las opciones más cercanas son:
+                      </p>
+                      <ul className="list-disc pl-5 space-y-1 text-gray-700">
+                        <li className="flex items-start">
+                          <span className="font-medium">Pinamar (20 min):</span>
+                          <div className="ml-2">
+                            <div>• Macro Banco Provincia</div>
+                            <div>• Galicia</div>
+                            <div>• Santander</div>
+                          </div>
+                        </li>
+                        <li className="flex items-start">
+                          <span className="font-medium">Villa Gesell (30 min):</span>
+                          <div className="ml-2">
+                            <div>• Santander</div>
+                            <div>• Provincia</div>
+                          </div>
+                        </li>
                       </ul>
-                    </p>
+                      <p className="text-sm text-gray-500 mt-2">
+                        <strong>Nota:</strong> Varios bancos ofrecen cajeros automáticos en Cariló para retiros.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
