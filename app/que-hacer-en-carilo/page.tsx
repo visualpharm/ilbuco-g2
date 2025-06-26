@@ -11,10 +11,8 @@ import {
   MapPin,
   Camera,
   Bike,
-  UtensilsCrossed,
-  ShoppingBag as Shopping,
-  Music,
   Sunrise,
+  ShoppingBag as Shopping,
 } from "lucide-react"
 
 export const metadata: Metadata = {
@@ -103,10 +101,36 @@ export default function QueHacerEnCarilo() {
                 <div className="flex items-start mb-4">
                   <Bike className="h-6 w-6 mr-3 mt-1 text-orange-600" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Aventuras en Bicicleta</h3>
-                    <p className="text-gray-700">
+                    <h3 className="text-xl font-semibold mb-2">Alquiler de Bicicletas</h3>
+                    <p className="text-gray-700 mb-3">
                       Alquilá bicicletas y explorá Cariló y las áreas circundantes. Las calles de arena sin pavimentar y el entorno natural de la ciudad hacen que la experiencia de ciclismo sea agradable.
                     </p>
+                    <div className="space-y-2 text-sm">
+                      <div>
+                        <strong>Motorrad:</strong> Alquiler de FatBike y Mountain Bike. 1.8 km de Il Buco (24 min caminando).
+                        <br />
+                        <a
+                          href="https://www.google.com/maps/search/?api=1&query=Motorrad+Cerezo+entre+Boyero+Carilo"
+                          className="text-blue-600 hover:text-blue-800 text-xs"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Cerezo entre Boyero, Cariló
+                        </a>
+                      </div>
+                      <div>
+                        <strong>Action Bike:</strong> Bicicletas playeras y Mountain Bike con entrega a domicilio. 1.9 km de Il Buco (26 min caminando).
+                        <br />
+                        <a
+                          href="https://www.google.com/maps/search/?api=1&query=Action+Bike+Av+Espora+Valeria+del+Mar"
+                          className="text-blue-600 hover:text-blue-800 text-xs"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Av. Espora, Valeria del Mar
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -232,81 +256,160 @@ export default function QueHacerEnCarilo() {
           </div>
         </section>
 
-        {/* Gastronomy and Shopping Section */}
+        {/* Gastronomy Section */}
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-10 text-center">
-              Carilo Turismo: Gastronomía y Vida Nocturna
+            <h2 className="text-3xl font-bold mb-12 text-center">
+              Gastronomía en Cariló
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-orange-50 p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <UtensilsCrossed className="h-6 w-6 mr-3 mt-1 text-orange-600" />
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Parrillas y Asados</h3>
-                    <p className="text-gray-700 mb-3">
-                      Parrilla Argentina (la mejor), Don Benito (elegante), De Mi Campo (barra de ensaladas), La Parrillita (auténtico).
-                    </p>
+            
+            {/* Main Dining */}
+            <div className="mb-16">
+              <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800">Comida Principal</h3>
+              
+              {/* Parrillas Subsection */}
+              <div className="mb-12">
+                <h4 className="text-xl font-medium mb-6 text-center text-gray-700">Parrillas y Asados</h4>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="bg-gradient-to-br from-red-50 to-red-100 p-5 rounded-lg shadow-sm border border-red-100">
+                    <h5 className="text-lg font-semibold mb-2 text-red-800">Don Benito</h5>
+                    <p className="text-gray-700 text-sm mb-2">Parrilla estilo bodegón. Elegante y sofisticado, especializado en carnes de exportación.</p>
+                    <p className="text-xs text-gray-600">Centro de Cariló • @donbenito_carilo</p>
+                  </div>
+                  <div className="bg-gradient-to-br from-red-50 to-red-100 p-5 rounded-lg shadow-sm border border-red-100">
+                    <h5 className="text-lg font-semibold mb-2 text-red-800">De Mi Campo</h5>
+                    <p className="text-gray-700 text-sm mb-2">⭐ 4.2/5 (777 reseñas). Destacado por su barra de ensaladas y área de juegos para niños.</p>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=De+Mi+Campo+Avellano+181+Carilo"
+                      className="text-blue-600 hover:text-blue-800 text-xs"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      📍 Avellano 181, Cariló
+                    </a>
+                  </div>
+                  <div className="bg-gradient-to-br from-red-50 to-red-100 p-5 rounded-lg shadow-sm border border-red-100">
+                    <h5 className="text-lg font-semibold mb-2 text-red-800">La Colorada</h5>
+                    <p className="text-gray-700 text-sm mb-2">⭐ 4.5/5 (976 reseñas). En la entrada de Cariló, precios atractivos y buena calidad.</p>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Parrilla+La+Colorada+Rotonda+Carilo"
+                      className="text-blue-600 hover:text-blue-800 text-xs"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      📍 Rotonda Cariló, Ruta Provincial Nº11
+                    </a>
+                  </div>
+                  <div className="bg-gradient-to-br from-red-50 to-red-100 p-5 rounded-lg shadow-sm border border-red-100">
+                    <h5 className="text-lg font-semibold mb-2 text-red-800">La Pulpería</h5>
+                    <p className="text-gray-700 text-sm mb-2">⭐ 4.0/5 (259 reseñas). Lugar tradicional con más de 35 años de experiencia.</p>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Parrilla+La+Pulperia+Divisadero+1490+Carilo"
+                      className="text-blue-600 hover:text-blue-800 text-xs"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      📍 Av. Divisadero 1490, Centro Comercial
+                    </a>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-green-50 p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-green-600">☕</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Cafés y Panaderías</h3>
-                    <p className="text-gray-700">
-                      Panadería y Café (mejor tostada de palta), Café Francés (siempre abierto), Panettone, Masse (panes con semillas).
-                    </p>
+              {/* Pizza & International Subsection */}
+              <div className="mb-12">
+                <h4 className="text-xl font-medium mb-6 text-center text-gray-700">Pizza e Internacional</h4>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-5 rounded-lg shadow-sm border border-orange-100">
+                    <h5 className="text-lg font-semibold mb-2 text-orange-800">Il Gatto Nero</h5>
+                    <p className="text-gray-700 text-sm">Pizza napolitana premiada de chefs italianos (también hicieron nuestros sofás).</p>
+                  </div>
+                  <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-5 rounded-lg shadow-sm border border-yellow-100">
+                    <h5 className="text-lg font-semibold mb-2 text-yellow-800">Impeke</h5>
+                    <p className="text-gray-700 text-sm">Hamburguesas gourmet destacadas (Valeria del Mar).</p>
+                  </div>
+                  <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-5 rounded-lg shadow-sm border border-yellow-100">
+                    <h5 className="text-lg font-semibold mb-2 text-yellow-800">Enri's</h5>
+                    <p className="text-gray-700 text-sm">Hamburguesas en Cariló.</p>
+                  </div>
+                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-sm border border-blue-100">
+                    <h5 className="text-lg font-semibold mb-2 text-blue-800">Más Opciones</h5>
+                    <p className="text-gray-700 text-sm">Otros restaurantes internacionales en el centro comercial.</p>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div className="bg-blue-50 p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-blue-600">🍕</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Comida Internacional</h3>
-                    <p className="text-gray-700">
-                      Pizza napolitana premiada de chefs italianos. Hamburguesas gourmet e Impeke en Valeria del Mar.
-                    </p>
+            {/* Cafés & Sweets */}
+            <div className="mb-16">
+              <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800">Cafés y Dulces</h3>
+              
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* Cafés y Panaderías */}
+                <div>
+                  <h4 className="text-xl font-medium mb-6 text-center text-gray-700">Cafés y Panaderías</h4>
+                  <div className="space-y-4">
+                    <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-5 rounded-lg shadow-sm border border-amber-100">
+                      <h5 className="text-lg font-semibold mb-2 text-amber-800">Panadería y Café</h5>
+                      <p className="text-gray-700 text-sm">Excelente café y productos horneados; la mejor tostada de palta.</p>
+                    </div>
+                    <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-5 rounded-lg shadow-sm border border-amber-100">
+                      <h5 className="text-lg font-semibold mb-2 text-amber-800">Café Francés</h5>
+                      <p className="text-gray-700 text-sm">Siempre abierto, perfecto para cualquier momento.</p>
+                    </div>
+                    <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-5 rounded-lg shadow-sm border border-amber-100">
+                      <h5 className="text-lg font-semibold mb-2 text-amber-800">Panettone</h5>
+                      <p className="text-gray-700 text-sm">Simple y confiable.</p>
+                    </div>
+                    <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-5 rounded-lg shadow-sm border border-amber-100">
+                      <h5 className="text-lg font-semibold mb-2 text-amber-800">Masse</h5>
+                      <p className="text-gray-700 text-sm">Panes elegantes con semillas.</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Heladerías */}
+                <div>
+                  <h4 className="text-xl font-medium mb-6 text-center text-gray-700">Heladerías</h4>
+                  <div className="space-y-4">
+                    <div className="bg-gradient-to-r from-pink-50 to-rose-50 p-5 rounded-lg shadow-sm border border-pink-100">
+                      <h5 className="text-lg font-semibold mb-2 text-pink-800">Colonial</h5>
+                      <p className="text-gray-700 text-sm">Mi helado favorito (Valeria del Mar).</p>
+                    </div>
+                    <div className="bg-gradient-to-r from-pink-50 to-rose-50 p-5 rounded-lg shadow-sm border border-pink-100">
+                      <h5 className="text-lg font-semibold mb-2 text-pink-800">Lucciano's</h5>
+                      <p className="text-gray-700 text-sm">El lugar más bonito para disfrutar helados.</p>
+                    </div>
+                    {/* Spacer for visual balance */}
+                    <div className="bg-gradient-to-r from-pink-50 to-rose-50 p-5 rounded-lg shadow-sm border border-pink-100 opacity-50">
+                      <h5 className="text-lg font-semibold mb-2 text-pink-800">Más Opciones</h5>
+                      <p className="text-gray-700 text-sm">Siempre hay nuevas heladerías temporales durante la temporada alta.</p>
+                    </div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div className="bg-purple-50 p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-purple-600">🍨</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Heladerías</h3>
-                    <p className="text-gray-700">
-                      Colonial en Valeria del Mar (el favorito) y Lucciano's (el lugar más bonito para disfrutar helados).
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-yellow-50 p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <Shopping className="h-6 w-6 mr-3 mt-1 text-yellow-600" />
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Boutiques y Compras</h3>
-                    <p className="text-gray-700">
-                      Boutiques del centro de Cariló, supermercados Chicho, Coto, Disco con entrega a domicilio.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-red-50 p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <Music className="h-6 w-6 mr-3 mt-1 text-red-600" />
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Vida Nocturna</h3>
-                    <p className="text-gray-700">
-                      Bares, vinotecas con vinos argentinos, y ambientes sofisticados para disfrutar al atardecer.
-                    </p>
+            {/* Vida Nocturna */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800">Vida Nocturna</h3>
+              <div className="max-w-4xl mx-auto">
+                <div className="bg-gradient-to-r from-gray-50 to-slate-50 p-6 rounded-lg shadow-sm border border-gray-200">
+                  <p className="text-gray-700 mb-4 text-center">
+                    La vida nocturna en Cariló es limitada por las ordenanzas municipales que priorizan la tranquilidad del lugar. 
+                  </p>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <div className="bg-white p-4 rounded-lg border border-gray-100">
+                      <h5 className="font-semibold mb-2 text-gray-800">Bar Principal</h5>
+                      <p className="text-gray-600 text-sm">Un bar con ocasionales conciertos en vivo.</p>
+                    </div>
+                    <div className="bg-white p-4 rounded-lg border border-gray-100">
+                      <h5 className="font-semibold mb-2 text-gray-800">Cervecerías</h5>
+                      <p className="text-gray-600 text-sm">Un par de cervecerías al aire libre.</p>
+                    </div>
+                    <div className="bg-white p-4 rounded-lg border border-gray-100">
+                      <h5 className="font-semibold mb-2 text-gray-800">Vinotecas</h5>
+                      <p className="text-gray-600 text-sm">Vinos argentinos para disfrutar al atardecer.</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -314,156 +417,115 @@ export default function QueHacerEnCarilo() {
           </div>
         </section>
 
-              {/* Qué hacer cuando llueve */}
-              <section className="mb-12">
-                <h2 className="text-3xl font-bold mb-6">Qué Hacer en Cariló Cuando Llueve</h2>
-                
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-3">Clases de Cerámica</h3>
-                    <p className="text-gray-700">Aprendé alfarería y artes cerámicas en un ambiente creativo en Valeria del Mar. Perfecto para días lluviosos.</p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-semibold mb-3">Gastronomía Local - Espacios Cubiertos</h3>
-                    <p className="text-gray-700 mb-3">Los mejores restaurantes de Cariló ofrecen espacios cubiertos y acogedores:</p>
-                    <ul className="space-y-2 text-gray-700 ml-4">
-                      <li><strong>Parrilla Argentina:</strong> La mejor parrilla con muchos extras gratuitos. También recomendado: Don Benito (elegante), De Mi Campo (¡barra de ensaladas!), La Parrillita (básico en el buen sentido).</li>
-                      <li><strong>Pizza Italiana:</strong> Pizza napolitana premiada de los chefs italianos (también hicieron nuestros sofás).</li>
-                      <li><strong>Café Francés:</strong> Siempre abierto.</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-semibold mb-3">Compras en el Centro</h3>
-                    <p className="text-gray-700">Las boutiques del centro de Cariló y supermercados como Chicho con buenos horarios de apertura para días de lluvia.</p>
-                  </div>
-                </div>
-              </section>
-
-              {/* Actividades de invierno */}
-              <section className="mb-12">
-                <h2 className="text-3xl font-bold mb-6">Actividades en Cariló en Invierno</h2>
-                
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-3">Cabalgatas de Invierno</h3>
-                    <p className="text-gray-700">Las temperaturas más frescas hacen que la experiencia de cabalgatas sea más cómoda durante los meses de invierno.</p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-semibold mb-3">Escuela de Manejo 4x4 en Temporada Baja</h3>
-                    <p className="text-gray-700">Ideal para la temporada baja con menos tráfico. Mejor momento para aprender sin multitudes.</p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-semibold mb-3">Fotografía y Arte</h3>
-                    <p className="text-gray-700">El entorno natural de Il Buco y los alrededores de Cariló ofrecen luz natural e vistas inspiradoras perfectas para la fotografía, el dibujo, la pintura u otras actividades creativas durante los meses más tranquilos.</p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-semibold mb-3">Trabajo y Concentración</h3>
-                    <p className="text-gray-700">Con nuestro internet de alta velocidad y espacios de trabajo cómodos, IL BUCO es el lugar perfecto para concentrarte en tus proyectos más importantes durante el invierno.</p>
-                  </div>
-                </div>
-              </section>
-
-              {/* Alrededores */}
-              <section className="mb-12">
-                <h2 className="text-3xl font-bold mb-6">Alrededores de Cariló</h2>
-                
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-4">Pinamar Lugares para Visitar</h3>
-                    <ul className="space-y-2 text-gray-700">
-                      <li><strong>Sandmasters:</strong> Escuela de manejo 4x4 especializada en dunas</li>
-                      <li><strong>La Constanza Pinamar:</strong> Pescadería abierta en temporada baja</li>
-                      <li><strong>Quimica Limpia Maurito:</strong> Productos de limpieza al por mayor</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-semibold mb-4">Valeria del Mar</h3>
-                    <ul className="space-y-2 text-gray-700">
-                      <li><strong>Impeke:</strong> Hamburguesas gourmet destacadas</li>
-                      <li><strong>Colonial:</strong> La mejor heladería de la zona</li>
-                      <li><strong>Fusion Arte del Mar:</strong> Clases de cerámica y arte</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-semibold mb-3">Mar de las Pampas</h3>
-                    <p className="text-gray-700">Localidad costera tranquila ideal para escapadas de un día. Ambiente bohemio y relajado con cafeterías artesanales y galerías de arte.</p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-semibold mb-3">Faro Querandí</h3>
-                    <p className="text-gray-700">Faro histórico ubicado en las dunas. Perfecto para caminatas y fotografía de paisajes costeros. Vista panorámica de la costa atlántica.</p>
-                  </div>
-
-                  <div className="md:col-span-2">
-                    <h3 className="text-xl font-semibold mb-3">Recharge Retreat</h3>
-                    <p className="text-gray-700">Gran estancia con cabaña para alquilar. Retiro de recarga en ambiente rural con actividades de rancho y naturaleza.</p>
-                  </div>
-                </div>
-              </section>
-
-              {/* Compras */}
-              <section className="mb-12">
-                <h2 className="text-3xl font-bold mb-6">Compras y Servicios en Cariló</h2>
-                
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-4">Supermercados</h3>
-                    <ul className="space-y-2 text-gray-700">
-                      <li><strong>Chicho:</strong> Los mejores horarios de apertura, frutas y verduras decentes</li>
-                      <li><strong>La Proveeduría / Menor Coste:</strong> Caro, mini Whole Foods</li>
-                      <li><strong>Coto:</strong> El supermercado grande más cercano; tienen de todo, desde comida hasta muebles y bicicletas. Tienda online con entrega a Cariló</li>
-                      <li><strong>Disco:</strong> Alternativa sin tomar la autopista. También entregan a Cariló</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-semibold mb-4">Productos Frescos</h3>
-                    <ul className="space-y-2 text-gray-700">
-                      <li><strong>Belén:</strong> Las mejores frutas y verduras</li>
-                      <li><strong>Boutique de Frutas:</strong> Autoservicio, lo cual no es común. Elegí las mejores o culpá a alguien más</li>
-                      <li><strong>Cabaña Guerrero:</strong> Mi carne favorita</li>
-                      <li><strong>La Constanza (Cariló):</strong> Pescado fresco, no congelado, incluso salmón. Cerrado durante temporada baja</li>
-                      <li><strong>La Constanza (Pinamar):</strong> Abierto durante temporada baja cuando la ubicación de Cariló está cerrada</li>
-                    </ul>
-                  </div>
-                </div>
-              </section>
-
         {/* Weather & Winter Activities */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-6xl mx-auto">
               <h2 className="text-3xl font-bold mb-10 text-center">Qué Hacer en Cariló Cuando Llueve</h2>
               
-              <div className="grid md:grid-cols-2 gap-8 mb-12">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                 <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">🎨 Clases de Cerámica</h3>
-                  <p className="text-gray-700">Aprendé alfarería y artes cerámicas en un ambiente creativo en Valeria del Mar. Perfecto para días lluviosos.</p>
+                  <h3 className="text-xl font-semibold mb-3">Clases de Cerámica</h3>
+                  <p className="text-gray-700">Aprendé alfarería y artes cerámicas en Fusion Arte del Mar, Valeria del Mar. Perfecto para días lluviosos.</p>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">🍽️ Espacios Cubiertos</h3>
-                  <p className="text-gray-700">Los mejores restaurantes de Cariló ofrecen espacios cubiertos: parrillas, pizzerías y cafés para días de lluvia.</p>
+                  <h3 className="text-xl font-semibold mb-3">Gastronomía Cubierta</h3>
+                  <p className="text-gray-700">Todos los restaurantes principales tienen espacios cubiertos: Parrilla Argentina, Don Benito, Pizza Napolitana, Café Francés.</p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="text-xl font-semibold mb-3">Compras en Boutiques</h3>
+                  <p className="text-gray-700">Boutiques del centro de Cariló ofrecen ropa, diseño y artesanías locales bajo techo.</p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="text-xl font-semibold mb-3">Gimnasio Cubierto</h3>
+                  <p className="text-gray-700">Gimnasio interior completo rodeado de bosque, perfecto para mantener la rutina de ejercicios.</p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="text-xl font-semibold mb-3">Tenis y Pádel Cubierto</h3>
+                  <p className="text-gray-700">Canchas de tenis y pádel techadas disponibles para días de lluvia.</p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="text-xl font-semibold mb-3">Trabajo Remoto</h3>
+                  <p className="text-gray-700">Il Buco ofrece internet de alta velocidad y espacios cómodos para trabajar productivamente desde casa.</p>
                 </div>
               </div>
 
               <h2 className="text-3xl font-bold mb-10 text-center">Actividades en Cariló en Invierno</h2>
               
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-blue-50 p-6 rounded-lg mb-8">
+                <p className="text-center text-gray-700 mb-4">
+                  <strong>La mayoría de las actividades de Cariló se pueden disfrutar durante todo el año.</strong> 
+                  El clima templado hace que el invierno sea ideal para muchas actividades al aire libre.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">🐎 Cabalgatas de Invierno</h3>
-                  <p className="text-gray-700">Las temperaturas más frescas hacen que la experiencia de cabalgatas sea más cómoda durante los meses de invierno.</p>
+                  <h3 className="text-xl font-semibold mb-3">Cabalgatas de Invierno</h3>
+                  <p className="text-gray-700">Las temperaturas más frescas hacen que las cabalgatas sean más cómodas y agradables.</p>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">💻 Trabajo y Concentración</h3>
-                  <p className="text-gray-700">Con internet de alta velocidad y espacios cómodos, IL BUCO es perfecto para concentrarte en proyectos importantes durante el invierno.</p>
+                  <h3 className="text-xl font-semibold mb-3">Trabajo y Concentración</h3>
+                  <p className="text-gray-700">Temporada baja perfecta para proyectos importantes sin las distracciones del verano.</p>
                 </div>
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="text-xl font-semibold mb-3">Escuela 4x4 Temporada Baja</h3>
+                  <p className="text-gray-700">Ideal para aprender manejo off-road con menos tráfico y más atención personalizada.</p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="text-xl font-semibold mb-3">Ciclismo de Invierno</h3>
+                  <p className="text-gray-700">Temperaturas perfectas para largos paseos en bicicleta por senderos y playa.</p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="text-xl font-semibold mb-3">Fotografía de Naturaleza</h3>
+                  <p className="text-gray-700">Luz natural espectacular y paisajes únicos durante los meses más tranquilos.</p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="text-xl font-semibold mb-3">Surf de Invierno</h3>
+                  <p className="text-gray-700">Temporada de surf continúa en invierno, con mejores olas y menos multitudes.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Shopping and Services */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-10 text-center">Compras y Servicios en Cariló</h2>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="text-xl font-semibold mb-3 flex items-center">
+                  <span className="mr-2">🛒</span> Supermercados
+                </h3>
+                <ul className="space-y-2 text-gray-700 text-sm">
+                  <li><strong>Chicho:</strong> Mejores horarios, frutas y verduras decentes</li>
+                  <li><strong>Coto:</strong> Supermercado grande, entrega a Cariló</li>
+                  <li><strong>Disco:</strong> Alternativa, también entregan</li>
+                </ul>
+              </div>
+
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="text-xl font-semibold mb-3 flex items-center">
+                  <span className="mr-2">🥩</span> Productos Frescos
+                </h3>
+                <ul className="space-y-2 text-gray-700 text-sm">
+                  <li><strong>Belén:</strong> Las mejores frutas y verduras</li>
+                  <li><strong>Cabaña Guerrero:</strong> Mi carne favorita</li>
+                  <li><strong>La Constanza:</strong> Pescado fresco (temporada)</li>
+                </ul>
+              </div>
+
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="text-xl font-semibold mb-3 flex items-center">
+                  <span className="mr-2">🔧</span> Servicios
+                </h3>
+                <ul className="space-y-2 text-gray-700 text-sm">
+                  <li><strong>Jorjito:</strong> Ferretería más completa</li>
+                  <li><strong>Boutiques del Centro:</strong> Ropa y diseño</li>
+                  <li><strong>Quimica Limpia Maurito:</strong> Limpieza (Pinamar)</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -476,28 +538,28 @@ export default function QueHacerEnCarilo() {
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-blue-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-3">🏖️ Pinamar</h3>
-                <p className="text-gray-700">Sandmasters (4x4), La Constanza (pescadería), servicios especializados.</p>
+                <h3 className="text-xl font-semibold mb-3">Pinamar</h3>
+                <p className="text-gray-700">Sandmasters (escuela 4x4), La Constanza (pescadería), Quimicas Limpia Maurito, servicios especializados y supermercados grandes.</p>
               </div>
               
               <div className="bg-green-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-3">🍔 Valeria del Mar</h3>
-                <p className="text-gray-700">Impeke (hamburguesas), Colonial (helados), Fusion Arte del Mar (cerámica).</p>
+                <h3 className="text-xl font-semibold mb-3">Valeria del Mar</h3>
+                <p className="text-gray-700">Impeke (hamburguesas gourmet), Colonial (helados), Fusion Arte del Mar (cerámica), Action Bike (alquiler de bicicletas).</p>
               </div>
               
               <div className="bg-purple-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-3">🎨 Mar de las Pampas</h3>
-                <p className="text-gray-700">Localidad costera tranquila con ambiente bohemio, cafeterías artesanales y galerías de arte.</p>
+                <h3 className="text-xl font-semibold mb-3">Mar de las Pampas</h3>
+                <p className="text-gray-700">Localidad similar a Cariló pero con lotes más pequeños y mayor densidad de casas. A veces tiene más vida pública, incluyendo excelentes conciertos de música clásica.</p>
               </div>
               
               <div className="bg-orange-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-3">📸 Faro Querandí</h3>
-                <p className="text-gray-700">Faro histórico en las dunas, perfecto para caminatas y fotografía de paisajes costeros.</p>
+                <h3 className="text-xl font-semibold mb-3">Faro Querandí</h3>
+                <p className="text-gray-700">Faro histórico ubicado en las dunas, perfecto para caminatas y fotografía de paisajes costeros con vista panorámica.</p>
               </div>
               
               <div className="bg-yellow-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-3">🏡 Recharge Retreat</h3>
-                <p className="text-gray-700">Gran estancia con cabaña para alquilar. Retiro en ambiente rural con actividades de rancho.</p>
+                <h3 className="text-xl font-semibold mb-3">Recharge Retreat</h3>
+                <p className="text-gray-700">Gran estancia con cabaña para alquilar. Retiro de recarga en ambiente rural con actividades de rancho y naturaleza.</p>
               </div>
             </div>
           </div>

@@ -410,3 +410,11 @@ H1: Qué Hacer en Cariló: Guía Completa de Actividades y Turismo [YEAR]
 // Logic: December 1st+ shows next year (Dec 1, 2025 → "2026")
 // Title: "Qué Hacer en Cariló: Guía Completa ${currentYear}"
 ```
+
+## Further work on actividades carilo
+https://www.carilo.com/actividades-en-carilo - check these places with google maps:
+1. If they still exist
+2. Add a link to Google Maps 
+3. Their rating
+4. Distance from Il Buco
+5. A description based on the reviews that Google Maps permits to read
