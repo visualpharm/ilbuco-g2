@@ -230,7 +230,7 @@ export default function QueHacerEnCarilo() {
         <section className="py-12 bg-gray-50">
           <div className="container mx-auto px-4">
             <p className="text-lg text-gray-700 text-center max-w-4xl mx-auto">
-              He reunido la lista de negocios que suelo usar y programar, y agregué los enlaces a Google Maps. Hay un enlace al perfil, la calificación y la cantidad de reseñas. O sea, algo que probablemente harías igual antes de ir. Para todos los lugares, está la distancia desde Il Buco. Así que para los que no se están quedando en nuestra hermosa residencia, piensen en la salida a la playa más cercana a Pinamar, la salida a la playa más cercana de Cariló, la salida a la playa en Cariló más cercana a Pinamar. Algún día voy a poder programar el recálculo de distancias según tu ubicación actual.
+              He recopilado la lista de los negocios que usualmente utilizo y programo, y agregué los enlaces a Google Maps. Hay un enlace al perfil, la calificación y el número de reseñas. Entonces, algo que probablemente harías de todos modos antes de ir allí. Para todos los lugares, está la distancia desde Il Buco. Así que, para aquellos de ustedes que no se alojan en nuestra hermosa residencia, piensen en la salida de playa más cercana a Pinamar, la salida de playa más cercana de Cariló, la salida de playa en Cariló más cercana a Pinamar. Algún día podré programar el recálculo de distancias basado en su ubicación actual.
             </p>
           </div>
         </section>
@@ -244,7 +244,6 @@ export default function QueHacerEnCarilo() {
             <p className="text-lg text-gray-700 text-center max-w-4xl mx-auto mb-10">
               La playa de Cariló ofrece amplias oportunidades para surf, windsurf, y simplemente relajarse en la arena. El entorno natural único combina bosque de pinos con costa atlántica.
             </p>
-
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-blue-50 p-6 rounded-lg">
                 <div className="flex items-start mb-4">
@@ -450,14 +449,50 @@ export default function QueHacerEnCarilo() {
                   </div>
                 </div>
               </div>
+
+              <div className="bg-purple-50 p-6 rounded-lg">
+                <div className="flex items-start mb-4">
+                  <Camera className="h-6 w-6 mr-3 mt-1 text-purple-600" />
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Fotografía de Naturaleza</h3>
+                    <p className="text-gray-700">
+                      La luz natural y las vistas inspiradoras hacen que IL BUCO sea perfecto para la fotografía, el dibujo, la pintura u otras actividades creativas.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-yellow-50 p-6 rounded-lg">
+                <div className="flex items-start mb-4">
+                  <Sunrise className="h-6 w-6 mr-3 mt-1 text-yellow-600" />
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Amaneceres y Atardeceres</h3>
+                    <p className="text-gray-700">
+                      Caminatas al amanecer por la orilla del mar y contemplación de atardeceres únicos entre pinos y océano.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-teal-50 p-6 rounded-lg">
+                <div className="flex items-start mb-4">
+                  <Tree className="h-6 w-6 mr-3 mt-1 text-teal-600" />
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Bosque de Pinos</h3>
+                    <p className="text-gray-700">
+                      Explorá senderos naturales entre pinos centenarios. Rutas de diferentes dificultades con flora y fauna local única.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Sports Activities Section */}
-        <section id="deportes-fitness" className="py-16 bg-gray-50">
+        <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-10 text-center">
+            <h2 id="deportes-fitness" className="text-3xl font-bold mb-10 text-center">
               Deportes y Actividades al Aire Libre
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -473,31 +508,31 @@ export default function QueHacerEnCarilo() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm">
+              <div className="bg-gradient-to-br from-cyan-50 to-blue-50 p-6 rounded-lg shadow-sm">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-green-600">🎾</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-cyan-600">🎾</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Tenis y Pádel</h3>
                     <p className="text-gray-700">
-                      Canchas de tenis y pádel techadas y al aire libre disponibles para alquiler por hora.
+                      Canchas de polvo de ladrillo, pádel, fútbol 5, y un pequeño gimnasio interior. Alquilan raquetas y dan clases.
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-red-50 to-rose-50 p-6 rounded-lg shadow-sm">
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm">
                 <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-red-600">💪</span>
+                  <span className="h-6 w-6 mr-3 mt-1 text-green-600">💪</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Calistenia</h3>
+                    <h3 className="text-xl font-semibold mb-2">Calistenia al Aire Libre</h3>
                     <p className="text-gray-700">
-                      Estación de calistenia al aire libre con barras de dominadas, barras paralelas y otros equipos de entrenamiento corporal.
+                      Gimnasio de calistenia al aire libre gratuito las 24 horas con barras y paralelas.
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-lg shadow-sm">
+              <div className="bg-gradient-to-br from-orange-50 to-red-50 p-6 rounded-lg shadow-sm">
                 <div className="flex items-start mb-4">
                   <span className="h-6 w-6 mr-3 mt-1 text-orange-600">🐎</span>
                   <div>
@@ -537,9 +572,9 @@ export default function QueHacerEnCarilo() {
         </section>
 
         {/* Gastronomy Section */}
-        <section id="comida-restaurantes" className="py-16 bg-white">
+        <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-12 text-center">
+            <h2 id="comida-restaurantes" className="text-3xl font-bold mb-12 text-center">
               Comida y Restaurantes en Cariló
             </h2>
               
@@ -591,19 +626,13 @@ export default function QueHacerEnCarilo() {
                 </div>
               </div>
 
-            {/* Pizza & Burgers Subsection */}
+            {/* Pizza & International Subsection */}
             <div className="mb-16">
-              <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800">Pizza & Burgers</h3>
+              <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800">Pizza Internacional</h3>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-5 rounded-lg shadow-sm border-2 border-orange-200 relative">
-                    <div className="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded-full">$$$</div>
+                  <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-5 rounded-lg shadow-sm border border-orange-100">
                     <h5 className="text-lg font-semibold mb-2 text-orange-800">Il Gatto Nero</h5>
-                    <p className="text-gray-700 text-sm">La mejor pizza napolitana de la zona, hecha por chefs italianos. ¡Nuestra recomendación personal! (también hicieron nuestros sofás).</p>
-                  </div>
-                  <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-5 rounded-lg shadow-sm border border-orange-100 relative">
-                    <div className="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded-full">$$$</div>
-                    <h5 className="text-lg font-semibold mb-2 text-orange-800">Pepe Napoli</h5>
-                    <p className="text-gray-700 text-sm">Otra excelente opción de pizza napolitana, aunque no tan destacada como Il Gatto Nero.</p>
+                    <p className="text-gray-700 text-sm">Pizza napolitana premiada de chefs italianos (también hicieron nuestros sofás).</p>
                   </div>
                   <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-5 rounded-lg shadow-sm border border-yellow-100">
                     <h5 className="text-lg font-semibold mb-2 text-yellow-800">Impeke</h5>
@@ -613,9 +642,13 @@ export default function QueHacerEnCarilo() {
                     <h5 className="text-lg font-semibold mb-2 text-yellow-800">Enri's</h5>
                     <p className="text-gray-700 text-sm">Hamburguesas en Cariló.</p>
                   </div>
-
+                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg shadow-sm border border-blue-100">
+                    <h5 className="text-lg font-semibold mb-2 text-blue-800">Más Opciones</h5>
+                    <p className="text-gray-700 text-sm">Otros restaurantes internacionales en el centro comercial.</p>
+                  </div>
                 </div>
               </div>
+            </div>
 
             {/* Cafés y Panaderías */}
             <div className="mb-16">
@@ -735,77 +768,76 @@ export default function QueHacerEnCarilo() {
                   <p className="text-gray-700">Las temperaturas más frescas hacen que las cabalgatas sean más cómodas y agradables.</p>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Caminatas en la Playa</h3>
-                  <p className="text-gray-700">La playa en invierno es perfecta para caminatas largas y relajantes sin las multitudes del verano.</p>
+                  <h3 className="text-xl font-semibold mb-3">Trabajo y Concentración</h3>
+                  <p className="text-gray-700">Temporada baja perfecta para proyectos importantes sin las distracciones del verano.</p>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Ciclismo de Bosque</h3>
-                  <p className="text-gray-700">Explorá los senderos forestales con temperaturas agradables para el ciclismo.</p>
+                  <h3 className="text-xl font-semibold mb-3">Escuela 4x4 Temporada Baja</h3>
+                  <p className="text-gray-700">Ideal para aprender manejo off-road con menos tráfico y más atención personalizada.</p>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Observación de Vida Silvestre</h3>
-                  <p className="text-gray-700">El invierno es excelente para observar la fauna local en un ambiente más tranquilo.</p>
+                  <h3 className="text-xl font-semibold mb-3">Ciclismo de Invierno</h3>
+                  <p className="text-gray-700">Temperaturas perfectas para largos paseos en bicicleta por senderos y playa.</p>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Fotografía de Paisajes</h3>
-                  <p className="text-gray-700">La luz de invierno y los paisajes brindan oportunidades fotográficas únicas.</p>
+                  <h3 className="text-xl font-semibold mb-3">Fotografía de Naturaleza</h3>
+                  <p className="text-gray-700">Luz natural espectacular y paisajes únicos durante los meses más tranquilos.</p>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Retiros de Bienestar</h3>
-                  <p className="text-gray-700">El ambiente sereno del invierno es perfecto para retiros de yoga y meditación.</p>
+                  <h3 className="text-xl font-semibold mb-3">Surf de Invierno</h3>
+                  <p className="text-gray-700">Temporada de surf continúa en invierno, con mejores olas y menos multitudes.</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Shopping & Services */}
-        <section className="py-16 bg-white">
+        {/* Shopping and Services */}
+        <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-10 text-center">Compras y Servicios en Cariló</h2>
             
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-blue-50 p-6 rounded-lg mb-8">
-                <p className="text-center text-gray-700">
-                  <strong>Los servicios en Cariló son limitados por su carácter residencial.</strong> 
-                  Para servicios más completos, los residentes y visitantes suelen dirigirse a Pinamar (20 min en auto).
-                </p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="text-xl font-semibold mb-3 flex items-center">
+                  <span className="mr-2">🛒</span> Supermercados
+                </h3>
+                <ul className="space-y-2 text-gray-700 text-sm">
+                  <li><strong>Chicho:</strong> Mejores horarios, frutas y verduras decentes</li>
+                  <li><strong>Coto:</strong> Supermercado grande, entrega a Cariló</li>
+                  <li><strong>Disco:</strong> Alternativa, también entregan</li>
+                </ul>
               </div>
-              
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-green-50 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold mb-4">Supermercados</h3>
-                  <ul className="text-gray-700 space-y-2">
-                    <li><strong>Supermercado Local:</strong> Productos básicos</li>
-                    <li><strong>Maxikiosco:</strong> Artículos de conveniencia</li>
-                    <li><strong>Carrefour Express (Pinamar):</strong> Mayor variedad</li>
-                  </ul>
-                </div>
-                <div className="bg-orange-50 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold mb-4">Productos Frescos</h3>
-                  <ul className="text-gray-700 space-y-2">
-                    <li><strong>Verdulería Local:</strong> Frutas y verduras frescas</li>
-                    <li><strong>Panadería:</strong> Pan fresco diario</li>
-                    <li><strong>Carnicería (Pinamar):</strong> Carnes de calidad</li>
-                  </ul>
-                </div>
-                <div className="bg-purple-50 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold mb-4">Servicios</h3>
-                  <ul className="text-gray-700 space-y-2">
-                    <li><strong>Farmacia:</strong> Medicamentos básicos</li>
-                    <li><strong>Cajero Automático:</strong> Banco Macro</li>
-                    <li><strong>Quimica Limpia Maurito:</strong> Limpieza (Pinamar)</li>
-                  </ul>
-                </div>
+
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="text-xl font-semibold mb-3 flex items-center">
+                  <span className="mr-2">🥩</span> Productos Frescos
+                </h3>
+                <ul className="space-y-2 text-gray-700 text-sm">
+                  <li><strong>Belén:</strong> Las mejores frutas y verduras</li>
+                  <li><strong>Cabaña Guerrero:</strong> Mi carne favorita</li>
+                  <li><strong>La Constanza:</strong> Pescado fresco (temporada)</li>
+                </ul>
+              </div>
+
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="text-xl font-semibold mb-3 flex items-center">
+                  <span className="mr-2">🔧</span> Servicios
+                </h3>
+                <ul className="space-y-2 text-gray-700 text-sm">
+                  <li><strong>Jorjito:</strong> Ferretería más completa</li>
+                  <li><strong>Boutiques del Centro:</strong> Ropa y diseño</li>
+                  <li><strong>Quimica Limpia Maurito:</strong> Limpieza (Pinamar)</li>
+                </ul>
               </div>
             </div>
           </div>
         </section>
 
         {/* Surrounding Areas */}
-        <section id="alrededores" className="py-16 bg-white">
+        <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-10 text-center">Alrededores de Cariló</h2>
+            <h2 id="alrededores" className="text-3xl font-bold mb-10 text-center">Alrededores de Cariló</h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-blue-50 p-6 rounded-lg">
@@ -815,36 +847,44 @@ export default function QueHacerEnCarilo() {
               
               <div className="bg-green-50 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-3">Valeria del Mar</h3>
-                <p className="text-gray-700">Impeke Burgers, Colonial (heladería), Fusion Arte del Mar (clases de cerámica) y ambiente más relajado.</p>
+                <p className="text-gray-700">Impeke (hamburguesas gourmet), Colonial (helados), Fusion Arte del Mar (cerámica), Action Bike (alquiler de bicicletas).</p>
               </div>
               
               <div className="bg-purple-50 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-3">Mar de las Pampas</h3>
-                <p className="text-gray-700">Villa balnearia bohemia con arquitectura única, gastronomía gourmet y ambiente artístico.</p>
+                <p className="text-gray-700">Localidad similar a Cariló pero con lotes más pequeños y mayor densidad de casas. A veces tiene más vida pública, incluyendo excelentes conciertos de música clásica.</p>
+              </div>
+              
+              <div className="bg-orange-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-3">Faro Querandí</h3>
+                <p className="text-gray-700">Faro histórico ubicado en las dunas, perfecto para caminatas y fotografía de paisajes costeros con vista panorámica.</p>
               </div>
               
               <div className="bg-yellow-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-3">Faro Querandí</h3>
-                <p className="text-gray-700">Faro histórico con vistas panorámicas del océano, ideal para excursiones fotográficas.</p>
-              </div>
-              
-              <div className="bg-indigo-50 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-3">Recharge Retreat</h3>
-                <p className="text-gray-700">Centro de bienestar y retiros espirituales en las afueras de la ciudad.</p>
+                <p className="text-gray-700">Gran estancia con cabaña para alquilar. Retiro de recarga en ambiente rural con actividades de rancho y naturaleza.</p>
               </div>
-            </div>
-            
-            <div className="text-center mt-12">
-              <Link
-                href="/book"
-                className="inline-flex items-center px-8 py-3 bg-white text-black text-lg rounded-md hover:bg-gray-100 transition-colors"
-              >
-                Reservá tu Estadía <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
             </div>
           </div>
         </section>
 
+        {/* CTA Section */}
+        <section className="py-16 bg-black text-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-4">
+              ¿Listo para Descubrir Todo lo que Cariló Tiene para Ofrecer?
+            </h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto">
+              Descubrí todas estas actividades y más alojándote en Il Buco. Ubicado estratégicamente para acceder a las mejores experiencias de Cariló.
+            </p>
+            <Link
+              href="/book"
+              className="inline-flex items-center px-8 py-3 bg-white text-black text-lg rounded-md hover:bg-gray-100 transition-colors"
+            >
+              Reservá tu Estadía <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </div>
+        </section>
       </main>
 
       <SiteFooter />

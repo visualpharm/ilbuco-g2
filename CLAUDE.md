@@ -404,6 +404,10 @@ H1: Qué Hacer en Cariló: Guía Completa de Actividades y Turismo [YEAR]
 - **Add Il Buco context** naturally throughout content
 - **Include seasonal and weather considerations**
 
+### Que hacer intro
+Translate it to the language of the website, of course:
+I have compiled the list of the businesses I usually use and programmed, and added the links to Google Maps. There is a link to the profile, the rating, and the number of reviews. So, something you would probably do anyway before going there. For all places, or the distance from Il Buco. So, for those of you who don't stay in our beautiful residence, think about the closest beach exit to Pinamar, closest beach exit of Karelo, beach exit in Karelo closest to Pinamar. Someday I may program recalculation of distances based on your current location. 
+
 ### Dynamic Year Implementation
 ```
 // TODO: Implement dynamic year in titles and metadata
@@ -418,3 +422,4 @@ https://www.carilo.com/actividades-en-carilo - check these places with google ma
 3. Their rating
 4. Distance from Il Buco
 5. A description based on the reviews that Google Maps permits to read
+
