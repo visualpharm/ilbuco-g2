@@ -1,34 +1,144 @@
-import { Metadata } from "next"
+"use client"
+
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
-import { HeroImage } from "@/components/hero-image"
 import Link from "next/link"
 import Image from "next/image"
+import { useState, useEffect } from "react"
+import { X, ChevronLeft, ChevronRight } from "lucide-react"
 import {
   ArrowRight,
   Waves,
   TreesIcon as Tree,
-  MapPin,
   Camera,
   Bike,
   Sunrise,
-  ShoppingBag as Shopping,
 } from "lucide-react"
 
-export const metadata: Metadata = {
-  title: 'Qué Hacer en Cariló: Guía Completa de Actividades y Turismo 2025',
-  description: 'Descubre qué hacer en Cariló con nuestra guía completa. Actividades, deportes, gastronomía y lugares para visitar en Cariló y Pinamar. ¡Planifica tu viaje!',
-  alternates: {
-    canonical: 'https://ilbuco.com.ar/que-hacer-en-carilo',
-    languages: {
-      'es': 'https://ilbuco.com.ar/que-hacer-en-carilo',
-      'en': 'https://ilbuco.com.ar/en/things-to-do-carilo',
-      'pt': 'https://ilbuco.com.ar/pt/o-que-fazer-em-carilo',
-    },
+// Cariló gallery images - the renamed photos from /public/photo/carilo
+const cariloGalleryImages = [
+  {
+    src: "/photo/carilo/carilo-villa-nocturna-bosque-pinos.jpg",
+    alt: "Villa IL BUCO iluminada de noche entre bosque de pinos en Cariló",
+    title: "Villa Nocturna en Bosque de Pinos",
   },
-}
+  {
+    src: "/photo/carilo/carilo-villa-iluminada-noche-bosque.jpg",
+    alt: "Casa moderna iluminada por la noche en el bosque de Cariló",
+    title: "Villa Iluminada en Bosque",
+  },
+  {
+    src: "/photo/carilo/carilo-bosque-pinos-nocturno.jpg",
+    alt: "Bosque de pinos de Cariló iluminado durante la noche",
+    title: "Bosque de Pinos Nocturno",
+  },
+  {
+    src: "/photo/carilo/carilo-trabajo-remoto-terraza.jpg",
+    alt: "Espacio de trabajo remoto en terraza con vista al bosque en Cariló",
+    title: "Trabajo Remoto en Terraza",
+  },
+  {
+    src: "/photo/carilo/carilo-paisajismo-natural-plantas.jpg",
+    alt: "Paisajismo natural con plantas nativas en Cariló",
+    title: "Paisajismo Natural",
+  },
+  {
+    src: "/photo/carilo/carilo-jardin-paisajismo-natural-plantas.jpg",
+    alt: "Jardín con paisajismo natural y plantas en Cariló",
+    title: "Jardín Natural",
+  },
+  {
+    src: "/photo/carilo/carilo-playa-tormenta-atlantico.jpg",
+    alt: "Playa de Cariló durante tormenta con cielo dramático en el Atlántico",
+    title: "Playa con Tormenta",
+  },
+  {
+    src: "/photo/carilo/carilo-playa-salvavidas-costa-atlantica.jpg",
+    alt: "Torre de salvavidas en la playa de Cariló, costa atlántica",
+    title: "Torre de Salvavidas",
+  },
+  {
+    src: "/photo/carilo/carilo-playa-persona-caminando-oceano.jpg",
+    alt: "Persona caminando por la playa de Cariló frente al océano Atlántico",
+    title: "Caminata en la Playa",
+  },
+  {
+    src: "/photo/carilo/carilo-playa-caminata-ejercicio-costa.jpg",
+    alt: "Actividad de caminata y ejercicio en la costa de Cariló",
+    title: "Ejercicio en la Costa",
+  },
+  {
+    src: "/photo/carilo/carilo-playa-relax-manta-costa.jpg",
+    alt: "Momento de relax con manta en la playa de Cariló",
+    title: "Relax en la Playa",
+  },
+  {
+    src: "/photo/carilo/carilo-playa-olas-arena-costa-atlantica.jpg",
+    alt: "Olas y arena en la costa atlántica de Cariló",
+    title: "Olas y Arena",
+  },
+  {
+    src: "/photo/carilo/carilo-olas-playa-azul-surf.jpg",
+    alt: "Olas azules perfectas para surf en la playa de Cariló",
+    title: "Olas para Surf",
+  },
+  {
+    src: "/photo/carilo/carilo-torre-salvavidas-playa.jpg",
+    alt: "Torre de salvavidas en la extensa playa de Cariló",
+    title: "Torre de Salvavidas",
+  },
+  {
+    src: "/photo/carilo/carilo-perros-mascotas-alojamiento.jpg",
+    alt: "Alojamiento pet-friendly para perros y mascotas en Cariló",
+    title: "Alojamiento Pet-Friendly",
+  },
+]
 
 export default function QueHacerEnCarilo() {
+  const [selectedImage, setSelectedImage] = useState<number | null>(null)
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImage === null) return
+
+      if (e.key === "Escape") {
+        setSelectedImage(null)
+      } else if (e.key === "ArrowLeft") {
+        setSelectedImage((prev) => (prev === null ? null : prev === 0 ? cariloGalleryImages.length - 1 : prev - 1))
+      } else if (e.key === "ArrowRight") {
+        setSelectedImage((prev) => (prev === null ? null : prev === cariloGalleryImages.length - 1 ? 0 : prev + 1))
+      }
+    }
+
+    if (selectedImage !== null) {
+      document.addEventListener("keydown", handleKeyDown)
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = "unset"
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown)
+      document.body.style.overflow = "unset"
+    }
+  }, [selectedImage])
+
+  const openLightbox = (index: number) => {
+    setSelectedImage(index)
+  }
+
+  const closeLightbox = () => {
+    setSelectedImage(null)
+  }
+
+  const goToPrevious = () => {
+    setSelectedImage((prev) => (prev === null ? null : prev === 0 ? cariloGalleryImages.length - 1 : prev - 1))
+  }
+
+  const goToNext = () => {
+    setSelectedImage((prev) => (prev === null ? null : prev === cariloGalleryImages.length - 1 ? 0 : prev + 1))
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
@@ -55,12 +165,41 @@ export default function QueHacerEnCarilo() {
                 </div>
               </div>
               <div className="order-2 md:order-2">
-                <HeroImage 
-                  src="/photo/zona/File 24-04-2025, 10 36 15 PM (5) (1).jpg"
-                  alt="Qué hacer en Cariló - vista panorámica de playa y bosque de pinos"
-                  priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
-                />
+                <div className="space-y-1">
+                  {/* Main Hero Image */}
+                  <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden">
+                    <Image
+                      src="/photo/zona/File 24-04-2025, 10 36 15 PM (5) (1).jpg"
+                      alt="Qué hacer en Cariló - vista panorámica de playa y bosque de pinos"
+                      fill
+                      className="object-cover"
+                      priority
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
+                    />
+                  </div>
+                  
+                  {/* Tiny Gallery Previews */}
+                  <div className="flex gap-1 overflow-x-auto pb-1 scrollbar-hide">
+                    {cariloGalleryImages.map((image, index) => (
+                      <button
+                        key={index}
+                        onClick={() => openLightbox(index)}
+                        className="relative flex-shrink-0 group cursor-pointer"
+                      >
+                        <div className="relative w-14 h-10 rounded-md overflow-hidden">
+                          <Image
+                            src={image.src}
+                            alt={image.alt}
+                            fill
+                            className="object-cover transition-transform duration-200 group-hover:scale-110"
+                            sizes="56px"
+                          />
+                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-200"></div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -585,6 +724,66 @@ export default function QueHacerEnCarilo() {
       </main>
 
       <SiteFooter />
+
+      {/* Lightbox for Cariló Gallery */}
+      {selectedImage !== null && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center p-4">
+          {/* Close button */}
+          <button
+            onClick={closeLightbox}
+            className="absolute top-4 right-4 z-10 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all duration-200"
+          >
+            <X className="h-6 w-6 text-white" />
+          </button>
+
+          {/* Previous button */}
+          <button
+            onClick={goToPrevious}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all duration-200"
+          >
+            <ChevronLeft className="h-6 w-6 text-white" />
+          </button>
+
+          {/* Next button */}
+          <button
+            onClick={goToNext}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all duration-200"
+          >
+            <ChevronRight className="h-6 w-6 text-white" />
+          </button>
+
+          {/* Main image */}
+          <div className="relative max-w-7xl max-h-full w-full h-full flex items-center justify-center">
+            <div className="relative w-full h-full max-w-5xl max-h-[90vh]">
+              <Image
+                src={cariloGalleryImages[selectedImage].src}
+                alt={cariloGalleryImages[selectedImage].alt}
+                fill
+                className="object-contain"
+                sizes="100vw"
+                priority
+              />
+            </div>
+          </div>
+
+          {/* Image title */}
+          <div className="absolute bottom-16 left-1/2 -translate-x-1/2 px-4 py-2 bg-white bg-opacity-20 rounded-lg">
+            <span className="text-white text-lg font-medium">
+              {cariloGalleryImages[selectedImage].title}
+            </span>
+          </div>
+
+          {/* Image counter */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-white bg-opacity-20 rounded-full">
+            <span className="text-white text-sm">
+              {selectedImage + 1} / {cariloGalleryImages.length}
+            </span>
+          </div>
+
+          {/* Click outside to close */}
+          <div className="absolute inset-0 -z-10" onClick={closeLightbox} />
+        </div>
+      )}
     </div>
   )
 }
