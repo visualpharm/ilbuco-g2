@@ -266,7 +266,7 @@ export default function QueHacerEnCarilo() {
                           </div>
                         </div>
                         <a
-                          href="https://www.google.com/maps/search/?api=1&query=Motorrad+Cerezo+entre+Boyero+Carilo"
+                          href="https://www.google.com/maps/place/Motorrad,+Cerezo,+Cariló,+Provincia+de+Buenos+Aires,+Argentina"
                           className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
                           target="_blank"
                           rel="noopener noreferrer"
@@ -279,7 +279,7 @@ export default function QueHacerEnCarilo() {
                       <div className="bg-white p-4 rounded-lg border border-orange-100">
                         <h4 className="font-bold text-gray-800 mb-2">Action Bike</h4>
                         <p className="text-gray-700 text-sm mb-3">
-                          Bicicletas playeras y Mountain Bike con entrega a domicilio. Servicio conveniente con delivery incluido para mayor comodidad.
+                          Bicicletas playeras y Mountain Bike con entrega a domicilio. Servicio que incluye delivery sin costo adicional.
                         </p>
                         <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
                           <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
@@ -293,7 +293,7 @@ export default function QueHacerEnCarilo() {
                           </div>
                         </div>
                         <a
-                          href="https://www.google.com/maps/search/?api=1&query=Action+Bike+Av+Espora+Valeria+del+Mar"
+                          href="https://www.google.com/maps/place/Action+Bike,+Av.+Espora,+Valeria+del+Mar,+Provincia+de+Buenos+Aires,+Argentina"
                           className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
                           target="_blank"
                           rel="noopener noreferrer"
