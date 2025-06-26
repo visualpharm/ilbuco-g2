@@ -13,6 +13,9 @@ import {
   Camera,
   Bike,
   Sunrise,
+  User,
+  Car,
+  MapPin,
 } from "lucide-react"
 
 // Cariló gallery images - the renamed photos from /public/photo/carilo
@@ -241,32 +244,62 @@ export default function QueHacerEnCarilo() {
                   <Bike className="h-6 w-6 mr-3 mt-1 text-orange-600" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Alquiler de Bicicletas</h3>
-                    <p className="text-gray-700 mb-3">
+                    <p className="text-gray-700 mb-4">
                       Alquilá bicicletas y explorá Cariló y las áreas circundantes. Las calles de arena sin pavimentar y el entorno natural de la ciudad hacen que la experiencia de ciclismo sea agradable.
                     </p>
-                    <div className="space-y-2 text-sm">
-                      <div>
-                        <strong>Motorrad:</strong> Alquiler de FatBike y Mountain Bike. 1.8 km de Il Buco (24 min caminando).
-                        <br />
+                    
+                    <div className="space-y-4">
+                      <div className="bg-white p-4 rounded-lg border border-orange-100">
+                        <h4 className="font-bold text-gray-800 mb-2">Motorrad</h4>
+                        <p className="text-gray-700 text-sm mb-3">
+                          Alquiler de FatBike y Mountain Bike. Negocio familiar especializado en bicicletas todo terreno, con equipos de calidad y buen mantenimiento.
+                        </p>
+                        <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
+                          <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
+                          <div className="flex items-center gap-1">
+                            <User className="h-4 w-4" />
+                            <span>24 min</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Car className="h-4 w-4" />
+                            <span>7 min</span>
+                          </div>
+                        </div>
                         <a
                           href="https://www.google.com/maps/search/?api=1&query=Motorrad+Cerezo+entre+Boyero+Carilo"
-                          className="text-blue-600 hover:text-blue-800 text-xs"
+                          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Cerezo entre Boyero, Cariló
+                          <MapPin className="h-4 w-4" />
+                          Direcciones
                         </a>
                       </div>
-                      <div>
-                        <strong>Action Bike:</strong> Bicicletas playeras y Mountain Bike con entrega a domicilio. 1.9 km de Il Buco (26 min caminando).
-                        <br />
+                      
+                      <div className="bg-white p-4 rounded-lg border border-orange-100">
+                        <h4 className="font-bold text-gray-800 mb-2">Action Bike</h4>
+                        <p className="text-gray-700 text-sm mb-3">
+                          Bicicletas playeras y Mountain Bike con entrega a domicilio. Servicio conveniente con delivery incluido para mayor comodidad.
+                        </p>
+                        <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
+                          <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
+                          <div className="flex items-center gap-1">
+                            <User className="h-4 w-4" />
+                            <span>26 min</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Car className="h-4 w-4" />
+                            <span>8 min</span>
+                          </div>
+                        </div>
                         <a
                           href="https://www.google.com/maps/search/?api=1&query=Action+Bike+Av+Espora+Valeria+del+Mar"
-                          className="text-blue-600 hover:text-blue-800 text-xs"
+                          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Av. Espora, Valeria del Mar
+                          <MapPin className="h-4 w-4" />
+                          Direcciones
                         </a>
                       </div>
                     </div>
