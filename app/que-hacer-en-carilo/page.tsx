@@ -175,14 +175,14 @@ export default function QueHacerEnCarilo() {
                       <span className="h-5 w-5 text-orange-600 mr-3">🍽️</span>
                       <span className="text-sm font-medium text-gray-800">Comida y Restaurantes</span>
                     </a>
-                    <a href="#cuando-llueve" className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200">
+                    <Link href="/que-hacer-en-carilo/cuando-llueve" className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200">
                       <span className="h-5 w-5 text-gray-600 mr-3">🌧️</span>
                       <span className="text-sm font-medium text-gray-800">Qué Hacer Cuando Llueve</span>
-                    </a>
-                    <a href="#actividades-invierno" className="flex items-center p-3 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors border border-indigo-200">
+                    </Link>
+                    <Link href="/que-hacer-en-carilo/en-invierno" className="flex items-center p-3 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors border border-indigo-200">
                       <span className="h-5 w-5 text-indigo-600 mr-3">❄️</span>
                       <span className="text-sm font-medium text-gray-800">Actividades en Invierno</span>
-                    </a>
+                    </Link>
                     <a href="#alrededores" className="flex items-center p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors border border-purple-200">
                       <Car className="h-5 w-5 text-purple-600 mr-3" />
                       <span className="text-sm font-medium text-gray-800">Lugares en los Alrededores</span>
@@ -695,70 +695,31 @@ export default function QueHacerEnCarilo() {
         {/* Weather & Winter Activities */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <h2 id="cuando-llueve" className="text-3xl font-bold mb-10 text-center">Qué Hacer en Cariló Cuando Llueve</h2>
-              
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Clases de Cerámica</h3>
-                  <p className="text-gray-700">Aprendé alfarería y artes cerámicas en Fusion Arte del Mar, Valeria del Mar. Perfecto para días lluviosos.</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Gastronomía Cubierta</h3>
-                  <p className="text-gray-700">Todos los restaurantes principales tienen espacios cubiertos: Parrilla Argentina, Don Benito, Pizza Napolitana, Café Francés.</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Compras en Boutiques</h3>
-                  <p className="text-gray-700">Boutiques del centro de Cariló ofrecen ropa, diseño y artesanías locales bajo techo.</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Gimnasio Cubierto</h3>
-                  <p className="text-gray-700">Gimnasio interior completo rodeado de bosque, perfecto para mantener la rutina de ejercicios.</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Tenis y Pádel Cubierto</h3>
-                  <p className="text-gray-700">Canchas de tenis y pádel techadas disponibles para días de lluvia.</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Trabajo Remoto</h3>
-                  <p className="text-gray-700">Il Buco ofrece internet de alta velocidad y espacios cómodos para trabajar productivamente desde casa.</p>
-                </div>
-              </div>
-
-              <h2 id="actividades-invierno" className="text-3xl font-bold mb-10 text-center">Actividades en Cariló en Invierno</h2>
-              
-              <div className="bg-blue-50 p-6 rounded-lg mb-8">
-                <p className="text-center text-gray-700 mb-4">
-                  <strong>La mayoría de las actividades de Cariló se pueden disfrutar durante todo el año.</strong> 
-                  El clima templado hace que el invierno sea ideal para muchas actividades al aire libre.
+            <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+              <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <h2 className="text-2xl font-bold mb-4">¿Llueve en Cariló?</h2>
+                <p className="text-gray-700 mb-6">
+                  No dejes que la lluvia arruine tus planes. Descubrí todas las actividades bajo techo y opciones para disfrutar incluso en días lluviosos.
                 </p>
+                <Link 
+                  href="/que-hacer-en-carilo/cuando-llueve" 
+                  className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
+                >
+                  Ver actividades para días de lluvia <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Cabalgatas de Invierno</h3>
-                  <p className="text-gray-700">Las temperaturas más frescas hacen que las cabalgatas sean más cómodas y agradables.</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Caminatas en la Playa</h3>
-                  <p className="text-gray-700">La playa en invierno es perfecta para caminatas largas y relajantes sin las multitudes del verano.</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Ciclismo de Bosque</h3>
-                  <p className="text-gray-700">Explorá los senderos forestales con temperaturas agradables para el ciclismo.</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Observación de Vida Silvestre</h3>
-                  <p className="text-gray-700">El invierno es excelente para observar la fauna local en un ambiente más tranquilo.</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Fotografía de Paisajes</h3>
-                  <p className="text-gray-700">La luz de invierno y los paisajes brindan oportunidades fotográficas únicas.</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">Retiros de Bienestar</h3>
-                  <p className="text-gray-700">El ambiente sereno del invierno es perfecto para retiros de yoga y meditación.</p>
-                </div>
+              
+              <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <h2 className="text-2xl font-bold mb-4">Cariló en Invierno</h2>
+                <p className="text-gray-700 mb-6">
+                  El clima templado de Cariló hace que el invierno sea ideal para disfrutar de actividades al aire libre sin las multitudes del verano.
+                </p>
+                <Link 
+                  href="/que-hacer-en-carilo/en-invierno" 
+                  className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
+                >
+                  Descubrí las actividades invernales <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </div>
             </div>
           </div>
