@@ -5,17 +5,22 @@ import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"
-import { X, ChevronLeft, ChevronRight } from "lucide-react"
-import {
-  ArrowRight,
-  Waves,
-  TreesIcon as Tree,
-  Camera,
-  Bike,
-  Sunrise,
-  User,
+import { 
+  X, 
+  ChevronLeft, 
+  ChevronRight, 
+  ArrowRight, 
+  MapPin, 
+  Wrench, 
+  Droplets,
+  Waves, 
+  Trees as Tree, 
+  Camera, 
+  Bike, 
+  Sunrise, 
+  User, 
   Car,
-  MapPin,
+  Droplet
 } from "lucide-react"
 
 // Cariló gallery images - the renamed photos from /public/photo/carilo
@@ -772,56 +777,92 @@ export default function QueHacerEnCarilo() {
                 </p>
               </div>
               
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-green-50 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold mb-4">Supermercados</h3>
-                  <ul className="text-gray-700 space-y-2">
-                    <li className="flex items-start">
-                      <span className="font-semibold mr-2">• Chicho:</span>
-                      <span>Los mejores horarios de apertura, frutas y verduras decentes.</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="font-semibold mr-2">• La Proveeduría / Menor Coste:</span>
-                      <span>Estilo mini Whole Foods, opción más premium.</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="font-semibold mr-2">• Coto:</span>
-                      <span>El supermercado grande más cercano, con entrega a domicilio en Cariló.</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="font-semibold mr-2">• Disco:</span>
-                      <span>Buena alternativa con entrega a domicilio.</span>
-                    </li>
-                  </ul>
+              {/* Supermercados Section */}
+              <div className="mb-12">
+                <h3 className="text-2xl font-semibold mb-6 text-center">Supermercados</h3>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold text-lg text-green-700 mb-2">Chicho</h4>
+                    <p className="text-gray-700">Los mejores horarios de apertura, frutas y verduras decentes.</p>
+                  </div>
+                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold text-lg text-green-700 mb-2">La Proveeduría</h4>
+                    <p className="text-gray-700">Estilo mini Whole Foods, con productos gourmet como chips de kale en frascos de vidrio. Opción premium.</p>
+                  </div>
+                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold text-lg text-green-700 mb-2">Coto</h4>
+                    <p className="text-gray-700">El supermercado grande más cercano, con entrega a domicilio en Cariló.</p>
+                  </div>
+                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold text-lg text-green-700 mb-2">Disco</h4>
+                    <p className="text-gray-700">Buena alternativa con entrega a domicilio.</p>
+                  </div>
                 </div>
-                <div className="bg-orange-50 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold mb-4">Productos Frescos</h3>
-                  <ul className="text-gray-700 space-y-2">
-                    <li className="flex items-start">
-                      <span className="font-semibold mr-2">• Belén:</span>
-                      <span>Las mejores frutas y verduras de la zona.</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="font-semibold mr-2">• Boutique de Frutas:</span>
-                      <span>Autoservicio con productos seleccionados.</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="font-semibold mr-2">• Cabaña Guerrero:</span>
-                      <span>Excelente selección de carnes.</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="font-semibold mr-2">• Pescadería La Constanza:</span>
-                      <span>Pescado fresco (no congelado), incluyendo salmón. Cerrada en temporada baja.</span>
-                    </li>
-                  </ul>
+              </div>
+
+              {/* Productos Frescos Section */}
+              <div className="mb-12">
+                <h3 className="text-2xl font-semibold mb-6 text-center">Productos Frescos</h3>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold text-lg text-orange-700 mb-2">Belén</h4>
+                    <p className="text-gray-700">Las mejores frutas y verduras de la zona.</p>
+                  </div>
+                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold text-lg text-orange-700 mb-2">Boutique de Frutas</h4>
+                    <p className="text-gray-700">Autoservicio con productos seleccionados.</p>
+                  </div>
+                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold text-lg text-orange-700 mb-2">Cabaña Guerrero</h4>
+                    <p className="text-gray-700">Excelente selección de carnes.</p>
+                  </div>
+                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold text-lg text-orange-700 mb-2">Pescadería La Constanza</h4>
+                    <p className="text-gray-700">Pescado fresco (no congelado), incluyendo salmón. Cerrada en temporada baja.</p>
+                  </div>
                 </div>
-                <div className="bg-purple-50 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold mb-4">Servicios</h3>
-                  <ul className="text-gray-700 space-y-2">
-                    <li><strong>Farmacia:</strong> Medicamentos básicos</li>
-                    <li><strong>Cajero Automático:</strong> Banco Macro</li>
-                    <li><strong>Sandmasters (Pinamar):</strong> Escuela de manejo 4x4</li>
-                  </ul>
+              </div>
+
+              {/* Servicios Section */}
+              <div className="mb-12">
+                <h3 className="text-2xl font-semibold mb-6 text-center">Servicios Especializados</h3>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold text-lg text-purple-700 mb-2">Jorjito</h4>
+                    <p className="text-gray-700 mb-3">La ferretería más completa de la zona con todo lo necesario para el hogar y construcción.</p>
+                    <a 
+                      href="https://www.google.com/maps/search/?api=1&query=Ferretería+Jorjito+Cariló"
+                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="w-4 h-4 mr-1" /> Ver en mapa
+                    </a>
+                  </div>
+                  
+                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold text-lg text-purple-700 mb-2">Quimica Limpia Maurito</h4>
+                    <p className="text-gray-700 mb-3">En Pinamar, lo mejor para productos de limpieza al por mayor. Realizan entregas semanales en Cariló.</p>
+                    <a 
+                      href="https://www.google.com/maps/search/?api=1&query=Quimica+Limpia+Maurito+Pinamar"
+                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="w-4 h-4 mr-1" /> Ubicación en Pinamar
+                    </a>
+                  </div>
+
+                  <div className="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <h4 className="font-semibold text-lg text-purple-700 mb-2">Servicios Bancarios</h4>
+                    <p className="text-gray-700">
+                      A pesar de ser una zona premium, <strong>no hay sucursales bancarias en Cariló</strong>. Las opciones más cercanas son:
+                      <ul className="list-disc pl-5 mt-2 space-y-1">
+                        <li><strong>Pinamar</strong>: Macro Banco Provincia, Galicia</li>
+                        <li><strong>Villa Gesell</strong>: Santander</li>
+                      </ul>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
