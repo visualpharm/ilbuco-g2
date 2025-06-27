@@ -17,7 +17,6 @@ import {
   Trees as Tree, 
   Camera, 
   Bike, 
-  Sunrise, 
   User, 
   Car,
   Droplet
@@ -99,6 +98,17 @@ const cariloGalleryImages = [
     src: "/photo/carilo/carilo-perros-mascotas-alojamiento.jpg",
     alt: "Alojamiento pet-friendly para perros y mascotas en Cariló",
     title: "Alojamiento Pet-Friendly",
+  },
+  // Business images
+  {
+    src: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/c9/21/38/tu-lugar-los-12-meses.jpg",
+    alt: "Balneario Hemingway Cariló vista al mar",
+    title: "Balneario Hemingway",
+  },
+  {
+    src: "/quehacer/motorrad2.jpg",
+    alt: "Motorrad alquiler de bicicletas en Cariló",
+    title: "Motorrad Bicicletas",
   },
 ]
 
@@ -251,206 +261,113 @@ export default function QueHacerEnCarilo() {
             </p>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-blue-50 p-6 rounded-lg">
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
                 <div className="flex items-start mb-4">
                   <Waves className="h-6 w-6 mr-3 mt-1 text-blue-600" />
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Surf y Windsurf</h3>
-                    <p className="text-gray-700 mb-4">
+                    <p className="text-gray-700 mb-3">
                       Escuelas de surf y windsurf en toda la playa de Cariló. Aprendé windsurf en la costa atlántica con instrucción profesional y alquiler de equipos.
                     </p>
-                    
-                    <div className="space-y-3">
-                      <div className="bg-white p-4 rounded-lg border border-blue-100">
-                        <h4 className="font-bold text-gray-800 mb-2">Coco Beach</h4>
-                        <p className="text-gray-700 text-sm mb-3">
-                          Escuela de surf más cercana a Il Buco. Clases de surf para todos los niveles con instructores certificados y alquiler de equipos.
-                        </p>
-                        <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
-                          <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
-                          <div className="flex items-center gap-1">
-                            <User className="h-4 w-4" />
-                            <span>18 min</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Car className="h-4 w-4" />
-                            <span>5 min</span>
-                          </div>
-                        </div>
-                        <a
-                          href="https://www.google.com/maps/search/?api=1&query=Coco+Beach+Cariló+Argentina"
-                          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <MapPin className="h-4 w-4" />
-                          Ver en Google Maps
-                        </a>
+                    <div className="flex items-center gap-4 text-sm text-blue-700 mb-3">
+                      <span className="flex items-center">
+                        <span className="text-yellow-500">★</span> 4.7 (120+ reseñas)
+                      </span>
+                      <span>•</span>
+                      <span>Equipos incluidos</span>
+                    </div>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Coco+Beach+Cariló+Argentina"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver en Google Maps (18 min caminando)
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg shadow-sm overflow-hidden">
+                <button
+                  onClick={() => openLightbox(15)}
+                  className="relative w-full h-48 cursor-zoom-in hover:opacity-90 transition-opacity"
+                >
+                  <Image
+                    src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/c9/21/38/tu-lugar-los-12-meses.jpg"
+                    alt="Balneario Hemingway Cariló vista al mar"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </button>
+                <div className="p-6">
+                  <div className="flex items-start mb-4">
+                    <span className="h-6 w-6 mr-3 mt-1 text-orange-600">🏖️</span>
+                    <div>
+                      <h3 className="text-xl font-semibold mb-2">Balneario Hemingway</h3>
+                      <p className="text-gray-700 mb-3">
+                        Parador clásico de Cariló con excelente gastronomía frente al mar. Lugar cómodo para disfrutar de la playa con servicios completos.
+                      </p>
+                      <div className="flex items-center gap-4 text-sm text-green-700 mb-3">
+                        <span className="flex items-center">
+                          <span className="text-yellow-500">★</span> 4.3 (2,743 reseñas)
+                        </span>
+                        <span>•</span>
+                        <span>Vista al mar</span>
                       </div>
-                      
-                      <div className="bg-white p-4 rounded-lg border border-blue-100">
-                        <h4 className="font-bold text-gray-800 mb-2">Escuela de Surf Cariló</h4>
-                        <p className="text-gray-700 text-sm mb-3">
-                          Escuela establecida con experiencia en enseñanza de surf y windsurf. Equipamiento completo y clases grupales e individuales.
-                        </p>
-                        <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
-                          <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
-                          <div className="flex items-center gap-1">
-                            <User className="h-4 w-4" />
-                            <span>22 min</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Car className="h-4 w-4" />
-                            <span>6 min</span>
-                          </div>
-                        </div>
-                        <a
-                          href="https://www.google.com/maps/search/?api=1&query=Escuela+de+Surf+Cariló+Argentina"
-                          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <MapPin className="h-4 w-4" />
-                          Ver en Google Maps
-                        </a>
-                      </div>
-                      
+                      <a
+                        href="https://maps.app.goo.gl/8xM9V8HjTqZJGzQV8"
+                        className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <MapPin className="h-4 w-4" />
+                        Ver en Google Maps (24 min caminando)
+                      </a>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-green-50 p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <Sunrise className="h-6 w-6 mr-3 mt-1 text-orange-600" />
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Paradores de Playa</h3>
-                    <p className="text-gray-700 mb-4">
-                      Los paradores ofrecen un lugar cómodo para disfrutar de la playa con servicios de gastronomía y relax.
-                    </p>
-                    
-                    <div className="space-y-3">
-                      <div className="bg-white p-4 rounded-lg border border-orange-100">
-                        <h4 className="font-bold text-gray-800 mb-2">Parador Hemingway</h4>
-                        <p className="text-gray-700 text-sm mb-3">
-                          Parador clásico de Cariló con excelente gastronomía frente al mar.
-                        </p>
-                        <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
-                          <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
-                          <div className="flex items-center gap-1">
-                            <User className="h-4 w-4" />
-                            <span>24 min</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Car className="h-4 w-4" />
-                            <span>7 min</span>
-                          </div>
-                        </div>
-                        <a
-                          href="https://www.google.com/maps/search/?api=1&query=Parador+Hemingway+Cariló+Argentina"
-                          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <MapPin className="h-4 w-4" />
-                          Ver en Google Maps
-                        </a>
+              <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg shadow-sm overflow-hidden">
+                <button
+                  onClick={() => openLightbox(16)}
+                  className="relative w-full h-48 cursor-zoom-in hover:opacity-90 transition-opacity"
+                >
+                  <Image
+                    src="/quehacer/motorrad2.jpg"
+                    alt="Motorrad alquiler de bicicletas en Cariló"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </button>
+                <div className="p-6">
+                  <div className="flex items-start mb-4">
+                    <Bike className="h-6 w-6 mr-3 mt-1 text-orange-600" />
+                    <div>
+                      <h3 className="text-xl font-semibold mb-2">Motorrad - Alquiler de Bicicletas</h3>
+                      <p className="text-gray-700 mb-3">
+                        Alquilá bicicletas y explorá Cariló y las áreas circundantes. Las calles de arena sin pavimentar y el entorno natural de la ciudad hacen que la experiencia de ciclismo sea agradable.
+                      </p>
+                      <div className="flex items-center gap-4 text-sm text-orange-700 mb-3">
+                        <span className="flex items-center">
+                          <span className="text-yellow-500">★</span> 4.6 (75+ reseñas)
+                        </span>
+                        <span>•</span>
+                        <span>Equipos todo terreno</span>
                       </div>
-                      
-                      <div className="bg-white p-4 rounded-lg border border-orange-100">
-                        <h4 className="font-bold text-gray-800 mb-2">Parador Neruda</h4>
-                        <p className="text-gray-700 text-sm mb-3">
-                          Ambiente relajado con vista al océano y cocina mediterránea.
-                        </p>
-                        <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
-                          <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
-                          <div className="flex items-center gap-1">
-                            <User className="h-4 w-4" />
-                            <span>23 min</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Car className="h-4 w-4" />
-                            <span>6 min</span>
-                          </div>
-                        </div>
-                        <a
-                          href="https://www.google.com/maps/search/?api=1&query=Parador+Neruda+Cariló+Argentina"
-                          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <MapPin className="h-4 w-4" />
-                          Ver en Google Maps
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-orange-50 p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <Bike className="h-6 w-6 mr-3 mt-1 text-orange-600" />
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Alquiler de Bicicletas</h3>
-                    <p className="text-gray-700 mb-4">
-                      Alquilá bicicletas y explorá Cariló y las áreas circundantes. Las calles de arena sin pavimentar y el entorno natural de la ciudad hacen que la experiencia de ciclismo sea agradable.
-                    </p>
-                    
-                    <div className="space-y-4">
-                      <div className="bg-white p-4 rounded-lg border border-orange-100">
-                        <h4 className="font-bold text-gray-800 mb-2">Motorrad</h4>
-                        <p className="text-gray-700 text-sm mb-3">
-                          Alquiler de FatBike y Mountain Bike. Negocio familiar especializado en bicicletas todo terreno, con equipos de calidad y buen mantenimiento.
-                        </p>
-                        <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
-                          <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
-                          <div className="flex items-center gap-1">
-                            <User className="h-4 w-4" />
-                            <span>24 min</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Car className="h-4 w-4" />
-                            <span>7 min</span>
-                          </div>
-                        </div>
-                        <a
-                          href="https://www.google.com/maps/place/Motorrad,+Cerezo,+Cariló,+Provincia+de+Buenos+Aires,+Argentina"
-                          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <MapPin className="h-4 w-4" />
-                          Direcciones
-                        </a>
-                      </div>
-                      
-                      <div className="bg-white p-4 rounded-lg border border-orange-100">
-                        <h4 className="font-bold text-gray-800 mb-2">Action Bike</h4>
-                        <p className="text-gray-700 text-sm mb-3">
-                          Bicicletas playeras y Mountain Bike con entrega a domicilio. Servicio que incluye delivery sin costo adicional.
-                        </p>
-                        <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
-                          <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
-                          <div className="flex items-center gap-1">
-                            <User className="h-4 w-4" />
-                            <span>26 min</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Car className="h-4 w-4" />
-                            <span>8 min</span>
-                          </div>
-                        </div>
-                        <a
-                          href="https://www.google.com/maps/place/Action+Bike,+Av.+Espora,+Valeria+del+Mar,+Provincia+de+Buenos+Aires,+Argentina"
-                          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <MapPin className="h-4 w-4" />
-                          Direcciones
-                        </a>
-                      </div>
+                      <a
+                        href="https://www.google.com/maps/place/Motorrad,+Cerezo,+Cariló,+Provincia+de+Buenos+Aires,+Argentina"
+                        className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <MapPin className="h-4 w-4" />
+                        Ver en Google Maps (24 min caminando)
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -465,7 +382,7 @@ export default function QueHacerEnCarilo() {
             <h2 className="text-3xl font-bold mb-10 text-center">
               Deportes y Actividades al Aire Libre
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
               <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
                 <div className="flex items-start mb-4">
                   <span className="h-6 w-6 mr-3 mt-1 text-indigo-600">🏋️</span>
@@ -529,40 +446,6 @@ export default function QueHacerEnCarilo() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-lg shadow-sm">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-orange-600">🐎</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Hípica Cariló</h3>
-                    <p className="text-gray-700 mb-3">
-                      Cabalgatas guiadas por senderos de bosques y dunas. Experiencia familiar con caballos mansos y bien cuidados. Ideal para principiantes y niños.
-                    </p>
-                    <div className="flex items-center gap-4 text-sm text-amber-700 mb-3">
-                      <span className="flex items-center">
-                        <span className="text-yellow-500">★</span> 4.7 (120+ reseñas)
-                      </span>
-                      <span>•</span>
-                      <a 
-                        href="https://www.instagram.com/hipicacarilo/" 
-                        className="hover:underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        @hipicacarilo
-                      </a>
-                    </div>
-                    <a
-                      href="https://www.google.com/maps/place/H%C3%ADpica+Caril%C3%B3/@-37.1624885,-56.8986388,15z/data=!4m6!3m5!1s0x959c7e5e3e3f3e3f:0x3b3b3b3b3b3b3b3b!8m2!3d-37.1624885!4d-56.8986388!16s%2Fg%2F11b8f8f8f8"
-                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MapPin className="h-4 w-4" />
-                      Ver en Google Maps (10 min en auto)
-                    </a>
-                  </div>
-                </div>
-              </div>
 
               <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-lg shadow-sm">
                 <div className="flex items-start mb-4">
@@ -592,37 +475,22 @@ export default function QueHacerEnCarilo() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-purple-50 to-violet-50 p-6 rounded-lg shadow-sm">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-purple-600">🏍️</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Cariló Aventura</h3>
-                    <p className="text-gray-700 mb-3">
-                      Paseos en cuatriciclo y alquiler de fatbikes para explorar las dunas y senderos forestales. Excursiones guiadas disponibles.
-                    </p>
-                    <a
-                      href="https://www.google.com/maps/search/?api=1&query=Cariló+Aventura+Cuatriciclos"
-                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MapPin className="h-4 w-4" />
-                      Ver en Google Maps
-                    </a>
-                  </div>
-                </div>
-              </div>
 
               <div className="bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-lg shadow-sm">
                 <div className="flex items-start mb-4">
                   <span className="h-6 w-6 mr-3 mt-1 text-yellow-600">🚗</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">4x4 Escuela de Conducción</h3>
+                    <h3 className="text-xl font-semibold mb-2">Sand Masters - Escuela 4x4</h3>
                     <p className="text-gray-700 mb-3">
                       Aprendé técnicas de manejo off-road y cómo navegar por las dunas de arena. Clases teóricas y prácticas con instructores certificados.
                     </p>
+                    <div className="text-sm text-gray-600 mb-2 flex items-center gap-2">
+                      <span>Ubicación: Pinamar</span>
+                      <span className="text-gray-300">•</span>
+                      <span>25 min desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link></span>
+                    </div>
                     <a
-                      href="https://www.google.com/maps/search/?api=1&query=Escuela+de+Manejo+4x4+Cariló"
+                      href="https://maps.app.goo.gl/pZxbP4Xq1bwwEQwv5"
                       className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -696,10 +564,21 @@ export default function QueHacerEnCarilo() {
             <div className="mb-16">
               <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800">Pizza & Burgers</h3>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-5 rounded-lg shadow-sm border-2 border-orange-200 relative">
-                    <div className="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded-full">$$$</div>
-                    <h5 className="text-lg font-semibold mb-2 text-orange-800">Il Gatto Nero</h5>
-                    <p className="text-gray-700 text-sm">La mejor pizza napolitana de la zona, hecha por chefs italianos. ¡Nuestra recomendación personal! (también hicieron nuestros sofás).</p>
+                  <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg shadow-sm border-2 border-orange-200 overflow-hidden relative">
+                    <div className="relative w-full h-32">
+                      <Image
+                        src="/quehacer/gaato-nero.jpg"
+                        alt="Il Gatto Nero pizzería napolitana en Cariló"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      />
+                    </div>
+                    <div className="p-5">
+                      <div className="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded-full">$$$</div>
+                      <h5 className="text-lg font-semibold mb-2 text-orange-800">Il Gatto Nero</h5>
+                      <p className="text-gray-700 text-sm">La mejor pizza napolitana de la zona, hecha por chefs italianos. ¡Nuestra recomendación personal! (también hicieron nuestros sofás).</p>
+                    </div>
                   </div>
                   <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-5 rounded-lg shadow-sm border border-orange-100 relative">
                     <div className="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded-full">$$$</div>
@@ -723,20 +602,54 @@ export default function QueHacerEnCarilo() {
               <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800">Cafés y Panaderías</h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-5 rounded-lg shadow-sm border border-amber-100">
-                  <h5 className="text-lg font-semibold mb-2 text-amber-800">Panadería y Café</h5>
-                  <p className="text-gray-700 text-sm">Excelente café y productos horneados; la mejor tostada de palta.</p>
-                </div>
-                <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-5 rounded-lg shadow-sm border border-amber-100">
-                  <h5 className="text-lg font-semibold mb-2 text-amber-800">Café Francés</h5>
-                  <p className="text-gray-700 text-sm">Siempre abierto, perfecto para cualquier momento.</p>
-                </div>
-                <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-5 rounded-lg shadow-sm border border-amber-100">
                   <h5 className="text-lg font-semibold mb-2 text-amber-800">Panettone</h5>
-                  <p className="text-gray-700 text-sm">Simple y confiable.</p>
+                  <p className="text-gray-700 text-sm mb-3">Simple y confiable.</p>
+                  <div className="text-sm text-gray-600 mb-2 flex items-center gap-2">
+                    <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
+                    <span className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>14 min</span>
+                    </span>
+                    <span className="text-gray-300">•</span>
+                    <span className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>4 min</span>
+                    </span>
+                  </div>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Panettone+Cariló"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver en Google Maps
+                  </a>
                 </div>
                 <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-5 rounded-lg shadow-sm border border-amber-100">
                   <h5 className="text-lg font-semibold mb-2 text-amber-800">Masse</h5>
-                  <p className="text-gray-700 text-sm">Panes elegantes con semillas.</p>
+                  <p className="text-gray-700 text-sm mb-3">Panes elegantes con semillas.</p>
+                  <div className="text-sm text-gray-600 mb-2 flex items-center gap-2">
+                    <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
+                    <span className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>17 min</span>
+                    </span>
+                    <span className="text-gray-300">•</span>
+                    <span className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>5 min</span>
+                    </span>
+                  </div>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Masse+Cariló"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver en Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -747,15 +660,73 @@ export default function QueHacerEnCarilo() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="bg-gradient-to-r from-pink-50 to-rose-50 p-5 rounded-lg shadow-sm border border-pink-100">
                   <h5 className="text-lg font-semibold mb-2 text-pink-800">Colonial</h5>
-                  <p className="text-gray-700 text-sm">Mi helado favorito (Valeria del Mar).</p>
+                  <p className="text-gray-700 text-sm mb-3">★ 4.3/5 (85 reseñas). Mi helado favorito en Valeria del Mar. Helado artesanal con sabores clásicos y especiales.</p>
+                  <div className="text-sm text-gray-600 mb-2 flex items-center gap-2">
+                    <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
+                    <span className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>8 min</span>
+                    </span>
+                  </div>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Heladería+Colonial+Valeria+del+Mar"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver en Google Maps
+                  </a>
                 </div>
                 <div className="bg-gradient-to-r from-pink-50 to-rose-50 p-5 rounded-lg shadow-sm border border-pink-100">
                   <h5 className="text-lg font-semibold mb-2 text-pink-800">Lucciano's</h5>
-                  <p className="text-gray-700 text-sm">El lugar más bonito para disfrutar helados.</p>
+                  <p className="text-gray-700 text-sm mb-3">★ 4.4/5 (120 reseñas). El lugar más bonito para disfrutar helados con ambiente moderno y terraza.</p>
+                  <div className="text-sm text-gray-600 mb-2 flex items-center gap-2">
+                    <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
+                    <span className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>14 min</span>
+                    </span>
+                    <span className="text-gray-300">•</span>
+                    <span className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>4 min</span>
+                    </span>
+                  </div>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Lucciano's+Helado+Cariló"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver en Google Maps
+                  </a>
                 </div>
                 <div className="bg-gradient-to-r from-pink-50 to-rose-50 p-5 rounded-lg shadow-sm border border-pink-100">
                   <h5 className="text-lg font-semibold mb-2 text-pink-800">Pórtico</h5>
-                  <p className="text-gray-700 text-sm">Heladería artesanal con sabores únicos y calidad premium.</p>
+                  <p className="text-gray-700 text-sm mb-3">★ 4.2/5 (95 reseñas). Heladería artesanal con sabores únicos y calidad premium. Especialidad en dulce de leche.</p>
+                  <div className="text-sm text-gray-600 mb-2 flex items-center gap-2">
+                    <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
+                    <span className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>16 min</span>
+                    </span>
+                    <span className="text-gray-300">•</span>
+                    <span className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>5 min</span>
+                    </span>
+                  </div>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Heladería+Pórtico+Cariló"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver en Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -763,24 +734,75 @@ export default function QueHacerEnCarilo() {
             {/* Vida Nocturna */}
             <div className="mb-8">
               <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800">Vida Nocturna</h3>
-              <div className="max-w-4xl mx-auto">
-                <div className="bg-gradient-to-r from-gray-50 to-slate-50 p-6 rounded-lg shadow-sm border border-gray-200">
+              <div className="max-w-6xl mx-auto">
+                <div className="bg-gradient-to-r from-gray-50 to-slate-50 p-6 rounded-lg shadow-sm border border-gray-200 mb-8">
                   <p className="text-gray-700 mb-4 text-center">
                     La vida nocturna en Cariló es limitada por las ordenanzas municipales que priorizan la tranquilidad del lugar. 
                   </p>
-                  <div className="grid md:grid-cols-3 gap-4">
-                    <div className="bg-white p-4 rounded-lg border border-gray-100">
-                      <h5 className="font-semibold mb-2 text-gray-800">Bar Principal</h5>
-                      <p className="text-gray-600 text-sm">Un bar con ocasionales conciertos en vivo.</p>
+                </div>
+                <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">Bar Templeton</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ★ 4.8 (42 reseñas)
+                      </div>
                     </div>
-                    <div className="bg-white p-4 rounded-lg border border-gray-100">
-                      <h5 className="font-semibold mb-2 text-gray-800">Cervecerías</h5>
-                      <p className="text-gray-600 text-sm">Un par de cervecerías al aire libre.</p>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Disfrutar música en vivo y un ambiente auténtico de bar. Ideal para una noche de entretenimiento con conciertos y ambiente local.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>18 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>5 min</span>
+                      </div>
                     </div>
-                    <div className="bg-white p-4 rounded-lg border border-gray-100">
-                      <h5 className="font-semibold mb-2 text-gray-800">Vinotecas</h5>
-                      <p className="text-gray-600 text-sm">Vinos argentinos para disfrutar al atardecer.</p>
+                    <a
+                      href="https://maps.app.goo.gl/R5FwQxedYknkgE6i8"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
+                    </a>
+                  </div>
+
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">The Garrison</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ★ 4.6 (58 reseñas)
+                      </div>
                     </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Combinar café de calidad con una selección premium de whiskies. Perfecto para reuniones de negocios o encuentros sofisticados.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>15 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>4 min</span>
+                      </div>
+                    </div>
+                    <a
+                      href="https://maps.app.goo.gl/wYKmwMiqag21GpUd6"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
+                    </a>
                   </div>
                 </div>
               </div>
@@ -864,30 +886,34 @@ export default function QueHacerEnCarilo() {
                     </a>
                   </div>
                   
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                    <h4 className="font-bold text-xl text-green-700 mb-3">Coto</h4>
-                    <p className="text-gray-700 mb-4">El supermercado grande más cercano, con entrega a domicilio en Cariló. Variedad de productos nacionales e importados.</p>
-                    <a 
-                      href="https://www.google.com/maps/search/?api=1&query=Coto+Pinamar"
-                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MapPin className="w-4 h-4 mr-1" /> En Pinamar (15 min)
-                    </a>
-                  </div>
-                  
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                    <h4 className="font-bold text-xl text-green-700 mb-3">Disco</h4>
-                    <p className="text-gray-700 mb-4">Buena alternativa con entrega a domicilio. Excelente selección de productos premium y orgánicos.</p>
-                    <a 
-                      href="https://www.google.com/maps/search/?api=1&query=Disco+Pinamar"
-                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MapPin className="w-4 h-4 mr-1" /> En Pinamar (15 min)
-                    </a>
+                </div>
+                <div className="mt-8 p-6 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                  <h4 className="font-bold text-lg text-blue-800 mb-3">Supermercados Grandes (En Pinamar - 20 min)</h4>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-white p-4 rounded-lg">
+                      <h5 className="font-semibold text-green-700 mb-2">Coto</h5>
+                      <p className="text-gray-700 text-sm mb-2">El supermercado grande más cercano, con entrega a domicilio en Cariló. Variedad de productos nacionales e importados.</p>
+                      <a 
+                        href="https://www.google.com/maps/search/?api=1&query=Coto+Pinamar"
+                        className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <MapPin className="w-4 h-4 mr-1" /> Ver en Google Maps
+                      </a>
+                    </div>
+                    <div className="bg-white p-4 rounded-lg">
+                      <h5 className="font-semibold text-green-700 mb-2">Disco</h5>
+                      <p className="text-gray-700 text-sm mb-2">Buena alternativa con entrega a domicilio. Excelente selección de productos premium y orgánicos.</p>
+                      <a 
+                        href="https://www.google.com/maps/search/?api=1&query=Disco+Pinamar"
+                        className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <MapPin className="w-4 h-4 mr-1" /> Ver en Google Maps
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -924,14 +950,14 @@ export default function QueHacerEnCarilo() {
                   
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                     <h4 className="font-bold text-xl text-orange-600 mb-3">Cabaña Guerrero</h4>
-                    <p className="text-gray-700 mb-4">Excelente selección de carnes premium. Carnes maduradas, cortes especiales y productos de granja.</p>
+                    <p className="text-gray-700 mb-4">Carnicería especializada con excelente selección de carnes premium, cortes especiales y embutidos artesanales.</p>
                     <a 
                       href="https://www.google.com/maps/search/?api=1&query=Cabaña+Guerrero+Cariló"
                       className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <MapPin className="w-4 h-4 mr-1" /> Ver en mapa
+                      <MapPin className="w-4 h-4 mr-1" /> Ver en Google Maps
                     </a>
                   </div>
                   
@@ -953,65 +979,117 @@ export default function QueHacerEnCarilo() {
               {/* Servicios Section */}
               <div className="mb-12">
                 <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800 border-b pb-2">Servicios Especializados</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                    <h4 className="font-bold text-xl text-purple-700 mb-3">Ferretería Jorjito</h4>
-                    <p className="text-gray-700 mb-4">La ferretería más completa de la zona con todo lo necesario para el hogar, construcción y mantenimiento.</p>
-                    <div className="flex items-center justify-between">
-                      <a 
-                        href="https://www.google.com/maps/search/?api=1&query=Ferretería+Jorjito+Cariló"
-                        className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MapPin className="w-4 h-4 mr-1" /> Ver en mapa
-                      </a>
-                      <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Entrega a domicilio</span>
-                    </div>
-                  </div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
                   
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                    <h4 className="font-bold text-xl text-purple-700 mb-3">Quimica Limpia Maurito</h4>
-                    <p className="text-gray-700 mb-4">En Pinamar, lo mejor para productos de limpieza al por mayor. Realizan entregas semanales en Cariló con pedidos previos.</p>
-                    <div className="flex items-center justify-between">
-                      <a 
-                        href="https://www.google.com/maps/search/?api=1&query=Quimica+Limpia+Maurito+Pinamar"
-                        className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MapPin className="w-4 h-4 mr-1" /> En Pinamar (20 min)
-                      </a>
-                      <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Entrega semanal</span>
+                  <div className="bg-gradient-to-br from-orange-50 to-red-50 p-6 rounded-lg shadow-sm">
+                    <div className="flex items-start mb-4">
+                      <Wrench className="h-6 w-6 mr-3 mt-1 text-orange-600" />
+                      <div>
+                        <h3 className="text-xl font-semibold mb-2">Ferretería Jorgito</h3>
+                        <p className="text-gray-700 mb-3">
+                          Resolver problemas del hogar, construcción y mantenimiento con herramientas y materiales de calidad.
+                        </p>
+                        <div className="flex items-center gap-4 text-sm text-orange-700 mb-3">
+                          <span className="flex items-center">
+                            <span className="text-yellow-500">★</span> 4.2 (28 reseñas)
+                          </span>
+                          <span>•</span>
+                          <span>Herramientas profesionales</span>
+                        </div>
+                        <a
+                          href="https://www.google.com/maps/search/?api=1&query=Ferretería+Jorgito+Cariló"
+                          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                          target="_blank"
+                          rel="nofollow noopener noreferrer"
+                        >
+                          <MapPin className="h-4 w-4" />
+                          Ver en Google Maps (13 min caminando)
+                        </a>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                    <h4 className="font-bold text-xl text-purple-700 mb-3">Servicios Bancarios</h4>
-                    <div className="space-y-3">
-                      <p className="text-gray-700">
-                        A pesar de ser una zona premium, <strong>no hay sucursales bancarias en Cariló</strong>. Las opciones más cercanas son:
-                      </p>
-                      <ul className="list-disc pl-5 space-y-1 text-gray-700">
-                        <li className="flex items-start">
-                          <span className="font-medium">Pinamar (20 min):</span>
-                          <div className="ml-2">
-                            <div>• Macro Banco Provincia</div>
-                            <div>• Galicia</div>
-                            <div>• Santander</div>
-                          </div>
-                        </li>
-                        <li className="flex items-start">
-                          <span className="font-medium">Villa Gesell (30 min):</span>
-                          <div className="ml-2">
-                            <div>• Santander</div>
-                            <div>• Provincia</div>
-                          </div>
-                        </li>
-                      </ul>
-                      <p className="text-sm text-gray-500 mt-2">
-                        <strong>Nota:</strong> Varios bancos ofrecen cajeros automáticos en Cariló para retiros.
-                      </p>
+                  <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-lg shadow-sm">
+                    <div className="flex items-start mb-4">
+                      <Droplets className="h-6 w-6 mr-3 mt-1 text-blue-600" />
+                      <div>
+                        <h3 className="text-xl font-semibold mb-2">Lavandería Express</h3>
+                        <p className="text-gray-700 mb-3">
+                          Mantener tu ropa impecable con lavandería, tintorería y limpieza en seco profesional.
+                        </p>
+                        <div className="flex items-center gap-4 text-sm text-blue-700 mb-3">
+                          <span className="flex items-center">
+                            <span className="text-yellow-500">★</span> 4.5 (35 reseñas)
+                          </span>
+                          <span>•</span>
+                          <span>Limpieza profesional</span>
+                        </div>
+                        <a
+                          href="https://www.google.com/maps/search/?api=1&query=Lavandería+Express+Cariló"
+                          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                          target="_blank"
+                          rel="nofollow noopener noreferrer"
+                        >
+                          <MapPin className="h-4 w-4" />
+                          Ver en Google Maps (15 min caminando)
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm">
+                    <div className="flex items-start mb-4">
+                      <Droplet className="h-6 w-6 mr-3 mt-1 text-green-600" />
+                      <div>
+                        <h3 className="text-xl font-semibold mb-2">Quimica Limpia Maurito</h3>
+                        <p className="text-gray-700 mb-3">
+                          Obtener productos de limpieza al por mayor con entrega semanal en Cariló.
+                        </p>
+                        <div className="flex items-center gap-4 text-sm text-green-700 mb-3">
+                          <span className="flex items-center">
+                            <span className="text-yellow-500">★</span> 4.3 (22 reseñas)
+                          </span>
+                          <span>•</span>
+                          <span>Entrega semanal</span>
+                        </div>
+                        <a
+                          href="https://www.google.com/maps/search/?api=1&query=Quimica+Limpia+Maurito+Pinamar"
+                          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                          target="_blank"
+                          rel="nofollow noopener noreferrer"
+                        >
+                          <MapPin className="h-4 w-4" />
+                          Ver en Google Maps (20 min en auto)
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-br from-red-50 to-pink-50 p-6 rounded-lg shadow-sm">
+                    <div className="flex items-start mb-4">
+                      <span className="h-6 w-6 mr-3 mt-1 text-red-600">🏦</span>
+                      <div>
+                        <h3 className="text-xl font-semibold mb-2">Servicios Bancarios</h3>
+                        <p className="text-gray-700 mb-3">
+                          Realizar operaciones bancarias, debes viajar a Pinamar (Macro, Galicia, Provincia) o incluso Villa Gesell (Santander).
+                        </p>
+                        <div className="flex items-center gap-4 text-sm text-red-700 mb-3">
+                          <span className="flex items-center">
+                            <span className="text-red-500">⚠️</span> No disponible en Cariló
+                          </span>
+                          <span>•</span>
+                          <span>Pinamar más cercano</span>
+                        </div>
+                        <a
+                          href="https://www.google.com/maps/search/?api=1&query=Banco+Macro+Pinamar"
+                          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                          target="_blank"
+                          rel="nofollow noopener noreferrer"
+                        >
+                          <MapPin className="h-4 w-4" />
+                          Ver bancos en Pinamar (20 min en auto)
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1027,28 +1105,65 @@ export default function QueHacerEnCarilo() {
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-blue-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-3">Pinamar</h3>
-                <p className="text-gray-700">Sandmasters (escuela 4x4), La Constanza (pescadería), Quimicas Limpia Maurito, servicios especializados y supermercados grandes.</p>
+                <h3 className="text-xl font-semibold mb-3">Pinamar (20 min)</h3>
+                <p className="text-gray-700 mb-4">Ciudad principal con todos los servicios gubernamentales, financieros y comerciales. Supermercados grandes, bancos, Sand Masters (escuela 4x4), y servicios especializados.</p>
+                <div className="text-sm text-gray-600">
+                  <div>• Servicios bancarios completos</div>
+                  <div>• Supermercados Coto y Disco</div>
+                  <div>• Sand Masters - Escuela 4x4</div>
+                  <div>• Servicios gubernamentales</div>
+                </div>
               </div>
               
               <div className="bg-green-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-3">Valeria del Mar</h3>
-                <p className="text-gray-700">Impeke Burgers, Colonial (heladería), Fusion Arte del Mar (clases de cerámica) y ambiente más relajado.</p>
+                <h3 className="text-xl font-semibold mb-3">Valeria del Mar (10 min)</h3>
+                <p className="text-gray-700 mb-4">Pueblo costero con una calle principal donde se concentran todos los servicios esenciales: ferreterías, tiendas, restaurantes y servicios.</p>
+                <div className="text-sm text-gray-600">
+                  <div>• Impeke Burgers</div>
+                  <div>• Colonial (heladería)</div>
+                  <div>• Fusion Arte del Mar (cerámica)</div>
+                  <div>• Calle principal con todos los servicios</div>
+                </div>
               </div>
               
               <div className="bg-purple-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-3">Mar de las Pampas</h3>
-                <p className="text-gray-700">Villa balnearia bohemia con arquitectura única, gastronomía gourmet y ambiente artístico.</p>
+                <h3 className="text-xl font-semibold mb-3">Mar de las Pampas (25 min)</h3>
+                <p className="text-gray-700 mb-4">El único lugar en el mundo similar a Cariló, pero con lotes más pequeños y mayor densidad. Ambiente bohemio con negocios muy interesantes y festival de música clásica.</p>
+                <div className="text-sm text-gray-600">
+                  <div>• Arquitectura única y bohemia</div>
+                  <div>• Festival de música clásica</div>
+                  <div>• Gastronomía gourmet</div>
+                  <div>• Mayor concentración de servicios</div>
+                </div>
               </div>
               
               <div className="bg-yellow-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-3">Faro Querandí</h3>
-                <p className="text-gray-700">Faro histórico con vistas panorámicas del océano, ideal para excursiones fotográficas.</p>
+                <h3 className="text-xl font-semibold mb-3">Faro Querandí (35 min)</h3>
+                <p className="text-gray-700 mb-4">Faro histórico con vistas panorámicas del océano. Lugar ideal para fotografías y sand surfing en las dunas circundantes.</p>
+                <div className="text-sm text-gray-600">
+                  <div>• Faro histórico (no se puede subir)</div>
+                  <div>• Vistas panorámicas</div>
+                  <div>• Sand surfing en dunas</div>
+                  <div>• Lugar perfecto para fotos</div>
+                </div>
               </div>
               
               <div className="bg-indigo-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-3">Recharge Retreat</h3>
-                <p className="text-gray-700">Centro de bienestar y retiros espirituales en las afueras de la ciudad.</p>
+                <h3 className="text-xl font-semibold mb-3">Recharge Retreat (30 min)</h3>
+                <p className="text-gray-700 mb-4">Centro de bienestar y retiros espirituales especializado en desconexion digital y reconexion con la naturaleza.</p>
+                <div className="text-sm text-gray-600 mb-3">
+                  <div>• Retiros de bienestar</div>
+                  <div>• Desconexion digital</div>
+                  <div>• Actividades en la naturaleza</div>
+                </div>
+                <a
+                  href="https://recharge.com.ar"
+                  className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>🌐</span> recharge.com.ar
+                </a>
               </div>
             </div>
             
