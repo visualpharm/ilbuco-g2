@@ -170,7 +170,7 @@ export function PlacesNearbyActivitiesContent() {
                         </p>
                         <p className="mt-2">
                           <a
-                            href="https://www.google.com/maps/search/?api=1&query=Coco+Surf+Caril%C3%B3"
+                            href="https://www.google.com/maps/search/?api=1&query=Coco+Surf+Caril%C3%B3+Argentina"
                             className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />

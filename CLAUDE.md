@@ -520,3 +520,11 @@ Don't use images from social media: they tend to be random (not only how the bus
 
 ## Google Maps API
 Use the API key from the environment variable `GOOGLE_MAPS_API_KEY` to access the Google Maps API for fetching business details, ratings, reviews, and distances.
+
+**REQUIREMENT**: Always extract Google Maps information using the API key when adding or updating business information. Never manually enter business details - always use the Google Maps API to get accurate, up-to-date information including:
+- Business name
+- Rating and review count
+- Distance from Il Buco
+- Business description based on reviews
+- Opening hours
+- Contact information

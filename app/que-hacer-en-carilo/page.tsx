@@ -127,14 +127,29 @@ const cariloGalleryImages = [
     title: "Aire Libre",
   },
   {
-    src: "https://media.gettyimages.com/id/1437851885/es/foto/equipo-de-entrenamiento-con-pesas-en-un-gimnasio-moderno.jpg",
+    src: "/quehacer/dalmiro.png",
     alt: "Dalmiro Paseo a Caballo Cariló",
     title: "Dalmiro Paseo a Caballo",
   },
   {
-    src: "/photo/carilo/carilo-playa-persona-caminando-oceano.jpg",
+    src: "/quehacer/relincho.png",
     alt: "Cabalgatas El Relincho paseos a caballo Cariló",
     title: "Cabalgatas El Relincho",
+  },
+  {
+    src: "/quehacer/coco-surf.png",
+    alt: "Coco Surf escuela de surf y windsurf en Cariló",
+    title: "Coco Surf",
+  },
+  {
+    src: "/images/businesses/cabalgatas-el-relincho.jpg",
+    alt: "Cabalgatas El Relincho paseos a caballo por la playa en Cariló",
+    title: "Cabalgatas El Relincho",
+  },
+  {
+    src: "/quehacer/dalmiro.png",
+    alt: "Dalmiro Paseo a Caballo por la costa atlántica de Cariló",
+    title: "Dalmiro Paseo a Caballo",
   },
 ]
 
@@ -287,33 +302,20 @@ export default function QueHacerEnCarilo() {
             </p>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
-                <div className="flex items-start mb-4">
-                  <Waves className="h-6 w-6 mr-3 mt-1 text-blue-600" />
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Surf y Windsurf</h3>
-                    <p className="text-gray-700 mb-3">
-                      Escuelas de surf y windsurf en toda la playa de Cariló. Aprendé windsurf en la costa atlántica con instrucción profesional y alquiler de equipos.
-                    </p>
-                    <div className="flex items-center gap-4 text-sm text-blue-700 mb-3">
-                      <span className="flex items-center">
-                        <span className="text-yellow-500">★</span> 4.7 (120+ reseñas)
-                      </span>
-                      <span>•</span>
-                      <span>Equipos incluidos</span>
-                    </div>
-                    <a
-                      href="https://www.google.com/maps/search/?api=1&query=Coco+Beach+Cariló+Argentina"
-                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MapPin className="h-4 w-4" />
-                      Ver en Google Maps (18 min caminando)
-                    </a>
-                  </div>
-                </div>
-              </div>
+              <BusinessCard
+                name="Coco Surf"
+                description="Aprender surf y windsurf en la playa de Cariló con instructores profesionales. Alquiler de equipos incluido y clases para todos los niveles desde principiantes hasta avanzados."
+                rating={4.5}
+                reviewCount="85"
+                walkingTime="18 min"
+                drivingTime="5 min"
+                googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Coco+Surf+Cariló+Argentina"
+                imageUrl="/quehacer/coco-surf.png"
+                imageAlt="Coco Surf escuela de surf y windsurf en Cariló"
+                onImageClick={() => openLightbox(22)}
+                gradientFrom="blue-50"
+                gradientTo="indigo-50"
+              />
 
               <BusinessCard
                 name="Balneario Hemingway"
@@ -390,7 +392,7 @@ export default function QueHacerEnCarilo() {
                 walkingTime="17 min"
                 drivingTime="4 min"
                 googleMapsUrl="https://www.google.com/maps/search/?api=1&query=CIE+Centro+de+Entrenamiento+Cariló"
-                imageUrl="/quehacer/cie-gimnasio.jpg"
+                imageUrl="/quehacer/cie.webp"
                 imageAlt="CIE Centro de Entrenamiento gimnasio en Cariló"
                 onImageClick={() => openLightbox(17)}
                 gradientFrom="blue-50"
@@ -420,7 +422,7 @@ export default function QueHacerEnCarilo() {
                 walkingTime="15 min"
                 drivingTime="3 min"
                 googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Aire+Libre+Cariló"
-                imageUrl="/quehacer/aire-libre.jpg"
+                imageUrl="/quehacer/airelibre.webp"
                 imageAlt="Aire Libre, Libre gimnasio al aire libre Cariló"
                 onImageClick={() => openLightbox(19)}
                 gradientFrom="red-50"
@@ -435,9 +437,9 @@ export default function QueHacerEnCarilo() {
                 walkingTime="35 min"
                 drivingTime="12 min"
                 googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Dalmiro+Paseo+a+Caballo+Cariló"
-                imageUrl="/quehacer/dalmiro-cabalgata.jpg"
-                imageAlt="Dalmiro Paseo a Caballo Cariló"
-                onImageClick={() => openLightbox(20)}
+                imageUrl="/quehacer/dalmiro.png"
+                imageAlt="Dalmiro Paseo a Caballo por la costa atlántica de Cariló"
+                onImageClick={() => openLightbox(25)}
                 gradientFrom="amber-50"
                 gradientTo="orange-50"
               />
@@ -450,9 +452,9 @@ export default function QueHacerEnCarilo() {
                 walkingTime="40 min"
                 drivingTime="15 min"
                 googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Cabalgatas+El+Relincho+Cariló"
-                imageUrl="/quehacer/el-replincho-cabalgata.jpg"
-                imageAlt="Cabalgatas El Relincho paseos a caballo Cariló"
-                onImageClick={() => openLightbox(21)}
+                imageUrl="/quehacer/relincho.png"
+                imageAlt="Cabalgatas El Relincho paseos a caballo por la playa en Cariló"
+                onImageClick={() => openLightbox(24)}
                 gradientFrom="green-50"
                 gradientTo="emerald-50"
               />
