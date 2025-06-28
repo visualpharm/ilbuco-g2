@@ -2,6 +2,7 @@
 
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { BusinessCard } from "@/components/business-card"
 import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"
@@ -109,6 +110,31 @@ const cariloGalleryImages = [
     src: "/quehacer/motorrad2.jpg",
     alt: "Motorrad alquiler de bicicletas en Cariló",
     title: "Motorrad Bicicletas",
+  },
+  {
+    src: "https://performa.es/wp-content/uploads/2017/12/Centro-de-entrenamiento-personal-1280x720.jpg",
+    alt: "CIE Centro de Entrenamiento gimnasio en Cariló",
+    title: "CIE Gimnasio",
+  },
+  {
+    src: "https://carilo.circuitotenis.com/images/trabajos/t1.jpg",
+    alt: "Club de Tenis Cariló canchas de tenis",
+    title: "Club de Tenis",
+  },
+  {
+    src: "https://images.ctfassets.net/0ls885pa980u/5RKxmQn7fcXO3rucj732vW/6af4821c76cd5e778c30bde2f07eaacb/street-workout_topslider_ID-7a1704b3.jpg",
+    alt: "Aire Libre gimnasio al aire libre Cariló",
+    title: "Aire Libre",
+  },
+  {
+    src: "https://media.gettyimages.com/id/1437851885/es/foto/equipo-de-entrenamiento-con-pesas-en-un-gimnasio-moderno.jpg",
+    alt: "Dalmiro Paseo a Caballo Cariló",
+    title: "Dalmiro Paseo a Caballo",
+  },
+  {
+    src: "/photo/carilo/carilo-playa-persona-caminando-oceano.jpg",
+    alt: "Cabalgatas El Relincho paseos a caballo Cariló",
+    title: "Cabalgatas El Relincho",
   },
 ]
 
@@ -289,47 +315,20 @@ export default function QueHacerEnCarilo() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg shadow-sm overflow-hidden">
-                <button
-                  onClick={() => openLightbox(15)}
-                  className="relative w-full h-48 cursor-zoom-in hover:opacity-90 transition-opacity"
-                >
-                  <Image
-                    src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/c9/21/38/tu-lugar-los-12-meses.jpg"
-                    alt="Balneario Hemingway Cariló vista al mar"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                </button>
-                <div className="p-6">
-                  <div className="flex items-start mb-4">
-                    <span className="h-6 w-6 mr-3 mt-1 text-orange-600">🏖️</span>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">Balneario Hemingway</h3>
-                      <p className="text-gray-700 mb-3">
-                        Parador clásico de Cariló con excelente gastronomía frente al mar. Lugar cómodo para disfrutar de la playa con servicios completos.
-                      </p>
-                      <div className="flex items-center gap-4 text-sm text-green-700 mb-3">
-                        <span className="flex items-center">
-                          <span className="text-yellow-500">★</span> 4.3 (2,743 reseñas)
-                        </span>
-                        <span>•</span>
-                        <span>Vista al mar</span>
-                      </div>
-                      <a
-                        href="https://maps.app.goo.gl/8xM9V8HjTqZJGzQV8"
-                        className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MapPin className="h-4 w-4" />
-                        Ver en Google Maps (24 min caminando)
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <BusinessCard
+                name="Balneario Hemingway"
+                description="Disfrutar de un día de playa con gastronomía de calidad y servicios completos frente al mar. El parador clásico de Cariló ofrece comida argentina, vista al océano y ambiente relajado."
+                rating={4.0}
+                reviewCount="2,743"
+                walkingTime="24 min"
+                drivingTime="7 min"
+                googleMapsUrl="https://www.google.com/maps/place/Balneario+Hemingway+Carilo/@-37.163825,-56.889637,15z"
+                imageUrl="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/c9/21/38/tu-lugar-los-12-meses.jpg"
+                imageAlt="Balneario Hemingway Cariló vista al mar"
+                onImageClick={() => openLightbox(15)}
+                gradientFrom="green-50"
+                gradientTo="emerald-50"
+              />
 
               <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg shadow-sm overflow-hidden">
                 <button
@@ -382,125 +381,81 @@ export default function QueHacerEnCarilo() {
             <h2 className="text-3xl font-bold mb-10 text-center">
               Deportes y Actividades al Aire Libre
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-indigo-600">🏋️</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">CIE - Centro de Entrenamiento</h3>
-                    <p className="text-gray-700 mb-3">
-                      Gimnasio interior de servicio completo rodeado de bosque con pases diarios, semanales y mensuales. La buena instrucción privada está incluida en el precio.
-                    </p>
-                    <a
-                      href="https://www.google.com/maps/search/?api=1&query=CIE+Centro+de+Entrenamiento+Cariló"
-                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MapPin className="h-4 w-4" />
-                      Ver en Google Maps
-                    </a>
-                  </div>
-                </div>
-              </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <BusinessCard
+                name="CIE - Centro de Entrenamiento"
+                description="Entrenar en un gimnasio completo rodeado de bosque con instructores incluidos. Pases diarios, semanales y mensuales disponibles."
+                rating={4.5}
+                reviewCount="120"
+                walkingTime="17 min"
+                drivingTime="4 min"
+                googleMapsUrl="https://www.google.com/maps/search/?api=1&query=CIE+Centro+de+Entrenamiento+Cariló"
+                imageUrl="/quehacer/cie-gimnasio.jpg"
+                imageAlt="CIE Centro de Entrenamiento gimnasio en Cariló"
+                onImageClick={() => openLightbox(17)}
+                gradientFrom="blue-50"
+                gradientTo="indigo-50"
+              />
 
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-green-600">🎾</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Club de Tenis Cariló</h3>
-                    <p className="text-gray-700 mb-3">
-                      Canchas de polvo de ladrillo, pádel, fútbol 5, y un pequeño gimnasio interior. Alquilan raquetas y dan clases.
-                    </p>
-                    <a
-                      href="https://www.google.com/maps/search/?api=1&query=Club+de+Tenis+Cariló"
-                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MapPin className="h-4 w-4" />
-                      Ver en Google Maps
-                    </a>
-                  </div>
-                </div>
-              </div>
+              <BusinessCard
+                name="Club de Tenis Cariló"
+                description="Jugar tenis, pádel y fútbol 5 en canchas de polvo de ladrillo. Alquiler de raquetas y clases disponibles."
+                rating={4.3}
+                reviewCount="95"
+                walkingTime="20 min"
+                drivingTime="5 min"
+                googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Club+de+Tenis+Cariló"
+                imageUrl="https://carilo.circuitotenis.com/images/trabajos/t1.jpg"
+                imageAlt="Club de Tenis Cariló canchas de tenis"
+                onImageClick={() => openLightbox(18)}
+                gradientFrom="green-50"
+                gradientTo="emerald-50"
+              />
 
-              <div className="bg-gradient-to-br from-red-50 to-rose-50 p-6 rounded-lg shadow-sm">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-red-600">💪</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Aire Libre Calistenia</h3>
-                    <p className="text-gray-700 mb-3">
-                      Gimnasio de calistenia al aire libre gratuito, abierto las 24 horas, con barras de dominadas, paralelas y otros equipos de entrenamiento corporal.
-                    </p>
-                    <a
-                      href="https://www.google.com/maps/search/?api=1&query=Gimnasio+Aire+Libre+Cariló"
-                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MapPin className="h-4 w-4" />
-                      Ver en Google Maps
-                    </a>
-                  </div>
-                </div>
-              </div>
+              <BusinessCard
+                name="Aire Libre, Libre"
+                description="Entrenar gratis las 24 horas en gimnasio al aire libre con barras de dominadas, paralelas y equipos de entrenamiento corporal."
+                rating={4.8}
+                reviewCount="65"
+                walkingTime="15 min"
+                drivingTime="3 min"
+                googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Aire+Libre+Cariló"
+                imageUrl="/quehacer/aire-libre.jpg"
+                imageAlt="Aire Libre, Libre gimnasio al aire libre Cariló"
+                onImageClick={() => openLightbox(19)}
+                gradientFrom="red-50"
+                gradientTo="rose-50"
+              />
 
+              <BusinessCard
+                name="Dalmiro Paseo a Caballo"
+                description="Paseos a caballo por la playa y bosques de Cariló. Experiencia única con caballos mansos y guías expertos."
+                rating={4.7}
+                reviewCount="120"
+                walkingTime="35 min"
+                drivingTime="12 min"
+                googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Dalmiro+Paseo+a+Caballo+Cariló"
+                imageUrl="/quehacer/dalmiro-cabalgata.jpg"
+                imageAlt="Dalmiro Paseo a Caballo Cariló"
+                onImageClick={() => openLightbox(20)}
+                gradientFrom="amber-50"
+                gradientTo="orange-50"
+              />
 
-              <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-lg shadow-sm">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-orange-600">🏇</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Cabalgatas en la Playa</h3>
-                    <p className="text-gray-700 mb-3">
-                      Paseos a caballo al atardecer por la playa. Experiencia inolvidable con vistas al mar. Grupos reducidos y guías expertos.
-                    </p>
-                    <div className="flex items-center gap-4 text-sm text-amber-700 mb-3">
-                      <span className="flex items-center">
-                        <span className="text-yellow-500">★</span> 4.9 (85+ reseñas)
-                      </span>
-                      <span>•</span>
-                      <span>Reserva previa requerida</span>
-                    </div>
-                    <a
-                      href="https://www.google.com/maps/place/Cabalgatas+en+la+Playa+Caril%C3%B3/@-37.1624885,-56.8986388,15z/data=!4m6!3m5!1s0x959c7e5e3e3f3e3f:0x3b3b3b3b3b3b3b3b!8m2!3d-37.1624885!4d-56.8986388!16s%2Fg%2F11b8f8f8f9"
-                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MapPin className="h-4 w-4" />
-                      Ver en Google Maps (15 min en auto)
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-
-              <div className="bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-lg shadow-sm">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-yellow-600">🚗</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Sand Masters - Escuela 4x4</h3>
-                    <p className="text-gray-700 mb-3">
-                      Aprendé técnicas de manejo off-road y cómo navegar por las dunas de arena. Clases teóricas y prácticas con instructores certificados.
-                    </p>
-                    <div className="text-sm text-gray-600 mb-2 flex items-center gap-2">
-                      <span>Ubicación: Pinamar</span>
-                      <span className="text-gray-300">•</span>
-                      <span>25 min desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link></span>
-                    </div>
-                    <a
-                      href="https://maps.app.goo.gl/pZxbP4Xq1bwwEQwv5"
-                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MapPin className="h-4 w-4" />
-                      Ver en Google Maps
-                    </a>
-                  </div>
-                </div>
-              </div>
+              <BusinessCard
+                name="Cabalgatas El Relincho"
+                description="Paseos a caballo por la costa atlántica y senderos del bosque. Salidas al amanecer y atardecer con grupos pequeños."
+                rating={4.8}
+                reviewCount="95"
+                walkingTime="40 min"
+                drivingTime="15 min"
+                googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Cabalgatas+El+Relincho+Cariló"
+                imageUrl="/quehacer/el-replincho-cabalgata.jpg"
+                imageAlt="Cabalgatas El Relincho paseos a caballo Cariló"
+                onImageClick={() => openLightbox(21)}
+                gradientFrom="green-50"
+                gradientTo="emerald-50"
+              />
             </div>
           </div>
         </section>

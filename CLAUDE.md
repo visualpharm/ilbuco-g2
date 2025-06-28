@@ -435,6 +435,12 @@ How to present the businesses and places:
    - Distance from Il Buco: walking with the icon of a walking person, and driving with the icon of a car
    - Link to the business profile in Google Maps - do no-follow
 
+## Images for businesses
+NEVER use stock images, images from other websites, or AI-generated images for business listings. Always use real photos of the business, ideally from:
+1. Google Maps - get them with Bright Data API
+2. Google Images, Bing Images and similar - same as above.
+Don't use images from social media: they tend to be random (not only how the business looks, but also ads, related content, etc.). Also they are protected from scraping.
+
 ## Golden Standard Business Card Design
 
 **This is the perfect format for business cards - use this exact structure for all business listings:**
