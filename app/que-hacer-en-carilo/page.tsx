@@ -540,7 +540,15 @@ export default function QueHacerEnCarilo() {
                   <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-5 rounded-lg shadow-sm border border-orange-100 relative">
                     <div className="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded-full">$$$</div>
                     <h5 className="text-lg font-semibold mb-2 text-orange-800">Pepe Napoli</h5>
-                    <p className="text-gray-700 text-sm">Otra excelente opción de pizza napolitana, aunque no tan destacada como Il Gatto Nero.</p>
+                    <p className="text-gray-700 text-sm mb-2">⭐ 4.0/5 (1,260 reseñas). Otra excelente opción de pizza napolitana, aunque no tan destacada como Il Gatto Nero.</p>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Restaurante+Peppe+Napoli+Av.+Divisadero+1510+Cariló"
+                      className="text-blue-600 hover:text-blue-800 text-xs"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      📍 Av. Divisadero 1510, Cariló
+                    </a>
                   </div>
                   <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-5 rounded-lg shadow-sm border border-yellow-100">
                     <h5 className="text-lg font-semibold mb-2 text-yellow-800">Impeke</h5>

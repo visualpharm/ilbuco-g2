@@ -426,7 +426,7 @@ https://www.carilo.com/actividades-en-carilo - check these places with google ma
 
 # Business info
 How to present the businesses and places:
-1. Use google maps api to get the raging, # of reviews, distance from Il Buco, all reviews it allows to get.
+1. Use google maps api to get the raging, # of reviews, distance from Il Buco, all reviews it allows to get. For google maps api, use the key from the environment variable `GOOGLE_MAPS_API_KEY`.
 2. Present the business in a card with the following information:
    - Name
   -  Description based on the reviews. Think jobs to be done style, what kind of jobs does this business does for its customers?
@@ -437,8 +437,9 @@ How to present the businesses and places:
 
 ## Images for businesses
 NEVER use stock images, images from other websites, or AI-generated images for business listings. Always use real photos of the business, ideally from:
-1. Google Maps - get them with Bright Data API
-2. Google Images, Bing Images and similar - same as above.
+
+Google Images, Bing Images and similar - look for images, not webpages. If you get a link to the image, use it. If it's a webpage, don't bother parsing it and finding images.
+
 Don't use images from social media: they tend to be random (not only how the business looks, but also ads, related content, etc.). Also they are protected from scraping.
 
 ## Golden Standard Business Card Design
