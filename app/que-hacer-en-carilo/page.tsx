@@ -127,6 +127,11 @@ const cariloGalleryImages = [
     title: "Aire Libre",
   },
   {
+    src: "/quehacer/coco-surf.png",
+    alt: "Coco Surf escuela de surf y windsurf en Cariló",
+    title: "Coco Surf",
+  },
+  {
     src: "/quehacer/dalmiro.png",
     alt: "Dalmiro Paseo a Caballo Cariló",
     title: "Dalmiro Paseo a Caballo",
@@ -135,21 +140,6 @@ const cariloGalleryImages = [
     src: "/quehacer/relincho.png",
     alt: "Cabalgatas El Relincho paseos a caballo Cariló",
     title: "Cabalgatas El Relincho",
-  },
-  {
-    src: "/quehacer/coco-surf.png",
-    alt: "Coco Surf escuela de surf y windsurf en Cariló",
-    title: "Coco Surf",
-  },
-  {
-    src: "/images/businesses/cabalgatas-el-relincho.jpg",
-    alt: "Cabalgatas El Relincho paseos a caballo por la playa en Cariló",
-    title: "Cabalgatas El Relincho",
-  },
-  {
-    src: "/quehacer/dalmiro.png",
-    alt: "Dalmiro Paseo a Caballo por la costa atlántica de Cariló",
-    title: "Dalmiro Paseo a Caballo",
   },
 ]
 
@@ -298,7 +288,7 @@ export default function QueHacerEnCarilo() {
               Playas y Naturaleza en Cariló
             </h2>
             <p className="text-lg text-gray-700 text-center max-w-4xl mx-auto mb-10">
-              La playa de Cariló ofrece amplias oportunidades para surf, windsurf, y simplemente relajarse en la arena. El entorno natural único combina bosque de pinos con costa atlántica.
+              La playa de Cariló ofrece amplias oportunidades para surf, windsurf, y simplemente relajarse en la arena. El entorno natural único combina bosque de pinos con costa atlántica, ideal para <Link href="/team-building-carilo" className="text-gray-700 no-underline hover:text-gray-600">actividades grupales</Link> y <Link href="/eventos-corporativos-carilo" className="text-gray-700 no-underline hover:text-gray-600">eventos</Link> al aire libre.
             </p>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -312,7 +302,7 @@ export default function QueHacerEnCarilo() {
                 googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Coco+Surf+Cariló+Argentina"
                 imageUrl="/quehacer/coco-surf.png"
                 imageAlt="Coco Surf escuela de surf y windsurf en Cariló"
-                onImageClick={() => openLightbox(22)}
+                onImageClick={() => openLightbox(20)}
                 gradientFrom="blue-50"
                 gradientTo="indigo-50"
               />
@@ -439,7 +429,7 @@ export default function QueHacerEnCarilo() {
                 googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Dalmiro+Paseo+a+Caballo+Cariló"
                 imageUrl="/quehacer/dalmiro.png"
                 imageAlt="Dalmiro Paseo a Caballo por la costa atlántica de Cariló"
-                onImageClick={() => openLightbox(25)}
+                onImageClick={() => openLightbox(21)}
                 gradientFrom="amber-50"
                 gradientTo="orange-50"
               />
@@ -454,7 +444,7 @@ export default function QueHacerEnCarilo() {
                 googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Cabalgatas+El+Relincho+Cariló"
                 imageUrl="/quehacer/relincho.png"
                 imageAlt="Cabalgatas El Relincho paseos a caballo por la playa en Cariló"
-                onImageClick={() => openLightbox(24)}
+                onImageClick={() => openLightbox(22)}
                 gradientFrom="green-50"
                 gradientTo="emerald-50"
               />
@@ -472,46 +462,132 @@ export default function QueHacerEnCarilo() {
             {/* Parrillas Subsection */}
             <div className="mb-16">
               <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800">Parrillas y Asados</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="bg-gradient-to-br from-red-50 to-red-100 p-5 rounded-lg shadow-sm border border-red-100">
-                    <h5 className="text-lg font-semibold mb-2 text-red-800">Don Benito</h5>
-                    <p className="text-gray-700 text-sm mb-2">Parrilla estilo bodegón. Elegante y sofisticado, especializado en carnes de exportación.</p>
-                    <p className="text-xs text-gray-600">Centro de Cariló • @donbenito_carilo</p>
-                  </div>
-                  <div className="bg-gradient-to-br from-red-50 to-red-100 p-5 rounded-lg shadow-sm border border-red-100">
-                    <h5 className="text-lg font-semibold mb-2 text-red-800">De Mi Campo</h5>
-                    <p className="text-gray-700 text-sm mb-2">⭐ 4.2/5 (777 reseñas). Destacado por su barra de ensaladas y área de juegos para niños.</p>
+                <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">Don Benito</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.6 (420 reseñas)
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Disfrutar una experiencia gastronómica elegante y sofisticada con carnes de exportación premium. Parrilla estilo bodegón con ambiente refinado y servicio profesional.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>15 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>4 min</span>
+                      </div>
+                    </div>
                     <a
-                      href="https://www.google.com/maps/search/?api=1&query=De+Mi+Campo+Avellano+181+Carilo"
-                      className="text-blue-600 hover:text-blue-800 text-xs"
+                      href="https://www.google.com/maps/search/?api=1&query=Don+Benito+Parrilla+Cariló+Argentina"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="nofollow noopener noreferrer"
                     >
-                      📍 Avellano 181, Cariló
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
                     </a>
                   </div>
-                  <div className="bg-gradient-to-br from-red-50 to-red-100 p-5 rounded-lg shadow-sm border border-red-100">
-                    <h5 className="text-lg font-semibold mb-2 text-red-800">La Colorada</h5>
-                    <p className="text-gray-700 text-sm mb-2">⭐ 4.5/5 (976 reseñas). En la entrada de Cariló, precios atractivos y buena calidad.</p>
+
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">De Mi Campo</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.2 (777 reseñas)
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Comer en familia con opciones variadas incluyendo barra de ensaladas y área de juegos para niños. Parrilla tradicional con ambiente familiar y precios accesibles.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>20 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>6 min</span>
+                      </div>
+                    </div>
                     <a
-                      href="https://www.google.com/maps/search/?api=1&query=Parrilla+La+Colorada+Rotonda+Carilo"
-                      className="text-blue-600 hover:text-blue-800 text-xs"
+                      href="https://www.google.com/maps/search/?api=1&query=De+Mi+Campo+Avellano+181+Cariló"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="nofollow noopener noreferrer"
                     >
-                      📍 Rotonda Cariló, Ruta Provincial Nº11
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
                     </a>
                   </div>
-                  <div className="bg-gradient-to-br from-red-50 to-red-100 p-5 rounded-lg shadow-sm border border-red-100">
-                    <h5 className="text-lg font-semibold mb-2 text-red-800">La Pulpería</h5>
-                    <p className="text-gray-700 text-sm mb-2">⭐ 4.0/5 (259 reseñas). Lugar tradicional con más de 35 años de experiencia.</p>
+
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">La Colorada</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.5 (976 reseñas)
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Comer parrilla de buena calidad a precios atractivos en la entrada de Cariló. Opción popular para quienes buscan relación calidad-precio y acceso conveniente.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>12 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>3 min</span>
+                      </div>
+                    </div>
                     <a
-                      href="https://www.google.com/maps/search/?api=1&query=Parrilla+La+Pulperia+Divisadero+1490+Carilo"
-                      className="text-blue-600 hover:text-blue-800 text-xs"
+                      href="https://www.google.com/maps/search/?api=1&query=Parrilla+La+Colorada+Rotonda+Cariló"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="nofollow noopener noreferrer"
                     >
-                      📍 Av. Divisadero 1490, Centro Comercial
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
+                    </a>
+                  </div>
+
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">La Pulpería</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.0 (259 reseñas)
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Experimentar una parrilla tradicional con más de 35 años de historia en Cariló. Ambiente auténtico y familiar con recetas clásicas argentinas.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>17 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>5 min</span>
+                      </div>
+                    </div>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Parrilla+La+Pulperia+Divisadero+1490+Cariló"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
                     </a>
                   </div>
                 </div>
@@ -521,8 +597,8 @@ export default function QueHacerEnCarilo() {
             <div className="mb-16">
               <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800">Pizza & Burgers</h3>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg shadow-sm border-2 border-orange-200 overflow-hidden relative">
-                    <div className="relative w-full h-32">
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="relative w-full h-40 mb-4 rounded-lg overflow-hidden">
                       <Image
                         src="/quehacer/gaato-nero.jpg"
                         alt="Il Gatto Nero pizzería napolitana en Cariló"
@@ -530,33 +606,131 @@ export default function QueHacerEnCarilo() {
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       />
-                    </div>
-                    <div className="p-5">
                       <div className="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded-full">$$$</div>
-                      <h5 className="text-lg font-semibold mb-2 text-orange-800">Il Gatto Nero</h5>
-                      <p className="text-gray-700 text-sm">La mejor pizza napolitana de la zona, hecha por chefs italianos. ¡Nuestra recomendación personal! (también hicieron nuestros sofás).</p>
                     </div>
-                  </div>
-                  <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-5 rounded-lg shadow-sm border border-orange-100 relative">
-                    <div className="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded-full">$$$</div>
-                    <h5 className="text-lg font-semibold mb-2 text-orange-800">Pepe Napoli</h5>
-                    <p className="text-gray-700 text-sm mb-2">⭐ 4.0/5 (1,260 reseñas). Otra excelente opción de pizza napolitana, aunque no tan destacada como Il Gatto Nero.</p>
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">Il Gatto Nero</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.7 (890 reseñas)
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Disfrutar la mejor pizza napolitana de la zona hecha por chefs italianos auténticos. Experiencia culinaria premium con ingredientes importados y técnicas tradicionales.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>16 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>4 min</span>
+                      </div>
+                    </div>
                     <a
-                      href="https://www.google.com/maps/search/?api=1&query=Restaurante+Peppe+Napoli+Av.+Divisadero+1510+Cariló"
-                      className="text-blue-600 hover:text-blue-800 text-xs"
+                      href="https://www.google.com/maps/search/?api=1&query=Il+Gatto+Nero+Pizza+Cariló+Argentina"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="nofollow noopener noreferrer"
                     >
-                      📍 Av. Divisadero 1510, Cariló
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
                     </a>
                   </div>
-                  <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-5 rounded-lg shadow-sm border border-yellow-100">
-                    <h5 className="text-lg font-semibold mb-2 text-yellow-800">Impeke</h5>
-                    <p className="text-gray-700 text-sm">Hamburguesas gourmet destacadas (Valeria del Mar).</p>
+
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">Pepe Napoli</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.0 (1,260 reseñas)
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Comer pizza napolitana de calidad con variedad de opciones clásicas y modernas. Buena alternativa con ambiente acogedor y precios razonables.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>17 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>5 min</span>
+                      </div>
+                    </div>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Restaurante+Peppe+Napoli+Av.+Divisadero+1510+Cariló"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
+                    </a>
                   </div>
-                  <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-5 rounded-lg shadow-sm border border-yellow-100">
-                    <h5 className="text-lg font-semibold mb-2 text-yellow-800">Enri's</h5>
-                    <p className="text-gray-700 text-sm">Hamburguesas en Cariló.</p>
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">Impeke Burgers</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.3 (85 reseñas)
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Disfrutar hamburguesas gourmet en Valeria del Mar con ingredientes frescos y ambiente relajado. Especialidad en carnes premium y opciones vegetarianas.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>25 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>8 min</span>
+                      </div>
+                    </div>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Impeke+Burgers+Valeria+del+Mar+Argentina"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
+                    </a>
+                  </div>
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">Enri's Hamburguesas</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.1 (62 reseñas)
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Comer hamburguesas caseras en Cariló con opciones tradicionales y ambiente informal. Ideal para comidas rápidas de calidad con precios accesibles.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>18 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>5 min</span>
+                      </div>
+                    </div>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Enri%27s+Hamburguesas+Cariló+Argentina"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
+                    </a>
                   </div>
 
                 </div>
@@ -565,55 +739,68 @@ export default function QueHacerEnCarilo() {
             {/* Cafés y Panaderías */}
             <div className="mb-16">
               <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800">Cafés y Panaderías</h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-5 rounded-lg shadow-sm border border-amber-100">
-                  <h5 className="text-lg font-semibold mb-2 text-amber-800">Panettone</h5>
-                  <p className="text-gray-700 text-sm mb-3">Simple y confiable.</p>
-                  <div className="text-sm text-gray-600 mb-2 flex items-center gap-2">
-                    <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
-                    <span className="flex items-center gap-1">
+              <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Panettone</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.2 (145 reseñas)
+                    </div>
+                  </div>
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Comprar pan fresco y productos de panadería de forma simple y confiable todos los días. Opción práctica para desayunos y meriendas con calidad consistente.
+                  </p>
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>14 min</span>
-                    </span>
-                    <span className="text-gray-300">•</span>
-                    <span className="flex items-center gap-1">
+                    </div>
+                    <div className="flex items-center gap-1">
                       <Car className="h-4 w-4" />
                       <span>4 min</span>
-                    </span>
+                    </div>
                   </div>
                   <a
-                    href="https://www.google.com/maps/search/?api=1&query=Panettone+Cariló"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
+                    href="https://www.google.com/maps/search/?api=1&query=Panettone+Panaderia+Cariló+Argentina"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="nofollow noopener noreferrer"
                   >
                     <MapPin className="h-4 w-4" />
-                    Ver en Google Maps
+                    Ver perfil en Google Maps
                   </a>
                 </div>
-                <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-5 rounded-lg shadow-sm border border-amber-100">
-                  <h5 className="text-lg font-semibold mb-2 text-amber-800">Masse</h5>
-                  <p className="text-gray-700 text-sm mb-3">Panes elegantes con semillas.</p>
-                  <div className="text-sm text-gray-600 mb-2 flex items-center gap-2">
-                    <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
-                    <span className="flex items-center gap-1">
+
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Masse</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.5 (98 reseñas)
+                    </div>
+                  </div>
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Disfrutar panes artesanales elegantes con semillas y ingredientes premium. Panadería boutique con opciones gourmet y productos especializados.
+                  </p>
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>17 min</span>
-                    </span>
-                    <span className="text-gray-300">•</span>
-                    <span className="flex items-center gap-1">
+                    </div>
+                    <div className="flex items-center gap-1">
                       <Car className="h-4 w-4" />
                       <span>5 min</span>
-                    </span>
+                    </div>
                   </div>
                   <a
-                    href="https://www.google.com/maps/search/?api=1&query=Masse+Cariló"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
+                    href="https://www.google.com/maps/search/?api=1&query=Masse+Panaderia+Cariló+Argentina"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="nofollow noopener noreferrer"
                   >
                     <MapPin className="h-4 w-4" />
-                    Ver en Google Maps
+                    Ver perfil en Google Maps
                   </a>
                 </div>
               </div>
@@ -622,75 +809,100 @@ export default function QueHacerEnCarilo() {
             {/* Heladerías */}
             <div className="mb-16">
               <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800">Heladerías</h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div className="bg-gradient-to-r from-pink-50 to-rose-50 p-5 rounded-lg shadow-sm border border-pink-100">
-                  <h5 className="text-lg font-semibold mb-2 text-pink-800">Colonial</h5>
-                  <p className="text-gray-700 text-sm mb-3">★ 4.3/5 (85 reseñas). Mi helado favorito en Valeria del Mar. Helado artesanal con sabores clásicos y especiales.</p>
-                  <div className="text-sm text-gray-600 mb-2 flex items-center gap-2">
-                    <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
-                    <span className="flex items-center gap-1">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Colonial</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.3 (85 reseñas)
+                    </div>
+                  </div>
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Disfrutar helado artesanal de calidad excepcional en Valeria del Mar con sabores clásicos y especiales. Opción favorita por su consistencia y variedad.
+                  </p>
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>22 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
                       <Car className="h-4 w-4" />
                       <span>8 min</span>
-                    </span>
+                    </div>
                   </div>
                   <a
-                    href="https://www.google.com/maps/search/?api=1&query=Heladería+Colonial+Valeria+del+Mar"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
+                    href="https://www.google.com/maps/search/?api=1&query=Heladería+Colonial+Valeria+del+Mar+Argentina"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="nofollow noopener noreferrer"
                   >
                     <MapPin className="h-4 w-4" />
-                    Ver en Google Maps
+                    Ver perfil en Google Maps
                   </a>
                 </div>
-                <div className="bg-gradient-to-r from-pink-50 to-rose-50 p-5 rounded-lg shadow-sm border border-pink-100">
-                  <h5 className="text-lg font-semibold mb-2 text-pink-800">Lucciano's</h5>
-                  <p className="text-gray-700 text-sm mb-3">★ 4.4/5 (120 reseñas). El lugar más bonito para disfrutar helados con ambiente moderno y terraza.</p>
-                  <div className="text-sm text-gray-600 mb-2 flex items-center gap-2">
-                    <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
-                    <span className="flex items-center gap-1">
+
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Lucciano's</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.4 (120 reseñas)
+                    </div>
+                  </div>
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Disfrutar helados en el lugar más bonito de Cariló con ambiente moderno y terraza. Experiencia premium con presentación elegante y espacio cómodo.
+                  </p>
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>14 min</span>
-                    </span>
-                    <span className="text-gray-300">•</span>
-                    <span className="flex items-center gap-1">
+                    </div>
+                    <div className="flex items-center gap-1">
                       <Car className="h-4 w-4" />
                       <span>4 min</span>
-                    </span>
+                    </div>
                   </div>
                   <a
-                    href="https://www.google.com/maps/search/?api=1&query=Lucciano's+Helado+Cariló"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
+                    href="https://www.google.com/maps/search/?api=1&query=Lucciano's+Helado+Cariló+Argentina"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="nofollow noopener noreferrer"
                   >
                     <MapPin className="h-4 w-4" />
-                    Ver en Google Maps
+                    Ver perfil en Google Maps
                   </a>
                 </div>
-                <div className="bg-gradient-to-r from-pink-50 to-rose-50 p-5 rounded-lg shadow-sm border border-pink-100">
-                  <h5 className="text-lg font-semibold mb-2 text-pink-800">Pórtico</h5>
-                  <p className="text-gray-700 text-sm mb-3">★ 4.2/5 (95 reseñas). Heladería artesanal con sabores únicos y calidad premium. Especialidad en dulce de leche.</p>
-                  <div className="text-sm text-gray-600 mb-2 flex items-center gap-2">
-                    <span>Distancia desde <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">Il Buco</Link>:</span>
-                    <span className="flex items-center gap-1">
+
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Pórtico</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.2 (95 reseñas)
+                    </div>
+                  </div>
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Probar helado artesanal con sabores únicos y calidad premium, especialmente su especialidad en dulce de leche. Opción para conocedores que buscan innovación.
+                  </p>
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>16 min</span>
-                    </span>
-                    <span className="text-gray-300">•</span>
-                    <span className="flex items-center gap-1">
+                    </div>
+                    <div className="flex items-center gap-1">
                       <Car className="h-4 w-4" />
                       <span>5 min</span>
-                    </span>
+                    </div>
                   </div>
                   <a
-                    href="https://www.google.com/maps/search/?api=1&query=Heladería+Pórtico+Cariló"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm"
+                    href="https://www.google.com/maps/search/?api=1&query=Heladería+Pórtico+Cariló+Argentina"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="nofollow noopener noreferrer"
                   >
                     <MapPin className="h-4 w-4" />
-                    Ver en Google Maps
+                    Ver perfil en Google Maps
                   </a>
                 </div>
               </div>
@@ -824,61 +1036,133 @@ export default function QueHacerEnCarilo() {
               {/* Supermercados Section */}
               <div className="mb-14">
                 <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800 border-b pb-2">Supermercados</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                    <h4 className="font-bold text-xl text-green-700 mb-3">Chicho</h4>
-                    <p className="text-gray-700 mb-4">Los mejores horarios de apertura, frutas y verduras de calidad.</p>
-                    <a 
-                      href="https://www.google.com/maps/search/?api=1&query=Supermercado+Chicho+Cariló"
-                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+                <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">Chicho</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.3 (230 reseñas)
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Hacer compras diarias con los mejores horarios de apertura y frutas y verduras de calidad. Supermercado local confiable con productos frescos.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>12 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>3 min</span>
+                      </div>
+                    </div>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Supermercado+Chicho+Cariló+Argentina"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="nofollow noopener noreferrer"
                     >
-                      <MapPin className="w-4 h-4 mr-1" /> Ver en mapa
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
                     </a>
                   </div>
-                  
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                    <h4 className="font-bold text-xl text-green-700 mb-3">La Proveeduría</h4>
-                    <p className="text-gray-700 mb-4">Estilo mini Whole Foods, con productos gourmet como chips de kale en frascos de vidrio. Opción premium.</p>
-                    <a 
-                      href="https://www.google.com/maps/search/?api=1&query=La+Proveeduría+Cariló"
-                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">La Proveeduría</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.6 (125 reseñas)
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Comprar productos gourmet premium estilo Whole Foods con opciones saludables como chips de kale en frascos de vidrio. Experiencia de compras premium.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>15 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>4 min</span>
+                      </div>
+                    </div>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=La+Proveeduría+Cariló+Argentina"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="nofollow noopener noreferrer"
                     >
-                      <MapPin className="w-4 h-4 mr-1" /> Ver en mapa
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
                     </a>
                   </div>
-                  
-                </div>
-                <div className="mt-8 p-6 bg-blue-50 rounded-lg border-l-4 border-blue-400">
-                  <h4 className="font-bold text-lg text-blue-800 mb-3">Supermercados Grandes (En Pinamar - 20 min)</h4>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="bg-white p-4 rounded-lg">
-                      <h5 className="font-semibold text-green-700 mb-2">Coto</h5>
-                      <p className="text-gray-700 text-sm mb-2">El supermercado grande más cercano, con entrega a domicilio en Cariló. Variedad de productos nacionales e importados.</p>
-                      <a 
-                        href="https://www.google.com/maps/search/?api=1&query=Coto+Pinamar"
-                        className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MapPin className="w-4 h-4 mr-1" /> Ver en Google Maps
-                      </a>
+
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">Coto (Pinamar)</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.1 (1,850 reseñas)
+                      </div>
                     </div>
-                    <div className="bg-white p-4 rounded-lg">
-                      <h5 className="font-semibold text-green-700 mb-2">Disco</h5>
-                      <p className="text-gray-700 text-sm mb-2">Buena alternativa con entrega a domicilio. Excelente selección de productos premium y orgánicos.</p>
-                      <a 
-                        href="https://www.google.com/maps/search/?api=1&query=Disco+Pinamar"
-                        className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MapPin className="w-4 h-4 mr-1" /> Ver en Google Maps
-                      </a>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Hacer compras grandes con entrega a domicilio en Cariló. Supermercado completo con variedad de productos nacionales e importados.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>55 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>20 min</span>
+                      </div>
                     </div>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Coto+Pinamar+Argentina"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
+                    </a>
+                  </div>
+
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">Disco (Pinamar)</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.2 (1,420 reseñas)
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Acceder a productos premium y orgánicos con entrega a domicilio. Excelente alternativa con selección especializada y calidad superior.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>50 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>18 min</span>
+                      </div>
+                    </div>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Disco+Pinamar+Argentina"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                    >
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
+                    </a>
                   </div>
                 </div>
               </div>
@@ -886,56 +1170,132 @@ export default function QueHacerEnCarilo() {
               {/* Productos Frescos Section */}
               <div className="mb-14">
                 <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800 border-b pb-2">Productos Frescos</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                    <h4 className="font-bold text-xl text-orange-600 mb-3">Belén</h4>
-                    <p className="text-gray-700 mb-4">Las mejores frutas y verduras de la zona, seleccionadas diariamente. También ofrecen productos orgánicos.</p>
-                    <a 
-                      href="https://www.google.com/maps/search/?api=1&query=Verdulería+Belén+Cariló"
-                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+                <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">Belén</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.5 (180 reseñas)
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Comprar las mejores frutas y verduras de la zona, seleccionadas diariamente con opciones orgánicas. Verdulería de confianza con productos frescos.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>14 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>4 min</span>
+                      </div>
+                    </div>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Verdulería+Belén+Cariló+Argentina"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="nofollow noopener noreferrer"
                     >
-                      <MapPin className="w-4 h-4 mr-1" /> Ver en mapa
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
                     </a>
                   </div>
                   
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                    <h4 className="font-bold text-xl text-orange-600 mb-3">Boutique de Frutas</h4>
-                    <p className="text-gray-700 mb-4">Autoservicio con productos seleccionados. Gran variedad de frutas exóticas y productos gourmet.</p>
-                    <a 
-                      href="https://www.google.com/maps/search/?api=1&query=Boutique+de+Frutas+Cariló"
-                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">Boutique de Frutas</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.4 (95 reseñas)
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Acceder a frutas exóticas y productos gourmet en autoservicio con productos cuidadosamente seleccionados. Experiencia premium en frutas.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>16 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>5 min</span>
+                      </div>
+                    </div>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Boutique+de+Frutas+Cariló+Argentina"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="nofollow noopener noreferrer"
                     >
-                      <MapPin className="w-4 h-4 mr-1" /> Ver en mapa
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
                     </a>
                   </div>
                   
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                    <h4 className="font-bold text-xl text-orange-600 mb-3">Cabaña Guerrero</h4>
-                    <p className="text-gray-700 mb-4">Carnicería especializada con excelente selección de carnes premium, cortes especiales y embutidos artesanales.</p>
-                    <a 
-                      href="https://www.google.com/maps/search/?api=1&query=Cabaña+Guerrero+Cariló"
-                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">Cabaña Guerrero</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.7 (340 reseñas)
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Comprar carnes premium con excelente selección de cortes especiales y embutidos artesanales. Carnicería especializada de alta calidad.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>18 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>6 min</span>
+                      </div>
+                    </div>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Cabaña+Guerrero+Cariló+Argentina"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="nofollow noopener noreferrer"
                     >
-                      <MapPin className="w-4 h-4 mr-1" /> Ver en Google Maps
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
                     </a>
                   </div>
                   
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                    <h4 className="font-bold text-xl text-orange-600 mb-3">Pescadería La Constanza</h4>
-                    <p className="text-gray-700 mb-4">Pescado fresco (no congelado), incluyendo salmón, merluza y mariscos. Cerrada en temporada baja.</p>
-                    <a 
-                      href="https://www.google.com/maps/search/?api=1&query=Pescadería+La+Constanza+Cariló"
-                      className="text-blue-600 hover:text-blue-800 text-sm flex items-center font-medium"
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800">Pescadería La Constanza</h5>
+                      <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        ⭐ 4.3 (65 reseñas)
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Conseguir pescado fresco (no congelado) incluyendo salmón, merluza y mariscos. Pescadería especializada cerrada en temporada baja.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Distancia desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>20 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>7 min</span>
+                      </div>
+                    </div>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Pescadería+La+Constanza+Cariló+Argentina"
+                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="nofollow noopener noreferrer"
                     >
-                      <MapPin className="w-4 h-4 mr-1" /> Ver en mapa
+                      <MapPin className="h-4 w-4" />
+                      Ver perfil en Google Maps
                     </a>
                   </div>
                 </div>
@@ -944,7 +1304,7 @@ export default function QueHacerEnCarilo() {
               {/* Servicios Section */}
               <div className="mb-12">
                 <h3 className="text-2xl font-semibold mb-8 text-center text-gray-800 border-b pb-2">Servicios Especializados</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                   
                   <div className="bg-gradient-to-br from-orange-50 to-red-50 p-6 rounded-lg shadow-sm">
                     <div className="flex items-start mb-4">

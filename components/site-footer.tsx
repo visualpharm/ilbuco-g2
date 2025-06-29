@@ -18,6 +18,9 @@ const seoLinks = {
     { href: "/casas-en-alquiler-en-carilo-frente-al-mar", text: "Casas en Alquiler en Cariló Frente al Mar" },
     { href: "/que-hacer-en-carilo", text: "Qué Hacer en Cariló" },
     { href: "/que-hacer-en-carilo-cuando-llueve", text: "Qué Hacer en Cariló Cuando Llueve" },
+    { href: "/team-building-carilo", text: "Team Building Cariló" },
+    { href: "/eventos-corporativos-carilo", text: "Eventos Corporativos Cariló" },
+    { href: "/carilo-golf-hospedaje", text: "Cariló Golf Hospedaje" },
   ],
   en: [
     { href: "/en/digital-nomad-argentina", text: "Digital Nomad Argentina" },

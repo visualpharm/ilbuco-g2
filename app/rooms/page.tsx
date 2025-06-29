@@ -81,7 +81,7 @@ export default function Rooms() {
                     </a>
                   </div>
                   <p className="text-gray-600 mb-6">
-                    <Translate text={roomsTranslations.terraceSuite.subtitle} /> Ideal como <Link href="/casas-en-carilo-alquiler" className="text-gray-600 no-underline hover:text-gray-500">casa</Link> de lujo.
+                    <Translate text={roomsTranslations.terraceSuite.subtitle} /> Ideal como <Link href="/casas-en-carilo-alquiler" className="text-gray-600 no-underline hover:text-gray-500">casa</Link> de lujo y <Link href="/carilo-golf-hospedaje" className="text-gray-600 no-underline hover:text-gray-500">hospedaje</Link> premium.
                   </p>
                   <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
                     <li className="flex items-start">

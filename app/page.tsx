@@ -93,7 +93,7 @@ export default function Home() {
                   <Image src="/icons/icons8/briefcase.svg" alt="" width={24} height={24} className="mr-3 mt-1 flex-shrink-0" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
                   <div>
                     <p className="text-lg">
-                      <Translate text={translations.home.goals.remoteWork} /> en un <Link href="/carilo-alojamiento" className="text-gray-900 no-underline hover:text-gray-700">alojamiento</Link> ideal
+                      <Translate text={translations.home.goals.remoteWork} /> en un <Link href="/carilo-alojamiento" className="text-gray-900 no-underline hover:text-gray-700">alojamiento</Link> ideal para <Link href="/team-building-carilo" className="text-gray-900 no-underline hover:text-gray-700">equipos</Link>
                     </p>
                   </div>
                 </li>
@@ -140,7 +140,7 @@ export default function Home() {
                       <Link href="/apart-hotel-en-carilo" className="text-gray-900 no-underline hover:text-gray-700"><Translate text={translations.home.highlights.accommodation.title} /></Link>
                     </h3>
                     <p className="text-gray-600">
-                      <Translate text={translations.home.highlights.accommodation.description} /> a 150 metros del <Link href="/casas-en-carilo-frente-al-mar" className="text-gray-600 no-underline hover:text-gray-500">mar</Link>
+                      <Translate text={translations.home.highlights.accommodation.description} /> a 150 metros del <Link href="/casas-en-carilo-frente-al-mar" className="text-gray-600 no-underline hover:text-gray-500">mar</Link>, ideal para <Link href="/carilo-golf-hospedaje" className="text-gray-600 no-underline hover:text-gray-500">estadías</Link> especiales
                     </p>
                   </div>
                 </div>
