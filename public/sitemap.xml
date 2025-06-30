@@ -119,6 +119,21 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/apart-hotel-en-carilo"/>
     <changefreq>monthly</changefreq>
   </url>
+  <url>
+    <loc>https://ilbuco.com.ar/team-building-carilo</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/team-building-carilo"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/eventos-corporativos-carilo</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/eventos-corporativos-carilo"/>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ilbuco.com.ar/carilo-golf-hospedaje</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ilbuco.com.ar/carilo-golf-hospedaje"/>
+    <changefreq>monthly</changefreq>
+  </url>
 
   <!-- SEO Landing Pages (English) -->
   <url>

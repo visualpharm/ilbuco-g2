@@ -29,7 +29,7 @@ const seoLinks = {
     { href: "/en/coliving-south-america", text: "Coliving South America" },
     { href: "/en/slow-travel-argentina", text: "Slow Travel Argentina" },
     { href: "/en/coliving-argentina", text: "Coliving Argentina" },
-    { href: "/en/eco-lodge-argentina", text: "Eco Lodge Argentina" },
+    { href: "/en/ecolodge-argentina", text: "Ecolodge Argentina" },
     { href: "/en/digital-nomad-retreats", text: "Digital Nomad Retreats" },
   ],
   pt: [

@@ -141,6 +141,11 @@ const cariloGalleryImages = [
     alt: "Cabalgatas El Relincho paseos a caballo Cariló",
     title: "Cabalgatas El Relincho",
   },
+  {
+    src: "/quehacer/golf.jpg",
+    alt: "Cariló Golf Club campo de golf en Cariló",
+    title: "Cariló Golf Club",
+  },
 ]
 
 export default function QueHacerEnCarilo() {
@@ -374,6 +379,21 @@ export default function QueHacerEnCarilo() {
               Deportes y Actividades al Aire Libre
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <BusinessCard
+                name="Cariló Golf Club"
+                description="Jugar golf en uno de los campos más prestigiosos de la costa argentina. Diseño de 18 hoyos par 73 rodeado de bosque de pinos con calles estrechas que demandan precisión."
+                rating={4.3}
+                reviewCount="85"
+                walkingTime="25 min"
+                drivingTime="5 min"
+                googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Cariló+Golf+Club"
+                imageUrl="/quehacer/golf.jpg"
+                imageAlt="Cariló Golf Club campo de golf en Cariló"
+                onImageClick={() => openLightbox(18)}
+                gradientFrom="green-50"
+                gradientTo="emerald-50"
+              />
+
               <BusinessCard
                 name="CIE - Centro de Entrenamiento"
                 description="Entrenar en un gimnasio completo rodeado de bosque con instructores incluidos. Pases diarios, semanales y mensuales disponibles."
@@ -1026,12 +1046,6 @@ export default function QueHacerEnCarilo() {
             <h2 className="text-3xl font-bold mb-10 text-center">Compras y Servicios en Cariló</h2>
             
             <div className="max-w-5xl mx-auto">
-              <div className="bg-blue-50 p-6 rounded-lg mb-10 border-l-4 border-blue-400">
-                <p className="text-center text-gray-700 text-lg">
-                  <strong>Los servicios en Cariló son limitados por su carácter residencial.</strong> 
-                  <span className="block mt-2">Para servicios más completos, los residentes y visitantes suelen dirigirse a Pinamar (20 min en auto).</span>
-                </p>
-              </div>
               
               {/* Supermercados Section */}
               <div className="mb-14">

@@ -92,7 +92,7 @@ export default function EventosCorporativosCarilo() {
                 <h3 className="text-xl font-semibold mb-3">Boardroom Privado</h3>
                 <p className="text-gray-700">
                   Espacio exclusivo para reuniones de directorio y sesiones ejecutivas. 
-                  Ambiente privado con vista al bosque para decisiones estratégicas importantes.
+                  Ambiente privado con vista al bosque para decisiones estratégicas importantes y <Link href="/team-building-carilo" className="text-gray-700 no-underline hover:text-gray-900">dinámicas de equipo</Link>.
                 </p>
               </div>
 
@@ -236,7 +236,7 @@ export default function EventosCorporativosCarilo() {
             <div className="max-w-4xl mx-auto text-center">
               <p className="text-lg text-gray-700 mb-8">
                 Cada ejecutivo tiene su suite privada con todas las comodidades para descansar 
-                y prepararse entre sesiones. Privacidad absoluta y servicios de nivel internacional.
+                y prepararse entre sesiones. Privacidad absoluta y servicios de nivel internacional, ideal para <Link href="/carilo-golf-hospedaje" className="text-gray-700 no-underline hover:text-gray-900">estadías</Link> prolongadas.
               </p>
               
               <div className="grid md:grid-cols-4 gap-6 mb-8">

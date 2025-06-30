@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
 import Image from "next/image"
 import { MapPin, Calendar, ArrowRight, Trophy, Clock, Car, Utensils } from "lucide-react"
+import { HeroImage } from "@/components/hero-image"
 
 export const metadata: Metadata = {
   title: "Cariló Golf Hospedaje 2025 | Estadía para Golfistas en Cariló",
@@ -64,16 +65,12 @@ export default function CariloGolfHospedaje() {
                 </div>
               </div>
               <div className="relative">
-                <div className="relative h-[400px] md:h-[500px] rounded-xl overflow-hidden">
-                  <Image
-                    src="https://ik.imagekit.io/icons8/ilbuco/photo/living/living2.jpg?tr=w-600,h-500"
-                    alt="Hospedaje para golfistas en Cariló - Il Buco"
-                    fill
-                    className="object-cover"
-                    priority
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
+                <HeroImage 
+                  src="/gallery/hero-villa-exterior.jpeg"
+                  alt="IL BUCO modern villa exterior - hospedaje para golfistas en Cariló"
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
+                />
               </div>
             </div>
           </div>
@@ -92,7 +89,7 @@ export default function CariloGolfHospedaje() {
                 <h3 className="text-xl font-semibold mb-3">Servicios Golf Premium</h3>
                 <p className="text-gray-700">
                   Servicios especializados para golfistas: limpieza y mantenimiento de equipos, 
-                  storage seguro para palos, y coordinación de tee times en los mejores campos.
+                  storage seguro para palos, y coordinación de tee times en los mejores campos. Ideal para <Link href="/eventos-corporativos-carilo" className="text-gray-700 no-underline hover:text-gray-900">eventos corporativos</Link> de golf.
                 </p>
               </div>
 
@@ -128,46 +125,24 @@ export default function CariloGolfHospedaje() {
             
             <div className="max-w-4xl mx-auto">
               <div className="grid md:grid-cols-2 gap-8 mb-12">
-                <div>
-                  <h3 className="text-2xl font-semibold mb-4">Campos Championship</h3>
-                  <ul className="space-y-3 text-gray-700">
+                <div className="col-span-2">
+                  <h3 className="text-2xl font-semibold mb-4 text-center">Campos de Golf Cercanos</h3>
+                  <ul className="space-y-3 text-gray-700 max-w-2xl mx-auto">
                     <li className="flex items-center">
                       <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-                      Cariló Golf Club - 18 hoyos par 72 (15 min)
-                    </li>
-                    <li className="flex items-center">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-                      Pinamar Golf Club - Diseño links costero (25 min)
+                      Cariló Golf Club - 18 hoyos par 73 (5 min)
                     </li>
                     <li className="flex items-center">
                       <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-                      Costa Esmeralda Golf Club - Campo premium (45 min)
+                      Links Pinamar Golf Club - Par 72 (11 min)
                     </li>
                     <li className="flex items-center">
                       <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-                      Marisol Golf Country Club - Par 71 (30 min)
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h3 className="text-2xl font-semibold mb-4">Servicios Incluidos</h3>
-                  <ul className="space-y-3 text-gray-700">
-                    <li className="flex items-center">
-                      <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-                      Gestión de reservas y tee times
+                      Costa Esmeralda Golf Club - Par 72 (24 min)
                     </li>
                     <li className="flex items-center">
-                      <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-                      Información detallada de cada campo
-                    </li>
-                    <li className="flex items-center">
-                      <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-                      Recomendaciones según nivel de juego
-                    </li>
-                    <li className="flex items-center">
-                      <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-                      Conexiones con pros locales
+                      <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                      Villa Gesell Golf Club - Par 72 (45 min)
                     </li>
                   </ul>
                 </div>
@@ -185,44 +160,42 @@ export default function CariloGolfHospedaje() {
           </div>
         </section>
 
-        {/* Facilities Section */}
+
+        {/* Practice Facilities Section */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-12">Facilidades Especializadas</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">Facilidades de Práctica</h2>
             
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <div className="flex items-center mb-4">
-                  <Trophy className="h-6 w-6 text-green-600 mr-3" />
-                  <h3 className="text-xl font-semibold">Equipment Care</h3>
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-white p-8 rounded-lg shadow-sm">
+                <div className="grid md:grid-cols-2 gap-8 items-center">
+                  <div>
+                    <h3 className="text-2xl font-semibold mb-4">Red de Práctica de Golf</h3>
+                    <p className="text-gray-700 mb-4">
+                      Perfeccioná tu swing sin salir de Il Buco. Nuestra red de práctica te permite 
+                      mantener tu técnica afilada entre rounds en los campos de golf cercanos.
+                    </p>
+                    <div className="bg-green-50 p-4 rounded-lg">
+                      <div className="flex items-center mb-2">
+                        <Trophy className="h-5 w-5 text-green-600 mr-2" />
+                        <span className="font-semibold text-green-800">Disponible para Alquiler</span>
+                      </div>
+                      <p className="text-green-700 text-lg font-bold">$15 USD por día</p>
+                      <p className="text-sm text-green-600 mt-1">Incluye pelotas de práctica</p>
+                    </div>
+                  </div>
+                  <div className="relative">
+                    <div className="relative h-[300px] rounded-lg overflow-hidden">
+                      <Image
+                        src="/images/golf.webp"
+                        alt="Red de práctica de golf en Il Buco Cariló"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <p className="text-gray-700 mb-4">
-                  Área especializada para el cuidado de equipos de golf con limpieza profesional, 
-                  secado y storage seguro para palos y accesorios.
-                </p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Limpieza profesional de palos</li>
-                  <li>• Storage climatizado y seguro</li>
-                  <li>• Área de práctica putting</li>
-                  <li>• Reparaciones menores disponibles</li>
-                </ul>
-              </div>
-
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <div className="flex items-center mb-4">
-                  <Utensils className="h-6 w-6 text-blue-600 mr-3" />
-                  <h3 className="text-xl font-semibold">Nutrition & Recovery</h3>
-                </div>
-                <p className="text-gray-700 mb-4">
-                  Servicios de alimentación adaptados a golfistas con desayunos energéticos, 
-                  snacks post-round y opciones de recovery para mantener el rendimiento.
-                </p>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Desayunos pre-round personalizados</li>
-                  <li>• Snacks y hidratación especializada</li>
-                  <li>• Cenas de recuperación balanceadas</li>
-                  <li>• Servicio 24/7 para horarios de juego</li>
-                </ul>
               </div>
             </div>
           </div>
@@ -267,7 +240,7 @@ export default function CariloGolfHospedaje() {
                   </div>
                   <div>
                     <strong>Servicios Especializados</strong>
-                    <p className="text-gray-600 mt-1">Staff especializado en necesidades de golfistas profesionales</p>
+                    <p className="text-gray-600 mt-1">Staff especializado en necesidades de golfistas profesionales y <Link href="/team-building-carilo" className="text-gray-600 no-underline hover:text-gray-700">actividades grupales</Link></p>
                   </div>
                   <div>
                     <strong>Experiencia Integral</strong>

@@ -92,7 +92,7 @@ export default function TeamBuildingCarilo() {
                 <h3 className="text-xl font-semibold mb-3">Outdoor Team Challenges</h3>
                 <p className="text-gray-700">
                   Aprovechá el bosque de pinos y la playa para dinámicas grupales al aire libre. 
-                  Actividades de confianza, resolución de problemas y comunicación en entornos naturales.
+                  Actividades de confianza, resolución de problemas y comunicación en entornos naturales, perfectas para <Link href="/carilo-golf-hospedaje" className="text-gray-700 no-underline hover:text-gray-900">estadías</Link> prolongadas.
                 </p>
               </div>
 
@@ -155,7 +155,7 @@ export default function TeamBuildingCarilo() {
                   <ul className="space-y-3 text-gray-700">
                     <li className="flex items-center">
                       <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-                      Asados grupales en la terraza de Il Buco
+                      <Link href="/eventos-corporativos-carilo" className="text-gray-700 no-underline hover:text-gray-900">Asados grupales</Link> en la terraza de Il Buco
                     </li>
                     <li className="flex items-center">
                       <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
