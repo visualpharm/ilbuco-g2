@@ -1,11 +1,14 @@
-import { Metadata } from "next"
-import { PlacesNearbyActivitiesContent } from "@/components/places-nearby-activities"
+"use client"
 
-export const metadata: Metadata = {
-  title: 'Actividades y Deportes en Cariló | IL BUCO',
-  description: 'Descubre todas las actividades y deportes disponibles cerca de IL BUCO en Cariló: gimnasio, windsurf, tenis, calistenia, equitación y más.',
-}
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
-export default function Activities() {
-  return <PlacesNearbyActivitiesContent />
+export default function ActivitiesRedirect() {
+  const router = useRouter()
+  
+  useEffect(() => {
+    router.replace('/que-hacer-en-carilo')
+  }, [router])
+
+  return null
 }

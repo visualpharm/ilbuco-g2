@@ -1,330 +1,136 @@
-import Image from "next/image"
-import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
-import { HeroImage } from "@/components/hero-image"
-import { Metadata } from "next"
-import {
-  ArrowRight,
-  Coffee,
-  Book,
-  Music,
-  UtensilsCrossed,
-  ShoppingBag as Shopping,
-  Gamepad2,
-  Palette,
-  Home,
-  Wifi,
-} from "lucide-react"
+import Link from "next/link"
+import Image from "next/image"
+import { ArrowRight, Coffee, ShoppingBag, Palette, Heart, Dumbbell, Church, MapPin } from "lucide-react"
 
-export const metadata: Metadata = {
-  title: "Qué Hacer en Cariló Cuando Llueve - Actividades Cubiertas | IL BUCO",
-  description: "Qué hacer en Cariló cuando llueve. Guía completa de actividades bajo techo: museos, spas, gastronomía, shopping y entretenimiento. Disfruta Cariló sin importar el clima.",
-  keywords: "que hacer en carilo cuando llueve, actividades carilo lluvia, planes carilo mal tiempo, entretenimiento carilo interior",
-  openGraph: {
-    title: "Actividades en Cariló para Días de Lluvia | IL BUCO",
-    description: "Descubre qué hacer en Cariló cuando llueve. Actividades cubiertas y planes perfectos para disfrutar sin importar el clima.",
-  },
-}
-
-export default function QueHacerEnCariloWhenItRainsPage() {
+export default function QueHacerCuandoLlueve() {
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
-
+      
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="relative">
-          <div className="container mx-auto px-4 py-16 md:py-20 lg:py-32">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
-              <div className="space-y-4 md:space-y-5 lg:space-y-6 order-1 md:order-1">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  Qué Hacer en Cariló <span className="text-gray-600">Cuando Llueve</span>
-                </h1>
-                <p className="text-base md:text-lg text-gray-700 max-w-xl">
-                  Los días de lluvia en Cariló pueden ser igual de mágicos. Descubre actividades cubiertas, experiencias gastronómicas, entretenimiento y relajación que harán que disfrutes tu estadía sin importar el clima.
-                </p>
-                <div className="pt-2 md:pt-3 lg:pt-4">
-                  <Link
-                    href="/the-house"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
-                  >
-                    Ver Casa <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-              <div className="order-2 md:order-2">
-                <HeroImage 
-                  src="/photo/living/living1.jpg"
-                  alt="Qué hacer en Cariló cuando llueve - interior acogedor con vista al bosque"
-                  priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
-                />
-              </div>
-            </div>
+        {/* Hero Section with Rain Video */}
+        <section className="relative py-20 md:py-28">
+          <div className="absolute inset-0">
+            <video
+              src="/photo/lluvia.mov"
+              poster="/photo/lluvia.jpg"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+          </div>
+          <div className="relative container mx-auto px-4 text-center">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Qué Hacer en Cariló Cuando Llueve
+            </h1>
+            <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+              La lluvia no es excusa para aburrirse. Descubrí las mejores actividades bajo techo en Cariló.
+            </p>
           </div>
         </section>
 
-        {/* Indoor Comfort Section */}
-        <section className="py-12 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold mb-8">
-                Tu Refugio Perfecto en Días de Lluvia
-              </h2>
-              <ul className="space-y-4">
-                <li className="flex items-start">
-                  <Home className="h-5 w-5 mr-3 mt-1 text-gray-600 flex-shrink-0" />
-                  <div>
-                    <p className="text-lg">
-                      <strong>Villa con calefacción radiante:</strong> Nuestra casa cuenta con calefacción por suelo radiante que mantiene una temperatura perfecta en toda la propiedad.
-                    </p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <Wifi className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
-                  <div>
-                    <p className="text-lg">
-                      <strong>Internet ultra rápido:</strong> Fibra óptica de 500 Mbps para trabajo remoto, streaming, videollamadas y entretenimiento sin límites.
-                    </p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <span className="h-5 w-5 mr-3 mt-1 text-black">🔥</span>
-                  <div>
-                    <p className="text-lg">
-                      <strong>Espacios acogedores:</strong> Living con ventanales panorámicos al bosque, perfecto para disfrutar la lluvia entre los pinos con una taza de café.
-                    </p>
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <span className="h-5 w-5 mr-3 mt-1 text-black">📺</span>
-                  <div>
-                    <p className="text-lg">
-                      <strong>Entertainment center:</strong> Smart TV, Netflix, Spotify y sistemas de audio para maratones de series y música relajante.
-                    </p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* Gastronomy Section */}
-        <section className="bg-gray-50 py-16">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-10 text-center">
-              Experiencias Gastronómicas Cuando Llueve
-            </h2>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-start mb-4">
-                  <UtensilsCrossed className="h-6 w-6 mr-3 mt-1 text-black" />
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Restaurantes con Chimenea</h3>
-                    <p className="text-gray-700">
-                      Almuerza en restaurantes acogedores con chimeneas a leña. Ambiente cálido perfecto para disfrutar mariscos y vinos.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-start mb-4">
-                  <Coffee className="h-6 w-6 mr-3 mt-1 text-black" />
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Cafés y Librerías</h3>
-                    <p className="text-gray-700">
-                      Cafés especializados con librerías integradas. El lugar perfecto para leer mientras escuchas la lluvia sobre los pinos.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">🍷</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Cata de Vinos</h3>
-                    <p className="text-gray-700">
-                      Vinotecas con degustaciones guiadas. Conoce vinos argentinos en ambientes cálidos y sofisticados.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">🧑‍🍳</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Clases de Cocina</h3>
-                    <p className="text-gray-700">
-                      Talleres de cocina regional. Aprende a preparar platos típicos argentinos con chefs locales.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">🫖</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Casas de Té</h3>
-                    <p className="text-gray-700">
-                      Salones de té con ambiente británico. Pastelerías artesanales y té premium en ambientes victorianos.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">🥐</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Panaderías Artesanales</h3>
-                    <p className="text-gray-700">
-                      Bakeries especializadas en panes europeos. Desayunos y meriendas gourmet para días lluviosos.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Culture and Entertainment Section */}
+        {/* Gastronomic Experiences Section - Moved Up */}
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-10 text-center">
-              Cultura y Entretenimiento Interior
-            </h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <Palette className="h-6 w-6 mr-3 mt-1 text-gray-600" />
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Galerías de Arte</h3>
-                    <p className="text-gray-700">
-                      Visita galerías cubiertas con exposiciones de artistas locales. Arte contemporáneo y tradicional en espacios cálidos y acogedores.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <Music className="h-6 w-6 mr-3 mt-1 text-black" />
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Música en Vivo Interior</h3>
-                    <p className="text-gray-700">
-                      Pubs y bares con música en vivo. Jazz, folclore y blues en ambientes íntimos durante las tardes lluviosas.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <Book className="h-6 w-6 mr-3 mt-1 text-black" />
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Bibliotecas y Espacios de Lectura</h3>
-                    <p className="text-gray-700">
-                      Bibliotecas comunitarias y librerías con espacios de lectura. Rincones perfectos para perderse en un buen libro.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <Gamepad2 className="h-6 w-6 mr-3 mt-1 text-black" />
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Entretenimiento Familiar</h3>
-                    <p className="text-gray-700">
-                      Centros de juegos, bowling y salas de pool. Diversión para toda la familia en espacios climatizados.
-                    </p>
-                  </div>
-                </div>
+            <div className="max-w-5xl mx-auto">
+              <div className="flex items-center justify-center mb-8">
+                <Coffee className="w-8 h-8 text-amber-600 mr-3" />
+                <h2 className="text-3xl font-bold text-gray-900">Experiencias Gastronómicas</h2>
               </div>
-              <div className="relative h-[400px] rounded-xl overflow-hidden">
-                <Image
-                  src="/photo/terrazzo/terrazzo1.jpg"
-                  alt="Interior acogedor para días de lluvia en Cariló"
-                  fill
-                  className="object-cover"
-                />
+              
+              <div className="grid md:grid-cols-2 gap-8 mb-12">
+                <div>
+                  <Image
+                    src="/photo/lluvia.jpg"
+                    alt="Día lluvioso en Cariló - perfecto para actividades gastronómicas"
+                    width={600}
+                    height={400}
+                    className="rounded-lg mb-4"
+                  />
+                  <h3 className="text-xl font-semibold mb-3">Restaurantes con Ambiente Acogedor</h3>
+                  <ul className="space-y-2 text-gray-700">
+                    <li><strong>Griller Restaurant</strong> - Experiencia gastronómica premium en interior climatizado</li>
+                    <li><strong>CarpeDiem - Cariló Golf</strong> - Cocina regional del chef Pedro Demuru</li>
+                    <li><strong>Ave Restaurante</strong> - Especialidad en cocina india, ambiente único</li>
+                    <li><strong>Bar de Tapas</strong> - 25 años de experiencia en cocina española</li>
+                    <li><strong>Fabric Sushi</strong> - Fusión nikkei en ambiente moderno</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <Image
+                    src="/photo/lluvia.jpg"
+                    alt="Ambiente acogedor durante día lluvioso en Cariló"
+                    width={600}
+                    height={400}
+                    className="rounded-lg mb-4"
+                  />
+                  <h3 className="text-xl font-semibold mb-3">Cafeterías y Espacios Cálidos</h3>
+                  <p className="text-gray-700 mb-4">
+                    Los paradores principales (Cozumel, Divisadero, Hemingway y Neruda) 
+                    cuentan con áreas cubiertas perfectas para pasar la tarde con una bebida caliente 
+                    mientras escuchás la lluvia.
+                  </p>
+                  <p className="text-gray-700">
+                    <strong>Tip:</strong> Muchos restaurantes ofrecen menús especiales de temporada 
+                    ideales para disfrutar durante los días de lluvia.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Shopping and Wellness Section */}
-        <section className="bg-gray-50 py-16">
+        {/* Culture & Entertainment Section - Moved Up */}
+        <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-10 text-center">
-              Shopping y Bienestar
-            </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-white p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <Shopping className="h-6 w-6 mr-3 mt-1 text-gray-600" />
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Centros Comerciales Cubiertos</h3>
-                    <p className="text-gray-700">
-                      Galerías comerciales con boutiques, tiendas de diseño y locales de decoración únicos en Cariló.
-                    </p>
+            <div className="max-w-5xl mx-auto">
+              <div className="flex items-center justify-center mb-8">
+                <Palette className="w-8 h-8 text-purple-600 mr-3" />
+                <h2 className="text-3xl font-bold text-gray-900">Cultura y Entretenimiento</h2>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-8 mb-12">
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <Image
+                    src="/photo/lluvia.jpg"
+                    alt="Arte y cultura en día lluvioso - Cariló Arte Contemporáneo"
+                    width={500}
+                    height={300}
+                    className="rounded-lg mb-4"
+                  />
+                  <h3 className="text-xl font-semibold mb-3">Cariló Arte Contemporáneo</h3>
+                  <p className="text-gray-700 mb-4">
+                    La única galería de arte de Cariló exhibe obras de más de 50 artistas nacionales. 
+                    Exposiciones especiales cada viernes durante temporada alta y talleres de arte los jueves.
+                  </p>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    <span>Actividades para niños desde 3 años en vacaciones escolares</span>
                   </div>
                 </div>
-              </div>
 
-              <div className="bg-white p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">💆</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Spas y Centros de Bienestar</h3>
-                    <p className="text-gray-700">
-                      Tratamientos de relajación, masajes y terapias. El día lluvioso perfecto para cuidarte y relajarte.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">🧘</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Yoga y Meditación</h3>
-                    <p className="text-gray-700">
-                      Estudios de yoga climatizados. Clases de meditación y mindfulness para conectar contigo mismo.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">🏋️</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Gimnasios y Fitness</h3>
-                    <p className="text-gray-700">
-                      Centros de fitness con equipamiento moderno. Mantén tu rutina de ejercicios sin importar el clima.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">🎭</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Teatro y Espectáculos</h3>
-                    <p className="text-gray-700">
-                      Teatros locales con obras durante temporada. Espectáculos culturales en espacios íntimos.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <span className="h-6 w-6 mr-3 mt-1 text-black">🎨</span>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Talleres Creativos</h3>
-                    <p className="text-gray-700">
-                      Talleres de pintura, cerámica y artesanías. Aprende nuevas habilidades en ambientes creativos.
-                    </p>
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <Image
+                    src="/photo/lluvia.jpg"
+                    alt="Espacios culturales durante lluvia - Biblioteca Popular Manuel Belgrano"
+                    width={500}
+                    height={300}
+                    className="rounded-lg mb-4"
+                  />
+                  <h3 className="text-xl font-semibold mb-3">Biblioteca Popular Manuel Belgrano</h3>
+                  <p className="text-gray-700 mb-4">
+                    En Pinamar (20 min), esta biblioteca cuenta con más de 50,000 libros, 
+                    sala de lectura, computadoras con internet y galería de arte.
+                  </p>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    <span>Medusas 1230, Pinamar - Tel: 02254 485555</span>
                   </div>
                 </div>
               </div>
@@ -332,32 +138,118 @@ export default function QueHacerEnCariloWhenItRainsPage() {
           </div>
         </section>
 
-        {/* Rainy Day Atmosphere Section */}
+        {/* Wellness & Spas Section */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <div className="flex items-center justify-center mb-8">
+                <Heart className="w-8 h-8 text-pink-600 mr-3" />
+                <h2 className="text-3xl font-bold text-gray-900">Spas y Bienestar</h2>
+              </div>
+              
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-3">Cariló Palace Apart Hotel & Spa</h3>
+                  <p className="text-gray-700 text-sm mb-3">
+                    Sauna, baño finlandés, gimnasio y sala de relajación para una experiencia completa de bienestar.
+                  </p>
+                </div>
+
+                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-3">Howard Johnson Hotel Spa</h3>
+                  <p className="text-gray-700 text-sm mb-3">
+                    Spa exclusivo con piscina climatizada cubierta, gimnasio, sauna, ducha escocesa y salas de masajes.
+                  </p>
+                </div>
+
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-3">Cariló Village Hotel</h3>
+                  <p className="text-gray-700 text-sm mb-3">
+                    Spa familiar con sauna seca (16-20:30h) y gimnasio completo con hidromasaje (18-21h).
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Fitness & Recreation Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <div className="flex items-center justify-center mb-8">
+                <Dumbbell className="w-8 h-8 text-blue-600 mr-3" />
+                <h2 className="text-3xl font-bold text-gray-900">Fitness y Recreación Cubierta</h2>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="text-xl font-semibold mb-3">CIE - Centro de Entrenamiento</h3>
+                  <p className="text-gray-700 mb-4">
+                    Gimnasio completo cubierto rodeado de bosque. Pases diarios, semanales y mensuales 
+                    disponibles con instructores incluidos.
+                  </p>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    <span>17 min caminando desde Il Buco</span>
+                  </div>
+                </div>
+
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <div className="flex items-center mb-3">
+                    <Church className="w-6 h-6 text-amber-600 mr-2" />
+                    <h3 className="text-xl font-semibold">Capilla Nuestra Señora del Perpetuo Socorro</h3>
+                  </div>
+                  <p className="text-gray-700 mb-4">
+                    Diseñada por Alberto Vivot, construida enteramente en madera en el bosque. 
+                    Un espacio de recogimiento durante los días lluviosos.
+                  </p>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    <span>Misas regulares durante toda la semana</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Shopping Section */}
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold mb-8 text-center">
-                La Magia de los Días Lluviosos en Cariló
-              </h2>
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                <div className="relative h-[350px] rounded-xl overflow-hidden">
-                  <Image
-                    src="/photo/paraiso/paraiso1.jpg"
-                    alt="Ambiente acogedor durante lluvia en villa Cariló"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="space-y-4">
-                  <p className="text-lg text-gray-700">
-                    Los días de lluvia en Cariló tienen una atmósfera especial. El sonido de las gotas sobre las hojas de los pinos centenarios crea una sinfonía natural única.
-                  </p>
-                  <p className="text-lg text-gray-700">
-                    Desde nuestra villa, puedes disfrutar esta experiencia mientras te mantienes cómodo y cálido, con todas las comodidades modernas para hacer de estos días algo memorable.
-                  </p>
-                  <p className="text-lg text-gray-700">
-                    La lluvia en el bosque de pinos genera un aroma característico y un ambiente de tranquilidad que muchos huéspedes describen como terapéutico y revitalizante.
-                  </p>
+              <div className="flex items-center justify-center mb-8">
+                <ShoppingBag className="w-8 h-8 text-green-600 mr-3" />
+                <h2 className="text-3xl font-bold text-gray-900">Compras bajo Techo</h2>
+              </div>
+              
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-8 rounded-lg">
+                <h3 className="text-2xl font-semibold mb-4">Cariló Mall y Centro Comercial</h3>
+                <p className="text-gray-700 mb-6">
+                  Centro comercial al aire libre integrado en el bosque con variedad de tiendas que ofrecen 
+                  artículos únicos, ropa y diseño de calidad. Estilos arquitectónicos desde ingleses y suizos 
+                  hasta concepciones modernas.
+                </p>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="font-semibold mb-3">Principales Zonas de Compras:</h4>
+                    <ul className="space-y-2 text-gray-700">
+                      <li>• Avenida Divisadero - Boutiques y tiendas especializadas</li>
+                      <li>• Avenida Boyero - Artesanías y productos regionales</li>
+                      <li>• Supermercados con horarios extendidos</li>
+                      <li>• Tiendas de diseño y decoración</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-3">Perfect para Días Lluviosos:</h4>
+                    <ul className="space-y-2 text-gray-700">
+                      <li>• Muchas tiendas con espacios cubiertos</li>
+                      <li>• Galerías comerciales techadas</li>
+                      <li>• Cafeterías integradas para descansar</li>
+                      <li>• Recorridos cortos entre tiendas</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -365,20 +257,24 @@ export default function QueHacerEnCariloWhenItRainsPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-black text-white">
+        <section className="py-16 bg-blue-50">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              ¿Listo para Disfrutar Cariló sin Importar el Clima?
-            </h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Reserva tu estadía en nuestra villa premium y descubre que los días de lluvia en Cariló pueden ser igual de mágicos que los soleados.
-            </p>
-            <Link
-              href="/the-house"
-              className="inline-flex items-center px-8 py-3 bg-white text-black text-lg rounded-md hover:bg-gray-100 transition-colors"
-            >
-              Ver Casa <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
+            <div className="max-w-3xl mx-auto">
+              <h3 className="text-3xl font-bold text-gray-900 mb-6">
+                La Lluvia No Detiene la Aventura en Cariló
+              </h3>
+              <p className="text-xl text-gray-700 mb-8">
+                Con tantas opciones bajo techo, los días lluviosos pueden ser igual de memorables. 
+                Descubrí todo lo que Cariló tiene para ofrecer, sin importar el clima.
+              </p>
+              <Link
+                href="/que-hacer-en-carilo"
+                className="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+              >
+                Ver Todas las Actividades
+                <ArrowRight className="ml-2 h-6 w-6" />
+              </Link>
+            </div>
           </div>
         </section>
       </main>

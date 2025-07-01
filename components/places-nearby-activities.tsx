@@ -6,6 +6,7 @@ import { Translate } from "@/components/translate"
 import { placesNearbyTranslations } from "@/translations/places-nearby"
 import { useLanguage } from "@/contexts/language-context"
 import Image from "next/image"
+import { PlacePhoto } from "./PlacePhoto"
 
 // Helper function to convert Tailwind color classes to CSS filters
 function getColorFilter(colorClass: string): React.CSSProperties {
@@ -71,7 +72,6 @@ export function PlacesNearbyActivitiesContent() {
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
-
       <main className="flex-1">
         <section className="py-12 md:py-20">
           <div className="container mx-auto px-4">
@@ -129,31 +129,50 @@ export function PlacesNearbyActivitiesContent() {
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm">
-                    <div className="flex items-start mb-4">
-                      <Icons.Gym color="text-indigo-700" />
-                      <div>
-                        <h3 className="text-xl font-semibold">
-                          <Translate text={placesNearbyTranslations.activities.gym.title} />
-                        </h3>
-                        <p className="text-gray-700 mt-2">
-                          <Translate text={placesNearbyTranslations.activities.gym.description} />
-                        </p>
-                        <p className="mt-2">
-                          <a
-                            href="https://www.google.com/maps/search/?api=1&query=CIE+Centro+de+Entrenamiento+Caril%C3%B3"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
-                          >
-                            <Icons.GoogleMaps />
-                            <span>Google Maps</span>
-                          </a>
-                          <a
-                            href="https://www.instagram.com/somos_cie/"
-                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
-                          >
-                            <Icons.Instagram />
-                            <span>@somos_cie</span>
-                          </a>
-                        </p>
+                    <div className="flex flex-col md:flex-row gap-6">
+                      <div className="md:w-1/3">
+                        <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-md bg-gray-100 flex items-center justify-center">
+                          <PlacePhoto 
+                            placeId="ChIJQSKDUJ6dnJURPnHYxQ2xcuo" 
+                            apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}
+                            width={400}
+                            height={300}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-start mb-4">
+                          <Icons.Gym color="text-indigo-700" />
+                          <div>
+                            <h3 className="text-xl font-semibold">
+                              <Translate text={placesNearbyTranslations.activities.gym.title} />
+                            </h3>
+                            <p className="text-gray-700 mt-2">
+                              <Translate text={placesNearbyTranslations.activities.gym.description} />
+                            </p>
+                            <p className="mt-4">
+                              <a
+                                href="https://www.google.com/maps/search/?api=1&query=CIE+Centro+de+Entrenamiento+Caril%C3%B3"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-4 inline-flex items-center"
+                              >
+                                <Icons.GoogleMaps />
+                                <span>View on Map</span>
+                              </a>
+                              <a
+                                href="https://www.instagram.com/somos_cie/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
+                              >
+                                <Icons.Instagram />
+                                <span>@somos_cie</span>
+                              </a>
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -382,7 +401,6 @@ export function PlacesNearbyActivitiesContent() {
           </div>
         </section>
       </main>
-
       <SiteFooter />
     </div>
   )

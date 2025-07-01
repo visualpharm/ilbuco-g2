@@ -6,7 +6,7 @@ export default function PlacesNearbyRedirect() {
   const router = useRouter()
   
   useEffect(() => {
-    router.replace('/places-nearby/activities')
+    router.replace('/que-hacer-en-carilo')
   }, [router])
 
   return null
