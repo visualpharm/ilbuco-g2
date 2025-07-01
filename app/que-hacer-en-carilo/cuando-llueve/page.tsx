@@ -1,8 +1,24 @@
+import type { Metadata } from "next"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, Coffee, ShoppingBag, Palette, Heart, Dumbbell, Church, MapPin } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Qué Hacer en Cariló Cuando Llueve 2025 | Actividades bajo Techo",
+  description: "Guía completa de actividades para días lluviosos en Cariló. Spas, restaurantes, cultura, compras y entretenimiento bajo techo. No dejes que la lluvia arruine tu estadía.",
+  keywords: "qué hacer en Cariló cuando llueve, actividades bajo techo Cariló, días lluviosos Cariló, spas Cariló, cultura Cariló, compras Cariló",
+  openGraph: {
+    title: "Qué Hacer en Cariló Cuando Llueve 2025 | Actividades bajo Techo",
+    description: "Guía completa de actividades para días lluviosos en Cariló. Spas, restaurantes, cultura, compras y entretenimiento bajo techo.",
+    type: "website",
+    url: "https://ilbuco.com.ar/que-hacer-en-carilo/cuando-llueve",
+  },
+  alternates: {
+    canonical: "https://ilbuco.com.ar/que-hacer-en-carilo/cuando-llueve",
+  },
+}
 
 export default function QueHacerCuandoLlueve() {
   return (
@@ -241,7 +257,7 @@ export default function QueHacerCuandoLlueve() {
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-3">Perfect para Días Lluviosos:</h4>
+                    <h4 className="font-semibold mb-3">Perfecto para Días Lluviosos:</h4>
                     <ul className="space-y-2 text-gray-700">
                       <li>• Muchas tiendas con espacios cubiertos</li>
                       <li>• Galerías comerciales techadas</li>
