@@ -48,11 +48,11 @@ export default function QueHacerCuandoLlueve() {
                   <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-lg mb-6">
                     <h3 className="text-xl font-semibold mb-3">Restaurantes con Ambiente Acogedor</h3>
                     <ul className="space-y-2 text-gray-700">
-                      <li><strong>Griller Restaurant</strong> - Experiencia gastronómica premium en interior climatizado</li>
-                      <li><strong>CarpeDiem - Cariló Golf</strong> - Cocina regional del chef Pedro Demuru</li>
-                      <li><strong>Ave Restaurante</strong> - Especialidad en cocina india, ambiente único</li>
-                      <li><strong>Bar de Tapas</strong> - 25 años de experiencia en cocina española</li>
-                      <li><strong>Fabric Sushi</strong> - Fusión nikkei en ambiente moderno</li>
+                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>Griller Restaurant</strong></Link> - Experiencia gastronómica premium en interior climatizado</li>
+                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>CarpeDiem - Cariló Golf</strong></Link> - Cocina regional del chef Pedro Demuru</li>
+                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>Ave Restaurante</strong></Link> - Especialidad en cocina india, ambiente único</li>
+                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>Bar de Tapas</strong></Link> - 25 años de experiencia en cocina española</li>
+                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>Fabric Sushi</strong></Link> - Fusión nikkei en ambiente moderno</li>
                     </ul>
                   </div>
                 </div>
@@ -66,7 +66,7 @@ export default function QueHacerCuandoLlueve() {
                       mientras escuchás la lluvia.
                     </p>
                     <p className="text-gray-700">
-                      <strong>Tip:</strong> Muchos restaurantes ofrecen menús especiales de temporada 
+                      <strong>Tip:</strong> Muchos <Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900">restaurantes</Link> ofrecen menús especiales de temporada 
                       ideales para disfrutar durante los días de lluvia.
                     </p>
                   </div>
