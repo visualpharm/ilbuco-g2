@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Coffee, ShoppingBag, Palette, Heart, Dumbbell, Church, MapPin } from "lucide-react"
+import { ArrowRight, Coffee, ShoppingBag, Palette, Heart, Dumbbell, Church, MapPin, User, Car } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Qué Hacer en Cariló Cuando Llueve 2025 | Actividades bajo Techo",
@@ -139,26 +139,110 @@ export default function QueHacerCuandoLlueve() {
                 <h2 className="text-3xl font-bold text-gray-900">Spas y Bienestar</h2>
               </div>
               
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold mb-3">Cariló Palace Apart Hotel & Spa</h3>
-                  <p className="text-gray-700 text-sm mb-3">
-                    Sauna, baño finlandés, gimnasio y sala de relajación para una experiencia completa de bienestar.
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Cariló Palace Apart Hotel & Spa</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.2 (85 reseñas)
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Experiencia completa de bienestar con sauna, baño finlandés, gimnasio y sala de relajación en ambiente de lujo.
                   </p>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>20 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>7 min</span>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href="https://maps.google.com/?q=Cariló+Palace+Apart+Hotel+Spa+Cariló"
+                    className="inline-flex items-center gap-1 text-pink-600 hover:text-pink-800 text-sm font-medium"
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver perfil en Google Maps
+                  </a>
                 </div>
 
-                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold mb-3">Howard Johnson Hotel Spa</h3>
-                  <p className="text-gray-700 text-sm mb-3">
-                    Spa exclusivo con piscina climatizada cubierta, gimnasio, sauna, ducha escocesa y salas de masajes.
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Howard Johnson Hotel Spa</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.1 (120 reseñas)
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Spa exclusivo con piscina climatizada cubierta, gimnasio, sauna, ducha escocesa y salas de masajes profesionales.
                   </p>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>18 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>5 min</span>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href="https://maps.google.com/?q=Howard+Johnson+Hotel+Spa+Cariló"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver perfil en Google Maps
+                  </a>
                 </div>
 
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold mb-3">Cariló Village Hotel</h3>
-                  <p className="text-gray-700 text-sm mb-3">
-                    Spa familiar con sauna seca (16-20:30h) y gimnasio completo con hidromasaje (18-21h).
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Cariló Village Hotel</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.3 (95 reseñas)
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Spa familiar con sauna seca, gimnasio completo con hidromasaje y horarios flexibles para toda la familia.
                   </p>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>22 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>8 min</span>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href="https://maps.google.com/?q=Cariló+Village+Hotel+Spa+Cariló"
+                    className="inline-flex items-center gap-1 text-green-600 hover:text-green-800 text-sm font-medium"
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver perfil en Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -174,18 +258,40 @@ export default function QueHacerCuandoLlueve() {
                 <h2 className="text-3xl font-bold text-gray-900">Actividad Física</h2>
               </div>
               
-              <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-8 rounded-xl mb-12">
-                <h3 className="text-2xl font-semibold mb-4">Centro de Entrenamiento</h3>
-                <div>
-                  <h4 className="font-semibold text-lg mb-2">CIE - Centro de Entrenamiento</h4>
-                  <p className="text-gray-700 mb-3">
-                    Gimnasio completo cubierto rodeado de bosque. Pases diarios, semanales y mensuales 
-                    disponibles con instructores incluidos.
-                  </p>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
-                    <span>17 min caminando desde Il Buco</span>
+              <div className="max-w-4xl mx-auto">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">CIE - Centro de Entrenamiento</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.7 (160 reseñas)
+                    </div>
                   </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Entrenamiento completo en gimnasio cubierto rodeado de bosque con pases flexibles e instructores profesionales incluidos.
+                  </p>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>17 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>5 min</span>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href="https://maps.google.com/?q=CIE+Centro+Entrenamiento+Cariló"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver perfil en Google Maps
+                  </a>
                 </div>
               </div>
             </div>
