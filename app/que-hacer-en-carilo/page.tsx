@@ -219,7 +219,7 @@ export default function QueHacerEnCarilo() {
                       <span className="h-5 w-5 text-green-600 mr-3">🏃</span>
                       <span className="text-sm font-medium text-gray-800">Deportes y Fitness</span>
                     </Link>
-                    <Link href="#comida-restaurantes" className="flex items-center p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors border border-orange-200">
+                    <Link href="/restaurantes-carilo" className="flex items-center p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors border border-orange-200">
                       <span className="h-5 w-5 text-orange-600 mr-3">🍽️</span>
                       <span className="text-sm font-medium text-gray-800">Comida y Restaurantes</span>
                     </Link>
@@ -231,7 +231,7 @@ export default function QueHacerEnCarilo() {
                       <span className="h-5 w-5 text-indigo-600 mr-3">❄️</span>
                       <span className="text-sm font-medium text-gray-800">Actividades en Invierno</span>
                     </Link>
-                    <Link href="#alrededores" className="flex items-center p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors border border-purple-200">
+                    <Link href="/alrededores-carilo" className="flex items-center p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors border border-purple-200">
                       <Car className="h-5 w-5 text-purple-600 mr-3" />
                       <span className="text-sm font-medium text-gray-800">Lugares en los Alrededores</span>
                     </Link>
