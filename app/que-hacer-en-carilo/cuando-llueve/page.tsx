@@ -236,7 +236,7 @@ export default function QueHacerCuandoLlueve() {
                     <ul className="space-y-2 text-gray-700">
                       <li>• Avenida Divisadero - Boutiques y tiendas especializadas</li>
                       <li>• Avenida Boyero - Artesanías y productos regionales</li>
-                      <li>• Supermercados con horarios extendidos</li>
+                      <li>• <Link href="/compras-servicios-carilo" className="text-gray-700 no-underline hover:text-gray-900">Supermercados</Link> con horarios extendidos</li>
                       <li>• Tiendas de diseño y decoración</li>
                     </ul>
                   </div>
