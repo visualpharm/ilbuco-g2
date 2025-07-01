@@ -14,7 +14,8 @@ import {
   MapPin, 
   Waves, 
   Bike, 
-  Car
+  Car,
+  User
 } from "lucide-react"
 
 // Cariló gallery images - the renamed photos from /public/photo/carilo
@@ -473,111 +474,175 @@ export default function QueHacerEnCarilo() {
           </div>
         </section>
 
-        {/* Compact Sections Grid */}
-        <section className="py-16 bg-gradient-to-b from-white to-gray-50">
+        {/* More Experiences - Golden Standard Cards */}
+        <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-              {/* Gastronomy Card */}
-              <div className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col border border-gray-100">
-                <div className="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-4">
-                  <span className="text-2xl">🍽️</span>
-                </div>
-                <h2 className="text-2xl font-bold mb-3 text-gray-900">
-                  Restaurantes y Gastronomía
-                </h2>
-                <p className="text-gray-700 mb-4 flex-grow">
-                  Descubrí la mejor gastronomía de Cariló: parrillas tradicionales, pizzerías gourmet, cafés artesanales y más.
-                </p>
-                <Link
-                  href="/restaurantes-carilo"
-                  className="inline-flex items-center justify-center w-full px-4 py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors font-medium text-sm"
-                >
-                  Ver Restaurantes
-                  <ArrowRight className="ml-2 h-4 w-4" />
+            <h2 className="text-3xl font-bold mb-10 text-center">
+              Más Experiencias en Cariló
+            </h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Gastronomy Card */}
+                <Link href="/restaurantes-carilo" className="block group">
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-amber-600 transition-colors">Restaurantes y Gastronomía</h5>
+                      <div className="text-sm bg-amber-100 text-amber-800 px-2 py-1 rounded-full">
+                        🍽️ 25+ opciones
+                      </div>
+                    </div>
+                    
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Descubrir la mejor gastronomía local: parrillas tradicionales, pizzerías gourmet, cafés artesanales y restaurantes de autor.
+                    </p>
+                    
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>15-30 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>3-8 min</span>
+                      </div>
+                    </div>
+                    
+                    <div className="inline-flex items-center gap-1 text-amber-600 group-hover:text-amber-800 text-sm font-medium transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                      Ver Restaurantes
+                    </div>
+                  </div>
                 </Link>
-              </div>
 
-              {/* Rainy Day Activities */}
-              <div className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col border border-gray-100">
-                <div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                  <span className="text-2xl">🌧️</span>
-                </div>
-                <h2 className="text-2xl font-bold mb-3 text-gray-900">
-                  ¿Llueve en Cariló?
-                </h2>
-                <p className="text-gray-700 mb-4 flex-grow">
-                  Actividades bajo techo y opciones para disfrutar incluso en días lluviosos.
-                </p>
-                <Link 
-                  href="/que-hacer-en-carilo/cuando-llueve" 
-                  className="inline-flex items-center justify-center w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm"
-                >
-                  Actividades para lluvia
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                {/* Rainy Day Activities */}
+                <Link href="/que-hacer-en-carilo/cuando-llueve" className="block group">
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">¿Llueve en Cariló?</h5>
+                      <div className="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                        🌧️ Bajo techo
+                      </div>
+                    </div>
+                    
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Disfrutar actividades cubiertas cuando llueve: spas, lugares con piletas cubiertas, masajes, gimnasio cubierto, cines y galerías comerciales.
+                    </p>
+                    
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>15-30 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>5-10 min</span>
+                      </div>
+                    </div>
+                    
+                    <div className="inline-flex items-center gap-1 text-blue-600 group-hover:text-blue-800 text-sm font-medium transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                      Actividades para lluvia
+                    </div>
+                  </div>
                 </Link>
-              </div>
 
-              {/* Winter Activities */}
-              <div className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col border border-gray-100">
-                <div className="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
-                  <span className="text-2xl">❄️</span>
-                </div>
-                <h2 className="text-2xl font-bold mb-3 text-gray-900">
-                  Cariló en Invierno
-                </h2>
-                <p className="text-gray-700 mb-4 flex-grow">
-                  Disfrutá de actividades al aire libre sin las multitudes del verano en el clima templado de Cariló.
-                </p>
-                <Link 
-                  href="/que-hacer-en-carilo/en-invierno" 
-                  className="inline-flex items-center justify-center w-full px-4 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium text-sm"
-                >
-                  Actividades invernales
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                {/* Winter Activities */}
+                <Link href="/que-hacer-en-carilo/en-invierno" className="block group">
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-indigo-600 transition-colors">Cariló en Invierno</h5>
+                      <div className="text-sm bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">
+                        ❄️ Sin multitudes
+                      </div>
+                    </div>
+                    
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Disfrutar actividades al aire libre con clima templado y sin las multitudes del verano: caminatas, ciclismo y deportes.
+                    </p>
+                    
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>15-30 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>5-10 min</span>
+                      </div>
+                    </div>
+                    
+                    <div className="inline-flex items-center gap-1 text-indigo-600 group-hover:text-indigo-800 text-sm font-medium transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                      Actividades invernales
+                    </div>
+                  </div>
                 </Link>
-              </div>
 
-              {/* Shopping & Services */}
-              <div className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col border border-gray-100">
-                <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                  <span className="text-2xl">🛒</span>
-                </div>
-                <h2 className="text-2xl font-bold mb-3 text-gray-900">
-                  Compras y Servicios
-                </h2>
-                <p className="text-gray-700 mb-4 flex-grow">
-                  Todo lo que necesitás para tu estadía: supermercados, productos frescos, carnicerías y más cerca de Il Buco.
-                </p>
-                <Link
-                  href="/compras-servicios-carilo"
-                  className="inline-flex items-center justify-center w-full px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-sm"
-                >
-                  Ver Compras y Servicios
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                {/* Shopping & Services */}
+                <Link href="/compras-servicios-carilo" className="block group">
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-green-600 transition-colors">Compras y Servicios</h5>
+                      <div className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                        🛒 Todo cerca
+                      </div>
+                    </div>
+                    
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Resolver todo lo necesario para tu estadía: supermercados, productos frescos, carnicerías, ferreterías y servicios.
+                    </p>
+                    
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <User className="h-4 w-4" />
+                        <span>20-40 min</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>3-10 min</span>
+                      </div>
+                    </div>
+                    
+                    <div className="inline-flex items-center gap-1 text-green-600 group-hover:text-green-800 text-sm font-medium transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                      Ver Compras y Servicios
+                    </div>
+                  </div>
                 </Link>
-              </div>
 
-              {/* Surrounding Areas */}
-              <div className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col border border-gray-100">
-                <div className="w-14 h-14 bg-teal-100 rounded-full flex items-center justify-center mb-4">
-                  <span className="text-2xl">🗺️</span>
-                </div>
-                <h2 className="text-2xl font-bold mb-3 text-gray-900">
-                  Alrededores de Cariló
-                </h2>
-                <p className="text-gray-700 mb-4 flex-grow">
-                  Explorá los tesoros que rodean Cariló: Pinamar, Mar de las Pampas, faros históricos y más en la costa atlántica.
-                </p>
-                <Link
-                  href="/alrededores-carilo"
-                  className="inline-flex items-center justify-center w-full px-4 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium text-sm"
-                >
-                  Explorar Alrededores
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                {/* Surrounding Areas */}
+                <Link href="/alrededores-carilo" className="block group">
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <div className="flex items-start justify-between mb-3">
+                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-teal-600 transition-colors">Alrededores de Cariló</h5>
+                      <div className="text-sm bg-teal-100 text-teal-800 px-2 py-1 rounded-full">
+                        🗺️ Excursiones
+                      </div>
+                    </div>
+                    
+                    <p className="text-gray-700 text-sm mb-4">
+                      <strong>Para:</strong> Explorar destinos cercanos: Pinamar, Mar de las Pampas, faros históricos y pueblos costeros de la región atlántica.
+                    </p>
+                    
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                      <span className="font-medium">Desde Il Buco:</span>
+                      <div className="flex items-center gap-1">
+                        <Car className="h-4 w-4" />
+                        <span>10-30 min</span>
+                      </div>
+                    </div>
+                    
+                    <div className="inline-flex items-center gap-1 text-teal-600 group-hover:text-teal-800 text-sm font-medium transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                      Explorar Alrededores
+                    </div>
+                  </div>
                 </Link>
               </div>
             </div>
-          </div>
         </section>
 
       </main>
