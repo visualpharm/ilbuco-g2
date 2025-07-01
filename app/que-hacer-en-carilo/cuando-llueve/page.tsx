@@ -45,41 +45,31 @@ export default function QueHacerCuandoLlueve() {
               
               <div className="grid md:grid-cols-2 gap-8 mb-12">
                 <div>
-                  <Image
-                    src="/photo/lluvia.jpg"
-                    alt="Día lluvioso en Cariló - perfecto para actividades gastronómicas"
-                    width={600}
-                    height={400}
-                    className="rounded-lg mb-4"
-                  />
-                  <h3 className="text-xl font-semibold mb-3">Restaurantes con Ambiente Acogedor</h3>
-                  <ul className="space-y-2 text-gray-700">
-                    <li><strong>Griller Restaurant</strong> - Experiencia gastronómica premium en interior climatizado</li>
-                    <li><strong>CarpeDiem - Cariló Golf</strong> - Cocina regional del chef Pedro Demuru</li>
-                    <li><strong>Ave Restaurante</strong> - Especialidad en cocina india, ambiente único</li>
-                    <li><strong>Bar de Tapas</strong> - 25 años de experiencia en cocina española</li>
-                    <li><strong>Fabric Sushi</strong> - Fusión nikkei en ambiente moderno</li>
-                  </ul>
+                  <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-lg mb-6">
+                    <h3 className="text-xl font-semibold mb-3">Restaurantes con Ambiente Acogedor</h3>
+                    <ul className="space-y-2 text-gray-700">
+                      <li><strong>Griller Restaurant</strong> - Experiencia gastronómica premium en interior climatizado</li>
+                      <li><strong>CarpeDiem - Cariló Golf</strong> - Cocina regional del chef Pedro Demuru</li>
+                      <li><strong>Ave Restaurante</strong> - Especialidad en cocina india, ambiente único</li>
+                      <li><strong>Bar de Tapas</strong> - 25 años de experiencia en cocina española</li>
+                      <li><strong>Fabric Sushi</strong> - Fusión nikkei en ambiente moderno</li>
+                    </ul>
+                  </div>
                 </div>
                 
                 <div>
-                  <Image
-                    src="/photo/lluvia.jpg"
-                    alt="Ambiente acogedor durante día lluvioso en Cariló"
-                    width={600}
-                    height={400}
-                    className="rounded-lg mb-4"
-                  />
-                  <h3 className="text-xl font-semibold mb-3">Cafeterías y Espacios Cálidos</h3>
-                  <p className="text-gray-700 mb-4">
-                    Los paradores principales (Cozumel, Divisadero, Hemingway y Neruda) 
-                    cuentan con áreas cubiertas perfectas para pasar la tarde con una bebida caliente 
-                    mientras escuchás la lluvia.
-                  </p>
-                  <p className="text-gray-700">
-                    <strong>Tip:</strong> Muchos restaurantes ofrecen menús especiales de temporada 
-                    ideales para disfrutar durante los días de lluvia.
-                  </p>
+                  <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold mb-3">Cafeterías y Espacios Cálidos</h3>
+                    <p className="text-gray-700 mb-4">
+                      Los paradores principales (Cozumel, Divisadero, Hemingway y Neruda) 
+                      cuentan con áreas cubiertas perfectas para pasar la tarde con una bebida caliente 
+                      mientras escuchás la lluvia.
+                    </p>
+                    <p className="text-gray-700">
+                      <strong>Tip:</strong> Muchos restaurantes ofrecen menús especiales de temporada 
+                      ideales para disfrutar durante los días de lluvia.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -95,15 +85,8 @@ export default function QueHacerCuandoLlueve() {
                 <h2 className="text-3xl font-bold text-gray-900">Cultura y Entretenimiento</h2>
               </div>
               
-              <div className="grid md:grid-cols-2 gap-8 mb-12">
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <Image
-                    src="/photo/lluvia.jpg"
-                    alt="Arte y cultura en día lluvioso - Cariló Arte Contemporáneo"
-                    width={500}
-                    height={300}
-                    className="rounded-lg mb-4"
-                  />
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
                   <h3 className="text-xl font-semibold mb-3">Cariló Arte Contemporáneo</h3>
                   <p className="text-gray-700 mb-4">
                     La única galería de arte de Cariló exhibe obras de más de 50 artistas nacionales. 
@@ -115,14 +98,7 @@ export default function QueHacerCuandoLlueve() {
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <Image
-                    src="/photo/lluvia.jpg"
-                    alt="Espacios culturales durante lluvia - Biblioteca Popular Manuel Belgrano"
-                    width={500}
-                    height={300}
-                    className="rounded-lg mb-4"
-                  />
+                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
                   <h3 className="text-xl font-semibold mb-3">Biblioteca Popular Manuel Belgrano</h3>
                   <p className="text-gray-700 mb-4">
                     En Pinamar (20 min), esta biblioteca cuenta con más de 50,000 libros, 
@@ -173,40 +149,63 @@ export default function QueHacerCuandoLlueve() {
           </div>
         </section>
 
-        {/* Fitness & Recreation Section */}
-        <section className="py-16 bg-gray-50">
+        {/* Fitness Section */}
+        <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <div className="flex items-center justify-center mb-8">
                 <Dumbbell className="w-8 h-8 text-blue-600 mr-3" />
-                <h2 className="text-3xl font-bold text-gray-900">Fitness y Recreación Cubierta</h2>
+                <h2 className="text-3xl font-bold text-gray-900">Actividad Física</h2>
               </div>
               
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold mb-3">CIE - Centro de Entrenamiento</h3>
-                  <p className="text-gray-700 mb-4">
+              <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-8 rounded-xl mb-12">
+                <h3 className="text-2xl font-semibold mb-4">Centro de Entrenamiento</h3>
+                <div>
+                  <h4 className="font-semibold text-lg mb-2">CIE - Centro de Entrenamiento</h4>
+                  <p className="text-gray-700 mb-3">
                     Gimnasio completo cubierto rodeado de bosque. Pases diarios, semanales y mensuales 
                     disponibles con instructores incluidos.
                   </p>
                   <div className="flex items-center text-sm text-gray-600">
-                    <MapPin className="h-4 w-4 mr-1" />
+                    <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
                     <span>17 min caminando desde Il Buco</span>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <div className="flex items-center mb-3">
-                    <Church className="w-6 h-6 text-amber-600 mr-2" />
-                    <h3 className="text-xl font-semibold">Capilla Nuestra Señora del Perpetuo Socorro</h3>
+        {/* Spiritual Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <div className="flex items-center justify-center mb-8">
+                <Church className="w-8 h-8 text-amber-600 mr-3" />
+                <h2 className="text-3xl font-bold text-gray-900">Espacios de Recogimiento</h2>
+              </div>
+              
+              <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                <h3 className="text-2xl font-semibold mb-4">Capilla Nuestra Señora del Perpetuo Socorro</h3>
+                <p className="text-gray-700 mb-6">
+                  Diseñada por el arquitecto Alberto Vivot, esta capilla fue construida enteramente en madera 
+                  y se integra armoniosamente en el bosque. Un espacio de paz y reflexión perfecto para 
+                  los días de lluvia.
+                </p>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="font-semibold mb-2">Horario de Misas:</h4>
+                    <ul className="space-y-1 text-gray-700">
+                      <li>• Lunes a Sábado: 20:00 hs</li>
+                      <li>• Domingos: 11:00 hs y 20:00 hs</li>
+                      <li>• Festivos: 11:00 hs y 20:00 hs</li>
+                    </ul>
                   </div>
-                  <p className="text-gray-700 mb-4">
-                    Diseñada por Alberto Vivot, construida enteramente en madera en el bosque. 
-                    Un espacio de recogimiento durante los días lluviosos.
-                  </p>
-                  <div className="flex items-center text-sm text-gray-600">
-                    <MapPin className="h-4 w-4 mr-1" />
-                    <span>Misas regulares durante toda la semana</span>
+                  <div>
+                    <h4 className="font-semibold mb-2">Ubicación:</h4>
+                    <p className="text-gray-700">
+                      Calle 5 entre Av. Libertador y Av. del Mar, en el corazón del bosque de Cariló.
+                    </p>
                   </div>
                 </div>
               </div>
