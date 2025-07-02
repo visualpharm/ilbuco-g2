@@ -333,12 +333,13 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
                   <h3 className="text-xl font-semibold mb-3">Experiencias Allona</h3>
                   <p className="text-gray-700 mb-4">
-                    Recorrido sensorial en Pinamar que combina arte plástico, música, fotografía y degustaciones. 
-                    Funciona en la residencia de la artista Jorgelina Allona.
+                    Espacio en Pinamar donde se dictan talleres de cerámica, collage y jardinería. 
+                    Se trabajan técnicas variadas en un entorno tranquilo, con materiales incluidos y grupos reducidos.
+                    No se requiere experiencia previa, solo ganas de crear.
                   </p>
                   <div className="flex items-center text-sm text-gray-600">
                     <MapPin className="h-4 w-4 mr-1" />
-                    <span>Pinamar - Experiencia inmersiva única</span>
+                    <span>Pinamar - Talleres creativos con materiales incluidos</span>
                   </div>
                 </div>
               </div>
