@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Coffee, ShoppingBag, Palette, Heart, Dumbbell, Church, MapPin, User, Car } from "lucide-react"
+import { ArrowRight, Coffee, ShoppingBag, Palette, Heart, Dumbbell, Church, MapPin, User, Car, Gamepad2, Theater } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Qué Hacer en Cariló Cuando Llueve 2025 | Actividades bajo Techo",
@@ -62,29 +62,45 @@ export default function QueHacerCuandoLlueve() {
               <div className="grid md:grid-cols-2 gap-8 mb-12">
                 <div>
                   <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-lg mb-6">
-                    <h3 className="text-xl font-semibold mb-3">Restaurantes con Ambiente Acogedor</h3>
+                    <h3 className="text-xl font-semibold mb-3">Restaurantes para Largas Sobremesas</h3>
+                    <p className="text-gray-700 mb-4">
+                      Días grises son buenos para largas sobremesas. Algunos <Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900">restaurantes</Link> recomendables:
+                    </p>
                     <ul className="space-y-2 text-gray-700">
-                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>Griller Restaurant</strong></Link> - Experiencia gastronómica premium en interior climatizado</li>
-                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>CarpeDiem - Cariló Golf</strong></Link> - Cocina regional del chef Pedro Demuru</li>
-                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>Ave Restaurante</strong></Link> - Especialidad en cocina india, ambiente único</li>
-                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>Bar de Tapas</strong></Link> - 25 años de experiencia en cocina española</li>
-                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>Fabric Sushi</strong></Link> - Fusión nikkei en ambiente moderno</li>
+                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>La Cabrera Cariló</strong></Link> - Carnes, clásico porteño adaptado al bosque</li>
+                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>Masse</strong></Link> - Cocina moderna, ambiente tranquilo. (El nombre proviene del francés "masse", que significa volumen o solidez)</li>
+                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>De Mi Campo</strong></Link> - Casero, informal</li>
+                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>El Gato Nero</strong></Link> - Buen ambiente, carta variada</li>
+                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>Don Vinito</strong></Link> - Parrilla eficiente, bien ubicada</li>
                     </ul>
                   </div>
                 </div>
                 
                 <div>
                   <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg">
-                    <h3 className="text-xl font-semibold mb-3">Cafeterías y Espacios Cálidos</h3>
+                    <h3 className="text-xl font-semibold mb-3">Cafés, Té y Chocolate Caliente</h3>
                     <p className="text-gray-700 mb-4">
-                      Los paradores principales (Cozumel, Divisadero, Hemingway y Neruda) 
-                      cuentan con áreas cubiertas perfectas para pasar la tarde con una bebida caliente 
-                      mientras escuchás la lluvia.
+                      Lluvia y calor interno combinan bien. Los paradores principales (Cozumel, Divisadero, Hemingway y Neruda) 
+                      cuentan con áreas cubiertas perfectas para pasar la tarde.
                     </p>
-                    <p className="text-gray-700">
-                      <strong>Tip:</strong> Muchos <Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900">restaurantes</Link> ofrecen menús especiales de temporada 
-                      ideales para disfrutar durante los días de lluvia.
-                    </p>
+                    
+                    <div className="mb-4">
+                      <h4 className="font-semibold mb-2">Cafeterías recomendadas:</h4>
+                      <ul className="space-y-1 text-sm text-gray-700">
+                        <li>• <strong>Dante</strong> - Buena ambientación, café intenso</li>
+                        <li>• <strong>Panettone</strong> - Pastelería artesanal y buen café</li>
+                        <li>• <strong>Havanna</strong> - Clásico argentino con mesas cómodas para quedarse</li>
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <h4 className="font-semibold mb-2">Chocolaterías destacadas:</h4>
+                      <ul className="space-y-1 text-sm text-gray-700">
+                        <li>• <strong>Saka</strong> - Productos artesanales y presentación cuidada</li>
+                        <li>• <strong>Hönecker</strong> - Chocolates locales, bombones</li>
+                        <li>• <strong>La Abuela Goye</strong> - Tradición patagónica, también tortas y dulces</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -101,12 +117,12 @@ export default function QueHacerCuandoLlueve() {
                 <h2 className="text-3xl font-bold text-gray-900">Cultura y Entretenimiento</h2>
               </div>
               
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                  <h3 className="text-xl font-semibold mb-3">Cariló Arte Contemporáneo</h3>
+                  <h3 className="text-xl font-semibold mb-3">Galería Cariló Arte Contemporáneo</h3>
                   <p className="text-gray-700 mb-4">
-                    La única galería de arte de Cariló exhibe obras de más de 50 artistas nacionales. 
-                    Exposiciones especiales cada viernes durante temporada alta y talleres de arte los jueves.
+                    En el centro de Cariló. Exposiciones rotativas y talleres para adultos y niños en temporada alta.
+                    La única galería de arte de Cariló exhibe obras de más de 50 artistas nacionales.
                   </p>
                   <div className="flex items-center text-sm text-gray-600">
                     <MapPin className="h-4 w-4 mr-1" />
@@ -115,6 +131,30 @@ export default function QueHacerCuandoLlueve() {
                 </div>
 
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                  <h3 className="text-xl font-semibold mb-3">El Ojo y el Diamante</h3>
+                  <p className="text-gray-700 mb-4">
+                    Casa/taller artístico en Valeria del Mar con mosaico y vitrofusión. 
+                    Atendido por sus artistas. Solo con reserva.
+                  </p>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    <span>Valeria del Mar - Solo con reserva previa</span>
+                  </div>
+                </div>
+
+                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                  <h3 className="text-xl font-semibold mb-3">Experiencias Allona</h3>
+                  <p className="text-gray-700 mb-4">
+                    Recorrido sensorial en Pinamar que combina arte plástico, música, fotografía y degustaciones. 
+                    Funciona en la residencia de la artista Jorgelina Allona.
+                  </p>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    <span>Pinamar - Experiencia inmersiva única</span>
+                  </div>
+                </div>
+
+                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 md:col-span-2 lg:col-span-3">
                   <h3 className="text-xl font-semibold mb-3">Biblioteca Popular Manuel Belgrano</h3>
                   <p className="text-gray-700 mb-4">
                     En Pinamar (20 min), esta biblioteca cuenta con más de 50,000 libros, 
@@ -123,6 +163,218 @@ export default function QueHacerCuandoLlueve() {
                   <div className="flex items-center text-sm text-gray-600">
                     <MapPin className="h-4 w-4 mr-1" />
                     <span>Medusas 1230, Pinamar - Tel: 02254 485555</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Entertainment & Games Section */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <div className="flex items-center justify-center mb-8">
+                <Gamepad2 className="w-8 h-8 text-indigo-600 mr-3" />
+                <h2 className="text-3xl font-bold text-gray-900">Entretenimiento y Juegos</h2>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-8 mb-12">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Escape Room Pinamar</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.5 (75 reseñas)
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Desafío mental en equipo con la sala temática "Misión Pirata" para 2-6 personas en 60 minutos con niveles de dificultad ajustables.
+                  </p>
+                  
+                  <div className="mb-3">
+                    <p className="text-sm text-gray-600">
+                      <strong>Dirección:</strong> De la Sirena 700, esquina Del Buen Orden, Pinamar
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      <strong>Teléfono:</strong> +54 2254 58-4263
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>35 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>20 min</span>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href="https://maps.google.com/?q=Escape+Room+Pinamar+De+la+Sirena+700"
+                    className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver perfil en Google Maps
+                  </a>
+                </div>
+
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Center Play</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.2 (110 reseñas)
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Centro de juegos tipo arcade con bowling, pool, metegol, pinballs y más. Local principal en Pinamar y sucursal en Valeria del Mar.
+                  </p>
+                  
+                  <div className="mb-3">
+                    <p className="text-sm text-gray-600">
+                      <strong>Ubicaciones:</strong> Av. Bunge (Pinamar) y Valeria del Mar
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>30-40 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>15-25 min</span>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href="https://maps.google.com/?q=Center+Play+Pinamar+Av+Bunge"
+                    className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver perfil en Google Maps
+                  </a>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Teatro Municipal de la Torre</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.4 (65 reseñas)
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Programación activa de teatro independiente, comedia, stand-up y funciones infantiles incluso fuera de temporada en Pinamar.
+                  </p>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>35 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>20 min</span>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href="https://maps.google.com/?q=Teatro+Municipal+de+la+Torre+Pinamar"
+                    className="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800 text-sm font-medium"
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
+                    <Theater className="h-4 w-4" />
+                    Ver perfil en Google Maps
+                  </a>
+                </div>
+
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Cine Oasis</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 3.8 (90 reseñas)
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Funciones diarias de cine en Pinamar. Instalación modesta con la mayoría de películas dobladas al español.
+                  </p>
+                  
+                  <div className="mb-3">
+                    <p className="text-sm text-gray-600">
+                      <strong>Ubicación:</strong> Av. Shaw, Pinamar
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>40 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>25 min</span>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href="https://maps.google.com/?q=Cine+Oasis+Av+Shaw+Pinamar"
+                    className="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800 text-sm font-medium"
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
+                    <Theater className="h-4 w-4" />
+                    Ver perfil en Google Maps
+                  </a>
+                </div>
+              </div>
+              
+              {/* Il Buco Section */}
+              <div className="mt-12 max-w-4xl mx-auto">
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-xl border border-blue-100">
+                  <h3 className="text-2xl font-semibold mb-4 text-gray-900">Il Buco: Tu Base Perfecta</h3>
+                  
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold mb-3 text-lg">Entretenimiento Digital</h4>
+                      <p className="text-gray-700 mb-4">
+                        Cada habitación tiene Smart TV con suscripciones a Netflix, Disney+ y Max. 
+                        Además, hay un sillón grande en el living común, ideal para ver películas o series en grupo.
+                      </p>
+                    </div>
+                    
+                    <div>
+                      <h4 className="font-semibold mb-3 text-lg">Juegos de Mesa</h4>
+                      <p className="text-gray-700 mb-4">
+                        Il Buco cuenta con una pequeña colección de juegos de mesa, ideales para tardes sin salir. 
+                        Perfecto para pasar tiempo con otros huéspedes o en familia.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-6 flex items-center justify-center">
+                    <Link
+                      href="/contacts"
+                      className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-semibold"
+                    >
+                      Reservar tu Refugio contra la Lluvia
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
                   </div>
                 </div>
               </div>
