@@ -59,22 +59,190 @@ export default function QueHacerCuandoLlueve() {
                 <h2 className="text-3xl font-bold text-gray-900">Experiencias Gastronómicas</h2>
               </div>
               
-              <div className="grid md:grid-cols-2 gap-8 mb-12">
-                <div>
-                  <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-lg mb-6">
-                    <h3 className="text-xl font-semibold mb-3">Restaurantes para Largas Sobremesas</h3>
-                    <p className="text-gray-700 mb-4">
-                      Días grises son buenos para largas sobremesas. Algunos <Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900">restaurantes</Link> recomendables:
-                    </p>
-                    <ul className="space-y-2 text-gray-700">
-                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>La Cabrera Cariló</strong></Link> - Carnes, clásico porteño adaptado al bosque</li>
-                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>Masse</strong></Link> - Cocina moderna, ambiente tranquilo. (El nombre proviene del francés "masse", que significa volumen o solidez)</li>
-                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>De Mi Campo</strong></Link> - Casero, informal</li>
-                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>El Gato Nero</strong></Link> - Buen ambiente, carta variada</li>
-                      <li><Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900"><strong>Don Vinito</strong></Link> - Parrilla eficiente, bien ubicada</li>
-                    </ul>
+              <div className="mb-8">
+                <p className="text-xl text-gray-700 mb-8 text-center max-w-3xl mx-auto">
+                  Días grises son buenos para largas sobremesas. Descubrí <Link href="/restaurantes-carilo" className="text-gray-700 no-underline hover:text-gray-900">restaurantes</Link> perfectos para pasar horas conversando mientras llueve afuera.
+                </p>
+              </div>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">La Cabrera Cariló</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.5 (180 reseñas)
+                    </div>
                   </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Experiencia premium de carnes argentinas en ambiente elegante, perfecto para largas sobremesas con servicio profesional.
+                  </p>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>18 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>6 min</span>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href="https://maps.google.com/?q=La+Cabrera+Cariló"
+                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-sm font-medium"
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver perfil en Google Maps
+                  </a>
                 </div>
+
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Masse</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.3 (95 reseñas)
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Cocina moderna en ambiente tranquilo y sofisticado, ideal para conversaciones íntimas con propuesta gastronómica contemporánea.
+                  </p>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>20 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>7 min</span>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href="https://maps.google.com/?q=Masse+Cariló"
+                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-sm font-medium"
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver perfil en Google Maps
+                  </a>
+                </div>
+
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">De Mi Campo</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.4 (125 reseñas)
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Comida casera y auténtica en ambiente familiar relajado, perfecto para quienes buscan sabores tradicionales sin pretensiones.
+                  </p>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>22 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>8 min</span>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href="https://maps.google.com/?q=De+Mi+Campo+Cariló"
+                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-sm font-medium"
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver perfil en Google Maps
+                  </a>
+                </div>
+
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Il Gato Nero</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.2 (85 reseñas)
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Ambiente acogedor con carta variada internacional, ideal para grupos que buscan opciones diversas en un lugar cálido y acogedor.
+                  </p>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>16 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>5 min</span>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href="https://maps.google.com/?q=Il+Gato+Nero+Cariló"
+                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-sm font-medium"
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver perfil en Google Maps
+                  </a>
+                </div>
+
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Don Benito</h5>
+                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                      ⭐ 4.6 (220 reseñas)
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Parrilla eficiente con excelente ubicación y servicio rápido, perfecto para quienes buscan calidad argentina clásica sin complicaciones.
+                  </p>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>15 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>4 min</span>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href="https://maps.google.com/?q=Don+Benito+Cariló"
+                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-sm font-medium"
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Ver perfil en Google Maps
+                  </a>
+                </div>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-8 mb-12">
                 
                 <div>
                   <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg">
@@ -344,38 +512,72 @@ export default function QueHacerCuandoLlueve() {
                 </div>
               </div>
               
-              {/* Il Buco Section */}
-              <div className="mt-12 max-w-4xl mx-auto">
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-xl border border-blue-100">
-                  <h3 className="text-2xl font-semibold mb-4 text-gray-900">Il Buco: Tu Base Perfecta</h3>
-                  
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <h4 className="font-semibold mb-3 text-lg">Entretenimiento Digital</h4>
-                      <p className="text-gray-700 mb-4">
-                        Cada habitación tiene Smart TV con suscripciones a Netflix, Disney+ y Max. 
-                        Además, hay un sillón grande en el living común, ideal para ver películas o series en grupo.
-                      </p>
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-semibold mb-3 text-lg">Juegos de Mesa</h4>
-                      <p className="text-gray-700 mb-4">
-                        Il Buco cuenta con una pequeña colección de juegos de mesa, ideales para tardes sin salir. 
-                        Perfecto para pasar tiempo con otros huéspedes o en familia.
-                      </p>
+              {/* Il Buco Entertainment Cards */}
+              <div className="grid md:grid-cols-2 gap-8 mt-12">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Il Buco - Entretenimiento Digital</h5>
+                    <div className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                      ⭐ Tu residencia
                     </div>
                   </div>
                   
-                  <div className="mt-6 flex items-center justify-center">
-                    <Link
-                      href="/contacts"
-                      className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-semibold"
-                    >
-                      Reservar tu Refugio contra la Lluvia
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Ver películas y series en habitaciones privadas con Smart TV, Netflix, Disney+ y Max, o disfrutar en grupo en el living común.
+                  </p>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>0 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>0 min</span>
+                    </div>
                   </div>
+                  
+                  <Link
+                    href="/contacts"
+                    className="inline-flex items-center gap-1 text-green-600 hover:text-green-800 text-sm font-medium"
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                    Reservar tu Refugio contra la Lluvia
+                  </Link>
+                </div>
+
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-3">
+                    <h5 className="text-xl font-bold text-gray-800">Il Buco - Juegos de Mesa</h5>
+                    <div className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                      ⭐ Tu residencia
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 text-sm mb-4">
+                    <strong>Para:</strong> Pasar tardes sin salir con colección de juegos de mesa, perfecto para conocer otros huéspedes o tiempo en familia.
+                  </p>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <span className="font-medium">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1">
+                      <User className="h-4 w-4" />
+                      <span>0 min</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Car className="h-4 w-4" />
+                      <span>0 min</span>
+                    </div>
+                  </div>
+                  
+                  <Link
+                    href="/contacts"
+                    className="inline-flex items-center gap-1 text-green-600 hover:text-green-800 text-sm font-medium"
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                    Reservar tu Refugio contra la Lluvia
+                  </Link>
                 </div>
               </div>
             </div>
