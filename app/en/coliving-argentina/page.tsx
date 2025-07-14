@@ -61,9 +61,7 @@ export default function ColivingArgentinaPage() {
                   <span className="text-gray-900"> Argentina</span>
                 </h1>
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  Experience premium coliving in Argentina's most exclusive coastal destination. 
-                  Join our international community in Carilo, where modern comfort meets natural 
-                  beauty and global connections flourish.
+                  Experience premium coliving in Argentina's most exclusive coastal destination. Join our international community in Carilo, where modern comfort meets natural beauty and connections happen naturally.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
@@ -101,8 +99,7 @@ export default function ColivingArgentinaPage() {
                 Experience Coliving at Il Buco
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Take a visual tour of our coliving space, from private suites to shared areas 
-                and the stunning natural surroundings of Carilo.
+                Take a visual tour of our space, from private suites to shared areas and the stunning natural surroundings of Carilo.
               </p>
             </div>
             
@@ -190,8 +187,7 @@ export default function ColivingArgentinaPage() {
                 Why Argentina for Coliving?
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Argentina offers an unbeatable combination for coliving: affordability, 
-                vibrant culture, stunning landscapes, and a thriving international community.
+                Argentina offers an unbeatable combo for coliving: its affordable, culturally rich, has amazing landscapes, and a thriving international community.
               </p>
             </div>
             
@@ -207,8 +203,7 @@ export default function ColivingArgentinaPage() {
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-2">Cost-Effective Living</h4>
                       <p className="text-gray-600">
-                        Premium coliving from $600-1200/month including all amenities, 
-                        utilities, and community events - 70% less than similar spaces in US/Europe.
+                        Premium coliving from $600-1200/month including everything. Thats 70% less than similar spaces in US/Europe.
                       </p>
                     </div>
                   </div>
@@ -220,8 +215,7 @@ export default function ColivingArgentinaPage() {
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-2">Global Community</h4>
                       <p className="text-gray-600">
-                        Buenos Aires alone hosts 50,000+ expats and digital nomads, 
-                        with thriving communities in beach towns and mountain regions.
+                        Buenos Aires alone has 50,000+ expats and digital nomads. Beach towns and mountain regions have their own thriving communities too.
                       </p>
                     </div>
                   </div>
@@ -233,8 +227,7 @@ export default function ColivingArgentinaPage() {
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-2">Time Zone Friendly</h4>
                       <p className="text-gray-600">
-                        Perfect for remote work with US and European clients - 
-                        only 1-4 hours difference from major business centers.
+                        Perfect for remote work with US and European clients. Only 1-4 hours difference from major business centers.
                       </p>
                     </div>
                   </div>
@@ -255,19 +248,19 @@ export default function ColivingArgentinaPage() {
               <div className="bg-white p-6 rounded-xl shadow-sm text-center">
                 <Sun className="h-12 w-12 text-yellow-500 mx-auto mb-4" />
                 <h4 className="font-semibold text-gray-900 mb-2">Perfect Climate</h4>
-                <p className="text-gray-600">300+ sunny days per year with mild winters and warm summers</p>
+                <p className="text-gray-600">300+ sunny days yearly with mild winters and warm summers</p>
               </div>
               
               <div className="bg-white p-6 rounded-xl shadow-sm text-center">
                 <Wifi className="h-12 w-12 text-blue-600 mx-auto mb-4" />
                 <h4 className="font-semibold text-gray-900 mb-2">Reliable Internet</h4>
-                <p className="text-gray-600">Fiber optic available in major cities and coastal towns</p>
+                <p className="text-gray-600">Fiber optic in major cities and coastal towns</p>
               </div>
               
               <div className="bg-white p-6 rounded-xl shadow-sm text-center">
                 <Heart className="h-12 w-12 text-red-500 mx-auto mb-4" />
                 <h4 className="font-semibold text-gray-900 mb-2">Warm Culture</h4>
-                <p className="text-gray-600">Argentines are famously welcoming to international visitors</p>
+                <p className="text-gray-600">Argentines are famously welcoming to foreigners</p>
               </div>
             </div>
           </div>
@@ -281,8 +274,7 @@ export default function ColivingArgentinaPage() {
                 Everything Included in Your Coliving Experience
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                All-inclusive pricing means no surprises. From utilities to community events, 
-                everything you need for comfortable coliving is covered.
+                All-inclusive pricing means no surprises. From utilities to community events, everything you need is covered.
               </p>
             </div>
             
@@ -294,7 +286,7 @@ export default function ColivingArgentinaPage() {
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Private furnished bedroom</li>
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Dedicated workspace</li>
-                  <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Premium bedding & linens</li>
+                  <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Premium bedding and linens</li>
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Weekly housekeeping</li>
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />In-room heating/cooling</li>
                 </ul>
@@ -308,7 +300,7 @@ export default function ColivingArgentinaPage() {
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />High-speed fiber internet</li>
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Backup internet connection</li>
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Ergonomic workspaces</li>
-                  <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Printer & scanner access</li>
+                  <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Printer and scanner access</li>
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Video call booths</li>
                 </ul>
               </div>
@@ -319,8 +311,8 @@ export default function ColivingArgentinaPage() {
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Living & Dining</h3>
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Fully equipped kitchen</li>
-                  <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Coffee & tea station</li>
-                  <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Dining areas indoor/outdoor</li>
+                  <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Coffee and tea station</li>
+                  <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Indoor/outdoor dining areas</li>
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />BBQ facilities</li>
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Food storage space</li>
                 </ul>
@@ -332,7 +324,7 @@ export default function ColivingArgentinaPage() {
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Community Life</h3>
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Weekly community dinners</li>
-                  <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Beach & outdoor activities</li>
+                  <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Beach and outdoor activities</li>
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Skill-sharing workshops</li>
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Movie nights</li>
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Local cultural events</li>
@@ -359,7 +351,7 @@ export default function ColivingArgentinaPage() {
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />5-min walk to beach</li>
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Swimming pool access</li>
-                  <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Garden & terraces</li>
+                  <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Garden and terraces</li>
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Bike storage</li>
                   <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Outdoor seating areas</li>
                 </ul>
@@ -447,8 +439,7 @@ export default function ColivingArgentinaPage() {
                 Coliving Options Across Argentina
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                From bustling Buenos Aires to tranquil beach towns, find the perfect 
-                coliving style that matches your lifestyle and work needs.
+                From bustling Buenos Aires to quiet beach towns, find the coliving style that matches your lifestyle and work needs.
               </p>
             </div>
             
@@ -512,7 +503,7 @@ export default function ColivingArgentinaPage() {
                   <p className="text-gray-600 mb-4">Bariloche, Villa La Angostura</p>
                   <ul className="space-y-2 text-sm text-gray-600">
                     <li className="flex items-center"><Tree className="h-4 w-4 text-green-500 mr-2" />Nature immersion</li>
-                    <li className="flex items-center"><Shield className="h-4 w-4 text-gray-500 mr-2" />Quiet & peaceful</li>
+                    <li className="flex items-center"><Shield className="h-4 w-4 text-gray-500 mr-2" />Quiet and peaceful</li>
                     <li className="flex items-center"><Coffee className="h-4 w-4 text-brown-500 mr-2" />Cozy atmosphere</li>
                     <li className="flex items-center"><DollarSign className="h-4 w-4 text-green-500 mr-2" />$500-900/month</li>
                   </ul>
@@ -541,8 +532,8 @@ export default function ColivingArgentinaPage() {
                     <div className="absolute -left-2 -top-2 w-5 h-5 bg-blue-500 rounded-full"></div>
                   </div>
                   <div className="flex-1 pb-8">
-                    <h4 className="font-semibold text-gray-900 mb-2">Morning Coffee & Catch-up</h4>
-                    <p className="text-gray-600">Start your day with freshly brewed coffee on the terrace, chatting with housemates about their projects and plans for the day.</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">Morning Coffee</h4>
+                    <p className="text-gray-600">Start your day with fresh coffee on the terrace, chatting with housemates about projects and plans.</p>
                   </div>
                 </div>
                 
@@ -555,7 +546,7 @@ export default function ColivingArgentinaPage() {
                   </div>
                   <div className="flex-1 pb-8">
                     <h4 className="font-semibold text-gray-900 mb-2">Deep Work Session</h4>
-                    <p className="text-gray-600">Settle into your workspace or a quiet corner with blazing-fast wifi. The house maintains quiet hours for focused productivity.</p>
+                    <p className="text-gray-600">Settle into your workspace with fast wifi. The house keeps quiet hours for productivity.</p>
                   </div>
                 </div>
                 
@@ -568,7 +559,7 @@ export default function ColivingArgentinaPage() {
                   </div>
                   <div className="flex-1 pb-8">
                     <h4 className="font-semibold text-gray-900 mb-2">Lunch Break</h4>
-                    <p className="text-gray-600">Prepare lunch in the fully-equipped kitchen or join others for a meal at a local restaurant. Perfect time for a beach walk!</p>
+                    <p className="text-gray-600">Make lunch in the kitchen or join others at a local restaurant. Perfect time for a beach walk.</p>
                   </div>
                 </div>
                 
@@ -581,7 +572,7 @@ export default function ColivingArgentinaPage() {
                   </div>
                   <div className="flex-1 pb-8">
                     <h4 className="font-semibold text-gray-900 mb-2">Afternoon Activities</h4>
-                    <p className="text-gray-600">Join a surf lesson, explore forest trails, or continue working from a beachside cafe. The choice is yours!</p>
+                    <p className="text-gray-600">Join a surf lesson, explore forest trails, or keep working from a beachside cafe. Your choice.</p>
                   </div>
                 </div>
                 
@@ -594,7 +585,7 @@ export default function ColivingArgentinaPage() {
                   </div>
                   <div className="flex-1 pb-8">
                     <h4 className="font-semibold text-gray-900 mb-2">Community Dinner</h4>
-                    <p className="text-gray-600">Twice a week, we gather for communal dinners. Tonight's menu: Argentine asado with wine from Mendoza!</p>
+                    <p className="text-gray-600">Twice a week we gather for communal dinners. Tonight: Argentine asado with Mendoza wine.</p>
                   </div>
                 </div>
                 
@@ -607,7 +598,7 @@ export default function ColivingArgentinaPage() {
                   </div>
                   <div className="flex-1">
                     <h4 className="font-semibold text-gray-900 mb-2">Evening Wind-down</h4>
-                    <p className="text-gray-600">Movie night in the living room, stargazing on the terrace, or a quiet read in your room. End the day your way.</p>
+                    <p className="text-gray-600">Movie night, stargazing on the terrace, or quiet reading. End the day however you want.</p>
                   </div>
                 </div>
               </div>
@@ -623,8 +614,7 @@ export default function ColivingArgentinaPage() {
                 What Our Coliving Members Say
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Real stories from our international community members who've made 
-                Argentina their coliving home.
+                Real stories from our international community members who've made Argentina their coliving home.
               </p>
             </div>
             
@@ -636,8 +626,7 @@ export default function ColivingArgentinaPage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6 italic">
-                  "The perfect balance of community and privacy. I've been so productive 
-                  here while also making lifelong friends. The beach access is a game-changer!"
+                  "The perfect balance of community and privacy. I've been super productive here while making lifelong friends. The beach access is a game-changer."
                 </p>
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
@@ -657,8 +646,7 @@ export default function ColivingArgentinaPage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6 italic">
-                  "After trying coliving spaces in Bali and Mexico, this is by far the best. 
-                  The combination of nature, community, and infrastructure is unmatched."
+                  "After trying coliving in Bali and Mexico, this is the best. The combination of nature, community, and infrastructure is unmatched."
                 </p>
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
@@ -678,8 +666,7 @@ export default function ColivingArgentinaPage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6 italic">
-                  "The community dinners and weekend activities create such a warm atmosphere. 
-                  It never feels lonely, even when working on challenging projects."
+                  "The community dinners and weekend activities create such a warm atmosphere. Never feels lonely, even when working on tough projects."
                 </p>
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center">
@@ -703,15 +690,14 @@ export default function ColivingArgentinaPage() {
                 Simple, Transparent Pricing
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                All-inclusive rates with no hidden fees. Choose the duration that works 
-                best for your nomadic journey.
+                All-inclusive rates with no hidden fees. Choose the duration that works for your journey.
               </p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               <div className="bg-white border-2 border-gray-200 p-8 rounded-xl hover:border-blue-500 transition-colors">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Weekly Stay</h3>
-                <p className="text-gray-600 mb-6">Perfect for trying coliving</p>
+                <p className="text-gray-600 mb-6">Try coliving</p>
                 <div className="mb-6">
                   <p className="text-4xl font-bold text-gray-900">$250</p>
                   <p className="text-gray-600">per week</p>
@@ -728,7 +714,7 @@ export default function ColivingArgentinaPage() {
                   Most Popular
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Monthly Stay</h3>
-                <p className="text-gray-600 mb-6">Ideal for remote workers</p>
+                <p className="text-gray-600 mb-6">For remote workers</p>
                 <div className="mb-6">
                   <p className="text-4xl font-bold text-gray-900">$800</p>
                   <p className="text-gray-600">per month</p>
@@ -742,13 +728,13 @@ export default function ColivingArgentinaPage() {
               
               <div className="bg-white border-2 border-gray-200 p-8 rounded-xl hover:border-purple-500 transition-colors">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Long-term</h3>
-                <p className="text-gray-600 mb-6">3+ months commitment</p>
+                <p className="text-gray-600 mb-6">3+ months</p>
                 <div className="mb-6">
                   <p className="text-4xl font-bold text-gray-900">$600</p>
                   <p className="text-gray-600">per month</p>
                 </div>
                 <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-center"><CheckCircle className="h-5 w-5 text-green-500 mr-2" />Best value pricing</li>
+                  <li className="flex items-center"><CheckCircle className="h-5 w-5 text-green-500 mr-2" />Best value</li>
                   <li className="flex items-center"><CheckCircle className="h-5 w-5 text-green-500 mr-2" />Room customization</li>
                   <li className="flex items-center"><CheckCircle className="h-5 w-5 text-green-500 mr-2" />Storage space</li>
                 </ul>
@@ -776,8 +762,7 @@ export default function ColivingArgentinaPage() {
               Ready to Experience Coliving in Argentina?
             </h2>
             <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
-              Join our international community in Carilo and discover why Argentina is 
-              becoming the top destination for remote workers and digital nomads.
+              Join our international community in Carilo and see why Argentina is becoming the top destination for remote workers and digital nomads.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

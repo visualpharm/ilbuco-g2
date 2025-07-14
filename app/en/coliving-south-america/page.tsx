@@ -58,9 +58,7 @@ export default function ColivingSouthAmericaPage() {
                   <span className="text-emerald-600"> Complete 2025 Guide</span>
                 </h1>
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  Your comprehensive guide to coliving across South America. From vibrant Buenos Aires 
-                  to beachside Brazilian communities, discover the perfect coliving space for your 
-                  digital nomad journey in Latin America.
+                  Your guide to coliving across South America. From vibrant Buenos Aires to beachside Brazilian communities, find the perfect coliving space for your digital nomad journey in Latin America.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
@@ -98,8 +96,7 @@ export default function ColivingSouthAmericaPage() {
                 Best Countries for Coliving in South America
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Each country offers unique advantages for digital nomads and remote workers. 
-                Find your perfect match based on lifestyle, budget, and community preferences.
+                Each country offers unique advantages for digital nomads and remote workers. Find your perfect match based on lifestyle, budget, and community.
               </p>
             </div>
             
@@ -116,9 +113,9 @@ export default function ColivingSouthAmericaPage() {
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-3">Why Argentina?</h4>
                     <ul className="space-y-2 text-gray-600">
-                      <li>• Favorable exchange rate</li>
+                      <li>• Great exchange rate</li>
                       <li>• European-influenced culture</li>
-                      <li>• Excellent wine & food scene</li>
+                      <li>• Amazing wine and food</li>
                       <li>• Strong expat communities</li>
                     </ul>
                   </div>
@@ -135,7 +132,7 @@ export default function ColivingSouthAmericaPage() {
                     <h4 className="font-semibold text-gray-900 mb-3">Costs & Visa</h4>
                     <p className="text-gray-600 mb-2"><strong>Coliving:</strong> $400-1200/month</p>
                     <p className="text-gray-600 mb-2"><strong>Visa:</strong> 90 days visa-free</p>
-                    <p className="text-gray-600"><strong>Internet:</strong> 50-100 Mbps avg</p>
+                    <p className="text-gray-600"><strong>Internet:</strong> 50-100 Mbps average</p>
                   </div>
                 </div>
               </div>
@@ -192,9 +189,9 @@ export default function ColivingSouthAmericaPage() {
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-3">Why Colombia?</h4>
                     <ul className="space-y-2 text-gray-600">
-                      <li>• Spring-like weather year-round</li>
+                      <li>• Spring weather year-round</li>
                       <li>• Fastest growing nomad hub</li>
-                      <li>• Excellent coffee culture</li>
+                      <li>• Great coffee culture</li>
                       <li>• Very affordable</li>
                     </ul>
                   </div>
@@ -276,8 +273,7 @@ export default function ColivingSouthAmericaPage() {
                 Types of Coliving Spaces in South America
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                From budget-friendly hostels to luxury villas, South America offers 
-                coliving options for every lifestyle and budget.
+                From budget hostels to luxury villas, South America has coliving options for every lifestyle and budget.
               </p>
             </div>
             
@@ -288,7 +284,7 @@ export default function ColivingSouthAmericaPage() {
                   <Home className="h-6 w-6 text-green-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Budget Coliving</h3>
-                <p className="text-gray-600 text-sm mb-4">Hostel-style with shared rooms and basic amenities</p>
+                <p className="text-gray-600 text-sm mb-4">Hostel-style with shared rooms</p>
                 <ul className="space-y-1 text-sm text-gray-600">
                   <li>• $200-400/month</li>
                   <li>• Shared dorms</li>
@@ -318,7 +314,7 @@ export default function ColivingSouthAmericaPage() {
                   <Star className="h-6 w-6 text-purple-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Premium Coliving</h3>
-                <p className="text-gray-600 text-sm mb-4">Upscale amenities and curated experiences</p>
+                <p className="text-gray-600 text-sm mb-4">Upscale amenities and everything</p>
                 <ul className="space-y-1 text-sm text-gray-600">
                   <li>• $800-1500/month</li>
                   <li>• En-suite bathrooms</li>
@@ -333,12 +329,12 @@ export default function ColivingSouthAmericaPage() {
                   <Crown className="h-6 w-6 text-yellow-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Luxury Coliving</h3>
-                <p className="text-gray-600 text-sm mb-4">Villa-style with premium everything</p>
+                <p className="text-gray-600 text-sm mb-4">Villa-style with everything</p>
                 <ul className="space-y-1 text-sm text-gray-600">
                   <li>• $1500-3000/month</li>
                   <li>• Suite-style rooms</li>
-                  <li>• Pool & gym</li>
-                  <li>• Chef & cleaning</li>
+                  <li>• Pool and gym</li>
+                  <li>• Chef and cleaning</li>
                 </ul>
               </div>
             </div>
@@ -422,15 +418,15 @@ export default function ColivingSouthAmericaPage() {
                   <ul className="space-y-3 text-gray-600">
                     <li className="flex items-start">
                       <span className="font-semibold text-blue-600 mr-2">Urban:</span>
-                      Access to nightlife, restaurants, coworking spaces
+                      Nightlife, restaurants, coworking spaces
                     </li>
                     <li className="flex items-start">
                       <span className="font-semibold text-blue-600 mr-2">Beach:</span>
-                      Surf, relaxation, outdoor activities, slower pace
+                      Surf, relaxation, outdoor activities
                     </li>
                     <li className="flex items-start">
                       <span className="font-semibold text-blue-600 mr-2">Mountain:</span>
-                      Hiking, skiing, nature immersion, tranquility
+                      Hiking, skiing, nature immersion
                     </li>
                     <li className="flex items-start">
                       <span className="font-semibold text-blue-600 mr-2">Rural:</span>
@@ -484,7 +480,7 @@ export default function ColivingSouthAmericaPage() {
                       <p className="font-semibold text-gray-900 mb-2">Workspace Setup:</p>
                       <ul className="space-y-1 text-sm text-gray-600">
                         <li>• Dedicated desk vs shared spaces</li>
-                        <li>• 24/7 access requirements</li>
+                        <li>• 24/7 access needs</li>
                         <li>• Meeting room availability</li>
                       </ul>
                     </div>
@@ -497,13 +493,13 @@ export default function ColivingSouthAmericaPage() {
                     Budget Considerations
                   </h3>
                   <p className="text-gray-600 mb-4">
-                    Remember to factor in these additional costs:
+                    Remember these additional costs:
                   </p>
                   <ul className="space-y-2 text-gray-600">
                     <li>• Laundry services: $20-50/month</li>
                     <li>• Food/groceries: $200-400/month</li>
                     <li>• Local transport: $50-100/month</li>
-                    <li>• Activities/entertainment: $100-300/month</li>
+                    <li>• Activities: $100-300/month</li>
                     <li>• Coworking day passes: $10-30/day</li>
                   </ul>
                 </div>
@@ -521,8 +517,7 @@ export default function ColivingSouthAmericaPage() {
                   Experience Premium Coliving at Il Buco
                 </h2>
                 <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                  Our Carilo location represents the best of South American coliving - 
-                  combining luxury amenities, natural beauty, and vibrant community
+                  Our Carilo location represents the best of South American coliving - luxury amenities, natural beauty, and vibrant community
                 </p>
               </div>
               
@@ -537,7 +532,7 @@ export default function ColivingSouthAmericaPage() {
                 </div>
                 <div className="relative h-32 md:h-48 rounded-lg overflow-hidden">
                   <Image
-                    src="/photo/living/living2.jpg"
+                    src="/photo/living/living3.jpg"
                     alt="Modern living spaces"
                     fill
                     className="object-cover"
@@ -545,7 +540,7 @@ export default function ColivingSouthAmericaPage() {
                 </div>
                 <div className="relative h-32 md:h-48 rounded-lg overflow-hidden">
                   <Image
-                    src="/photo/penthouse/penthouse2.jpg"
+                    src="/photo/terrazzo/terrazzo1.jpg"
                     alt="Premium suite interior"
                     fill
                     className="object-cover"
@@ -601,8 +596,7 @@ export default function ColivingSouthAmericaPage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6">
-                  "Best coliving experience I've had in South America. The community 
-                  is incredibly welcoming and the location is absolutely magical."
+                  "Best coliving experience I've had in South America. The community is incredibly welcoming and the location is absolutely magical."
                 </p>
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
@@ -622,8 +616,7 @@ export default function ColivingSouthAmericaPage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6">
-                  "The perfect blend of productivity and relaxation. I've extended 
-                  my stay twice and met lifelong friends here."
+                  "The perfect blend of productivity and relaxation. I've extended my stay twice and met lifelong friends here."
                 </p>
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
@@ -643,8 +636,7 @@ export default function ColivingSouthAmericaPage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6">
-                  "Finally found my ideal coliving space! The location, amenities, 
-                  and community make this a standout experience in South America."
+                  "Finally found my ideal coliving space. The location, amenities, and community make this a standout in South America."
                 </p>
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
@@ -667,9 +659,7 @@ export default function ColivingSouthAmericaPage() {
               Join South America's Premier Coliving Community
             </h2>
             <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
-              Experience the future of coliving in South America. Connect with like-minded 
-              professionals while enjoying luxury amenities in one of the continent's most 
-              beautiful destinations.
+              Experience the future of coliving in South America. Connect with like-minded professionals while enjoying luxury amenities in one of the continent's most beautiful destinations.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

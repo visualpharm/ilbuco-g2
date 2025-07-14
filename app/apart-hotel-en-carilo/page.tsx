@@ -12,13 +12,13 @@ import {
   Car,
   Users,
   Star,
-  Coffee,
   Shield,
 } from "lucide-react"
+import { Icons8Icon } from "@/components/icons8-icon"
 
 export const metadata: Metadata = {
   title: "Apart Hotel en Cariló - Servicio Premium en Villa Privada | IL BUCO",
-  description: "Apart hotel en Cariló con servicios premium. Villa privada con atención personalizada, limpieza diaria opcional, desayuno y todas las comodidades de hotel.",
+  description: "Apart hotel en Cariló con servicios premium. Villa privada con atención personalizada, limpieza diaria opcional y todas las comodidades de hotel.",
   keywords: "apart hotel en carilo, apart hotel cariló, hotel carilo, alojamiento premium carilo, villa hotel carilo",
   openGraph: {
     title: "Apart Hotel Premium en Cariló | IL BUCO",
@@ -81,14 +81,6 @@ export default function ApartHotelEnCariloPage() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Coffee className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
-                  <div>
-                    <p className="text-lg">
-                      <strong>Desayuno premium opcional:</strong> Servicio de desayuno gourmet entregado en tu villa con productos locales frescos.
-                    </p>
-                  </div>
-                </li>
-                <li className="flex items-start">
                   <Shield className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
@@ -108,7 +100,7 @@ export default function ApartHotelEnCariloPage() {
                   <Car className="h-5 w-5 mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <p className="text-lg">
-                      <strong>Estacionamiento privado:</strong> Garage cubierto y espacio adicional para múltiples vehículos con seguridad.
+                      <strong>Estacionamiento privado:</strong> Garage cubierto y espacio adicional para múltiples vehículos con seguridad (tarifa adicional).
                     </p>
                   </div>
                 </li>
@@ -117,12 +109,48 @@ export default function ApartHotelEnCariloPage() {
           </div>
         </section>
 
-        {/* Villa Features Section */}
+        {/* Villa Features Section - Photos Grid */}
         <section className="bg-gray-50 py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-10 text-center">
               Villa Apart Hotel de Lujo
             </h2>
+
+            {/* Photo Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+              <div className="relative h-48 rounded-lg overflow-hidden">
+                <Image
+                  src="/photo/exterior/exterior1.jpg"
+                  alt="Exterior villa apart hotel Cariló"
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="relative h-48 rounded-lg overflow-hidden">
+                <Image
+                  src="/photo/living/living3.jpg"
+                  alt="Living compartido apart hotel"
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="relative h-48 rounded-lg overflow-hidden">
+                <Image
+                  src="/photo/terrazzo/terrazzo1.jpg"
+                  alt="Suite premium apart hotel"
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="relative h-48 rounded-lg overflow-hidden">
+                <Image
+                  src="/photo/giardino/giardino1.jpg"
+                  alt="Terraza jardín apart hotel"
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
@@ -155,7 +183,7 @@ export default function ApartHotelEnCariloPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-black">🍽️</span>
+                  <Icons8Icon name="utensils" size={20} className="mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       Cocina Gourmet Compartida
@@ -183,7 +211,7 @@ export default function ApartHotelEnCariloPage() {
 
               <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start mb-3">
-                  <span className="h-5 w-5 mr-3 mt-1 text-black">🌲</span>
+                  <Icons8Icon name="tree" size={20} className="mr-3 mt-1 text-black flex-shrink-0" />
                   <div>
                     <h3 className="text-lg font-semibold">
                       Terrazas Privadas

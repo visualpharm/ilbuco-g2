@@ -515,7 +515,7 @@ export function DigitalNomadVisaContent() {
                 Can I apply for the digital nomad visa while I'm already in Argentina as a tourist?
               </h3>
               <p className="text-gray-700 text-sm leading-relaxed">
-                Technically, the TIE online process requires you to be outside Argentina during processing. If you apply while physically in Argentina, Migraciones will likely deny the application. Workarounds include: 1) Leave and apply from abroad (e.g., Uruguay or Chile), or 2) Do a status change (Cambio de Categoría) in Argentina through DNM, which involves higher fees (~$200) and is more bureaucratic.
+                Technically, the TIE online process requires you to be outside Argentina during processing. If you apply while physically in Argentina, Migraciones will likely deny the application. Workarounds include: 1) Leave and apply from abroad (e.g., Uruguay or Chile), or 2) Do a status change (Cambio de Categoría) in Argentina through DNM, which involves higher fees (~$200) and is more bureaucratic. For detailed information about all visa options for remote workers, including tourist visa extensions and the Rentista visa, see our comprehensive <a href="/en/argentina-remote-work-visa" className="text-blue-600 hover:underline">Argentina remote work visa guide</a>.
               </p>
             </div>
 
@@ -525,7 +525,7 @@ export function DigitalNomadVisaContent() {
                 Does time on the digital nomad visa count towards permanent residency or citizenship?
               </h3>
               <p className="text-gray-700 text-sm leading-relaxed">
-                This is a gray area. The digital nomad visa is classified as "residencia transitoria" (transitory residence), not "residencia temporaria" which usually counts towards permanent residency. However, an immigration lawyer advised one nomad that the time might count towards the 2-year citizenship eligibility. It's not officially confirmed, so consult legal advice if you're planning long-term residency.
+                This is a gray area. The digital nomad visa is classified as "residencia transitoria" (transitory residence), not "residencia temporaria" which usually counts towards permanent residency. However, an immigration lawyer advised one nomad that the time might count towards the 2-year citizenship eligibility. It's not officially confirmed, so consult legal advice if you're planning long-term residency. For more comprehensive information about living as a digital nomad in Argentina, including community, banking, and lifestyle aspects, check out our <a href="/en/digital-nomad-argentina" className="text-blue-600 hover:underline">complete digital nomad guide</a>. If you're interested in joining a <a href="/en/coliving-argentina" className="text-blue-600 hover:underline">coliving community in Argentina</a> or exploring <a href="/en/coliving-south-america" className="text-blue-600 hover:underline">coliving options across South America</a>, we have detailed guides for those as well.
               </p>
             </div>
 

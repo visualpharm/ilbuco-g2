@@ -66,9 +66,9 @@ export default function DigitalNomadArgentinaPage() {
                   <span className="text-blue-600"> Complete 2025 Guide</span>
                 </h1>
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  Your comprehensive guide to thriving as a digital nomad in Argentina. 
-                  From visa options and banking to vibrant communities and perfect work-life 
-                  balance in South America's most nomad-friendly country.
+                  Your guide to thriving as a digital nomad in Argentina. From visa options 
+                  and banking to finding your tribe and getting the perfect work-life balance 
+                  in South America's most nomad-friendly country.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
@@ -106,7 +106,7 @@ export default function DigitalNomadArgentinaPage() {
                 Thriving Digital Nomad Community
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Argentina has become a magnet for digital nomads, with vibrant communities 
+                Argentina has become a magnet for digital nomads. You'll find vibrant communities 
                 in Buenos Aires, Bariloche, Mendoza, and coastal towns like Carilo.
               </p>
             </div>
@@ -117,11 +117,11 @@ export default function DigitalNomadArgentinaPage() {
                 <div className="space-y-4">
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Palermo & Recoleta</h4>
-                    <p className="text-gray-600">Main nomad neighborhoods with coworking spaces, cafes, and international community</p>
+                    <p className="text-gray-600">Where all the nomads hang out. Tons of coworking spaces, cafes, and an actual community</p>
                   </div>
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Weekly Meetups</h4>
-                    <p className="text-gray-600">Regular events, language exchanges, and networking opportunities</p>
+                    <p className="text-gray-600">Regular events, language exchanges, networking. Its not hard to meet people</p>
                   </div>
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Coworking Spaces</h4>
@@ -135,15 +135,15 @@ export default function DigitalNomadArgentinaPage() {
                 <div className="space-y-4">
                   <div className="bg-blue-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Carilo & Pinamar</h4>
-                    <p className="text-gray-600">Beach towns with growing remote work scene, perfect for surf and work balance</p>
+                    <p className="text-gray-600">Beach towns with a growing remote work scene. Perfect if you want to surf before your morning standup</p>
                   </div>
                   <div className="bg-blue-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Bariloche</h4>
-                    <p className="text-gray-600">Mountain paradise with ski season nomads and year-round outdoor activities</p>
+                    <p className="text-gray-600">Mountain paradise. Ski season brings tons of nomads, but people stay year-round for the outdoor stuff</p>
                   </div>
                   <div className="bg-blue-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Mar del Plata</h4>
-                    <p className="text-gray-600">Larger coastal city with established infrastructure and lower costs</p>
+                    <p className="text-gray-600">Bigger coastal city. Good infrastructure, lower costs</p>
                   </div>
                 </div>
               </div>
@@ -164,15 +164,15 @@ export default function DigitalNomadArgentinaPage() {
                   <h4 className="font-semibold text-gray-900 mb-3">WhatsApp Groups</h4>
                   <ul className="space-y-2 text-gray-600">
                     <li>• Local nomad communities</li>
-                    <li>• Activity-based groups</li>
-                    <li>• Housing & accommodation</li>
+                    <li>• Activity groups (hiking, surfing, whatever)</li>
+                    <li>• Housing and accommodation</li>
                   </ul>
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-3">Slack & Discord</h4>
                   <ul className="space-y-2 text-gray-600">
                     <li>• Professional networking</li>
-                    <li>• Tech & startup communities</li>
+                    <li>• Tech and startup communities</li>
                     <li>• Language practice groups</li>
                   </ul>
                 </div>
@@ -189,8 +189,8 @@ export default function DigitalNomadArgentinaPage() {
                 Banking & Finance in Argentina
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Essential financial information for digital nomads, from currency exchange 
-                to payment methods and cost of living.
+                Here's what you need to know about money in Argentina. From the famous blue 
+                dollar to how to actually pay for things.
               </p>
             </div>
             
@@ -199,15 +199,15 @@ export default function DigitalNomadArgentinaPage() {
                 <h3 className="text-2xl font-semibold text-gray-900">Currency & Exchange</h3>
                 
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <h4 className="font-semibold text-gray-900 mb-3">Understanding the Blue Dollar</h4>
+                  <h4 className="font-semibold text-gray-900 mb-3">The Blue Dollar</h4>
                   <p className="text-gray-600 mb-4">
-                    The unofficial exchange rate ("blue dollar") often provides 50-100% more 
-                    pesos than the official rate. Most nomads use:
+                    Everyone talks about it because its real. The unofficial exchange rate 
+                    gives you 50-100% more pesos than the official rate. Most nomads use:
                   </p>
                   <ul className="space-y-2 text-gray-600">
                     <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Western Union transfers</li>
-                    <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Crypto exchanges (USDT popular)</li>
-                    <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Cash exchanges at "cuevas"</li>
+                    <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Crypto exchanges (USDT is super popular)</li>
+                    <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Cash exchanges at "cuevas" (just ask around)</li>
                   </ul>
                 </div>
                 
@@ -218,21 +218,21 @@ export default function DigitalNomadArgentinaPage() {
                       <CreditCard className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-medium text-gray-900">International Cards</p>
-                        <p className="text-gray-600 text-sm">Widely accepted but use official exchange rate</p>
+                        <p className="text-gray-600 text-sm">They work but you get the terrible official rate</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <DollarSign className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-medium text-gray-900">Cash is King</p>
-                        <p className="text-gray-600 text-sm">Many places prefer cash, especially with USD</p>
+                        <p className="text-gray-600 text-sm">Seriously, everyone wants cash. USD even better</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Briefcase className="h-5 w-5 text-gray-600 mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-medium text-gray-900">Local Bank Account</p>
-                        <p className="text-gray-600 text-sm">Possible with DNI (residency) for Mercado Pago</p>
+                        <p className="text-gray-600 text-sm">Possible with DNI (residency) if you want Mercado Pago</p>
                       </div>
                     </div>
                   </div>
@@ -278,8 +278,8 @@ export default function DigitalNomadArgentinaPage() {
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-2">Pro Tip</h4>
                       <p className="text-gray-700 text-sm">
-                        Budget varies greatly between Buenos Aires and smaller cities. 
-                        Coastal towns like Carilo offer better value with higher quality of life.
+                        Buenos Aires is way more expensive than smaller cities. Coastal towns 
+                        like Carilo actually give you better quality of life for less money.
                       </p>
                     </div>
                   </div>
@@ -297,12 +297,27 @@ export default function DigitalNomadArgentinaPage() {
                 Visa Options for Digital Nomads
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                While Argentina doesn't have a specific digital nomad visa yet, several 
-                options allow remote workers to stay legally for extended periods.
+                Argentina introduced the Digital Nomad Visa in May 2022. Here's everything you need to know about visa options for remote workers.
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+              {/* Digital Nomad Visa */}
+              <div className="bg-emerald-50 border-2 border-emerald-200 p-8 rounded-xl">
+                <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-6">
+                  <Globe className="h-6 w-6 text-emerald-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                  Digital Nomad Visa
+                </h3>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />6 months initial stay</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Can extend to 12 months</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />No local work allowed</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Tax-free foreign income</li>
+                </ul>
+              </div>
+              
               <div className="bg-blue-50 border-2 border-blue-200 p-8 rounded-xl">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
                   <Globe className="h-6 w-6 text-gray-600" />
@@ -312,9 +327,9 @@ export default function DigitalNomadArgentinaPage() {
                 </h3>
                 <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />90 days visa-free for most countries</li>
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Extension possible for another 90 days</li>
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />"Visa run" to Uruguay common practice</li>
-                  <li className="flex items-start"><AlertCircle className="h-4 w-4 text-yellow-500 mr-2 mt-1 flex-shrink-0" />Max 180 days per year officially</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Can extend for another 90 days</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />"Visa runs" to Uruguay are common</li>
+                  <li className="flex items-start"><AlertCircle className="h-4 w-4 text-yellow-500 mr-2 mt-1 flex-shrink-0" />Officially max 180 days per year</li>
                 </ul>
               </div>
               
@@ -326,10 +341,10 @@ export default function DigitalNomadArgentinaPage() {
                   Rentista Visa
                 </h3>
                 <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />For passive income earners</li>
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Requires $2000+ USD/month income</li>
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />1 year renewable</li>
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Path to permanent residency</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />For people with passive income</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Need $2000+ USD/month income</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />1 year, renewable</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Can lead to permanent residency</li>
                 </ul>
               </div>
               
@@ -342,22 +357,21 @@ export default function DigitalNomadArgentinaPage() {
                 </h3>
                 <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Enroll in Spanish classes</li>
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Can work remotely legally</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />You can work remotely</li>
                   <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />6-12 month duration</li>
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Relatively easy to obtain</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Pretty easy to get</li>
                 </ul>
               </div>
             </div>
             
             <div className="bg-gradient-to-r from-indigo-100 to-purple-100 p-8 rounded-2xl">
               <h3 className="text-2xl font-semibold text-gray-900 mb-4 text-center">
-                📡 Digital Nomad Visa Update
+                Digital Nomad Visa Requirements
               </h3>
               <p className="text-gray-700 text-center max-w-3xl mx-auto">
-                Argentina is actively developing a dedicated Digital Nomad Visa expected to launch in 2025. 
-                This visa will offer 6-12 month stays with simplified requirements for remote workers. 
+                The Digital Nomad Visa requires proof of remote employment, health insurance, and clean criminal record. Only available to citizens who don't need a tourist visa for Argentina. 
                 <Link href="/en/argentina-remote-work-visa" className="text-blue-600 hover:text-blue-800 font-semibold">
-                  Learn more about visa requirements →
+                  See full visa guide and application process →
                 </Link>
               </p>
             </div>
@@ -372,7 +386,7 @@ export default function DigitalNomadArgentinaPage() {
                 The Digital Nomad Lifestyle in Argentina
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Experience the perfect blend of work productivity and Latin American 
+                Get ready for the perfect mix of productivity and Latin American 
                 culture in one of the world's most diverse countries.
               </p>
             </div>
@@ -388,8 +402,8 @@ export default function DigitalNomadArgentinaPage() {
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-2">Argentine Schedule</h4>
                         <p className="text-gray-600">
-                          Late nights are normal - dinner at 10pm, social life until 2am. 
-                          Perfect for night owls or US West Coast remote work.
+                          Everything happens late. Dinner at 10pm, going out until 2am is 
+                          totally normal. Great if you're a night owl or work US West Coast hours.
                         </p>
                       </div>
                     </div>
@@ -401,8 +415,8 @@ export default function DigitalNomadArgentinaPage() {
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-2">Cafe Culture</h4>
                         <p className="text-gray-600">
-                          Work from historic cafes in Buenos Aires or beachside spots 
-                          in coastal towns. Strong coffee culture perfect for remote work.
+                          Work from historic cafes in Buenos Aires or beachside spots in 
+                          coastal towns. The coffee is strong and the wifi usually works.
                         </p>
                       </div>
                     </div>
@@ -414,8 +428,8 @@ export default function DigitalNomadArgentinaPage() {
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-2">Social Integration</h4>
                         <p className="text-gray-600">
-                          Argentines are warm and welcoming. Language exchanges, 
-                          asados (BBQs), and tango lessons offer easy social entry points.
+                          Argentines are super welcoming. Language exchanges, asados (BBQs), 
+                          and tango lessons are easy ways to meet locals.
                         </p>
                       </div>
                     </div>
@@ -428,8 +442,8 @@ export default function DigitalNomadArgentinaPage() {
                 
                 <div className="relative h-[300px] rounded-xl overflow-hidden mb-6">
                   <Image
-                    src="/photo/living/living4.jpg"
-                    alt="Digital nomad lifestyle in Argentina"
+                    src="/photo/carilo/carilo-trabajo-remoto-terraza.jpg"
+                    alt="Remote work on sun deck terrace in Argentina"
                     fill
                     className="object-cover"
                   />
@@ -439,7 +453,7 @@ export default function DigitalNomadArgentinaPage() {
                   <div className="bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-lg text-center">
                     <Waves className="h-8 w-8 text-green-600 mx-auto mb-3" />
                     <h4 className="font-semibold text-gray-900 mb-2">Beach Life</h4>
-                    <p className="text-gray-600 text-sm">Surf before work, sunset walks after calls</p>
+                    <p className="text-gray-600 text-sm">Morning surf, sunset walks after calls</p>
                   </div>
                   
                   <div className="bg-gradient-to-br from-blue-50 to-cyan-100 p-6 rounded-lg text-center">
@@ -451,13 +465,13 @@ export default function DigitalNomadArgentinaPage() {
                   <div className="bg-gradient-to-br from-purple-50 to-pink-100 p-6 rounded-lg text-center">
                     <Utensils className="h-8 w-8 text-purple-600 mx-auto mb-3" />
                     <h4 className="font-semibold text-gray-900 mb-2">Cuisine</h4>
-                    <p className="text-gray-600 text-sm">World-class steaks and Malbec wine</p>
+                    <p className="text-gray-600 text-sm">Amazing steaks and Malbec wine</p>
                   </div>
                   
                   <div className="bg-gradient-to-br from-yellow-50 to-orange-100 p-6 rounded-lg text-center">
                     <Home className="h-8 w-8 text-orange-600 mx-auto mb-3" />
                     <h4 className="font-semibold text-gray-900 mb-2">Comfort</h4>
-                    <p className="text-gray-600 text-sm">Modern amenities in historic settings</p>
+                    <p className="text-gray-600 text-sm">Modern amenities in beautiful settings</p>
                   </div>
                 </div>
               </div>
@@ -477,29 +491,29 @@ export default function DigitalNomadArgentinaPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Buenos Aires</h3>
-                <p className="text-gray-600 mb-4">The cosmopolitan capital with endless cafes, coworking spaces, and cultural activities.</p>
+                <p className="text-gray-600 mb-4">The big city with endless cafes, coworking spaces, and things to do.</p>
                 <ul className="space-y-2 text-sm text-gray-600">
-                  <li className="flex items-center"><Wifi className="h-4 w-4 text-blue-500 mr-2" />Excellent internet</li>
+                  <li className="flex items-center"><Wifi className="h-4 w-4 text-blue-500 mr-2" />Great internet</li>
                   <li className="flex items-center"><Users className="h-4 w-4 text-purple-500 mr-2" />Huge nomad community</li>
-                  <li className="flex items-center"><Coffee className="h-4 w-4 text-brown-500 mr-2" />24/7 city life</li>
+                  <li className="flex items-center"><Coffee className="h-4 w-4 text-brown-500 mr-2" />Never sleeps</li>
                 </ul>
               </div>
               
               <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Carilo</h3>
-                <p className="text-gray-600 mb-4">Exclusive beach town perfect for focused work and nature immersion.</p>
+                <p className="text-gray-600 mb-4">Exclusive beach town. Perfect for focused work and nature.</p>
                 <ul className="space-y-2 text-sm text-gray-600">
                   <li className="flex items-center"><Waves className="h-4 w-4 text-blue-500 mr-2" />Beach lifestyle</li>
                   <li className="flex items-center"><Tree className="h-4 w-4 text-green-500 mr-2" />Pine forest setting</li>
-                  <li className="flex items-center"><Shield className="h-4 w-4 text-gray-500 mr-2" />Safe & exclusive</li>
+                  <li className="flex items-center"><Shield className="h-4 w-4 text-gray-500 mr-2" />Safe and quiet</li>
                 </ul>
               </div>
               
               <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Bariloche</h3>
-                <p className="text-gray-600 mb-4">Mountain paradise with lakes, skiing, and year-round outdoor activities.</p>
+                <p className="text-gray-600 mb-4">Mountain paradise with lakes, skiing, and outdoor activities all year.</p>
                 <ul className="space-y-2 text-sm text-gray-600">
-                  <li className="flex items-center"><Mountain className="h-4 w-4 text-gray-600 mr-2" />Stunning landscapes</li>
+                  <li className="flex items-center"><Mountain className="h-4 w-4 text-gray-600 mr-2" />Incredible landscapes</li>
                   <li className="flex items-center"><Home className="h-4 w-4 text-red-500 mr-2" />Cozy mountain vibe</li>
                   <li className="flex items-center"><Users className="h-4 w-4 text-purple-500 mr-2" />Growing community</li>
                 </ul>
@@ -507,31 +521,31 @@ export default function DigitalNomadArgentinaPage() {
               
               <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Mendoza</h3>
-                <p className="text-gray-600 mb-4">Wine country with perfect climate, outdoor activities, and relaxed lifestyle.</p>
+                <p className="text-gray-600 mb-4">Wine country with perfect weather, outdoor stuff, and relaxed vibes.</p>
                 <ul className="space-y-2 text-sm text-gray-600">
                   <li className="flex items-center"><Sun className="h-4 w-4 text-yellow-500 mr-2" />300+ sunny days</li>
-                  <li className="flex items-center"><Utensils className="h-4 w-4 text-purple-500 mr-2" />Wine & cuisine</li>
-                  <li className="flex items-center"><DollarSign className="h-4 w-4 text-green-500 mr-2" />Affordable living</li>
+                  <li className="flex items-center"><Utensils className="h-4 w-4 text-purple-500 mr-2" />Wine and food scene</li>
+                  <li className="flex items-center"><DollarSign className="h-4 w-4 text-green-500 mr-2" />Affordable</li>
                 </ul>
               </div>
               
               <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Cordoba</h3>
-                <p className="text-gray-600 mb-4">University city with youthful energy, tech scene, and central location.</p>
+                <p className="text-gray-600 mb-4">University city with young energy, tech scene, and central location.</p>
                 <ul className="space-y-2 text-sm text-gray-600">
                   <li className="flex items-center"><Building className="h-4 w-4 text-gray-600 mr-2" />Tech hub</li>
                   <li className="flex items-center"><Users className="h-4 w-4 text-purple-500 mr-2" />Student atmosphere</li>
-                  <li className="flex items-center"><MapPin className="h-4 w-4 text-red-500 mr-2" />Central location</li>
+                  <li className="flex items-center"><MapPin className="h-4 w-4 text-red-500 mr-2" />Central to everywhere</li>
                 </ul>
               </div>
               
               <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Salta</h3>
-                <p className="text-gray-600 mb-4">Colonial charm in the north with indigenous culture and dramatic landscapes.</p>
+                <p className="text-gray-600 mb-4">Colonial charm up north with indigenous culture and dramatic landscapes.</p>
                 <ul className="space-y-2 text-sm text-gray-600">
                   <li className="flex items-center"><Home className="h-4 w-4 text-orange-500 mr-2" />Colonial architecture</li>
                   <li className="flex items-center"><Mountain className="h-4 w-4 text-gray-600 mr-2" />Andean scenery</li>
-                  <li className="flex items-center"><DollarSign className="h-4 w-4 text-green-500 mr-2" />Very affordable</li>
+                  <li className="flex items-center"><DollarSign className="h-4 w-4 text-green-500 mr-2" />Super affordable</li>
                 </ul>
               </div>
             </div>
@@ -554,22 +568,22 @@ export default function DigitalNomadArgentinaPage() {
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
-                      <p className="font-medium text-gray-900">Get a local SIM card</p>
-                      <p className="text-gray-600 text-sm">Personal or Claro offer best coverage with affordable data plans</p>
+                      <p className="font-medium text-gray-900">Get a local SIM</p>
+                      <p className="text-gray-600 text-sm">Personal or Claro have the best coverage and cheap data</p>
                     </div>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
-                      <p className="font-medium text-gray-900">Backup internet options</p>
-                      <p className="text-gray-600 text-sm">Always have mobile hotspot as backup for important calls</p>
+                      <p className="font-medium text-gray-900">Backup internet</p>
+                      <p className="text-gray-600 text-sm">Always have mobile hotspot ready for important calls</p>
                     </div>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
-                      <p className="font-medium text-gray-900">Power outages happen</p>
-                      <p className="text-gray-600 text-sm">Keep devices charged and consider a portable battery</p>
+                      <p className="font-medium text-gray-900">Power outages</p>
+                      <p className="text-gray-600 text-sm">They happen. Keep stuff charged and maybe get a battery pack</p>
                     </div>
                   </li>
                 </ul>
@@ -582,21 +596,21 @@ export default function DigitalNomadArgentinaPage() {
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
                       <p className="font-medium text-gray-900">Learn basic Spanish</p>
-                      <p className="text-gray-600 text-sm">Even basics go a long way - locals appreciate the effort</p>
+                      <p className="text-gray-600 text-sm">Even terrible Spanish helps. People appreciate you trying</p>
                     </div>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
                       <p className="font-medium text-gray-900">Embrace the late schedule</p>
-                      <p className="text-gray-600 text-sm">Shops close 1-5pm, dinner is at 10pm - plan accordingly</p>
+                      <p className="text-gray-600 text-sm">Shops close 1-5pm, dinner is late. Just go with it</p>
                     </div>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
                       <p className="font-medium text-gray-900">Join WhatsApp groups</p>
-                      <p className="text-gray-600 text-sm">Essential for local community, events, and housing</p>
+                      <p className="text-gray-600 text-sm">Essential for community, events, finding apartments</p>
                     </div>
                   </li>
                 </ul>
