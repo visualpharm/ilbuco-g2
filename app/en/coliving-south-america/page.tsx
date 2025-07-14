@@ -16,15 +16,18 @@ import {
   Star,
   Heart,
   Home,
+  Building,
+  Crown,
+  DollarSign,
 } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Premium Coliving South America - Carilo Argentina | Il Buco",
-  description: "Discover the finest coliving experience in South America. Join our exclusive community in Carilo, Argentina with luxury amenities, nature immersion, and international residents.",
-  keywords: "coliving south america, coliving argentina, south america coliving space, luxury coliving, international community argentina, carilo coliving",
+  title: "Coliving South America 2025 - Best Coliving Spaces & Communities | Il Buco",
+  description: "Complete guide to coliving in South America. Discover the best coliving spaces across Argentina, Brazil, Colombia, Peru, and Chile. Community-focused living for digital nomads.",
+  keywords: "coliving south america, south america coliving spaces, coliving argentina, coliving brazil, coliving colombia, digital nomad south america, remote work communities",
   openGraph: {
-    title: "Premium Coliving South America - Luxury Community in Argentina",
-    description: "Experience the best coliving in South America with our exclusive community in Carilo, Argentina. Luxury accommodations meet vibrant international community.",
+    title: "Coliving South America - Top Destinations & Communities for Digital Nomads",
+    description: "Explore the best coliving spaces across South America. From Buenos Aires to Rio, find your perfect community with our comprehensive guide to coliving in Latin America.",
     url: "https://ilbuco.com/en/coliving-south-america",
     siteName: "Il Buco Coliving",
     images: [
@@ -32,7 +35,7 @@ export const metadata: Metadata = {
         url: "/gallery/hero-villa-exterior.jpeg",
         width: 1200,
         height: 630,
-        alt: "Premium coliving space in South America - Carilo Argentina",
+        alt: "Premium coliving spaces across South America",
       },
     ],
     locale: "en_US",
@@ -51,13 +54,13 @@ export default function ColivingSouthAmericaPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-900">
-                  Premier Coliving
-                  <span className="text-emerald-600"> South America</span>
+                  Coliving South America:
+                  <span className="text-emerald-600"> Complete 2025 Guide</span>
                 </h1>
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  Experience the ultimate coliving destination in South America. Join our exclusive 
-                  international community in Carilo, Argentina, where luxury meets nature and 
-                  global connections flourish.
+                  Your comprehensive guide to coliving across South America. From vibrant Buenos Aires 
+                  to beachside Brazilian communities, discover the perfect coliving space for your 
+                  digital nomad journey in Latin America.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
@@ -67,10 +70,10 @@ export default function ColivingSouthAmericaPage() {
                     See House <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                   <Link
-                    href="/en/rooms"
+                    href="/en/coliving-argentina"
                     className="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-300 text-gray-700 text-lg font-semibold rounded-lg hover:border-gray-400 transition-colors"
                   >
-                    Explore Spaces
+                    Argentina Coliving
                   </Link>
                 </div>
               </div>
@@ -87,215 +90,495 @@ export default function ColivingSouthAmericaPage() {
           </div>
         </section>
 
-        {/* Why South America for Coliving */}
+        {/* Top Coliving Countries in South America */}
         <section className="py-16 md:py-24 bg-white">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Why Choose South America for Coliving?
+                Best Countries for Coliving in South America
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                South America offers coliving enthusiasts an unmatched combination of natural beauty, 
-                cultural richness, affordability, and growing digital infrastructure.
+                Each country offers unique advantages for digital nomads and remote workers. 
+                Find your perfect match based on lifestyle, budget, and community preferences.
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-100 p-8 rounded-xl">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                  <Mountain className="h-6 w-6 text-gray-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  Incredible Landscapes
+            {/* Argentina */}
+            <div className="mb-16">
+              <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-t-xl">
+                <h3 className="text-2xl font-bold flex items-center">
+                  <Image src="/icons/flags/ar.svg" alt="Argentina flag" width={32} height={24} className="mr-3" />
+                  Argentina - The Digital Nomad Favorite
                 </h3>
-                <p className="text-gray-700">
-                  From Patagonian mountains to Atlantic coastlines, access world-class 
-                  natural beauty steps from your coliving space.
-                </p>
               </div>
-              
-              <div className="bg-gradient-to-br from-green-50 to-emerald-100 p-8 rounded-xl">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
-                  <Globe className="h-6 w-6 text-green-600" />
+              <div className="bg-white border-2 border-blue-200 rounded-b-xl p-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-3">Why Argentina?</h4>
+                    <ul className="space-y-2 text-gray-600">
+                      <li>• Favorable exchange rate</li>
+                      <li>• European-influenced culture</li>
+                      <li>• Excellent wine & food scene</li>
+                      <li>• Strong expat communities</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-3">Top Coliving Cities</h4>
+                    <ul className="space-y-2 text-gray-600">
+                      <li><MapPin className="inline h-4 w-4 text-red-500 mr-1" />Buenos Aires (Urban)</li>
+                      <li><MapPin className="inline h-4 w-4 text-red-500 mr-1" />Carilo (Beach)</li>
+                      <li><MapPin className="inline h-4 w-4 text-red-500 mr-1" />Bariloche (Mountain)</li>
+                      <li><MapPin className="inline h-4 w-4 text-red-500 mr-1" />Mendoza (Wine Country)</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-3">Costs & Visa</h4>
+                    <p className="text-gray-600 mb-2"><strong>Coliving:</strong> $400-1200/month</p>
+                    <p className="text-gray-600 mb-2"><strong>Visa:</strong> 90 days visa-free</p>
+                    <p className="text-gray-600"><strong>Internet:</strong> 50-100 Mbps avg</p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  Value for Money
-                </h3>
-                <p className="text-gray-700">
-                  Enjoy premium coliving amenities and lifestyle at a fraction 
-                  of the cost compared to Europe or North America.
-                </p>
               </div>
-              
-              <div className="bg-gradient-to-br from-purple-50 to-pink-100 p-8 rounded-xl">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
-                  <Users className="h-6 w-6 text-purple-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  Growing Community
+            </div>
+            
+            {/* Brazil */}
+            <div className="mb-16">
+              <div className="bg-gradient-to-r from-green-500 to-yellow-500 text-white p-6 rounded-t-xl">
+                <h3 className="text-2xl font-bold flex items-center">
+                  <Image src="/icons/flags/br.svg" alt="Brazil flag" width={32} height={24} className="mr-3" />
+                  Brazil - Beach Life & Innovation
                 </h3>
-                <p className="text-gray-700">
-                  Join the expanding network of international professionals 
-                  choosing South America as their base.
-                </p>
+              </div>
+              <div className="bg-white border-2 border-green-200 rounded-b-xl p-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-3">Why Brazil?</h4>
+                    <ul className="space-y-2 text-gray-600">
+                      <li>• World-famous beaches</li>
+                      <li>• Vibrant startup ecosystem</li>
+                      <li>• Year-round warm weather</li>
+                      <li>• Rich cultural experiences</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-3">Top Coliving Cities</h4>
+                    <ul className="space-y-2 text-gray-600">
+                      <li><MapPin className="inline h-4 w-4 text-red-500 mr-1" />Rio de Janeiro</li>
+                      <li><MapPin className="inline h-4 w-4 text-red-500 mr-1" />São Paulo</li>
+                      <li><MapPin className="inline h-4 w-4 text-red-500 mr-1" />Florianópolis</li>
+                      <li><MapPin className="inline h-4 w-4 text-red-500 mr-1" />Belo Horizonte</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-3">Costs & Visa</h4>
+                    <p className="text-gray-600 mb-2"><strong>Coliving:</strong> $500-1500/month</p>
+                    <p className="text-gray-600 mb-2"><strong>Visa:</strong> 90 days visa-free</p>
+                    <p className="text-gray-600"><strong>Internet:</strong> 100-300 Mbps</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Colombia */}
+            <div className="mb-16">
+              <div className="bg-gradient-to-r from-yellow-500 to-red-500 text-white p-6 rounded-t-xl">
+                <h3 className="text-2xl font-bold flex items-center">
+                  <Image src="/icons/flags/co.svg" alt="Colombia flag" width={32} height={24} className="mr-3" />
+                  Colombia - The Rising Star
+                </h3>
+              </div>
+              <div className="bg-white border-2 border-yellow-200 rounded-b-xl p-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-3">Why Colombia?</h4>
+                    <ul className="space-y-2 text-gray-600">
+                      <li>• Spring-like weather year-round</li>
+                      <li>• Fastest growing nomad hub</li>
+                      <li>• Excellent coffee culture</li>
+                      <li>• Very affordable</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-3">Top Coliving Cities</h4>
+                    <ul className="space-y-2 text-gray-600">
+                      <li><MapPin className="inline h-4 w-4 text-red-500 mr-1" />Medellín</li>
+                      <li><MapPin className="inline h-4 w-4 text-red-500 mr-1" />Bogotá</li>
+                      <li><MapPin className="inline h-4 w-4 text-red-500 mr-1" />Cartagena</li>
+                      <li><MapPin className="inline h-4 w-4 text-red-500 mr-1" />Cali</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-3">Costs & Visa</h4>
+                    <p className="text-gray-600 mb-2"><strong>Coliving:</strong> $300-800/month</p>
+                    <p className="text-gray-600 mb-2"><strong>Visa:</strong> 90 days visa-free</p>
+                    <p className="text-gray-600"><strong>Internet:</strong> 50-150 Mbps</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Quick Comparison Table */}
+            <div className="bg-gray-50 p-8 rounded-xl">
+              <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">Quick Comparison</h3>
+              <div className="overflow-x-auto">
+                <table className="min-w-full">
+                  <thead>
+                    <tr className="border-b border-gray-200">
+                      <th className="text-left py-3 px-4">Country</th>
+                      <th className="text-center py-3 px-4">Best For</th>
+                      <th className="text-center py-3 px-4">Cost Level</th>
+                      <th className="text-center py-3 px-4">Community Size</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-3 px-4 font-medium">Argentina</td>
+                      <td className="py-3 px-4 text-center">Culture & Value</td>
+                      <td className="py-3 px-4 text-center">$$</td>
+                      <td className="py-3 px-4 text-center">★★★★★</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-3 px-4 font-medium">Brazil</td>
+                      <td className="py-3 px-4 text-center">Beach & Tech</td>
+                      <td className="py-3 px-4 text-center">$$$</td>
+                      <td className="py-3 px-4 text-center">★★★★</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-3 px-4 font-medium">Colombia</td>
+                      <td className="py-3 px-4 text-center">Climate & Cost</td>
+                      <td className="py-3 px-4 text-center">$</td>
+                      <td className="py-3 px-4 text-center">★★★★</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-3 px-4 font-medium">Peru</td>
+                      <td className="py-3 px-4 text-center">Adventure</td>
+                      <td className="py-3 px-4 text-center">$</td>
+                      <td className="py-3 px-4 text-center">★★★</td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-4 font-medium">Chile</td>
+                      <td className="py-3 px-4 text-center">Stability</td>
+                      <td className="py-3 px-4 text-center">$$$</td>
+                      <td className="py-3 px-4 text-center">★★★</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Our Coliving Community */}
+        {/* Types of Coliving in South America */}
         <section className="py-16 md:py-24 bg-gray-50">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8">
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                    An International Community in Paradise
-                  </h2>
-                  <p className="text-xl text-gray-600 mb-8">
-                    Il Buco brings together digital nomads, entrepreneurs, and creative 
-                    professionals from around the world in Argentina's most exclusive 
-                    coastal destination.
-                  </p>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                Types of Coliving Spaces in South America
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                From budget-friendly hostels to luxury villas, South America offers 
+                coliving options for every lifestyle and budget.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Budget Coliving */}
+              <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                  <Home className="h-6 w-6 text-green-600" />
                 </div>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Users className="h-5 w-5 text-emerald-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
-                        Global Residents
-                      </h3>
-                      <p className="text-gray-600 text-sm">
-                        Community members from 25+ countries creating diverse perspectives
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Coffee className="h-5 w-5 text-gray-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
-                        Social Events
-                      </h3>
-                      <p className="text-gray-600 text-sm">
-                        Regular community dinners, beach activities, and networking events
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Wifi className="h-5 w-5 text-purple-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
-                        Work-Life Balance
-                      </h3>
-                      <p className="text-gray-600 text-sm">
-                        Productive workspaces seamlessly integrated with leisure areas
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Heart className="h-5 w-5 text-red-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
-                        Lasting Connections
-                      </h3>
-                      <p className="text-gray-600 text-sm">
-                        Build meaningful relationships that extend beyond your stay
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Budget Coliving</h3>
+                <p className="text-gray-600 text-sm mb-4">Hostel-style with shared rooms and basic amenities</p>
+                <ul className="space-y-1 text-sm text-gray-600">
+                  <li>• $200-400/month</li>
+                  <li>• Shared dorms</li>
+                  <li>• Basic WiFi</li>
+                  <li>• Backpacker vibe</li>
+                </ul>
               </div>
               
-              <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-xl">
-                <Image
-                  src="/gallery/hero-outdoor-seating.jpeg"
-                  alt="International coliving community gathering in South America"
-                  fill
-                  className="object-cover"
-                />
+              {/* Standard Coliving */}
+              <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                  <Building className="h-6 w-6 text-gray-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Standard Coliving</h3>
+                <p className="text-gray-600 text-sm mb-4">Private rooms with shared common areas</p>
+                <ul className="space-y-1 text-sm text-gray-600">
+                  <li>• $400-800/month</li>
+                  <li>• Private bedrooms</li>
+                  <li>• Coworking space</li>
+                  <li>• Community events</li>
+                </ul>
+              </div>
+              
+              {/* Premium Coliving */}
+              <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                  <Star className="h-6 w-6 text-purple-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Premium Coliving</h3>
+                <p className="text-gray-600 text-sm mb-4">Upscale amenities and curated experiences</p>
+                <ul className="space-y-1 text-sm text-gray-600">
+                  <li>• $800-1500/month</li>
+                  <li>• En-suite bathrooms</li>
+                  <li>• High-speed fiber</li>
+                  <li>• Concierge service</li>
+                </ul>
+              </div>
+              
+              {/* Luxury Coliving */}
+              <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+                  <Crown className="h-6 w-6 text-yellow-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Luxury Coliving</h3>
+                <p className="text-gray-600 text-sm mb-4">Villa-style with premium everything</p>
+                <ul className="space-y-1 text-sm text-gray-600">
+                  <li>• $1500-3000/month</li>
+                  <li>• Suite-style rooms</li>
+                  <li>• Pool & gym</li>
+                  <li>• Chef & cleaning</li>
+                </ul>
+              </div>
+            </div>
+            
+            {/* Feature Comparison */}
+            <div className="mt-16 bg-white p-8 rounded-xl shadow-sm">
+              <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">What to Expect at Each Level</h3>
+              <div className="overflow-x-auto">
+                <table className="min-w-full">
+                  <thead>
+                    <tr className="border-b border-gray-200 text-sm">
+                      <th className="text-left py-3 px-4">Feature</th>
+                      <th className="text-center py-3 px-4">Budget</th>
+                      <th className="text-center py-3 px-4">Standard</th>
+                      <th className="text-center py-3 px-4">Premium</th>
+                      <th className="text-center py-3 px-4">Luxury</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-sm">
+                    <tr className="border-b border-gray-100">
+                      <td className="py-3 px-4">Private Room</td>
+                      <td className="py-3 px-4 text-center">❌</td>
+                      <td className="py-3 px-4 text-center">✅</td>
+                      <td className="py-3 px-4 text-center">✅</td>
+                      <td className="py-3 px-4 text-center">✅</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-3 px-4">Private Bathroom</td>
+                      <td className="py-3 px-4 text-center">❌</td>
+                      <td className="py-3 px-4 text-center">❌</td>
+                      <td className="py-3 px-4 text-center">✅</td>
+                      <td className="py-3 px-4 text-center">✅</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-3 px-4">Dedicated Workspace</td>
+                      <td className="py-3 px-4 text-center">❌</td>
+                      <td className="py-3 px-4 text-center">✅</td>
+                      <td className="py-3 px-4 text-center">✅</td>
+                      <td className="py-3 px-4 text-center">✅</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-3 px-4">Housekeeping</td>
+                      <td className="py-3 px-4 text-center">❌</td>
+                      <td className="py-3 px-4 text-center">Weekly</td>
+                      <td className="py-3 px-4 text-center">2x/week</td>
+                      <td className="py-3 px-4 text-center">Daily</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-3 px-4">Community Events</td>
+                      <td className="py-3 px-4 text-center">Basic</td>
+                      <td className="py-3 px-4 text-center">Regular</td>
+                      <td className="py-3 px-4 text-center">Curated</td>
+                      <td className="py-3 px-4 text-center">Premium</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Location Advantages */}
+        {/* How to Choose Your Coliving Space */}
         <section className="py-16 md:py-24 bg-white">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Carilo: South America's Hidden Gem
+                How to Choose the Right Coliving Space
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Located on Argentina's Atlantic coast, Carilo offers the perfect setting 
-                for a world-class coliving experience away from crowded tourist destinations.
+                Consider these key factors when selecting your South American coliving home
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              <div className="text-center">
-                <div className="relative h-48 rounded-xl overflow-hidden mb-6 shadow-lg">
-                  <Image
-                    src="/carilo-beach.png"
-                    alt="Carilo beach for coliving residents in South America"
-                    fill
-                    className="object-cover"
-                  />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div className="space-y-8">
+                <div className="bg-blue-50 p-6 rounded-xl">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <MapPin className="h-6 w-6 text-blue-600 mr-3" />
+                    Location Priorities
+                  </h3>
+                  <ul className="space-y-3 text-gray-600">
+                    <li className="flex items-start">
+                      <span className="font-semibold text-blue-600 mr-2">Urban:</span>
+                      Access to nightlife, restaurants, coworking spaces
+                    </li>
+                    <li className="flex items-start">
+                      <span className="font-semibold text-blue-600 mr-2">Beach:</span>
+                      Surf, relaxation, outdoor activities, slower pace
+                    </li>
+                    <li className="flex items-start">
+                      <span className="font-semibold text-blue-600 mr-2">Mountain:</span>
+                      Hiking, skiing, nature immersion, tranquility
+                    </li>
+                    <li className="flex items-start">
+                      <span className="font-semibold text-blue-600 mr-2">Rural:</span>
+                      Complete disconnect, focus, authentic culture
+                    </li>
+                  </ul>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  Private Beach Access
-                </h3>
-                <p className="text-gray-600">
-                  Exclusive beach community with pristine coastline for morning runs, 
-                  surfing, and sunset gatherings
+                
+                <div className="bg-green-50 p-6 rounded-xl">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <Users className="h-6 w-6 text-green-600 mr-3" />
+                    Community Type
+                  </h3>
+                  <ul className="space-y-3 text-gray-600">
+                    <li className="flex items-start">
+                      <span className="font-semibold text-green-600 mr-2">Professional:</span>
+                      Entrepreneurs, developers, designers
+                    </li>
+                    <li className="flex items-start">
+                      <span className="font-semibold text-green-600 mr-2">Creative:</span>
+                      Artists, writers, content creators
+                    </li>
+                    <li className="flex items-start">
+                      <span className="font-semibold text-green-600 mr-2">Wellness:</span>
+                      Yoga, meditation, health-focused
+                    </li>
+                    <li className="flex items-start">
+                      <span className="font-semibold text-green-600 mr-2">Mixed:</span>
+                      Diverse backgrounds and interests
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="space-y-8">
+                <div className="bg-purple-50 p-6 rounded-xl">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <Wifi className="h-6 w-6 text-purple-600 mr-3" />
+                    Work Requirements
+                  </h3>
+                  <div className="space-y-4">
+                    <div>
+                      <p className="font-semibold text-gray-900 mb-2">Internet Speed Needs:</p>
+                      <ul className="space-y-1 text-sm text-gray-600">
+                        <li>• Basic work: 25+ Mbps</li>
+                        <li>• Video calls: 50+ Mbps</li>
+                        <li>• Streaming/uploading: 100+ Mbps</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 mb-2">Workspace Setup:</p>
+                      <ul className="space-y-1 text-sm text-gray-600">
+                        <li>• Dedicated desk vs shared spaces</li>
+                        <li>• 24/7 access requirements</li>
+                        <li>• Meeting room availability</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-yellow-50 p-6 rounded-xl">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <DollarSign className="h-6 w-6 text-yellow-600 mr-3" />
+                    Budget Considerations
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Remember to factor in these additional costs:
+                  </p>
+                  <ul className="space-y-2 text-gray-600">
+                    <li>• Laundry services: $20-50/month</li>
+                    <li>• Food/groceries: $200-400/month</li>
+                    <li>• Local transport: $50-100/month</li>
+                    <li>• Activities/entertainment: $100-300/month</li>
+                    <li>• Coworking day passes: $10-30/day</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Il Buco Showcase */}
+        <section className="py-16 md:py-24 bg-gradient-to-br from-emerald-50 to-blue-50">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                  Experience Premium Coliving at Il Buco
+                </h2>
+                <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                  Our Carilo location represents the best of South American coliving - 
+                  combining luxury amenities, natural beauty, and vibrant community
                 </p>
               </div>
               
-              <div className="text-center">
-                <div className="relative h-48 rounded-xl overflow-hidden mb-6 shadow-lg">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                <div className="relative h-32 md:h-48 rounded-lg overflow-hidden">
                   <Image
-                    src="/photo/exterior/exterior6.jpg"
-                    alt="Pine forest surrounding coliving space"
+                    src="/photo/exterior/exterior1.jpg"
+                    alt="Il Buco exterior view"
                     fill
                     className="object-cover"
                   />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  Forest Immersion
-                </h3>
-                <p className="text-gray-600">
-                  Surrounded by pine forests providing natural tranquility and 
-                  walking trails for mindful breaks
-                </p>
+                <div className="relative h-32 md:h-48 rounded-lg overflow-hidden">
+                  <Image
+                    src="/photo/living/living2.jpg"
+                    alt="Modern living spaces"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="relative h-32 md:h-48 rounded-lg overflow-hidden">
+                  <Image
+                    src="/photo/penthouse/penthouse2.jpg"
+                    alt="Premium suite interior"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="relative h-32 md:h-48 rounded-lg overflow-hidden">
+                  <Image
+                    src="/gallery/hero-outdoor-seating.jpeg"
+                    alt="Community outdoor space"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               </div>
               
-              <div className="text-center">
-                <div className="relative h-48 rounded-xl overflow-hidden mb-6 shadow-lg">
-                  <Image
-                    src="/modern-villa-pine-forest.png"
-                    alt="Modern luxury coliving accommodation"
-                    fill
-                    className="object-cover"
-                  />
+              <div className="bg-white p-8 rounded-2xl shadow-lg">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                  <div>
+                    <Waves className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+                    <h3 className="font-semibold text-gray-900 mb-2">5 Min to Beach</h3>
+                    <p className="text-gray-600 text-sm">Private path through pine forest</p>
+                  </div>
+                  <div>
+                    <Wifi className="h-12 w-12 text-green-600 mx-auto mb-4" />
+                    <h3 className="font-semibold text-gray-900 mb-2">100+ Mbps Fiber</h3>
+                    <p className="text-gray-600 text-sm">Reliable connection with backup</p>
+                  </div>
+                  <div>
+                    <Users className="h-12 w-12 text-purple-600 mx-auto mb-4" />
+                    <h3 className="font-semibold text-gray-900 mb-2">4-8 Residents</h3>
+                    <p className="text-gray-600 text-sm">Intimate community size</p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  Luxury Infrastructure
-                </h3>
-                <p className="text-gray-600">
-                  Modern amenities and high-end accommodations in an exclusive, 
-                  gated community environment
-                </p>
               </div>
             </div>
           </div>
