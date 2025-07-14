@@ -57,9 +57,9 @@ export default function ArgentinaRemoteWorkVisaPage() {
                 <p className="text-xl text-gray-700 leading-relaxed">
                   Complete guide to visa options for remote workers and digital nomads in Argentina. From tourist visas to permanent residency, here's everything about your options, requirements, and how to actually apply.
                 </p>
-                <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
+                <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
                   <p className="text-sm text-gray-700">
-                    <strong>Update:</strong> Argentina is developing a Digital Nomad Visa for mid-2025. Until then, several existing visas work great for remote workers.
+                    <strong>Good news:</strong> Argentina introduced the Digital Nomad Visa in May 2022! It's now available alongside other visa options for remote workers.
                   </p>
                 </div>
               </div>
@@ -90,8 +90,8 @@ export default function ArgentinaRemoteWorkVisaPage() {
             
             {/* Tourist Visa Section */}
             <div className="mb-16">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Short-Term Options (Up to 180 Days)</h3>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Short to Medium-Term Options (90 Days - 1 Year)</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div className="bg-blue-50 border-2 border-blue-200 p-8 rounded-xl">
                   <div className="flex items-center mb-6">
                     <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -155,6 +155,53 @@ export default function ArgentinaRemoteWorkVisaPage() {
                         <strong>Visa Run Cost:</strong> $50-100 USD (ferry/bus)
                       </p>
                     </div>
+                  </div>
+                </div>
+                
+                {/* Digital Nomad Visa */}
+                <div className="bg-emerald-50 border-2 border-emerald-200 p-8 rounded-xl">
+                  <div className="flex items-center mb-6">
+                    <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
+                      <Globe className="h-6 w-6 text-emerald-600" />
+                    </div>
+                    <h4 className="text-xl font-semibold text-gray-900 ml-4">Digital Nomad Visa (6-12 months)</h4>
+                  </div>
+                  <div className="space-y-4">
+                    <div>
+                      <p className="font-semibold text-gray-900 mb-2">Introduced:</p>
+                      <p className="text-gray-600">May 2022 - Argentina's official visa for remote workers!</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 mb-2">Key Benefits:</p>
+                      <ul className="space-y-1 text-gray-600">
+                        <li>• 6 months initial stay (extendable to 12 months)</li>
+                        <li>• Multiple entry visa</li>
+                        <li>• Tax-free foreign income</li>
+                        <li>• No local work allowed</li>
+                        <li>• Formal resident status</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 mb-2">Basic Requirements:</p>
+                      <ul className="space-y-1 text-gray-600">
+                        <li>• Remote employment verification</li>
+                        <li>• Proof of income</li>
+                        <li>• Health insurance</li>
+                        <li>• Clean criminal record</li>
+                      </ul>
+                    </div>
+                    <div className="bg-emerald-100 p-4 rounded-lg">
+                      <p className="text-sm text-gray-700">
+                        <strong>Cost:</strong> Around $200 USD total<br />
+                        <strong>Processing:</strong> 10-20 business days
+                      </p>
+                    </div>
+                    <Link
+                      href="/en/digital-nomad-visa"
+                      className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold mt-4"
+                    >
+                      Learn more about the Digital Nomad Visa <ArrowRight className="ml-1 h-4 w-4" />
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -558,6 +605,10 @@ export default function ArgentinaRemoteWorkVisaPage() {
                     <span className="font-semibold text-gray-900">$600 USD</span>
                   </div>
                   <div className="flex justify-between items-center pb-3 border-b border-green-200">
+                    <span className="text-gray-700">Digital Nomad Visa</span>
+                    <span className="font-semibold text-gray-900">$200 USD</span>
+                  </div>
+                  <div className="flex justify-between items-center pb-3 border-b border-green-200">
                     <span className="text-gray-700">Student Visa</span>
                     <span className="font-semibold text-gray-900">$300 USD</span>
                   </div>
@@ -574,48 +625,6 @@ export default function ArgentinaRemoteWorkVisaPage() {
                     <span className="font-bold text-green-600 text-lg">$1,500-2,500 USD</span>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        
-        {/* Upcoming Digital Nomad Visa */}
-        <section className="py-16 md:py-24 bg-gradient-to-br from-purple-50 to-pink-50">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Argentina's Digital Nomad Visa (Coming 2025)
-              </h2>
-              <p className="text-xl text-gray-600 mb-12">
-                Argentina is finalizing a Digital Nomad Visa to attract remote workers. Here's what we know:
-              </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                <div className="bg-white p-8 rounded-xl shadow-lg">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Expected Requirements</h3>
-                  <ul className="space-y-3 text-left text-gray-600">
-                    <li className="flex items-center"><CheckCircle className="h-5 w-5 text-green-500 mr-3" />Remote employment verification</li>
-                    <li className="flex items-center"><CheckCircle className="h-5 w-5 text-green-500 mr-3" />Minimum income around $3,000 USD/month</li>
-                    <li className="flex items-center"><CheckCircle className="h-5 w-5 text-green-500 mr-3" />Health insurance</li>
-                    <li className="flex items-center"><CheckCircle className="h-5 w-5 text-green-500 mr-3" />Clean criminal record</li>
-                  </ul>
-                </div>
-                
-                <div className="bg-white p-8 rounded-xl shadow-lg">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Expected Benefits</h3>
-                  <ul className="space-y-3 text-left text-gray-600">
-                    <li className="flex items-center"><CheckCircle className="h-5 w-5 text-green-500 mr-3" />6-12 month initial validity</li>
-                    <li className="flex items-center"><CheckCircle className="h-5 w-5 text-green-500 mr-3" />Renewable up to 2 years</li>
-                    <li className="flex items-center"><CheckCircle className="h-5 w-5 text-green-500 mr-3" />Tax benefits on foreign income</li>
-                    <li className="flex items-center"><CheckCircle className="h-5 w-5 text-green-500 mr-3" />Simpler application process</li>
-                  </ul>
-                </div>
-              </div>
-              
-              <div className="bg-purple-100 p-6 rounded-xl">
-                <p className="text-gray-800">
-                  <strong>Stay Updated:</strong> Join our mailing list for updates when the Digital Nomad Visa launches. Meanwhile, tourist visa and rentista visa are solid options.
-                </p>
               </div>
             </div>
           </div>
