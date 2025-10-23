@@ -40,6 +40,9 @@ const seoLinks = {
     { href: "/pt/coliving-argentina", text: "Coliving Argentina" },
     { href: "/pt/trabalho-remoto-argentina", text: "Trabalho Remoto Argentina" },
   ],
+  ru: [
+    // No SEO landing pages for Russian - will show external links only
+  ],
 }
 
 // External links to mix with internal ones

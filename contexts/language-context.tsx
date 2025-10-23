@@ -28,6 +28,11 @@ interface LanguageContextType {
     flag: string
     name: string
   }>
+  russianSpeakingCountries: Array<{
+    code: string
+    flag: string
+    name: string
+  }>
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)

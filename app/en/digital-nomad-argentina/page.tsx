@@ -63,12 +63,12 @@ export default function DigitalNomadArgentinaPage() {
               <div className="space-y-6">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-900">
                   Digital Nomad Argentina:
-                  <span className="text-blue-600"> Complete 2025 Guide</span>
+                  <span className="text-blue-600"> The Real Deal</span>
                 </h1>
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  Your guide to thriving as a digital nomad in Argentina. From visa options 
-                  and banking to finding your tribe and getting the perfect work-life balance 
-                  in South America's most nomad-friendly country.
+                  Everything about being a digital nomad in Argentina — the visa stuff, 
+                  money hacks, where to find other nomads, and how to actually get work done 
+                  while enjoying world-class steak and wine.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
@@ -103,11 +103,11 @@ export default function DigitalNomadArgentinaPage() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Thriving Digital Nomad Community
+                Where the Nomads Actually Are
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Argentina has become a magnet for digital nomads. You'll find vibrant communities 
-                in Buenos Aires, Bariloche, Mendoza, and coastal towns like Carilo.
+                Argentina's got nomads everywhere now. Buenos Aires is the obvious spot, 
+                but Bariloche, Mendoza, and beach towns like Cariló are where people actually stay longer.
               </p>
             </div>
             
@@ -117,15 +117,15 @@ export default function DigitalNomadArgentinaPage() {
                 <div className="space-y-4">
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Palermo & Recoleta</h4>
-                    <p className="text-gray-600">Where all the nomads hang out. Tons of coworking spaces, cafes, and an actual community</p>
+                    <p className="text-gray-600">Where everyone starts. Coworking on every corner, cafes that let you sit forever</p>
                   </div>
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Weekly Meetups</h4>
-                    <p className="text-gray-600">Regular events, language exchanges, networking. Its not hard to meet people</p>
+                    <p className="text-gray-600">Tuesday asados, Thursday language swaps, weekend trips. You'll have friends in a week</p>
                   </div>
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Coworking Spaces</h4>
-                    <p className="text-gray-600">15+ professional spaces with day passes from $10-20 USD</p>
+                    <p className="text-gray-600">15+ spots. Day passes $10-20. Some have beer on tap (priorities)</p>
                   </div>
                 </div>
               </div>
@@ -135,15 +135,15 @@ export default function DigitalNomadArgentinaPage() {
                 <div className="space-y-4">
                   <div className="bg-blue-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Carilo & Pinamar</h4>
-                    <p className="text-gray-600">Beach towns with a growing remote work scene. Perfect if you want to surf before your morning standup</p>
+                    <p className="text-gray-600">Beach towns where wifi actually works. Surf at 7am, standup at 9am</p>
                   </div>
                   <div className="bg-blue-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Bariloche</h4>
-                    <p className="text-gray-600">Mountain paradise. Ski season brings tons of nomads, but people stay year-round for the outdoor stuff</p>
+                    <p className="text-gray-600">Mountains + lakes + skiing. Nomads come for winter, stay because it's gorgeous</p>
                   </div>
                   <div className="bg-blue-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Mar del Plata</h4>
-                    <p className="text-gray-600">Bigger coastal city. Good infrastructure, lower costs</p>
+                    <p className="text-gray-600">Big beach city. Cheaper than BA, still has everything</p>
                   </div>
                 </div>
               </div>
@@ -186,11 +186,11 @@ export default function DigitalNomadArgentinaPage() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Banking & Finance in Argentina
+                The Money Situation (It's Weird)
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Here's what you need to know about money in Argentina. From the famous blue 
-                dollar to how to actually pay for things.
+                Argentina's financial system is... special. Blue dollar, Western Union, 
+                cash is king. Here's what actually works.
               </p>
             </div>
             
@@ -201,8 +201,8 @@ export default function DigitalNomadArgentinaPage() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                   <h4 className="font-semibold text-gray-900 mb-3">The Blue Dollar</h4>
                   <p className="text-gray-600 mb-4">
-                    Everyone talks about it because its real. The unofficial exchange rate 
-                    gives you 50-100% more pesos than the official rate. Most nomads use:
+                    Not a myth. You literally get double your money. Everyone uses it. 
+                    Here's how:
                   </p>
                   <ul className="space-y-2 text-gray-600">
                     <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Western Union transfers</li>
@@ -218,21 +218,21 @@ export default function DigitalNomadArgentinaPage() {
                       <CreditCard className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-medium text-gray-900">International Cards</p>
-                        <p className="text-gray-600 text-sm">They work but you get the terrible official rate</p>
+                        <p className="text-gray-600 text-sm">Work everywhere but you lose 50% instantly. Don't.</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <DollarSign className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-medium text-gray-900">Cash is King</p>
-                        <p className="text-gray-600 text-sm">Seriously, everyone wants cash. USD even better</p>
+                        <p className="text-gray-600 text-sm">Bring USD bills. The newer and crisper, the better rate</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Briefcase className="h-5 w-5 text-gray-600 mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-medium text-gray-900">Local Bank Account</p>
-                        <p className="text-gray-600 text-sm">Possible with DNI (residency) if you want Mercado Pago</p>
+                        <p className="text-gray-600 text-sm">Need residency. Worth it for Mercado Pago (Argentine Venmo)</p>
                       </div>
                     </div>
                   </div>
@@ -278,8 +278,8 @@ export default function DigitalNomadArgentinaPage() {
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-2">Pro Tip</h4>
                       <p className="text-gray-700 text-sm">
-                        Buenos Aires is way more expensive than smaller cities. Coastal towns 
-                        like Carilo actually give you better quality of life for less money.
+                        BA prices are getting silly. Cariló, Bariloche, Mendoza — 
+                        better life, half the cost. Do the math.
                       </p>
                     </div>
                   </div>
@@ -294,10 +294,11 @@ export default function DigitalNomadArgentinaPage() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Visa Options for Digital Nomads
+                The Visa Game (Pick Your Strategy)
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Argentina introduced the Digital Nomad Visa in May 2022. Here's everything you need to know about visa options for remote workers.
+                Argentina's got options. Digital nomad visa, tourist runs, student visas — 
+                here's what actually works and what's just paperwork.
               </p>
             </div>
             
@@ -326,10 +327,10 @@ export default function DigitalNomadArgentinaPage() {
                   Tourist Visa
                 </h3>
                 <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />90 days visa-free for most countries</li>
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Can extend for another 90 days</li>
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />"Visa runs" to Uruguay are common</li>
-                  <li className="flex items-start"><AlertCircle className="h-4 w-4 text-yellow-500 mr-2 mt-1 flex-shrink-0" />Officially max 180 days per year</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />90 days free (most countries)</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Extend for 90 more at immigration</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Uruguay ferry = reset (everyone does it)</li>
+                  <li className="flex items-start"><AlertCircle className="h-4 w-4 text-yellow-500 mr-2 mt-1 flex-shrink-0" />"Officially" 180 days/year (wink)</li>
                 </ul>
               </div>
               
@@ -341,10 +342,10 @@ export default function DigitalNomadArgentinaPage() {
                   Rentista Visa
                 </h3>
                 <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />For people with passive income</li>
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Need $2000+ USD/month income</li>
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />1 year, renewable</li>
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Can lead to permanent residency</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Got rental income? Perfect</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Show $2k/month coming in</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />1 year, keep renewing</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Path to permanent residence</li>
                 </ul>
               </div>
               
@@ -356,10 +357,10 @@ export default function DigitalNomadArgentinaPage() {
                   Student Visa
                 </h3>
                 <ul className="space-y-3 text-gray-600">
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Enroll in Spanish classes</li>
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />You can work remotely</li>
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />6-12 month duration</li>
-                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Pretty easy to get</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Take Spanish classes (2hrs/week)</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Work remote all you want</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />6-12 months easy</li>
+                  <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Super simple process</li>
                 </ul>
               </div>
             </div>
@@ -369,9 +370,10 @@ export default function DigitalNomadArgentinaPage() {
                 Digital Nomad Visa Requirements
               </h3>
               <p className="text-gray-700 text-center max-w-3xl mx-auto">
-                The Digital Nomad Visa requires proof of remote employment, health insurance, and clean criminal record. Only available to citizens who don't need a tourist visa for Argentina. 
+                Digital Nomad Visa: Show remote job, health insurance, clean record. 
+                Only works if you don't need a tourist visa normally. 
                 <Link href="/en/argentina-remote-work-visa" className="text-blue-600 hover:text-blue-800 font-semibold">
-                  See full visa guide and application process →
+                  Full breakdown here →
                 </Link>
               </p>
             </div>
@@ -383,11 +385,11 @@ export default function DigitalNomadArgentinaPage() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                The Digital Nomad Lifestyle in Argentina
+                What Life's Actually Like
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Get ready for the perfect mix of productivity and Latin American 
-                culture in one of the world's most diverse countries.
+                Work in the morning, steak for lunch, siesta, more work, 
+                dinner at 11pm. You'll adapt faster than you think.
               </p>
             </div>
             
@@ -400,10 +402,10 @@ export default function DigitalNomadArgentinaPage() {
                     <div className="flex items-start space-x-4">
                       <Clock className="h-6 w-6 text-blue-600 mt-1 flex-shrink-0" />
                       <div>
-                        <h4 className="font-semibold text-gray-900 mb-2">Argentine Schedule</h4>
+                        <h4 className="font-semibold text-gray-900 mb-2">Argentine Time</h4>
                         <p className="text-gray-600">
-                          Everything happens late. Dinner at 10pm, going out until 2am is 
-                          totally normal. Great if you're a night owl or work US West Coast hours.
+                          Dinner's at 10pm. Clubs open at 2am. Nobody thinks this is weird. 
+                          Perfect for west coast calls.
                         </p>
                       </div>
                     </div>
@@ -413,10 +415,10 @@ export default function DigitalNomadArgentinaPage() {
                     <div className="flex items-start space-x-4">
                       <Coffee className="h-6 w-6 text-brown-600 mt-1 flex-shrink-0" />
                       <div>
-                        <h4 className="font-semibold text-gray-900 mb-2">Cafe Culture</h4>
+                        <h4 className="font-semibold text-gray-900 mb-2">Café Life</h4>
                         <p className="text-gray-600">
-                          Work from historic cafes in Buenos Aires or beachside spots in 
-                          coastal towns. The coffee is strong and the wifi usually works.
+                          Order one cortado, stay 4 hours. Nobody cares. 
+                          Wifi's decent, coffee's strong.
                         </p>
                       </div>
                     </div>
@@ -426,10 +428,10 @@ export default function DigitalNomadArgentinaPage() {
                     <div className="flex items-start space-x-4">
                       <Users className="h-6 w-6 text-purple-600 mt-1 flex-shrink-0" />
                       <div>
-                        <h4 className="font-semibold text-gray-900 mb-2">Social Integration</h4>
+                        <h4 className="font-semibold text-gray-900 mb-2">Making Friends</h4>
                         <p className="text-gray-600">
-                          Argentines are super welcoming. Language exchanges, asados (BBQs), 
-                          and tango lessons are easy ways to meet locals.
+                          Argentines adopt foreigners. You'll get invited to asados, 
+                          birthday parties, weekend trips. Just say yes.
                         </p>
                       </div>
                     </div>

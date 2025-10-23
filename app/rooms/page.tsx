@@ -59,7 +59,7 @@ export default function Rooms() {
                 <Translate text={roomsTranslations.pageTitle} />
               </h1>
               <p className="text-lg text-gray-700 mb-12">
-                <Translate text={roomsTranslations.pageDescription} /> Perfectas para <Link href="/alquiler-carilo" className="text-gray-700 no-underline hover:text-gray-600">alquiler</Link> en <Link href="/carilo-alquiler" className="text-gray-700 no-underline hover:text-gray-600">Cariló</Link>.
+                <Translate text={roomsTranslations.pageDescription} />
               </p>
 
               <div className="space-y-16">
@@ -76,7 +76,8 @@ export default function Rooms() {
                       <Translate text={{
                         en: "Book Terrezzo",
                         es: "Reservar Terrezzo",
-                        pt: "Reservar Terrezzo"
+                        pt: "Reservar Terrezzo",
+                        ru: "Забронировать Terrezzo"
                       }} />
                     </a>
                   </div>
@@ -91,6 +92,8 @@ export default function Rooms() {
                           text={{
                             en: "40 m² shaded terrace with built-in planters",
                             es: "Terraza sombreada de 40 m² con jardineras incorporadas",
+                            pt: "Terraço sombreado de 40 m² com jardineiras embutidas",
+                            ru: "Приватная терраса 40 квадратных метров с живыми растениями прямо в полу (не в горшках)"
                           }}
                         />
                       </span>
@@ -102,6 +105,8 @@ export default function Rooms() {
                           text={{
                             en: "Open-plan layout: sleep, cook, work in one space",
                             es: "Diseño de planta abierta: dormir, cocinar, trabajar en un espacio",
+                            pt: "Layout de planta aberta: dormir, cozinhar, trabalhar em um espaço",
+                            ru: "Открытая планировка: спать, готовить, работать в одном пространстве"
                           }}
                         />
                       </span>
@@ -113,6 +118,8 @@ export default function Rooms() {
                           text={{
                             en: "Dedicated indoor living/work zone, but the terrace workspace delivers a productivity boost thanks to fresh air.",
                             es: "Zona interior dedicada para vivir/trabajar, pero el espacio de trabajo en la terraza brinda un impulso de productividad gracias al aire fresco.",
+                            pt: "Zona interna dedicada para viver/trabalhar, mas o espaço de trabalho no terraço oferece um impulso de produtividade graças ao ar fresco.",
+                            ru: "Есть комната внутри, но на террасе удобнее — свежий воздух и тишина"
                           }}
                         />
                       </span>
@@ -124,6 +131,8 @@ export default function Rooms() {
                           text={{
                             en: "Abundant natural light throughout the day",
                             es: "Abundante luz natural durante todo el día",
+                            pt: "Luz natural abundante durante todo o dia",
+                            ru: "Много света весь день"
                           }}
                         />
                       </span>
@@ -135,6 +144,8 @@ export default function Rooms() {
                           text={{
                             en: "Perfect for plant lovers and outdoor enthusiasts",
                             es: "Perfecto para amantes de las plantas y entusiastas del aire libre",
+                            pt: "Perfeito para amantes de plantas e entusiastas do ar livre",
+                            ru: "Для тех кто любит растения и свежий воздух"
                           }}
                         />
                       </span>
@@ -146,6 +157,8 @@ export default function Rooms() {
                           text={{
                             en: "Futon available for extra bed (fee)",
                             es: "Futón disponible para cama extra (con cargo)",
+                            pt: "Futon disponível para cama extra (taxa)",
+                            ru: "Футон для дополнительной кровати (за доплату)"
                           }}
                         />
                       </span>
@@ -169,7 +182,8 @@ export default function Rooms() {
                       <Translate text={{
                         en: "Book Penthouse",
                         es: "Reservar Penthouse",
-                        pt: "Reservar Penthouse"
+                        pt: "Reservar Penthouse",
+                        ru: "Забронировать Penthouse"
                       }} />
                     </a>
                   </div>
@@ -184,6 +198,8 @@ export default function Rooms() {
                           text={{
                             en: "Top-floor suite with direct terrace access",
                             es: "Suite en planta alta con acceso directo a la terraza",
+                            pt: "Suíte no último andar com acesso direto ao terraço",
+                            ru: "Люкс на верхнем этаже с прямым выходом на террасу"
                           }}
                         />
                       </span>
@@ -195,6 +211,8 @@ export default function Rooms() {
                           text={{
                             en: "Optional exclusive-use terrace (extra fee)",
                             es: "Terraza de uso exclusivo opcional (cargo extra)",
+                            pt: "Terraço de uso exclusivo opcional (taxa extra)",
+                            ru: "Опциональная терраса для эксклюзивного использования (за доплату)"
                           }}
                         />
                       </span>
@@ -206,6 +224,8 @@ export default function Rooms() {
                           text={{
                             en: "Our most spacious and luxurious accommodation",
                             es: "Nuestro alojamiento más espacioso y lujoso",
+                            pt: "Nossa acomodação mais espaçosa e luxuosa",
+                            ru: "Самое просторное и роскошное размещение"
                           }}
                         />
                       </span>
@@ -217,6 +237,8 @@ export default function Rooms() {
                           text={{
                             en: "Futon available for extra bed (fee)",
                             es: "Futón disponible para cama extra (con cargo)",
+                            pt: "Futon disponível para cama extra (taxa)",
+                            ru: "Футон для дополнительной кровати (за доплату)"
                           }}
                         />
                       </span>
@@ -240,7 +262,8 @@ export default function Rooms() {
                       <Translate text={{
                         en: "Book Giardino",
                         es: "Reservar Giardino",
-                        pt: "Reservar Giardino"
+                        pt: "Reservar Giardino",
+                        ru: "Забронировать Giardino"
                       }} />
                     </a>
                   </div>
@@ -255,6 +278,8 @@ export default function Rooms() {
                           text={{
                             en: "Step-free access for wheelchairs, strollers, and heavy luggage.",
                             es: "Acceso sin escalones para sillas de ruedas, cochecitos y equipaje pesado.",
+                            pt: "Acesso sem degraus para cadeiras de rodas, carrinhos e bagagem pesada.",
+                            ru: "Доступ без ступенек для колясок и тяжёлого багажа."
                           }}
                         />
                       </span>
@@ -266,6 +291,8 @@ export default function Rooms() {
                           text={{
                             en: "Corner window facing garden, dedicated entry hall",
                             es: "Ventana en esquina con vista al jardín, hall de entrada dedicado",
+                            pt: "Janela de canto com vista para o jardim, hall de entrada dedicado",
+                            ru: "Угловое окно с видом на сад, отдельная прихожая"
                           }}
                         />
                       </span>
@@ -277,6 +304,8 @@ export default function Rooms() {
                           text={{
                             en: "Window-side dining/work table, futon for extra bed (fee)",
                             es: "Mesa de comedor/trabajo junto a la ventana, futón para cama extra (con cargo)",
+                            pt: "Mesa de jantar/trabalho ao lado da janela, futon para cama extra (taxa)",
+                            ru: "Обеденный/рабочий стол у окна, футон для дополнительной кровати (за доплату)"
                           }}
                         />
                       </span>
@@ -300,7 +329,8 @@ export default function Rooms() {
                       <Translate text={{
                         en: "Book Paraiso",
                         es: "Reservar Paraíso",
-                        pt: "Reservar Paraíso"
+                        pt: "Reservar Paraíso",
+                        ru: "Забронировать Paraiso"
                       }} />
                     </a>
                   </div>
@@ -315,6 +345,8 @@ export default function Rooms() {
                           text={{
                             en: "Huge 3 m-tall corner window overlooking the pine forest",
                             es: "Enorme ventana en esquina de 3 m de altura con vista al bosque de pinos",
+                            pt: "Enorme janela de canto de 3 m de altura com vista para a floresta de pinheiros",
+                            ru: "Огромное угловое окно 3 м высотой с видом на сосновый лес"
                           }}
                         />
                       </span>
@@ -326,6 +358,8 @@ export default function Rooms() {
                           text={{
                             en: "Separate bedroom + living/work room",
                             es: "Dormitorio separado + sala de estar/trabajo",
+                            pt: "Quarto separado + sala de estar/trabalho",
+                            ru: "Отдельная спальня + гостиная/рабочая комната"
                           }}
                         />
                       </span>
@@ -337,6 +371,8 @@ export default function Rooms() {
                           text={{
                             en: "Enhanced privacy with distinct living areas",
                             es: "Mayor privacidad con áreas de estar diferenciadas",
+                            pt: "Maior privacidade com áreas de estar distintas",
+                            ru: "Усиленная приватность с отдельными зонами"
                           }}
                         />
                       </span>
@@ -348,6 +384,8 @@ export default function Rooms() {
                           text={{
                             en: "Enhanced privacy with distinct living areas",
                             es: "Mayor privacidad con áreas de estar diferenciadas",
+                            pt: "Maior privacidade com áreas de estar distintas",
+                            ru: "Усиленная приватность с отдельными зонами"
                           }}
                         />
                       </span>
@@ -359,6 +397,8 @@ export default function Rooms() {
                           text={{
                             en: "Twin beds that can be joined to form a queen-size bed",
                             es: "Camas twin que pueden unirse para formar una cama queen-size",
+                            pt: "Camas twin que podem ser unidas para formar uma cama queen-size",
+                            ru: "Раздельные кровати, которые можно соединить в двуспальную"
                           }}
                         />
                       </span>
@@ -370,6 +410,8 @@ export default function Rooms() {
                           text={{
                             en: "Futon available for extra bed (fee)",
                             es: "Futón disponible para cama extra (con cargo)",
+                            pt: "Futon disponível para cama extra (taxa)",
+                            ru: "Футон для дополнительной кровати (за доплату)"
                           }}
                         />
                       </span>
@@ -427,13 +469,13 @@ export default function Rooms() {
                   <div className="mt-6">
                     <Image
                       src="/photo/highlights/highlights3.jpg"
-                      alt="Kitchenware that comes in every room at IL BUCO"
+                      alt=""
                       width={600}
                       height={400}
                       className="w-full h-64 object-cover rounded-lg"
                     />
                     <p className="text-sm text-gray-600 mt-3 font-medium">
-                      Kitchenware that comes in every room
+                      <Translate text={roomsTranslations.kitchenware.caption} />
                     </p>
                   </div>
                 </div>
@@ -455,6 +497,7 @@ export default function Rooms() {
                             en: "Wall-to-wall, floor-to-ceiling front windows overlooking the surrounding pine forest",
                             es: "Grandes ventanales con vistas al bosque de pinos circundante",
                             pt: "Grandes janelas oferecendo vista da floresta de pinheiros circundante",
+                            ru: "Панорамные окна от пола до потолка с видом на сосновый лес"
                           }}
                         />
                       </span>
@@ -467,6 +510,7 @@ export default function Rooms() {
                             en: "4m long modular sofa. It feels nothing like IKEA and the secret is expensive foam.",
                             es: "Sofá modular de 4m. No se siente como IKEA y el secreto es la espuma cara.",
                             pt: "Sofá modular de 4m. Não parece nada com IKEA e o segredo é a espuma cara.",
+                            ru: "Модульный диван 4м. Совсем не как IKEA, секрет в дорогом наполнителе."
                           }}
                         />
                       </span>
@@ -481,6 +525,7 @@ export default function Rooms() {
                               en: "Large full size kitchen with cooking plate, oven, and ",
                               es: "Cocina grande y completa con placa de cocina, horno y nevera ",
                               pt: "Cozinha grande e completa com fogão, forno e geladeira ",
+                              ru: "Большая полноразмерная кухня с плитой, духовкой и холодильником ",
                             }}
                           />
                           <strong>side by side</strong>
@@ -489,6 +534,7 @@ export default function Rooms() {
                               en: " fridge",
                               es: "",
                               pt: "",
+                              ru: "",
                             }}
                           />
                         </span>
@@ -502,6 +548,7 @@ export default function Rooms() {
                             en: "Climate controlled for year-round comfort",
                             es: "Climatizado para comodidad durante todo el año",
                             pt: "Climatizado para conforto durante todo o ano",
+                            ru: "Климат-контроль для комфорта круглый год"
                           }}
                         />
                       </span>

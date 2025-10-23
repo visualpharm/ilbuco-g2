@@ -41,17 +41,27 @@ const portugueseSpeakingCountries = [
   { code: "PT", flag: "🇵🇹", name: "Portugal" },
 ]
 
+// Russian-speaking countries and their flags
+const russianSpeakingCountries = [
+  { code: "RU", flag: "🇷🇺", name: "Россия" },
+  { code: "BY", flag: "🇧🇾", name: "Беларусь" },
+  { code: "KZ", flag: "🇰🇿", name: "Казахстан" },
+  { code: "UA", flag: "🇺🇦", name: "Украина" },
+  { code: "UZ", flag: "🇺🇿", name: "Узбекистан" },
+]
+
 // Default flags for each language
 const defaultFlags = {
   es: { flag: "🇦🇷", name: "Argentina" }, // Default Spanish flag is Argentina
   en: { flag: "🇺🇸", name: "United States" }, // Default English flag is USA
   pt: { flag: "🇧🇷", name: "Brasil" }, // Default Portuguese flag is Brazil
+  ru: { flag: "🇷🇺", name: "Россия" }, // Default Russian flag is Russia
 }
 
 // Interface for the language object
 interface Language {
-  code: string // 'es', 'en', or 'pt'
-  name: string // 'Español', 'English', or 'Português'
+  code: string // 'es', 'en', 'pt', or 'ru'
+  name: string // 'Español', 'English', 'Português', or 'Русский'
   flag: string // Flag emoji
   country: string // Country name
 }
@@ -73,7 +83,7 @@ export function useLanguageDetection() {
     // Detect language based on URL path
     let langCode = "es" // Default is Spanish
     let countryCode = "AR" // Default country for Spanish
-    
+
     // Check URL path for language code
     if (pathname.startsWith("/en")) {
       langCode = "en"
@@ -81,8 +91,11 @@ export function useLanguageDetection() {
     } else if (pathname.startsWith("/pt")) {
       langCode = "pt"
       countryCode = "BR" // Default country for Portuguese
+    } else if (pathname.startsWith("/ru")) {
+      langCode = "ru"
+      countryCode = "RU" // Default country for Russian
     }
-    
+
     // Set language based on URL path
     if (langCode === "es") {
       const countryInfo = spanishSpeakingCountries.find(c => c.code === countryCode) || defaultFlags.es
@@ -108,6 +121,14 @@ export function useLanguageDetection() {
         flag: countryInfo.flag,
         country: countryInfo.name,
       })
+    } else if (langCode === "ru") {
+      const countryInfo = russianSpeakingCountries.find(c => c.code === countryCode) || defaultFlags.ru
+      setDetectedLanguage({
+        code: "ru",
+        name: "Русский",
+        flag: countryInfo.flag,
+        country: countryInfo.name,
+      })
     }
   }, [pathname])
 
@@ -124,8 +145,12 @@ export function useLanguageDetection() {
       path = pathname.replace('/pt/', '/')
     } else if (pathname === '/pt') {
       path = '/'
+    } else if (pathname.startsWith('/ru/')) {
+      path = pathname.replace('/ru/', '/')
+    } else if (pathname === '/ru') {
+      path = '/'
     }
-    
+
     // Redirect to the appropriate language version
     if (languageCode === 'es') {
       // For Spanish, remove any language prefix
@@ -156,6 +181,12 @@ export function useLanguageDetection() {
       flag: detectedLanguage.code === "en" ? detectedLanguage.flag : defaultFlags.en.flag,
       country: detectedLanguage.code === "en" ? detectedLanguage.country : defaultFlags.en.name,
     },
+    {
+      code: "ru",
+      name: "Русский",
+      flag: detectedLanguage.code === "ru" ? detectedLanguage.flag : defaultFlags.ru.flag,
+      country: detectedLanguage.code === "ru" ? detectedLanguage.country : defaultFlags.ru.name,
+    },
   ]
 
   return {
@@ -166,5 +197,6 @@ export function useLanguageDetection() {
     spanishSpeakingCountries,
     englishSpeakingCountries,
     portugueseSpeakingCountries,
+    russianSpeakingCountries,
   }
 }

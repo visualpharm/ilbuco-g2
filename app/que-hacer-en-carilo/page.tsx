@@ -3,20 +3,265 @@
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { BusinessCard } from "@/components/business-card"
+import { useLanguage } from "@/contexts/language-context"
 import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"
-import { 
-  X, 
-  ChevronLeft, 
-  ChevronRight, 
-  ArrowRight, 
-  MapPin, 
-  Waves, 
-  Bike, 
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  ArrowRight,
+  MapPin,
+  Waves,
+  Bike,
   Car,
   User
 } from "lucide-react"
+
+// Translations for the page
+const translations = {
+  title: {
+    es: "Qué Hacer",
+    en: "Things to Do",
+    pt: "O Que Fazer",
+    ru: "Чем Заняться"
+  },
+  inCarilo: {
+    es: " en Cariló",
+    en: " in Cariló",
+    pt: " em Cariló",
+    ru: " в Карило"
+  },
+  indexTitle: {
+    es: "Índice de Contenidos",
+    en: "Table of Contents",
+    pt: "Índice de Conteúdos",
+    ru: "Содержание"
+  },
+  beachNature: {
+    es: "Playas y Naturaleza",
+    en: "Beaches and Nature",
+    pt: "Praias e Natureza",
+    ru: "Пляжи и Природа"
+  },
+  sportsFitness: {
+    es: "Deportes y Fitness",
+    en: "Sports and Fitness",
+    pt: "Esportes e Fitness",
+    ru: "Спорт и Фитнес"
+  },
+  foodRestaurants: {
+    es: "Comida y Restaurantes",
+    en: "Food and Restaurants",
+    pt: "Comida e Restaurantes",
+    ru: "Еда и Рестораны"
+  },
+  rainyDay: {
+    es: "Qué Hacer Cuando Llueve",
+    en: "What to Do When It Rains",
+    pt: "O Que Fazer Quando Chove",
+    ru: "Чем Заняться Когда Дождь"
+  },
+  winterActivities: {
+    es: "Actividades en Invierno",
+    en: "Winter Activities",
+    pt: "Atividades no Inverno",
+    ru: "Зимние Активности"
+  },
+  nearbyPlaces: {
+    es: "Lugares en los Alrededores",
+    en: "Nearby Places",
+    pt: "Lugares nos Arredores",
+    ru: "Окрестности"
+  },
+  intro: {
+    es: "He reunido la lista de negocios que suelo usar y programar, y agregué los enlaces a Google Maps. Hay un enlace al perfil, la calificación y la cantidad de reseñas. O sea, algo que probablemente harías igual antes de ir. Para todos los lugares, está la distancia desde Il Buco. Así que para los que no se están quedando en nuestra hermosa residencia, piensen en la salida a la playa más cercana a Pinamar, la salida a la playa más cercana de Cariló, la salida a la playa en Cariló más cercana a Pinamar. Algún día voy a poder programar el recálculo de distancias según tu ubicación actual.",
+    en: "I've compiled a list of businesses I actually use and recommend, and added links to Google Maps. There's a link to the profile, rating, and number of reviews. Basically, what you'd probably do anyway before going. For all places, there's the distance from Il Buco. So for those of you not staying at our beautiful residence, think of the beach access closest to Pinamar, the beach access closest to Cariló, the beach access in Cariló closest to Pinamar. Someday I'll be able to program distance recalculation based on your current location.",
+    pt: "Compilei uma lista de negócios que realmente uso e recomendo, e adicionei links para o Google Maps. Há um link para o perfil, classificação e número de avaliações. Basicamente, o que você provavelmente faria de qualquer forma antes de ir. Para todos os lugares, há a distância do Il Buco. Então, para aqueles de vocês que não estão hospedados em nossa bela residência, pense no acesso à praia mais próximo de Pinamar, no acesso à praia mais próximo de Cariló, no acesso à praia em Cariló mais próximo de Pinamar. Algum dia poderei programar o recálculo de distância com base na sua localização atual.",
+    ru: "Я составил список мест которые я реально использую и рекомендую, и добавил ссылки на Google Maps. Там ссылка на профиль, рейтинг и количество отзывов. В общем то что вы бы и так сделали перед походом. Для всех мест указано расстояние от Il Buco. Так что для тех кто не остановился в нашей прекрасной резиденции, ориентируйтесь на ближайший выход к пляжу от Пинамара, ближайший выход к пляжу Карило, выход к пляжу в Карило ближайший к Пинамару. Когда-нибудь я смогу запрограммировать пересчет расстояний от вашего текущего местоположения."
+  },
+  beachNatureTitle: {
+    es: "Playas y Naturaleza en Cariló",
+    en: "Beaches and Nature in Cariló",
+    pt: "Praias e Natureza em Cariló",
+    ru: "Пляжи и Природа в Карило"
+  },
+  beachNatureDesc: {
+    es: "La playa de Cariló ofrece amplias oportunidades para surf, windsurf, y simplemente relajarse en la arena. El entorno natural único combina bosque de pinos con costa atlántica, ideal para",
+    en: "Cariló beach offers ample opportunities for surfing, windsurfing, and simply relaxing on the sand. The unique natural environment combines pine forest with Atlantic coast, ideal for",
+    pt: "A praia de Cariló oferece amplas oportunidades para surf, windsurf e simplesmente relaxar na areia. O ambiente natural único combina floresta de pinheiros com a costa atlântica, ideal para",
+    ru: "Пляж Карило предлагает отличные возможности для серфинга, виндсерфинга и просто отдыха на песке. Уникальная природная среда сочетает сосновый лес с атлантическим побережьем, идеально для"
+  },
+  groupActivities: {
+    es: "actividades grupales",
+    en: "group activities",
+    pt: "atividades em grupo",
+    ru: "групповых активностей"
+  },
+  events: {
+    es: "eventos",
+    en: "events",
+    pt: "eventos",
+    ru: "мероприятий"
+  },
+  outdoorActivities: {
+    es: " al aire libre.",
+    en: " outdoors.",
+    pt: " ao ar livre.",
+    ru: " на свежем воздухе."
+  },
+  sportsActivitiesTitle: {
+    es: "Deportes y Actividades al Aire Libre",
+    en: "Sports and Outdoor Activities",
+    pt: "Esportes e Atividades ao Ar Livre",
+    ru: "Спорт и Активности на Свежем Воздухе"
+  },
+  moreExperiences: {
+    es: "Más Experiencias en Cariló",
+    en: "More Experiences in Cariló",
+    pt: "Mais Experiências em Cariló",
+    ru: "Больше Впечатлений в Карило"
+  },
+  restaurantsGastronomy: {
+    es: "Restaurantes y Gastronomía",
+    en: "Restaurants and Gastronomy",
+    pt: "Restaurantes e Gastronomia",
+    ru: "Рестораны и Гастрономия"
+  },
+  forDiscover: {
+    es: "Para:",
+    en: "For:",
+    pt: "Para:",
+    ru: "Для:"
+  },
+  discoverGastronomy: {
+    es: " Descubrir la mejor gastronomía local: parrillas tradicionales, pizzerías gourmet, cafés artesanales y restaurantes de autor.",
+    en: " Discover the best local gastronomy: traditional grills, gourmet pizzerias, artisanal cafes, and signature restaurants.",
+    pt: " Descobrir a melhor gastronomia local: churrasqueiras tradicionais, pizzarias gourmet, cafés artesanais e restaurantes de autor.",
+    ru: " Открыть для себя лучшую местную гастрономию: традиционные парильи, пиццерии для гурманов, кафе и авторские рестораны."
+  },
+  fromIlBuco: {
+    es: "Desde Il Buco:",
+    en: "From Il Buco:",
+    pt: "De Il Buco:",
+    ru: "От Il Buco:"
+  },
+  viewRestaurants: {
+    es: "Ver Restaurantes",
+    en: "View Restaurants",
+    pt: "Ver Restaurantes",
+    ru: "Смотреть Рестораны"
+  },
+  rainingInCarilo: {
+    es: "¿Llueve en Cariló?",
+    en: "Raining in Cariló?",
+    pt: "Chovendo em Cariló?",
+    ru: "Дождь в Карило?"
+  },
+  indoorActivities: {
+    es: "Bajo techo",
+    en: "Indoors",
+    pt: "Coberto",
+    ru: "В помещении"
+  },
+  rainyDayDesc: {
+    es: " Disfrutar actividades cubiertas cuando llueve: spas, lugares con piletas cubiertas, masajes, gimnasio cubierto, cines y galerías comerciales.",
+    en: " Enjoy indoor activities when it rains: spas, places with covered pools, massages, indoor gym, cinemas, and shopping galleries.",
+    pt: " Aproveite atividades cobertas quando chove: spas, locais com piscinas cobertas, massagens, academia coberta, cinemas e galerias comerciais.",
+    ru: " Насладиться активностями в помещении когда идет дождь: спа, места с крытыми бассейнами, массажи, крытый спортзал, кинотеатры и торговые галереи."
+  },
+  rainyDayActivities: {
+    es: "Actividades para lluvia",
+    en: "Rainy Day Activities",
+    pt: "Atividades para chuva",
+    ru: "Активности в Дождь"
+  },
+  cariloInWinter: {
+    es: "Cariló en Invierno",
+    en: "Cariló in Winter",
+    pt: "Cariló no Inverno",
+    ru: "Карило Зимой"
+  },
+  noCrowds: {
+    es: "Sin multitudes",
+    en: "No crowds",
+    pt: "Sem multidões",
+    ru: "Без толп"
+  },
+  winterDesc: {
+    es: " Disfrutar actividades al aire libre con clima templado y sin las multitudes del verano: caminatas, ciclismo y deportes.",
+    en: " Enjoy outdoor activities with mild weather and without summer crowds: hiking, cycling, and sports.",
+    pt: " Aproveite atividades ao ar livre com clima ameno e sem as multidões do verão: caminhadas, ciclismo e esportes.",
+    ru: " Наслаждаться активностями на свежем воздухе с умеренной погодой и без летних толп: прогулки, велосипед и спорт."
+  },
+  winterActivitiesLink: {
+    es: "Actividades invernales",
+    en: "Winter Activities",
+    pt: "Atividades de inverno",
+    ru: "Зимние Активности"
+  },
+  shoppingServices: {
+    es: "Compras y Servicios",
+    en: "Shopping and Services",
+    pt: "Compras e Serviços",
+    ru: "Покупки и Услуги"
+  },
+  everythingNearby: {
+    es: "Todo cerca",
+    en: "Everything nearby",
+    pt: "Tudo perto",
+    ru: "Все рядом"
+  },
+  shoppingDesc: {
+    es: " Resolver todo lo necesario para tu estadía: supermercados, productos frescos, carnicerías, ferreterías y servicios.",
+    en: " Get everything you need for your stay: supermarkets, fresh produce, butcher shops, hardware stores, and services.",
+    pt: " Resolva tudo o que você precisa para sua estadia: supermercados, produtos frescos, açougues, ferragems e serviços.",
+    ru: " Решить все необходимое для вашего пребывания: супермаркеты, свежие продукты, мясные лавки, хозяйственные магазины и услуги."
+  },
+  viewShoppingServices: {
+    es: "Ver Compras y Servicios",
+    en: "View Shopping and Services",
+    pt: "Ver Compras e Serviços",
+    ru: "Смотреть Покупки и Услуги"
+  },
+  surroundingsCarilo: {
+    es: "Alrededores de Cariló",
+    en: "Surroundings of Cariló",
+    pt: "Arredores de Cariló",
+    ru: "Окрестности Карило"
+  },
+  excursions: {
+    es: "Excursiones",
+    en: "Excursions",
+    pt: "Excursões",
+    ru: "Экскурсии"
+  },
+  surroundingsDesc: {
+    es: " Explorar destinos cercanos: Pinamar, Mar de las Pampas, faros históricos y pueblos costeros de la región atlántica.",
+    en: " Explore nearby destinations: Pinamar, Mar de las Pampas, historic lighthouses, and coastal towns of the Atlantic region.",
+    pt: " Explorar destinos próximos: Pinamar, Mar de las Pampas, faróis históricos e cidades costeiras da região atlântica.",
+    ru: " Исследовать ближайшие направления: Пинамар, Мар-де-лас-Пампас, исторические маяки и прибрежные города атлантического региона."
+  },
+  exploreSurroundings: {
+    es: "Explorar Alrededores",
+    en: "Explore Surroundings",
+    pt: "Explorar Arredores",
+    ru: "Исследовать Окрестности"
+  },
+  options: {
+    es: "opciones",
+    en: "options",
+    pt: "opções",
+    ru: "вариантов"
+  },
+  min: {
+    es: "min",
+    en: "min",
+    pt: "min",
+    ru: "мин"
+  }
+}
 
 // Cariló gallery images - the renamed photos from /public/photo/carilo
 const cariloGalleryImages = [
@@ -151,7 +396,10 @@ const cariloGalleryImages = [
 ]
 
 export default function QueHacerEnCarilo() {
+  const { language } = useLanguage()
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
+  const lang = language.code as 'es' | 'en' | 'pt' | 'ru'
+  const t = translations
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -206,34 +454,34 @@ export default function QueHacerEnCarilo() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 order-1 md:order-1">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  <span className="text-gray-600">Qué Hacer</span> en Cariló
+                  <span className="text-gray-600">{t.title[lang]}</span>{t.inCarilo[lang]}
                 </h1>
                 <div className="space-y-4">
-                  <h2 className="text-xl md:text-2xl font-semibold text-gray-800">Índice de Contenidos</h2>
+                  <h2 className="text-xl md:text-2xl font-semibold text-gray-800">{t.indexTitle[lang]}</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <Link href="#playas-naturaleza" className="flex items-center p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors border border-blue-200">
                       <Waves className="h-5 w-5 text-blue-600 mr-3" />
-                      <span className="text-sm font-medium text-gray-800">Playas y Naturaleza</span>
+                      <span className="text-sm font-medium text-gray-800">{t.beachNature[lang]}</span>
                     </Link>
                     <Link href="#deportes-fitness" className="flex items-center p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors border border-green-200">
                       <span className="h-5 w-5 text-green-600 mr-3">🏃</span>
-                      <span className="text-sm font-medium text-gray-800">Deportes y Fitness</span>
+                      <span className="text-sm font-medium text-gray-800">{t.sportsFitness[lang]}</span>
                     </Link>
                     <Link href="/restaurantes-carilo" className="flex items-center p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors border border-orange-200">
                       <span className="h-5 w-5 text-orange-600 mr-3">🍽️</span>
-                      <span className="text-sm font-medium text-gray-800">Comida y Restaurantes</span>
+                      <span className="text-sm font-medium text-gray-800">{t.foodRestaurants[lang]}</span>
                     </Link>
                     <Link href="/que-hacer-en-carilo/cuando-llueve" className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200">
                       <span className="h-5 w-5 text-gray-600 mr-3">🌧️</span>
-                      <span className="text-sm font-medium text-gray-800">Qué Hacer Cuando Llueve</span>
+                      <span className="text-sm font-medium text-gray-800">{t.rainyDay[lang]}</span>
                     </Link>
                     <Link href="/que-hacer-en-carilo/en-invierno" className="flex items-center p-3 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors border border-indigo-200">
                       <span className="h-5 w-5 text-indigo-600 mr-3">❄️</span>
-                      <span className="text-sm font-medium text-gray-800">Actividades en Invierno</span>
+                      <span className="text-sm font-medium text-gray-800">{t.winterActivities[lang]}</span>
                     </Link>
                     <Link href="/alrededores-carilo" className="flex items-center p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors border border-purple-200">
                       <Car className="h-5 w-5 text-purple-600 mr-3" />
-                      <span className="text-sm font-medium text-gray-800">Lugares en los Alrededores</span>
+                      <span className="text-sm font-medium text-gray-800">{t.nearbyPlaces[lang]}</span>
                     </Link>
                   </div>
                 </div>
@@ -283,7 +531,7 @@ export default function QueHacerEnCarilo() {
         <section className="py-12 bg-gray-50">
           <div className="container mx-auto px-4">
             <p className="text-lg text-gray-700 text-center max-w-4xl mx-auto">
-              He reunido la lista de negocios que suelo usar y programar, y agregué los enlaces a Google Maps. Hay un enlace al perfil, la calificación y la cantidad de reseñas. O sea, algo que probablemente harías igual antes de ir. Para todos los lugares, está la distancia desde Il Buco. Así que para los que no se están quedando en nuestra hermosa residencia, piensen en la salida a la playa más cercana a Pinamar, la salida a la playa más cercana de Cariló, la salida a la playa en Cariló más cercana a Pinamar. Algún día voy a poder programar el recálculo de distancias según tu ubicación actual.
+              {t.intro[lang]}
             </p>
           </div>
         </section>
@@ -292,10 +540,10 @@ export default function QueHacerEnCarilo() {
         <section id="playas-naturaleza" className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-6 text-center">
-              Playas y Naturaleza en Cariló
+              {t.beachNatureTitle[lang]}
             </h2>
             <p className="text-lg text-gray-700 text-center max-w-4xl mx-auto mb-10">
-              La playa de Cariló ofrece amplias oportunidades para surf, windsurf, y simplemente relajarse en la arena. El entorno natural único combina bosque de pinos con costa atlántica, ideal para <Link href="/team-building-carilo" className="text-gray-700 no-underline hover:text-gray-600">actividades grupales</Link> y <Link href="/eventos-corporativos-carilo" className="text-gray-700 no-underline hover:text-gray-600">eventos</Link> al aire libre.
+              {t.beachNatureDesc[lang]} <Link href="/team-building-carilo" className="text-gray-700 no-underline hover:text-gray-600">{t.groupActivities[lang]}</Link> {lang === 'ru' ? 'и' : 'y'} <Link href="/eventos-corporativos-carilo" className="text-gray-700 no-underline hover:text-gray-600">{t.events[lang]}</Link>{t.outdoorActivities[lang]}
             </p>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -378,7 +626,7 @@ export default function QueHacerEnCarilo() {
         <section id="deportes-fitness" className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-10 text-center">
-              Deportes y Actividades al Aire Libre
+              {t.sportsActivitiesTitle[lang]}
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <BusinessCard
@@ -478,38 +726,38 @@ export default function QueHacerEnCarilo() {
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-10 text-center">
-              Más Experiencias en Cariló
+              {t.moreExperiences[lang]}
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* Gastronomy Card */}
                 <Link href="/restaurantes-carilo" className="block group">
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer">
                     <div className="flex items-start justify-between mb-3">
-                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-amber-600 transition-colors">Restaurantes y Gastronomía</h5>
+                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-amber-600 transition-colors">{t.restaurantsGastronomy[lang]}</h5>
                       <div className="text-sm bg-amber-100 text-amber-800 px-2 py-1 rounded-full">
-                        🍽️ 25+ opciones
+                        🍽️ 25+ {t.options[lang]}
                       </div>
                     </div>
-                    
+
                     <p className="text-gray-700 text-sm mb-4">
-                      <strong>Para:</strong> Descubrir la mejor gastronomía local: parrillas tradicionales, pizzerías gourmet, cafés artesanales y restaurantes de autor.
+                      <strong>{t.forDiscover[lang]}</strong>{t.discoverGastronomy[lang]}
                     </p>
-                    
+
                     <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                      <span className="font-medium">Desde Il Buco:</span>
+                      <span className="font-medium">{t.fromIlBuco[lang]}</span>
                       <div className="flex items-center gap-1">
                         <User className="h-4 w-4" />
-                        <span>15-30 min</span>
+                        <span>15-30 {t.min[lang]}</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Car className="h-4 w-4" />
-                        <span>3-8 min</span>
+                        <span>3-8 {t.min[lang]}</span>
                       </div>
                     </div>
-                    
+
                     <div className="inline-flex items-center gap-1 text-amber-600 group-hover:text-amber-800 text-sm font-medium transition-colors">
                       <ArrowRight className="h-4 w-4" />
-                      Ver Restaurantes
+                      {t.viewRestaurants[lang]}
                     </div>
                   </div>
                 </Link>
@@ -518,31 +766,31 @@ export default function QueHacerEnCarilo() {
                 <Link href="/que-hacer-en-carilo/cuando-llueve" className="block group">
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer">
                     <div className="flex items-start justify-between mb-3">
-                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">¿Llueve en Cariló?</h5>
+                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">{t.rainingInCarilo[lang]}</h5>
                       <div className="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
-                        🌧️ Bajo techo
+                        🌧️ {t.indoorActivities[lang]}
                       </div>
                     </div>
-                    
+
                     <p className="text-gray-700 text-sm mb-4">
-                      <strong>Para:</strong> Disfrutar actividades cubiertas cuando llueve: spas, lugares con piletas cubiertas, masajes, gimnasio cubierto, cines y galerías comerciales.
+                      <strong>{t.forDiscover[lang]}</strong>{t.rainyDayDesc[lang]}
                     </p>
-                    
+
                     <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                      <span className="font-medium">Desde Il Buco:</span>
+                      <span className="font-medium">{t.fromIlBuco[lang]}</span>
                       <div className="flex items-center gap-1">
                         <User className="h-4 w-4" />
-                        <span>15-30 min</span>
+                        <span>15-30 {t.min[lang]}</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Car className="h-4 w-4" />
-                        <span>5-10 min</span>
+                        <span>5-10 {t.min[lang]}</span>
                       </div>
                     </div>
-                    
+
                     <div className="inline-flex items-center gap-1 text-blue-600 group-hover:text-blue-800 text-sm font-medium transition-colors">
                       <ArrowRight className="h-4 w-4" />
-                      Actividades para lluvia
+                      {t.rainyDayActivities[lang]}
                     </div>
                   </div>
                 </Link>
@@ -551,31 +799,31 @@ export default function QueHacerEnCarilo() {
                 <Link href="/que-hacer-en-carilo/en-invierno" className="block group">
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer">
                     <div className="flex items-start justify-between mb-3">
-                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-indigo-600 transition-colors">Cariló en Invierno</h5>
+                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-indigo-600 transition-colors">{t.cariloInWinter[lang]}</h5>
                       <div className="text-sm bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">
-                        ❄️ Sin multitudes
+                        ❄️ {t.noCrowds[lang]}
                       </div>
                     </div>
-                    
+
                     <p className="text-gray-700 text-sm mb-4">
-                      <strong>Para:</strong> Disfrutar actividades al aire libre con clima templado y sin las multitudes del verano: caminatas, ciclismo y deportes.
+                      <strong>{t.forDiscover[lang]}</strong>{t.winterDesc[lang]}
                     </p>
-                    
+
                     <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                      <span className="font-medium">Desde Il Buco:</span>
+                      <span className="font-medium">{t.fromIlBuco[lang]}</span>
                       <div className="flex items-center gap-1">
                         <User className="h-4 w-4" />
-                        <span>15-30 min</span>
+                        <span>15-30 {t.min[lang]}</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Car className="h-4 w-4" />
-                        <span>5-10 min</span>
+                        <span>5-10 {t.min[lang]}</span>
                       </div>
                     </div>
-                    
+
                     <div className="inline-flex items-center gap-1 text-indigo-600 group-hover:text-indigo-800 text-sm font-medium transition-colors">
                       <ArrowRight className="h-4 w-4" />
-                      Actividades invernales
+                      {t.winterActivitiesLink[lang]}
                     </div>
                   </div>
                 </Link>
@@ -584,31 +832,31 @@ export default function QueHacerEnCarilo() {
                 <Link href="/compras-servicios-carilo" className="block group">
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer">
                     <div className="flex items-start justify-between mb-3">
-                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-green-600 transition-colors">Compras y Servicios</h5>
+                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-green-600 transition-colors">{t.shoppingServices[lang]}</h5>
                       <div className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                        🛒 Todo cerca
+                        🛒 {t.everythingNearby[lang]}
                       </div>
                     </div>
-                    
+
                     <p className="text-gray-700 text-sm mb-4">
-                      <strong>Para:</strong> Resolver todo lo necesario para tu estadía: supermercados, productos frescos, carnicerías, ferreterías y servicios.
+                      <strong>{t.forDiscover[lang]}</strong>{t.shoppingDesc[lang]}
                     </p>
-                    
+
                     <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                      <span className="font-medium">Desde Il Buco:</span>
+                      <span className="font-medium">{t.fromIlBuco[lang]}</span>
                       <div className="flex items-center gap-1">
                         <User className="h-4 w-4" />
-                        <span>20-40 min</span>
+                        <span>20-40 {t.min[lang]}</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Car className="h-4 w-4" />
-                        <span>3-10 min</span>
+                        <span>3-10 {t.min[lang]}</span>
                       </div>
                     </div>
-                    
+
                     <div className="inline-flex items-center gap-1 text-green-600 group-hover:text-green-800 text-sm font-medium transition-colors">
                       <ArrowRight className="h-4 w-4" />
-                      Ver Compras y Servicios
+                      {t.viewShoppingServices[lang]}
                     </div>
                   </div>
                 </Link>
@@ -617,27 +865,27 @@ export default function QueHacerEnCarilo() {
                 <Link href="/alrededores-carilo" className="block group">
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer">
                     <div className="flex items-start justify-between mb-3">
-                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-teal-600 transition-colors">Alrededores de Cariló</h5>
+                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-teal-600 transition-colors">{t.surroundingsCarilo[lang]}</h5>
                       <div className="text-sm bg-teal-100 text-teal-800 px-2 py-1 rounded-full">
-                        🗺️ Excursiones
+                        🗺️ {t.excursions[lang]}
                       </div>
                     </div>
-                    
+
                     <p className="text-gray-700 text-sm mb-4">
-                      <strong>Para:</strong> Explorar destinos cercanos: Pinamar, Mar de las Pampas, faros históricos y pueblos costeros de la región atlántica.
+                      <strong>{t.forDiscover[lang]}</strong>{t.surroundingsDesc[lang]}
                     </p>
-                    
+
                     <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                      <span className="font-medium">Desde Il Buco:</span>
+                      <span className="font-medium">{t.fromIlBuco[lang]}</span>
                       <div className="flex items-center gap-1">
                         <Car className="h-4 w-4" />
-                        <span>10-30 min</span>
+                        <span>10-30 {t.min[lang]}</span>
                       </div>
                     </div>
-                    
+
                     <div className="inline-flex items-center gap-1 text-teal-600 group-hover:text-teal-800 text-sm font-medium transition-colors">
                       <ArrowRight className="h-4 w-4" />
-                      Explorar Alrededores
+                      {t.exploreSurroundings[lang]}
                     </div>
                   </div>
                 </Link>

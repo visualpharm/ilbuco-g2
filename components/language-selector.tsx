@@ -65,25 +65,32 @@ function getEquivalentPath(currentPath: string, targetLang: string): string {
   }
 
   // Check if path already has a language prefix
-  const enMatch = currentPath.match(/^\/en\/?(.*)/) 
-  const ptMatch = currentPath.match(/^\/pt\/?(.*)/) 
+  const enMatch = currentPath.match(/^\/en\/?(.*)/)
+  const ptMatch = currentPath.match(/^\/pt\/?(.*)/)
+  const ruMatch = currentPath.match(/^\/ru\/?(.*)/)
 
   if (enMatch) {
     // Current path has /en/ prefix
     const pathWithoutLang = enMatch[1]
-    return targetLang === "es" 
-      ? `/${pathWithoutLang}` 
+    return targetLang === "es"
+      ? `/${pathWithoutLang}`
       : `/${targetLang}/${pathWithoutLang}`
   } else if (ptMatch) {
     // Current path has /pt/ prefix
     const pathWithoutLang = ptMatch[1]
-    return targetLang === "es" 
-      ? `/${pathWithoutLang}` 
+    return targetLang === "es"
+      ? `/${pathWithoutLang}`
+      : `/${targetLang}/${pathWithoutLang}`
+  } else if (ruMatch) {
+    // Current path has /ru/ prefix
+    const pathWithoutLang = ruMatch[1]
+    return targetLang === "es"
+      ? `/${pathWithoutLang}`
       : `/${targetLang}/${pathWithoutLang}`
   } else {
     // Current path has no language prefix (Spanish at root)
-    return targetLang === "es" 
-      ? currentPath 
+    return targetLang === "es"
+      ? currentPath
       : `/${targetLang}${currentPath}`
   }
 }
@@ -109,9 +116,10 @@ export function LanguageSelector() {
   }, [])
 
   const languages = [
-    { code: "es", name: "Español", flag: "🇦🇷" },
-    { code: "en", name: "English", flag: "🇺🇸" },
-    { code: "pt", name: "Português", flag: "🇧🇷" },
+    { code: "es", name: "Español" },
+    { code: "en", name: "English" },
+    { code: "pt", name: "Português" },
+    { code: "ru", name: "Русский" },
   ]
 
   // Use the actual language code from context, not just the first match
@@ -124,8 +132,7 @@ export function LanguageSelector() {
         className="flex items-center justify-start h-10 px-3 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
         aria-label="Change language"
       >
-        <span className="text-xl mr-2">{currentLanguage.flag}</span>
-        <span className="sr-only md:not-sr-only">{currentLanguage.name}</span>
+        <span>{currentLanguage.name}</span>
       </button>
 
       {isOpen && (
@@ -139,12 +146,11 @@ export function LanguageSelector() {
               <Link
                 key={lang.code}
                 href={targetPath}
-                className={`px-4 py-2 text-sm hover:bg-gray-100 flex items-center space-x-2 w-full ${
+                className={`px-4 py-2 text-sm hover:bg-gray-100 flex items-center w-full ${
                   language.code === lang.code ? "bg-blue-50 text-blue-600" : ""
                 }`}
                 onClick={() => setIsOpen(false)}
               >
-                <span>{lang.flag}</span>
                 <span>{lang.name}</span>
               </Link>
             )

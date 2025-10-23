@@ -61,7 +61,8 @@ export default function ColivingArgentinaPage() {
                   <span className="text-gray-900"> Argentina</span>
                 </h1>
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  Experience premium coliving in Argentina's most exclusive coastal destination. Join our international community in Carilo, where modern comfort meets natural beauty and connections happen naturally.
+                  Live with other remote workers in a house that actually works. 
+                  Fast wifi, real workspaces, beach 5 minutes away. Cariló — where Buenos Aires people escape to.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
@@ -96,10 +97,11 @@ export default function ColivingArgentinaPage() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Experience Coliving at Il Buco
+                This Is Where You'll Live
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Take a visual tour of our space, from private suites to shared areas and the stunning natural surroundings of Carilo.
+                Four suites, big common areas, rooftop BBQ. Pine forest everywhere. 
+                Beach down the road.
               </p>
             </div>
             
@@ -184,10 +186,11 @@ export default function ColivingArgentinaPage() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Why Argentina for Coliving?
+                Why People Pick Argentina
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Argentina offers an unbeatable combo for coliving: its affordable, culturally rich, has amazing landscapes, and a thriving international community.
+                Good exchange rate. Amazing food. People stay out til 4am. 
+                Mountains, beaches, wine country — all in one country.
               </p>
             </div>
             

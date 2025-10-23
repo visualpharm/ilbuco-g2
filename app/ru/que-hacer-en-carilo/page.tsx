@@ -1,13 +1,14 @@
 "use client"
+
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 
-export default function PlacesNearbyRedirect() {
+export default function QueHacerCariloRussian() {
   const router = useRouter()
 
   useEffect(() => {
-    // Redirect Spanish base to que-hacer-en-carilo
-    router.replace('/que-hacer-en-carilo')
+    // Redirect Russian users to the fully translated places-nearby page
+    router.replace("/ru/places-nearby")
   }, [router])
 
   return null

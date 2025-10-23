@@ -2,18 +2,21 @@ export const guestTranslations = {
   title: {
     es: "🏠 Página para Huéspedes",
     en: "🏠 Guest Page",
-    pt: "🏠 Página para Hóspedes"
+    pt: "🏠 Página para Hóspedes",
+    ru: "🏠 Страница для Гостей"
   },
   subtitle: {
     es: "¡Gracias por alojarte en nuestra casa! Como cualquier casa, viene con mantenimiento. Aquí tienes un **libro de autoayuda** para lidiar con los problemas más comunes de una casa, *cualquier casa*. Por supuesto, siempre puedes contactarnos, pero a veces una solución fácil está a la vuelta de la esquina. 🔧",
     en: "Thank you for staying in our house! As any house, it comes with maintenance. Here's a **self-help book** to deal with the most common issues of a house, *any house*. Of course you can always contact us, but sometimes an easy fix is just around the corner. 🔧",
-    pt: "Obrigado por se hospedar na nossa casa! Como qualquer casa, ela vem com manutenção. Aqui está um **livro de autoajuda** para lidar com os problemas mais comuns de uma casa, *qualquer casa*. Claro que você sempre pode nos contatar, mas às vezes uma solução fácil está logo ali. 🔧"
+    pt: "Obrigado por se hospedar na nossa casa! Como qualquer casa, ela vem com manutenção. Aqui está um **livro de autoajuda** para lidar com os problemas mais comuns de uma casa, *qualquer casa*. Claro que você sempre pode nos contatar, mas às vezes uma solução fácil está logo ali. 🔧",
+    ru: "Спасибо что остановились в нашем доме! Как любой дом, он требует обслуживания. Вот **книга самопомощи** для решения самых частых проблем дома, *любого дома*. Конечно вы всегда можете с нами связаться, но иногда простое решение совсем рядом. 🔧"
   },
   wifi: {
     title: {
       es: "📶 WiFi",
       en: "📶 WiFi",
-      pt: "📶 WiFi"
+      pt: "📶 WiFi",
+      ru: "📶 WiFi"
     },
     content: {
       es: `📍 **Red WiFi:** *Il Buco*  
@@ -54,14 +57,28 @@ O problema provavelmente está no **cabo de fibra óptica**. Contate o provedor:
 
 <div class="fibra-card">Carilo Digital aka Fibra al Hogar.com.ar</div>
 
-Eles têm tido um serviço ruim, desculpe 😕`
+Eles têm tido um serviço ruim, desculpe 😕`,
+      ru: `📍 **Сеть WiFi:** *Il Buco*
+🔑 **Пароль:** *terminator2*
+
+🔍 **Если не находите сеть:**
+- Ищите открытые сети **TP-Link_XXXX**: это наши точки доступа после сброса
+- *dormitorio1* **не наша сеть** ❌
+
+🚫 **Если нет интернета:**
+Проблема скорее всего в **оптоволоконном кабеле**. Свяжитесь с провайдером:
+
+<div class="fibra-card">Carilo Digital aka Fibra al Hogar.com.ar</div>
+
+У них бывал плохой сервис, извините 😕`
     }
   },
   electricity: {
     title: {
       es: "⚡ Electricidad",
       en: "⚡ Electricity",
-      pt: "⚡ Eletricidade"
+      pt: "⚡ Eletricidade",
+      ru: "⚡ Электричество"
     },
     content: {
       es: `🏠 **Localización de equipos eléctricos:**
@@ -153,6 +170,36 @@ Eles têm tido um serviço ruim, desculpe 😕`
       </a>
     </div>
   </div>
+</div>`,
+      ru: `🏠 **Расположение электрооборудования:**
+- Идите в **подвал** и поверните направо **дважды**
+- Всё электрооборудование в **машинном зале**
+
+🔌 **Проверьте автоматы:**
+- Ищите **отключенные автоматы** 📋
+- Попробуйте включить их
+- ⚠️ **Если они выбиваются снова**, не пытайтесь пока не найдёте проблему
+
+🌧️ **Если на улице мокро:**
+- Вероятно **вода в уличном светильнике**
+- Выключите **уличное освещение** 💡
+- Попробуйте автомат снова
+
+📞 **Контакт специалиста:**
+
+<div class="bg-white border-2 border-yellow-400 rounded-lg p-4 shadow-md max-w-sm mx-auto mt-4">
+  <div class="flex items-center space-x-3">
+    <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
+      <span class="text-2xl">⚡</span>
+    </div>
+    <div>
+      <h3 class="font-bold text-gray-900 text-lg">David aka Washington</h3>
+      <p class="text-gray-600 text-sm">Электрик</p>
+      <a href="https://wa.me/541158783996" class="text-green-600 font-medium text-sm hover:underline">
+        📱 +54 9 11 5878-3996
+      </a>
+    </div>
+  </div>
 </div>`
     }
   },
@@ -160,7 +207,8 @@ Eles têm tido um serviço ruim, desculpe 😕`
     title: {
       es: "💧 Agua",
       en: "💧 Water",
-      pt: "💧 Água"
+      pt: "💧 Água",
+      ru: "💧 Вода"
     },
     content: {
       es: `🚰 **Si NO hay agua:**
@@ -267,27 +315,66 @@ Isso é trabalho de **encanador**.
       </a>
     </div>
   </div>
+</div>`,
+      ru: `🚰 **Если НЕТ воды:**
+Скорее всего это **проблема с электричеством**. Свяжитесь с David aka Washington (электрик).
+
+<div class="bg-white border-2 border-yellow-400 rounded-lg p-4 shadow-md max-w-sm mx-auto mt-4">
+  <div class="flex items-center space-x-3">
+    <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
+      <span class="text-2xl">⚡</span>
+    </div>
+    <div>
+      <h3 class="font-bold text-gray-900 text-lg">David aka Washington</h3>
+      <p class="text-gray-600 text-sm">Электрик</p>
+      <a href="https://wa.me/541158783996" class="text-green-600 font-medium text-sm hover:underline">
+        📱 +54 9 11 5878-3996
+      </a>
+    </div>
+  </div>
+</div>
+
+🌊 **Если ИЗБЫТОК воды или плохой запах:**
+Это работа для **сантехника**.
+
+<div class="bg-white border-2 border-blue-400 rounded-lg p-4 shadow-md max-w-sm mx-auto mt-4">
+  <div class="flex items-center space-x-3">
+    <div class="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center">
+      <span class="text-2xl">🔧</span>
+    </div>
+    <div>
+      <h3 class="font-bold text-gray-900 text-lg">Plomeros Martinez</h3>
+      <p class="text-gray-600 text-sm">Сантехника</p>
+      <a href="https://wa.me/542254440021" class="text-green-600 font-medium text-sm hover:underline">
+        📱 +54 9 2254 44-0021
+      </a>
+    </div>
+  </div>
 </div>`
     }
   },
   passwordPrompt: {
     es: "Solo para huéspedes",
-    en: "Only for guests", 
-    pt: "Apenas para hóspedes"
+    en: "Only for guests",
+    pt: "Apenas para hóspedes",
+    ru: "Только для гостей"
   },
   passwordPlaceholder: {
     es: "Ingresa la contraseña",
     en: "Enter password",
-    pt: "Digite a senha"
+    pt: "Digite a senha",
+    ru: "Введите пароль"
   },
   accessButton: {
     es: "Acceder",
     en: "Access",
-    pt: "Acessar"
+    pt: "Acessar",
+    ru: "Войти"
   },
   incorrectPassword: {
     es: "❌ Contraseña incorrecta",
     en: "❌ Incorrect password",
-    pt: "❌ Senha incorreta"
+    pt: "❌ Senha incorreta",
+    ru: "❌ Неверный пароль"
   }
 }

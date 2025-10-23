@@ -27,6 +27,7 @@ export const metadata: Metadata = {
       'es': 'https://ilbuco.com.ar',
       'en': 'https://ilbuco.com.ar/en',
       'pt': 'https://ilbuco.com.ar/pt',
+      'ru': 'https://ilbuco.com.ar/ru',
     }
   }
 }
@@ -43,6 +44,7 @@ export default function RootLayout({
         <link rel="alternate" hrefLang="es-AR" href="https://ilbuco.com.ar/" />
         <link rel="alternate" hrefLang="en" href="https://ilbuco.com.ar/en/" />
         <link rel="alternate" hrefLang="pt-BR" href="https://ilbuco.com.ar/pt/" />
+        <link rel="alternate" hrefLang="ru" href="https://ilbuco.com.ar/ru/" />
         <link rel="alternate" hrefLang="x-default" href="https://ilbuco.com.ar/" />
       </head>
       <body className={inter.className} suppressHydrationWarning>

@@ -40,7 +40,7 @@ export function SiteHeader() {
             <Link href={`${langPrefix}/location`} className="text-sm font-medium hover:text-blue-600 transition-colors">
               <Translate text={translations.nav.location} />
             </Link>
-            <Link href={`${langPrefix}/que-hacer-en-carilo`} className="text-sm font-medium hover:text-blue-600 transition-colors">
+            <Link href={`${langPrefix}/${language.code === 'ru' ? 'places-nearby' : 'que-hacer-en-carilo'}`} className="text-sm font-medium hover:text-blue-600 transition-colors">
               <Translate text={translations.nav.placesNearby} />
             </Link>
             <Link href={`${langPrefix}/contacts`} className="text-sm font-medium hover:text-blue-600 transition-colors">
