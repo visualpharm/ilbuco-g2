@@ -3,7 +3,7 @@
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { BusinessCard } from "@/components/business-card"
-import { usePathname } from "next/navigation"
+import { useLanguage } from "@/contexts/language-context"
 import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"
@@ -284,79 +284,6 @@ const translations = {
     en: "View on Google Maps",
     pt: "Ver no Google Maps",
     ru: "Открыть в Google Maps"
-  },
-  motorradTitle: {
-    es: "Motorrad - Alquiler de Bicicletas",
-    en: "Motorrad - Bicycle Rental",
-    pt: "Motorrad - Aluguel de Bicicletas",
-    ru: "Motorrad - Прокат Велосипедов"
-  },
-  motorradDesc: {
-    es: "Alquilá bicicletas y explorá Cariló y las áreas circundantes. Las calles de arena sin pavimentar y el entorno natural de la ciudad hacen que la experiencia de ciclismo sea agradable.",
-    en: "Rent bicycles and explore Cariló and surrounding areas. The unpaved sand streets and natural environment make cycling an enjoyable experience.",
-    pt: "Alugue bicicletas e explore Cariló e áreas circundantes. As ruas de areia não pavimentadas e o ambiente natural tornam o ciclismo uma experiência agradável.",
-    ru: "Возьмите велосипед напрокат и исследуйте Карило и окрестности. Грунтовые песчаные дороги и природная среда делают поездку на велосипеде приятным опытом."
-  },
-  offRoadEquipment: {
-    es: "Equipos todo terreno",
-    en: "Off-road equipment",
-    pt: "Equipamentos todo-terreno",
-    ru: "Внедорожное снаряжение"
-  },
-  walkingTime: {
-    es: "min caminando",
-    en: "min walking",
-    pt: "min caminhando",
-    ru: "мин пешком"
-  },
-  // Business descriptions
-  cocoSurfDesc: {
-    es: "Aprender surf y windsurf en la playa de Cariló con instructores profesionales. Alquiler de equipos incluido y clases para todos los niveles desde principiantes hasta avanzados.",
-    en: "Learn surfing and windsurfing at Cariló beach with professional instructors. Equipment rental included and classes for all levels from beginners to advanced.",
-    pt: "Aprenda surf e windsurf na praia de Cariló com instrutores profissionais. Aluguel de equipamentos incluído e aulas para todos os níveis, de iniciantes a avançados.",
-    ru: "Обучение серфингу и виндсерфингу на пляже Карило с профессиональными инструкторами. Аренда оборудования включена, занятия для всех уровней от начинающих до продвинутых."
-  },
-  balnearioHemingwayDesc: {
-    es: "Disfrutar de un día de playa con gastronomía de calidad y servicios completos frente al mar. El parador clásico de Cariló ofrece comida argentina, vista al océano y ambiente relajado.",
-    en: "Enjoy a beach day with quality gastronomy and full services by the sea. Cariló's classic beach club offers Argentine cuisine, ocean views, and a relaxed atmosphere.",
-    pt: "Aproveite um dia de praia com gastronomia de qualidade e serviços completos à beira-mar. O clássico clube de praia de Cariló oferece culinária argentina, vista para o oceano e ambiente descontraído.",
-    ru: "Наслаждайтесь пляжным днем с качественной гастрономией и полным сервисом у моря. Классический пляжный клуб Карило предлагает аргентинскую кухню, вид на океан и расслабленную атмосферу."
-  },
-  cariloGolfDesc: {
-    es: "Jugar golf en uno de los campos más prestigiosos de la costa argentina. Diseño de 18 hoyos par 73 rodeado de bosque de pinos con calles estrechas que demandan precisión.",
-    en: "Play golf at one of the most prestigious courses on the Argentine coast. 18-hole par 73 design surrounded by pine forest with narrow fairways demanding precision.",
-    pt: "Jogue golfe em um dos campos mais prestigiados da costa argentina. Design de 18 buracos par 73 cercado por floresta de pinheiros com fairways estreitos que exigem precisão.",
-    ru: "Играйте в гольф на одном из самых престижных полей на аргентинском побережье. Дизайн на 18 лунок пар 73, окруженный сосновым лесом с узкими фарватерами, требующими точности."
-  },
-  cieDesc: {
-    es: "Entrenar en un gimnasio completo rodeado de bosque con instructores incluidos. Pases diarios, semanales y mensuales disponibles.",
-    en: "Train at a complete gym surrounded by forest with instructors included. Daily, weekly, and monthly passes available.",
-    pt: "Treine em uma academia completa cercada por floresta com instrutores incluídos. Passes diários, semanais e mensais disponíveis.",
-    ru: "Тренируйтесь в полнофункциональном спортзале в окружении леса с инструкторами. Доступны дневные, недельные и месячные абонементы."
-  },
-  clubTenisDesc: {
-    es: "Jugar tenis, pádel y fútbol 5 en canchas de polvo de ladrillo. Alquiler de raquetas y clases disponibles.",
-    en: "Play tennis, padel, and 5-a-side football on clay courts. Racket rental and classes available.",
-    pt: "Jogue tênis, padel e futebol society em quadras de saibro. Aluguel de raquetes e aulas disponíveis.",
-    ru: "Играйте в теннис, падел и мини-футбол на грунтовых кортах. Доступна аренда ракеток и занятия."
-  },
-  aireLibreDesc: {
-    es: "Entrenar gratis las 24 horas en gimnasio al aire libre con barras de dominadas, paralelas y equipos de entrenamiento corporal.",
-    en: "Train free 24 hours at an outdoor gym with pull-up bars, parallel bars, and bodyweight training equipment.",
-    pt: "Treine grátis 24 horas em uma academia ao ar livre com barras de pull-up, barras paralelas e equipamentos de treino corporal.",
-    ru: "Тренируйтесь бесплатно 24 часа в уличном спортзале с турниками, брусьями и оборудованием для тренировок с собственным весом."
-  },
-  dalmiroDesc: {
-    es: "Paseos a caballo por la playa y bosques de Cariló. Experiencia única con caballos mansos y guías expertos.",
-    en: "Horseback riding tours through Cariló beaches and forests. Unique experience with gentle horses and expert guides.",
-    pt: "Passeios a cavalo pelas praias e florestas de Cariló. Experiência única com cavalos mansos e guias experientes.",
-    ru: "Конные прогулки по пляжам и лесам Карило. Уникальный опыт с послушными лошадьми и опытными гидами."
-  },
-  cabalgatasDesc: {
-    es: "Paseos a caballo por la costa atlántica y senderos del bosque. Salidas al amanecer y atardecer con grupos pequeños.",
-    en: "Horseback riding along the Atlantic coast and forest trails. Sunrise and sunset departures with small groups.",
-    pt: "Passeios a cavalo pela costa atlântica e trilhas da floresta. Saídas ao amanhecer e ao pôr do sol com grupos pequenos.",
-    ru: "Конные прогулки вдоль атлантического побережья и лесных троп. Выезды на рассвете и закате с небольшими группами."
   }
 }
 
@@ -493,16 +420,9 @@ const cariloGalleryImages = [
 ]
 
 export default function QueHacerEnCarilo() {
-  const pathname = usePathname()
+  const { language } = useLanguage()
   const [selectedImage, setSelectedImage] = useState<number | null>(null)
-
-  // Detect language from URL pathname (for SSR compatibility)
-  let detectedLang: 'es' | 'en' | 'pt' | 'ru' = 'es'
-  if (pathname.startsWith('/ru')) detectedLang = 'ru'
-  else if (pathname.startsWith('/en')) detectedLang = 'en'
-  else if (pathname.startsWith('/pt')) detectedLang = 'pt'
-
-  const lang = detectedLang
+  const lang = language.code as 'es' | 'en' | 'pt' | 'ru'
   const t = translations
 
   const businessCardTranslations = {
@@ -660,7 +580,7 @@ export default function QueHacerEnCarilo() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <BusinessCard
                 name="Coco Surf"
-                description={t.cocoSurfDesc[lang]}
+                description="Aprender surf y windsurf en la playa de Cariló con instructores profesionales. Alquiler de equipos incluido y clases para todos los niveles desde principiantes hasta avanzados."
                 rating={4.5}
                 reviewCount="85"
                 walkingTime="18 min"
@@ -671,12 +591,11 @@ export default function QueHacerEnCarilo() {
                 onImageClick={() => openLightbox(20)}
                 gradientFrom="blue-50"
                 gradientTo="indigo-50"
-                translations={businessCardTranslations}
               />
 
               <BusinessCard
                 name="Balneario Hemingway"
-                description={t.balnearioHemingwayDesc[lang]}
+                description="Disfrutar de un día de playa con gastronomía de calidad y servicios completos frente al mar. El parador clásico de Cariló ofrece comida argentina, vista al océano y ambiente relajado."
                 rating={4.0}
                 reviewCount="2,743"
                 walkingTime="24 min"
@@ -687,7 +606,6 @@ export default function QueHacerEnCarilo() {
                 onImageClick={() => openLightbox(15)}
                 gradientFrom="green-50"
                 gradientTo="emerald-50"
-                translations={businessCardTranslations}
               />
 
               <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg shadow-sm overflow-hidden">
@@ -707,16 +625,16 @@ export default function QueHacerEnCarilo() {
                   <div className="flex items-start mb-4">
                     <Bike className="h-6 w-6 mr-3 mt-1 text-orange-600" />
                     <div>
-                      <h3 className="text-xl font-semibold mb-2">{t.motorradTitle[lang]}</h3>
+                      <h3 className="text-xl font-semibold mb-2">Motorrad - Alquiler de Bicicletas</h3>
                       <p className="text-gray-700 mb-3">
-                        {t.motorradDesc[lang]}
+                        Alquilá bicicletas y explorá Cariló y las áreas circundantes. Las calles de arena sin pavimentar y el entorno natural de la ciudad hacen que la experiencia de ciclismo sea agradable.
                       </p>
                       <div className="flex items-center gap-4 text-sm text-orange-700 mb-3">
                         <span className="flex items-center">
-                          <span className="text-yellow-500">★</span> 4.6 (75+ {t.reviews[lang]})
+                          <span className="text-yellow-500">★</span> 4.6 (75+ reseñas)
                         </span>
                         <span>•</span>
-                        <span>{t.offRoadEquipment[lang]}</span>
+                        <span>Equipos todo terreno</span>
                       </div>
                       <a
                         href="https://www.google.com/maps/place/Motorrad,+Cerezo,+Cariló,+Provincia+de+Buenos+Aires,+Argentina"
@@ -725,7 +643,7 @@ export default function QueHacerEnCarilo() {
                         rel="noopener noreferrer"
                       >
                         <MapPin className="h-4 w-4" />
-                        {t.viewOnGoogleMaps[lang]} (24 {t.walkingTime[lang]})
+                        Ver en Google Maps (24 min caminando)
                       </a>
                     </div>
                   </div>
@@ -744,7 +662,7 @@ export default function QueHacerEnCarilo() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <BusinessCard
                 name="Cariló Golf Club"
-                description={t.cariloGolfDesc[lang]}
+                description="Jugar golf en uno de los campos más prestigiosos de la costa argentina. Diseño de 18 hoyos par 73 rodeado de bosque de pinos con calles estrechas que demandan precisión."
                 rating={4.3}
                 reviewCount="85"
                 walkingTime="25 min"
@@ -755,12 +673,11 @@ export default function QueHacerEnCarilo() {
                 onImageClick={() => openLightbox(18)}
                 gradientFrom="green-50"
                 gradientTo="emerald-50"
-                translations={businessCardTranslations}
               />
 
               <BusinessCard
                 name="CIE - Centro de Entrenamiento"
-                description={t.cieDesc[lang]}
+                description="Entrenar en un gimnasio completo rodeado de bosque con instructores incluidos. Pases diarios, semanales y mensuales disponibles."
                 rating={4.5}
                 reviewCount="120"
                 walkingTime="17 min"
@@ -771,12 +688,11 @@ export default function QueHacerEnCarilo() {
                 onImageClick={() => openLightbox(17)}
                 gradientFrom="blue-50"
                 gradientTo="indigo-50"
-                translations={businessCardTranslations}
               />
 
               <BusinessCard
                 name="Club de Tenis Cariló"
-                description={t.clubTenisDesc[lang]}
+                description="Jugar tenis, pádel y fútbol 5 en canchas de polvo de ladrillo. Alquiler de raquetas y clases disponibles."
                 rating={4.3}
                 reviewCount="95"
                 walkingTime="20 min"
@@ -787,12 +703,11 @@ export default function QueHacerEnCarilo() {
                 onImageClick={() => openLightbox(18)}
                 gradientFrom="green-50"
                 gradientTo="emerald-50"
-                translations={businessCardTranslations}
               />
 
               <BusinessCard
                 name="Aire Libre, Libre"
-                description={t.aireLibreDesc[lang]}
+                description="Entrenar gratis las 24 horas en gimnasio al aire libre con barras de dominadas, paralelas y equipos de entrenamiento corporal."
                 rating={4.8}
                 reviewCount="65"
                 walkingTime="15 min"
@@ -803,12 +718,11 @@ export default function QueHacerEnCarilo() {
                 onImageClick={() => openLightbox(19)}
                 gradientFrom="red-50"
                 gradientTo="rose-50"
-                translations={businessCardTranslations}
               />
 
               <BusinessCard
                 name="Dalmiro Paseo a Caballo"
-                description={t.dalmiroDesc[lang]}
+                description="Paseos a caballo por la playa y bosques de Cariló. Experiencia única con caballos mansos y guías expertos."
                 rating={4.7}
                 reviewCount="120"
                 walkingTime="35 min"
@@ -819,12 +733,11 @@ export default function QueHacerEnCarilo() {
                 onImageClick={() => openLightbox(21)}
                 gradientFrom="amber-50"
                 gradientTo="orange-50"
-                translations={businessCardTranslations}
               />
 
               <BusinessCard
                 name="Cabalgatas El Relincho"
-                description={t.cabalgatasDesc[lang]}
+                description="Paseos a caballo por la costa atlántica y senderos del bosque. Salidas al amanecer y atardecer con grupos pequeños."
                 rating={4.8}
                 reviewCount="95"
                 walkingTime="40 min"
@@ -835,7 +748,6 @@ export default function QueHacerEnCarilo() {
                 onImageClick={() => openLightbox(22)}
                 gradientFrom="green-50"
                 gradientTo="emerald-50"
-                translations={businessCardTranslations}
               />
             </div>
           </div>

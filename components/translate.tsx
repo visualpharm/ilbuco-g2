@@ -1,6 +1,6 @@
 "use client"
 
-import { useLanguage } from "@/contexts/language-context"
+import { usePathname } from "next/navigation"
 
 interface TranslationProps {
   text: {
@@ -9,10 +9,13 @@ interface TranslationProps {
 }
 
 export function Translate({ text }: TranslationProps) {
-  const { language } = useLanguage()
+  const pathname = usePathname()
 
-  // Get the base language code from the language object
-  const baseLanguage = language.code
+  // Detect language from URL pathname (for SSR compatibility)
+  let baseLanguage: string = 'es'
+  if (pathname.startsWith('/ru')) baseLanguage = 'ru'
+  else if (pathname.startsWith('/en')) baseLanguage = 'en'
+  else if (pathname.startsWith('/pt')) baseLanguage = 'pt'
 
   // Try to get the translation for the current language
   if (text[baseLanguage]) {

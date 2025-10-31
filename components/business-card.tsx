@@ -15,6 +15,12 @@ interface BusinessCardProps {
   onImageClick: () => void
   gradientFrom: string
   gradientTo: string
+  translations: {
+    for: string
+    reviews: string
+    distanceFrom: string
+    viewOnGoogleMaps: string
+  }
 }
 
 export function BusinessCard({
@@ -29,7 +35,13 @@ export function BusinessCard({
   imageAlt,
   onImageClick,
   gradientFrom = "green-50",
-  gradientTo = "emerald-50"
+  gradientTo = "emerald-50",
+  translations = {
+    for: "Para:",
+    reviews: "reseñas",
+    distanceFrom: "Distancia desde",
+    viewOnGoogleMaps: "Ver en Google Maps"
+  }
 }: BusinessCardProps) {
   return (
     <div className={`bg-gradient-to-br from-${gradientFrom} to-${gradientTo} rounded-lg shadow-sm overflow-hidden`}>
@@ -49,16 +61,16 @@ export function BusinessCard({
         <div>
           <h3 className="text-xl font-semibold mb-2">{name}</h3>
           <p className="text-gray-700 mb-3">
-            <strong>Para:</strong> {description}
+            <strong>{translations.for}</strong> {description}
           </p>
           <div className="flex items-center gap-4 text-sm text-green-700 mb-3">
             <span className="flex items-center">
-              <span className="text-yellow-500">★</span> {rating} ({reviewCount}+ reseñas)
+              <span className="text-yellow-500">★</span> {rating} ({reviewCount}+ {translations.reviews})
             </span>
           </div>
           <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
             <span className="font-medium">
-              Distancia desde{" "}
+              {translations.distanceFrom}{" "}
               <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">
                 Il Buco
               </Link>:
@@ -79,7 +91,7 @@ export function BusinessCard({
             rel="nofollow noopener noreferrer"
           >
             <MapPin className="h-4 w-4" />
-            Ver en Google Maps
+            {translations.viewOnGoogleMaps}
           </a>
         </div>
       </div>
