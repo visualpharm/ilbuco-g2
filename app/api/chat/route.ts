@@ -165,15 +165,34 @@ export async function POST(request: NextRequest) {
 
     let availabilityContext = '';
     if (availability) {
-      availabilityContext = `\n\n## Current Availability (${today} to ${endDate}):\n`;
+      // Build TODAY's availability separately
+      availabilityContext = `\n\n## TODAY'S Availability (${today}):\n`;
+      let todayAvailableCount = 0;
       for (const [suiteName, info] of Object.entries(availability)) {
-        if (suiteName === 'Whole House') continue; // Skip whole house for individual queries
+        if (suiteName === 'Whole House') continue;
+        const todayData = info.dates[today];
+        const isAvailableToday = todayData?.available || false;
+        const todayPrice = todayData?.price || 0;
+        if (isAvailableToday) todayAvailableCount++;
         const bookingInfo = LISTINGS.find(l => l.name === suiteName);
-        availabilityContext += `- **${suiteName}**: ${info.available ? `Available, from $${info.price}/night` : 'Fully booked'}`;
-        if (bookingInfo) {
-          availabilityContext += ` - Book: ${bookingInfo.bookingUrl}`;
-        }
+        availabilityContext += `- ${suiteName}: ${isAvailableToday ? `AVAILABLE TODAY at $${todayPrice}/night` : 'BOOKED TODAY'}`;
+        if (bookingInfo) availabilityContext += ` - ${bookingInfo.bookingUrl}`;
         availabilityContext += '\n';
+      }
+      availabilityContext += `\nTOTAL: ${todayAvailableCount} of 4 suites available TODAY.\n`;
+
+      // Add future availability summary
+      availabilityContext += `\n## Future Availability (next 30 days):\n`;
+      for (const [suiteName, info] of Object.entries(availability)) {
+        if (suiteName === 'Whole House') continue;
+        const availableDates = Object.entries(info.dates)
+          .filter(([_, d]) => d.available)
+          .map(([date, _]) => date);
+        if (availableDates.length > 0) {
+          availabilityContext += `- ${suiteName}: Available on ${availableDates.length} days, from $${info.price}/night\n`;
+        } else {
+          availabilityContext += `- ${suiteName}: Fully booked for next 30 days\n`;
+        }
       }
     }
 
@@ -202,7 +221,11 @@ Important guidelines:
 - If asked about exact prices for specific dates not in your data, suggest they check the booking page
 - For booking, always provide the direct booking link: https://book.ilbuco.com.ar/
 - Be warm and welcoming, but professional
-- If you don't know something, say so and suggest contacting us directly`;
+- If you don't know something, say so and suggest contacting us directly
+- IMPORTANT: When asked about TODAY's availability, use the TODAY'S Availability section which shows real-time data
+- Use **bold** for suite names and important info
+- Don't use markdown links like [text](url) - instead just say "book at book.ilbuco.com.ar"
+- Keep responses conversational and easy to read`;
 
     const openai = new OpenAI({ apiKey: openaiKey });
 

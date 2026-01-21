@@ -4,6 +4,7 @@ import "@/styles/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/contexts/language-context"
 import { ClientLayout } from '@/components/client-layout'
+import { ChatWidget } from '@/components/chat-widget'
 import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -52,6 +53,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
             <LanguageProvider>
               {children}
+              <ChatWidget />
             </LanguageProvider>
           </ThemeProvider>
         </ClientLayout>
