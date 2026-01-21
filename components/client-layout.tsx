@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { ChatWidget } from './chat-widget'
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -8,5 +9,10 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
     document.body.removeAttribute('data-extension-installed')
   }, [])
 
-  return <>{children}</>
+  return (
+    <>
+      {children}
+      <ChatWidget />
+    </>
+  )
 }
