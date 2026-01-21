@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+// Hostex API endpoint for fetching calendar availability
 const HOSTEX_API_URL = 'https://api.hostex.io/v3/listings/calendar';
 
 const LISTINGS = [
