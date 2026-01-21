@@ -362,6 +362,46 @@ export const translations = {
     },
   },
 
+  // Availability badge
+  availability: {
+    soldOut: {
+      en: "Sold out today",
+      es: "Agotado hoy",
+      pt: "Esgotado hoje",
+      ru: "Всё занято",
+    },
+    oneRoom: {
+      en: "A room is available today",
+      es: "Hay una habitación disponible hoy",
+      pt: "Um quarto está disponível hoje",
+      ru: "Один номер свободен",
+    },
+    multipleRooms: {
+      en: "{count} rooms available today",
+      es: "{count} habitaciones disponibles hoy",
+      pt: "{count} quartos disponíveis hoje",
+      ru: "{count} номера свободно",
+    },
+    wholeHouse: {
+      en: "The whole house is available",
+      es: "Toda la casa está disponible",
+      pt: "A casa toda está disponível",
+      ru: "Весь дом свободен",
+    },
+    todayFrom: {
+      en: "Today from ${price}",
+      es: "Hoy desde ${price}",
+      pt: "Hoje a partir de ${price}",
+      ru: "Сегодня от ${price}",
+    },
+    soldOutToday: {
+      en: "Sold out today",
+      es: "Agotado hoy",
+      pt: "Esgotado hoje",
+      ru: "Всё занято сегодня",
+    },
+  },
+
   // Common terms
   common: {
     utilities: {

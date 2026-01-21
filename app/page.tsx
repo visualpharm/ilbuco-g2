@@ -9,6 +9,7 @@ import { Translate } from "@/components/translate"
 import { AmenitiesToolTip } from "@/components/amenities-tooltip"
 import { BookingPopup } from "@/components/booking-popup"
 import { HeroImage } from "@/components/hero-image"
+import { HeroAvailability } from "@/components/hero-availability"
 import { translations } from "@/translations/common"
 // Windows 11 style icons replaced Lucide React icons
 // Icons are now served as SVG files from /public/icons/
@@ -36,13 +37,14 @@ export default function Home() {
                   </AmenitiesToolTip>
                   <Translate text={translations.home.hero.subtitlePart2} /> Perfecta para <Link href="/casas-en-carilo-alquiler" className="text-gray-700 no-underline hover:text-gray-600">casas</Link> de lujo en <Link href="/carilo-alquiler" className="text-gray-700 no-underline hover:text-gray-600">Cariló</Link>.
                 </p>
-                <div className="pt-2 md:pt-3 lg:pt-4">
+                <div className="pt-2 md:pt-3 lg:pt-4 flex flex-wrap items-center gap-4">
                   <button
                     onClick={() => setIsBookingPopupOpen(true)}
                     className="inline-flex items-center justify-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
                     <Translate text={translations.home.hero.cta} />
                   </button>
+                  <HeroAvailability />
                 </div>
               </div>
               <div className="order-2 md:order-2">
