@@ -1,9 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { LISTINGS, buildSystemPrompt, buildBookingDeepLink } from '@/lib/chat-prompt';
+import { promises as fs } from 'fs';
+import path from 'path';
 
 const HOSTEX_API_URL = 'https://api.hostex.io/v3/listings/calendar';
 const HOSTEX_RESERVATIONS_URL = 'https://api.hostex.io/v3/reservations';
+
+// Log directory for chat conversations
+const LOG_DIR = path.join(process.cwd(), 'logs', 'conversations');
+
+// Log chat conversation
+async function logChatConversation(data: {
+  sessionId: string;
+  messages: Array<{ role: string; content: string }>;
+  response: string;
+  language: string;
+  model: string;
+  tokens: { prompt: number; completion: number; total: number };
+  responseTimeMs: number;
+}) {
+  try {
+    await fs.mkdir(LOG_DIR, { recursive: true });
+    const logFile = path.join(LOG_DIR, `chat-${new Date().toISOString().split('T')[0]}.jsonl`);
+    const logEntry = {
+      ...data,
+      timestamp: new Date().toISOString(),
+    };
+    await fs.appendFile(logFile, JSON.stringify(logEntry) + '\n');
+  } catch (error) {
+    console.error('[Chat API] Error logging conversation:', error);
+  }
+}
 
 // Mapping from listing_id to suite name
 const LISTING_ID_TO_SUITE: Record<string, string> = {
@@ -346,6 +374,22 @@ export async function POST(request: NextRequest) {
       return 'en';
     };
     const detectedLanguage = detectLanguage(reply);
+
+    // Log conversation (non-blocking)
+    const sessionId = `chat-${Date.now()}-${Math.random().toString(36).substring(7)}`;
+    logChatConversation({
+      sessionId,
+      messages,
+      response: reply,
+      language: detectedLanguage,
+      model,
+      tokens: {
+        prompt: usage?.prompt_tokens || 0,
+        completion: usage?.completion_tokens || 0,
+        total: usage?.total_tokens || 0,
+      },
+      responseTimeMs: responseTime,
+    }).catch(err => console.error('[Chat API] Logging error:', err));
 
     return NextResponse.json({
       message: reply,

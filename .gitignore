@@ -53,3 +53,6 @@ Temporary Items
 
 # Unused images
 /public/unused/
+
+# Conversation logs
+/logs/
