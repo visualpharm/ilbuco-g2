@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { Phone, PhoneOff, Mic, MicOff, Volume2 } from 'lucide-react';
+import { Phone, PhoneOff, Mic, MicOff, Volume2, Copy, Check } from 'lucide-react';
 import Vapi from '@vapi-ai/web';
 
 // Vapi Configuration
@@ -23,8 +23,24 @@ export default function VoiceTestPage() {
   const [assistantId, setAssistantId] = useState(DEFAULT_ASSISTANT_ID);
   const [error, setError] = useState<string | null>(null);
   const [sdkReady, setSdkReady] = useState(false);
+  const [copied, setCopied] = useState(false);
   const vapiRef = useRef<Vapi | null>(null);
   const transcriptEndRef = useRef<HTMLDivElement>(null);
+
+  // Copy transcript to clipboard
+  const copyTranscript = useCallback(() => {
+    const text = transcript
+      .map(entry => {
+        const role = entry.role === 'user' ? 'You' : entry.role === 'assistant' ? 'Assistant' : 'System';
+        return `${role}\n${entry.text}`;
+      })
+      .join('\n\n');
+
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }, [transcript]);
 
   // Auto-scroll transcript
   useEffect(() => {
@@ -223,8 +239,26 @@ export default function VoiceTestPage() {
 
         {/* Transcript */}
         <div className="bg-gray-800/50 rounded-xl border border-gray-700 overflow-hidden">
-          <div className="px-4 py-3 border-b border-gray-700 bg-gray-800">
+          <div className="px-4 py-3 border-b border-gray-700 bg-gray-800 flex items-center justify-between">
             <h2 className="font-semibold">Conversation Transcript</h2>
+            {transcript.length > 0 && (
+              <button
+                onClick={copyTranscript}
+                className="flex items-center gap-2 px-3 py-1.5 text-sm bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-4 h-4 text-green-400" />
+                    <span className="text-green-400">Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+            )}
           </div>
           <div className="h-96 overflow-y-auto p-4 space-y-3">
             {transcript.length === 0 ? (
