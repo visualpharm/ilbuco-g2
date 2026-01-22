@@ -3,6 +3,85 @@ import OpenAI from 'openai';
 import { LISTINGS, buildSystemPrompt, buildBookingDeepLink } from '@/lib/chat-prompt';
 
 const HOSTEX_API_URL = 'https://api.hostex.io/v3/listings/calendar';
+const HOSTEX_RESERVATIONS_URL = 'https://api.hostex.io/v3/reservations';
+
+// Mapping from listing_id to suite name
+const LISTING_ID_TO_SUITE: Record<string, string> = {
+  '110800-13274': 'Giardino',
+  '110801-13274': 'Terrazzo',
+  '110802-13274': 'Paraiso',
+  '110803-13274': 'Penthouse',
+};
+
+interface CurrentGuest {
+  firstName: string;
+  lastName: string;
+  suite: string;
+  checkIn: string;
+  checkOut: string;
+}
+
+// Fetch current reservations to verify guests
+async function getCurrentGuests(): Promise<CurrentGuest[]> {
+  const hostexKey = process.env.HOSTEX_API_KEY;
+  if (!hostexKey) return [];
+
+  try {
+    const today = new Date().toISOString().split('T')[0];
+
+    // Fetch reservations for a window around today
+    const response = await fetch(HOSTEX_RESERVATIONS_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Hostex-Access-Token': hostexKey,
+      },
+      body: JSON.stringify({
+        start_date: today,
+        end_date: today,
+        status: ['confirmed', 'checked_in'],
+      }),
+    });
+
+    if (!response.ok) return [];
+    const data = await response.json();
+    if (data.error_code !== 200) return [];
+
+    const reservations = data.data?.reservations || [];
+    const currentGuests: CurrentGuest[] = [];
+
+    for (const res of reservations) {
+      // Check if reservation is active today
+      const checkIn = res.check_in || res.checkin_date;
+      const checkOut = res.check_out || res.checkout_date;
+
+      if (checkIn && checkOut && checkIn <= today && today < checkOut) {
+        const guestName = res.guest_name || res.guest?.name || '';
+        const nameParts = guestName.trim().split(/\s+/);
+        const firstName = nameParts[0] || '';
+        const lastName = nameParts.slice(1).join(' ') || '';
+
+        const listingId = res.listing_id || '';
+        const suite = LISTING_ID_TO_SUITE[listingId] || res.listing_name || 'Unknown';
+
+        if (firstName) {
+          currentGuests.push({
+            firstName,
+            lastName,
+            suite,
+            checkIn,
+            checkOut,
+          });
+        }
+      }
+    }
+
+    return currentGuests;
+  } catch (error) {
+    console.error('Error fetching reservations:', error);
+    return [];
+  }
+}
 
 async function getAvailability(startDate: string, endDate: string) {
   const hostexKey = process.env.HOSTEX_API_KEY;
@@ -131,7 +210,12 @@ export async function POST(request: NextRequest) {
     // Fetch real-time availability for the next 90 days (covers ~3 months)
     const today = getTodayDate();
     const endDate = getDatePlusDays(90);
-    const availability = await getAvailability(today, endDate);
+
+    // Fetch availability and current guests in parallel
+    const [availability, currentGuests] = await Promise.all([
+      getAvailability(today, endDate),
+      getCurrentGuests(),
+    ]);
 
     let availabilityContext = '';
     if (availability) {
@@ -213,8 +297,17 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Build guest context for verification
+    let guestContext = '';
+    if (currentGuests.length > 0) {
+      guestContext = '\n\n## CURRENT VERIFIED GUESTS (confidential - for verification only):\n';
+      for (const guest of currentGuests) {
+        guestContext += `- ${guest.firstName} ${guest.lastName} in ${guest.suite} (${guest.checkIn} to ${guest.checkOut})\n`;
+      }
+    }
+
     // Build system prompt from external file
-    const systemPrompt = buildSystemPrompt(language, availabilityContext);
+    const systemPrompt = buildSystemPrompt(language, availabilityContext, guestContext);
 
     const openai = new OpenAI({ apiKey: openaiKey });
     const model = 'gpt-5.2-chat-latest';
