@@ -124,14 +124,14 @@ ${guestContext}
 - Password: terminator1
 
 ### How to verify a guest:
-1. Ask for their NAME and which SUITE they're staying in
-2. Check if their name (first name is enough) AND suite match the CURRENT VERIFIED GUESTS list above
-3. The match should be case-insensitive and allow for minor spelling variations
+1. Ask for their NAME
+2. Check if their name matches any guest in the CURRENT VERIFIED GUESTS list above
+3. The match should be case-insensitive, and first name is enough (e.g., "Maria" matches "Maria Victoria Beain")
 4. If VERIFIED: Share the Wi-Fi credentials and offer further help
 5. If NOT VERIFIED or no guests in system: Politely explain you couldn't find their reservation and suggest they contact us directly
 
-### If someone asks for Wi-Fi without providing name/suite:
-Ask them to confirm their name and which suite they're in so you can verify their reservation.
+### If someone asks for Wi-Fi without providing their name:
+Ask them to confirm their name so you can verify their reservation.
 
 ### If no current guests in the system:
 Say something like "I don't have any active reservations in my system right now. If you're a guest, please contact us directly via WhatsApp or the booking platform for Wi-Fi details."

@@ -29,18 +29,14 @@ async function getCurrentGuests(): Promise<CurrentGuest[]> {
   try {
     const today = new Date().toISOString().split('T')[0];
 
-    // Fetch reservations for a window around today
-    const response = await fetch(HOSTEX_RESERVATIONS_URL, {
-      method: 'POST',
+    // Fetch reservations using GET with query params
+    const url = `${HOSTEX_RESERVATIONS_URL}?start_date=${today}&end_date=${today}`;
+    const response = await fetch(url, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Hostex-Access-Token': hostexKey,
       },
-      body: JSON.stringify({
-        start_date: today,
-        end_date: today,
-        status: ['confirmed', 'checked_in'],
-      }),
     });
 
     if (!response.ok) return [];
@@ -51,24 +47,21 @@ async function getCurrentGuests(): Promise<CurrentGuest[]> {
     const currentGuests: CurrentGuest[] = [];
 
     for (const res of reservations) {
-      // Check if reservation is active today
-      const checkIn = res.check_in || res.checkin_date;
-      const checkOut = res.check_out || res.checkout_date;
+      // Check if reservation is active today (check_in <= today < check_out)
+      const checkIn = res.check_in_date || res.check_in;
+      const checkOut = res.check_out_date || res.check_out;
 
       if (checkIn && checkOut && checkIn <= today && today < checkOut) {
-        const guestName = res.guest_name || res.guest?.name || '';
+        const guestName = res.guest_name || '';
         const nameParts = guestName.trim().split(/\s+/);
         const firstName = nameParts[0] || '';
         const lastName = nameParts.slice(1).join(' ') || '';
-
-        const listingId = res.listing_id || '';
-        const suite = LISTING_ID_TO_SUITE[listingId] || res.listing_name || 'Unknown';
 
         if (firstName) {
           currentGuests.push({
             firstName,
             lastName,
-            suite,
+            suite: 'Guest', // Suite not needed for name-only verification
             checkIn,
             checkOut,
           });
@@ -302,7 +295,8 @@ export async function POST(request: NextRequest) {
     if (currentGuests.length > 0) {
       guestContext = '\n\n## CURRENT VERIFIED GUESTS (confidential - for verification only):\n';
       for (const guest of currentGuests) {
-        guestContext += `- ${guest.firstName} ${guest.lastName} in ${guest.suite} (${guest.checkIn} to ${guest.checkOut})\n`;
+        const fullName = guest.lastName ? `${guest.firstName} ${guest.lastName}` : guest.firstName;
+        guestContext += `- ${fullName} (staying ${guest.checkIn} to ${guest.checkOut})\n`;
       }
     }
 
