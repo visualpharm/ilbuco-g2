@@ -1,23 +1,12 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { Phone, PhoneOff, Mic, MicOff, Volume2 } from 'lucide-react';
+import Vapi from '@vapi-ai/web';
 
 // Vapi Configuration
 const VAPI_PUBLIC_KEY = '2cbf0b35-03ca-43ea-8a7e-7197d3e7b290';
 const DEFAULT_ASSISTANT_ID = '20b94c7f-c293-4c22-9d1a-2a9a2fcd22a2';
-
-interface VapiMessage {
-  type: string;
-  transcript?: string;
-  role?: 'user' | 'assistant';
-  transcriptType?: 'partial' | 'final';
-  status?: string;
-  functionCall?: {
-    name: string;
-    parameters: Record<string, unknown>;
-  };
-}
 
 interface TranscriptEntry {
   role: 'user' | 'assistant' | 'system';
@@ -33,7 +22,8 @@ export default function VoiceTestPage() {
   const [currentSpeaker, setCurrentSpeaker] = useState<'user' | 'assistant' | null>(null);
   const [assistantId, setAssistantId] = useState(DEFAULT_ASSISTANT_ID);
   const [error, setError] = useState<string | null>(null);
-  const vapiRef = useRef<unknown>(null);
+  const [sdkReady, setSdkReady] = useState(false);
+  const vapiRef = useRef<Vapi | null>(null);
   const transcriptEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll transcript
@@ -41,28 +31,75 @@ export default function VoiceTestPage() {
     transcriptEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [transcript]);
 
-  // Load Vapi SDK
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/@vapi-ai/web@latest/dist/vapi.umd.js';
-    script.async = true;
-    script.onload = () => {
-      console.log('Vapi SDK loaded');
-    };
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
+  const addTranscriptEntry = useCallback((role: 'user' | 'assistant' | 'system', text: string) => {
+    setTranscript(prev => [...prev, { role, text, timestamp: new Date() }]);
   }, []);
 
-  const addTranscriptEntry = (role: 'user' | 'assistant' | 'system', text: string) => {
-    setTranscript(prev => [...prev, { role, text, timestamp: new Date() }]);
-  };
+  // Initialize Vapi SDK
+  useEffect(() => {
+    const vapi = new Vapi(VAPI_PUBLIC_KEY);
+    vapiRef.current = vapi;
+
+    // Set up event listeners
+    vapi.on('call-start', () => {
+      console.log('Call started');
+      setIsConnected(true);
+      setIsConnecting(false);
+      addTranscriptEntry('system', 'Call connected');
+    });
+
+    vapi.on('call-end', () => {
+      console.log('Call ended');
+      setIsConnected(false);
+      setIsConnecting(false);
+      setCurrentSpeaker(null);
+      addTranscriptEntry('system', 'Call ended');
+    });
+
+    vapi.on('speech-start', () => {
+      setCurrentSpeaker('assistant');
+    });
+
+    vapi.on('speech-end', () => {
+      setCurrentSpeaker(null);
+    });
+
+    vapi.on('message', (message) => {
+      console.log('Vapi message:', message);
+
+      if (message.type === 'transcript') {
+        if (message.transcriptType === 'final' && message.transcript) {
+          addTranscriptEntry(message.role || 'user', message.transcript);
+        }
+      }
+
+      if (message.type === 'function-call' && message.functionCall) {
+        addTranscriptEntry('system', `Checking availability: ${JSON.stringify(message.functionCall.parameters)}`);
+      }
+    });
+
+    vapi.on('error', (error) => {
+      console.error('Vapi error:', error);
+      setError(typeof error === 'string' ? error : 'An error occurred');
+      setIsConnected(false);
+      setIsConnecting(false);
+    });
+
+    setSdkReady(true);
+
+    return () => {
+      vapi.stop();
+    };
+  }, [addTranscriptEntry]);
 
   const startCall = async () => {
     if (!assistantId) {
-      setError('Please enter an Assistant ID. Run the configuration script first.');
+      setError('Please enter an Assistant ID.');
+      return;
+    }
+
+    if (!vapiRef.current) {
+      setError('Vapi SDK not initialized. Please refresh the page.');
       return;
     }
 
@@ -71,67 +108,7 @@ export default function VoiceTestPage() {
     setTranscript([]);
 
     try {
-      // @ts-expect-error - Vapi is loaded from CDN
-      const Vapi = window.Vapi;
-      if (!Vapi) {
-        throw new Error('Vapi SDK not loaded. Please refresh the page.');
-      }
-
-      const vapi = new Vapi(VAPI_PUBLIC_KEY);
-      vapiRef.current = vapi;
-
-      // Set up event listeners
-      vapi.on('call-start', () => {
-        console.log('Call started');
-        setIsConnected(true);
-        setIsConnecting(false);
-        addTranscriptEntry('system', 'Call connected');
-      });
-
-      vapi.on('call-end', () => {
-        console.log('Call ended');
-        setIsConnected(false);
-        setIsConnecting(false);
-        setCurrentSpeaker(null);
-        addTranscriptEntry('system', 'Call ended');
-      });
-
-      vapi.on('speech-start', () => {
-        setCurrentSpeaker('assistant');
-      });
-
-      vapi.on('speech-end', () => {
-        setCurrentSpeaker(null);
-      });
-
-      vapi.on('message', (message: VapiMessage) => {
-        console.log('Vapi message:', message);
-
-        if (message.type === 'transcript') {
-          if (message.transcriptType === 'final' && message.transcript) {
-            addTranscriptEntry(message.role || 'user', message.transcript);
-          }
-        }
-
-        if (message.type === 'function-call' && message.functionCall) {
-          addTranscriptEntry('system', `Checking availability: ${JSON.stringify(message.functionCall.parameters)}`);
-        }
-
-        if (message.type === 'status-update') {
-          console.log('Status:', message.status);
-        }
-      });
-
-      vapi.on('error', (error: Error) => {
-        console.error('Vapi error:', error);
-        setError(error.message || 'An error occurred');
-        setIsConnected(false);
-        setIsConnecting(false);
-      });
-
-      // Start the call
-      await vapi.start(assistantId);
-
+      await vapiRef.current.start(assistantId);
     } catch (err) {
       console.error('Error starting call:', err);
       setError(err instanceof Error ? err.message : 'Failed to start call');
@@ -141,7 +118,6 @@ export default function VoiceTestPage() {
 
   const endCall = () => {
     if (vapiRef.current) {
-      // @ts-expect-error - Vapi instance
       vapiRef.current.stop();
     }
     setIsConnected(false);
@@ -150,7 +126,6 @@ export default function VoiceTestPage() {
 
   const toggleMute = () => {
     if (vapiRef.current) {
-      // @ts-expect-error - Vapi instance
       vapiRef.current.setMuted(!isMuted);
       setIsMuted(!isMuted);
     }
@@ -165,6 +140,9 @@ export default function VoiceTestPage() {
           <p className="text-gray-400">
             Test the Vapi.ai voice interface for Il Buco
           </p>
+          {sdkReady && (
+            <p className="text-green-500 text-sm mt-2">SDK Ready</p>
+          )}
         </div>
 
         {/* Assistant ID Input */}
@@ -176,12 +154,9 @@ export default function VoiceTestPage() {
             type="text"
             value={assistantId}
             onChange={(e) => setAssistantId(e.target.value)}
-            placeholder="Enter the Assistant ID from the configuration script"
+            placeholder="Enter the Assistant ID"
             className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <p className="text-xs text-gray-500 mt-2">
-            Run <code className="bg-gray-800 px-1 rounded">node scripts/configure_vapi_assistant.js</code> to get the Assistant ID
-          </p>
         </div>
 
         {/* Error Display */}
@@ -196,9 +171,9 @@ export default function VoiceTestPage() {
           {!isConnected ? (
             <button
               onClick={startCall}
-              disabled={isConnecting}
+              disabled={isConnecting || !sdkReady}
               className={`flex items-center gap-3 px-8 py-4 rounded-full font-semibold transition-all ${
-                isConnecting
+                isConnecting || !sdkReady
                   ? 'bg-gray-600 cursor-wait'
                   : 'bg-green-600 hover:bg-green-500 active:scale-95'
               }`}
@@ -291,22 +266,20 @@ export default function VoiceTestPage() {
         <div className="mt-8 p-6 bg-gray-800/30 rounded-xl border border-gray-700">
           <h3 className="font-semibold mb-4">How to Test</h3>
           <ol className="list-decimal list-inside space-y-2 text-gray-300 text-sm">
-            <li>Run <code className="bg-gray-800 px-2 py-0.5 rounded">node scripts/configure_vapi_assistant.js</code> to create the assistant</li>
-            <li>Copy the Assistant ID from the output</li>
-            <li>Paste it in the field above</li>
             <li>Click &quot;Start Call&quot; and allow microphone access</li>
             <li>Speak naturally - try asking about room availability!</li>
+            <li>The assistant will respond in your language</li>
           </ol>
           <div className="mt-4 p-3 bg-blue-900/30 rounded-lg border border-blue-800">
             <p className="text-blue-200 text-sm">
-              <strong>Tip:</strong> Try saying &quot;Hola, quiero saber qué habitaciones hay disponibles para el próximo fin de semana&quot; or &quot;What rooms do you have available?&quot;
+              <strong>Tip:</strong> Try saying &quot;Hola, quiero saber qué habitaciones hay disponibles&quot; or &quot;What rooms do you have available?&quot;
             </p>
           </div>
         </div>
 
         {/* Debug Info */}
         <div className="mt-6 text-center text-xs text-gray-600">
-          <p>Vapi Public Key: {VAPI_PUBLIC_KEY.substring(0, 8)}...</p>
+          <p>Assistant ID: {assistantId.substring(0, 8)}...</p>
         </div>
       </div>
     </div>
