@@ -3,8 +3,9 @@
 import { useEffect, useState, useRef } from 'react';
 import { Phone, PhoneOff, Mic, MicOff, Volume2 } from 'lucide-react';
 
-// Vapi Public Key
+// Vapi Configuration
 const VAPI_PUBLIC_KEY = '2cbf0b35-03ca-43ea-8a7e-7197d3e7b290';
+const DEFAULT_ASSISTANT_ID = '20b94c7f-c293-4c22-9d1a-2a9a2fcd22a2';
 
 interface VapiMessage {
   type: string;
@@ -30,7 +31,7 @@ export default function VoiceTestPage() {
   const [isMuted, setIsMuted] = useState(false);
   const [transcript, setTranscript] = useState<TranscriptEntry[]>([]);
   const [currentSpeaker, setCurrentSpeaker] = useState<'user' | 'assistant' | null>(null);
-  const [assistantId, setAssistantId] = useState('');
+  const [assistantId, setAssistantId] = useState(DEFAULT_ASSISTANT_ID);
   const [error, setError] = useState<string | null>(null);
   const vapiRef = useRef<unknown>(null);
   const transcriptEndRef = useRef<HTMLDivElement>(null);
