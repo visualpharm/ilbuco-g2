@@ -386,10 +386,10 @@ export const placesNearbyTranslations = {
       },
       boutique: {
         description: {
-          en: "Boutique de Frutas – Self-service, which is not common. Pick the best or blame on someone else.",
-          es: "Boutique de Frutas – Autoservicio, lo cual no es común. Elegí las mejores o culpá a alguien más.",
-          pt: "Boutique de Frutas – Self-service, o que não é comum. Escolha as melhores ou culpe outra pessoa.",
-          ru: "Boutique de Frutas – Самообслуживание, что тут редкость. Выбирайте лучшее или вините кого-то другого.",
+          en: "Boutique de Frutas – Self-service greengrocer. Cheap products near expiration. Budget-friendly and practical.",
+          es: "Boutique de Frutas – Verdulería autoservicio. Productos baratos cerca de vencer. Económico y práctico.",
+          pt: "Boutique de Frutas – Quitanda self-service. Produtos baratos perto de vencer. Econômico e prático.",
+          ru: "Boutique de Frutas – Овощной магазин самообслуживания. Дешёвые продукты на грани срока. Бюджетно и практично.",
         }
       }
     },

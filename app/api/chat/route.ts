@@ -3,31 +3,54 @@ import OpenAI from 'openai';
 import { LISTINGS, buildSystemPrompt, buildBookingDeepLink } from '@/lib/chat-prompt';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { searchLocalBusinessDatabase } from '@/lib/local-businesses';
 
-// Google Places API for local business search
+// Google Places API for local business search (fallback)
 const GOOGLE_PLACES_API = 'https://maps.googleapis.com/maps/api/place';
 const IL_BUCO_LOCATION = '-37.1684,-56.8844'; // Cariló approximate coordinates
 
-// Search for local businesses using Google Places API
-async function searchLocalBusinesses(query: string): Promise<string> {
+// Search for local businesses - first from our curated database, then Google Places as fallback
+async function searchLocalBusinesses(query: string, language: 'es' | 'en' | 'pt' = 'es'): Promise<string> {
+  // First, try our curated local database
+  const localResult = searchLocalBusinessDatabase(query, language);
+  if (localResult) {
+    return localResult;
+  }
+
+  // Fallback to Google Places API if nothing found in local database
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   if (!apiKey) {
-    return 'No puedo buscar negocios locales en este momento. Visitá ilbuco.com.ar/places-nearby para ver nuestras recomendaciones.';
+    const noResultsMessage = {
+      es: 'No tengo información sobre eso en mi base de datos. Visitá ilbuco.com.ar/places-nearby para ver nuestras recomendaciones.',
+      en: 'I don\'t have information about that in my database. Visit ilbuco.com.ar/places-nearby for our recommendations.',
+      pt: 'Não tenho informação sobre isso na minha base de dados. Visite ilbuco.com.ar/places-nearby para nossas recomendações.',
+    };
+    return noResultsMessage[language];
   }
 
   try {
     // Search nearby places
-    const searchUrl = `${GOOGLE_PLACES_API}/textsearch/json?query=${encodeURIComponent(query + ' near Cariló Argentina')}&location=${IL_BUCO_LOCATION}&radius=10000&key=${apiKey}&language=es`;
+    const searchUrl = `${GOOGLE_PLACES_API}/textsearch/json?query=${encodeURIComponent(query + ' near Cariló Argentina')}&location=${IL_BUCO_LOCATION}&radius=10000&key=${apiKey}&language=${language}`;
 
     const response = await fetch(searchUrl);
     if (!response.ok) {
-      return 'No pude completar la búsqueda. Visitá ilbuco.com.ar/places-nearby para recomendaciones.';
+      const errorMessage = {
+        es: 'No pude completar la búsqueda. Visitá ilbuco.com.ar/places-nearby para recomendaciones.',
+        en: 'Couldn\'t complete the search. Visit ilbuco.com.ar/places-nearby for recommendations.',
+        pt: 'Não consegui completar a busca. Visite ilbuco.com.ar/places-nearby para recomendações.',
+      };
+      return errorMessage[language];
     }
 
     const data = await response.json();
 
     if (data.status !== 'OK' || !data.results?.length) {
-      return `No encontré resultados para "${query}" cerca de Cariló. Visitá ilbuco.com.ar/places-nearby para nuestras recomendaciones.`;
+      const noResultsMessage = {
+        es: `No encontré resultados para "${query}" cerca de Cariló. Visitá ilbuco.com.ar/places-nearby para nuestras recomendaciones.`,
+        en: `I didn't find results for "${query}" near Cariló. Visit ilbuco.com.ar/places-nearby for our recommendations.`,
+        pt: `Não encontrei resultados para "${query}" perto de Cariló. Visite ilbuco.com.ar/places-nearby para nossas recomendações.`,
+      };
+      return noResultsMessage[language];
     }
 
     // Format top 3 results
@@ -38,19 +61,37 @@ async function searchLocalBusinesses(query: string): Promise<string> {
       user_ratings_total?: number;
       opening_hours?: { open_now?: boolean };
     }) => {
-      const rating = place.rating ? `⭐ ${place.rating} (${place.user_ratings_total || 0} reseñas)` : '';
+      const rating = place.rating ? `⭐ ${place.rating} (${place.user_ratings_total || 0} ${language === 'pt' ? 'avaliações' : language === 'en' ? 'reviews' : 'reseñas'})` : '';
       const address = place.formatted_address?.replace(', Argentina', '') || '';
       const openNow = place.opening_hours?.open_now !== undefined
-        ? (place.opening_hours.open_now ? '✅ Abierto ahora' : '❌ Cerrado')
+        ? (place.opening_hours.open_now
+            ? (language === 'pt' ? '✅ Aberto agora' : language === 'en' ? '✅ Open now' : '✅ Abierto ahora')
+            : (language === 'pt' ? '❌ Fechado' : language === 'en' ? '❌ Closed' : '❌ Cerrado'))
         : '';
 
       return `**${place.name}**\n${address}\n${rating} ${openNow}`.trim();
     });
 
-    return `Encontré estos lugares cerca de Cariló:\n\n${results.join('\n\n')}\n\n_Datos de Google Maps_`;
+    const header = {
+      es: 'Encontré estos lugares cerca de Cariló:',
+      en: 'I found these places near Cariló:',
+      pt: 'Encontrei estes lugares perto de Cariló:',
+    };
+    const footer = {
+      es: '_Datos de Google Maps_',
+      en: '_Data from Google Maps_',
+      pt: '_Dados do Google Maps_',
+    };
+
+    return `${header[language]}\n\n${results.join('\n\n')}\n\n${footer[language]}`;
   } catch (error) {
     console.error('Error searching places:', error);
-    return 'Hubo un error al buscar. Visitá ilbuco.com.ar/places-nearby para nuestras recomendaciones.';
+    const errorMessage = {
+      es: 'Hubo un error al buscar. Visitá ilbuco.com.ar/places-nearby para nuestras recomendaciones.',
+      en: 'There was an error searching. Visit ilbuco.com.ar/places-nearby for our recommendations.',
+      pt: 'Houve um erro na busca. Visite ilbuco.com.ar/places-nearby para nossas recomendações.',
+    };
+    return errorMessage[language];
   }
 }
 
@@ -456,7 +497,8 @@ export async function POST(request: NextRequest) {
         for (const toolCall of message.tool_calls) {
           if (toolCall.function.name === 'search_local_businesses') {
             const args = JSON.parse(toolCall.function.arguments);
-            const searchResult = await searchLocalBusinesses(args.query);
+            const lang = (language === 'es' || language === 'en' || language === 'pt') ? language : 'es';
+            const searchResult = await searchLocalBusinesses(args.query, lang as 'es' | 'en' | 'pt');
 
             // Add tool result
             chatMessages.push({

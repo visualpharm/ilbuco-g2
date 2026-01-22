@@ -45,7 +45,16 @@ NEGOCIOS LOCALES:
 Si preguntan por carnicerías, restaurantes, supermercados u otros negocios:
 - No inventes nombres ni direcciones
 - Decí que no tenés esa información en este momento
-- Sugeriles visitar ilbuco punto com punto ar barra places nearby donde tenemos una guía con recomendaciones`;
+- Sugeriles visitar ilbuco punto com punto ar barra places nearby donde tenemos una guía con recomendaciones
+
+HABITACIONES:
+Tenemos 4 suites, cada una con entrada privada, baño, cocina y lavarropas:
+- Giardino: planta baja, jardín privado con plantas, cama queen
+- Terrazzo: planta baja, la terraza más grande con comedor exterior, cama queen
+- Paraiso: primer piso, suite esquinera con ventanas en dos lados, dos camas individuales
+- Penthouse: último piso, vistas al bosque, acceso a terraza verde, cama queen
+
+NUNCA inventes tipos de habitaciones. Solo mencioná estas cuatro: Giardino, Terrazzo, Paraiso, Penthouse.`;
 
 // Assistant configuration
 const assistantConfig = {
@@ -58,7 +67,7 @@ const assistantConfig = {
     tools: [
       {
         type: 'function',
-        async: true,
+        async: false,
         function: {
           name: 'check_availability',
           description: 'REQUIRED: Check real-time room availability. You MUST call this function BEFORE answering ANY question about availability, rooms, dates, or booking. Never assume availability without checking.',
