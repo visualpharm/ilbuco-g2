@@ -29,8 +29,14 @@ async function getCurrentGuests(): Promise<CurrentGuest[]> {
   try {
     const today = new Date().toISOString().split('T')[0];
 
+    // Query reservations from 14 days ago to today
+    // (API filters by check-in date, so we need to capture guests who checked in earlier)
+    const twoWeeksAgo = new Date();
+    twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+    const startDate = twoWeeksAgo.toISOString().split('T')[0];
+
     // Fetch reservations using GET with query params
-    const url = `${HOSTEX_RESERVATIONS_URL}?start_date=${today}&end_date=${today}`;
+    const url = `${HOSTEX_RESERVATIONS_URL}?start_date=${startDate}&end_date=${today}`;
     const response = await fetch(url, {
       method: 'GET',
       headers: {
