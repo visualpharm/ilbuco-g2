@@ -29,15 +29,18 @@ async function getCurrentGuests(): Promise<CurrentGuest[]> {
   try {
     const today = new Date().toISOString().split('T')[0];
 
-    // Query reservations from 14 days ago to today
-    // (API filters by check-in date, so we need to capture guests who checked in earlier)
-    const twoWeeksAgo = new Date();
-    twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
-    const startDate = twoWeeksAgo.toISOString().split('T')[0];
+    // Query reservations with a wide date range to capture all active stays
+    // The API may filter by booking date or check-in date, so we use a 90-day window
+    const threeMonthsAgo = new Date();
+    threeMonthsAgo.setDate(threeMonthsAgo.getDate() - 90);
+    const startDate = threeMonthsAgo.toISOString().split('T')[0];
 
-    // Fetch reservations using GET with query params
-    const url = `${HOSTEX_RESERVATIONS_URL}?start_date=${startDate}&end_date=${today}`;
-    console.log('[Reservations] Fetching:', url);
+    const threeMonthsFromNow = new Date();
+    threeMonthsFromNow.setDate(threeMonthsFromNow.getDate() + 90);
+    const endDateReservations = threeMonthsFromNow.toISOString().split('T')[0];
+
+    // Fetch reservations using GET with query params (limit=100 to get all recent reservations)
+    const url = `${HOSTEX_RESERVATIONS_URL}?start_date=${startDate}&end_date=${endDateReservations}&limit=100`;
 
     const response = await fetch(url, {
       method: 'GET',
@@ -47,24 +50,14 @@ async function getCurrentGuests(): Promise<CurrentGuest[]> {
       },
     });
 
-    console.log('[Reservations] Response status:', response.status);
-    if (!response.ok) {
-      console.log('[Reservations] Response not OK');
-      return [];
-    }
+    if (!response.ok) return [];
     const data = await response.json();
-    console.log('[Reservations] API response:', JSON.stringify(data, null, 2));
-    if (data.error_code !== 200) {
-      console.log('[Reservations] Error code:', data.error_code);
-      return [];
-    }
+    if (data.error_code !== 200) return [];
 
     const reservations = data.data?.reservations || [];
-    console.log('[Reservations] Found', reservations.length, 'reservations');
     const currentGuests: CurrentGuest[] = [];
 
     for (const res of reservations) {
-      console.log('[Reservations] Processing reservation:', res.guest_name, 'check_in:', res.check_in_date || res.check_in, 'check_out:', res.check_out_date || res.check_out);
       // Check if reservation is active today (check_in <= today < check_out)
       const checkIn = res.check_in_date || res.check_in;
       const checkOut = res.check_out_date || res.check_out;
@@ -87,7 +80,6 @@ async function getCurrentGuests(): Promise<CurrentGuest[]> {
       }
     }
 
-    console.log('[Reservations] Active guests today:', currentGuests.map(g => `${g.firstName} ${g.lastName}`));
     return currentGuests;
   } catch (error) {
     console.error('Error fetching reservations:', error);

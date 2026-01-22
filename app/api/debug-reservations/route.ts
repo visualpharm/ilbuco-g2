@@ -9,11 +9,15 @@ export async function GET() {
   }
 
   const today = new Date().toISOString().split('T')[0];
-  const twoWeeksAgo = new Date();
-  twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
-  const startDate = twoWeeksAgo.toISOString().split('T')[0];
+  const threeMonthsAgo = new Date();
+  threeMonthsAgo.setDate(threeMonthsAgo.getDate() - 90);
+  const startDate = threeMonthsAgo.toISOString().split('T')[0];
 
-  const url = `${HOSTEX_RESERVATIONS_URL}?start_date=${startDate}&end_date=${today}`;
+  const threeMonthsFromNow = new Date();
+  threeMonthsFromNow.setDate(threeMonthsFromNow.getDate() + 90);
+  const endDate = threeMonthsFromNow.toISOString().split('T')[0];
+
+  const url = `${HOSTEX_RESERVATIONS_URL}?start_date=${startDate}&end_date=${endDate}&limit=100`;
 
   try {
     const response = await fetch(url, {
