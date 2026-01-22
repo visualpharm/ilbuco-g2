@@ -4,9 +4,29 @@ import { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '@/contexts/language-context';
 import ReactMarkdown from 'react-markdown';
 
+interface DevInfo {
+  model: string;
+  promptTokens: number;
+  completionTokens: number;
+  totalTokens: number;
+  responseTimeMs: number;
+}
+
 interface Message {
   role: 'user' | 'assistant';
   content: string;
+  devInfo?: DevInfo;
+  detectedLanguage?: 'en' | 'es' | 'pt' | 'ru';
+}
+
+interface RoomCard {
+  name: string;
+  status: 'available' | 'booked';
+  price: number;
+  bookingUrl: string;
+  roomUrl: string;
+  checkIn?: string;
+  checkOut?: string;
 }
 
 const chatTranslations = {
@@ -17,10 +37,10 @@ const chatTranslations = {
     ru: 'Спросите о наличии мест, номерах, удобствах...',
   },
   greeting: {
-    en: 'Hi! I\'m your Il Buco assistant. Ask me anything about the property, availability, or things to do in Cariló.',
-    es: '¡Hola! Soy tu asistente de Il Buco. Preguntame lo que quieras sobre la casa, disponibilidad o qué hacer en Cariló.',
-    pt: 'Oi! Sou seu assistente do Il Buco. Me pergunte qualquer coisa sobre a propriedade, disponibilidade ou o que fazer em Cariló.',
-    ru: 'Привет! Я ассистент Il Buco. Спрашивайте что угодно о доме, наличии мест или чем заняться в Карило.',
+    en: '👋 Hi! I\'m your **Il Buco** assistant. Ask me about:\n\n🛏️ *Room availability & prices*\n🏠 *Property amenities*\n📍 *Things to do in Cariló*',
+    es: '👋 ¡Hola! Soy tu asistente de **Il Buco**. Preguntame sobre:\n\n🛏️ *Disponibilidad y precios*\n🏠 *Comodidades de la casa*\n📍 *Qué hacer en Cariló*',
+    pt: '👋 Oi! Sou seu assistente do **Il Buco**. Me pergunte sobre:\n\n🛏️ *Disponibilidade e preços*\n🏠 *Comodidades da casa*\n📍 *O que fazer em Cariló*',
+    ru: '👋 Привет! Я ассистент **Il Buco**. Спрашивайте о:\n\n🛏️ *Наличии номеров и ценах*\n🏠 *Удобствах дома*\n📍 *Чем заняться в Карило*',
   },
   title: {
     en: 'Chat with us',
@@ -28,25 +48,225 @@ const chatTranslations = {
     pt: 'Fale conosco',
     ru: 'Напишите нам',
   },
-  send: {
-    en: 'Send',
-    es: 'Enviar',
-    pt: 'Enviar',
-    ru: 'Отправить',
+  viewRoom: {
+    en: 'View',
+    es: 'Ver',
+    pt: 'Ver',
+    ru: 'Смотреть',
   },
-  thinking: {
-    en: 'Thinking...',
-    es: 'Pensando...',
-    pt: 'Pensando...',
-    ru: 'Думаю...',
+  bookNow: {
+    en: 'Book',
+    es: 'Reservar',
+    pt: 'Reservar',
+    ru: 'Бронь',
+  },
+  perNight: {
+    en: '/night',
+    es: '/noche',
+    pt: '/noite',
+    ru: '/ночь',
+  },
+  currency: {
+    en: '$',
+    es: 'US$',
+    pt: 'US$',
+    ru: '$',
+  },
+  booked: {
+    en: 'Booked',
+    es: 'Reservado',
+    pt: 'Reservado',
+    ru: 'Занято',
   },
   error: {
-    en: 'Sorry, something went wrong. Please try again.',
-    es: 'Perdón, algo salió mal. Por favor intentá de nuevo.',
-    pt: 'Desculpe, algo deu errado. Por favor tente novamente.',
-    ru: 'Извините, что-то пошло не так. Попробуйте ещё раз.',
+    en: '😔 Sorry, something went wrong. Please try again.',
+    es: '😔 Perdón, algo salió mal. Por favor intentá de nuevo.',
+    pt: '😔 Desculpe, algo deu errado. Por favor tente novamente.',
+    ru: '😔 Извините, что-то пошло не так. Попробуйте ещё раз.',
   },
 };
+
+// Parse room cards from message content
+function parseRoomCards(content: string): { text: string; cards: RoomCard[] } {
+  const cards: RoomCard[] = [];
+
+  // More robust regex that handles newlines between fields, with optional checkIn/checkOut
+  const cardRegex = /---ROOM_CARD---[\s\n]*name:\s*([^\n]+)[\s\n]*status:\s*(available|booked)[\s\n]*price:\s*(\d+)[\s\n]*(?:checkIn:\s*(\S+)[\s\n]*)?(?:checkOut:\s*(\S+)[\s\n]*)?bookingUrl:\s*(\S+)[\s\n]*roomUrl:\s*(\S+)[\s\n]*---END_CARD---/gi;
+
+  let match;
+  while ((match = cardRegex.exec(content)) !== null) {
+    cards.push({
+      name: match[1].trim(),
+      status: match[2].trim().toLowerCase() as 'available' | 'booked',
+      price: parseInt(match[3].trim()),
+      checkIn: match[4]?.trim(),
+      checkOut: match[5]?.trim(),
+      bookingUrl: match[6].trim(),
+      roomUrl: match[7].trim(),
+    });
+  }
+
+  // Remove card markup from text
+  const text = content.replace(/---ROOM_CARD---[\s\S]*?---END_CARD---/g, '').trim();
+
+  return { text, cards };
+}
+
+// Localized month names
+const monthNames: Record<string, string[]> = {
+  en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  es: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+  pt: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+  ru: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+};
+
+// Format date for display (YYYY-MM-DD -> Mon DD)
+function formatShortDate(dateStr: string, lang: string): string {
+  const months = monthNames[lang] || monthNames.en;
+  const d = new Date(dateStr + 'T00:00:00');
+  return `${months[d.getMonth()]} ${d.getDate()}`;
+}
+
+// Room Card Component - Compact horizontal layout
+function RoomCardWidget({ card, langCode }: { card: RoomCard; langCode: 'en' | 'es' | 'pt' | 'ru' }) {
+  const isAvailable = card.status === 'available';
+
+  // Format dates for display
+  const dateRange = card.checkIn && card.checkOut
+    ? `${formatShortDate(card.checkIn, langCode)} – ${formatShortDate(card.checkOut, langCode)}`
+    : null;
+
+  return (
+    <div className={`rounded-lg border ${isAvailable ? 'border-green-200 bg-green-50' : 'border-gray-200 bg-gray-50'} p-3 mb-2`}>
+      {/* Single row: Status dot + Room name + Dates + Price + Book button */}
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className={`w-2 h-2 rounded-full flex-shrink-0 ${isAvailable ? 'bg-green-500' : 'bg-red-400'}`} />
+          <a
+            href={card.roomUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-gray-800 underline hover:text-blue-600"
+          >
+            {card.name}
+          </a>
+          {dateRange && (
+            <span className="text-xs text-gray-500 whitespace-nowrap">
+              {dateRange}
+            </span>
+          )}
+        </div>
+
+        <div className="flex items-center gap-2">
+          {isAvailable && (
+            <span className="text-green-700 font-bold text-sm whitespace-nowrap">
+              {chatTranslations.currency[langCode]}{card.price}<span className="font-normal text-gray-500">{chatTranslations.perNight[langCode]}</span>
+            </span>
+          )}
+          {isAvailable ? (
+            <a
+              href={card.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="py-1 px-3 text-xs font-medium bg-black text-white rounded-lg hover:bg-gray-800 transition-colors whitespace-nowrap"
+            >
+              {chatTranslations.bookNow[langCode]}
+            </a>
+          ) : (
+            <span className="text-red-500 text-sm">{chatTranslations.booked[langCode]}</span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Dev Info Button Component - only shown in development
+function DevInfoButton({ devInfo }: { devInfo: DevInfo }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Calculate cost based on gpt-5.2-chat-latest pricing: $1.75/1M input, $14.00/1M output
+  const inputCost = (devInfo.promptTokens / 1_000_000) * 1.75;
+  const outputCost = (devInfo.completionTokens / 1_000_000) * 14.00;
+  const totalCost = inputCost + outputCost;
+  const costDisplay = totalCost < 0.01 ? `$${(totalCost * 100).toFixed(2)}¢` : `$${totalCost.toFixed(3)}`;
+
+  return (
+    <div className="relative inline-block ml-1">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="text-gray-400 hover:text-gray-600 transition-colors p-0.5"
+        title="Dev Info"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+      </button>
+      {isOpen && (
+        <div className="absolute bottom-full right-0 mb-1 bg-gray-800 text-white text-xs rounded-lg p-2 shadow-lg z-10 whitespace-nowrap">
+          <div className="space-y-0.5">
+            <div><span className="text-gray-400">Model:</span> {devInfo.model}</div>
+            <div><span className="text-gray-400">Tokens:</span> {devInfo.promptTokens}+{devInfo.completionTokens}={devInfo.totalTokens}</div>
+            <div><span className="text-gray-400">Cost:</span> {costDisplay}</div>
+            <div><span className="text-gray-400">Time:</span> {devInfo.responseTimeMs}ms</div>
+          </div>
+          <div className="absolute bottom-[-4px] right-2 w-2 h-2 bg-gray-800 transform rotate-45"></div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Check if we're in development mode
+const isDev = process.env.NODE_ENV === 'development';
+
+// Message Content Component
+function MessageContent({ content, langCode, detectedLanguage }: { content: string; langCode: 'en' | 'es' | 'pt' | 'ru'; detectedLanguage?: 'en' | 'es' | 'pt' | 'ru' }) {
+  const { text, cards } = parseRoomCards(content);
+  // Use detected language for room cards (button text), fall back to website language
+  const cardLang = detectedLanguage || langCode;
+
+  return (
+    <>
+      {text && (
+        <ReactMarkdown
+          components={{
+            p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+            strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+            em: ({ children }) => <em className="italic">{children}</em>,
+            ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
+            ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1">{children}</ol>,
+            li: ({ children }) => <li>{children}</li>,
+            a: ({ href, children }) => {
+              const isInternal = href?.startsWith('/');
+              return (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 underline"
+                >
+                  {children}
+                </a>
+              );
+            },
+          }}
+        >
+          {text}
+        </ReactMarkdown>
+      )}
+      {cards.length > 0 && (
+        <div className="mt-3">
+          {cards.map((card, idx) => (
+            <RoomCardWidget key={idx} card={card} langCode={cardLang} />
+          ))}
+        </div>
+      )}
+    </>
+  );
+}
 
 function ChatWidgetInner() {
   const [isOpen, setIsOpen] = useState(false);
@@ -102,7 +322,12 @@ function ChatWidgetInner() {
       if (!response.ok) throw new Error('Failed to get response');
 
       const data = await response.json();
-      setMessages([...newMessages, { role: 'assistant', content: data.message }]);
+      setMessages([...newMessages, {
+        role: 'assistant',
+        content: data.message,
+        devInfo: data.devInfo,
+        detectedLanguage: data.language as 'en' | 'es' | 'pt' | 'ru'
+      }]);
     } catch (error) {
       console.error('Chat error:', error);
       setMessages([...newMessages, {
@@ -143,7 +368,7 @@ function ChatWidgetInner() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-[360px] max-w-[calc(100vw-3rem)] h-[500px] max-h-[calc(100vh-8rem)] bg-white rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden border border-gray-200">
+        <div className="fixed bottom-24 right-6 w-[380px] max-w-[calc(100vw-3rem)] h-[520px] max-h-[calc(100vh-8rem)] bg-white rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden border border-gray-200">
           {/* Header */}
           <div className="bg-black text-white px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -177,29 +402,21 @@ function ChatWidgetInner() {
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[80%] px-4 py-2 rounded-2xl text-sm ${
+                  className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm ${
                     message.role === 'user'
                       ? 'bg-black text-white rounded-br-md'
                       : 'bg-white text-gray-800 border border-gray-200 rounded-bl-md shadow-sm'
                   }`}
                 >
                   {message.role === 'assistant' ? (
-                    <ReactMarkdown
-                      components={{
-                        p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-                        strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
-                        ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
-                        ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1">{children}</ol>,
-                        li: ({ children }) => <li>{children}</li>,
-                        a: ({ href, children }) => (
-                          <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                            {children}
-                          </a>
-                        ),
-                      }}
-                    >
-                      {message.content}
-                    </ReactMarkdown>
+                    <>
+                      <MessageContent content={message.content} langCode={langCode} detectedLanguage={message.detectedLanguage} />
+                      {isDev && message.devInfo && (
+                        <div className="mt-1 flex justify-end">
+                          <DevInfoButton devInfo={message.devInfo} />
+                        </div>
+                      )}
+                    </>
                   ) : (
                     message.content
                   )}
@@ -208,7 +425,7 @@ function ChatWidgetInner() {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-white text-gray-500 px-4 py-2 rounded-2xl rounded-bl-md text-sm border border-gray-200 shadow-sm">
+                <div className="bg-white text-gray-500 px-4 py-3 rounded-2xl rounded-bl-md text-sm border border-gray-200 shadow-sm">
                   <span className="flex items-center gap-2">
                     <span className="flex gap-1">
                       <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
@@ -232,7 +449,7 @@ function ChatWidgetInner() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder={chatTranslations.placeholder[langCode]}
-                className="flex-1 px-4 py-2 text-sm border border-gray-300 rounded-full focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
+                className="flex-1 px-4 py-2.5 text-sm border border-gray-300 rounded-full focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
                 disabled={isLoading}
               />
               <button

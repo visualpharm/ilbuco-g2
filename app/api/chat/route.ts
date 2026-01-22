@@ -1,69 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { LISTINGS, buildSystemPrompt, buildBookingDeepLink } from '@/lib/chat-prompt';
 
 const HOSTEX_API_URL = 'https://api.hostex.io/v3/listings/calendar';
-
-const LISTINGS = [
-  { channel_type: 'booking_site', listing_id: '110800-13274', name: 'Giardino', bookingUrl: 'https://book.ilbuco.com.ar/listing/110800' },
-  { channel_type: 'booking_site', listing_id: '110801-13274', name: 'Terrazzo', bookingUrl: 'https://book.ilbuco.com.ar/listing/110801' },
-  { channel_type: 'booking_site', listing_id: '110802-13274', name: 'Paraiso', bookingUrl: 'https://book.ilbuco.com.ar/listing/110802' },
-  { channel_type: 'booking_site', listing_id: '110803-13274', name: 'Penthouse', bookingUrl: 'https://book.ilbuco.com.ar/listing/110803' },
-  { channel_type: 'booking_site', listing_id: '113182-13274', name: 'Whole House', bookingUrl: 'https://book.ilbuco.com.ar/' },
-];
-
-const PROPERTY_INFO = `
-# Il Buco - Tech Villa in Cariló, Argentina
-
-## Location
-- Address: Paraíso 324, Cariló, Buenos Aires Province, Argentina
-- 5 minutes walk from the beach
-- Located in a pine forest
-- Cariló is an exclusive beach town, known as Argentina's most expensive destination
-
-## Property Overview
-- Modern tech-focused villa designed for remote workers and founders
-- 4 private suites, each with private bathroom, kitchen, and washer
-- Can accommodate 2 people per suite (8 total, plus futons if needed)
-- Whole house can be rented for groups of 8-16 people
-
-## Suites (each with private entrance, bathroom, kitchenette, washer):
-1. **Giardino** - Ground floor, private garden terrace with live plants
-2. **Terrazzo** - Ground floor, largest terrace with outdoor dining
-3. **Paraiso** - Second floor, corner suite with two-sided windows
-4. **Penthouse** - Top floor, forest views, access to green roof
-
-## Amenities
-- 500 Mbps fiber internet with mesh WiFi throughout
-- Underfloor heating + 8 air conditioners (climate control in each room)
-- Green rooftop with BBQ area
-- Large living room and full kitchen for common use
-- Smart TVs in each suite
-- Luxury bedding and towels
-- Water softener system
-
-## Nearby Activities
-- Beach (5 min walk)
-- Restaurants and cafes
-- Golf courses
-- Tennis courts
-- Horse riding
-- Surfing/windsurfing
-- Cycling paths
-- Gym facilities
-
-## Languages
-- We speak English, Spanish, Portuguese, and Russian
-- We accept payments via credit cards (Visa, Mastercard, Amex), PayPal, and USDT
-
-## Booking
-- Main booking: https://book.ilbuco.com.ar/
-- Direct booking gives best rates
-- Also available on Airbnb
-
-## Contact
-- Website: https://ilbuco.com.ar
-- WhatsApp available for inquiries
-`;
 
 async function getAvailability(startDate: string, endDate: string) {
   const hostexKey = process.env.HOSTEX_API_KEY;
@@ -139,6 +78,37 @@ function getDatePlusDays(days: number): string {
   return date.toISOString().split('T')[0];
 }
 
+// Format date for display
+function formatDateRange(dates: string[]): string {
+  if (dates.length === 0) return '';
+  if (dates.length === 1) return dates[0];
+
+  // Sort dates
+  const sorted = [...dates].sort();
+
+  // Group consecutive dates into ranges
+  const ranges: string[] = [];
+  let rangeStart = sorted[0];
+  let rangeEnd = sorted[0];
+
+  for (let i = 1; i < sorted.length; i++) {
+    const prevDate = new Date(rangeEnd);
+    const currDate = new Date(sorted[i]);
+    const diffDays = (currDate.getTime() - prevDate.getTime()) / (1000 * 60 * 60 * 24);
+
+    if (diffDays === 1) {
+      rangeEnd = sorted[i];
+    } else {
+      ranges.push(rangeStart === rangeEnd ? rangeStart : `${rangeStart} to ${rangeEnd}`);
+      rangeStart = sorted[i];
+      rangeEnd = sorted[i];
+    }
+  }
+  ranges.push(rangeStart === rangeEnd ? rangeStart : `${rangeStart} to ${rangeEnd}`);
+
+  return ranges.join(', ');
+}
+
 export async function POST(request: NextRequest) {
   try {
     const openaiKey = process.env.OPENAI_API_KEY;
@@ -158,79 +128,100 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Fetch real-time availability for the next 30 days
+    // Fetch real-time availability for the next 90 days (covers ~3 months)
     const today = getTodayDate();
-    const endDate = getDatePlusDays(30);
+    const endDate = getDatePlusDays(90);
     const availability = await getAvailability(today, endDate);
 
     let availabilityContext = '';
     if (availability) {
-      // Build TODAY's availability separately
-      availabilityContext = `\n\n## TODAY'S Availability (${today}):\n`;
-      let todayAvailableCount = 0;
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth();
+      const currentYear = currentDate.getFullYear();
+
+      // Helper to get next day
+      const getNextDay = (dateStr: string): string => {
+        const d = new Date(dateStr);
+        d.setDate(d.getDate() + 1);
+        return d.toISOString().split('T')[0];
+      };
+
+      // Build TODAY's availability
+      availabilityContext = `\n\n## REAL-TIME AVAILABILITY DATA (as of ${today}):\n`;
+      availabilityContext += `\n### TODAY (${today}):\n`;
+      const tomorrow = getNextDay(today);
       for (const [suiteName, info] of Object.entries(availability)) {
         if (suiteName === 'Whole House') continue;
         const todayData = info.dates[today];
         const isAvailableToday = todayData?.available || false;
         const todayPrice = todayData?.price || 0;
-        if (isAvailableToday) todayAvailableCount++;
-        const bookingInfo = LISTINGS.find(l => l.name === suiteName);
-        availabilityContext += `- ${suiteName}: ${isAvailableToday ? `AVAILABLE TODAY at $${todayPrice}/night` : 'BOOKED TODAY'}`;
-        if (bookingInfo) availabilityContext += ` - ${bookingInfo.bookingUrl}`;
+        const deepLink = buildBookingDeepLink(today, tomorrow);
+        availabilityContext += `- ${suiteName}: ${isAvailableToday ? `✅ AVAILABLE at $${todayPrice}/night` : '❌ BOOKED'}`;
+        if (isAvailableToday) availabilityContext += ` | Book: ${deepLink}`;
         availabilityContext += '\n';
       }
-      availabilityContext += `\nTOTAL: ${todayAvailableCount} of 4 suites available TODAY.\n`;
 
-      // Add future availability summary
-      availabilityContext += `\n## Future Availability (next 30 days):\n`;
-      for (const [suiteName, info] of Object.entries(availability)) {
-        if (suiteName === 'Whole House') continue;
-        const availableDates = Object.entries(info.dates)
-          .filter(([_, d]) => d.available)
-          .map(([date, _]) => date);
-        if (availableDates.length > 0) {
-          availabilityContext += `- ${suiteName}: Available on ${availableDates.length} days, from $${info.price}/night\n`;
-        } else {
-          availabilityContext += `- ${suiteName}: Fully booked for next 30 days\n`;
+      // Build month-by-month availability for the next 3 months
+      for (let monthOffset = 0; monthOffset <= 2; monthOffset++) {
+        const targetMonth = (currentMonth + monthOffset) % 12;
+        const targetYear = currentYear + Math.floor((currentMonth + monthOffset) / 12);
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+        const monthName = monthNames[targetMonth];
+
+        availabilityContext += `\n### ${monthName} ${targetYear}:\n`;
+
+        for (const [suiteName, info] of Object.entries(availability)) {
+          if (suiteName === 'Whole House') continue;
+
+          // Get available dates for this month (sorted)
+          const monthDates = Object.entries(info.dates)
+            .filter(([date, d]) => {
+              const dateObj = new Date(date);
+              return dateObj.getMonth() === targetMonth &&
+                     dateObj.getFullYear() === targetYear &&
+                     d.available;
+            })
+            .map(([date]) => date)
+            .sort();
+
+          // Get price for available dates
+          const prices = Object.entries(info.dates)
+            .filter(([date, d]) => {
+              const dateObj = new Date(date);
+              return dateObj.getMonth() === targetMonth &&
+                     dateObj.getFullYear() === targetYear &&
+                     d.available && d.price > 0;
+            })
+            .map(([, d]) => d.price);
+
+          const minPrice = prices.length > 0 ? Math.min(...prices) : null;
+          const maxPrice = prices.length > 0 ? Math.max(...prices) : null;
+
+          if (monthDates.length > 0) {
+            const priceStr = minPrice === maxPrice ? `$${minPrice}` : `$${minPrice}-$${maxPrice}`;
+            const firstAvailable = monthDates[0];
+            const checkOut = getNextDay(firstAvailable);
+            const deepLink = buildBookingDeepLink(firstAvailable, checkOut);
+            availabilityContext += `- ${suiteName}: ✅ ${monthDates.length} nights available at ${priceStr}/night\n`;
+            availabilityContext += `  Available dates: ${formatDateRange(monthDates)}\n`;
+            availabilityContext += `  First available: ${firstAvailable} | Book: ${deepLink}\n`;
+          } else {
+            availabilityContext += `- ${suiteName}: ❌ Fully booked for ${monthName}\n`;
+          }
         }
       }
     }
 
-    const languageInstructions: Record<string, string> = {
-      es: 'Respond in Spanish (Argentinian Spanish preferred). Be friendly and use "vos" instead of "tú".',
-      en: 'Respond in English. Be friendly and professional.',
-      pt: 'Respond in Brazilian Portuguese. Be friendly and welcoming.',
-      ru: 'Respond in Russian. Be friendly and helpful.',
-    };
-
-    const systemPrompt = `You are a helpful concierge assistant for Il Buco, a modern tech villa in Cariló, Argentina.
-
-${languageInstructions[language] || languageInstructions.es}
-
-Your role is to:
-- Answer questions about the property, rooms, amenities, and location
-- Help with availability inquiries and booking information
-- Provide information about things to do in Cariló
-- Be concise but helpful - keep responses under 150 words unless more detail is needed
-
-${PROPERTY_INFO}
-${availabilityContext}
-
-Important guidelines:
-- Always be accurate about the property features - don't invent amenities
-- If asked about exact prices for specific dates not in your data, suggest they check the booking page
-- For booking, always provide the direct booking link: https://book.ilbuco.com.ar/
-- Be warm and welcoming, but professional
-- If you don't know something, say so and suggest contacting us directly
-- IMPORTANT: When asked about TODAY's availability, use the TODAY'S Availability section which shows real-time data
-- Use **bold** for suite names and important info
-- Don't use markdown links like [text](url) - instead just say "book at book.ilbuco.com.ar"
-- Keep responses conversational and easy to read`;
+    // Build system prompt from external file
+    const systemPrompt = buildSystemPrompt(language, availabilityContext);
 
     const openai = new OpenAI({ apiKey: openaiKey });
+    const model = 'gpt-5.2-chat-latest';
+    const startTime = Date.now();
 
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model,
       messages: [
         { role: 'system', content: systemPrompt },
         ...messages.map((m: { role: string; content: string }) => ({
@@ -238,23 +229,47 @@ Important guidelines:
           content: m.content
         }))
       ],
-      max_tokens: 500,
-      temperature: 0.7,
+      max_completion_tokens: 1000,
     });
 
+    const responseTime = Date.now() - startTime;
     const reply = completion.choices[0]?.message?.content || '';
+    const usage = completion.usage;
+
+    // Detect response language from content
+    const detectLanguage = (text: string): string => {
+      // Check for Spanish indicators
+      if (/\b(disponible|reservar|habitación|playa|semana|noches?|tenés|querés)\b/i.test(text)) return 'es';
+      // Check for Portuguese indicators
+      if (/\b(disponível|reservar|quarto|praia|semana|noites?|você|quer)\b/i.test(text)) return 'pt';
+      // Check for Russian indicators
+      if (/[а-яА-Я]/.test(text)) return 'ru';
+      // Default to English
+      return 'en';
+    };
+    const detectedLanguage = detectLanguage(reply);
 
     return NextResponse.json({
       message: reply,
+      language: detectedLanguage,
       availability: availability ? Object.fromEntries(
         Object.entries(availability).map(([name, info]) => [name, { available: info.available, price: info.price }])
-      ) : null
+      ) : null,
+      // Dev info - only meaningful in development
+      devInfo: {
+        model,
+        promptTokens: usage?.prompt_tokens || 0,
+        completionTokens: usage?.completion_tokens || 0,
+        totalTokens: usage?.total_tokens || 0,
+        responseTimeMs: responseTime,
+      }
     });
 
   } catch (error) {
     console.error('Error in chat API:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { error: 'Failed to process chat request' },
+      { error: 'Failed to process chat request', details: errorMessage },
       { status: 500 }
     );
   }
