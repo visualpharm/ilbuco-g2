@@ -68,16 +68,15 @@ export function AvailabilityBadge() {
   return (
     <div
       className={`
-        hidden lg:inline-flex items-center gap-1.5
-        px-3 py-1.5 rounded-full text-xs font-medium
+        hidden lg:inline-flex items-center gap-1.5 text-xs
         ${isAvailable
-          ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-          : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+          ? 'text-green-700 dark:text-green-400'
+          : 'text-red-600 dark:text-red-400'
         }
       `}
     >
       <span
-        className={`w-2 h-2 rounded-full ${isAvailable ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}
+        className={`w-1.5 h-1.5 rounded-full ${isAvailable ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}
       />
       {text}
     </div>
