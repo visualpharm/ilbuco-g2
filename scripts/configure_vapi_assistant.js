@@ -39,7 +39,13 @@ WIFI:
 Solo para huéspedes. Pedí el nombre primero. Si coincide con una reserva activa: red Il Buco, clave terminator uno.
 
 TEMAS:
-Solo hablamos de Il Buco, las habitaciones, Cariló, y temas relacionados con la estadía.`;
+Solo hablamos de Il Buco, las habitaciones, Cariló, y temas relacionados con la estadía.
+
+NEGOCIOS LOCALES:
+Si preguntan por carnicerías, restaurantes, supermercados u otros negocios:
+- No inventes nombres ni direcciones
+- Decí que no tenés esa información en este momento
+- Sugeriles visitar ilbuco punto com punto ar barra places nearby donde tenemos una guía con recomendaciones`;
 
 // Assistant configuration
 const assistantConfig = {

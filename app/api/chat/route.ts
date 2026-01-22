@@ -4,6 +4,77 @@ import { LISTINGS, buildSystemPrompt, buildBookingDeepLink } from '@/lib/chat-pr
 import { promises as fs } from 'fs';
 import path from 'path';
 
+// Google Places API for local business search
+const GOOGLE_PLACES_API = 'https://maps.googleapis.com/maps/api/place';
+const IL_BUCO_LOCATION = '-37.1684,-56.8844'; // Cariló approximate coordinates
+
+// Search for local businesses using Google Places API
+async function searchLocalBusinesses(query: string): Promise<string> {
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  if (!apiKey) {
+    return 'No puedo buscar negocios locales en este momento. Visitá ilbuco.com.ar/places-nearby para ver nuestras recomendaciones.';
+  }
+
+  try {
+    // Search nearby places
+    const searchUrl = `${GOOGLE_PLACES_API}/textsearch/json?query=${encodeURIComponent(query + ' near Cariló Argentina')}&location=${IL_BUCO_LOCATION}&radius=10000&key=${apiKey}&language=es`;
+
+    const response = await fetch(searchUrl);
+    if (!response.ok) {
+      return 'No pude completar la búsqueda. Visitá ilbuco.com.ar/places-nearby para recomendaciones.';
+    }
+
+    const data = await response.json();
+
+    if (data.status !== 'OK' || !data.results?.length) {
+      return `No encontré resultados para "${query}" cerca de Cariló. Visitá ilbuco.com.ar/places-nearby para nuestras recomendaciones.`;
+    }
+
+    // Format top 3 results
+    const results = data.results.slice(0, 3).map((place: {
+      name: string;
+      formatted_address?: string;
+      rating?: number;
+      user_ratings_total?: number;
+      opening_hours?: { open_now?: boolean };
+    }) => {
+      const rating = place.rating ? `⭐ ${place.rating} (${place.user_ratings_total || 0} reseñas)` : '';
+      const address = place.formatted_address?.replace(', Argentina', '') || '';
+      const openNow = place.opening_hours?.open_now !== undefined
+        ? (place.opening_hours.open_now ? '✅ Abierto ahora' : '❌ Cerrado')
+        : '';
+
+      return `**${place.name}**\n${address}\n${rating} ${openNow}`.trim();
+    });
+
+    return `Encontré estos lugares cerca de Cariló:\n\n${results.join('\n\n')}\n\n_Datos de Google Maps_`;
+  } catch (error) {
+    console.error('Error searching places:', error);
+    return 'Hubo un error al buscar. Visitá ilbuco.com.ar/places-nearby para nuestras recomendaciones.';
+  }
+}
+
+// Tool definitions for function calling
+const tools: OpenAI.ChatCompletionTool[] = [
+  {
+    type: 'function',
+    function: {
+      name: 'search_local_businesses',
+      description: 'Search for local businesses near Cariló (restaurants, shops, services, etc.). Use this when someone asks about where to buy something or find a service locally. ALWAYS use this instead of making up business names.',
+      parameters: {
+        type: 'object',
+        properties: {
+          query: {
+            type: 'string',
+            description: 'What to search for, e.g. "carnicería", "supermercado", "restaurante italiano", "farmacia"'
+          }
+        },
+        required: ['query']
+      }
+    }
+  }
+];
+
 const HOSTEX_API_URL = 'https://api.hostex.io/v3/listings/calendar';
 const HOSTEX_RESERVATIONS_URL = 'https://api.hostex.io/v3/reservations';
 
@@ -346,21 +417,65 @@ export async function POST(request: NextRequest) {
     const model = 'gpt-5.2-chat-latest';
     const startTime = Date.now();
 
-    const completion = await openai.chat.completions.create({
-      model,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        ...messages.map((m: { role: string; content: string }) => ({
-          role: m.role as 'user' | 'assistant',
-          content: m.content
-        }))
-      ],
-      max_completion_tokens: 1000,
-    });
+    // Build initial messages
+    const chatMessages: OpenAI.ChatCompletionMessageParam[] = [
+      { role: 'system', content: systemPrompt },
+      ...messages.map((m: { role: string; content: string }) => ({
+        role: m.role as 'user' | 'assistant',
+        content: m.content
+      }))
+    ];
+
+    let reply = '';
+    let totalTokens = { prompt: 0, completion: 0, total: 0 };
+
+    // Function calling loop (max 3 iterations to prevent infinite loops)
+    for (let i = 0; i < 3; i++) {
+      const completion = await openai.chat.completions.create({
+        model,
+        messages: chatMessages,
+        tools,
+        tool_choice: 'auto',
+        max_completion_tokens: 1000,
+      });
+
+      const message = completion.choices[0]?.message;
+      const usage = completion.usage;
+
+      // Accumulate tokens
+      totalTokens.prompt += usage?.prompt_tokens || 0;
+      totalTokens.completion += usage?.completion_tokens || 0;
+      totalTokens.total += usage?.total_tokens || 0;
+
+      // Check if there are tool calls
+      if (message?.tool_calls && message.tool_calls.length > 0) {
+        // Add assistant message with tool calls
+        chatMessages.push(message);
+
+        // Process each tool call
+        for (const toolCall of message.tool_calls) {
+          if (toolCall.function.name === 'search_local_businesses') {
+            const args = JSON.parse(toolCall.function.arguments);
+            const searchResult = await searchLocalBusinesses(args.query);
+
+            // Add tool result
+            chatMessages.push({
+              role: 'tool',
+              tool_call_id: toolCall.id,
+              content: searchResult
+            });
+          }
+        }
+        // Continue loop to get final response
+      } else {
+        // No tool calls, we have the final response
+        reply = message?.content || '';
+        break;
+      }
+    }
 
     const responseTime = Date.now() - startTime;
-    const reply = completion.choices[0]?.message?.content || '';
-    const usage = completion.usage;
+    const usage = totalTokens;
 
     // Detect response language from content
     const detectLanguage = (text: string): string => {
