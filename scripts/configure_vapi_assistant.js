@@ -50,7 +50,7 @@ const assistantConfig = {
   name: 'Il Buco Voice Assistant',
   model: {
     provider: 'openai',
-    model: 'gpt-4o-2024-11-20',
+    model: 'gpt-5.2-chat-latest',
     temperature: 0.5,
     systemPrompt: VOICE_SYSTEM_PROMPT,
     tools: [
@@ -87,8 +87,8 @@ const assistantConfig = {
     ]
   },
   voice: {
-    provider: 'openai',
-    voiceId: 'alloy'
+    provider: 'azure',
+    voiceId: 'es-AR-ElenaNeural'
   },
   transcriber: {
     provider: 'deepgram',
