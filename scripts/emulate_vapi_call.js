@@ -25,7 +25,13 @@ function generateToolCallId() {
 }
 
 // Simulate Vapi's tool-calls webhook message (CURRENT FORMAT)
-function createToolCallsMessage(callId, toolCallId, checkIn, checkOut) {
+function createToolCallsMessage(callId, toolCallId, checkIn, checkOut, argumentsAsObject = false) {
+  const argsPayload = {
+    check_in: checkIn,
+    check_out: checkOut,
+    listing_id: ''
+  };
+
   return {
     message: {
       type: 'tool-calls',
@@ -42,11 +48,7 @@ function createToolCallsMessage(callId, toolCallId, checkIn, checkOut) {
           type: 'function',
           function: {
             name: 'check_availability',
-            arguments: JSON.stringify({
-              check_in: checkIn,
-              check_out: checkOut,
-              listing_id: ''
-            })
+            arguments: argumentsAsObject ? argsPayload : JSON.stringify(argsPayload)
           }
         }
       ]
@@ -80,7 +82,13 @@ function createFunctionCallMessage(callId, toolCallId, checkIn, checkOut) {
 }
 
 // Alternative with toolWithToolCallList format
-function createToolWithToolCallListMessage(callId, toolCallId, checkIn, checkOut) {
+function createToolWithToolCallListMessage(callId, toolCallId, checkIn, checkOut, argumentsAsObject = false) {
+  const argsPayload = {
+    check_in: checkIn,
+    check_out: checkOut,
+    listing_id: ''
+  };
+
   return {
     message: {
       type: 'tool-calls',
@@ -99,11 +107,7 @@ function createToolWithToolCallListMessage(callId, toolCallId, checkIn, checkOut
             type: 'function',
             function: {
               name: 'check_availability',
-              arguments: JSON.stringify({
-                check_in: checkIn,
-                check_out: checkOut,
-                listing_id: ''
-              })
+              arguments: argumentsAsObject ? argsPayload : JSON.stringify(argsPayload)
             }
           }
         }
@@ -218,23 +222,31 @@ async function runAllTests() {
   const msg1 = createToolCallsMessage(callId, toolCallId, TEST_DATES.check_in, TEST_DATES.check_out);
   results.push(await testWebhook(LOCAL_URL, msg1, 'Local - tool-calls with toolCallList (CURRENT)'));
 
-  // Test 2: tool-calls format with toolWithToolCallList
-  const msg2 = createToolWithToolCallListMessage(generateCallId(), generateToolCallId(), TEST_DATES.check_in, TEST_DATES.check_out);
-  results.push(await testWebhook(LOCAL_URL, msg2, 'Local - tool-calls with toolWithToolCallList'));
+  // Test 2: tool-calls with arguments as object
+  const msg2 = createToolCallsMessage(generateCallId(), generateToolCallId(), TEST_DATES.check_in, TEST_DATES.check_out, true);
+  results.push(await testWebhook(LOCAL_URL, msg2, 'Local - tool-calls with arguments as object'));
 
-  // Test 3: Legacy function-call format (backwards compat)
-  const msg3 = createFunctionCallMessage(generateCallId(), generateToolCallId(), TEST_DATES.check_in, TEST_DATES.check_out);
-  results.push(await testWebhook(LOCAL_URL, msg3, 'Local - Legacy function-call format'));
+  // Test 3: tool-calls format with toolWithToolCallList
+  const msg3 = createToolWithToolCallListMessage(generateCallId(), generateToolCallId(), TEST_DATES.check_in, TEST_DATES.check_out);
+  results.push(await testWebhook(LOCAL_URL, msg3, 'Local - tool-calls with toolWithToolCallList'));
 
-  // Test 4: Cloudflared tunnel with tool-calls format
-  const msg4 = createToolCallsMessage(generateCallId(), generateToolCallId(), TEST_DATES.check_in, TEST_DATES.check_out);
-  results.push(await testWebhook(WEBHOOK_URL, msg4, 'Cloudflared - tool-calls (CURRENT)'));
+  // Test 4: Legacy function-call format (backwards compat)
+  const msg4 = createFunctionCallMessage(generateCallId(), generateToolCallId(), TEST_DATES.check_in, TEST_DATES.check_out);
+  results.push(await testWebhook(LOCAL_URL, msg4, 'Local - Legacy function-call format'));
 
-  // Test 5: Different dates (today/tomorrow)
+  // Test 5: Cloudflared tunnel with tool-calls format
+  const msg5 = createToolCallsMessage(generateCallId(), generateToolCallId(), TEST_DATES.check_in, TEST_DATES.check_out);
+  results.push(await testWebhook(WEBHOOK_URL, msg5, 'Cloudflared - tool-calls (CURRENT)'));
+
+  // Test 6: Cloudflared tunnel with arguments as object
+  const msg6 = createToolCallsMessage(generateCallId(), generateToolCallId(), TEST_DATES.check_in, TEST_DATES.check_out, true);
+  results.push(await testWebhook(WEBHOOK_URL, msg6, 'Cloudflared - tool-calls with arguments as object'));
+
+  // Test 7: Different dates (today/tomorrow)
   const today = new Date().toISOString().split('T')[0];
   const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-  const msg5 = createToolCallsMessage(generateCallId(), generateToolCallId(), today, tomorrow);
-  results.push(await testWebhook(LOCAL_URL, msg5, `Today's availability (${today} to ${tomorrow})`));
+  const msg7 = createToolCallsMessage(generateCallId(), generateToolCallId(), today, tomorrow);
+  results.push(await testWebhook(LOCAL_URL, msg7, `Today's availability (${today} to ${tomorrow})`));
 
   // Summary
   console.log(`\n${'='.repeat(60)}`);

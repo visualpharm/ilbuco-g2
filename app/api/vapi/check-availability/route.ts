@@ -27,6 +27,48 @@ interface VapiRequest {
   };
 }
 
+function parseToolArguments(rawArgs: unknown): Record<string, unknown> {
+  if (!rawArgs) return {};
+  if (typeof rawArgs === 'string') {
+    try {
+      return JSON.parse(rawArgs) as Record<string, unknown>;
+    } catch (e) {
+      console.error('Failed to parse arguments:', e);
+      return {};
+    }
+  }
+  if (typeof rawArgs === 'object') {
+    return rawArgs as Record<string, unknown>;
+  }
+  return {};
+}
+
+function normalizeDateInput(dateInput?: string): string | null {
+  if (!dateInput) return null;
+  const trimmed = dateInput.trim();
+  if (!trimmed) return null;
+
+  const compactMatch = trimmed.match(/^(\d{4})(\d{2})(\d{2})$/);
+  if (compactMatch) {
+    const [, year, month, day] = compactMatch;
+    return `${year}-${month}-${day}`;
+  }
+
+  const match = trimmed.match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})/);
+  if (!match) return null;
+
+  const [, year, monthRaw, dayRaw] = match;
+  const month = Number(monthRaw);
+  const day = Number(dayRaw);
+  if (Number.isNaN(month) || Number.isNaN(day)) return null;
+  if (month < 1 || month > 12) return null;
+  if (day < 1 || day > 31) return null;
+
+  const monthPadded = String(month).padStart(2, '0');
+  const dayPadded = String(day).padStart(2, '0');
+  return `${year}-${monthPadded}-${dayPadded}`;
+}
+
 async function getAvailability(startDate: string, endDate: string, listingId?: string) {
   const hostexKey = process.env.HOSTEX_API_KEY;
   if (!hostexKey) {
@@ -174,10 +216,18 @@ export async function POST(request: NextRequest) {
       const { functionCall } = body.message;
 
       if (functionCall.name === 'check_availability') {
-        const { check_in, check_out, listing_id } = functionCall.parameters;
+        const params = parseToolArguments(functionCall.parameters);
+        const { check_in, check_out, listing_id } = params as {
+          check_in?: string;
+          check_out?: string;
+          listing_id?: string;
+        };
+
+        const normalizedCheckIn = normalizeDateInput(check_in);
+        const normalizedCheckOut = normalizeDateInput(check_out);
 
         // Validate dates
-        if (!check_in || !check_out) {
+        if (!normalizedCheckIn || !normalizedCheckOut) {
           return NextResponse.json({
             results: [{
               toolCallId: functionCall.id,
@@ -187,7 +237,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Fetch availability
-        const availability = await getAvailability(check_in, check_out, listing_id);
+        const availability = await getAvailability(normalizedCheckIn, normalizedCheckOut, listing_id);
 
         if ('error' in availability) {
           return NextResponse.json({

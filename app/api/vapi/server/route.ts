@@ -63,6 +63,50 @@ interface VapiServerMessage {
   };
 }
 
+function parseToolArguments(rawArgs: unknown): Record<string, unknown> {
+  if (!rawArgs) return {};
+  if (typeof rawArgs === 'string') {
+    try {
+      return JSON.parse(rawArgs) as Record<string, unknown>;
+    } catch (e) {
+      console.error('[Vapi Server] Failed to parse arguments:', e);
+      return {};
+    }
+  }
+  if (typeof rawArgs === 'object') {
+    return rawArgs as Record<string, unknown>;
+  }
+  return {};
+}
+
+function normalizeDateInput(dateInput?: string): string | null {
+  if (!dateInput) return null;
+  const trimmed = dateInput.trim();
+  if (!trimmed) return null;
+
+  // YYYYMMDD
+  const compactMatch = trimmed.match(/^(\d{4})(\d{2})(\d{2})$/);
+  if (compactMatch) {
+    const [, year, month, day] = compactMatch;
+    return `${year}-${month}-${day}`;
+  }
+
+  // YYYY-MM-DD, YYYY/MM/DD, YYYY MM DD, etc
+  const match = trimmed.match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})/);
+  if (!match) return null;
+
+  const [, year, monthRaw, dayRaw] = match;
+  const month = Number(monthRaw);
+  const day = Number(dayRaw);
+  if (Number.isNaN(month) || Number.isNaN(day)) return null;
+  if (month < 1 || month > 12) return null;
+  if (day < 1 || day > 31) return null;
+
+  const monthPadded = String(month).padStart(2, '0');
+  const dayPadded = String(day).padStart(2, '0');
+  return `${year}-${monthPadded}-${dayPadded}`;
+}
+
 // Get today's availability from Hostex
 async function getTodayAvailability(): Promise<{ available: string[]; minPrice: number | null }> {
   const hostexKey = process.env.HOSTEX_API_KEY;
@@ -237,13 +281,7 @@ export async function POST(request: NextRequest) {
 
       for (const toolCall of toolCalls) {
         const functionName = toolCall.function.name;
-        let params: Record<string, unknown> = {};
-
-        try {
-          params = JSON.parse(toolCall.function.arguments);
-        } catch (e) {
-          console.error('[Vapi Server] Failed to parse arguments:', e);
-        }
+        const params = parseToolArguments(toolCall.function.arguments);
 
         if (functionName === 'check_availability') {
           const { check_in, check_out, listing_id } = params as {
@@ -252,7 +290,10 @@ export async function POST(request: NextRequest) {
             listing_id?: string;
           };
 
-          if (!check_in || !check_out) {
+          const normalizedCheckIn = normalizeDateInput(check_in);
+          const normalizedCheckOut = normalizeDateInput(check_out);
+
+          if (!normalizedCheckIn || !normalizedCheckOut) {
             results.push({
               name: functionName,
               toolCallId: toolCall.id,
@@ -261,8 +302,8 @@ export async function POST(request: NextRequest) {
             continue;
           }
 
-          console.log(`[Vapi Server] Checking availability: ${check_in} to ${check_out}`);
-          const availability = await getDetailedAvailability(check_in, check_out, listing_id);
+          console.log(`[Vapi Server] Checking availability: ${normalizedCheckIn} to ${normalizedCheckOut}`);
+          const availability = await getDetailedAvailability(normalizedCheckIn, normalizedCheckOut, listing_id);
 
           results.push({
             name: functionName,
@@ -288,8 +329,11 @@ export async function POST(request: NextRequest) {
           listing_id?: string;
         };
 
+        const normalizedCheckIn = normalizeDateInput(check_in);
+        const normalizedCheckOut = normalizeDateInput(check_out);
+
         // Validate dates
-        if (!check_in || !check_out) {
+        if (!normalizedCheckIn || !normalizedCheckOut) {
           return NextResponse.json({
             results: [{
               name: functionCall.name,
@@ -300,8 +344,8 @@ export async function POST(request: NextRequest) {
         }
 
         // Fetch availability from Hostex
-        console.log(`[Vapi Server] Checking availability: ${check_in} to ${check_out}`);
-        const availability = await getDetailedAvailability(check_in, check_out, listing_id);
+        console.log(`[Vapi Server] Checking availability: ${normalizedCheckIn} to ${normalizedCheckOut}`);
+        const availability = await getDetailedAvailability(normalizedCheckIn, normalizedCheckOut, listing_id);
 
         const response = {
           results: [{

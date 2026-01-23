@@ -8,8 +8,9 @@
 
 const axios = require('axios');
 
-const VAPI_PRIVATE_KEY = 'ac7556fd-4f11-4a76-8518-e0f6c4442ad4';
+const VAPI_PRIVATE_KEY = process.env.VAPI_PRIVATE_KEY || 'ac7556fd-4f11-4a76-8518-e0f6c4442ad4';
 const VAPI_API_URL = 'https://api.vapi.ai/assistant';
+const VAPI_SERVER_URL = process.env.VAPI_SERVER_URL || 'https://spider-annotation-sen-louise.trycloudflare.com/api/vapi/server';
 
 // Voice Agent System Prompt - adapted for voice interactions
 const VOICE_SYSTEM_PROMPT = `Sos un asistente de voz para Il Buco, una villa en Cariló, Argentina.
@@ -68,7 +69,7 @@ const assistantConfig = {
       {
         type: 'function',
         server: {
-          url: 'https://spider-annotation-sen-louise.trycloudflare.com/api/vapi/server'
+          url: VAPI_SERVER_URL
         },
         function: {
           name: 'check_availability',
@@ -108,7 +109,7 @@ const assistantConfig = {
   },
   firstMessage: 'Hola, soy el asistente virtual de Il Buco. Me podés preguntar por disponibilidad, precios, wifi, o cosas sobre Cariló. ¿En qué te puedo ayudar?',
   firstMessageMode: 'assistant-speaks-first',
-  serverUrl: 'https://spider-annotation-sen-louise.trycloudflare.com/api/vapi/server',
+  serverUrl: VAPI_SERVER_URL,
   silenceTimeoutSeconds: 30,
   maxDurationSeconds: 600,
   backgroundSound: 'off',
