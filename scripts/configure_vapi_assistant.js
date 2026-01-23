@@ -67,7 +67,9 @@ const assistantConfig = {
     tools: [
       {
         type: 'function',
-        async: false,
+        server: {
+          url: 'https://spider-annotation-sen-louise.trycloudflare.com/api/vapi/server'
+        },
         function: {
           name: 'check_availability',
           description: 'REQUIRED: Check real-time room availability. You MUST call this function BEFORE answering ANY question about availability, rooms, dates, or booking. Never assume availability without checking.',
@@ -90,9 +92,6 @@ const assistantConfig = {
             },
             required: ['check_in', 'check_out']
           }
-        },
-        server: {
-          url: 'https://ilbuco.com.ar/api/vapi/server'
         }
       }
     ]
@@ -109,7 +108,7 @@ const assistantConfig = {
   },
   firstMessage: 'Hola, soy el asistente virtual de Il Buco. Me podés preguntar por disponibilidad, precios, wifi, o cosas sobre Cariló. ¿En qué te puedo ayudar?',
   firstMessageMode: 'assistant-speaks-first',
-  serverUrl: 'https://ilbuco.com.ar/api/vapi/server',
+  serverUrl: 'https://spider-annotation-sen-louise.trycloudflare.com/api/vapi/server',
   silenceTimeoutSeconds: 30,
   maxDurationSeconds: 600,
   backgroundSound: 'off',
@@ -118,7 +117,7 @@ const assistantConfig = {
   clientMessages: [
     'transcript',
     'hang',
-    'function-call',
+    'tool-calls',
     'speech-update',
     'status-update',
     'conversation-update'
@@ -127,7 +126,7 @@ const assistantConfig = {
     'end-of-call-report',
     'status-update',
     'hang',
-    'function-call'
+    'tool-calls'
   ]
 };
 

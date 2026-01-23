@@ -14,6 +14,15 @@ const LISTINGS = [
 // Log directory for conversations
 const LOG_DIR = path.join(process.cwd(), 'logs', 'conversations');
 
+interface ToolCall {
+  id: string;
+  type: string;
+  function: {
+    name: string;
+    arguments: string;
+  };
+}
+
 interface VapiServerMessage {
   message: {
     type: string;
@@ -27,12 +36,18 @@ interface VapiServerMessage {
       id: string;
       name: string;
     };
-    // For function calls
+    // For function calls (legacy format)
     functionCall?: {
       id: string;
       name: string;
       parameters: Record<string, unknown>;
     };
+    // For tool-calls (current Vapi format)
+    toolCallList?: ToolCall[];
+    toolWithToolCallList?: Array<{
+      tool: unknown;
+      toolCall: ToolCall;
+    }>;
     // For end-of-call-report
     artifact?: {
       transcript?: string;
@@ -179,7 +194,9 @@ export async function POST(request: NextRequest) {
     const messageType = body.message?.type;
     const callId = body.message?.call?.id || 'unknown';
 
+    // Detailed logging for debugging
     console.log(`[Vapi Server] Received: ${messageType}`, callId);
+    console.log(`[Vapi Server] Full body:`, JSON.stringify(body, null, 2));
 
     // Handle assistant-request: Generate dynamic first message
     if (messageType === 'assistant-request') {
@@ -209,9 +226,60 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ status: 'logged' });
     }
 
-    // Handle function-call: Forward to check-availability endpoint
-    if (messageType === 'function-call' && body.message.functionCall) {
-      const { functionCall } = body.message;
+    // Handle tool-calls (current Vapi format)
+    if (messageType === 'tool-calls') {
+      const toolCalls = body.message.toolCallList ||
+        body.message.toolWithToolCallList?.map(t => t.toolCall) || [];
+
+      console.log(`[Vapi Server] Processing ${toolCalls.length} tool calls`);
+
+      const results = [];
+
+      for (const toolCall of toolCalls) {
+        const functionName = toolCall.function.name;
+        let params: Record<string, unknown> = {};
+
+        try {
+          params = JSON.parse(toolCall.function.arguments);
+        } catch (e) {
+          console.error('[Vapi Server] Failed to parse arguments:', e);
+        }
+
+        if (functionName === 'check_availability') {
+          const { check_in, check_out, listing_id } = params as {
+            check_in: string;
+            check_out: string;
+            listing_id?: string;
+          };
+
+          if (!check_in || !check_out) {
+            results.push({
+              name: functionName,
+              toolCallId: toolCall.id,
+              result: 'Necesito las fechas de entrada y salida para verificar disponibilidad.'
+            });
+            continue;
+          }
+
+          console.log(`[Vapi Server] Checking availability: ${check_in} to ${check_out}`);
+          const availability = await getDetailedAvailability(check_in, check_out, listing_id);
+
+          results.push({
+            name: functionName,
+            toolCallId: toolCall.id,
+            result: availability
+          });
+        }
+      }
+
+      const response = { results };
+      console.log(`[Vapi Server] Returning:`, JSON.stringify(response));
+      return NextResponse.json(response);
+    }
+
+    // Handle function-call (legacy format)
+    const functionCall = body.message.functionCall || (body.message as { toolCall?: { id: string; name: string; parameters: Record<string, unknown> } }).toolCall;
+    if (messageType === 'function-call' && functionCall) {
 
       if (functionCall.name === 'check_availability') {
         const { check_in, check_out, listing_id } = functionCall.parameters as {
@@ -224,6 +292,7 @@ export async function POST(request: NextRequest) {
         if (!check_in || !check_out) {
           return NextResponse.json({
             results: [{
+              name: functionCall.name,
               toolCallId: functionCall.id,
               result: 'Necesito las fechas de entrada y salida para verificar disponibilidad.'
             }]
@@ -231,14 +300,18 @@ export async function POST(request: NextRequest) {
         }
 
         // Fetch availability from Hostex
+        console.log(`[Vapi Server] Checking availability: ${check_in} to ${check_out}`);
         const availability = await getDetailedAvailability(check_in, check_out, listing_id);
 
-        return NextResponse.json({
+        const response = {
           results: [{
+            name: functionCall.name,
             toolCallId: functionCall.id,
             result: availability
           }]
-        });
+        };
+        console.log(`[Vapi Server] Returning:`, JSON.stringify(response));
+        return NextResponse.json(response);
       }
     }
 
