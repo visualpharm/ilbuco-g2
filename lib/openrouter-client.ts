@@ -51,17 +51,35 @@ function buildGeminiHistory(conversationHistory: Array<{ role: 'user' | 'assista
 }
 
 function parseResult(raw: string, modelUsed: string): AutoresponderResult {
+  // Strip markdown code fences if present
+  let cleaned = raw.trim();
+  if (cleaned.startsWith('```')) {
+    cleaned = cleaned.replace(/^```(?:json)?\s*\n?/, '').replace(/\n?```\s*$/, '').trim();
+  }
+
   try {
-    const parsed = JSON.parse(raw);
+    const parsed = JSON.parse(cleaned);
+    const reply = typeof parsed.reply === 'string' ? parsed.reply : '';
+    // Sanity check: reply should look like a human message, not JSON/code
+    if (reply && (reply.startsWith('{') || reply.startsWith('[') || reply.length < 2)) {
+      console.log(`Suspicious reply from ${modelUsed}: ${reply.slice(0, 50)}`);
+      return { confidence: 'escalate', reply: '', escalation_reason: 'malformed_ai_response', language: parsed.language || 'es', model: modelUsed };
+    }
     return {
       confidence: parsed.confidence === 'escalate' ? 'escalate' : 'auto',
-      reply: parsed.reply || '',
+      reply,
       escalation_reason: parsed.escalation_reason || undefined,
       language: parsed.language || 'es',
       model: modelUsed,
     };
   } catch {
-    return { confidence: 'auto', reply: raw, language: 'es', model: modelUsed };
+    // JSON parse failed — if the raw text looks like a real message (not code/JSON), use it
+    if (cleaned.length > 5 && !cleaned.startsWith('{') && !cleaned.startsWith('[')) {
+      return { confidence: 'auto', reply: cleaned, language: 'es', model: modelUsed };
+    }
+    // Otherwise escalate rather than send garbage
+    console.log(`Unparseable response from ${modelUsed}: ${cleaned.slice(0, 80)}`);
+    return { confidence: 'escalate', reply: '', escalation_reason: 'unparseable_ai_response', language: 'es', model: modelUsed };
   }
 }
 
