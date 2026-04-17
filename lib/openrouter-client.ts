@@ -2,8 +2,8 @@
 
 import OpenAI from 'openai';
 
-const PRIMARY_MODEL = 'google/gemini-2.5-pro-preview';
-const FALLBACK_MODEL = 'anthropic/claude-opus-4-6';
+const PRIMARY_MODEL = 'google/gemini-3.1-pro-preview';
+const FALLBACK_MODEL = 'anthropic/claude-opus-4.7';
 
 function getClient(): OpenAI {
   const apiKey = process.env.OPENROUTER_API_KEY;
