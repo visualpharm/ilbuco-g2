@@ -88,8 +88,7 @@ export async function generateAutoResponse(
         model: modelId,
         messages,
         temperature: 0.3,
-        max_tokens: 500,
-        response_format: { type: 'json_object' },
+        max_tokens: 4000,
       });
 
       const raw = response.choices[0]?.message?.content || '{}';
