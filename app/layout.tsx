@@ -6,6 +6,7 @@ import { LanguageProvider } from "@/contexts/language-context"
 import { ClientLayout } from '@/components/client-layout'
 import { ChatWidget } from '@/components/chat-widget'
 import Script from 'next/script'
+import { Analytics } from '@vercel/analytics/next'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -57,6 +58,7 @@ export default function RootLayout({
             </LanguageProvider>
           </ThemeProvider>
         </ClientLayout>
+        <Analytics />
       </body>
     </html>
   )
