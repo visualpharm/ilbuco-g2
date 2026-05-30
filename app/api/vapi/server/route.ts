@@ -31,6 +31,10 @@ interface VapiServerMessage {
       customer?: {
         number?: string;
       };
+      monitor?: {
+        controlUrl?: string;
+      };
+      controlUrl?: string;
     };
     assistant?: {
       id: string;
@@ -283,6 +287,72 @@ export async function POST(request: NextRequest) {
         const functionName = toolCall.function.name;
         const params = parseToolArguments(toolCall.function.arguments);
 
+        if (functionName === 'transfer_to_operator') {
+          const { reason } = params as { reason?: string };
+          console.log(`[Vapi Server] Transfer requested. Reason: ${reason}`);
+
+          // Get operator SIP/phone from environment
+          const operatorDestination = process.env.OPERATOR_SIP_URI || process.env.OPERATOR_PHONE;
+          const controlUrl = body.message.call?.monitor?.controlUrl || body.message.call?.controlUrl;
+          console.log('[Vapi Server] Transfer controlUrl present:', Boolean(controlUrl));
+
+          if (!operatorDestination) {
+            results.push({
+              name: functionName,
+              toolCallId: toolCall.id,
+              result: 'Lo siento, no puedo transferir la llamada en este momento. Por favor contactanos por WhatsApp o email.'
+            });
+            continue;
+          }
+
+          if (!controlUrl) {
+            results.push({
+              name: functionName,
+              toolCallId: toolCall.id,
+              result: 'No puedo transferir la llamada en este momento. Por favor intentá de nuevo más tarde.'
+            });
+            continue;
+          }
+
+          // Execute transfer via call control URL
+          const isSip = operatorDestination.includes('@');
+          const transferPayload = {
+            type: 'transfer',
+            destination: isSip
+              ? { type: 'sip', sipUri: operatorDestination }
+              : { type: 'number', number: operatorDestination },
+            message: reason || 'Transferring to operator'
+          };
+
+          const transferResponse = await fetch(controlUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(transferPayload),
+          });
+
+          if (!transferResponse.ok) {
+            const responseText = await transferResponse.text();
+            console.error('[Vapi Server] Transfer failed:', transferResponse.status, responseText);
+            results.push({
+              name: functionName,
+              toolCallId: toolCall.id,
+              result: 'Lo siento, hubo un problema transfiriendo la llamada. Por favor intentá de nuevo.'
+            });
+            continue;
+          }
+
+          const responseText = await transferResponse.text();
+          console.log('[Vapi Server] Transfer response:', responseText);
+          results.push({
+            name: functionName,
+            toolCallId: toolCall.id,
+            result: 'Te transfiero con un operador ahora.'
+          });
+          continue;
+        }
+
         if (functionName === 'check_availability') {
           const { check_in, check_out, listing_id } = params as {
             check_in: string;
@@ -389,29 +459,200 @@ async function getDetailedAvailability(startDate: string, endDate: string, listi
       ? LISTINGS.filter(l => l.listing_id === listingId)
       : LISTINGS;
 
-    const response = await fetch(HOSTEX_API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Hostex-Access-Token': hostexKey,
-      },
-      body: JSON.stringify({
-        start_date: startDate,
-        end_date: endDate,
-        listings: listingsToCheck.map(l => ({
-          channel_type: l.channel_type,
-          listing_id: l.listing_id
-        })),
-      }),
-    });
+    const addDays = (dateStr: string, days: number): string => {
+      const date = new Date(`${dateStr}T12:00:00`);
+      date.setDate(date.getDate() + days);
+      return date.toISOString().split('T')[0];
+    };
 
-    if (!response.ok) {
+    const daysBetween = getDatesBetween(startDate, endDate).length;
+
+    const fetchCalendar = async (rangeStart: string, rangeEnd: string) => {
+      const response = await fetch(HOSTEX_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Hostex-Access-Token': hostexKey,
+        },
+        body: JSON.stringify({
+          start_date: rangeStart,
+          end_date: rangeEnd,
+          listings: listingsToCheck.map(l => ({
+            channel_type: l.channel_type,
+            listing_id: l.listing_id
+          })),
+        }),
+      });
+
+      if (!response.ok) {
+        return null;
+      }
+
+      const data = await response.json();
+      if (data.error_code !== 200) {
+        return null;
+      }
+
+      return data;
+    };
+
+    const findOptionsInRange = (
+      data: { data?: { listings?: Array<{ listing_id: string; calendar?: Array<{ date: string; inventory: number; price?: number }> }> } },
+      rangeStart: string,
+      rangeEnd: string,
+      preferredNights: number[]
+    ) => {
+      const options: Array<{ name: string; start: string; end: string; price: number | null; nights: number }> = [];
+      const listings = data.data?.listings || [];
+
+      for (const listing of listings) {
+        const listingInfo = LISTINGS.find(l => l.listing_id === listing.listing_id);
+        if (!listingInfo) continue;
+
+        const calendar = listing.calendar || [];
+        const calendarByDate: Record<string, { inventory: number; price: number }> = {};
+        for (const day of calendar) {
+          calendarByDate[day.date] = {
+            inventory: day.inventory,
+            price: day.price || 0
+          };
+        }
+
+        for (const nights of preferredNights) {
+          const lastStart = addDays(rangeEnd, -nights);
+          let cursor = rangeStart;
+          let windowFound: { start: string; end: string; price: number | null } | null = null;
+
+          while (cursor <= lastStart) {
+            let ok = true;
+            let minPrice: number | null = null;
+            for (let i = 0; i < nights; i++) {
+              const dayKey = addDays(cursor, i);
+              const dayInfo = calendarByDate[dayKey];
+              if (!dayInfo || dayInfo.inventory !== 1) {
+                ok = false;
+                break;
+              }
+              if (dayInfo.price > 0 && (minPrice === null || dayInfo.price < minPrice)) {
+                minPrice = dayInfo.price;
+              }
+            }
+
+            if (ok) {
+              windowFound = {
+                start: cursor,
+                end: addDays(cursor, nights),
+                price: minPrice
+              };
+              break;
+            }
+
+            cursor = addDays(cursor, 1);
+          }
+
+          if (windowFound) {
+            options.push({
+              name: listingInfo.name,
+              start: windowFound.start,
+              end: windowFound.end,
+              price: windowFound.price,
+              nights
+            });
+            break;
+          }
+        }
+      }
+
+      return options;
+    };
+
+    const findLongestRunsInRange = (
+      data: { data?: { listings?: Array<{ listing_id: string; calendar?: Array<{ date: string; inventory: number; price?: number }> }> } }
+    ) => {
+      const runs: Array<{ name: string; start: string; end: string; nights: number; minPrice: number | null }> = [];
+      const listings = data.data?.listings || [];
+
+      for (const listing of listings) {
+        const listingInfo = LISTINGS.find(l => l.listing_id === listing.listing_id);
+        if (!listingInfo) continue;
+
+        const calendar = (listing.calendar || []).slice().sort((a, b) => a.date.localeCompare(b.date));
+        let currentStart: string | null = null;
+        let currentEnd: string | null = null;
+        let currentNights = 0;
+        let currentMinPrice: number | null = null;
+        let best: { start: string; end: string; nights: number; minPrice: number | null } | null = null;
+        let lastDate: string | null = null;
+
+        for (const day of calendar) {
+          if (day.inventory === 1) {
+            const isConsecutive = lastDate ? addDays(lastDate, 1) === day.date : false;
+            if (!currentStart || !isConsecutive) {
+              if (currentStart && (!best || currentNights > best.nights)) {
+                best = {
+                  start: currentStart,
+                  end: currentEnd || addDays(currentStart, currentNights),
+                  nights: currentNights,
+                  minPrice: currentMinPrice
+                };
+              }
+              currentStart = day.date;
+              currentEnd = addDays(day.date, 1);
+              currentNights = 1;
+              currentMinPrice = day.price || 0;
+            } else {
+              currentEnd = addDays(currentEnd, 1);
+              currentNights += 1;
+              if (day.price && (currentMinPrice === null || day.price < currentMinPrice)) {
+                currentMinPrice = day.price;
+              }
+            }
+            lastDate = day.date;
+          } else if (currentStart) {
+            if (!best || currentNights > best.nights) {
+              best = {
+                start: currentStart,
+                end: currentEnd || addDays(currentStart, currentNights),
+                nights: currentNights,
+                minPrice: currentMinPrice
+              };
+            }
+            currentStart = null;
+            currentEnd = null;
+            currentNights = 0;
+            currentMinPrice = null;
+            lastDate = null;
+          }
+        }
+
+        if (currentStart) {
+          if (!best || currentNights > best.nights) {
+            best = {
+              start: currentStart,
+              end: currentEnd || addDays(currentStart, currentNights),
+              nights: currentNights,
+              minPrice: currentMinPrice
+            };
+          }
+        }
+
+        if (best) {
+          runs.push({
+            name: listingInfo.name,
+            start: best.start,
+            end: best.end,
+            nights: best.nights,
+            minPrice: best.minPrice
+          });
+        }
+      }
+
+      return runs;
+    };
+
+    let data = await fetchCalendar(startDate, endDate);
+    if (!data) {
       return 'No pude verificar la disponibilidad. Por favor intentá de nuevo o visitá book punto ilbuco punto com punto ar.';
-    }
-
-    const data = await response.json();
-    if (data.error_code !== 200) {
-      return 'Error al verificar disponibilidad. Visitá book punto ilbuco punto com punto ar.';
     }
 
     // Parse availability
@@ -424,6 +665,18 @@ async function getDetailedAvailability(startDate: string, endDate: string, listi
       if (!listingInfo) continue;
 
       const calendar = listing.calendar || [];
+      const calendarByDate: Record<string, { inventory: number; price: number }> = {};
+      for (const day of calendar) {
+        calendarByDate[day.date] = {
+          inventory: day.inventory,
+          price: day.price || 0
+        };
+      }
+
+      if (daysBetween > 10) {
+        continue;
+      }
+
       const availableDates = calendar
         .filter((d: { inventory: number; date: string }) => d.inventory === 1)
         .map((d: { date: string }) => d.date);
@@ -457,7 +710,161 @@ async function getDetailedAvailability(startDate: string, endDate: string, listi
     const checkInFormatted = formatDate(startDate);
     const checkOutFormatted = formatDate(endDate);
 
+    if (daysBetween > 10) {
+      const preferredNights = [4, 3, 2];
+      const maxSearchDays = 180;
+      let collectedOptions: Array<{ name: string; start: string; end: string; price: number | null; nights: number }> = [];
+      let collectedRuns: Array<{ name: string; start: string; end: string; nights: number; minPrice: number | null }> = [];
+
+      for (let offset = 0; offset < maxSearchDays; offset += 30) {
+        const rangeStart = addDays(startDate, offset);
+        const rangeEnd = addDays(rangeStart, 30);
+        const rangeData = offset === 0 ? data : await fetchCalendar(rangeStart, rangeEnd);
+        if (!rangeData) continue;
+
+        const rangeOptions = findOptionsInRange(rangeData, rangeStart, rangeEnd, preferredNights);
+        const rangeRuns = findLongestRunsInRange(rangeData);
+        collectedOptions = collectedOptions.concat(rangeOptions);
+        collectedRuns = collectedRuns.concat(rangeRuns);
+
+        if (rangeOptions.some(option => option.nights === 4)) {
+          break;
+        }
+      }
+
+      if (collectedOptions.length === 0) {
+        return 'En las proximas semanas no encuentro ventanas de dos noches disponibles. ¿Querés probar otras fechas o una estadia mas larga?';
+      }
+
+      const longRuns = collectedRuns
+        .filter(run => run.nights >= 7)
+        .sort((a, b) => b.nights - a.nights)
+        .slice(0, 3);
+
+      const optionLines = longRuns.length > 0
+        ? longRuns.map(run => {
+          const startFormatted = formatDate(run.start);
+          const endFormatted = formatDate(run.end);
+          let line = `${run.name} del ${startFormatted} al ${endFormatted}`;
+          if (run.minPrice && run.minPrice > 0) {
+            line += ` desde ${run.minPrice} dolares por noche`;
+          }
+          return line;
+        })
+        : (() => {
+          const maxNights = Math.max(...collectedOptions.map(option => option.nights));
+          const optionsForNights = collectedOptions.filter(option => option.nights === maxNights);
+          const sortedOptions = [...optionsForNights].sort((a, b) => a.start.localeCompare(b.start));
+          const topOptions = sortedOptions.slice(0, 3);
+          return topOptions.map(option => {
+            const startFormatted = formatDate(option.start);
+            const endFormatted = formatDate(option.end);
+            let line = `${option.name} del ${startFormatted} al ${endFormatted}`;
+            if (option.price && option.price > 0) {
+              line += ` desde ${option.price} dolares por noche`;
+            }
+            return line;
+          });
+        })();
+
+      let response_text = '';
+      if (longRuns.length > 0) {
+        response_text += 'En las proximas fechas tengo disponibilidad extendida: ';
+      } else {
+        const maxNights = Math.max(...collectedOptions.map(option => option.nights));
+        if (maxNights === 4) {
+          response_text += 'En las proximas fechas con cuatro noches seguidas tengo estas opciones: ';
+        } else if (maxNights === 3) {
+          response_text += 'No encuentro cuatro noches seguidas en los proximos treinta dias, pero tengo opciones de tres noches: ';
+        } else {
+          response_text += 'No encuentro cuatro ni tres noches seguidas en los proximos treinta dias, pero tengo opciones de dos noches: ';
+        }
+      }
+
+      response_text += `${optionLines.join('. ')}. `;
+      response_text += 'Si me decís un rango aproximado, reviso algo mas preciso. ¿Querés que lo haga?';
+      return response_text;
+    }
+
     if (availableRooms.length === 0) {
+      // No rooms fully available - find best partial availability within the range
+      const partialOptions: Array<{ name: string; start: string; end: string; nights: number; price: number }> = [];
+
+      for (const listing of data.data?.listings || []) {
+        const listingInfo = LISTINGS.find(l => l.listing_id === listing.listing_id);
+        if (!listingInfo || listingInfo.name === 'Whole House') continue;
+
+        const calendar = (listing.calendar || []).slice().sort((a: { date: string }, b: { date: string }) => a.date.localeCompare(b.date));
+
+        // Find longest consecutive run within requested dates
+        let currentStart: string | null = null;
+        let currentNights = 0;
+        let currentMinPrice = 0;
+        let best: { start: string; end: string; nights: number; price: number } | null = null;
+        let lastDate: string | null = null;
+
+        for (const day of calendar) {
+          if (!requestedDates.includes(day.date)) continue;
+
+          if (day.inventory === 1) {
+            const isConsecutive = lastDate ? addDays(lastDate, 1) === day.date : false;
+            if (!currentStart || !isConsecutive) {
+              if (currentStart && currentNights >= 2 && (!best || currentNights > best.nights)) {
+                best = { start: currentStart, end: addDays(currentStart, currentNights), nights: currentNights, price: currentMinPrice };
+              }
+              currentStart = day.date;
+              currentNights = 1;
+              currentMinPrice = day.price || 0;
+            } else {
+              currentNights++;
+              if (day.price && day.price > 0 && (currentMinPrice === 0 || day.price < currentMinPrice)) {
+                currentMinPrice = day.price;
+              }
+            }
+            lastDate = day.date;
+          } else {
+            if (currentStart && currentNights >= 2 && (!best || currentNights > best.nights)) {
+              best = { start: currentStart, end: addDays(currentStart, currentNights), nights: currentNights, price: currentMinPrice };
+            }
+            currentStart = null;
+            currentNights = 0;
+            currentMinPrice = 0;
+            lastDate = null;
+          }
+        }
+
+        if (currentStart && currentNights >= 2 && (!best || currentNights > best.nights)) {
+          best = { start: currentStart, end: addDays(currentStart, currentNights), nights: currentNights, price: currentMinPrice };
+        }
+
+        if (best && best.nights >= 2) {
+          partialOptions.push({ name: listingInfo.name, ...best });
+        }
+      }
+
+      if (partialOptions.length > 0) {
+        partialOptions.sort((a, b) => b.nights - a.nights);
+        const bestOption = partialOptions[0];
+        const startFormatted = formatDate(bestOption.start);
+        const endFormatted = formatDate(bestOption.end);
+
+        let response = `Para el ${checkInFormatted} al ${checkOutFormatted}, ninguna suite tiene todas las noches. `;
+        response += `Pero ${bestOption.name} está libre del ${startFormatted} al ${endFormatted}, son ${bestOption.nights} noches`;
+        if (bestOption.price > 0) {
+          response += ` a ${bestOption.price} dólares por noche`;
+        }
+        response += '. ';
+
+        const otherGood = partialOptions.filter(o => o.name !== bestOption.name && o.nights >= bestOption.nights - 1).slice(0, 2);
+        if (otherGood.length > 0) {
+          const otherNames = otherGood.map(o => `${o.name} del ${formatDate(o.start)} al ${formatDate(o.end)}`).join(', ');
+          response += `También: ${otherNames}. `;
+        }
+
+        response += '¿Te sirve?';
+        return response;
+      }
+
       return `Para el ${checkInFormatted} al ${checkOutFormatted}, lamentablemente todas las suites están ocupadas. ¿Querés probar otras fechas?`;
     }
 

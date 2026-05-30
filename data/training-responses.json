@@ -1,0 +1,1250 @@
+[
+  {
+    "category": "welcome_template",
+    "guest_message": "",
+    "host_response": "Bienvenidos, es un excelente lugar, a tener en cuenta: el alquiler es por una suite individual  y no la casa entera. La suite está completamente equipada, con cocina y baño privados, y la posibilidad de cerrar la puerta de la habitación con llave para mantener la privacidad, igualmente, tienen acceso al living comedor compartido y la terraza compartida con parrilla",
+    "guest_name": "Jose Luis Casas",
+    "channel": "airbnb",
+    "property": "Penthouse"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "",
+    "host_response": "Hola, ¡bienvenidos! Gracias por la reservación!\n\nPor las dudas les aclaro: lo que están alquilando es un lindo ambiente privado con cocina, baño y hasta  lavarropas adentro. \n\nTambién tienen acceso a los espacios compartidos: un living amplio y el solario con parrilla.\n\nPero no es la casa entera de 500 m2,   ¿Está bien así? Gracias!",
+    "guest_name": "Jose Luis Casas",
+    "channel": "airbnb",
+    "property": "Penthouse"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "",
+    "host_response": "Hola, gracias por reservar! Bienvenidos. \n\nEl checkin es despues de 15, pero si quieren venir antes, digan. Si no tenemo huespedes antes, es gratis.",
+    "guest_name": "Jose Luis Casas",
+    "channel": "airbnb",
+    "property": "Penthouse"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Hola Ivan. Veo que la reserva esta para solo una persona. Y somos 3 espero que no haya problema",
+    "host_response": "No lo habia notado, necesitamos que arreglen la cantidad de huespedes por favor",
+    "guest_name": "Jose Luis Casas",
+    "channel": "airbnb",
+    "property": "Penthouse"
+  },
+  {
+    "category": "general",
+    "guest_message": "Lo dejo con 2?",
+    "host_response": "Si, no hay problema, dejelo con 2 por favor",
+    "guest_name": "Jose Luis Casas",
+    "channel": "airbnb",
+    "property": "Penthouse"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Hola Ivan, buenas tardes. Consulta la habitación tiene ropa de cama para los 3?\nPor otro queria saber a que hora podemos ingresar?",
+    "host_response": "Jose Luis, buenas tardes. A partir de las 15hs",
+    "guest_name": "Jose Luis Casas",
+    "channel": "airbnb",
+    "property": "Penthouse"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Hola Ivan, buenas tardes. Consulta la habitación tiene ropa de cama para los 3?\nPor otro queria saber a que hora podemos ingresar?",
+    "host_response": "Gracias por elegir Il Buco! La habitación que alquiló es PENTHOUSE.\n\nSu habitación está en en el segundo piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la primer puerta del segundo piso, por favor recuerde que la puerta de vidrio de ese piso es la terraza compartida. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\n====================================================================================================\n\nGreetings and thank your for choosing Il Buco! The room you've rented is PENTHOUSE.\n\nYour room is on the second floor. To reach it, you have to turn right as soon as you enter the property, then turn left before the glass door, and at the end of that corridor you'll find the stairs going up. Your room is the first door on the second floor, please remember that the glass door on that floor is the shared terrace. Please remember that you've rented a single room and not the entire house. The room has a fully furnished kitchen, with an oven, stove, and fridge, a living room, and a fully equipped bathroom, with a shower and washing machine.",
+    "guest_name": "Jose Luis Casas",
+    "channel": "airbnb",
+    "property": "Penthouse"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Hola Ivan, buenas tardes. Consulta la habitación tiene ropa de cama para los 3?\nPor otro queria saber a que hora podemos ingresar?",
+    "host_response": "Gracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es a las 12hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\n====================================================================================================\n\nGreetings and thank your for choosing Il Buco! See you tomorrow!\n\nThe code for the main door is 8649↵. (You can find a video on how to open the main door here: https://www.youtube.com/shorts/pNSzziDel-w)\n\nThe wifi network is \"Buco\" and the password is \"terminator1\" (No quote signs and all lower case).\n\nCheck-in is after 3pm. If you want to check in before that time, please check with us so we can verify if the room is available. If the room is available, there will be no extra charge.\n\nCheck-out is at 12:00hs, if you want to stay beyond that hour, you can do so in the common areas, but you'll need to vacate the room so our cleaning staff can clean it.\n\nThe exact address of the house is Paraíso 324, Cariló, and the address that shows up on Google Maps is accurate. The Google Maps link is: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9",
+    "guest_name": "Jose Luis Casas",
+    "channel": "airbnb",
+    "property": "Penthouse"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Consulta, el relación a la parrilla, hay alguna forma de reserva de la misma?",
+    "host_response": "Estamos implementando un sistema y entre mañana y pasado ya deberia estar listo y les vamos a dar instrucciones por whatsapp!",
+    "guest_name": "Jose Luis Casas",
+    "channel": "airbnb",
+    "property": "Penthouse"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "",
+    "host_response": "Bienvenidos, y gracias por elegir Il Buco! Por favor tenga en cuenta que está alquilando una suite independiente y no la casa entera. La suite está completamente equipada, con cocina y baño privados, y la posibilidad de cerrar la puerta de la habitación con llave para mantener la privacidad. Igualmente, tienen acceso a las áreas comunes: el living comedor compartido de 80m2 en PB y la terraza compartida con parrilla en el 2do piso.",
+    "guest_name": "Sofia Serra",
+    "channel": "airbnb",
+    "property": "Giardino"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "",
+    "host_response": "Bienvenidos y gracias por elegir Il Buco!\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.",
+    "guest_name": "Sofia Serra",
+    "channel": "airbnb",
+    "property": "Giardino"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es GIARDINO.\n\nSu habitación está en planta baja, es la primer puerta ni bien entran. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Sofia Serra",
+    "channel": "airbnb",
+    "property": "Giardino"
+  },
+  {
+    "category": "general",
+    "guest_message": "Gracias! La terraza con las macetas jardineras también es privada, verdad?",
+    "host_response": "Su habitación tiene una terraza privada, si!",
+    "guest_name": "Josefina Maquieira",
+    "channel": "airbnb",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "Gracias! La terraza con las macetas jardineras también es privada, verdad?",
+    "host_response": "Bienvenidos y gracias por elegir Il Buco!\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.",
+    "guest_name": "Josefina Maquieira",
+    "channel": "airbnb",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "Gracias! La terraza con las macetas jardineras también es privada, verdad?",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es TERRAZZO.\n\nSu habitación está en en el primer piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la primer puerta del primero piso. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Josefina Maquieira",
+    "channel": "airbnb",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Hola Ivan, espero que estés muy bien. Estaremos llegando a Cariló mañana alrededor de las 12pm, podríamos hacer el check in en ese horario?",
+    "host_response": "Disculpas pero no, es a partir de las 15 sino no llegamos a limpiar la habitacion",
+    "guest_name": "Josefina Maquieira",
+    "channel": "airbnb",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "wifi",
+    "guest_message": "Hola  Ivan como estas? Ya llegamos :D \n\nMe podrias decir la clave de wifi de la red Buco\n\nIl buco no nos agarra.",
+    "host_response": "terminator1",
+    "guest_name": "Josefina Maquieira",
+    "channel": "airbnb",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "wifi",
+    "guest_message": "Hola  Ivan como estas? Ya llegamos :D \n\nMe podrias decir la clave de wifi de la red Buco\n\nIl buco no nos agarra.",
+    "host_response": "Disculpas por la demora!",
+    "guest_name": "Josefina Maquieira",
+    "channel": "airbnb",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Hola Ivan, queria saber si vas a tener disponible la casa para pasar unos 5 dias para el 31 de Diciembre. Gracias, Maria Jose",
+    "host_response": "María José, si, por el momento tenemos disponible del 27/12/26 al 31/12/26",
+    "guest_name": "Maria Jose",
+    "channel": "airbnb",
+    "property": "Il Buco entero"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Hola ivan, esroy con mis padres y mi novia, tenemos que volver hoy a caba, queremos quedarnos un dia mas y ya dejamos el airbnb en el que estabamos. Podremos ingresar ahora ?",
+    "host_response": "Disculpas pero la habitacion no esta lista, la podemos tener a partir de las 3pm lista",
+    "guest_name": "Lucas",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "amenities",
+    "guest_message": "Cuenta con toallas y sabanas ?",
+    "host_response": "Si, nosotros brindamos la blanqueria, igualmente, les vamos a llevar un catre tambien por las dudas que no esten comodos en el sofa cama",
+    "guest_name": "Lucas",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Buenisimo, hago la reserva entonces",
+    "host_response": "Genial, los esperamos a partir de las 15!",
+    "guest_name": "Lucas",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Buenisimo, hago la reserva entonces",
+    "host_response": "Le pido mil disculpas pero me acaba de decir el personal de limpieza que está rota la ducha de la habitación y no la vamos a poder alquilar",
+    "guest_name": "Lucas",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "general",
+    "guest_message": "",
+    "host_response": "Hola, buenas tardes! El departamento tiene cocina, living comedor y baño privados",
+    "guest_name": "Cecilia Defelipe",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Hola! Si genial, te mandé para reservar para mañana y lunes",
+    "host_response": "Me aparece cancelada la reserva, puede ser?",
+    "guest_name": "Cecilia Defelipe",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "general",
+    "guest_message": "Lo vuelvo a hacer? Pero confírmame que la vas a aceptar",
+    "host_response": "Si, mandela por favor, igualmente ayer no me permitia aceptarla, no se que paso",
+    "guest_name": "Cecilia Defelipe",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "Ahí fue",
+    "host_response": "Bienvenidos, y gracias por elegir Il Buco! Por favor tenga en cuenta que está alquilando una suite independiente y no la casa entera. La suite está completamente equipada, con cocina y baño privados, y la posibilidad de cerrar la puerta de la habitación con llave para mantener la privacidad. Igualmente, tienen acceso a las áreas comunes: el living comedor compartido de 80m2 en PB y la terraza compartida con parrilla en el 2do piso.",
+    "guest_name": "Cecilia Defelipe",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "general",
+    "guest_message": "Ahí fue",
+    "host_response": "Listo, ahi pude aceptarla!!",
+    "guest_name": "Cecilia Defelipe",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "Genial!",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es PARAISO.\n\nSu habitación está en en el primer piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la última puerta del primero piso. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Cecilia Defelipe",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "Genial!",
+    "host_response": "Bienvenidos y gracias por elegir Il Buco!\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.",
+    "guest_name": "Cecilia Defelipe",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "general",
+    "guest_message": "Hola! Estaré llegando a Carilo alrededor de las 13 hs. Crees que se podrá ingresar antes?",
+    "host_response": "Buenos dias, disculpas pero la habitacion va a estar disponuble recien a partir de las 3pm",
+    "guest_name": "Cecilia Defelipe",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "capacity",
+    "guest_message": "Hola Iván, buenas tardes.\nNos gustaría reservar el alojamiento por 3 noches a partir del lunes 9 de marzo. Somos una familia de 2 adultos y 2 niños (11 años y 1 año).\nQuería consultarte algunas cosas antes de reservar:\n¿Cuántos lugares para dormir hay?\n¿Hay una cama matrimonial?\n¿La cocina está bien equipada para poder cocinar?\nMuchas gracias de antemano por tus respuestas.\nSaludos.",
+    "host_response": "Evgeny, buenas tardes! La habitacion tiene 2 camas individuales y un sofa cama.\nNo hay cama matrimonial pero pueden juntar las 2 camas\nLa cocina esta completamente equipada",
+    "guest_name": "Evgeny",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Hola Iván! ¿Cómo estás? Muchas gracias por aceptarnos, el lugar se ve hermoso.\n\nQuería consultarte un poco cómo funciona la casa. En el aviso aparece como casa completa, verdad? Solo para confirmar que no se comparte con otros huéspedes y que la propiedad es solo para nuestro grupo.\n\nTambién vi que la capacidad es para más de 20 personas con 4 habitaciones, y me dio curiosidad cómo está organizado eso (si hay cuchetas, sofás cama, colchones extra, etc.).\n\nPor ahora somos un grupo confirmado, pero hay algunas personas que todavía están tentativas. Si finalmente se suma más gente, yo actualizaría la reserva sin problema.\n\nGracias de antemano por la aclaración!",
+    "host_response": "Sarah, si, es la casa completa, la casa esta pensada para que puedan dormir 4 personas comodas por habitación (2 en cama y 2 en sofa-cama), y ademas tenemos 1 cama plegable para agregar a cada habitación, pedimos que si vana  precisar las camas plegables, nos avisen con anticipación para tener todo listo. Igualmente por lo que vi, la reserva fue hecha para 8 personas, no?",
+    "guest_name": "Sarah Henry",
+    "channel": "airbnb",
+    "property": "Il Buco entero"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Ay buenísimo! Si, tenemos 8 confirmados ahora! Hay alguna fecha límite para confirmar la cantidad de gente que va?",
+    "host_response": "Idealmente 2 semanas antes por si tenemos que preparar algo en la casa, adicionalmente, si cambian la cantidad de gente que viene, les pido por favor que también lo modifiquen en Airbnb por un tema del seguro",
+    "guest_name": "Sarah Henry",
+    "channel": "airbnb",
+    "property": "Il Buco entero"
+  },
+  {
+    "category": "amenities",
+    "guest_message": "buenas Ivan! Quiero confirmar si la casa viene con sábanas y toallas, o si lo llevamos nosotros?",
+    "host_response": "Si si, preparamos cada habitacion para 3 personas para un total de 12!",
+    "guest_name": "Sarah Henry",
+    "channel": "airbnb",
+    "property": "Il Buco entero"
+  },
+  {
+    "category": "general",
+    "guest_message": "Hola Iván! No veo las instrucciones de entrar a a la casa por el app, como entramos?",
+    "host_response": "Sarah, buen dia, ahi le reenvii",
+    "guest_name": "Sarah Henry",
+    "channel": "airbnb",
+    "property": "Il Buco entero"
+  },
+  {
+    "category": "general",
+    "guest_message": "Hola Iván! No veo las instrucciones de entrar a a la casa por el app, como entramos?",
+    "host_response": "El código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Sarah Henry",
+    "channel": "airbnb",
+    "property": "Il Buco entero"
+  },
+  {
+    "category": "general",
+    "guest_message": "",
+    "host_response": "Nelson, buenos dias, disculpas pero no tengo ninguna reserva a su nombre, le pido por favor el numero de reserva",
+    "guest_name": "Nelson Maury",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Hola Ivan, pudiste revisar la solicitud de reserva?",
+    "host_response": "Estoy en eso justamente",
+    "guest_name": "Nelson Maury",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Hola Ivan, pudiste revisar la solicitud de reserva?",
+    "host_response": "Ah, porque me aparece que todavía es un pedido que no aceptamos, por eso no me figura la reserva en sistema",
+    "guest_name": "Nelson Maury",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Hola Ivan, pudiste revisar la solicitud de reserva?",
+    "host_response": "Bienvenidos, y gracias por elegir Il Buco! Por favor tenga en cuenta que está alquilando una suite independiente y no la casa entera. La suite está completamente equipada, con cocina y baño privados, y la posibilidad de cerrar la puerta de la habitación con llave para mantener la privacidad. Igualmente, tienen acceso a las áreas comunes: el living comedor compartido de 80m2 en PB y la terraza compartida con parrilla en el 2do piso.",
+    "guest_name": "Nelson Maury",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Hola Ivan, pudiste revisar la solicitud de reserva?",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es PARAISO.\n\nSu habitación está en en el primer piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la última puerta del primero piso. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Nelson Maury",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "Genial Ivan, muchas gracias!!",
+    "host_response": "Bienvenidos y gracias por elegir Il Buco!\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.",
+    "guest_name": "Nelson Maury",
+    "channel": "airbnb",
+    "property": "Paraiso"
+  },
+  {
+    "category": "amenities",
+    "guest_message": "Ivan consulta, somos 10 amigos +50 años, tiene parrilla grande la casa ? porque vamos 2 dias en abril 24/25 y hecemos asado a full ....",
+    "host_response": "Si, gigante, debe medir 1,50m de ancho",
+    "guest_name": "Hugo",
+    "channel": "airbnb",
+    "property": "Il Buco entero"
+  },
+  {
+    "category": "capacity",
+    "guest_message": "Hola! Buenos dias! Queria consultarte por el Hospedaje. Somos una familia de 18 integrantes, todos adultos. Queremos ir 3 dias, 2 noches para festejar los 80 años de mi mama y buscamos una casa para poder disfrutar en familia. Queria saber si tiene las camas para esa cantidad, mas de ese nro no somos, pero 16 seguro. Espero tu respuesta. Gracias",
+    "host_response": "Buenos días! Cada habitación está preparada para 4 adultos, tiene cama para 2 y sofa-cama para 2 mas, ademas de esto, podemos agregar 1 cama plegable a cada habitación. Espero que eso ayude!",
+    "guest_name": "Florencia",
+    "channel": "airbnb",
+    "property": "Il Buco entero"
+  },
+  {
+    "category": "general",
+    "guest_message": "hola, buen día. cuál es el valor x noche en esta temporada?",
+    "host_response": "Buenos días, le pido disculpas pero el rancho lo estamos cerrando, no lo alquilamos mas",
+    "guest_name": "Guido",
+    "channel": "airbnb",
+    "property": "Recharge Retreat"
+  },
+  {
+    "category": "availability",
+    "guest_message": "hola buenas como andamos, quería saber si tenías el alojamiento disponible del 10-20 de enero muchas gracias",
+    "host_response": "Buenos dias, solo para confirmar, esta buscando alquilar del 10/1/27 al 20/1/27?",
+    "guest_name": "Bauti",
+    "channel": "airbnb",
+    "property": "Il Buco entero"
+  },
+  {
+    "category": "general",
+    "guest_message": "avísame por fas, gracias",
+    "host_response": "Si, esta disponible!",
+    "guest_name": "Bauti",
+    "channel": "airbnb",
+    "property": "Il Buco entero"
+  },
+  {
+    "category": "payment",
+    "guest_message": "el precio es el que está publicado?",
+    "host_response": "Sisi, el precio ya esta actualizado para la temporada 2027",
+    "guest_name": "Bauti",
+    "channel": "airbnb",
+    "property": "Il Buco entero"
+  },
+  {
+    "category": "general",
+    "guest_message": "",
+    "host_response": "Creo que tenemos otros invitados del casamiento, esta disponible esa habitacion!",
+    "guest_name": "Lucia",
+    "channel": "airbnb",
+    "property": "Giardino"
+  },
+  {
+    "category": "capacity",
+    "guest_message": "Yo reservé un dormitorio con cama matrimonial del 20 al 22",
+    "host_response": "Mira, te muestro lo que a mi me aparece reservado para tu tía, lo tuyo en este momento me aparece como una consulta y no una reserva",
+    "guest_name": "Lucia",
+    "channel": "airbnb",
+    "property": "Giardino"
+  },
+  {
+    "category": "capacity",
+    "guest_message": "Yo reservé un dormitorio con cama matrimonial del 20 al 22",
+    "host_response": "Me aparecen esas 3 reservas a nombre de tu tia nada mas, si podes, conseguime los numeros de las 4 reservas por favor asi me fijo que pasó con la 4ta",
+    "guest_name": "Lucia",
+    "channel": "airbnb",
+    "property": "Giardino"
+  },
+  {
+    "category": "general",
+    "guest_message": "No me deja enviarte esa información por acá",
+    "host_response": "Igual ahi las busque a mano y me aparecen las 4 reservas de Silvia, reservó la casa entera",
+    "guest_name": "Lucia",
+    "channel": "airbnb",
+    "property": "Giardino"
+  },
+  {
+    "category": "general",
+    "guest_message": "No me deja enviarte esa información por acá",
+    "host_response": "Así que la reserva que hiciste vos no la puedo aprobar, parame que por las dudas voy a bloquear las fechas para que nadie mas pueda reservar",
+    "guest_name": "Lucia",
+    "channel": "airbnb",
+    "property": "Giardino"
+  },
+  {
+    "category": "general",
+    "guest_message": "No me deja enviarte esa información por acá",
+    "host_response": "十分抱歉，您期望的入住时间不方便提供服务。",
+    "guest_name": "Lucia",
+    "channel": "airbnb",
+    "property": "Giardino"
+  },
+  {
+    "category": "general",
+    "guest_message": "No me deja enviarte esa información por acá",
+    "host_response": "Ahi rechace tu reserva porque al final teniamos toda la casa alquilada, te pido mil disculpas, a veces el sistema de Booking no registra alguna reserva y tengo que ingresarla manual porque no sincroniza el calendario",
+    "guest_name": "Lucia",
+    "channel": "airbnb",
+    "property": "Giardino"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Bueno. Pero me quedo tranquila que las otras 4 reservas están hechas muchas gracias !!",
+    "host_response": "sisi, estan todas hechas, las revise manualmente incluso y cerre la propiedad para que nadie mas pueda reservar",
+    "guest_name": "Lucia",
+    "channel": "airbnb",
+    "property": "Giardino"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "",
+    "host_response": "¡Gracias por reservar Recharge Retreat! 🌿\n\nEs un refugio autónomo entre el mar y la reserva.\n\n📍Cómo llegar: https://recharge.com.ar/es/location\n\n🧳 Traé por favor:\n\t•\tSábanas y toallas\n\t•\tComida y bebida\n\n💡 Tip: fijate qué hacer en la zona https://recharge.com.ar/es/activities\n\nSaludos!\n\n====================================================================================================\n\nThank you for reserving the Recharge Retreat! 🌿\n\nThis is an autonomous refuge between the sea and the reserve:\n\n📍How to get here: https://recharge.com.ar/es/location\n\n🧳 Please bring:\n\t•\tBed linen and towels\n\t•\tFood and drinks\n\n💡 Tip: Check out what you can do in the area https://recharge.com.ar/es/activities\n\nKind regards!",
+    "guest_name": "Karen Loto",
+    "channel": "booking_site",
+    "property": "Recharge Retreat"
+  },
+  {
+    "category": "general",
+    "guest_message": "",
+    "host_response": "Hola! Esta es la ubicación exacta del Recharge Retreat: https://recharge.com.ar/es/location\n\nSalida a Playa Querandí de Ruta 11: https://maps.app.goo.gl/vouGFajEmBwWMfra8\n\nGoogle Maps manda por el barrio cerrado \"El Salvaje\", pero ellos no permiten el paso. En vez, hay que doblar al Camping Querandí en este punto: https://maps.app.goo.gl/1Pm92hnP4DP4fVVj6 (En Google Maps se puede buscar como PESQUERA QUERANDÍ NG)\n\nEl mapa artesanal para orientarse:\nhttps://www.dropbox.com/scl/fi/bfwp2stqmid2dsx2zcamh/mapa-rancho.png?rlkey=ae8jktqn3hbxz9mgn8b6goj4y&dl=1\n\n====================================================================================================\n\nHi! This is the exact location of the Recharge Retreat: https://recharge.com.ar/es/location\n\nRoute 11, exit for Playa Querandí: https://maps.app.goo.gl/vouGFajEmBwWMfra8\n\nGoogle Maps will try to send you through the \"El Salvaje\" gated community. Instead you have to take the Camping Querandí exit at this point: https://maps.app.goo.gl/1Pm92hnP4DP4fVVj6 (You can search for it on Google Maps as PESQUERA QUERANDÍ NG)\n\nAnd here's our handmade map:\nhttps://www.dropbox.com/scl/fi/bfwp2stqmid2dsx2zcamh/mapa-rancho.png?rlkey=ae8jktqn3hbxz9mgn8b6goj4y&dl=1",
+    "guest_name": "Karen Loto",
+    "channel": "booking_site",
+    "property": "Recharge Retreat"
+  },
+  {
+    "category": "general",
+    "guest_message": "hola",
+    "host_response": "Buenos días, la reserva se abona por transferencia",
+    "guest_name": "Pedro Panosyan",
+    "channel": "booking_site",
+    "property": "Penthouse"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "hola",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es PENTHOUSE.\n\nSu habitación está en en el segundo piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la primer puerta del segundo piso, por favor recuerde que la puerta de vidrio de ese piso es la terraza compartida. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Pedro Panosyan",
+    "channel": "booking_site",
+    "property": "Penthouse"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Buen dia! Estaremos llegando el dia Jueves pero a ultima hora, queria consultar como debiamos proceder para el ingreso. Gracoas",
+    "host_response": "Buenos dias, el miercoles le van a llegar todas las instrucciones!",
+    "guest_name": "Francisco Lagrave",
+    "channel": "booking_site",
+    "property": "Penthouse"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Buen dia! Estaremos llegando el dia Jueves pero a ultima hora, queria consultar como debiamos proceder para el ingreso. Gracoas",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es PENTHOUSE.\n\nSu habitación está en en el segundo piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la primer puerta del segundo piso, por favor recuerde que la puerta de vidrio de ese piso es la terraza compartida. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Francisco Lagrave",
+    "channel": "booking_site",
+    "property": "Penthouse"
+  },
+  {
+    "category": "general",
+    "guest_message": "Me pueden pasar un WhatsApp para contactarlos?",
+    "host_response": "Si, es el 1121275492, solo mensajes",
+    "guest_name": "Maria Volentiera",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 15:00 - 16:00. Is this ok?",
+    "host_response": "Bienvenidos y gracias por elegir Il Buco!\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.",
+    "guest_name": "Maria jose Burella",
+    "channel": "booking.com",
+    "property": "Penthouse"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 15:00 - 16:00. Is this ok?",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es PENTHOUSE.\n\nSu habitación está en en el segundo piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la primer puerta del segundo piso, por favor recuerde que la puerta de vidrio de ese piso es la terraza compartida. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Maria jose Burella",
+    "channel": "booking.com",
+    "property": "Penthouse"
+  },
+  {
+    "category": "payment",
+    "guest_message": "Buenas tardes!!! Mi nombre es María José Burella a las 9 de la mañana del día de hoy dejamos el alojamiento, ya q se nos terminaba la estadía contratada. Quiero saber cómo debo abonar ya q nadie se puso en contacto conmigo!. Aguardo respuesta, gracias ! Saludos",
+    "host_response": "Maria Jose, en un rato le pasamos los datos para que haga la ttansferencia",
+    "guest_name": "Maria jose Burella",
+    "channel": "booking.com",
+    "property": "Penthouse"
+  },
+  {
+    "category": "general",
+    "guest_message": "Buen día ! Perfecto aguardo datos bancarios e importe ! Saludos",
+    "host_response": "Booking toma uma tarjeta de credito a modo de garantia pero no para procesar pagos",
+    "guest_name": "Maria jose Burella",
+    "channel": "booking.com",
+    "property": "Penthouse"
+  },
+  {
+    "category": "payment",
+    "guest_message": "no entiendo para q informaría una tarjeta de crédito si abono por otro medio (transferencia )",
+    "host_response": "Esas son reglas de Booking con las que no tenemos nada que ver. Como le decia, Booking toma una tarjeta de credito a modo de garantia, pero no procesa el pago a traves de la tarjeta, es en caso de que los huespedes rompan algo en el alojamiento",
+    "guest_name": "Maria jose Burella",
+    "channel": "booking.com",
+    "property": "Penthouse"
+  },
+  {
+    "category": "payment",
+    "guest_message": "no entiendo para q informaría una tarjeta de crédito si abono por otro medio (transferencia )",
+    "host_response": "En cuanto a su reserva, me aparece que fueron USD 490, nosotros tomamos el dolar a un promedio del valor oficial de compra y venta, al día de hoy ese promedio es de $1418,29, así que el costo del hospedaje sería de $694.962,1. Nuestro alias para pagos en pesos es ilbuco.uala y en dolares ilbuco.usd",
+    "guest_name": "Maria jose Burella",
+    "channel": "booking.com",
+    "property": "Penthouse"
+  },
+  {
+    "category": "payment",
+    "guest_message": "no entiendo para q informaría una tarjeta de crédito si abono por otro medio (transferencia )",
+    "host_response": "Ambos alias le van a salir a nombre de Ivan Boyko",
+    "guest_name": "Maria jose Burella",
+    "channel": "booking.com",
+    "property": "Penthouse"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "ok muchas gracias",
+    "host_response": "Hola, gracias por reservar! Bienvenidos. \n\nEl checkin es despues de 15, pero si quieren venir antes, digan. Si no tenemo huespedes antes, es gratis.",
+    "guest_name": "Cardozo Ariana",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "ok muchas gracias",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es PARAISO.\n\nSu habitación está en en el primer piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la última puerta del primero piso. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Cardozo Ariana",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "general",
+    "guest_message": "Mañana estamos allí",
+    "host_response": "Los esperamos mañana!",
+    "guest_name": "Cardozo Ariana",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "general",
+    "guest_message": "Hola, es una suite en una casa? o es como un complejo con suites independientes?",
+    "host_response": "Hola, buen dia! Es una casa con suites completamente independientes. Cada suite tiene su baño y living comedor privados, y ademas hay algunas areas comunes (un living comedor compartido en PB y una terraza compartida en el 2do piso)",
+    "guest_name": "Flora Cordeiro",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "general",
+    "guest_message": "hay posibilidad de agregar una noche más si decidimos alla?",
+    "host_response": "Perdon pero no, ese dia esta toda la casa alquilada",
+    "guest_name": "Flora Cordeiro",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "ok, gracias",
+    "host_response": "Bienvenidos y gracias por elegir Il Buco!\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.",
+    "guest_name": "Flora Cordeiro",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "ok, gracias",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es PARAISO.\n\nSu habitación está en en el primer piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la última puerta del primero piso. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Flora Cordeiro",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "pets",
+    "guest_message": "Hola! Somos dos adultos y llevaremos a nuestra mascota con nosotros!",
+    "host_response": "Buenos dias! Esta perfecto, aceptamos mascotas, y el horario tambien esta bien!",
+    "guest_name": "Nucci Danisa",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "pets",
+    "guest_message": "Hola! Somos dos adultos y llevaremos a nuestra mascota con nosotros!",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es TERRAZZO.\n\nSu habitación está en en el primer piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la primer puerta del primero piso. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Nucci Danisa",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "payment",
+    "guest_message": "Quería comentarte que la tarjeta por la cual hicimos la reserva está pausada. Entiendo que el pago se va a debitar igual porque se hizo previamente no?\nQuería quedarme tranquila de eso, de que no se cancele",
+    "host_response": "Hola! Booking no procesa pagos, solo toma la tarjeta en caso que haya daños y los tengan que cobrar de ahi, el pago se hace por transferencia o en efectivo",
+    "guest_name": "Fiorela Matarochi",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Ah perfecto, entonces abonamos al llegar? Es correcto?",
+    "host_response": "Si van a abonar en efectivo mañana pasa Andres a cobrarles, si es por transferencia les pasamos ahora el monto y la cuenta",
+    "guest_name": "Fiorela Matarochi",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "general",
+    "guest_message": "No estamos en Cariló aún. Viajamos el martes 24/2",
+    "host_response": "Perdon, lei mal la fecha de entrada!",
+    "guest_name": "Fiorela Matarochi",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "payment",
+    "guest_message": "Ningún problema!\nSólo quería quedarme tranquila de que no se cancele la reserva \n\nEntonces me decís que podemos abonar en efectivo o transferencia?",
+    "host_response": "Sisi, no se cancela por el tema de la tarjeta, y si, nosotros tomamos el pago en efectivo en dolares al momento de entrar o por transferencia en pesos o dolares",
+    "guest_name": "Fiorela Matarochi",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "Excelente. Muchas gracias, muy amable!\nNos vemos 🥰",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es TERRAZZO.\n\nSu habitación está en en el primer piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la primer puerta del primero piso. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Fiorela Matarochi",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "general",
+    "guest_message": "Hola buenas tardes! Excelente todo. Habrá posibilidades de poder ingresar antes, al mediodía?",
+    "host_response": "Lo siento pero no, la habitacion no va a estar lista antes de las 3pm, nuestro personal necesita tiempo para limpiarla",
+    "guest_name": "Fiorela Matarochi",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "general",
+    "guest_message": "Hola buenas tardes 😃 \nYa estamos instalados, todo muy lindo! \nSólo tenemos un inconveniente con el agua de la ducha, sale poco y fría",
+    "host_response": "Fiorela, buenos dias! El agua tarda en calentar y agarrar presion, tarda alrededor de 1 minuto mas o menos, pero va a ver que sale casi hirviendo!",
+    "guest_name": "Fiorela Matarochi",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "general",
+    "guest_message": "*hilitos",
+    "host_response": "Buen dia! Ahora en un rato pasa el plomero! No es necesario que esten en la habitacion!",
+    "guest_name": "Fiorela Matarochi",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "payment",
+    "guest_message": "Te consulto… nosotros pagamos en efectivo, mañana es nuestro último día. Coméntame cómo quisieras que hagamos, así ya lo dejamos pago",
+    "host_response": "Mañana me acerco antes de las 10!",
+    "guest_name": "Fiorela Matarochi",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Hola quería consultar si la habitación ya estaría disponible o debo esperar a las 15",
+    "host_response": "Disculpas, pero usted reservo para el 13 de MARZO, no de febrero",
+    "guest_name": "Maria Chiappero",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Hola quería consultar si la habitación ya estaría disponible o debo esperar a las 15",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es TERRAZZO.\n\nSu habitación está en en el primer piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la primer puerta del primero piso. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Maria Chiappero",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "general",
+    "guest_message": "Buenas, solicito por favor que el check out sea posterior a las 14hs.",
+    "host_response": "Anastasia, buenos días, tenemos que ver si la habitación se alquila para el día que ustedes quieren hacer el checkout, si se alquila, no vamos a poder, si no se alquila, inicialmente no debería haber problema",
+    "guest_name": "Cantero Anastasia Nicole",
+    "channel": "booking.com",
+    "property": "Giardino"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "Buenas, solicito por favor que el check out sea posterior a las 14hs.",
+    "host_response": "Bienvenidos y gracias por elegir Il Buco!\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.",
+    "guest_name": "Cantero Anastasia Nicole",
+    "channel": "booking.com",
+    "property": "Giardino"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 15:00 - 16:00. Is this ok?",
+    "host_response": "Si! El check-in es a partir de las 3pm",
+    "guest_name": "Anna Muzychenko",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "payment",
+    "guest_message": "Buenos días. ¿Se paga el alquiler con tarjeta de crédito en el establecimiento? ¿Puedo pagar con Mercado? Saludos",
+    "host_response": "Buenos dias! No procesamos pagos con tarjeta de crédito, solo transferencia o dolares en efectivo, pero preferimos transferencia por favor",
+    "guest_name": "Anna Muzychenko",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "payment",
+    "guest_message": "¿Qué datos bancarios debo utilizar para la transferencia?",
+    "host_response": "Anna, primero tiene que hacer la reserva, no veo ninguna reserva a su nombre, sólo una consulta entre el 1/3 y el 9/3",
+    "guest_name": "Anna Muzychenko",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "availability",
+    "guest_message": "Reservamos en Booking.com ¿qué más podemos hacer?",
+    "host_response": "Tiene el numero de reserva? A mi no me aparece en sistema",
+    "guest_name": "Anna Muzychenko",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "general",
+    "guest_message": "Queremos venir del 1 al 9 de marzo. Así es.",
+    "host_response": "Le pido su numero de reserva por favor, a mi no me aparece ninguna reserva a su nombre en sistema",
+    "guest_name": "Anna Muzychenko",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "general",
+    "guest_message": "5507798032",
+    "host_response": "Le pido un momento por favor",
+    "guest_name": "Anna Muzychenko",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "general",
+    "guest_message": "Número de confirmación: 5507798032",
+    "host_response": "Bien, ahi ingresé la confirmación manualmente en el sistema, tiene reservada la suite con vista al jardín (Giardino), está todo perfecto, el costo de la reserva es de USD 691,50. Nosotros tomamos el dolar a un promedio del valor de venta y compra del dolar oficial del día (el día de hoy sería de $1374,99), por lo que si abonan por transferencia en pesos, el costo de su reserva sería de $950.805,58. Nuestro alias en pesos es ilbuco.uala y en dolares ilbuco.usd ambas cuentas a nombre de Ivan Boyko",
+    "guest_name": "Anna Muzychenko",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Te mando 10.000 pesos ahora para que lo revises. ¿Me lo puedes revisar?",
+    "host_response": "Si! Cuando lo recibamos le aviso",
+    "guest_name": "Anna Muzychenko",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Te mando 10.000 pesos ahora para que lo revises. ¿Me lo puedes revisar?",
+    "host_response": "Ahi recibimos la transferencia de $10.000",
+    "guest_name": "Anna Muzychenko",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "general",
+    "guest_message": "Por favor verifique y confirme que lo ha recibido.",
+    "host_response": "Si! Recibidos los $440.000 tambien",
+    "guest_name": "Anna Muzychenko",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "general",
+    "guest_message": "Transferiré el resto mañana. Por favor, avísame mañana el tipo de cambio.",
+    "host_response": "Mantenemos el mismo precio",
+    "guest_name": "Anna Muzychenko",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "general",
+    "guest_message": "Buenos dias envie 450.000 Por favor checar Confirmar",
+    "host_response": "Recibido Anna, muchas gracias!",
+    "guest_name": "Anna Muzychenko",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "general",
+    "guest_message": "Envié el resto de 50.805,58, por favor revise.",
+    "host_response": "Tambien lo recibimos, gracias!!!",
+    "guest_name": "Anna Muzychenko",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "check-in",
+    "guest_message": "¿A qué hora puedo hacer el check-in hoy?",
+    "host_response": "Buenos dias! La habitacion va a estar disponible a partir de las 3pm",
+    "guest_name": "Anna Muzychenko",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "check-in",
+    "guest_message": "¿A qué hora puedo hacer el check-in hoy?",
+    "host_response": "El código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es GIARDINO.\n\nSu habitación está en planta baja, es la primer puerta ni bien entran. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Anna Muzychenko",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 15:00 - 16:00. Is this ok?",
+    "host_response": "Hola, gracias por reservar! Bienvenidos. \n\nEl checkin es despues de 15, pero si quieren venir antes, digan. Si no tenemo huespedes antes, es gratis.",
+    "guest_name": "Barrionuevo Eugenia Soledad",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 15:00 - 16:00. Is this ok?",
+    "host_response": "Hola Eugenia, buenos dias! No hay problema, la esperamos!",
+    "guest_name": "Barrionuevo Eugenia Soledad",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Tu mensaje se enviará al alojamiento mediante [link removed]Buenos días! Mi nombre es Eugenia, había realizado una reserva a través de Booking para alojarme desde el 11/04 al 18/04 pero me avisaron anoche desde Aerolíneas Argentinas que me modificaron el vuelo para el 12/04 y regreso para el 19/04, es decir, 1 días después de mi reserva en el alojamiento, necesito ver la posibilidad de hacer esta modificación por favor, o qué alternativas tengo. Desde ya les agradezco mucho\nAdjunto la modificación que me envió la aerolínea ya que es ese el motivo por el que les pido ayuda.\nSaludos.",
+    "host_response": "Eugenia, buenas tardes, tendría que mandar por la plataforma un pedido de cambio de fechas de la reserva por favor así podemos ver si tenemos disponibilida do no en esas fechas",
+    "guest_name": "Barrionuevo Eugenia Soledad",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Hola! Les escribí nuevamente por mail ya que me figura que no hay disponibilidad para el cambio de fecha que les comenté por la app de Booking, necesito ayuda",
+    "host_response": "Buenos dias, si le figura que no hay disponibilidad entonces es porque no tenemos disponibilidad para esa fecha, disculpas!",
+    "guest_name": "Barrionuevo Eugenia Soledad",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "payment",
+    "guest_message": "Necesito alguna opción, cambio de habitación o algo por favor, sino no tendré alojamiento el 19 y estaré abonando un día que no estaré ahí, el 11",
+    "host_response": "Dejeme ver si tenemos disponibilidad para otra habitación para el 19",
+    "guest_name": "Barrionuevo Eugenia Soledad",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "payment",
+    "guest_message": "Necesito alguna opción, cambio de habitación o algo por favor, sino no tendré alojamiento el 19 y estaré abonando un día que no estaré ahí, el 11",
+    "host_response": "Bien, lo que le podemos ofrecer es mantener la reserva como esta, pero el 18 a las 10am se cambia de habitacion y no le cobramos ningun extra, pero si necesitamos que sea puntual con el cambio de habitacion porque la habitacion que usted tiene reservada ya esta alquilada para el 18",
+    "guest_name": "Barrionuevo Eugenia Soledad",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "Perfecto si, ningún problema, les agradezco tanto porque esto fue por un problema de aerolíneas, desde ya gracias",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es TERRAZZO.\n\nSu habitación está en en el primer piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la primer puerta del primero piso. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Barrionuevo Eugenia Soledad",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Hola buen día! Les quería recordar que mi llegada será el domingo 12/04, habíamos hablado de eso anteriormente, se conservaba mi reserva para el 11/04 y el 18 a la mañana me cambiaba de habitación antes de las 10 hs para pasar ahí la noche y el check out es el domingo, desde ya gracias",
+    "host_response": "Sisi, perfecto",
+    "guest_name": "Barrionuevo Eugenia Soledad",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "general",
+    "guest_message": "No me abre con el código 8649",
+    "host_response": "Hola, les contestamos por whatsapp hace un momento pero nadie nos responde",
+    "guest_name": "Barrionuevo Eugenia Soledad",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 19:00 - 20:00. Is this ok?",
+    "host_response": "Bienvenidos y gracias por elegir Il Buco!\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.",
+    "guest_name": "Paula Acha",
+    "channel": "booking.com",
+    "property": "Giardino"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 19:00 - 20:00. Is this ok?",
+    "host_response": "Paula, buenas noches, está bien! Les mandaremos las instrucciones para el self check-in!",
+    "guest_name": "Paula Acha",
+    "channel": "booking.com",
+    "property": "Giardino"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 19:00 - 20:00. Is this ok?",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es GIARDINO.\n\nSu habitación está en planta baja, es la primer puerta ni bien entran. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Paula Acha",
+    "channel": "booking.com",
+    "property": "Giardino"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 15:00 - 16:00. Is this ok?",
+    "host_response": "Bienvenidos, y gracias por elegir Il Buco! Por favor tenga en cuenta que está alquilando una suite independiente y no la casa entera. La suite está completamente equipada, con cocina y baño privados, y la posibilidad de cerrar la puerta de la habitación con llave para mantener la privacidad. Igualmente, tienen acceso a las áreas comunes: el living comedor compartido de 80m2 en PB y la terraza compartida con parrilla en el 2do piso.",
+    "guest_name": "Valentino Rossi",
+    "channel": "booking.com",
+    "property": "Penthouse"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Reserva 14/2 - 17/2 Valentino Rossi\n\nHola, qué tal? Soy Valentino, hice una reserva del 14 al 17 de febrero. Seleccioné el horario de 15-16 para hacer el check in ya que en la página aclaraba que era una de las condiciones. Sin embargo, quería saber si existe la posibilidad de ingresar al alojamiento antes de las 15 hs ya que estaremos llegando bastante antes de ese horario. Desde ya muchas gracias.\n\nSaludos!\n\nValentino Rossi.",
+    "host_response": "Bienvenidos y gracias por elegir Il Buco!\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.",
+    "guest_name": "Valentino Rossi",
+    "channel": "booking.com",
+    "property": "Penthouse"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Reserva 14/2 - 17/2 Valentino Rossi\n\nHola, qué tal? Soy Valentino, hice una reserva del 14 al 17 de febrero. Seleccioné el horario de 15-16 para hacer el check in ya que en la página aclaraba que era una de las condiciones. Sin embargo, quería saber si existe la posibilidad de ingresar al alojamiento antes de las 15 hs ya que estaremos llegando bastante antes de ese horario. Desde ya muchas gracias.\n\nSaludos!\n\nValentino Rossi.",
+    "host_response": "Disculpas pero no, necesitamos el tiempo para limpiar la casa entre la gente que se va y la gente que entra",
+    "guest_name": "Valentino Rossi",
+    "channel": "booking.com",
+    "property": "Penthouse"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Reserva 14/2 - 17/2 Valentino Rossi\n\nHola, qué tal? Soy Valentino, hice una reserva del 14 al 17 de febrero. Seleccioné el horario de 15-16 para hacer el check in ya que en la página aclaraba que era una de las condiciones. Sin embargo, quería saber si existe la posibilidad de ingresar al alojamiento antes de las 15 hs ya que estaremos llegando bastante antes de ese horario. Desde ya muchas gracias.\n\nSaludos!\n\nValentino Rossi.",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es PENTHOUSE.\n\nSu habitación está en en el segundo piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la primer puerta del segundo piso, por favor recuerde que la puerta de vidrio de ese piso es la terraza compartida. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Valentino Rossi",
+    "channel": "booking.com",
+    "property": "Penthouse"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 12:00 - 13:00. Is this ok?",
+    "host_response": "Disculpas pero no, el checkin es a partir de las 3pm",
+    "guest_name": "Daniel Rodriguez",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "check-in",
+    "guest_message": "el checkout es a la misma hora?",
+    "host_response": "El checkout es a las 10am",
+    "guest_name": "Daniel Rodriguez",
+    "channel": "booking.com",
+    "property": ""
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 10:00 - 11:00. Is this ok?",
+    "host_response": "Bienvenidos y gracias por elegir Il Buco!\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es a las 12hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\n====================================================================================================\n\nGreetings and thank your for choosing Il Buco! \n\nCheck-in is after 3pm. If you want to check in before that time, please check with us so we can verify if the room is available. If the room is available, there will be no extra charge.\n\nCheck-out is at 12:00hs, if you want to stay beyond that hour, you can do so in the common areas, but you'll need to vacate the room so our cleaning staff can clean it.\n\nThe exact address of the house is Paraíso 324, Cariló, and the address that shows up on Google Maps is accurate. The Google Maps link is: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9",
+    "guest_name": "VIRGINIA COHEN",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 10:00 - 11:00. Is this ok?",
+    "host_response": "Virginia, buenos dias, el check-in es despues de las 15, tenemos que ver si hay algun otro huesped antes para ver si pueden entrar mas temprano o no, eso lo vamos a poder ver mas sobre la fecha",
+    "guest_name": "VIRGINIA COHEN",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "payment",
+    "guest_message": "Quería consultar si el valor del alquiler se puede abonar con tarjeta de crédito.",
+    "host_response": "Buenos dias, no. Solo tramsferencia o efectivo",
+    "guest_name": "VIRGINIA COHEN",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "payment",
+    "guest_message": "Hola quiero volver a consultarte. Para pagar el alojamiento. Necesito hacer el pago con tarjeta de crédito. De otra manera no podré ir",
+    "host_response": "Buenas tardes, lo siento pero no tomamos pagos con tarjeta de credito",
+    "guest_name": "VIRGINIA COHEN",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "payment",
+    "guest_message": "Hola quiero volver a consultarte. Para pagar el alojamiento. Necesito hacer el pago con tarjeta de crédito. De otra manera no podré ir",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es TERRAZZO.\n\nSu habitación está en en el primer piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la primer puerta del primero piso. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "VIRGINIA COHEN",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "payment",
+    "guest_message": "Hola quiero volver a consultarte. Para pagar el alojamiento. Necesito hacer el pago con tarjeta de crédito. De otra manera no podré ir",
+    "host_response": "Bien Virginia, considerando que nos ha informado que sólo puede pagar con tarjeta de crédito y tanto al momento de la reserva, como el día de ayer, se le informó que no aceptamos tarjetas de crédito para el pago, hemos procedido a solicitarle a Booking la cancelación de su reserva",
+    "guest_name": "VIRGINIA COHEN",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "payment",
+    "guest_message": "Hola quiero volver a consultarte. Para pagar el alojamiento. Necesito hacer el pago con tarjeta de crédito. De otra manera no podré ir",
+    "host_response": "Nos informa Booking que la reserva ya fue cancelada, le deseamos un buen fin de semana",
+    "guest_name": "VIRGINIA COHEN",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "Perfecto, muchas gracias",
+    "host_response": "Bienvenidos y gracias por elegir Il Buco!\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.",
+    "guest_name": "JUAN DIEGO ORTIZ",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 14:00 - 15:00. Is this ok?",
+    "host_response": "Buen dia! El check-in es a partir de las 15hs para que el personal de limpieza alcance a limpiar la habitación. Saludos!",
+    "guest_name": "Sebastian Medina",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 14:00 - 15:00. Is this ok?",
+    "host_response": "Bienvenidos y gracias por elegir Il Buco!\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es a las 12hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\n====================================================================================================\n\nGreetings and thank your for choosing Il Buco! \n\nCheck-in is after 3pm. If you want to check in before that time, please check with us so we can verify if the room is available. If the room is available, there will be no extra charge.\n\nCheck-out is at 12:00hs, if you want to stay beyond that hour, you can do so in the common areas, but you'll need to vacate the room so our cleaning staff can clean it.\n\nThe exact address of the house is Paraíso 324, Cariló, and the address that shows up on Google Maps is accurate. The Google Maps link is: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9",
+    "guest_name": "Sebastian Medina",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "general",
+    "guest_message": "perfecto, grs",
+    "host_response": "Buenos dias, el checkin arranca a partir de las 3, disculpas pero sino no llega el personal de limpieza. Saludos!",
+    "guest_name": "Sebastian Medina",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "si si ok, no hay problema, Grs",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es TERRAZZO.\n\nSu habitación está en en el primer piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la primer puerta del primero piso. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Sebastian Medina",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Se puede pagar ahora con transferencia bancaria?",
+    "host_response": "Silvia, buenos días, si, ya le calculo cuanto sería y le paso el alias para la transferencia",
+    "guest_name": "Silvia Krauel",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Se puede pagar ahora con transferencia bancaria?",
+    "host_response": "Tenemos:\n\nGiardino: USD 415\nParaiso: USD 395\nTerrazzo: USD 440\nPenthouse: USD 550\n\nTotal: USD 1800\n\nNosotros tomamos el cambio a un promedio entre el valor de compra y venta del dolar oficial del dia de pago, el día de hoy ese promedio es de $1390,50. En pesos el pago sería de $2.502.900. El pago lo pueden hacer en pesos a ilbuco.uala o en dolares a ilbuco.usd ambas cuentas salen a nombre de Ivan Boyko",
+    "guest_name": "Silvia Krauel",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "payment",
+    "guest_message": "Hola. Decidimos pagar en dólares.  Podemos pagarlo el día que ungresermos? 19 de noviembre?",
+    "host_response": "Si, perfecto!",
+    "guest_name": "Silvia Krauel",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 09:00 - 10:00. Is this ok?",
+    "host_response": "Bienvenidos, y gracias por elegir Il Buco! Por favor tenga en cuenta que está alquilando una suite independiente y no la casa entera. La suite está completamente equipada, con cocina y baño privados, y la posibilidad de cerrar la puerta de la habitación con llave para mantener la privacidad. Igualmente, tienen acceso a las áreas comunes: el living comedor compartido de 80m2 en PB y la terraza compartida con parrilla en el 2do piso.",
+    "guest_name": "maximiliano rempel",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 09:00 - 10:00. Is this ok?",
+    "host_response": "Hola! Si  vamos a tener el departamenti vacio asi que si",
+    "guest_name": "maximiliano rempel",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 09:00 - 10:00. Is this ok?",
+    "host_response": "Bienvenidos y gracias por elegir Il Buco!\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.",
+    "guest_name": "maximiliano rempel",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 09:00 - 10:00. Is this ok?",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es TERRAZZO.\n\nSu habitación está en en el primer piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la primer puerta del primero piso. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "maximiliano rempel",
+    "channel": "booking.com",
+    "property": "Terrazzo"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Buenas tardes \nGracias x la info\nA partir de qué hora podemos entrar mañana",
+    "host_response": "Buenas tardes! A partir de las 3pm",
+    "guest_name": "ilya gorvat",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "Buenas tardes \nGracias x la info\nA partir de qué hora podemos entrar mañana",
+    "host_response": "Bienvenidos y gracias por elegir Il Buco!\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.",
+    "guest_name": "ilya gorvat",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "Buenas tardes",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es PARAISO.\n\nSu habitación está en en el primer piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la última puerta del primero piso. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "ilya gorvat",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "general",
+    "guest_message": "Buenas tardes",
+    "host_response": "Ilya, fijense que mas arriba les mandamos instrucciones",
+    "guest_name": "ilya gorvat",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "general",
+    "guest_message": "Aguardo msj",
+    "host_response": "Le pido un momento por favor",
+    "guest_name": "ilya gorvat",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "general",
+    "guest_message": "Aguardo msj",
+    "host_response": "Perdon, fueron a la habitacion del 1er piso al fondo? La que tiene 2 camas? Me dice el personal de limpieza que la limpiaron hace 2 dias y nadie la ocupo",
+    "guest_name": "ilya gorvat",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "availability",
+    "guest_message": "Ya reservé en otro lugar al que me estoy dirigiendo",
+    "host_response": "Le pido mil disculpas Ilya, lo vamos a hablar con el personal de limpieza porque nos dijeron que la habitación estaba lista, le agradezco por no dejar una reseña negativa y nosotros nos ocupamos de que la cancelación sea sin cargo para usted",
+    "guest_name": "ilya gorvat",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "welcome_template",
+    "guest_message": "",
+    "host_response": "Gracias por elegir Il Buco! La habitación que alquiló es GIARDINO.\n\nSu habitación está en planta baja, es la primer puerta ni bien entran. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\n\n====================================================================================================\n\nGreetings and thank your for choosing Il Buco! The room you've rented is GIARDINO.\n\nYour room is on the ground floor, it's the first door as soon as you enter the property. Please remember that you've rented a single room and not the entire house. The room has a fully furnished kitchen, with an oven, stove, and fridge, a living room, and a fully equipped bathroom, with a shower and washing machine.",
+    "guest_name": "Giuliana Natale",
+    "channel": "booking.com",
+    "property": "Giardino"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 20:00 - 21:00. Is this ok?",
+    "host_response": "Hola, gracias por reservar! Bienvenidos. \n\nEl checkin es despues de 15, pero si quieren venir antes, digan. Si no tenemo huespedes antes, es gratis.",
+    "guest_name": "Toloza Mailen",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "check-in",
+    "guest_message": "I'd like to request check-in at 20:00 - 21:00. Is this ok?",
+    "host_response": "! ! ! POR FAVOR LEER ESTE MENSAJE, ES MUY IMPORTANTE ! ! ! \n\nGracias por elegir Il Buco! Los esperamos mañana!\n\nEl código de entrada de la puerta principal es 8649↵. (Acá hay un video de cómo abrir la puerta principal: https://www.youtube.com/shorts/pNSzziDel-w)\n\nLa red de wifi es \"Buco\" y la contraseña es \"terminator1\" (Sin las comillas y todo en minúsculas).\n\nEl check-in es despues de las 15hs. Si quieren venir antes, por favor consulten para que podamos verificar si la habitación está disponible. Si la habitación está disponible, no habrá un cargo extra por entrar antes.\n\nEl check-out es hasta las 10hs. Si quieren quedarse hasta mas tarde, lo pueden hacer en las áreas comunes, pero deberán dejar la habitación para que el personal de limpieza la pueda limpiar.\n\nLa ubicación exacta de la casa es Paraíso 324, y la dirección que aparece en Google Maps es exacta. El link the Google Maps es: https://maps.app.goo.gl/uikwaCu8HaKVTyHY9\n\nLa habitación que alquiló es PARAISO.\n\nSu habitación está en en el primer piso. Para llegar tiene que doblar a la derecha ni bien entra, luego a la izquierda antes de llegar a la puerta de vidrio, y al final de ese corredor está la escalera que sube. Su habitación es la última puerta del primero piso. Le recordamos que lo alquiló es una habitación individual y no la casa entera. La habitación cuenta con una cocina completa, equipada con horno, hornallas y heladera, un living comedor, y un baño completo, con ducha y lavarropas incluídos.\nReglas de convivencia de Il Buco\n\n- Por favor no hacer ruidos molestos ni altos, ya que no sólo hay otros huespedes en la casa, sino que hay vecinos que pueden quejarse por los ruidos molestos.\n\n- El horario de uso de la terraza compartida es entre las 11am y las 10pm, por favor recuerden que hay una habitación al lado de la parrilla que está ocupada.\n\n- Para solicitar el uso de la parrilla se hace por whatsapp al 11-2127-5492. Pueden revisar el cronograma de uso de la parrilla en: https://docs.google.com/spreadsheets/d/1BiuophgQNh5wd5lg6SLnfvwpDuzM32YAvUYgjx7sMig/edit?gid=288361588#gid=288361588\n\n- Los turnos de la parrilla serán asignados por el personal de Il Buco, la idea es que toda la gente que está en la casa pueda usarla, por lo que entre turno y turno habrán 48hs. Es decir, si alguien pide el turno del almuerzo del lunes, no podrá pedir otro turno hasta al menos el miércoles.\n\n- Rogamos que despues de usar la parrilla, dejen la parrilla y la terraza en condiciones para la gente que la va a usar después. En caso de que no lo hagan, habrá una multa de $50.000.\n\n- Los turnos de la parrilla son: Almuerzo de 11 a 15hs, Cena de 18 a 22hs. Fuera de estos horarios, la terraza podrá ser utilizada por orden de llegada, es decir, sin reserva.\n\n- Estacionamiento de autos: No proveemos estacionamiento techado (garage). Hay 4 plazas para estacionar autos, y se ocupan por orden de llegada. Bajando la rampa hay lugar para 2 autos, al costado derecho de la rampa (frente a la numeración), se puede estacionar otro auto, y al costado izquierdo (frente al jardín), se puede estacionar otro auto paralelo al \"cordón\". Sugerimos estacionar de esta manera ya que en temporada la policia circula mucho y son muy estrictos, así que la idea es evitarle una multa a la gente que estaciona.\n\nEsperamos que disfruten su estadía en Il Buco!",
+    "guest_name": "Toloza Mailen",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  },
+  {
+    "category": "general",
+    "guest_message": "From Booking.com: This guest wants to modify their booking. Because of the way this request was sent, please respond via the extranet. Note: Replies sent through any other channel will not be recorded.\n\n\"My trip was called off\"",
+    "host_response": "From Booking.com: This guest wants to modify their booking. Because of the way this request was sent, please respond via the extranet. Note: Replies sent through any other channel will not be recorded.\n\n\"Request approved\"",
+    "guest_name": "Toloza Mailen",
+    "channel": "booking.com",
+    "property": "Paraiso"
+  }
+]

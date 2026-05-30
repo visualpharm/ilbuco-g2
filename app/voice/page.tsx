@@ -64,11 +64,12 @@ export default function VoiceTestPage() {
       addTranscriptEntry('system', 'Call connected');
     });
 
-    vapi.on('call-end', () => {
-      console.log('Call ended');
+    vapi.on('call-end', (info: unknown) => {
+      console.log('Call ended', info);
       setIsConnected(false);
       setIsConnecting(false);
       setCurrentSpeaker(null);
+      setError(null); // Clear any transient errors on normal call end
       addTranscriptEntry('system', 'Call ended');
     });
 
@@ -95,8 +96,43 @@ export default function VoiceTestPage() {
     });
 
     vapi.on('error', (error) => {
-      console.error('Vapi error:', error);
-      setError(typeof error === 'string' ? error : 'An error occurred');
+      console.warn('Vapi event:', error);
+
+      // Parse the error to extract a human-readable message
+      let displayMessage = '';
+      try {
+        if (typeof error === 'string') {
+          displayMessage = error;
+        } else if (error instanceof Error) {
+          displayMessage = error.message;
+        } else if (error && typeof error === 'object') {
+          // Vapi sends structured error objects - extract the meaningful part
+          const err = error as Record<string, unknown>;
+          if (err.errorMsg && typeof err.errorMsg === 'string') {
+            displayMessage = err.errorMsg;
+          } else if (err.error && typeof err.error === 'object') {
+            const inner = err.error as Record<string, unknown>;
+            displayMessage = (inner.msg || inner.message || '') as string;
+          }
+          if (!displayMessage && Object.keys(error).length > 0) {
+            displayMessage = JSON.stringify(error);
+          }
+        }
+      } catch {
+        displayMessage = 'Unknown error';
+      }
+
+      // Check if this is a transfer failure (ejection = call ended during transfer)
+      const isTransferFailure = displayMessage.includes('ejected') || displayMessage.includes('Meeting has ended');
+
+      if (!displayMessage) {
+        addTranscriptEntry('system', 'Call ended');
+      } else if (isTransferFailure) {
+        addTranscriptEntry('system', 'Transfer is not available on web calls. Call +1 (302) 466-3361 for transfers to a human operator.');
+      } else {
+        setError(displayMessage);
+        addTranscriptEntry('system', `Error: ${displayMessage}`);
+      }
       setIsConnected(false);
       setIsConnecting(false);
     });

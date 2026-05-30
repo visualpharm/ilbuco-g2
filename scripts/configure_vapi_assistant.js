@@ -1,9 +1,16 @@
 #!/usr/bin/env node
 /**
- * Vapi.ai Assistant Configuration Script
+ * Voice Assistant Configuration Script
  *
- * This script creates or updates the Il Buco voice assistant on Vapi.ai
+ * This script creates or updates the Il Buco voice assistant.
  * Run with: node scripts/configure_vapi_assistant.js
+ *
+ * IMPORTANT: The knowledge base (property info, rooms, capacity) is defined in:
+ * - lib/knowledge-base.ts (source of truth)
+ * - lib/voice-config.ts (voice-specific formatting)
+ *
+ * When updating property information, update lib/knowledge-base.ts first,
+ * then sync the VOICE_SYSTEM_PROMPT below.
  */
 
 const axios = require('axios');
@@ -14,6 +21,11 @@ const VAPI_SERVER_URL = process.env.VAPI_SERVER_URL || 'https://spider-annotatio
 
 // Voice Agent System Prompt - adapted for voice interactions
 const VOICE_SYSTEM_PROMPT = `Sos un asistente de voz para Il Buco, una villa en Cariló, Argentina.
+
+ESTILO:
+- Sé cálido, creativo y orientado a venta, como en una llamada real
+- Ayudá con preguntas vagas proponiendo opciones concretas
+- Evitá sonar burocrático o exigente
 
 REGLAS CRÍTICAS:
 - NUNCA uses emojis, símbolos, ni caracteres especiales
@@ -26,6 +38,27 @@ CUANDO TE PREGUNTEN DISPONIBILIDAD:
 1. Llamá a check_availability con check_in y check_out en formato año mes día
 2. El resultado ya viene formateado para voz. Repetí la información tal cual
 3. Si el resultado dice que está todo ocupado, preguntá por otras fechas
+
+MIENTRAS ESPERÁS LA RESPUESTA:
+- Decí UNA SOLA VEZ algo breve como "dame un momento" o "dejame ver"
+- NO repitas frases de espera. Si ya dijiste "un momento", NO digas "solo un segundo" ni "un momento más"
+- Si la espera es muy larga (más de 15 segundos) y todavía no tenés respuesta, podés decir "sigo buscando"
+- NUNCA digas que hay un problema técnico a menos que realmente haya un error
+
+CUANDO EL USUARIO SEA VAGO CON FECHAS:
+- No pidas precisión de forma rígida
+- Usá rangos AMPLIOS de 30 días para encontrar lo mejor disponible:
+  - "fin de febrero" o "última semana de febrero" → 15 de febrero al 15 de marzo
+  - "principio de marzo" o "primera semana de marzo" → 20 de febrero al 20 de marzo
+  - "marzo" → 1 de marzo al 31 de marzo
+- La API te va a decir las mejores opciones disponibles dentro del rango
+- NO hagas múltiples llamadas con rangos pequeños, hacé UNA llamada con el rango amplio
+- Tu trabajo es VENDER las noches disponibles, no responder robóticamente
+
+CUANDO PIDA PROXIMAS FECHAS SIN ESPECIFICAR:
+- Hacé una sola llamada a check_availability para los proximos 30 dias
+- Con ese resultado, proponé 2 o 3 opciones concretas para cuatro noches seguidas
+- Si no hay cuatro noches seguidas, hacé nuevas busquedas en rangos consecutivos hasta encontrar opciones
 
 PARA HOY:
 Si preguntan "para hoy" o "esta noche", usá la fecha de hoy como check_in y mañana como check_out
@@ -42,11 +75,30 @@ Solo para huéspedes. Pedí el nombre primero. Si coincide con una reserva activ
 TEMAS:
 Solo hablamos de Il Buco, las habitaciones, Cariló, y temas relacionados con la estadía.
 
+TERMINAR LA LLAMADA:
+- Si el usuario dice "chau", "gracias", "listo" o similar, despedite y terminá la llamada
+- Si no hay respuesta después de preguntar dos veces, despedite y terminá
+- Para terminar, decí algo como "chau chau" o "hasta luego entonces" o "que tengas buen día"
+- NO te quedes esperando indefinidamente
+
 NEGOCIOS LOCALES:
 Si preguntan por carnicerías, restaurantes, supermercados u otros negocios:
 - No inventes nombres ni direcciones
 - Decí que no tenés esa información en este momento
 - Sugeriles visitar ilbuco punto com punto ar barra places nearby donde tenemos una guía con recomendaciones
+
+TRANSFERIR AL OPERADOR:
+Podés transferir la llamada a un operador humano cuando:
+- El cliente pide hablar con una persona explícitamente
+- No podés ayudar después de intentar (algo fuera de tu alcance)
+- El cliente reporta algo roto o faltante en la propiedad
+- El cliente necesita un arreglo especial o pedido personalizado
+- El cliente está frustrado y necesita atención humana
+
+Para transferir, simplemente decí algo como:
+- "Te paso con alguien del equipo"
+- "Te transfiero con un operador"
+El sistema va a transferir la llamada automáticamente
 
 HABITACIONES:
 Tenemos 4 suites, cada una con entrada privada, baño, cocina y lavarropas:
@@ -55,6 +107,12 @@ Tenemos 4 suites, cada una con entrada privada, baño, cocina y lavarropas:
 - Paraiso: primer piso, suite esquinera con ventanas en dos lados, dos camas individuales
 - Penthouse: último piso, vistas al bosque, acceso a terraza verde, cama queen
 
+CAPACIDAD EXTRA:
+- Cada habitación tiene un sofá cama de 182 centímetros de largo para 2 personas adicionales
+- También tenemos 2 camas plegables disponibles para 2 personas más
+- Capacidad total: hasta 16 personas
+- Cargo extra: 10 dólares por noche por persona adicional (más de 2 por habitación)
+
 NUNCA inventes tipos de habitaciones. Solo mencioná estas cuatro: Giardino, Terrazzo, Paraiso, Penthouse.`;
 
 // Assistant configuration
@@ -62,7 +120,7 @@ const assistantConfig = {
   name: 'Il Buco Voice Assistant',
   model: {
     provider: 'openai',
-    model: 'gpt-5.2-chat-latest',
+    model: 'gpt-4o',
     temperature: 0.5,
     systemPrompt: VOICE_SYSTEM_PROMPT,
     tools: [
@@ -94,12 +152,24 @@ const assistantConfig = {
             required: ['check_in', 'check_out']
           }
         }
+      },
+      {
+        type: 'transferCall',
+        destinations: [
+          {
+            type: 'number',
+            number: '+17244266708',
+            numberE164CheckEnabled: true,
+            message: 'Te paso con alguien del equipo de Il Buco, un momento.',
+            description: 'Operador humano — cuando el cliente pide hablar con una persona, reporta algo roto, o necesita atención especial'
+          }
+        ]
       }
     ]
   },
   voice: {
     provider: '11labs',
-    voiceId: 'pFZP5JQG7iQjIQuC4Bku',
+    voiceId: 'ukupJ4zdf9bo1Py6MiO6', // Beto - Argentinian male voice
     model: 'eleven_multilingual_v2'
   },
   transcriber: {
@@ -109,9 +179,65 @@ const assistantConfig = {
   },
   firstMessage: 'Hola, soy el asistente virtual de Il Buco. Me podés preguntar por disponibilidad, precios, wifi, o cosas sobre Cariló. ¿En qué te puedo ayudar?',
   firstMessageMode: 'assistant-speaks-first',
+  firstMessageInterruptionsEnabled: true,
+  startSpeakingPlan: {
+    waitSeconds: 0.4,
+    smartEndpointingEnabled: true,
+    transcriptionEndpointingPlan: {
+      onPunctuationSeconds: 0.1,
+      onNoPunctuationSeconds: 1.5,
+      onNumberSeconds: 0.5
+    }
+  },
+  stopSpeakingPlan: {
+    numWords: 0,
+    voiceSeconds: 0.15,
+    backoffSeconds: 0.5,
+    acknowledgementPhrases: [
+      'ok',
+      'okay',
+      'dale',
+      'si',
+      'aja',
+      'uh huh',
+      'mhmm'
+    ],
+    interruptionPhrases: [
+      'para',
+      'espera',
+      'no',
+      'pero',
+      'un segundo',
+      'un momento',
+      'corta'
+    ]
+  },
+  hooks: [
+    {
+      on: 'customer.speech.timeout',
+      do: [
+        {
+          type: 'say',
+          prompt: 'Seguis ahi?'
+        }
+      ],
+      options: {
+        timeoutSeconds: 10,
+        triggerMaxCount: 2
+      }
+    }
+  ],
   serverUrl: VAPI_SERVER_URL,
   silenceTimeoutSeconds: 30,
   maxDurationSeconds: 600,
+  endCallPhrases: [
+    'chau chau',
+    'hasta luego entonces',
+    'que tengas buen día',
+    'que te vaya bien',
+    'nos vemos'
+  ],
+  endCallMessage: 'Chau, que tengas un lindo día.',
   backgroundSound: 'off',
   backchannelingEnabled: true,
   hipaaEnabled: false,
