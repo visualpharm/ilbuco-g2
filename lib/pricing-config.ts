@@ -12,6 +12,7 @@
 
 import { put, list, del } from '@vercel/blob';
 import { BASE_PRICES, type SeasonTier, type PriceOverride } from './pricing-engine';
+import { DEFAULT_STAY_POLICY, type StayPolicy } from './stay-policy';
 
 export type { PriceOverride };
 
@@ -39,6 +40,7 @@ export interface PricingConfig {
   learnedMeta: Record<string, Partial<Record<SeasonTier, LearnedMeta>>>;
   overrides: PriceOverride[];
   wholeHouseFactor: number;
+  stayPolicy?: StayPolicy;
   lastPush?: { at: string; by: string; ranges: number };
   updatedAt?: string;
   updatedBy?: string;
@@ -52,6 +54,7 @@ export function defaultConfig(): PricingConfig {
     learnedMeta: {},
     overrides: [],
     wholeHouseFactor: Number(process.env.PRICING_WHOLE_HOUSE_FACTOR ?? '0.92'),
+    stayPolicy: DEFAULT_STAY_POLICY,
   };
 }
 

@@ -55,7 +55,7 @@ interface Preview {
 
 const ROOMS = ['Giardino', 'Terrazzo', 'Paraiso', 'Penthouse'];
 const TIERS: Tier[] = ['peak', 'high', 'shoulder', 'off'];
-const TIER_LABEL: Record<Tier, string> = { peak: 'Pico (20 dic–ene, Carnaval)', high: 'Alta (feb, 1–19 dic)', shoulder: 'Media (mar–abr, nov)', off: 'Baja (may–oct)' };
+const TIER_LABEL: Record<Tier, string> = { peak: 'Pico (20 dic–feb)', high: 'Alta (1–19 dic)', shoulder: 'Media (mar–abr, nov)', off: 'Baja (may–oct)' };
 const TIER_BG: Record<Tier, string> = {
   peak: 'bg-red-50', high: 'bg-orange-50', shoulder: 'bg-yellow-50', off: 'bg-slate-50',
 };

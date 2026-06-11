@@ -25,22 +25,28 @@
  * median high $245 / shoulder $176 / off $111; proven A-tier peers $190–236 high).
  */
 
-import { getSeasonTier, isWeekendNight, isHolidayNight, addDays, type SeasonTier } from './season-calendar';
+import { getSeasonTier, isWeekendNight, isHolidayNight, isFiestasNight, addDays, type SeasonTier } from './season-calendar';
 
 export type { SeasonTier };
 export { getSeasonTier };
 
 // ─── Policy defaults: base nightly USD per suite per tier ────────────────────
 
+/**
+ * Peak anchored to what Il Buco ACTUALLY charged Jan–Feb 2026 (Ivan, 2026-06-11):
+ * Giardino $190, Terrazzo $180, Penthouse $190, whole house $650 (≈ sum × 0.92 ✓).
+ * Paraíso was listed at $90 — inconsistent with the others (below winter pricing),
+ * kept at the engine's $155; adjust in the UI if the $90 was deliberate.
+ */
 export const BASE_PRICES: Record<SeasonTier, Record<string, number>> = {
-  peak:     { Giardino: 160, Terrazzo: 170, Paraiso: 155, Penthouse: 185 },
+  peak:     { Giardino: 190, Terrazzo: 180, Paraiso: 155, Penthouse: 190 },
   high:     { Giardino: 130, Terrazzo: 140, Paraiso: 125, Penthouse: 150 },
   shoulder: { Giardino: 105, Terrazzo: 112, Paraiso: 100, Penthouse: 120 },
   off:      { Giardino: 90,  Terrazzo: 98,  Paraiso: 86,  Penthouse: 105 },
 };
 
-/** Per-tier price ceilings (≈ Cariló cap≤6 p75 of the season, sanity cap). */
-export const CEILINGS: Record<SeasonTier, number> = { peak: 300, high: 250, shoulder: 200, off: 140 };
+/** Per-tier price ceilings (sanity cap; fiestas can exceed the peak cap by design). */
+export const CEILINGS: Record<SeasonTier, number> = { peak: 320, high: 250, shoulder: 200, off: 140 };
 
 /** Hard floor: infra cost ($50) × 1.3, overridable. */
 const FLOOR = Number(process.env.PRICING_FLOOR ?? '65');
@@ -53,6 +59,9 @@ const WEEKEND_PREMIUM: Record<SeasonTier, number> = {
 
 /** Feriado long weekends / Semana Santa / winter break. Not stacked with weekend premium. */
 const HOLIDAY_PREMIUM = 1.25;
+
+/** Navidad + Año Nuevo (Dec 24–Jan 2): carísimo. Replaces holiday/weekend premiums. */
+const FIESTAS_PREMIUM = 1.45;
 
 /**
  * Expected final occupancy by month (from 2025/26 realized Hostex history).
@@ -171,13 +180,16 @@ export function computeNightPrice(
   if (base === undefined) throw new Error(`No base price for room ${roomName}`);
 
   const learned = settings.learned?.[roomName]?.[tier] ?? 1.0;
-  const holiday = isHolidayNight(dateStr) ? HOLIDAY_PREMIUM : 1.0;
-  // Holiday premium replaces (not stacks with) the weekend premium
+  const fiestas = isFiestasNight(dateStr);
+  // Fiestas premium replaces holiday premium, which replaces the weekend premium
+  const holiday = fiestas ? FIESTAS_PREMIUM : isHolidayNight(dateStr) ? HOLIDAY_PREMIUM : 1.0;
   const weekend = holiday === 1.0 && isWeekendNight(dateStr) ? WEEKEND_PREMIUM[tier] : 1.0;
   const demand = demandFactor(dateStr, ctx);
 
+  // Fiestas nights skip the ceiling — they're supposed to be carísimos
   const raw = base * learned * weekend * holiday * demand;
-  const engine = Math.round(Math.min(CEILINGS[tier], Math.max(FLOOR, raw)));
+  const capped = fiestas ? Math.max(FLOOR, raw) : Math.min(CEILINGS[tier], Math.max(FLOOR, raw));
+  const engine = Math.round(capped);
 
   const o = settings.overrides ? findOverride(settings.overrides, roomName, dateStr) : null;
   const price = o ? Math.max(FLOOR, applyOverride(o, engine)) : engine;

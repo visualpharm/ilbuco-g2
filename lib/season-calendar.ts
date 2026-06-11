@@ -2,14 +2,19 @@
  * Cariló season calendar + Argentine public holidays.
  *
  * Season tiers reflect coastal AR demand, not generic months:
- *   peak     — Dec 20–Jan 31 + Carnaval week. Market median (Cariló cap≤6) $190–245/night.
- *   high     — Feb (after Carnaval window), Dec 1–19.
+ *   peak     — Dec 20 through end of Feb (Ivan kept the same price scheme Jan+Feb)
+ *              + Carnaval window. Market median (Cariló cap≤6) $190–245/night.
+ *   high     — Dec 1–19.
  *   shoulder — Mar, Apr 1–15, Nov. Market ratio ~0.85 of high.
  *   off      — Apr 16–Oct 31. Market off/high ratio 0.40–0.55 (paired-listing medians).
  *
+ * Fiestas (Dec 24–Jan 2) are a super-peak window with their own strong premium —
+ * Navidad/Año Nuevo in Cariló is the most inelastic demand of the year.
+ *
  * Holiday premiums: feriado long weekends + Semana Santa + July winter break are the
  * only real demand spikes inside shoulder/off — they get a per-night premium instead
- * of a tier change.
+ * of a tier change. Long weekends include puente days: a Thursday feriado bridges
+ * Friday into the weekend (Jul 9 2026 → Thu–Sun block).
  */
 
 export type SeasonTier = 'peak' | 'high' | 'shoulder' | 'off';
@@ -43,6 +48,16 @@ const CARNAVAL_WINDOWS: Array<{ start: string; end: string }> = [
   { start: '2028-02-25', end: '2028-03-01' },
 ];
 
+/** Navidad + Año Nuevo: super-peak, carísimo, long-stay-only territory. */
+const FIESTAS_WINDOWS: Array<{ start: string; end: string }> = [
+  { start: '2026-12-24', end: '2027-01-02' },
+  { start: '2027-12-24', end: '2028-01-02' },
+];
+
+export function isFiestasNight(dateStr: string): boolean {
+  return FIESTAS_WINDOWS.some(w => inWindow(dateStr, w));
+}
+
 // ─── Date helpers (all in AR civil dates, no TZ math on YYYY-MM-DD strings) ───
 
 function toUTC(dateStr: string): Date {
@@ -74,8 +89,8 @@ export function getSeasonTier(dateStr: string): SeasonTier {
   const m = Number(dateStr.slice(5, 7));
   const day = Number(dateStr.slice(8, 10));
 
-  if ((m === 12 && day >= 20) || m === 1) return 'peak';
-  if (m === 2 || (m === 12 && day < 20)) return 'high';
+  if ((m === 12 && day >= 20) || m === 1 || m === 2) return 'peak';
+  if (m === 12 && day < 20) return 'high';
   if (m === 3 || (m === 4 && day <= 15) || m === 11) return 'shoulder';
   return 'off';
 }
@@ -98,16 +113,24 @@ export function isHolidayNight(dateStr: string): boolean {
   if (HOLIDAY_WINDOWS.some(w => inWindow(dateStr, w))) return true;
 
   const isFree = (d: string) => FERIADO_SET.has(d) || dayOfWeek(d) === 0 || dayOfWeek(d) === 6;
-  if (!isFree(dateStr)) return false;
+  // Puente: a single workday squeezed between feriado and weekend counts as part
+  // of the block (Thu feriado → Friday bridges into Sat/Sun: Jul 9 2026).
+  const isBlockDay = (d: string) => isFree(d) || (isFree(addDays(d, -1)) && isFree(addDays(d, 1)));
+  if (!isBlockDay(dateStr)) return false;
 
-  // Find the run of consecutive free days containing this date
+  // Find the run of consecutive block days containing this date
   let start = dateStr;
-  while (isFree(addDays(start, -1))) start = addDays(start, -1);
+  while (isBlockDay(addDays(start, -1))) start = addDays(start, -1);
   let end = dateStr;
-  while (isFree(addDays(end, 1))) end = addDays(end, 1);
+  while (isBlockDay(addDays(end, 1))) end = addDays(end, 1);
 
+  // Must actually contain a feriado — plain weekends are not long weekends
+  let hasFeriado = false;
+  for (let d = start; d <= end; d = addDays(d, 1)) {
+    if (FERIADO_SET.has(d)) { hasFeriado = true; break; }
+  }
   const runLen = (toUTC(end).getTime() - toUTC(start).getTime()) / 86_400_000 + 1;
-  if (runLen < 3) return false;
+  if (!hasFeriado || runLen < 3) return false;
 
   // All nights of the block except the final day (checkout day) carry the premium
   return dateStr < end;
