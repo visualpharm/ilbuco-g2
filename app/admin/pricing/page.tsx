@@ -291,7 +291,8 @@ export default function PricingAdmin() {
         <div className="grid sm:grid-cols-2 gap-4">
           {months.map(([m, days]) => {
             const [yy, mm] = m.split('-').map(Number);
-            const firstDow = (new Date(Date.UTC(yy, mm - 1, 1)).getUTCDay() + 6) % 7; // Mon=0
+            // Pad from the first day actually present (first month starts mid-month)
+            const firstDow = (new Date(days[0].date + 'T12:00:00Z').getUTCDay() + 6) % 7; // Mon=0
             return (
               <div key={m} className="bg-white rounded-xl shadow-sm p-3">
                 <h3 className="font-medium mb-2 capitalize">{MONTH_NAMES[mm - 1]} {yy}</h3>
