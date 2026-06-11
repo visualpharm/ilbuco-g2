@@ -19,6 +19,10 @@ interface DayEntry {
   engine: number;
   price: number;
   booked: boolean;
+  closed?: boolean;
+  holiday?: boolean;
+  fiestas?: boolean;
+  minStay?: number;
   overrideId?: string;
   current: number | null;
 }
@@ -50,10 +54,12 @@ interface Preview {
   end_date: string;
   last_push: Config['lastPush'] | null;
   rooms: Record<string, DayEntry[]>;
-  whole_house: Array<{ date: string; price: number; current: number | null }>;
+  whole_house: DayEntry[];
 }
 
 const ROOMS = ['Giardino', 'Terrazzo', 'Paraiso', 'Penthouse'];
+const CASA = 'Casa entera';
+const TABS = [...ROOMS, CASA];
 const TIERS: Tier[] = ['peak', 'high', 'shoulder', 'off'];
 const TIER_LABEL: Record<Tier, string> = { peak: 'Pico (20 dic–feb)', high: 'Alta (1–19 dic)', shoulder: 'Media (mar–abr, nov)', off: 'Baja (may–oct)' };
 const TIER_BG: Record<Tier, string> = {
@@ -111,6 +117,7 @@ export default function PricingAdmin() {
 
   // ── Range selection ────────────────────────────────────────────────────────
   function clickDay(date: string) {
+    if (room === CASA) return; // casa = suma de suites; se ajusta vía las suites
     if (!selStart || (selStart && selEnd)) { setSelStart(date); setSelEnd(null); return; }
     if (date < selStart) { setSelStart(date); return; }
     setSelEnd(date);
@@ -203,7 +210,7 @@ export default function PricingAdmin() {
   // ── Calendar data ──────────────────────────────────────────────────────────
   const months = useMemo(() => {
     if (!preview) return [];
-    const days = preview.rooms[room] ?? [];
+    const days = room === CASA ? (preview.whole_house ?? []) : (preview.rooms[room] ?? []);
     const byMonth = new Map<string, DayEntry[]>();
     for (const d of days) {
       const m = d.date.slice(0, 7);
@@ -246,8 +253,8 @@ export default function PricingAdmin() {
       <header className="sticky top-0 z-20 bg-white border-b px-4 py-3 flex flex-wrap items-center gap-3">
         <h1 className="font-semibold text-lg">Il Buco — Precios</h1>
         <div className="flex gap-1 flex-wrap">
-          {ROOMS.map(r => (
-            <button key={r} onClick={() => setRoom(r)}
+          {TABS.map(r => (
+            <button key={r} onClick={() => { setRoom(r); setSelStart(null); setSelEnd(null); }}
               className={`px-3 py-1.5 rounded-full text-sm ${room === r ? 'bg-slate-900 text-white' : 'bg-slate-200 text-slate-700'}`}>
               {r}
             </button>
@@ -282,9 +289,14 @@ export default function PricingAdmin() {
           ))}
           <span className="flex items-center gap-1"><span className="w-3 h-3 rounded border-2 border-amber-500" /> ajuste manual</span>
           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-slate-800" /> reservado</span>
+          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-violet-500" /> feriado / finde largo</span>
+          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-rose-500" /> Navidad/Año Nuevo (mín 14 noches)</span>
+          <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-slate-300" /> cerrado (solo casa entera)</span>
         </div>
         <p className="text-sm text-slate-500 -mt-3">
-          Tocá una fecha de inicio y una de fin para ajustar un período. Los precios sugeridos ya incluyen temporada, feriados, findes y demanda.
+          {room === CASA
+            ? `La casa entera se cotiza como la suma de las 4 suites × ${cfg.wholeHouseFactor}. Para ajustarla, editá las suites o el factor.`
+            : 'Tocá una fecha de inicio y una de fin para ajustar un período. Los precios sugeridos ya incluyen temporada, feriados, findes y demanda.'}
         </p>
 
         {/* Calendars */}
@@ -307,14 +319,22 @@ export default function PricingAdmin() {
                     return (
                       <button key={d.date} onClick={() => clickDay(d.date)}
                         className={`rounded-lg border p-1 text-center leading-tight min-h-[3.2rem] relative
-                          ${TIER_BG[d.tier]}
+                          ${d.closed ? 'bg-slate-200 opacity-70' : TIER_BG[d.tier]}
                           ${d.overrideId ? 'border-amber-500 border-2' : 'border-slate-200'}
-                          ${selected ? 'ring-2 ring-blue-500' : ''}`}>
+                          ${selected ? 'ring-2 ring-blue-500' : ''}`}
+                        title={[
+                          d.fiestas ? 'Navidad/Año Nuevo' : d.holiday ? 'Feriado / finde largo' : '',
+                          d.minStay && d.minStay > 2 ? `mínimo ${d.minStay} noches` : '',
+                          d.booked ? 'reservado' : d.closed ? 'cerrado (solo casa entera)' : '',
+                        ].filter(Boolean).join(' · ')}>
                         <div className="text-[10px] text-slate-400 flex justify-center items-center gap-0.5">
                           {Number(d.date.slice(8, 10))}
+                          {d.fiestas
+                            ? <span className="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block" />
+                            : d.holiday && <span className="w-1.5 h-1.5 rounded-full bg-violet-500 inline-block" />}
                           {d.booked && <span className="w-1.5 h-1.5 rounded-full bg-slate-800 inline-block" />}
                         </div>
-                        <div className={`text-xs font-semibold ${d.overrideId ? 'text-amber-700' : 'text-slate-800'}`}>${d.price}</div>
+                        <div className={`text-xs font-semibold ${d.overrideId ? 'text-amber-700' : d.closed ? 'text-slate-400' : 'text-slate-800'}`}>${d.price}</div>
                         {changed && <div className="text-[9px] text-slate-400 line-through">${d.current}</div>}
                       </button>
                     );

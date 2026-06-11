@@ -81,6 +81,10 @@ function inWindow(dateStr: string, w: { start: string; end: string }): boolean {
 
 const FERIADO_SET = new Set(FERIADOS);
 
+export function isFeriado(dateStr: string): boolean {
+  return FERIADO_SET.has(dateStr);
+}
+
 // ─── Season tier ──────────────────────────────────────────────────────────────
 
 export function getSeasonTier(dateStr: string): SeasonTier {

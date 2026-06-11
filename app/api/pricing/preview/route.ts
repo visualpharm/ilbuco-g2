@@ -3,10 +3,13 @@
  *
  * GET ?days=300 → {
  *   role, start_date, end_date,
- *   rooms: { <name>: [{ date, tier, engine, price, booked, overrideId?, current }] },
- *   whole_house: [{ date, price, current }]
+ *   rooms: { <name>: [DayCell] },        // 4 suites
+ *   whole_house: [DayCell]               // derived: sum × factor
  * }
- * `current` = price currently in Hostex (so the UI can show pending diffs).
+ * DayCell: { date, tier, engine, price, booked, closed, holiday, fiestas, minStay,
+ *            overrideId?, current }
+ *   booked = real reservation; closed = blocked (whole-house-only window or
+ *   cross-block), current = price now in Hostex.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -18,29 +21,43 @@ import {
   WHOLE_HOUSE,
   type DayPriceEntry,
 } from '@/lib/pricing-engine';
-import { getCalendarAvailability } from '@/lib/hostex-api';
+import { getCalendarAvailability, getReservations } from '@/lib/hostex-api';
+import { isHolidayNight, isFiestasNight, getSeasonTier, addDays } from '@/lib/season-calendar';
+import { minStayForDate, DEFAULT_STAY_POLICY } from '@/lib/stay-policy';
+import { todayAR } from '@/lib/run-pricing';
 
-function addDays(dateStr: string, n: number): string {
-  const d = new Date(dateStr + 'T12:00:00Z');
-  d.setUTCDate(d.getUTCDate() + n);
-  return d.toISOString().split('T')[0];
-}
-
-function todayAR(): string {
-  return new Date().toLocaleString('sv-SE', { timeZone: 'America/Argentina/Buenos_Aires' }).split(' ')[0];
-}
+const LISTING_TO_PROPERTY: Record<string, number> = {
+  '110800-13274': 12282945,
+  '110801-13274': 12282946,
+  '110802-13274': 12282947,
+  '110803-13274': 12282948,
+  '113182-13274': 12299611,
+};
 
 export async function GET(req: NextRequest) {
   const caller = getCaller(req);
   if (!caller) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const days = Math.min(366, Math.max(30, Number(req.nextUrl.searchParams.get('days') ?? 300)));
-  const startDate = addDays(todayAR(), 2);
+  const today = todayAR();
+  const startDate = addDays(today, 2);
   const endDate = addDays(startDate, days);
 
   const config = await loadConfig();
-  const cal = await getCalendarAvailability(startDate, endDate);
+  const stayPolicy = { ...DEFAULT_STAY_POLICY, ...(config.stayPolicy ?? {}) };
+  const [cal, reservations] = await Promise.all([
+    getCalendarAvailability(startDate, endDate),
+    getReservations(addDays(startDate, -35), endDate),
+  ]);
   const byRoom = new Map(cal.rooms.map(r => [r.name, r]));
+
+  // Real bookings per property (to distinguish "reservado" from "cerrado")
+  const bookedByProperty = new Map<number, Set<string>>();
+  for (const r of reservations) {
+    const set = bookedByProperty.get(r.property_id) ?? new Set<string>();
+    for (let d = r.check_in_date; d < r.check_out_date; d = addDays(d, 1)) set.add(d);
+    bookedByProperty.set(r.property_id, set);
+  }
 
   const occByRoom: Record<string, Record<string, number>> = {};
   const currentByRoom: Record<string, Record<string, number>> = {};
@@ -49,32 +66,73 @@ export async function GET(req: NextRequest) {
     occByRoom[room.name] = {};
     currentByRoom[room.name] = {};
     for (const d of calRoom?.dates ?? []) {
-      occByRoom[room.name][d.date] = d.available ? 0 : 1;
+      // demand pacing should see REAL bookings, not cross-block closures
+      const booked = bookedByProperty.get(LISTING_TO_PROPERTY[room.listingId])?.has(d.date) ?? false;
+      occByRoom[room.name][d.date] = booked ? 1 : 0;
       currentByRoom[room.name][d.date] = d.price;
     }
   }
 
+  // Per-date flags computed once
+  const flags = new Map<string, { holiday: boolean; fiestas: boolean; minStay: number }>();
+  for (let d = startDate; d < endDate; d = addDays(d, 1)) {
+    flags.set(d, {
+      holiday: isHolidayNight(d),
+      fiestas: isFiestasNight(d),
+      minStay: minStayForDate(d, today, stayPolicy),
+    });
+  }
+
   const settings = { basePrices: config.basePrices, learned: config.learned, overrides: config.overrides };
-  const rooms: Record<string, Array<DayPriceEntry & { current: number | null }>> = {};
   const schedules: Record<string, DayPriceEntry[]> = {};
+  const rooms: Record<string, unknown[]> = {};
 
   for (const room of IL_BUCO_ROOMS) {
     const schedule = buildPriceSchedule(room.name, startDate, endDate, occByRoom, settings);
     schedules[room.name] = schedule;
-    rooms[room.name] = schedule.map(e => ({
-      ...e,
-      current: currentByRoom[room.name][e.date] ?? null,
-    }));
+    const calInv = new Map((byRoom.get(room.name)?.dates ?? []).map(d => [d.date, d.available]));
+    const bookedSet = bookedByProperty.get(LISTING_TO_PROPERTY[room.listingId]) ?? new Set<string>();
+
+    rooms[room.name] = schedule.map(e => {
+      const f = flags.get(e.date)!;
+      const booked = bookedSet.has(e.date);
+      const closed = !booked && calInv.get(e.date) === false;
+      return {
+        ...e,
+        booked,
+        closed,
+        holiday: f.holiday,
+        fiestas: f.fiestas,
+        minStay: f.minStay,
+        current: currentByRoom[room.name][e.date] ?? null,
+      };
+    });
   }
 
+  // Whole house: derived prices + own booked/closed state
   const whCal = byRoom.get(WHOLE_HOUSE.name);
   const whCurrent = new Map((whCal?.dates ?? []).map(d => [d.date, d.price]));
+  const whInv = new Map((whCal?.dates ?? []).map(d => [d.date, d.available]));
+  const whBooked = bookedByProperty.get(LISTING_TO_PROPERTY[WHOLE_HOUSE.listingId]) ?? new Set<string>();
   const names = IL_BUCO_ROOMS.map(r => r.name);
-  const whole_house = schedules[names[0]].map((e, i) => ({
-    date: e.date,
-    price: Math.round(names.reduce((a, n) => a + schedules[n][i].price, 0) * config.wholeHouseFactor),
-    current: whCurrent.get(e.date) ?? null,
-  }));
+
+  const whole_house = schedules[names[0]].map((e, i) => {
+    const f = flags.get(e.date)!;
+    const booked = whBooked.has(e.date);
+    const closed = !booked && whInv.get(e.date) === false;
+    return {
+      date: e.date,
+      tier: getSeasonTier(e.date),
+      engine: 0,
+      price: Math.round(names.reduce((a, n) => a + schedules[n][i].price, 0) * config.wholeHouseFactor),
+      booked,
+      closed,
+      holiday: f.holiday,
+      fiestas: f.fiestas,
+      minStay: f.minStay,
+      current: whCurrent.get(e.date) ?? null,
+    };
+  });
 
   return NextResponse.json({
     role: caller,

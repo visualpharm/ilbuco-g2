@@ -20,17 +20,16 @@ import { loadConfig, saveConfig } from './pricing-config';
 import { minStayForDate, suitesClosedForDate, DEFAULT_STAY_POLICY, type StayPolicy } from './stay-policy';
 import {
   getCalendarAvailability,
+  getReservations,
   updateListingPrices,
   updateListingRestrictions,
-  updateListingInventories,
-  getReservations,
   type PriceEntry,
   type RestrictionEntry,
-  type InventoryEntry,
 } from './hostex-api';
+import { syncInventories, type SyncResult } from './inventory-sync';
 import { addDays } from './season-calendar';
 
-/** booking_site listing_id → Hostex property_id (for reservation matching). */
+/** booking_site listing_id → Hostex property_id. */
 const LISTING_TO_PROPERTY: Record<string, number> = {
   '110800-13274': 12282945, // Giardino
   '110801-13274': 12282946, // Terrazzo
@@ -71,7 +70,7 @@ export interface RunReport {
   learning_updates: ReturnType<typeof computeLearning>;
   rooms: Array<Record<string, unknown>>;
   restrictions: Record<string, number>;
-  inventories: Record<string, { closed: number; reopened: number }>;
+  inventories: SyncResult;
 }
 
 export async function runPricingUpdate(dryRun: boolean, daysAhead: number, by: string): Promise<RunReport> {
@@ -83,15 +82,28 @@ export async function runPricingUpdate(dryRun: boolean, daysAhead: number, by: s
   const config = await loadConfig();
   const stayPolicy: StayPolicy = { ...DEFAULT_STAY_POLICY, ...(config.stayPolicy ?? {}) };
 
-  // Calendar: occupancy for demand pacing + current prices for the change report
-  const cal = await getCalendarAvailability(startDate, endDate);
+  // Calendar (current prices for the change report) + reservations (occupancy).
+  // Demand pacing must see REAL bookings only — calendar inventory also goes to 0
+  // for our own cross-block/whole-house-only closures, which is not demand.
+  const [cal, reservations] = await Promise.all([
+    getCalendarAvailability(startDate, endDate),
+    getReservations(addDays(startDate, -35), endDate),
+  ]);
   const byRoom = new Map(cal.rooms.map(r => [r.name, r]));
+
+  const bookedByProperty = new Map<number, Set<string>>();
+  for (const r of reservations) {
+    const set = bookedByProperty.get(r.property_id) ?? new Set<string>();
+    for (let d = r.check_in_date; d < r.check_out_date; d = addDays(d, 1)) set.add(d);
+    bookedByProperty.set(r.property_id, set);
+  }
 
   const occByRoom: Record<string, Record<string, number>> = {};
   for (const room of IL_BUCO_ROOMS) {
     occByRoom[room.name] = {};
-    for (const d of byRoom.get(room.name)?.dates ?? []) {
-      occByRoom[room.name][d.date] = d.available ? 0 : 1;
+    const booked = bookedByProperty.get(LISTING_TO_PROPERTY[room.listingId]) ?? new Set<string>();
+    for (let d = startDate; d < endDate; d = addDays(d, 1)) {
+      occByRoom[room.name][d] = booked.has(d) ? 1 : 0;
     }
   }
 
@@ -152,47 +164,8 @@ export async function runPricingUpdate(dryRun: boolean, daysAhead: number, by: s
     restrictions[listing.name] = res.updated + res.skipped;
   }
 
-  // ── 3. Whole-house-only inventory window ─────────────────────────────────────
-  const inventories: Record<string, { closed: number; reopened: number }> = {};
-  const whoRange = stayPolicy.wholeHouseOnly;
-  const windowStart = whoRange.start > startDate ? whoRange.start : startDate;
-  const windowEnd = whoRange.end < endDate ? whoRange.end : addDays(endDate, -1);
-
-  if (windowStart <= windowEnd) {
-    if (today < whoRange.until) {
-      // Close suites for the whole window (closing booked dates is a no-op)
-      const entries: InventoryEntry[] = [{ start_date: windowStart, end_date: windowEnd, inventory: 0 }];
-      for (const room of IL_BUCO_ROOMS) {
-        await updateListingInventories(room.listingId, entries, dryRun);
-        inventories[room.name] = { closed: 1, reopened: 0 };
-      }
-    } else {
-      // Reopen — reservation-aware: never reopen a date covered by a real booking
-      const reservations = await getReservations(addDays(windowStart, -30), windowEnd);
-      for (const room of IL_BUCO_ROOMS) {
-        const propId = LISTING_TO_PROPERTY[room.listingId];
-        const bookedDates = new Set<string>();
-        for (const r of reservations) {
-          if (r.property_id !== propId) continue;
-          for (let d = r.check_in_date; d < r.check_out_date; d = addDays(d, 1)) bookedDates.add(d);
-        }
-        const days: Array<{ date: string; value: number }> = [];
-        for (let d = windowStart; d <= windowEnd; d = addDays(d, 1)) {
-          if (!bookedDates.has(d)) days.push({ date: d, value: 1 });
-        }
-        // collapse only contiguous runs (gaps at booked dates split ranges)
-        const entries: InventoryEntry[] = [];
-        let run: { start: string; end: string } | null = null;
-        for (const day of days) {
-          if (run && addDays(run.end, 1) === day.date) run.end = day.date;
-          else { if (run) entries.push({ start_date: run.start, end_date: run.end, inventory: 1 }); run = { start: day.date, end: day.date }; }
-        }
-        if (run) entries.push({ start_date: run.start, end_date: run.end, inventory: 1 });
-        await updateListingInventories(room.listingId, entries, dryRun);
-        inventories[room.name] = { closed: 0, reopened: entries.length };
-      }
-    }
-  }
+  // ── 3. Inventory sync: suite↔casa cross-blocking + whole-house-only window ───
+  const inventories = await syncInventories(today, daysAhead, stayPolicy, dryRun);
 
   // ── 4. Learning from manual overrides (live runs only) ───────────────────────
   const learning = computeLearning(schedules, config.learned);

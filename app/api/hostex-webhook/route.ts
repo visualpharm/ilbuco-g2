@@ -2,8 +2,32 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getConversation, sendMessage, getPropertyName, getCalendarAvailability } from '@/lib/hostex-api';
 import { generateAutoResponse } from '@/lib/openrouter-client';
 import { buildAutoresponderPrompt } from '@/lib/autoresponder-prompt';
+import { syncInventories } from '@/lib/inventory-sync';
+import { loadConfig } from '@/lib/pricing-config';
+import { DEFAULT_STAY_POLICY } from '@/lib/stay-policy';
+import { todayAR } from '@/lib/run-pricing';
 import { appendFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
+
+// Throttle: at most one inventory sync per 60s per lambda instance (webhooks
+// arrive in bursts when a booking syncs across channels). Short 120-day horizon
+// keeps it inside the function time limit; the daily cron covers the long tail.
+let lastInventorySync = 0;
+async function maybeSyncInventories(): Promise<string> {
+  const now = Date.now();
+  if (now - lastInventorySync < 60_000) return 'throttled';
+  lastInventorySync = now;
+  try {
+    const config = await loadConfig();
+    const stayPolicy = { ...DEFAULT_STAY_POLICY, ...(config.stayPolicy ?? {}) };
+    const result = await syncInventories(todayAR(), 120, stayPolicy, false);
+    console.log('[webhook inventory-sync]', JSON.stringify(result));
+    return 'done';
+  } catch (e) {
+    console.error('[webhook inventory-sync] error:', e);
+    return 'error';
+  }
+}
 
 // In-memory deduplication (good enough for serverless — duplicates arrive within ms)
 const recentMessages = new Map<string, number>();
@@ -57,10 +81,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true, skipped: 'host_message' });
   }
 
-  // Ignore if no conversation ID
+  // Non-message events (reservations created/cancelled, calendar changes) have no
+  // conversation_id → run the suite↔casa inventory cross-block sync instead.
   if (!conversationId) {
-    console.log('Webhook received without conversation_id:', JSON.stringify(body).slice(0, 200));
-    return NextResponse.json({ ok: true, skipped: 'no_conversation_id' });
+    console.log('Webhook non-message event:', JSON.stringify(body).slice(0, 200));
+    const synced = await maybeSyncInventories();
+    return NextResponse.json({ ok: true, event: 'non_message', inventory_sync: synced });
   }
 
   // Dedup

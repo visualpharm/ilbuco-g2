@@ -174,31 +174,41 @@ export interface ReservationSpan {
 
 /**
  * Fetch accepted reservations whose check-in falls within [start, end].
- * Hostex caps the check-in range at 180 days — caller should keep it under that.
+ * Hostex caps each check-in range at 180 days — long ranges are chunked here.
  */
 export async function getReservations(start: string, end: string): Promise<ReservationSpan[]> {
   const out: ReservationSpan[] = [];
-  for (let offset = 0; ; offset += 100) {
-    const res = await fetch(
-      `${HOSTEX_BASE}/reservations?start_check_in_date=${start}&end_check_in_date=${end}&offset=${offset}&limit=100`,
-      { headers: headers() }
-    );
-    const data = await res.json();
-    if (data.error_code !== 200) {
-      throw new Error(`Hostex reservations error: ${data.error_msg}`);
-    }
-    const page = data.data?.reservations ?? [];
-    for (const r of page) {
-      if (r.status === 'accepted' && !r.cancelled_at) {
-        out.push({
-          property_id: r.property_id,
-          check_in_date: r.check_in_date,
-          check_out_date: r.check_out_date,
-          status: r.status,
-        });
+
+  const addDaysLocal = (d: string, n: number) => {
+    const dt = new Date(d + 'T12:00:00Z');
+    dt.setUTCDate(dt.getUTCDate() + n);
+    return dt.toISOString().split('T')[0];
+  };
+
+  for (let winStart = start; winStart <= end; winStart = addDaysLocal(winStart, 170)) {
+    const winEnd = addDaysLocal(winStart, 169) < end ? addDaysLocal(winStart, 169) : end;
+    for (let offset = 0; ; offset += 100) {
+      const res = await fetch(
+        `${HOSTEX_BASE}/reservations?start_check_in_date=${winStart}&end_check_in_date=${winEnd}&offset=${offset}&limit=100`,
+        { headers: headers() }
+      );
+      const data = await res.json();
+      if (data.error_code !== 200) {
+        throw new Error(`Hostex reservations error: ${data.error_msg}`);
       }
+      const page = data.data?.reservations ?? [];
+      for (const r of page) {
+        if (r.status === 'accepted' && !r.cancelled_at) {
+          out.push({
+            property_id: r.property_id,
+            check_in_date: r.check_in_date,
+            check_out_date: r.check_out_date,
+            status: r.status,
+          });
+        }
+      }
+      if (page.length < 100) break;
     }
-    if (page.length < 100) break;
   }
   return out;
 }
