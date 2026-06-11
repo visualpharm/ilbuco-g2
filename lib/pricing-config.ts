@@ -10,12 +10,20 @@
  * The blob is public (prices only, no secrets); writes need BLOB_READ_WRITE_TOKEN.
  */
 
-import { put, head } from '@vercel/blob';
+import { put, list, del } from '@vercel/blob';
 import { BASE_PRICES, type SeasonTier, type PriceOverride } from './pricing-engine';
 
 export type { PriceOverride };
 
-const BLOB_KEY = 'pricing-config.json';
+/**
+ * Versioned writes: each save creates a NEW pathname (pricing-config-v/<ms>.json)
+ * and old versions get pruned. Overwriting a fixed pathname doesn't work here —
+ * Vercel Blob serves overwritten URLs from CDN cache for 60s+, which breaks
+ * read-after-write for the UI (override saved → next request can't see it).
+ * Unique URLs are immediately consistent.
+ */
+const VERSION_PREFIX = 'pricing-config-v/';
+const KEEP_VERSIONS = 4;
 
 export interface LearnedMeta {
   nights: number;
@@ -49,8 +57,10 @@ export function defaultConfig(): PricingConfig {
 
 export async function loadConfig(): Promise<PricingConfig> {
   try {
-    const meta = await head(BLOB_KEY);
-    const res = await fetch(`${meta.url}?ts=${Date.now()}`, { cache: 'no-store' });
+    const { blobs } = await list({ prefix: VERSION_PREFIX, limit: 1000 });
+    if (!blobs.length) return defaultConfig();
+    const latest = blobs.reduce((a, b) => (a.pathname > b.pathname ? a : b));
+    const res = await fetch(latest.url, { cache: 'no-store' });
     if (!res.ok) throw new Error(`blob fetch ${res.status}`);
     const cfg = (await res.json()) as PricingConfig;
     // Merge with defaults so new fields/rooms never come back undefined
@@ -72,11 +82,20 @@ export async function loadConfig(): Promise<PricingConfig> {
 export async function saveConfig(cfg: PricingConfig, by?: string): Promise<void> {
   cfg.updatedAt = new Date().toISOString();
   if (by) cfg.updatedBy = by;
-  await put(BLOB_KEY, JSON.stringify(cfg, null, 2), {
+  const key = `${VERSION_PREFIX}${String(Date.now()).padStart(14, '0')}.json`;
+  await put(key, JSON.stringify(cfg, null, 2), {
     access: 'public',
     addRandomSuffix: false,
-    allowOverwrite: true,
     contentType: 'application/json',
   });
+
+  // Prune old versions (best-effort; keep the newest KEEP_VERSIONS)
+  try {
+    const { blobs } = await list({ prefix: VERSION_PREFIX, limit: 1000 });
+    const stale = blobs
+      .sort((a, b) => b.pathname.localeCompare(a.pathname))
+      .slice(KEEP_VERSIONS);
+    if (stale.length) await del(stale.map(b => b.url));
+  } catch { /* pruning failure is harmless */ }
 }
 
