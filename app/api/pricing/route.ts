@@ -1,27 +1,22 @@
 /**
- * /api/pricing — Il Buco dynamic pricing API
+ * /api/pricing — Il Buco dynamic pricing API (engine v2)
  *
- * GET  → compute & return proposed prices (dry-run, no writes)
- * POST → compute + push prices to Hostex (live update)
- *        Body (optional): { dry_run: true, days_ahead: 180 }
+ * GET  → invoked by the Vercel monthly cron (Bearer CRON_SECRET) → LIVE update.
+ *        Vercel crons can only issue GET — v1 mapped GET to dry-run, so the
+ *        auto-pricer never wrote a price. Manual GET with ADMIN_TOKEN stays a
+ *        dry-run unless ?live=1.
+ * POST → compute + push prices to Hostex (live). Body: { dry_run?, days_ahead? }
  *
- * Authentication: requires X-Admin-Token header matching ADMIN_TOKEN env var.
- *
- * Called monthly by a Vercel cron (see vercel.json) to auto-adjust rates.
+ * Safety rails: never touches the next 2 days; prices clamped per-tier in the engine.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { readFileSync } from 'fs';
-import { join } from 'path';
 
 import {
-  getSeasonTier,
-  computeCompMedians,
   buildPriceSchedule,
   IL_BUCO_ROOMS,
-  getRoomInfraCost,
-  type CompEntry,
-  type CompDataset,
+  WHOLE_HOUSE,
+  WHOLE_HOUSE_FACTOR,
   type DayPriceEntry,
 } from '@/lib/pricing-engine';
 
@@ -29,67 +24,27 @@ import { getCalendarAvailability, updateListingPrices, type PriceEntry } from '@
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────
 
-function isAuthorised(req: NextRequest): boolean {
-  const token = req.headers.get('x-admin-token') || req.headers.get('authorization')?.replace('Bearer ', '');
-  if (!token) return false;
-  // Accept either ADMIN_TOKEN (manual calls) or Vercel's CRON_SECRET (cron runner)
-  return token === process.env.ADMIN_TOKEN || token === process.env.CRON_SECRET;
+function getToken(req: NextRequest): string | null {
+  return req.headers.get('x-admin-token')
+    || req.headers.get('authorization')?.replace('Bearer ', '')
+    || null;
 }
 
-// ─── Load comp data ───────────────────────────────────────────────────────────
-
-/** Load comp JSON datasets from disk. Falls back gracefully if files are missing. */
-function loadCompDatasets(): CompDataset[] {
-  const basePath = join(process.cwd(), '..', 'openclaw', 'domains', 'il-buco', 'comp-research', 'data');
-  const files: Array<{ file: string; tier: CompDataset['tier'] }> = [
-    { file: 'airbnb_off.json',      tier: 'off' },
-    { file: 'airbnb_shoulder.json', tier: 'shoulder' },
-    { file: 'airbnb_high.json',     tier: 'high' },
-  ];
-
-  return files.flatMap(({ file, tier }) => {
-    try {
-      const raw = readFileSync(join(basePath, file), 'utf-8');
-      const entries: CompEntry[] = JSON.parse(raw);
-      return [{ tier, entries }];
-    } catch {
-      console.warn(`[pricing] comp file not found: ${file} — using historical fallback`);
-      return [];
-    }
-  });
+function isCron(req: NextRequest): boolean {
+  const t = getToken(req);
+  return !!process.env.CRON_SECRET && t === process.env.CRON_SECRET;
 }
 
-// ─── Occupancy fetch ──────────────────────────────────────────────────────────
-
-/** Fetch occupancy from Hostex calendar and return per-date map (1 = booked). */
-async function fetchOccupancyMap(
-  startDate: string,
-  endDate: string
-): Promise<Record<string, Record<string, number>>> {
-  let calResult;
-  try {
-    calResult = await getCalendarAvailability(startDate, endDate);
-  } catch (err) {
-    console.warn('[pricing] failed to fetch calendar occupancy:', err);
-    return {};
-  }
-
-  const occupancyByRoom: Record<string, Record<string, number>> = {};
-  for (const room of calResult.rooms) {
-    occupancyByRoom[room.name] = {};
-    for (const day of room.dates) {
-      // inventory=0 → booked (occupied), inventory=1 → available
-      occupancyByRoom[room.name][day.date] = day.available ? 0 : 1;
-    }
-  }
-  return occupancyByRoom;
+function isAdmin(req: NextRequest): boolean {
+  const t = getToken(req);
+  return !!process.env.ADMIN_TOKEN && t === process.env.ADMIN_TOKEN;
 }
 
 // ─── Date helpers ─────────────────────────────────────────────────────────────
 
 function addDays(dateStr: string, n: number): string {
   const d = new Date(dateStr + 'T12:00:00Z');
-  d.setDate(d.getDate() + n);
+  d.setUTCDate(d.getUTCDate() + n);
   return d.toISOString().split('T')[0];
 }
 
@@ -99,10 +54,6 @@ function todayAR(): string {
 
 // ─── Convert day schedule → Hostex price ranges ───────────────────────────────
 
-/**
- * Collapse a day-by-day list into run-length-encoded ranges.
- * Hostex accepts {start_date, end_date, price} ranges — fewer API calls.
- */
 function collapseToRanges(days: DayPriceEntry[]): PriceEntry[] {
   if (!days.length) return [];
   const ranges: PriceEntry[] = [];
@@ -123,92 +74,88 @@ function collapseToRanges(days: DayPriceEntry[]): PriceEntry[] {
 // ─── Main handler ─────────────────────────────────────────────────────────────
 
 async function runPricingUpdate(dryRun: boolean, daysAhead: number) {
-  const startDate = todayAR();
-  const endDate   = addDays(startDate, daysAhead);
+  // Safety rail: leave the immediate 2 days untouched (in-progress stays, same-day bookings)
+  const startDate = addDays(todayAR(), 2);
+  const endDate = addDays(startDate, daysAhead);
 
-  // 1. Load competitor data and compute medians per tier
-  const compDatasets = loadCompDatasets();
-  const compMedians  = computeCompMedians(compDatasets);
+  // Fetch calendar: occupancy for demand pacing + current prices for the change report
+  const cal = await getCalendarAvailability(startDate, endDate);
+  const byRoom = new Map(cal.rooms.map(r => [r.name, r]));
 
-  // 2. Fetch occupancy for demand signal
-  const occupancyByRoom = await fetchOccupancyMap(startDate, endDate);
-
-  // 3. Build price schedules and push for each room
-  const results: Array<{
-    room: string;
-    listingId: string;
-    infraCost: number;
-    floor: number;
-    ceiling: number;
-    ranges: PriceEntry[];
-    sampleByTier: Record<string, number>;
-    pushResult: { updated: number; skipped: number };
-  }> = [];
+  const schedules: Record<string, DayPriceEntry[]> = {};
+  const results: Array<Record<string, unknown>> = [];
 
   for (const room of IL_BUCO_ROOMS) {
-    const infraCost = getRoomInfraCost(room);
-    const occ = occupancyByRoom[room.name] ?? {};
+    const calRoom = byRoom.get(room.name);
+    const occ: Record<string, number> = {};
+    for (const d of calRoom?.dates ?? []) occ[d.date] = d.available ? 0 : 1;
 
-    // Build day-by-day schedule
-    const schedule = buildPriceSchedule(startDate, endDate, compMedians, infraCost, occ);
+    const schedule = buildPriceSchedule(room.name, startDate, endDate, occ);
+    schedules[room.name] = schedule;
 
-    // Sample: one price per tier for the report
-    const sampleByTier: Record<string, number> = {};
-    for (const entry of schedule) {
-      if (!sampleByTier[entry.tier]) sampleByTier[entry.tier] = entry.price;
-    }
-
-    // Compute floor/ceiling for the report (using off-tier as reference)
-    const FLOOR_M = Number(process.env.PRICING_FLOOR_MULTIPLIER ?? '1.3');
-    const CEIL_M  = Number(process.env.PRICING_CEILING_MULTIPLIER ?? '2.0');
-    const refMedian = compMedians.off;
-    const floor   = Math.round(infraCost * FLOOR_M);
-    const ceiling = Math.round(refMedian * CEIL_M);
-
-    // Collapse to ranges and push
     const ranges = collapseToRanges(schedule);
     const pushResult = await updateListingPrices(room.listingId, ranges, dryRun);
 
+    // Change report: avg current vs avg new per tier
+    const currentByDate = new Map((calRoom?.dates ?? []).map(d => [d.date, d.price]));
+    const tierStats: Record<string, { n: number; avg_new: number; avg_current: number }> = {};
+    for (const e of schedule) {
+      const t = (tierStats[e.tier] ??= { n: 0, avg_new: 0, avg_current: 0 });
+      t.n++;
+      t.avg_new += e.price;
+      t.avg_current += currentByDate.get(e.date) ?? 0;
+    }
+    for (const t of Object.values(tierStats)) {
+      t.avg_new = Math.round(t.avg_new / t.n);
+      t.avg_current = Math.round(t.avg_current / t.n);
+    }
+
     results.push({
       room: room.name,
-      listingId: room.listingId,
-      infraCost,
-      floor,
-      ceiling,
-      ranges,
-      sampleByTier,
-      pushResult,
+      listing_id: room.listingId,
+      by_tier: tierStats,
+      price_ranges: ranges.length,
+      push: pushResult,
     });
   }
 
+  // Whole house: per-date sum of the 4 suites × bundle factor
+  const suiteNames = IL_BUCO_ROOMS.map(r => r.name);
+  const wholeHouseSchedule: DayPriceEntry[] = schedules[suiteNames[0]].map((entry, i) => {
+    const sum = suiteNames.reduce((acc, n) => acc + schedules[n][i].price, 0);
+    return { date: entry.date, tier: entry.tier, price: Math.round(sum * WHOLE_HOUSE_FACTOR) };
+  });
+  const whRanges = collapseToRanges(wholeHouseSchedule);
+  const whPush = await updateListingPrices(WHOLE_HOUSE.listingId, whRanges, dryRun);
+  results.push({
+    room: WHOLE_HOUSE.name,
+    listing_id: WHOLE_HOUSE.listingId,
+    sample: wholeHouseSchedule.filter((_, i) => i % 30 === 0).map(e => ({ date: e.date, price: e.price })),
+    price_ranges: whRanges.length,
+    push: whPush,
+  });
+
   return {
+    engine: 'v2-seasonal',
     dry_run: dryRun,
     run_at: new Date().toISOString(),
     start_date: startDate,
     end_date: endDate,
-    days_ahead: daysAhead,
-    comp_medians: compMedians,
-    rooms: results.map(r => ({
-      room: r.room,
-      listing_id: r.listingId,
-      infra_cost: r.infraCost,
-      floor: r.floor,
-      ceiling: r.ceiling,
-      sample_prices_by_tier: r.sampleByTier,
-      price_ranges_count: r.ranges.length,
-      push: r.pushResult,
-    })),
+    rooms: results,
   };
 }
 
 // ─── Route handlers ───────────────────────────────────────────────────────────
 
 export async function GET(req: NextRequest) {
-  if (!isAuthorised(req)) {
+  const cron = isCron(req);
+  if (!cron && !isAdmin(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
+  // Cron → live. Manual admin GET → dry-run unless ?live=1.
+  const live = cron || req.nextUrl.searchParams.get('live') === '1';
   try {
-    const report = await runPricingUpdate(true /* dry_run */, 180);
+    const report = await runPricingUpdate(!live, 300);
     return NextResponse.json(report);
   } catch (err) {
     console.error('[pricing GET] error:', err);
@@ -217,17 +164,14 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  if (!isAuthorised(req)) {
+  if (!isCron(req) && !isAdmin(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   let body: { dry_run?: boolean; days_ahead?: number } = {};
   try { body = await req.json(); } catch { /* empty body ok */ }
 
-  const dryRun   = body.dry_run ?? false;
-  const daysAhead = body.days_ahead ?? 180;
-
   try {
-    const report = await runPricingUpdate(dryRun, daysAhead);
+    const report = await runPricingUpdate(body.dry_run ?? false, body.days_ahead ?? 300);
     return NextResponse.json(report);
   } catch (err) {
     console.error('[pricing POST] error:', err);
