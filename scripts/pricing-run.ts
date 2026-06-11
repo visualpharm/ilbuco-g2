@@ -35,6 +35,8 @@ async function main() {
   }
   console.log(`\nrestrictions: ${JSON.stringify(report.restrictions)}`);
   console.log(`inventories: ${JSON.stringify(report.inventories)}`);
+  if (report.gate_violations?.length) console.log(`GATES: ${JSON.stringify(report.gate_violations)}`);
+  if (report.verify) console.log(`verify: ${report.verify.sampled} sampled, ${report.verify.mismatches.length} mismatches, ${report.verify.crossBlockViolations.length} cross-block violations`);
   if (report.learning_updates.length) {
     console.log(`learning: ${JSON.stringify(report.learning_updates)}`);
   }

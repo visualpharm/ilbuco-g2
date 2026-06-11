@@ -8,7 +8,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getCaller } from '@/lib/pricing-auth';
-import { loadConfig } from '@/lib/pricing-config';
+import { loadConfig, saveConfig } from '@/lib/pricing-config';
 import { syncInventories } from '@/lib/inventory-sync';
 import { DEFAULT_STAY_POLICY } from '@/lib/stay-policy';
 import { todayAR } from '@/lib/run-pricing';
@@ -21,7 +21,9 @@ export async function GET(req: NextRequest) {
     const config = await loadConfig();
     const stayPolicy = { ...DEFAULT_STAY_POLICY, ...(config.stayPolicy ?? {}) };
     const result = await syncInventories(todayAR(), 300, stayPolicy, false);
-    return NextResponse.json({ ok: true, run_at: new Date().toISOString(), ...result });
+    config.lastSync = new Date().toISOString();
+    await saveConfig(config);
+    return NextResponse.json({ ok: true, run_at: config.lastSync, ...result });
   } catch (err) {
     console.error('[sync-inventory] error:', err);
     return NextResponse.json({ error: String(err) }, { status: 500 });

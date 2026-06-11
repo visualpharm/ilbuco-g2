@@ -27,7 +27,11 @@ import {
   type RestrictionEntry,
 } from './hostex-api';
 import { syncInventories, type SyncResult } from './inventory-sync';
+import { prePushGates, postPushVerify, type GateViolation, type VerifyResult } from './sanity-checks';
+import { sendPricingAlert } from './pricing-alerts';
 import { addDays } from './season-calendar';
+
+const ENGINE_VERSION = 'v2.4-gated';
 
 /** booking_site listing_id → Hostex property_id. */
 const LISTING_TO_PROPERTY: Record<string, number> = {
@@ -64,6 +68,9 @@ function collapse<T extends string | number>(
 export interface RunReport {
   engine: string;
   dry_run: boolean;
+  aborted?: boolean;
+  gate_violations?: GateViolation[];
+  verify?: VerifyResult | null;
   run_at: string;
   start_date: string;
   end_date: string;
@@ -107,22 +114,54 @@ export async function runPricingUpdate(dryRun: boolean, daysAhead: number, by: s
     }
   }
 
-  // ── 1. Prices ────────────────────────────────────────────────────────────────
+  // ── 1a. Compute everything BEFORE touching Hostex ────────────────────────────
   const settings = { basePrices: config.basePrices, learned: config.learned, overrides: config.overrides };
   const schedules: Record<string, DayPriceEntry[]> = {};
+  const currentByRoom: Record<string, Map<string, number>> = {};
+
+  for (const room of IL_BUCO_ROOMS) {
+    schedules[room.name] = buildPriceSchedule(room.name, startDate, endDate, occByRoom, settings);
+    currentByRoom[room.name] = new Map((byRoom.get(room.name)?.dates ?? []).map(d => [d.date, d.price]));
+  }
+
+  const suiteNames = IL_BUCO_ROOMS.map(r => r.name);
+  const wholeHouseDays = schedules[suiteNames[0]].map((entry, i) => ({
+    date: entry.date,
+    value: Math.round(suiteNames.reduce((acc, n) => acc + schedules[n][i].price, 0) * config.wholeHouseFactor),
+  }));
+
+  // ── 1b. Sanity gates — a violation aborts the live push ─────────────────────
+  const gates = prePushGates(schedules, wholeHouseDays, currentByRoom, config.basePrices, config.wholeHouseFactor, startDate);
+  if (gates.length && !dryRun) {
+    const detail = gates.map(g => `[${g.gate}] ${g.detail}`).join('\n');
+    await sendPricingAlert(`🛑 Il Buco pricing: push ABORTED by sanity gates\n${detail}\nNothing was written to Hostex.`);
+    return {
+      engine: ENGINE_VERSION,
+      dry_run: dryRun,
+      aborted: true,
+      gate_violations: gates,
+      run_at: new Date().toISOString(),
+      start_date: startDate,
+      end_date: endDate,
+      learning_updates: [],
+      rooms: [],
+      restrictions: {},
+      inventories: { pushed: {}, suiteBookedDates: 0, casaBookedDates: 0 },
+    };
+  }
+
+  // ── 1c. Push prices ──────────────────────────────────────────────────────────
   const results: Array<Record<string, unknown>> = [];
   let totalRanges = 0;
 
   for (const room of IL_BUCO_ROOMS) {
-    const schedule = buildPriceSchedule(room.name, startDate, endDate, occByRoom, settings);
-    schedules[room.name] = schedule;
-
+    const schedule = schedules[room.name];
     const ranges: PriceEntry[] = collapse(schedule.map(e => ({ date: e.date, value: e.price })))
       .map(r => ({ start_date: r.start_date, end_date: r.end_date, price: r.value }));
     totalRanges += ranges.length;
     const pushResult = await updateListingPrices(room.listingId, ranges, dryRun);
 
-    const currentByDate = new Map((byRoom.get(room.name)?.dates ?? []).map(d => [d.date, d.price]));
+    const currentByDate = currentByRoom[room.name];
     const tierStats: Record<string, { n: number; avg_new: number; avg_current: number; overridden: number }> = {};
     for (const e of schedule) {
       const t = (tierStats[e.tier] ??= { n: 0, avg_new: 0, avg_current: 0, overridden: 0 });
@@ -139,12 +178,6 @@ export async function runPricingUpdate(dryRun: boolean, daysAhead: number, by: s
     results.push({ room: room.name, listing_id: room.listingId, by_tier: tierStats, price_ranges: ranges.length, push: pushResult });
   }
 
-  // Whole house: per-date sum of the 4 suites × bundle factor
-  const suiteNames = IL_BUCO_ROOMS.map(r => r.name);
-  const wholeHouseDays = schedules[suiteNames[0]].map((entry, i) => ({
-    date: entry.date,
-    value: Math.round(suiteNames.reduce((acc, n) => acc + schedules[n][i].price, 0) * config.wholeHouseFactor),
-  }));
   const whRanges: PriceEntry[] = collapse(wholeHouseDays)
     .map(r => ({ start_date: r.start_date, end_date: r.end_date, price: r.value }));
   const whPush = await updateListingPrices(WHOLE_HOUSE.listingId, whRanges, dryRun);
@@ -167,7 +200,31 @@ export async function runPricingUpdate(dryRun: boolean, daysAhead: number, by: s
   // ── 3. Inventory sync: suite↔casa cross-blocking + whole-house-only window ───
   const inventories = await syncInventories(today, daysAhead, stayPolicy, dryRun);
 
-  // ── 4. Learning from manual overrides (live runs only) ───────────────────────
+  // ── 4. Post-push verification (live only) ────────────────────────────────────
+  let verify: VerifyResult | null = null;
+  if (!dryRun) {
+    const expectedByListing: Record<string, Map<string, number>> = {};
+    for (const room of IL_BUCO_ROOMS) {
+      expectedByListing[room.name] = new Map(schedules[room.name].map(e => [e.date, e.price]));
+    }
+    expectedByListing[WHOLE_HOUSE.name] = new Map(wholeHouseDays.map(d => [d.date, d.value]));
+
+    const suiteBookedDates = new Set<string>();
+    for (const room of IL_BUCO_ROOMS) {
+      const set = bookedByProperty.get(LISTING_TO_PROPERTY[room.listingId]);
+      if (set) for (const d of set) suiteBookedDates.add(d);
+    }
+
+    verify = await postPushVerify(startDate, expectedByListing, suiteBookedDates);
+    if (verify.mismatches.length || verify.crossBlockViolations.length) {
+      await sendPricingAlert(
+        `⚠️ Il Buco pricing: post-push verification failed\n` +
+        [...verify.mismatches, ...verify.crossBlockViolations].slice(0, 8).join('\n')
+      );
+    }
+  }
+
+  // ── 5. Learning from manual overrides (live runs only) ───────────────────────
   const learning = computeLearning(schedules, config.learned);
   if (!dryRun) {
     for (const u of learning) {
@@ -182,12 +239,29 @@ export async function runPricingUpdate(dryRun: boolean, daysAhead: number, by: s
     await saveConfig(config, by);
   }
 
+  // ── 6. Weekly one-line summary after the cron run ─────────────────────────────
+  if (!dryRun && by === 'cron') {
+    const peakAvg = (r: string) => {
+      const s = schedules[r].filter(e => e.tier === 'peak');
+      return s.length ? Math.round(s.reduce((a, e) => a + e.price, 0) / s.length) : 0;
+    };
+    const ok = verify && !verify.mismatches.length && !verify.crossBlockViolations.length;
+    await sendPricingAlert(
+      `✅ Il Buco pricing semanal: 5 listings actualizados (${totalRanges} rangos), ` +
+      `peak avg G$${peakAvg('Giardino')}/PH$${peakAvg('Penthouse')}, ` +
+      `${config.overrides.length} ajustes manuales, ${learning.length} learning updates, ` +
+      `verificación ${ok ? `OK (${verify!.sampled} muestras)` : 'CON FALLAS'}`
+    );
+  }
+
   return {
-    engine: 'v2.2-restrictions',
+    engine: ENGINE_VERSION,
     dry_run: dryRun,
     run_at: new Date().toISOString(),
     start_date: startDate,
     end_date: endDate,
+    gate_violations: gates,
+    verify,
     learning_updates: learning,
     rooms: results,
     restrictions,

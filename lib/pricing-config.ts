@@ -42,6 +42,8 @@ export interface PricingConfig {
   wholeHouseFactor: number;
   stayPolicy?: StayPolicy;
   lastPush?: { at: string; by: string; ranges: number };
+  /** Set by the daily /api/pricing/sync-inventory cron (watchdog checks its age) */
+  lastSync?: string;
   updatedAt?: string;
   updatedBy?: string;
 }
