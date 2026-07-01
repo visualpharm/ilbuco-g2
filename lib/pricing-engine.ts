@@ -33,13 +33,14 @@ export { getSeasonTier };
 // ─── Policy defaults: base nightly USD per suite per tier ────────────────────
 
 /**
- * Peak anchored to what Il Buco ACTUALLY charged Jan–Feb 2026 (Ivan, 2026-06-11):
- * Giardino $190, Terrazzo $180, Penthouse $190, whole house $650 (≈ sum × 0.92 ✓).
- * Paraíso was listed at $90 — inconsistent with the others (below winter pricing),
- * kept at the engine's $155; adjust in the UI if the $90 was deliberate.
+ * Peak re-anchored +24% to the Cariló cap≤6 comp corridor (Ivan approved 2026-07-01):
+ * Giardino/Terrazzo/Penthouse $235, Paraíso $195. Whole-house peak ≈ $819 (sum × 0.92).
+ * Per-unit peak ceiling $320 not breached. Prior Jan–Feb 2026 actuals were
+ * Giardino $190 / Terrazzo $180 / Penthouse $190 / Paraíso $155 (below-market, hence the lift).
+ * Shoulder/high/off left unchanged. Methodology: domains/il-buco/2026-06-30-il-buco-comps-base-table.md.
  */
 export const BASE_PRICES: Record<SeasonTier, Record<string, number>> = {
-  peak:     { Giardino: 190, Terrazzo: 180, Paraiso: 155, Penthouse: 190 },
+  peak:     { Giardino: 235, Terrazzo: 235, Paraiso: 195, Penthouse: 235 },
   high:     { Giardino: 130, Terrazzo: 140, Paraiso: 125, Penthouse: 150 },
   shoulder: { Giardino: 105, Terrazzo: 112, Paraiso: 100, Penthouse: 120 },
   off:      { Giardino: 90,  Terrazzo: 98,  Paraiso: 86,  Penthouse: 105 },
