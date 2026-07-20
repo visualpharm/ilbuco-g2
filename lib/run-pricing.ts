@@ -239,8 +239,10 @@ export async function runPricingUpdate(dryRun: boolean, daysAhead: number, by: s
     await saveConfig(config, by);
   }
 
-  // ── 6. Weekly one-line summary after the cron run ─────────────────────────────
-  if (!dryRun && by === 'cron') {
+  // ── 6. One-line summary after the Monday cron run (cron itself is daily for the
+  // last-minute ladder, but a daily ✅ ping is noise — failures alert every run) ──
+  const isMondayAR = new Date(today + 'T12:00:00Z').getUTCDay() === 1;
+  if (!dryRun && by === 'cron' && isMondayAR) {
     const peakAvg = (r: string) => {
       const s = schedules[r].filter(e => e.tier === 'peak');
       return s.length ? Math.round(s.reduce((a, e) => a + e.price, 0) / s.length) : 0;
