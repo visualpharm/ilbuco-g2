@@ -11,7 +11,8 @@
  *   final  = manual override if one covers the date (fixed price wins, coef multiplies engine)
  *
  * Demand signals (small-town reality: no SaaS market data, so we use our own):
- *   - pacing: forward occupancy vs where last season's curve says we should be → ±12–15%
+ *   - pacing: forward occupancy vs last season's curve → +15% ahead of pace, last-minute
+ *     ladder down to −30% for unsold behind-pace nights inside 3 days
  *   - house demand: if the OTHER suites are mostly booked for a date, demand is proven → raise
  *   - feriado calendar: known demand spikes (long weekends, Carnaval, Semana Santa, winter break)
  *
@@ -83,8 +84,17 @@ export interface DemandContext {
 }
 
 /**
- * Demand factor = pacing × house-demand boost, clamped to [0.85, 1.30].
- *  - empty vs pace → lower (down to −12% close-in)
+ * Last-minute discount ladder for behind-pace unsold nights: [maxLeadDays, factor].
+ * Unsold inventory is worth $0 the morning after — cut hard as check-in approaches.
+ * (Ivan 2026-07-20: winter break at 0% occupancy while Pinamar hotels ran 30%.)
+ */
+const LAST_MINUTE_STEPS: Array<[number, number]> = [
+  [3, 0.70], [7, 0.75], [14, 0.82], [21, 0.88], [45, 0.93], [90, 0.97],
+];
+
+/**
+ * Demand factor = pacing × house-demand boost, clamped to [0.70, 1.30].
+ *  - empty vs pace → last-minute ladder (down to −30% inside 3 days)
  *  - ahead of pace → raise
  *  - other suites booked the same date → proven demand → raise
  */
@@ -99,8 +109,10 @@ export function demandFactor(dateStr: string, ctx: DemandContext): number {
 
     if (pace >= 1.4) pacing = 1.15;
     else if (pace >= 1.1) pacing = 1.08;
-    else if (pace < 0.5 && ctx.leadDays <= 21) pacing = 0.88;
-    else if (pace < 0.5 && ctx.leadDays <= 45) pacing = 0.93;
+    else if (pace < 0.5) {
+      const step = LAST_MINUTE_STEPS.find(([days]) => ctx.leadDays <= days);
+      if (step) pacing = step[1];
+    }
   }
 
   // Cross-suite signal: the rest of the house filling up is direct proof of demand
@@ -109,7 +121,7 @@ export function demandFactor(dateStr: string, ctx: DemandContext): number {
   if (ho >= 0.99) house = 1.15;      // we're the last suite available
   else if (ho >= 0.66) house = 1.08; // 2 of 3 others booked
 
-  return Math.min(1.3, Math.max(0.85, pacing * house));
+  return Math.min(1.3, Math.max(0.7, pacing * house));
 }
 
 // ─── Manual overrides ─────────────────────────────────────────────────────────
@@ -128,6 +140,8 @@ export interface PriceOverride {
   note?: string;
   author: string;
   createdAt: string;
+  /** false = excluded from override learning (temporary promos must not teach the engine). */
+  learn?: boolean;
 }
 
 /** Resolve the active override for a room+date. Later-created overrides win. */
@@ -282,12 +296,14 @@ export interface LearningUpdate {
  */
 export function computeLearning(
   schedules: Record<string, DayPriceEntry[]>,
-  learned: Record<string, Partial<Record<SeasonTier, number>>>
+  learned: Record<string, Partial<Record<SeasonTier, number>>>,
+  overrides: PriceOverride[] = []
 ): LearningUpdate[] {
+  const noLearn = new Set(overrides.filter(o => o.learn === false).map(o => o.id));
   const ratios: Record<string, Record<string, number[]>> = {};
   for (const [room, schedule] of Object.entries(schedules)) {
     for (const e of schedule) {
-      if (!e.overrideId || !e.engine) continue;
+      if (!e.overrideId || !e.engine || noLearn.has(e.overrideId)) continue;
       ((ratios[room] ??= {})[e.tier] ??= []).push(e.price / e.engine);
     }
   }

@@ -24,6 +24,7 @@ import {
   findOverride,
   applyOverride,
   buildPriceSchedule,
+  computeLearning,
   IL_BUCO_ROOMS,
   WHOLE_HOUSE_FACTOR,
   type PriceOverride,
@@ -163,7 +164,7 @@ test('non-fiestas nights never exceed the tier ceiling, even at max demand (≤$
   }
 });
 
-test('demand factor stays clamped to [0.85, 1.30]', () => {
+test('demand factor stays clamped to [0.70, 1.30]', () => {
   const samples: DemandContext[] = [
     NEUTRAL, HOT,
     { windowOccupancy: 0, leadDays: 5, houseOccupancy: 0 },   // dead close-in → low
@@ -173,9 +174,43 @@ test('demand factor stays clamped to [0.85, 1.30]', () => {
   for (const d of ['2026-01-10', '2026-07-10', '2026-11-15']) {
     for (const ctx of samples) {
       const f = demandFactor(d, ctx);
-      assert.ok(f >= 0.85 && f <= 1.30, `demand ${f} out of band on ${d}`);
+      assert.ok(f >= 0.70 && f <= 1.30, `demand ${f} out of band on ${d}`);
     }
   }
+});
+
+test('last-minute ladder: unsold behind-pace nights discount harder as check-in nears', () => {
+  const d = '2026-07-25'; // winter-break off-season date, expected occ > 0 → pace 0 when empty
+  const empty = (leadDays: number): number =>
+    demandFactor(d, { windowOccupancy: 0, leadDays, houseOccupancy: 0 });
+  assert.equal(empty(2), 0.70);
+  assert.equal(empty(6), 0.75);
+  assert.equal(empty(12), 0.82);
+  assert.equal(empty(20), 0.88);
+  assert.equal(empty(40), 0.93);
+  assert.equal(empty(80), 0.97);
+  assert.equal(empty(200), 1.0, 'beyond 90 days lead there is no last-minute cut');
+  // Monotone: closer check-in never prices higher than farther out
+  let prev = 0;
+  for (const lead of [2, 6, 12, 20, 40, 80, 200]) {
+    const f = empty(lead);
+    assert.ok(f >= prev, `ladder must be monotone non-decreasing in lead (${lead}d → ${f})`);
+    prev = f;
+  }
+});
+
+test('overrides with learn:false are excluded from override learning', () => {
+  const promo: PriceOverride = {
+    id: 'promo', start: '2026-08-01', end: '2026-08-31', rooms: ['*'], mode: 'coef',
+    value: 0.9, author: 'test', createdAt: '2026-07-20T00:00:00Z', learn: false,
+  };
+  const sched = buildPriceSchedule('Giardino', '2026-08-01', '2026-08-31', {}, { overrides: [promo] });
+  assert.ok(sched.every(e => e.overrideId === 'promo'), 'promo override must cover the window');
+  const updates = computeLearning({ Giardino: sched }, {}, [promo]);
+  assert.equal(updates.length, 0, 'a learn:false promo must not move learned coefficients');
+  // Same schedule WITH learning allowed → the coefficient would move (sanity of the guard)
+  const updatesLearnable = computeLearning({ Giardino: sched }, {}, []);
+  assert.ok(updatesLearnable.length > 0, 'guard must be the only thing preventing learning here');
 });
 
 // ─── Manual overrides ───────────────────────────────────────────────────────

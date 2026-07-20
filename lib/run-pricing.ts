@@ -225,7 +225,7 @@ export async function runPricingUpdate(dryRun: boolean, daysAhead: number, by: s
   }
 
   // ── 5. Learning from manual overrides (live runs only) ───────────────────────
-  const learning = computeLearning(schedules, config.learned);
+  const learning = computeLearning(schedules, config.learned, config.overrides);
   if (!dryRun) {
     for (const u of learning) {
       (config.learned[u.room] ??= {})[u.tier] = Number(u.newCoef.toFixed(3));
