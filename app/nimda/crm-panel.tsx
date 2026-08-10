@@ -74,6 +74,37 @@ function fmtDateTime(iso?: string): string {
   return new Date(iso).toLocaleString('es-AR', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' });
 }
 
+/** Friendly relative time in Spanish: "hace 2 meses", "la semana pasada", etc. */
+function fmtRelative(iso?: string): string {
+  if (!iso) return '—';
+  const date = new Date(iso);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffDays = Math.floor(diffMs / (24 * 3600 * 1000));
+  const diffWeeks = Math.floor(diffDays / 7);
+  const diffMonths = Math.floor(diffDays / 30);
+
+  if (diffDays < 0) {
+    // Future
+    const futureDays = -diffDays;
+    if (futureDays === 1) return 'mañana';
+    if (futureDays < 7) return `en ${futureDays} días`;
+    if (futureDays < 14) return 'la semana que viene';
+    return `en ${Math.floor(futureDays / 7)} semanas`;
+  }
+
+  if (diffDays === 0) return 'hoy';
+  if (diffDays === 1) return 'ayer';
+  if (diffDays < 7) return `hace ${diffDays} días`;
+  if (diffDays < 14) return 'la semana pasada';
+  if (diffWeeks < 4) return `hace ${diffWeeks} semanas`;
+  if (diffMonths === 1) return 'el mes pasado';
+  if (diffMonths < 12) return `hace ${diffMonths} meses`;
+  const diffYears = Math.floor(diffDays / 365);
+  if (diffYears === 1) return 'el año pasado';
+  return `hace ${diffYears} años`;
+}
+
 function happinessColor(score?: number): string {
   if (score === undefined) return 'text-slate-300';
   if (score >= 4.5) return 'text-emerald-600 font-bold';
@@ -231,10 +262,10 @@ export default function CrmPanel() {
   const [search, setSearch] = useState('');
   const [sortField, setSortField] = useState<SortField>('lastStay');
   const [sortDir, setSortDir] = useState<SortDir>('desc');
-  const [filterChannel, setFilterChannel] = useState('all');
-  const [filterLanguage, setFilterLanguage] = useState('all');
-  const [filterProperty, setFilterProperty] = useState('all');
-  const [filterContact, setFilterContact] = useState('all'); // all / whatsapp / email
+  const [filterChannels, setFilterChannels] = useState<Set<string>>(new Set());
+  const [filterLanguages, setFilterLanguages] = useState<Set<string>>(new Set());
+  const [filterProperties, setFilterProperties] = useState<Set<string>>(new Set());
+  const [filterContacts, setFilterContacts] = useState<Set<string>>(new Set()); // whatsapp / phone / email
 
   // Selection state
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -254,6 +285,14 @@ export default function CrmPanel() {
 
   const flash = (msg: string) => { setToast(msg); setTimeout(() => setToast(''), 5000); };
 
+  /** Toggle a value in a Set (for multi-select filters) */
+  function toggleFilterValue(set: Set<string>, value: string, setter: (s: Set<string>) => void) {
+    const next = new Set(set);
+    if (next.has(value)) next.delete(value);
+    else next.add(value);
+    setter(next);
+  }
+
   const load = useCallback(async () => {
     setLoading(true);
     try {
@@ -262,6 +301,15 @@ export default function CrmPanel() {
       const data = await res.json();
       setGuests(data.guests ?? []);
       setLastSyncAt(data.lastSyncAt ?? null);
+
+      // Auto-sync if data is empty or stale (>24h old)
+      const guestCount = (data.guests ?? []).length;
+      const syncAge = data.lastSyncAt ? Date.now() - new Date(data.lastSyncAt).getTime() : Infinity;
+      const STALE_MS = 24 * 3600 * 1000; // 24 hours
+      if (guestCount === 0 || syncAge > STALE_MS) {
+        // Trigger background sync — don't block the UI
+        syncGuests();
+      }
     } catch {
       flash('Error al cargar huéspedes');
     } finally {
@@ -447,33 +495,36 @@ export default function CrmPanel() {
       );
     }
 
-    // Channel filter
-    if (filterChannel !== 'all') {
-      result = result.filter(g => g.channels.includes(filterChannel));
+    // Channel filter (multi-select — guest must have ALL selected channels)
+    if (filterChannels.size > 0) {
+      result = result.filter(g =>
+        [...filterChannels].every(ch => g.channels.includes(ch))
+      );
     }
 
-    // Language filter
-    if (filterLanguage !== 'all') {
-      result = result.filter(g => g.language === filterLanguage);
+    // Language filter (multi-select — guest must match ANY selected language)
+    if (filterLanguages.size > 0) {
+      result = result.filter(g => filterLanguages.has(g.language));
     }
 
-    // Property filter (Il Buco vs Recharge)
-    if (filterProperty !== 'all') {
+    // Property filter (multi-select)
+    if (filterProperties.size > 0) {
       result = result.filter(g => {
         const group = guestPropertyGroup(g);
-        if (filterProperty === 'ilbuco') return group === 'ilbuco' || group === 'mixed';
-        if (filterProperty === 'recharge') return group === 'recharge' || group === 'mixed';
-        return true;
+        if (filterProperties.has('ilbuco') && (group === 'ilbuco' || group === 'mixed')) return true;
+        if (filterProperties.has('recharge') && (group === 'recharge' || group === 'mixed')) return true;
+        return false;
       });
     }
 
-    // Contact filter (has WhatsApp / has email)
-    if (filterContact === 'whatsapp') {
-      result = result.filter(g => g.phone && g.channels.includes('whatsapp'));
-    } else if (filterContact === 'email') {
-      result = result.filter(g => g.email);
-    } else if (filterContact === 'phone') {
-      result = result.filter(g => g.phone);
+    // Contact filter (multi-select — guest must match ALL selected)
+    if (filterContacts.size > 0) {
+      result = result.filter(g => {
+        if (filterContacts.has('whatsapp') && !(g.phone && g.channels.includes('whatsapp'))) return false;
+        if (filterContacts.has('phone') && !g.phone) return false;
+        if (filterContacts.has('email') && !g.email) return false;
+        return true;
+      });
     }
 
     // Sort
@@ -499,7 +550,7 @@ export default function CrmPanel() {
     });
 
     return result;
-  }, [guests, search, filterChannel, filterLanguage, filterProperty, filterContact, sortField, sortDir]);
+  }, [guests, search, filterChannels, filterLanguages, filterProperties, filterContacts, sortField, sortDir]);
 
   // ── Selection handlers ──────────────────────────────────────────────────────
   function toggleSort(field: SortField) {
@@ -557,29 +608,43 @@ export default function CrmPanel() {
           placeholder="Buscar nombre, email, teléfono..."
           className="border rounded-lg px-3 py-1.5 flex-1 min-w-[12rem]"
         />
-        <select value={filterProperty} onChange={e => setFilterProperty(e.target.value)}
-          className="border rounded-lg px-2 py-1.5">
-          <option value="all">Todas las propiedades</option>
-          <option value="ilbuco">🌲 Il Buco</option>
-          <option value="recharge">🌿 Recharge Retreat</option>
-        </select>
-        <select value={filterChannel} onChange={e => setFilterChannel(e.target.value)}
-          className="border rounded-lg px-2 py-1.5">
-          <option value="all">Todos los canales</option>
-          {channels.map(c => <option key={c} value={c}>{c}</option>)}
-        </select>
-        <select value={filterLanguage} onChange={e => setFilterLanguage(e.target.value)}
-          className="border rounded-lg px-2 py-1.5">
-          <option value="all">Todos los idiomas</option>
-          {languages.map(l => <option key={l} value={l}>{LANGUAGE_FLAGS[l as keyof typeof LANGUAGE_FLAGS] || '🌐'} {l}</option>)}
-        </select>
-        <select value={filterContact} onChange={e => setFilterContact(e.target.value)}
-          className="border rounded-lg px-2 py-1.5">
-          <option value="all">Todo contacto</option>
-          <option value="whatsapp">📱 Solo con WhatsApp</option>
-          <option value="phone">☎️ Solo con teléfono</option>
-          <option value="email">✉️ Solo con email</option>
-        </select>
+        {/* Property multi-select */}
+        <MultiSelect
+          label="Propiedad"
+          selected={filterProperties}
+          options={[
+            { value: 'ilbuco', label: '🌲 Il Buco' },
+            { value: 'recharge', label: '🌿 Recharge' },
+          ]}
+          onToggle={(v) => toggleFilterValue(filterProperties, v, setFilterProperties)}
+        />
+        {/* Channel multi-select */}
+        <MultiSelect
+          label="Canal"
+          selected={filterChannels}
+          options={channels.map(c => ({ value: c, label: c }))}
+          onToggle={(v) => toggleFilterValue(filterChannels, v, setFilterChannels)}
+        />
+        {/* Language multi-select */}
+        <MultiSelect
+          label="Idioma"
+          selected={filterLanguages}
+          options={languages.map(l => ({
+            value: l,
+            label: `${LANGUAGE_FLAGS[l as keyof typeof LANGUAGE_FLAGS] || '🌐'} ${l}`,
+          }))}
+          onToggle={(v) => toggleFilterValue(filterLanguages, v, setFilterLanguages)}
+        />
+        {/* Contact multi-select */}
+        <MultiSelect
+          label="Contacto"
+          selected={filterContacts}
+          options={[
+            { value: 'whatsapp', label: '📱 Con WhatsApp' },
+            { value: 'email', label: '✉️ Con email' },
+          ]}
+          onToggle={(v) => toggleFilterValue(filterContacts, v, setFilterContacts)}
+        />
         <span className="text-slate-400 text-xs">
           {filtered.length} / {guests.length}
         </span>
@@ -632,7 +697,7 @@ export default function CrmPanel() {
                 <SortHeader label="WhatsApp" field="whatsapp" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
                 <SortHeader label="Propiedad" field="property" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
                 <SortHeader label="Estadías" field="stays" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
-                <SortHeader label="Última" field="lastStay" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
+                <SortHeader label="Última visita" field="lastStay" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
                 <SortHeader label="Canal" field="channel" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
                 <SortHeader label="Felicidad" field="happiness" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
               </tr>
@@ -696,8 +761,8 @@ export default function CrmPanel() {
                       <td className="px-3 py-2.5 text-center" onClick={() => setExpanded(isExpanded ? null : g.id)}>
                         {g.reservations.length || '—'}
                       </td>
-                      <td className="px-3 py-2.5 text-slate-500" onClick={() => setExpanded(isExpanded ? null : g.id)}>
-                        {fmtDate(lastStay?.checkOut)}
+                      <td className="px-3 py-2.5 text-slate-500 text-xs" onClick={() => setExpanded(isExpanded ? null : g.id)}>
+                        {fmtRelative(lastStay?.checkOut)}
                       </td>
                       <td className="px-3 py-2.5 text-slate-500 capitalize text-xs" onClick={() => setExpanded(isExpanded ? null : g.id)}>
                         {g.channels.join(', ') || '—'}
@@ -731,9 +796,9 @@ export default function CrmPanel() {
                                 <b className="text-slate-400">Idioma:</b>{' '}
                                 {LANGUAGE_FLAGS[g.language as keyof typeof LANGUAGE_FLAGS]} {g.language}
                               </div>
-                              {g.firstBookedAt && (
-                                <div><b className="text-slate-400">Primera reserva:</b> {fmtDate(g.firstBookedAt)}</div>
-                              )}
+                                {g.firstBookedAt && (
+                                <div><b className="text-slate-400">Primera reserva:</b> {fmtRelative(g.firstBookedAt)}</div>
+                                )}
                               <div>
                                 <b className="text-slate-400">Canales:</b>{' '}
                                 <span className="capitalize">{g.channels.join(', ')}</span>
@@ -782,6 +847,7 @@ export default function CrmPanel() {
                                     <span className="font-mono text-slate-400">{r.code}</span>
                                     <span className="font-medium">{r.property}</span>
                                     <span className="text-slate-500">{fmtDate(r.checkIn)} → {fmtDate(r.checkOut)}</span>
+                                    <span className="text-slate-400">({fmtRelative(r.checkOut)})</span>
                                     <span className="text-slate-400">{r.guests} pers.</span>
                                     <span className="text-slate-400 capitalize">{r.channel}</span>
                                     {r.totalRate && <span className="text-slate-400">{r.currency} {r.totalRate}</span>}
@@ -803,7 +869,7 @@ export default function CrmPanel() {
                                     <span className={`font-mono w-14 shrink-0 ${m.direction === 'inbound' ? 'text-blue-500' : 'text-slate-400'}`}>
                                       {m.direction === 'inbound' ? '← huésped' : '→ host'}
                                     </span>
-                                    <span className="text-slate-500 w-28 shrink-0">{fmtDateTime(m.timestamp)}</span>
+                                    <span className="text-slate-500 w-24 shrink-0" title={fmtDateTime(m.timestamp)}>{fmtRelative(m.timestamp)}</span>
                                     <span className="text-slate-400 w-16 shrink-0 capitalize">{m.source}</span>
                                     <span className="text-slate-700 flex-1 whitespace-pre-wrap break-words">{m.text}</span>
                                   </div>
@@ -1195,5 +1261,70 @@ function SortHeader({
     >
       {label} {active && (sortDir === 'asc' ? '↑' : '↓')}
     </th>
+  );
+}
+
+// ─── Multi-select dropdown ───────────────────────────────────────────────────
+
+function MultiSelect({
+  label,
+  selected,
+  options,
+  onToggle,
+}: {
+  label: string;
+  selected: Set<string>;
+  options: { value: string; label: string }[];
+  onToggle: (value: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const selectedCount = selected.size;
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className={`border rounded-lg px-3 py-1.5 text-sm flex items-center gap-1 ${
+          selectedCount > 0 ? 'bg-emerald-50 border-emerald-300 text-emerald-700' : 'text-slate-600'
+        }`}
+      >
+        {label}
+        {selectedCount > 0 && (
+          <span className="bg-emerald-600 text-white rounded-full text-xs px-1.5 py-0.5 min-w-[18px] text-center">
+            {selectedCount}
+          </span>
+        )}
+        <span className="text-xs">▾</span>
+      </button>
+      {open && (
+        <div className="absolute top-full mt-1 left-0 bg-white border rounded-lg shadow-xl z-50 min-w-[10rem] max-h-60 overflow-y-auto">
+          {options.map(opt => (
+            <label
+              key={opt.value}
+              className="flex items-center gap-2 px-3 py-1.5 hover:bg-slate-50 cursor-pointer text-sm whitespace-nowrap"
+            >
+              <input
+                type="checkbox"
+                checked={selected.has(opt.value)}
+                onChange={() => onToggle(opt.value)}
+                className="w-4 h-4"
+              />
+              <span className="capitalize">{opt.label}</span>
+            </label>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
