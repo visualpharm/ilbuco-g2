@@ -36,7 +36,7 @@ export interface GuestMessage {
 }
 
 export interface GuestSummary {
-  happinessScore: number;  // 1-10
+  happinessScore: number;  // 1-5 (5 = very happy)
   sentiment: 'happy' | 'neutral' | 'unhappy';
   summary: string;
   keyMoments: string[];
@@ -125,21 +125,33 @@ export function upsertGuest(state: CrmState, guest: CrmGuest): CrmState {
 // ─── Language detection (heuristic) ──────────────────────────────────────────
 
 const CYRILLIC = /[\u0400-\u04FF]/;
-const SPANISH_WORDS = /\b(hola|gracias|buenas|disponible|disponibilidad|precio|noches|habitaci[oó]n|gracias|bienvenida|consulta|fechas|estad[ií]a|reserva|apartamento|alojamiento)\b/i;
-const PORTUGUESE_WORDS = /\b(ol[aá]|obrigad|dispon[ií]vel|pre[cç]o|quart|reserv|estadi|alojament)\b/i;
+const SPANISH_WORDS = /\b(hola|gracias|buenas|disponible|disponibilidad|precio|noches|habitaci[oó]n|bienvenida|consulta|fechas|estad[ií]a|reserva|apartamento|alojamiento|hermoso|hermosa|lugar|impecable|recomendable|recomiendo|excelente|incre[ií]ble|maravilloso|perfecto|genial|casa|bosque|playa|playa|todo|muy|super|caril[oó]|estuvimos|pasamos|volver[ií]amos|nos encant[oó]| Attention|atenci[oó]n|anfitri[oó]n|limpio|c[oó]modo|tranquilo|relajante|vacaciones|descanso)\b/i;
+const PORTUGUESE_WORDS = /\b(ol[aá]|obrigad|dispon[ií]vel|pre[cç]o|quart|reserv|estadi|alojament|lind|maravilh|perfeit|excellent|incr[ií]vel|casa|praia|bosque|muito|super|tudo|passamos|voltar|recomend|limp|c[oô]mod|tranquil|relax|f[eé]rias|descanso)\b/i;
+const ENGLISH_WORDS = /\b(the|this|that|with|very|really|amazing|beautiful|wonderful|perfect|great|place|house|house|beach|forest|loved|would|stay|again|clean|comfortable|quiet|relaxing|vacation|highly|recommend|everything|host|thanks|thank)\b/i;
 
 export function detectLanguage(texts: string[]): GuestLanguage {
   const combined = texts.join(' ').toLowerCase();
   if (!combined.trim()) return 'unknown';
   if (CYRILLIC.test(combined)) return 'ru';
-  if (PORTUGUESE_WORDS.test(combined) && !SPANISH_WORDS.test(combined)) return 'pt';
-  if (SPANISH_WORDS.test(combined)) return 'es';
+
+  // Count matches to disambiguate (PT and ES share some words)
+  const hasPt = PORTUGUESE_WORDS.test(combined);
+  const hasEs = SPANISH_WORDS.test(combined);
+  const hasEn = ENGLISH_WORDS.test(combined);
+
+  // Portuguese-specific markers that don't appear in Spanish
+  const PT_ONLY = /\b(obrigad|dispon[ií]vel|praia|lind|maravilh|perfeit|incr[ií]vel|muito|tudo|voltar|f[eé]rias|c[oô]mod|relax)\b/i;
+  if (PT_ONLY.test(combined)) return 'pt';
+  if (hasEs) return 'es';
+  if (hasPt) return 'pt';
+  if (hasEn) return 'en';
+
   // Default to English for Latin script that isn't ES/PT
   return 'en';
 }
 
 export const LANGUAGE_FLAGS: Record<GuestLanguage, string> = {
-  es: '🇪🇸', en: '🇬🇧', ru: '🇷🇺', pt: '🇧🇷', unknown: '🌐',
+  es: '🇦🇷', en: '🇬🇧', ru: '🇷🇺', pt: '🇧🇷', unknown: '🌐',
 };
 
 export const LANGUAGE_NAMES: Record<GuestLanguage, string> = {

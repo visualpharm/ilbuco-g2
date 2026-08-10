@@ -49,6 +49,129 @@ function phoneMatch(a: string | null | undefined, b: string | null | undefined):
   return na.length === 8 && na === nb;
 }
 
+/**
+ * Normalize a name for fuzzy comparison (remove accents, lowercase, alnum only).
+ */
+function normalizeName(name?: string | null): string {
+  if (!name) return '';
+  return name
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // strip accents
+    .replace(/[^a-z0-9]/g, '');
+}
+
+/**
+ * Check if two names are similar enough to be the same person.
+ * Matches on exact normalized form, or one being a substring of the other
+ * (e.g. "Jose Garcia" matches "Jose Maria Garcia").
+ */
+function nameMatch(a?: string | null, b?: string | null): boolean {
+  const na = normalizeName(a);
+  const nb = normalizeName(b);
+  if (!na || !nb || na.length < 4 || nb.length < 4) return false;
+  if (na === nb) return true;
+  // Check if one fully contains the other (handles middle name differences)
+  if (na.length > nb.length) return na.includes(nb);
+  return nb.includes(na);
+}
+
+/**
+ * Merge two CrmGuest records into one, preferring the richer data.
+ * The "primary" ID wins (phone > email > name).
+ */
+function mergeGuests(a: CrmGuest, b: CrmGuest): CrmGuest {
+  // Pick the preferred ID (phone-based is most stable)
+  const id = a.id.startsWith('phone:') ? a.id
+    : b.id.startsWith('phone:') ? b.id
+    : a.id.startsWith('email:') ? a.id
+    : b.id;
+
+  // Merge reservations (dedup by code)
+  const reservations = [...a.reservations];
+  for (const r of b.reservations) {
+    if (!reservations.find(x => x.code === r.code)) reservations.push(r);
+  }
+  reservations.sort((x, y) => x.checkIn.localeCompare(y.checkIn));
+
+  // Merge messages (dedup by timestamp+text)
+  const messages = [...a.messages];
+  for (const m of b.messages) {
+    if (!messages.find(x => x.timestamp === m.timestamp && x.text === m.text)) {
+      messages.push(m);
+    }
+  }
+  messages.sort((x, y) => x.timestamp.localeCompare(y.timestamp));
+
+  // Merge channels
+  const channels = [...new Set([...a.channels, ...b.channels])];
+
+  // Prefer the more specific language (not 'unknown')
+  const language = a.language !== 'unknown' ? a.language : b.language;
+
+  return {
+    id,
+    name: a.name !== 'Guest' && a.name !== 'unknown' ? a.name : (b.name !== 'Guest' ? b.name : a.name),
+    email: a.email ?? b.email,
+    phone: a.phone ?? b.phone,
+    country: a.country ?? b.country,
+    language,
+    channels,
+    reservations,
+    messages,
+    reviewScore: a.reviewScore ?? b.reviewScore,
+    reviewContent: a.reviewContent ?? b.reviewContent,
+    summary: a.summary ?? b.summary,
+    firstBookedAt: a.firstBookedAt && b.firstBookedAt
+      ? (a.firstBookedAt < b.firstBookedAt ? a.firstBookedAt : b.firstBookedAt)
+      : a.firstBookedAt ?? b.firstBookedAt,
+    lastUpdatedAt: new Date().toISOString(),
+  };
+}
+
+/**
+ * Post-hoc deduplication pass: merges guests that are the same person
+ * but ended up with different IDs (phone vs email vs name, or slightly
+ * different phone formats).
+ *
+ * Uses union-find style clustering: iteratively merge any two guests that
+ * match on phone (last 8 digits), email, or fuzzy name.
+ */
+function deduplicateGuests(guestMap: Map<string, CrmGuest>): Map<string, CrmGuest> {
+  const guests = [...guestMap.values()];
+  const removed = new Set<string>();
+
+  for (let i = 0; i < guests.length; i++) {
+    if (removed.has(guests[i].id)) continue;
+    for (let j = i + 1; j < guests.length; j++) {
+      if (removed.has(guests[j].id)) continue;
+      const a = guests[i];
+      const b = guests[j];
+
+      const samePhone = phoneMatch(a.phone, b.phone);
+      const sameEmail = a.email && b.email && a.email.toLowerCase() === b.email.toLowerCase();
+      const sameName = nameMatch(a.name, b.name);
+
+      // Merge if they share phone, email, or (name AND at least one other signal)
+      const sharedReservation = a.reservations.some(r => b.reservations.some(br => br.code === r.code));
+      if (samePhone || sameEmail || (sameName && (a.country === b.country || sharedReservation))) {
+        const merged = mergeGuests(a, b);
+        guests[i] = merged;
+        removed.add(b.id);
+      }
+    }
+  }
+
+  // Rebuild map with merged guests
+  const result = new Map<string, CrmGuest>();
+  for (const g of guests) {
+    if (!removed.has(g.id)) {
+      result.set(g.id, g);
+    }
+  }
+  return result;
+}
+
 // ─── Main sync ───────────────────────────────────────────────────────────────
 
 export interface SyncReport {
@@ -261,18 +384,29 @@ export async function syncAllGuests(): Promise<SyncReport> {
     errors.push(`WAHA contacts: ${err instanceof Error ? err.message : String(err)}`);
   }
 
-  // 7. Detect language for each guest based on their messages
+  // 7. Detect language for each guest based on their messages and reviews
   for (const guest of guestMap.values()) {
+    // Collect all guest-produced text: inbound messages + review content
+    const textsForDetection: string[] = [];
+
     if (guest.messages.length > 0) {
       const inboundTexts = guest.messages
         .filter(m => m.direction === 'inbound')
         .map(m => m.text)
         .filter(Boolean);
-      if (inboundTexts.length > 0) {
-        guest.language = detectLanguage(inboundTexts);
-      }
+      textsForDetection.push(...inboundTexts);
     }
-    // If no messages, infer from country
+
+    // Reviews are guest-written text too — strong language signal
+    if (guest.reviewContent) {
+      textsForDetection.push(guest.reviewContent);
+    }
+
+    if (textsForDetection.length > 0) {
+      guest.language = detectLanguage(textsForDetection);
+    }
+
+    // If still unknown, infer from country
     if (guest.language === 'unknown' && guest.country) {
       const countryLang: Record<string, string> = {
         AR: 'es', MX: 'es', ES: 'es', CL: 'es', UY: 'es', CO: 'es', PE: 'es',
@@ -286,18 +420,27 @@ export async function syncAllGuests(): Promise<SyncReport> {
     guest.lastUpdatedAt = new Date().toISOString();
   }
 
-  // 8. Save
-  newState = { ...newState, guests: Object.fromEntries(guestMap) };
+  // 8. Deduplicate — merge guests that are the same person but ended up
+  //    with different IDs (phone vs email vs name, different phone formats)
+  const beforeDedup = guestMap.size;
+  const deduped = deduplicateGuests(guestMap);
+  const mergedCount = beforeDedup - deduped.size;
+  if (mergedCount > 0) {
+    console.log(`[crm-sync] Merged ${mergedCount} duplicate guests`);
+  }
+
+  // 9. Save
+  newState = { ...newState, guests: Object.fromEntries(deduped) };
   newState.lastSyncAt = new Date().toISOString();
   await saveCrmState(newState);
 
-  const newGuests = [...guestMap.values()].filter(g =>
+  const newGuests = [...deduped.values()].filter(g =>
     !prevState.guests[g.id]
   ).length;
 
   return {
     success: errors.length === 0,
-    totalGuests: guestMap.size,
+    totalGuests: deduped.size,
     newGuests,
     reservations: reservations.length,
     conversations: conversationCount,

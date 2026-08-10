@@ -10,8 +10,9 @@
  * Ivan and Andrés log in with their shared passwords.
  */
 
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 // CRM panel is loaded dynamically (client-only, keeps initial bundle small)
 const CrmPanel = dynamic(() => import('./crm-panel'), { ssr: false });
@@ -70,7 +71,15 @@ function fmtChannel(ch: ChannelStatus): string {
   return `${icon}${status}`;
 }
 
-export default function NimdaPanel() {
+export default function NimdaPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-slate-400">Cargando…</div>}>
+      <NimdaPanel />
+    </Suspense>
+  );
+}
+
+function NimdaPanel() {
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
@@ -85,7 +94,22 @@ export default function NimdaPanel() {
   const [toast, setToast] = useState('');
   const [showCreate, setShowCreate] = useState(false);
   const [createForm, setCreateForm] = useState({ name: '', pin: '', permanent: true, checkIn: '', checkOut: '' });
-  const [activeTab, setActiveTab] = useState<'pins' | 'crm'>('pins');
+
+  // Tab state persisted in URL (?tab=crm) so refresh stays on the same view
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [activeTab, setActiveTab] = useState<'pins' | 'crm'>(
+    searchParams.get('tab') === 'crm' ? 'crm' : 'pins'
+  );
+
+  function switchTab(tab: 'pins' | 'crm') {
+    setActiveTab(tab);
+    const params = new URLSearchParams(searchParams.toString());
+    if (tab === 'crm') params.set('tab', 'crm');
+    else params.delete('tab');
+    const qs = params.toString();
+    router.replace(qs ? `?${qs}` : '?', { scroll: false });
+  }
 
   const flash = (msg: string) => { setToast(msg); setTimeout(() => setToast(''), 5000); };
 
@@ -221,13 +245,13 @@ export default function NimdaPanel() {
         {/* Tab switcher */}
         <div className="flex gap-1">
           <button
-            onClick={() => setActiveTab('pins')}
+            onClick={() => switchTab('pins')}
             className={`px-3 py-1 rounded-full text-sm font-medium ${activeTab === 'pins' ? 'bg-slate-900 text-white' : 'bg-slate-200 text-slate-700'}`}
           >
             🔑 PINs
           </button>
           <button
-            onClick={() => setActiveTab('crm')}
+            onClick={() => switchTab('crm')}
             className={`px-3 py-1 rounded-full text-sm font-medium ${activeTab === 'crm' ? 'bg-slate-900 text-white' : 'bg-slate-200 text-slate-700'}`}
           >
             📋 CRM

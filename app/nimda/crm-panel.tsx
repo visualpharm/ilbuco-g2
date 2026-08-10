@@ -57,7 +57,7 @@ interface CrmGuest {
   firstBookedAt?: string;
 }
 
-type SortField = 'name' | 'language' | 'country' | 'stays' | 'lastStay' | 'happiness' | 'channel';
+type SortField = 'name' | 'language' | 'whatsapp' | 'stays' | 'lastStay' | 'happiness' | 'channel';
 type SortDir = 'asc' | 'desc';
 
 function fmtDate(iso?: string): string {
@@ -67,11 +67,40 @@ function fmtDate(iso?: string): string {
 
 function happinessColor(score?: number): string {
   if (score === undefined) return 'text-slate-300';
-  if (score >= 8) return 'text-emerald-600 font-bold';
-  if (score >= 6) return 'text-amber-600 font-medium';
-  if (score >= 4) return 'text-orange-600';
+  if (score >= 4.5) return 'text-emerald-600 font-bold';
+  if (score >= 3.5) return 'text-amber-600 font-medium';
+  if (score >= 2.5) return 'text-orange-600';
   return 'text-red-600 font-bold';
 }
+
+// Quick message templates for the outreach composer
+const TEMPLATES: Record<string, { name: string; template: string; description: string }> = {
+  post_stay_review: {
+    name: '📋 Review request',
+    description: 'Ask for a review after checkout',
+    template: `¡{Hola|Hey|Buenas} {name}! {Espero|Esperamos} que hayas llegado bien a casa 🌲 ¿Nos {dejarías|dejan} una reseña? {Ayuda mucho|Significa mucho} 🙏`,
+  },
+  off_season_nomad: {
+    name: '🏝️ Off-season nomad',
+    description: 'Monthly remote-work rate for May-Sep',
+    template: `{Hola|Hey|Buenas} {name}! {Recordamos|No nos olvidamos} de vos. Si {querés|tenés ganas de} volver a trabajar al bosque, tenemos tarifa nómada para estadas largas (mayo-septiembre). ¿Te {interesa|mando} los precios?`,
+  },
+  return_discount: {
+    name: '🎁 Return discount',
+    description: '15% off for past guests',
+    template: `¡{Hola|Hey} {name}! {Como ya nos conocemos|Como ya estuviste acá}, te {ofrecemos|damos} 15% off en tu próxima reserva directa. Código VOLVER15 en book.ilbuco.com.ar 🌲`,
+  },
+  holiday: {
+    name: '🎉 Holiday availability',
+    description: 'Notify about holiday openings',
+    template: `{Hola|Hey} {name}! {Quedan|Tenemos} fechas libres para {el feriado|Semana Santa}. Si {querés|pensás} volver a Cariló, {avisanos|escribinos} pronto que se llenan rápido 🌊`,
+  },
+  referral: {
+    name: '👥 Referral',
+    description: 'Ask happy guests to refer friends',
+    template: `{Hola|Hey} {name}! Si {conocés|tenés} alguien que le {gustaría|encantaría} Il Buco, {mandalos|mándalos}. A vos y a ellos les {damos|hacemos} una noche gratis 🌲✨`,
+  },
+};
 
 export default function CrmPanel() {
   const [guests, setGuests] = useState<CrmGuest[]>([]);
@@ -91,6 +120,13 @@ export default function CrmPanel() {
   // Selection state
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const lastCheckedRef = useRef<string | null>(null);
+
+  // Outreach state
+  const [showOutreach, setShowOutreach] = useState(false);
+  const [messageTemplate, setMessageTemplate] = useState('');
+  const [sendingOutreach, setSendingOutreach] = useState(false);
+  const [generatingSummaries, setGeneratingSummaries] = useState(false);
+  const [sendProgress, setSendProgress] = useState<{ done: number; total: number } | null>(null);
 
   const flash = (msg: string) => { setToast(msg); setTimeout(() => setToast(''), 5000); };
 
@@ -130,6 +166,86 @@ export default function CrmPanel() {
     }
   }
 
+  async function generateSummaries() {
+    setGeneratingSummaries(true);
+    flash('Generating AI happiness summaries... (up to 20 guests, ~1 min)');
+    try {
+      const res = await fetch('/api/nimda/crm/summaries', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        flash(`✓ Generated ${data.updated} summaries`);
+        await load();
+      } else {
+        flash(`Summary error: ${data.error || 'unknown'}`);
+      }
+    } catch {
+      flash('Summary generation failed');
+    } finally {
+      setGeneratingSummaries(false);
+    }
+  }
+
+  // Outreach: count how many selected guests have phone numbers
+  const selectedGuests = guests.filter(g => selected.has(g.id));
+  const selectedWithPhone = selectedGuests.filter(g => g.phone);
+
+  async function sendOutreach() {
+    if (!messageTemplate.trim()) { flash('Write a message template first'); return; }
+    if (selectedWithPhone.length === 0) { flash('None of the selected guests have a phone number'); return; }
+
+    const confirmed = confirm(
+      `Send WhatsApp to ${selectedWithPhone.length} guest(s)?\n\n` +
+      `This will send real messages via the Il Buco WhatsApp number.\n` +
+      `Each send has a 15-45s delay for safety.\n\n` +
+      `First message preview:\n"${previewFirstMessage()}"\n\n` +
+      `Continue?`
+    );
+    if (!confirmed) return;
+
+    setSendingOutreach(true);
+    setSendProgress({ done: 0, total: selectedWithPhone.length });
+    try {
+      const res = await fetch('/api/nimda/crm/outreach/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          guestIds: selectedWithPhone.map(g => g.id),
+          template: messageTemplate,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        const r = data.report;
+        flash(`✓ Sent ${r.sent}/${r.total} (${r.skipped} skipped, ${r.failed} failed)`);
+        setShowOutreach(false);
+      } else {
+        flash(`Send error: ${data.error || 'unknown'}`);
+      }
+    } catch {
+      flash('Send failed');
+    } finally {
+      setSendingOutreach(false);
+      setSendProgress(null);
+    }
+  }
+
+  /** Preview the first rendered message for the confirm dialog. */
+  function previewFirstMessage(): string {
+    if (selectedWithPhone.length === 0) return '(no guests with phone selected)';
+    const g = selectedWithPhone[0];
+    return renderSpintaxPreview(messageTemplate, g.name);
+  }
+
+  /** Render a quick preview of the spintax for display (picks first option). */
+  function renderSpintaxPreview(template: string, name: string): string {
+    const firstName = name.split(/\s+/)[0] || name;
+    // For preview, expand spintax by picking first option
+    const firstOption = template.replace(/\{([^{}]*)\}/g, (_, content) => {
+      return content.split('|')[0];
+    });
+    return firstOption.replace(/\{name\}/g, firstName).slice(0, 200);
+  }
+
   // ── Derived data ────────────────────────────────────────────────────────────
   const channels = useMemo(() => [...new Set(guests.flatMap(g => g.channels))].sort(), [guests]);
   const languages = useMemo(() => [...new Set(guests.map(g => g.language))].sort(), [guests]);
@@ -164,7 +280,7 @@ export default function CrmPanel() {
       switch (sortField) {
         case 'name': cmp = a.name.localeCompare(b.name); break;
         case 'language': cmp = a.language.localeCompare(b.language); break;
-        case 'country': cmp = (a.country ?? 'zz').localeCompare(b.country ?? 'zz'); break;
+        case 'whatsapp': cmp = (a.phone ?? 'z').localeCompare(b.phone ?? 'z'); break;
         case 'stays': cmp = a.reservations.length - b.reservations.length; break;
         case 'lastStay':
           cmp = (a.reservations[a.reservations.length - 1]?.checkOut ?? '')
@@ -255,9 +371,16 @@ export default function CrmPanel() {
         <button
           onClick={syncGuests}
           disabled={syncing}
-          className="ml-auto bg-slate-900 text-white px-3 py-1.5 rounded-lg text-sm font-medium disabled:opacity-40"
+          className="bg-slate-900 text-white px-3 py-1.5 rounded-lg text-sm font-medium disabled:opacity-40"
         >
           {syncing ? 'Syncing...' : '↻ Sync Guests'}
+        </button>
+        <button
+          onClick={generateSummaries}
+          disabled={generatingSummaries}
+          className="bg-indigo-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium disabled:opacity-40"
+        >
+          {generatingSummaries ? '🧠 AI...' : '🧠 Score Happiness'}
         </button>
       </div>
 
@@ -291,7 +414,7 @@ export default function CrmPanel() {
                 </th>
                 <SortHeader label="Name" field="name" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
                 <SortHeader label="Lang" field="language" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
-                <SortHeader label="Country" field="country" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
+                <SortHeader label="WhatsApp" field="whatsapp" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
                 <SortHeader label="Stays" field="stays" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
                 <SortHeader label="Last stay" field="lastStay" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
                 <SortHeader label="Channel" field="channel" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
@@ -331,8 +454,13 @@ export default function CrmPanel() {
                       <td className="px-3 py-2.5 text-center" onClick={() => setExpanded(isExpanded ? null : g.id)}>
                         {LANGUAGE_FLAGS[g.language as keyof typeof LANGUAGE_FLAGS] || '🌐'}
                       </td>
-                      <td className="px-3 py-2.5 text-slate-500" onClick={() => setExpanded(isExpanded ? null : g.id)}>
-                        {g.country || '—'}
+                      <td className="px-3 py-2.5 text-slate-500 text-xs font-mono" onClick={() => setExpanded(isExpanded ? null : g.id)}>
+                        {g.phone ? (
+                          <span className="inline-flex items-center gap-1">
+                            {g.channels.includes('whatsapp') && <span title="Verified on WhatsApp">✅</span>}
+                            {g.phone}
+                          </span>
+                        ) : '—'}
                       </td>
                       <td className="px-3 py-2.5 text-center" onClick={() => setExpanded(isExpanded ? null : g.id)}>
                         {g.reservations.length || '—'}
@@ -344,7 +472,7 @@ export default function CrmPanel() {
                         {g.channels.join(', ') || '—'}
                       </td>
                       <td className={`px-3 py-2.5 ${happinessColor(happiness)}`} onClick={() => setExpanded(isExpanded ? null : g.id)}>
-                        {happiness !== undefined ? `${happiness}/10` : '—'}
+                        {happiness !== undefined ? `${happiness}/5` : '—'}
                       </td>
                     </tr>
                     {isExpanded && (
@@ -364,7 +492,7 @@ export default function CrmPanel() {
                               <div className="flex items-center gap-2 mb-1">
                                 <b>AI Summary</b>
                                 <span className={happinessColor(g.summary.happinessScore)}>
-                                  {g.summary.happinessScore}/10
+                                  {g.summary.happinessScore}/5
                                 </span>
                                 <span className="text-xs text-slate-400">
                                   {g.summary.sentiment} · {fmtDate(g.summary.generatedAt)}
@@ -379,7 +507,7 @@ export default function CrmPanel() {
                             </div>
                           ) : g.reviewContent ? (
                             <div className="bg-white rounded-lg p-3 mb-4 text-sm">
-                              <b>Review ({g.reviewScore}/10):</b>
+                              <b>Review ({g.reviewScore}/5):</b>
                               <p className="text-slate-600 mt-1">{g.reviewContent}</p>
                             </div>
                           ) : null}
@@ -436,6 +564,11 @@ export default function CrmPanel() {
       {selected.size > 0 && (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl text-sm z-50 flex items-center gap-4">
           <span>{selected.size} selected</span>
+          {selectedWithPhone.length !== selected.size && (
+            <span className="text-amber-400 text-xs">
+              ({selectedWithPhone.length} with phone)
+            </span>
+          )}
           <button
             onClick={() => setSelected(new Set())}
             className="text-slate-400 hover:text-white"
@@ -443,7 +576,126 @@ export default function CrmPanel() {
             Clear
           </button>
           <span className="text-slate-500">|</span>
-          <span className="text-slate-400 text-xs">Mass messaging coming in Phase 3</span>
+          <button
+            onClick={() => setShowOutreach(!showOutreach)}
+            className="bg-emerald-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium"
+          >
+            📱 Send WhatsApp
+          </button>
+        </div>
+      )}
+
+      {/* Outreach composer modal */}
+      {showOutreach && selected.size > 0 && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => !sendingOutreach && setShowOutreach(false)}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold">📱 WhatsApp Outreach</h2>
+                <button
+                  onClick={() => !sendingOutreach && setShowOutreach(false)}
+                  className="text-slate-400 hover:text-slate-600 text-xl"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Quick templates */}
+              <div className="mb-4">
+                <label className="text-xs text-slate-500 font-medium">Quick templates:</label>
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {Object.entries(TEMPLATES).map(([key, t]) => (
+                    <button
+                      key={key}
+                      onClick={() => setMessageTemplate(t.template)}
+                      className="border rounded-lg px-2 py-1 text-xs hover:bg-slate-50"
+                      title={t.description}
+                    >
+                      {t.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Message editor */}
+              <div className="mb-3">
+                <label className="text-xs text-slate-500 font-medium">
+                  Message template <span className="text-slate-400">(use {`{name}`} for first name, {`{Hi|Hola|Hey}`} for random variation)</span>
+                </label>
+                <textarea
+                  value={messageTemplate}
+                  onChange={e => setMessageTemplate(e.target.value)}
+                  rows={5}
+                  className="w-full border rounded-lg px-3 py-2 mt-1 text-sm font-mono"
+                  placeholder="¡{Hola|Hey} {name}! {Espero|Esperamos} que..."
+                  disabled={sendingOutreach}
+                />
+              </div>
+
+              {/* Preview */}
+              {messageTemplate.trim() && (
+                <div className="mb-4">
+                  <label className="text-xs text-slate-500 font-medium">Preview (first selected guest):</label>
+                  <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 mt-1 text-sm">
+                    <div className="text-xs text-slate-400 mb-1">
+                      To: {selectedWithPhone[0]?.name ?? '—'} ({selectedWithPhone[0]?.phone ?? 'no phone'})
+                    </div>
+                    <div className="whitespace-pre-wrap">{previewFirstMessage()}</div>
+                  </div>
+                </div>
+              )}
+
+              {/* Recipients summary */}
+              <div className="mb-4 text-sm bg-slate-50 rounded-lg p-3">
+                <div className="flex justify-between">
+                  <span className="text-slate-600">Recipients with phone:</span>
+                  <span className="font-medium">{selectedWithPhone.length}</span>
+                </div>
+                <div className="flex justify-between text-xs text-slate-400">
+                  <span>Max per batch: 8 (anti-ban)</span>
+                  <span>~{selectedWithPhone.length > 8 ? '⚠️ select ≤8' : `${selectedWithPhone.length * 30}s est.`}</span>
+                </div>
+                {selectedWithPhone.length > 8 && (
+                  <div className="text-xs text-amber-600 mt-1">
+                    ⚠️ Too many selected. The API will reject more than 8 at once.
+                    Select fewer or send in batches.
+                  </div>
+                )}
+              </div>
+
+              {/* Safety notice */}
+              <div className="mb-4 text-xs text-slate-400 bg-amber-50 border border-amber-100 rounded-lg p-3">
+                <b>Safety:</b> Messages are sent from the Il Buco WhatsApp number with 15-45s
+                randomized delays. Quiet hours (22:00-08:00 Argentina) are enforced automatically.
+                Only send to guests who know you — cold outreach risks the number getting blocked.
+              </div>
+
+              {/* Send progress */}
+              {sendProgress && (
+                <div className="mb-4 text-sm bg-blue-50 rounded-lg p-3">
+                  Sending... {sendProgress.done}/{sendProgress.total}
+                </div>
+              )}
+
+              {/* Actions */}
+              <div className="flex gap-2 justify-end">
+                <button
+                  onClick={() => setShowOutreach(false)}
+                  disabled={sendingOutreach}
+                  className="border rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-40"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={sendOutreach}
+                  disabled={sendingOutreach || !messageTemplate.trim() || selectedWithPhone.length === 0 || selectedWithPhone.length > 8}
+                  className="bg-emerald-600 text-white rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-40"
+                >
+                  {sendingOutreach ? 'Sending...' : `Send to ${selectedWithPhone.length} guest(s)`}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
