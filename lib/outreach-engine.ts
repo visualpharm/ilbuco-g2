@@ -21,7 +21,7 @@ import {
   getSessionStatus,
   hasOpenWindow,
 } from './waha-client';
-import { loadCrmState, type CrmGuest } from './crm-store';
+import { type CrmGuest } from './crm-store';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -33,6 +33,8 @@ export interface OutreachTarget {
   chatId: string;
   /** True if guest has messaged us in the last 24h (free-form window open). */
   windowOpen: boolean;
+  /** Full guest record for placeholder rendering */
+  guest: CrmGuest;
 }
 
 export interface OutreachMessage {
@@ -66,15 +68,89 @@ const BATCH_SIZE = 50;         // pause after this many
 const BATCH_PAUSE_MS = 600_000; // 10 minute pause between batches
 const MAX_PER_CAMPAIGN = 100;  // hard cap per campaign
 
+// ─── Placeholders ─────────────────────────────────────────────────────────────
+
+/**
+ * Guest data available for placeholder substitution.
+ * Every placeholder {key} is replaced with the corresponding value.
+ */
+export interface GuestPlaceholders {
+  name: string;           // First name (e.g. "Maria")
+  fullName: string;       // Full name (e.g. "Maria Garcia")
+  stays: string;          // Number of stays (e.g. "3")
+  staysWord: string;      // Number of stays in words (e.g. "tres")
+  property: string;       // Property name from last stay (e.g. "Terrazzo")
+  monthsAgo: string;      // Months since last stay (e.g. "4")
+  monthsAgoWord: string;  // Months since last stay in words (e.g. "cuatro")
+  lastStay: string;       // Last checkout date formatted (e.g. "03/05/26")
+  year: string;           // Current year (e.g. "2026")
+  channel: string;        // Booking channel (e.g. "airbnb")
+  country: string;        // Country code (e.g. "AR")
+}
+
+/** Spanish number-to-word for small numbers (1-10) */
+function numberToWord(n: number): string {
+  const words = ['cero', 'una', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez'];
+  return n >= 0 && n <= 10 ? words[n] : String(n);
+}
+
+/**
+ * Build placeholder values from a CRM guest record.
+ */
+export function buildPlaceholders(guest: CrmGuest): GuestPlaceholders {
+  const firstName = guest.name.split(/\s+/)[0] || guest.name;
+  const lastReservation = guest.reservations[guest.reservations.length - 1];
+
+  let monthsAgo = 0;
+  if (lastReservation?.checkOut) {
+    const checkout = new Date(lastReservation.checkOut);
+    const now = new Date();
+    monthsAgo = Math.max(0, Math.round((now.getTime() - checkout.getTime()) / (30.44 * 24 * 3600 * 1000)));
+  }
+
+  return {
+    name: firstName,
+    fullName: guest.name,
+    stays: String(guest.reservations.length),
+    staysWord: numberToWord(guest.reservations.length),
+    property: lastReservation?.property ?? 'Il Buco',
+    monthsAgo: String(monthsAgo),
+    monthsAgoWord: numberToWord(monthsAgo),
+    lastStay: lastReservation?.checkOut
+      ? new Date(lastReservation.checkOut).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: '2-digit' })
+      : '',
+    year: String(new Date().getFullYear()),
+    channel: lastReservation?.channel ?? '',
+    country: guest.country ?? '',
+  };
+}
+
+/**
+ * Replace all {placeholder} tokens in a template with actual values.
+ * Only replaces KNOWN placeholder keys — unknown {tokens} are left alone
+ * (so spintax {Hola|Hey} is preserved).
+ */
+export function replacePlaceholders(template: string, ph: GuestPlaceholders): string {
+  return template.replace(/\{(\w+)\}/g, (match, key: string) => {
+    // Only replace if it's a known placeholder (single word, no |)
+    if (key in ph) {
+      return String(ph[key as keyof GuestPlaceholders]);
+    }
+    // Not a known placeholder — leave it untouched (might be spintax)
+    return match;
+  });
+}
+
 // ─── Spintax ──────────────────────────────────────────────────────────────────
 
 /**
  * Expand spintax text: {Hola|Hey|Buenas} → random pick.
- * Supports nested braces: {Hola|{Hey|Buenas} che}.
+ * A spintax group MUST contain a pipe | to be treated as spintax.
+ * Groups without | are left untouched (they're not spintax).
  */
 export function expandSpintax(text: string): string {
-  // Find the innermost {a|b|c} and expand repeatedly
-  const spinRe = /\{([^{}]*?)\}/;
+  // Only match {a|b|c} — must contain at least one |
+  const spinRe = /\{([^{}]*\|[^{}]*)\}/;
   let result = text;
   let safety = 100; // prevent infinite loops
   while (spinRe.test(result) && safety-- > 0) {
@@ -88,11 +164,29 @@ export function expandSpintax(text: string): string {
 
 /**
  * Render a message template for a specific guest.
- * Replaces {name} with the guest name, then expands spintax.
+ * 1. Replace {name}, {stays}, etc. with actual values
+ * 2. Expand spintax {Hola|Hey|Buenas}
  */
-export function renderMessage(template: string, guestName: string): string {
-  const firstName = guestName.split(/\s+/)[0] || guestName;
-  return expandSpintax(template.replace(/\{name\}/g, firstName));
+export function renderMessage(template: string, guest: CrmGuest, useSpintax = true): string {
+  const placeholders = buildPlaceholders(guest);
+  const withPlaceholders = replacePlaceholders(template, placeholders);
+  return useSpintax ? expandSpintax(withPlaceholders) : expandSpintaxFirst(withPlaceholders);
+}
+
+/**
+ * Expand spintax by always picking the FIRST option (for previews or
+ * when random variation is disabled).
+ */
+function expandSpintaxFirst(text: string): string {
+  const spinRe = /\{([^{}]*\|[^{}]*)\}/;
+  let result = text;
+  let safety = 100;
+  while (spinRe.test(result) && safety-- > 0) {
+    result = result.replace(spinRe, (_, content: string) => {
+      return content.split('|')[0];
+    });
+  }
+  return result;
 }
 
 // ─── Quiet hours ──────────────────────────────────────────────────────────────
@@ -160,7 +254,8 @@ export async function buildTargets(
       phone: g.phone,
       language: g.language,
       chatId,
-      windowOpen: checkWindow ? await hasOpenWindow(chatId) : true, // assume open if not checking
+      windowOpen: checkWindow ? await hasOpenWindow(chatId) : true,
+      guest: g,
     });
   }
 
@@ -192,7 +287,8 @@ function randomDelay(): Promise<void> {
 export async function sendCampaign(
   targets: OutreachTarget[],
   template: string,
-  onProgress?: (done: number, total: number, result: SendResult) => void
+  onProgress?: (done: number, total: number, result: SendResult) => void,
+  useSpintax = true
 ): Promise<CampaignReport> {
   const startedAt = new Date().toISOString();
   const results: SendResult[] = [];
@@ -257,7 +353,7 @@ export async function sendCampaign(
     }
 
     // Render the message with Spintax + name substitution
-    const message = renderMessage(template, target.name);
+    const message = renderMessage(template, target.guest, useSpintax);
 
     try {
       await sendText(target.chatId, message);
@@ -308,28 +404,39 @@ export async function sendCampaign(
 
 export const MESSAGE_TEMPLATES: Record<string, { name: string; template: string; description: string }> = {
   post_stay_review: {
-    name: 'Post-stay review request',
-    description: 'Sent shortly after checkout to ask for a review',
-    template: `¡{Hola|Hey|Buenas} {name}! {Espero|Esperamos} que hayas llegado bien a casa 🌲 ¿Nos {dejarías|dejan} una reseña? {Ayuda mucho|Significa mucho para nosotros} 🙏 → https://www.airbnb.com/rooms/1422046866284999348`,
+    name: '📋 Pedir reseña',
+    description: 'Después del checkout',
+    template: `¡{Hola|Hey|Buenas} {name}! {Espero|Esperamos} que hayas llegado bien a casa 🌲 ¿Nos {dejarías|dejan} una reseña? {Ayuda mucho|Significa mucho} 🙏`,
+  },
+  return_repeat: {
+    name: '🔄 Volver (重复客)',
+    description: 'Huésped que ya vino varias veces',
+    template: `¡{Hola|Hey} {name}! {Qué bueno|Nos alegra} verte de nuevo por acá. {Ya es|Vienen siendo} {stays} estadías en {property} 🌲 Si {querés|tenés ganas de} volver, tenemos {novedades|algo especial} para vos.`,
   },
   off_season_nomad: {
-    name: 'Off-season nomad rate',
-    description: 'Past guests: monthly remote-work rate for May-Sep',
-    template: `{Hola|Hey|Buenas} {name}! {Recordamos|No nos olvidamos} que lo pasaste {bien|genial} acá. Si {querés|tenés ganas de} volver a trabajar al bosque, tenemos tarifa nómada para estadas largas (mayo-septiembre). ¿Te {interesa|mando} los precios?`,
+    name: '🏝️ Nómada baja temporada',
+    description: 'Tarifa mensual mayo-septiembre',
+    template: `{Hola|Hey} {name}! {Hace|Ya van} {monthsAgo} {meses|mes} desde tu última visita a {property}. Si {querés|tenés ganas de} volver a trabajar al bosque, tenemos tarifa nómada para estadas largas (mayo-septiembre). ¿Te {interesa|mando} los precios?`,
   },
   return_discount: {
-    name: 'Return discount',
-    description: 'Incentive for past guests to book again',
-    template: `¡{Hola|Hey} {name}! {Como ya nos conocemos|Como ya estuviste acá}, te {Queremos|queremos} ofrecer 15% off en tu próxima reserva directa. Usá el código VOLVER15 en book.ilbuco.com.ar 🌲`,
+    name: '🎁 Descuento retorno',
+    description: '15% off para huéspedes que vuelven',
+    template: `¡{Hola|Hey} {name}! {Como ya nos conocemos|Como ya estuviste acá {stays} {vez|veces}}, te {ofrecemos|damos} 15% off en tu próxima reserva directa. Código VOLVER15 en book.ilbuco.com.ar 🌲`,
   },
-  holiday_availability: {
-    name: 'Holiday availability',
-    description: 'Notify past guests about upcoming holiday openings',
-    template: `{Hola|Hey} {name}! {Tenemos|Quedan} fechas libres para {el feriado|Semana Santa}. Si {querés|tenés planes de} volver a Cariló, {avisanos|escribinos} pronto que se llenan rápido 🌊`,
+  holiday: {
+    name: '🎉 Feriado disponible',
+    description: 'Avisar fechas libres',
+    template: `{Hola|Hey} {name}! {Quedan|Tenemos} fechas libres para {el feriado|Semana Santa} en {property}. Si {querés|pensás} volver a Cariló, {avisanos|escribinos} pronto que se llenan rápido 🌊`,
   },
   referral: {
-    name: 'Referral offer',
-    description: 'Ask happy guests to refer friends',
-    template: `{Hola|Hey} {name}! Si {conocés|tenés} alguien que le {gustaría|encantaría} Il Buco, {mandalos|mándalos} nuestro way. A vos y a ellos les {damos|hacemos} una noche gratis 🌲✨`,
+    name: '👥 Referido',
+    description: 'Pedir que recomienden',
+    template: `{Hola|Hey} {name}! Si {conocés|tenés} alguien que le {gustaría|encantaría} {property}, {mandalos|mándalos}. A vos y a ellos les {damos|hacemos} una noche gratis 🌲✨`,
+  },
+  we_miss_you: {
+    name: '💭 Te extrañamos',
+    description: 'Huésped que no vuelve hace mucho',
+    template: `{Hola|Hey} {name}! {Hace|Ya pasaron} {monthsAgo} {meses|mes} desde tu estadía en {property} 🌲 {¿Cómo estás?|¿Todo bien?} Si {extrañás|extrañan} el bosque, {tenemos|hay} disponibilidad este {año|verano}.`,
   },
 };
+

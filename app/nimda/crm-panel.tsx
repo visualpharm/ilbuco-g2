@@ -92,31 +92,55 @@ function guestPropertyGroup(g: CrmGuest): 'ilbuco' | 'recharge' | 'mixed' | 'oth
 // Quick message templates for the outreach composer
 const TEMPLATES: Record<string, { name: string; template: string; description: string }> = {
   post_stay_review: {
-    name: '📋 Reseña',
-    description: 'Pedir reseña después del checkout',
+    name: '📋 Pedir reseña',
+    description: 'Después del checkout',
     template: `¡{Hola|Hey|Buenas} {name}! {Espero|Esperamos} que hayas llegado bien a casa 🌲 ¿Nos {dejarías|dejan} una reseña? {Ayuda mucho|Significa mucho} 🙏`,
+  },
+  return_repeat: {
+    name: '🔄 Huésped recurrente',
+    description: 'Ya vino varias veces',
+    template: `¡{Hola|Hey} {name}! {Qué bueno|Nos alegra} verte de nuevo. {Ya es|Vienen siendo} {stays} estadías en {property} 🌲 Si {querés|tenés ganas de} volver, tenemos algo especial para vos.`,
   },
   off_season_nomad: {
     name: '🏝️ Nómada baja temporada',
-    description: 'Tarifa mensual para mayo-septiembre',
-    template: `{Hola|Hey|Buenas} {name}! {Recordamos|No nos olvidamos} de vos. Si {querés|tenés ganas de} volver a trabajar al bosque, tenemos tarifa nómada para estadas largas (mayo-septiembre). ¿Te {interesa|mando} los precios?`,
+    description: 'Tarifa mensual mayo-septiembre',
+    template: `{Hola|Hey} {name}! {Hace|Ya van} {monthsAgo} {meses|mes} desde tu última visita a {property}. Si {querés|tenés ganas de} volver a trabajar al bosque, tenemos tarifa nómada para estadas largas. ¿Te {interesa|mando} los precios?`,
   },
   return_discount: {
     name: '🎁 Descuento retorno',
     description: '15% off para huéspedes que vuelven',
-    template: `¡{Hola|Hey} {name}! {Como ya nos conocemos|Como ya estuviste acá}, te {ofrecemos|damos} 15% off en tu próxima reserva directa. Código VOLVER15 en book.ilbuco.com.ar 🌲`,
+    template: `¡{Hola|Hey} {name}! {Como ya nos conocemos|Como ya estuviste acá {stays} {vez|veces}}, te {ofrecemos|damos} 15% off en tu próxima reserva directa. Código VOLVER15 en book.ilbuco.com.ar 🌲`,
   },
   holiday: {
     name: '🎉 Feriado disponible',
-    description: 'Avisar fechas libres para feriados',
-    template: `{Hola|Hey} {name}! {Quedan|Tenemos} fechas libres para {el feriado|Semana Santa}. Si {querés|pensás} volver a Cariló, {avisanos|escribinos} pronto que se llenan rápido 🌊`,
+    description: 'Avisar fechas libres',
+    template: `{Hola|Hey} {name}! {Quedan|Tenemos} fechas libres para {el feriado|Semana Santa} en {property}. Si {querés|pensás} volver a Cariló, {avisanos|escribinos} pronto que se llenan rápido 🌊`,
   },
   referral: {
     name: '👥 Referido',
-    description: 'Pedir que recomienden a amigos',
-    template: `{Hola|Hey} {name}! Si {conocés|tenés} alguien que le {gustaría|encantaría} Il Buco, {mandalos|mándalos}. A vos y a ellos les {damos|hacemos} una noche gratis 🌲✨`,
+    description: 'Pedir que recomienden',
+    template: `{Hola|Hey} {name}! Si {conocés|tenés} alguien que le {gustaría|encantaría} {property}, {mandalos|mándalos}. A vos y a ellos les {damos|hacemos} una noche gratis 🌲✨`,
+  },
+  we_miss_you: {
+    name: '💭 Te extrañamos',
+    description: 'Hace mucho que no vuelve',
+    template: `{Hola|Hey} {name}! {Hace|Ya pasaron} {monthsAgo} {meses|mes} desde tu estadía en {property} 🌲 {¿Cómo estás?|¿Todo bien?} Si {extrañás|extrañan} el bosque, {tenemos|hay} disponibilidad este {year}.`,
   },
 };
+
+// Placeholders the user can insert into the template
+const PLACEHOLDERS: { key: string; label: string; description: string }[] = [
+  { key: 'name', label: '{name}', description: 'Nombre de pila (ej: Maria)' },
+  { key: 'fullName', label: '{fullName}', description: 'Nombre completo' },
+  { key: 'stays', label: '{stays}', description: 'Cantidad de estadías (ej: 3)' },
+  { key: 'staysWord', label: '{staysWord}', description: 'Estadías en palabras (ej: tres)' },
+  { key: 'property', label: '{property}', description: 'Propiedad última (ej: Terrazzo)' },
+  { key: 'monthsAgo', label: '{monthsAgo}', description: 'Meses desde última visita (ej: 4)' },
+  { key: 'monthsAgoWord', label: '{monthsAgoWord}', description: 'Meses en palabras (ej: cuatro)' },
+  { key: 'lastStay', label: '{lastStay}', description: 'Fecha última estadía (ej: 03/05/26)' },
+  { key: 'year', label: '{year}', description: 'Año actual (ej: 2026)' },
+  { key: 'channel', label: '{channel}', description: 'Canal de reserva (ej: airbnb)' },
+];
 
 export default function CrmPanel() {
   const [guests, setGuests] = useState<CrmGuest[]>([]);
@@ -138,10 +162,14 @@ export default function CrmPanel() {
   // Selection state
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const lastCheckedRef = useRef<string | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Outreach state
   const [showOutreach, setShowOutreach] = useState(false);
+  const [outreachStep, setOutreachStep] = useState<'compose' | 'preview' | 'sending'>('compose');
   const [messageTemplate, setMessageTemplate] = useState('');
+  const [useSpintax, setUseSpintax] = useState(true);
+  const [previewData, setPreviewData] = useState<Array<{ name: string; phone: string | null; rendered: string }>>([]);
   const [sendingOutreach, setSendingOutreach] = useState(false);
   const [generatingSummaries, setGeneratingSummaries] = useState(false);
   const [sendProgress, setSendProgress] = useState<{ done: number; total: number } | null>(null);
@@ -207,19 +235,58 @@ export default function CrmPanel() {
   const selectedGuests = guests.filter(g => selected.has(g.id));
   const selectedWithPhone = selectedGuests.filter(g => g.phone);
 
-  async function sendOutreach() {
+  /** Insert a placeholder at cursor position in the textarea */
+  function insertPlaceholder(key: string) {
+    const ta = textareaRef.current;
+    const placeholder = `{${key}}`;
+    if (!ta) {
+      setMessageTemplate(messageTemplate + placeholder);
+      return;
+    }
+    const start = ta.selectionStart;
+    const end = ta.selectionEnd;
+    const newText = messageTemplate.slice(0, start) + placeholder + messageTemplate.slice(end);
+    setMessageTemplate(newText);
+    // Restore cursor after the inserted text
+    setTimeout(() => {
+      ta.focus();
+      ta.selectionStart = ta.selectionEnd = start + placeholder.length;
+    }, 0);
+  }
+
+  /** Step 2: fetch preview from API for all selected guests */
+  async function fetchPreview() {
     if (!messageTemplate.trim()) { flash('Escribí un mensaje primero'); return; }
     if (selectedWithPhone.length === 0) { flash('Ninguno de los seleccionados tiene teléfono'); return; }
 
-    const confirmed = confirm(
-      `¿Enviar WhatsApp a ${selectedWithPhone.length} huésped(es)?\n\n` +
-      `Se envía desde el número de WhatsApp de Il Buco.\n` +
-      `Cada envío tiene 15-45s de delay por seguridad.\n\n` +
-      `Vista previa del primer mensaje:\n"${previewFirstMessage()}"\n\n` +
-      `¿Continuar?`
-    );
-    if (!confirmed) return;
+    setOutreachStep('preview');
+    try {
+      const res = await fetch('/api/nimda/crm/outreach/preview', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          guestIds: selectedWithPhone.map(g => g.id),
+          template: messageTemplate,
+          useSpintax,
+        }),
+      });
+      const data = await res.json();
+      if (data.previews) {
+        setPreviewData(data.previews.map((p: { name: string; phone: string | null; renderedMessage: string | null }) => ({
+          name: p.name,
+          phone: p.phone,
+          rendered: p.renderedMessage ?? '(sin teléfono)',
+        })));
+      }
+    } catch {
+      flash('Error al generar vista previa');
+      setOutreachStep('compose');
+    }
+  }
 
+  /** Step 3: actually send the campaign */
+  async function sendOutreach() {
+    setOutreachStep('sending');
     setSendingOutreach(true);
     setSendProgress({ done: 0, total: selectedWithPhone.length });
     try {
@@ -229,6 +296,7 @@ export default function CrmPanel() {
         body: JSON.stringify({
           guestIds: selectedWithPhone.map(g => g.id),
           template: messageTemplate,
+          useSpintax,
         }),
       });
       const data = await res.json();
@@ -236,31 +304,44 @@ export default function CrmPanel() {
         const r = data.report;
         flash(`✓ Enviados ${r.sent}/${r.total} (${r.skipped} salteados, ${r.failed} fallidos)`);
         setShowOutreach(false);
+        setOutreachStep('compose');
       } else {
         flash(`Error de envío: ${data.error || 'desconocido'}`);
+        setOutreachStep('preview');
       }
     } catch {
       flash('Falló el envío');
+      setOutreachStep('preview');
     } finally {
       setSendingOutreach(false);
       setSendProgress(null);
     }
   }
 
-  /** Preview the first rendered message for the confirm dialog. */
-  function previewFirstMessage(): string {
-    if (selectedWithPhone.length === 0) return '(sin huéspedes con teléfono)';
+  /** Quick inline preview for compose step (first selected guest) */
+  function quickPreview(): string {
+    if (selectedWithPhone.length === 0 || !messageTemplate.trim()) return '';
     const g = selectedWithPhone[0];
-    return renderSpintaxPreview(messageTemplate, g.name);
-  }
-
-  /** Render a quick preview of the spintax for display (picks first option). */
-  function renderSpintaxPreview(template: string, name: string): string {
-    const firstName = name.split(/\s+/)[0] || name;
-    const firstOption = template.replace(/\{([^{}]*)\}/g, (_, content) => {
-      return content.split('|')[0];
-    });
-    return firstOption.replace(/\{name\}/g, firstName).slice(0, 200);
+    const firstName = g.name.split(/\s+/)[0] || g.name;
+    const lastRes = g.reservations[g.reservations.length - 1];
+    const stays = String(g.reservations.length);
+    const property = lastRes?.property ?? 'Il Buco';
+    let result = messageTemplate
+      .replace(/\{name\}/g, firstName)
+      .replace(/\{fullName\}/g, g.name)
+      .replace(/\{stays\}/g, stays)
+      .replace(/\{property\}/g, property)
+      .replace(/\{year\}/g, String(new Date().getFullYear()));
+    // Expand spintax
+    if (useSpintax) {
+      result = result.replace(/\{([^{}]*\|[^{}]*)\}/g, (_, content) => {
+        const opts = content.split('|');
+        return opts[Math.floor(Math.random() * opts.length)];
+      });
+    } else {
+      result = result.replace(/\{([^{}]*\|[^{}]*)\}/g, (_, content) => content.split('|')[0]);
+    }
+    return result.slice(0, 300);
   }
 
   // ── Derived data ────────────────────────────────────────────────────────────
@@ -648,138 +729,256 @@ export default function CrmPanel() {
 
       {/* Selection bar */}
       {selected.size > 0 && (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl text-sm z-50 flex items-center gap-4">
-          <span>{selected.size} seleccionado(s)</span>
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl text-sm z-50 flex items-center gap-3">
+          <span className="font-medium">{selected.size} sel.</span>
           {selectedWithPhone.length !== selected.size && (
             <span className="text-amber-400 text-xs">
-              ({selectedWithPhone.length} con teléfono)
+              ({selectedWithPhone.length} c/tel)
             </span>
           )}
           <button
-            onClick={() => setSelected(new Set())}
-            className="text-slate-400 hover:text-white"
+            onClick={() => { setShowOutreach(true); setOutreachStep('compose'); }}
+            className="bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium"
           >
-            Limpiar
+            ✏️ Componer
           </button>
-          <span className="text-slate-500">|</span>
           <button
-            onClick={() => setShowOutreach(!showOutreach)}
-            className="bg-emerald-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium"
+            onClick={() => { setShowOutreach(true); setOutreachStep('compose'); }}
+            disabled={selectedWithPhone.length === 0}
+            className="bg-indigo-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium disabled:opacity-40"
           >
-            📱 Enviar WhatsApp
+            👁️ Vista previa
+          </button>
+          <button
+            onClick={() => { setShowOutreach(true); setOutreachStep('compose'); }}
+            disabled={selectedWithPhone.length === 0}
+            className="bg-red-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium disabled:opacity-40"
+          >
+            📤 Enviar
+          </button>
+          <button
+            onClick={() => setSelected(new Set())}
+            className="text-slate-400 hover:text-white px-2"
+          >
+            ✕
           </button>
         </div>
       )}
 
-      {/* Outreach composer modal */}
+      {/* Outreach composer modal — 3-step wizard */}
       {showOutreach && selected.size > 0 && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => !sendingOutreach && setShowOutreach(false)}>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => !sendingOutreach && (() => { setShowOutreach(false); setOutreachStep('compose'); })()}>
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             <div className="p-6">
+              {/* Header with step indicator */}
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold">📱 Outreach por WhatsApp</h2>
+                <div className="flex items-center gap-3">
+                  <h2 className="text-lg font-semibold">📱 Outreach WhatsApp</h2>
+                  <div className="flex items-center gap-1 text-xs">
+                    <span className={outreachStep === 'compose' ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-500'} style={{ borderRadius: '50%', width: 24, height: 24, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>1</span>
+                    <span className="text-slate-300">—</span>
+                    <span className={outreachStep === 'preview' ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-500'} style={{ borderRadius: '50%', width: 24, height: 24, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>2</span>
+                    <span className="text-slate-300">—</span>
+                    <span className={outreachStep === 'sending' ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-500'} style={{ borderRadius: '50%', width: 24, height: 24, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>3</span>
+                  </div>
+                  <span className="text-xs text-slate-400">
+                    {outreachStep === 'compose' ? 'Componer' : outreachStep === 'preview' ? 'Vista previa' : 'Enviando'}
+                  </span>
+                </div>
                 <button
-                  onClick={() => !sendingOutreach && setShowOutreach(false)}
+                  onClick={() => { setShowOutreach(false); setOutreachStep('compose'); }}
                   className="text-slate-400 hover:text-slate-600 text-xl"
+                  disabled={sendingOutreach}
                 >
                   ✕
                 </button>
               </div>
 
-              {/* Quick templates */}
-              <div className="mb-4">
-                <label className="text-xs text-slate-500 font-medium">Plantillas rápidas:</label>
-                <div className="flex flex-wrap gap-2 mt-1">
-                  {Object.entries(TEMPLATES).map(([key, t]) => (
-                    <button
-                      key={key}
-                      onClick={() => setMessageTemplate(t.template)}
-                      className="border rounded-lg px-2 py-1 text-xs hover:bg-slate-50"
-                      title={t.description}
-                    >
-                      {t.name}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Message editor */}
-              <div className="mb-3">
-                <label className="text-xs text-slate-500 font-medium">
-                  Plantilla de mensaje <span className="text-slate-400">({`{name}`} = nombre, {`{Hola|Hey}`} = variación aleatoria)</span>
-                </label>
-                <textarea
-                  value={messageTemplate}
-                  onChange={e => setMessageTemplate(e.target.value)}
-                  rows={5}
-                  className="w-full border rounded-lg px-3 py-2 mt-1 text-sm font-mono"
-                  placeholder="¡{Hola|Hey} {name}! {Espero|Esperamos} que..."
-                  disabled={sendingOutreach}
-                />
-              </div>
-
-              {/* Preview */}
-              {messageTemplate.trim() && (
-                <div className="mb-4">
-                  <label className="text-xs text-slate-500 font-medium">Vista previa (primer huésped seleccionado):</label>
-                  <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 mt-1 text-sm">
-                    <div className="text-xs text-slate-400 mb-1">
-                      Para: {selectedWithPhone[0]?.name ?? '—'} ({selectedWithPhone[0]?.phone ?? 'sin teléfono'})
+              {/* === STEP 1: COMPOSE === */}
+              {outreachStep === 'compose' && (
+                <>
+                  {/* Quick templates */}
+                  <div className="mb-3">
+                    <label className="text-xs text-slate-500 font-medium">Plantillas:</label>
+                    <div className="flex flex-wrap gap-2 mt-1">
+                      {Object.entries(TEMPLATES).map(([key, t]) => (
+                        <button
+                          key={key}
+                          onClick={() => setMessageTemplate(t.template)}
+                          className="border rounded-lg px-2 py-1 text-xs hover:bg-emerald-50 hover:border-emerald-300"
+                          title={t.description}
+                        >
+                          {t.name}
+                        </button>
+                      ))}
                     </div>
-                    <div className="whitespace-pre-wrap">{previewFirstMessage()}</div>
                   </div>
-                </div>
+
+                  {/* Message editor */}
+                  <div className="mb-2">
+                    <label className="text-xs text-slate-500 font-medium">Mensaje:</label>
+                    <textarea
+                      ref={textareaRef}
+                      value={messageTemplate}
+                      onChange={e => setMessageTemplate(e.target.value)}
+                      rows={5}
+                      className="w-full border rounded-lg px-3 py-2 mt-1 text-sm"
+                      placeholder="Escribí el mensaje o usá una plantilla..."
+                    />
+                  </div>
+
+                  {/* Placeholder chips */}
+                  <div className="mb-3">
+                    <label className="text-xs text-slate-500 font-medium">Insertar dato del huésped:</label>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {PLACEHOLDERS.map(p => (
+                        <button
+                          key={p.key}
+                          onClick={() => insertPlaceholder(p.key)}
+                          className="bg-slate-100 hover:bg-indigo-100 text-slate-600 hover:text-indigo-700 rounded px-2 py-0.5 text-xs font-mono"
+                          title={p.description}
+                        >
+                          {p.label}
+                        </button>
+                      ))}
+                    </div>
+                    <p className="text-xs text-slate-400 mt-1">
+                      {`{Hola|Hey}`} = variación aleatoria al enviar · tocá un chip para insertarlo donde está el cursor
+                    </p>
+                  </div>
+
+                  {/* Random variation checkbox */}
+                  <div className="mb-3">
+                    <label className="flex items-center gap-2 text-sm">
+                      <input
+                        type="checkbox"
+                        checked={useSpintax}
+                        onChange={e => setUseSpintax(e.target.checked)}
+                        className="w-4 h-4"
+                      />
+                      <span>🎲 Variación aleatoria ({`{Hola|Hey}`} → elige uno al azar por huésped)</span>
+                    </label>
+                  </div>
+
+                  {/* Inline preview */}
+                  {messageTemplate.trim() && selectedWithPhone.length > 0 && (
+                    <div className="mb-3">
+                      <label className="text-xs text-slate-500 font-medium">Vista previa rápida:</label>
+                      <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 mt-1 text-sm">
+                        <div className="text-xs text-slate-400 mb-1">
+                          Para: {selectedWithPhone[0]?.name} ({selectedWithPhone[0]?.phone ?? 'sin teléfono'})
+                        </div>
+                        <div className="whitespace-pre-wrap">{quickPreview()}</div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Recipients summary */}
+                  <div className="mb-4 text-sm bg-slate-50 rounded-lg p-3">
+                    <div className="flex justify-between">
+                      <span className="text-slate-600">Destinatarios con teléfono:</span>
+                      <span className="font-medium">{selectedWithPhone.length}</span>
+                    </div>
+                    {selectedWithPhone.length > 8 && (
+                      <div className="text-xs text-amber-600 mt-1">
+                        ⚠️ Máximo 8 por envío. Seleccioná menos o enviá en lotes.
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex gap-2 justify-end">
+                    <button
+                      onClick={() => { setShowOutreach(false); setOutreachStep('compose'); }}
+                      className="border rounded-lg px-4 py-2 text-sm font-medium"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      onClick={fetchPreview}
+                      disabled={!messageTemplate.trim() || selectedWithPhone.length === 0 || selectedWithPhone.length > 8}
+                      className="bg-emerald-600 text-white rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-40"
+                    >
+                      Ver vista previa →
+                    </button>
+                  </div>
+                </>
               )}
 
-              {/* Recipients summary */}
-              <div className="mb-4 text-sm bg-slate-50 rounded-lg p-3">
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Destinatarios con teléfono:</span>
-                  <span className="font-medium">{selectedWithPhone.length}</span>
-                </div>
-                <div className="flex justify-between text-xs text-slate-400">
-                  <span>Máx por lote: 8 (anti-ban)</span>
-                  <span>~{selectedWithPhone.length > 8 ? '⚠️ seleccioná ≤8' : `${selectedWithPhone.length * 30}s aprox.`}</span>
-                </div>
-                {selectedWithPhone.length > 8 && (
-                  <div className="text-xs text-amber-600 mt-1">
-                    ⚠️ Demasiados seleccionados. La API rechaza más de 8 por vez.
-                    Seleccioná menos o enviá en lotes.
+              {/* === STEP 2: PREVIEW === */}
+              {outreachStep === 'preview' && (
+                <>
+                  <p className="text-sm text-slate-500 mb-3">
+                    Revisá cómo queda cada mensaje antes de enviar. Si usaste variación aleatoria,
+                    cada huésped verá una versión distinta.
+                  </p>
+
+                  <div className="space-y-2 mb-4 max-h-96 overflow-y-auto">
+                    {previewData.map((p, i) => (
+                      <div key={i} className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-sm">
+                        <div className="text-xs text-slate-400 mb-1 flex justify-between">
+                          <span><b>{p.name}</b> · {p.phone ?? 'sin teléfono'}</span>
+                        </div>
+                        <div className="whitespace-pre-wrap text-slate-700">{p.rendered}</div>
+                      </div>
+                    ))}
                   </div>
-                )}
-              </div>
 
-              {/* Safety notice */}
-              <div className="mb-4 text-xs text-slate-400 bg-amber-50 border border-amber-100 rounded-lg p-3">
-                <b>Seguridad:</b> Los mensajes se envían desde el número de WhatsApp de Il Buco
-                con delays aleatorios de 15-45s. Se respeta horario de descanso (22:00-08:00 Argentina).
-                Solo enviar a huéspedes que te conocen — el outreach en frío puede bloquear el número.
-              </div>
+                  {/* Safety notice */}
+                  <div className="mb-4 text-xs text-slate-400 bg-amber-50 border border-amber-100 rounded-lg p-3">
+                    <b>⚠️ Antes de enviar:</b> Cada mensaje sale con 15-45s de delay.
+                    Se respeta horario de descanso (22:00-08:00).
+                    Solo enviar a huéspedes que te conocen.
+                  </div>
 
-              {/* Send progress */}
-              {sendProgress && (
-                <div className="mb-4 text-sm bg-blue-50 rounded-lg p-3">
-                  Enviando... {sendProgress.done}/{sendProgress.total}
-                </div>
+                  {/* Actions */}
+                  <div className="flex gap-2 justify-between">
+                    <button
+                      onClick={() => setOutreachStep('compose')}
+                      disabled={sendingOutreach}
+                      className="border rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-40"
+                    >
+                      ← Editar
+                    </button>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => { setShowOutreach(false); setOutreachStep('compose'); }}
+                        disabled={sendingOutreach}
+                        className="border rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-40"
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        onClick={sendOutreach}
+                        disabled={sendingOutreach}
+                        className="bg-emerald-600 text-white rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-40"
+                      >
+                        ✓ Confirmar y enviar a {selectedWithPhone.length}
+                      </button>
+                    </div>
+                  </div>
+                </>
               )}
 
-              {/* Actions */}
-              <div className="flex gap-2 justify-end">
-                <button
-                  onClick={() => setShowOutreach(false)}
-                  disabled={sendingOutreach}
-                  className="border rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-40"
-                >
-                  Cancelar
-                </button>
-                <button
-                  onClick={sendOutreach}
-                  disabled={sendingOutreach || !messageTemplate.trim() || selectedWithPhone.length === 0 || selectedWithPhone.length > 8}
-                  className="bg-emerald-600 text-white rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-40"
-                >
-                  {sendingOutreach ? 'Enviando...' : `Enviar a ${selectedWithPhone.length} huésped(es)`}
-                </button>
-              </div>
+              {/* === STEP 3: SENDING === */}
+              {outreachStep === 'sending' && (
+                <div className="py-8 text-center">
+                  <div className="text-4xl mb-4">📤</div>
+                  <h3 className="text-lg font-semibold mb-2">
+                    {sendingOutreach ? 'Enviando...' : '¡Listo!'}
+                  </h3>
+                  {sendProgress && (
+                    <div className="text-sm text-slate-500 mb-4">
+                      {sendProgress.done} / {sendProgress.total} enviados
+                    </div>
+                  )}
+                  {sendingOutreach && (
+                    <p className="text-xs text-slate-400">
+                      Cada mensaje tiene 15-45s de delay. No cierres esta ventana.
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

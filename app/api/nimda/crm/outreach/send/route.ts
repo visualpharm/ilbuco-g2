@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { guestIds, template } = body as { guestIds: string[]; template: string };
+    const { guestIds, template, useSpintax = true } = body as { guestIds: string[]; template: string; useSpintax?: boolean };
 
     if (!Array.isArray(guestIds) || guestIds.length === 0 || !template) {
       return NextResponse.json({ error: 'guestIds (non-empty) and template required' }, { status: 400 });
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Send the campaign
-    const report = await sendCampaign(targets, template);
+    const report = await sendCampaign(targets, template, undefined, useSpintax);
 
     return NextResponse.json({
       success: true,

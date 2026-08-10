@@ -10,7 +10,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCaller } from '@/lib/pricing-auth';
 import { loadCrmState, listGuests } from '@/lib/crm-store';
-import { renderMessage, buildTargets } from '@/lib/outreach-engine';
+import { renderMessage, buildPlaceholders, replacePlaceholders, expandSpintax } from '@/lib/outreach-engine';
 
 export async function POST(req: NextRequest) {
   const caller = getCaller(req);
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const { guestIds, template } = body as { guestIds: string[]; template: string };
+    const { guestIds, template, useSpintax = true } = body as { guestIds: string[]; template: string; useSpintax?: boolean };
 
     if (!Array.isArray(guestIds) || !template) {
       return NextResponse.json({ error: 'guestIds and template required' }, { status: 400 });
@@ -27,14 +27,15 @@ export async function POST(req: NextRequest) {
     const state = await loadCrmState();
     const allGuests = listGuests(state);
 
-    // Preview for the selected guests
-    const selectedGuests = allGuests.filter(g => guestIds.includes(g.id));
+    // Preview for the selected guests (up to 5)
+    const selectedGuests = allGuests.filter(g => guestIds.includes(g.id)).slice(0, 5);
     const previews = selectedGuests.map(g => ({
       guestId: g.id,
       name: g.name,
       phone: g.phone ?? null,
       language: g.language,
-      renderedMessage: g.phone ? renderMessage(template, g.name) : null,
+      placeholders: buildPlaceholders(g),
+      renderedMessage: g.phone ? renderMessage(template, g, useSpintax) : null,
       canSend: !!g.phone,
     }));
 
