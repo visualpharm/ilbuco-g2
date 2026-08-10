@@ -81,6 +81,52 @@ function happinessColor(score?: number): string {
   return 'text-red-600 font-bold';
 }
 
+// Country flag from phone country code
+const CC_TO_FLAG: Record<string, string> = {
+  '54': '🇦🇷', '598': '🇺🇾', '55': '🇧🇷', '56': '🇨🇱', '52': '🇲🇽', '57': '🇨🇴', '51': '🇵🇪',
+  '58': '🇻🇪', '591': '🇧🇴', '593': '🇪🇨', '595': '🇵🇾', '592': '🇬🇾', '507': '🇵🇦', '506': '🇨🇷',
+  '1': '🇺🇸', '44': '🇬🇧', '33': '🇫🇷', '49': '🇩🇪', '34': '🇪🇸', '39': '🇮🇹', '31': '🇳🇱',
+  '7': '🇷🇺', '375': '🇧🇾', '380': '🇺🇦', '48': '🇵🇱', '420': '🇨🇿', '36': '🇭🇺', '40': '🇷🇴',
+  '351': '🇵🇹', '30': '🇬🇷', '90': '🇹🇷', '972': '🇮🇱', '971': '🇦🇪', '966': '🇸🇦', '20': '🇪🇬',
+  '27': '🇿🇦', '61': '🇦🇺', '64': '🇳🇿', '81': '🇯🇵', '82': '🇰🇷', '86': '🇨🇳', '91': '🇮🇳',
+  '62': '🇮🇩', '60': '🇲🇾', '65': '🇸🇬', '66': '🇹🇭', '63': '🇵🇭', '84': '🇻🇳', '234': '🇳🇬',
+};
+
+/** Get flag emoji from a phone number */
+function phoneFlag(phone?: string): string {
+  if (!phone) return '';
+  const digits = phone.replace(/[^\d]/g, '');
+  // Try 3-digit, 2-digit, 1-digit prefixes
+  for (const len of [3, 2, 1]) {
+    if (digits.length > len) {
+      const cc = digits.slice(0, len);
+      if (CC_TO_FLAG[cc]) return CC_TO_FLAG[cc];
+    }
+  }
+  return '🌐';
+}
+
+/** Convert phone to wa.me link format */
+function phoneToWaLink(phone?: string): string {
+  if (!phone) return '#';
+  const digits = phone.replace(/[^\d]/g, '');
+  return `https://wa.me/${digits}`;
+}
+
+/** Format phone for display: +54 9 11 2127-5492 */
+function formatPhone(phone?: string): string {
+  if (!phone) return '—';
+  const digits = phone.replace(/[^\d]/g, '');
+  // Argentina: 54 9 11 XXXX-XXXX
+  if (digits.startsWith('549') && digits.length >= 13) {
+    return `+54 9 ${digits.slice(3, 5)} ${digits.slice(5, 9)}-${digits.slice(9)}`;
+  }
+  if (digits.startsWith('54') && digits.length >= 12) {
+    return `+54 ${digits.slice(2, 4)} ${digits.slice(4, 8)}-${digits.slice(8)}`;
+  }
+  return phone;
+}
+
 // Determine which property group a guest belongs to (for filtering)
 function guestPropertyGroup(g: CrmGuest): 'ilbuco' | 'recharge' | 'mixed' | 'other' {
   const groups = new Set(g.reservations.map(r => getPropertyGroup(r.property)));
@@ -90,10 +136,11 @@ function guestPropertyGroup(g: CrmGuest): 'ilbuco' | 'recharge' | 'mixed' | 'oth
 }
 
 // Quick message templates for the outreach composer
-const TEMPLATES: Record<string, { name: string; template: string; description: string }> = {
+const TEMPLATES: Record<string, { name: string; template: string; description: string; ota?: boolean }> = {
   post_stay_review: {
     name: '📋 Pedir reseña',
     description: 'Después del checkout',
+    ota: true,
     template: `¡{Hola|Hey|Buenas} {name}! {Espero|Esperamos} que hayas llegado bien a casa 🌲 ¿Nos {dejarías|dejan} una reseña? {Ayuda mucho|Significa mucho} 🙏`,
   },
   return_repeat: {
@@ -125,6 +172,12 @@ const TEMPLATES: Record<string, { name: string; template: string; description: s
     name: '💭 Te extrañamos',
     description: 'Hace mucho que no vuelve',
     template: `{Hola|Hey} {name}! {Hace|Ya pasaron} {monthsAgo} {meses|mes} desde tu estadía en {property} 🌲 {¿Cómo estás?|¿Todo bien?} Si {extrañás|extrañan} el bosque, {tenemos|hay} disponibilidad este {year}.`,
+  },
+  ota_thank_you: {
+    name: '🙏 Gracias (OTA)',
+    description: 'Mensaje post-estadía por Airbnb/Booking — solo agradecimiento',
+    ota: true,
+    template: `¡Gracias {name} por elegir {property}! {Espero|Esperamos} que hayan disfrutado su estadía en Cariló 🌲 Quedamos a disposición para lo que necesiten. ¡Hasta pronto!`,
   },
 };
 
@@ -166,6 +219,7 @@ export default function CrmPanel() {
 
   // Outreach state
   const [showOutreach, setShowOutreach] = useState(false);
+  const [outreachChannel, setOutreachChannel] = useState<'whatsapp' | 'ota'>('whatsapp');
   const [outreachStep, setOutreachStep] = useState<'compose' | 'preview' | 'sending'>('compose');
   const [messageTemplate, setMessageTemplate] = useState('');
   const [useSpintax, setUseSpintax] = useState(true);
@@ -288,21 +342,28 @@ export default function CrmPanel() {
   async function sendOutreach() {
     setOutreachStep('sending');
     setSendingOutreach(true);
-    setSendProgress({ done: 0, total: selectedWithPhone.length });
+    const targets = outreachChannel === 'whatsapp' ? selectedWithPhone : selectedGuests;
+    setSendProgress({ done: 0, total: targets.length });
     try {
-      const res = await fetch('/api/nimda/crm/outreach/send', {
+      const endpoint = outreachChannel === 'whatsapp'
+        ? '/api/nimda/crm/outreach/send'
+        : '/api/nimda/crm/outreach/ota';
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          guestIds: selectedWithPhone.map(g => g.id),
+          guestIds: targets.map(g => g.id),
           template: messageTemplate,
           useSpintax,
         }),
       });
       const data = await res.json();
       if (data.success) {
-        const r = data.report;
-        flash(`✓ Enviados ${r.sent}/${r.total} (${r.skipped} salteados, ${r.failed} fallidos)`);
+        const sent = data.report?.sent ?? data.sent ?? 0;
+        const total = data.report?.total ?? data.total ?? targets.length;
+        const skipped = data.report?.skipped ?? data.skipped ?? 0;
+        const failed = data.report?.failed ?? data.failed ?? 0;
+        flash(`✓ Enviados ${sent}/${total} (${skipped} salteados, ${failed} fallidos)`);
         setShowOutreach(false);
         setOutreachStep('compose');
       } else {
@@ -590,12 +651,19 @@ export default function CrmPanel() {
                       <td className="px-3 py-2.5 text-center" onClick={() => setExpanded(isExpanded ? null : g.id)}>
                         {LANGUAGE_FLAGS[g.language as keyof typeof LANGUAGE_FLAGS] || '🌐'}
                       </td>
-                      <td className="px-3 py-2.5 text-slate-500 text-xs font-mono" onClick={() => setExpanded(isExpanded ? null : g.id)}>
+                      <td className="px-3 py-2.5 text-slate-500 text-xs font-mono">
                         {g.phone ? (
-                          <span className="inline-flex items-center gap-1">
+                          <a
+                            href={phoneToWaLink(g.phone)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 hover:text-emerald-600 hover:underline"
+                            title="Abrir en WhatsApp Web"
+                          >
+                            {phoneFlag(g.phone)}
                             {g.channels.includes('whatsapp') && <span title="Verificado en WhatsApp">✅</span>}
-                            {g.phone}
-                          </span>
+                            {formatPhone(g.phone)}
+                          </a>
                         ) : '—'}
                       </td>
                       <td className="px-3 py-2.5 text-slate-500 text-xs" onClick={() => setExpanded(isExpanded ? null : g.id)}>
@@ -618,26 +686,34 @@ export default function CrmPanel() {
                       <tr key={g.id + '-detail'} className="bg-slate-50">
                         <td colSpan={9} className="px-6 py-4">
                           {/* === ALL guest info === */}
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs mb-4">
-                            {g.email && (
-                              <div><b className="text-slate-500">Email:</b><br />{g.email}</div>
-                            )}
-                            {g.phone && (
-                              <div><b className="text-slate-500">Teléfono:</b><br />{g.phone}</div>
-                            )}
-                            {g.country && (
-                              <div><b className="text-slate-500">País:</b><br />{g.country}</div>
-                            )}
-                            <div>
-                              <b className="text-slate-500">Idioma:</b><br />
-                              {LANGUAGE_FLAGS[g.language as keyof typeof LANGUAGE_FLAGS]} {g.language}
-                            </div>
-                            {g.firstBookedAt && (
-                              <div><b className="text-slate-500">Primera reserva:</b><br />{fmtDate(g.firstBookedAt)}</div>
-                            )}
-                            <div>
-                              <b className="text-slate-500">Canales:</b><br />
-                              <span className="capitalize">{g.channels.join(', ')}</span>
+                          {/* === ALL guest info === */}
+                          <div className="bg-white rounded-lg p-3 mb-3 border border-slate-200">
+                            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs">
+                              {g.email && (
+                                <div><b className="text-slate-400">Email:</b> <a href={`mailto:${g.email}`} className="text-slate-700 hover:underline">{g.email}</a></div>
+                              )}
+                              {g.phone && (
+                                <div>
+                                  <b className="text-slate-400">WhatsApp:</b>{' '}
+                                  <a href={phoneToWaLink(g.phone)} target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:underline">
+                                    {phoneFlag(g.phone)} {formatPhone(g.phone)} ↗
+                                  </a>
+                                </div>
+                              )}
+                              {g.country && (
+                                <div><b className="text-slate-400">País:</b> {g.country}</div>
+                              )}
+                              <div>
+                                <b className="text-slate-400">Idioma:</b>{' '}
+                                {LANGUAGE_FLAGS[g.language as keyof typeof LANGUAGE_FLAGS]} {g.language}
+                              </div>
+                              {g.firstBookedAt && (
+                                <div><b className="text-slate-400">Primera reserva:</b> {fmtDate(g.firstBookedAt)}</div>
+                              )}
+                              <div>
+                                <b className="text-slate-400">Canales:</b>{' '}
+                                <span className="capitalize">{g.channels.join(', ')}</span>
+                              </div>
                             </div>
                           </div>
 
@@ -773,7 +849,9 @@ export default function CrmPanel() {
               {/* Header with step indicator */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <h2 className="text-lg font-semibold">📱 Outreach WhatsApp</h2>
+                  <h2 className="text-lg font-semibold">
+                    {outreachChannel === 'whatsapp' ? '📱 Outreach' : '📨 Outreach OTA'}
+                  </h2>
                   <div className="flex items-center gap-1 text-xs">
                     <span className={outreachStep === 'compose' ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-500'} style={{ borderRadius: '50%', width: 24, height: 24, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>1</span>
                     <span className="text-slate-300">—</span>
@@ -797,11 +875,40 @@ export default function CrmPanel() {
               {/* === STEP 1: COMPOSE === */}
               {outreachStep === 'compose' && (
                 <>
-                  {/* Quick templates */}
+                  {/* Channel selector */}
+                  <div className="mb-4">
+                    <label className="text-xs text-slate-500 font-medium">Canal:</label>
+                    <div className="flex gap-2 mt-1">
+                      <button
+                        onClick={() => setOutreachChannel('whatsapp')}
+                        className={`px-3 py-1.5 rounded-lg text-sm font-medium ${outreachChannel === 'whatsapp' ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600'}`}
+                      >
+                        📱 WhatsApp
+                      </button>
+                      <button
+                        onClick={() => setOutreachChannel('ota')}
+                        className={`px-3 py-1.5 rounded-lg text-sm font-medium ${outreachChannel === 'ota' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}
+                      >
+                        📨 Airbnb / Booking
+                      </button>
+                    </div>
+                    {outreachChannel === 'ota' && (
+                      <p className="text-xs text-amber-600 mt-2 bg-amber-50 border border-amber-200 rounded p-2">
+                        ⚠️ <b>Política OTA:</b> Solo mensajes de cortesía (gracias, reseña).
+                        <b> NO</b> ofrecer descuentos ni reservas directas — Airbnb prohíbe
+                        usar su mensajería para derivar a booking directo (Art. 2799).
+                        Booking cierra el thread 7 días post-checkout.
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Quick templates — filtered by channel */}
                   <div className="mb-3">
                     <label className="text-xs text-slate-500 font-medium">Plantillas:</label>
                     <div className="flex flex-wrap gap-2 mt-1">
-                      {Object.entries(TEMPLATES).map(([key, t]) => (
+                      {Object.entries(TEMPLATES)
+                        .filter(([_, t]) => outreachChannel === 'whatsapp' ? !t.ota : t.ota || true)
+                        .map(([key, t]) => (
                         <button
                           key={key}
                           onClick={() => setMessageTemplate(t.template)}
@@ -876,12 +983,16 @@ export default function CrmPanel() {
                   {/* Recipients summary */}
                   <div className="mb-4 text-sm bg-slate-50 rounded-lg p-3">
                     <div className="flex justify-between">
-                      <span className="text-slate-600">Destinatarios con teléfono:</span>
-                      <span className="font-medium">{selectedWithPhone.length}</span>
+                      <span className="text-slate-600">
+                        {outreachChannel === 'whatsapp' ? 'Destinatarios con teléfono:' : 'Destinatarios con conversación:'}
+                      </span>
+                      <span className="font-medium">
+                        {outreachChannel === 'whatsapp' ? selectedWithPhone.length : selectedGuests.length}
+                      </span>
                     </div>
-                    {selectedWithPhone.length > 8 && (
+                    {outreachChannel === 'whatsapp' && selectedWithPhone.length > 8 && (
                       <div className="text-xs text-amber-600 mt-1">
-                        ⚠️ Máximo 8 por envío. Seleccioná menos o enviá en lotes.
+                        ⚠️ Máximo 8 por envío (anti-ban). Seleccioná menos o enviá en lotes.
                       </div>
                     )}
                   </div>
@@ -896,7 +1007,7 @@ export default function CrmPanel() {
                     </button>
                     <button
                       onClick={fetchPreview}
-                      disabled={!messageTemplate.trim() || selectedWithPhone.length === 0 || selectedWithPhone.length > 8}
+                      disabled={!messageTemplate.trim() || (outreachChannel === 'whatsapp' && (selectedWithPhone.length === 0 || selectedWithPhone.length > 8))}
                       className="bg-emerald-600 text-white rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-40"
                     >
                       Ver vista previa →
