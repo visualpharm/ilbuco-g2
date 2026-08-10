@@ -25,6 +25,7 @@ import {
   applyOverride,
   buildPriceSchedule,
   computeLearning,
+  wholeHousePrice,
   IL_BUCO_ROOMS,
   WHOLE_HOUSE_FACTOR,
   type PriceOverride,
@@ -273,4 +274,35 @@ test('buildPriceSchedule yields one dated, floored entry per night in range', ()
 test('whole-house bundle factor is a sane <1 discount', () => {
   assert.ok(WHOLE_HOUSE_FACTOR >= 0.8 && WHOLE_HOUSE_FACTOR <= 1.05, 'factor band');
   assert.equal(WHOLE_HOUSE_FACTOR, 0.92, 'documented default bundle discount');
+});
+
+// ─── Whole-house (Casa) bundle floor ───────────────────────────────────────
+// Regression for the daily "push ABORTED by sanity gates — Casa outside
+// $250–$1300" alert (2026-08-10). On close-in off-season nights the last-minute
+// ladder discounts each suite hard; the bundle then landed a few dollars under
+// the Casa floor and tripped the bounds gate, aborting every push. wholeHousePrice
+// clamps the bundle so the engine can never produce a price the gate rejects.
+
+test('wholeHousePrice never returns a value below the Casa floor, even when suites discount hard', () => {
+  // Close-in off-season with the last-minute ladder at ×0.70: every suite near
+  // its $65 floor. Raw bundle = (65+69+65+74) × 0.92 ≈ $251 — but a slightly
+  // weaker house-demand picture in the real run pushed it to $241 (the alert).
+  // Simulate that directly:
+  const discountedSuites = [63, 67, 63, 71]; // sum 264 × 0.92 = 242.88 → 243
+  const p = wholeHousePrice(discountedSuites, WHOLE_HOUSE_FACTOR);
+  assert.ok(p >= 250, `Casa bundle $${p} dipped under the $250 floor`);
+  assert.equal(p, 250, 'a sub-floor bundle clamps up to exactly the floor');
+});
+
+test('wholeHousePrice never returns a value above the Casa ceiling', () => {
+  // Peak + fiestas × max demand across all 4 suites could in theory overshoot;
+  // the bundle must respect the ceiling just like the suites respect theirs.
+  const hot = [464, 464, 384, 464]; // well above any realistic sum
+  assert.equal(wholeHousePrice(hot, WHOLE_HOUSE_FACTOR), 1300);
+});
+
+test('wholeHousePrice passes through in-band bundles unchanged', () => {
+  // A normal shoulder-season bundle (sum × 0.92 lands comfortably in band).
+  const shoulder = [105, 112, 100, 120]; // sum 437 × 0.92 = 402.04
+  assert.equal(wholeHousePrice(shoulder, WHOLE_HOUSE_FACTOR), 402);
 });

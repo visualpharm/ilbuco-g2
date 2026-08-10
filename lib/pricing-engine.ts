@@ -347,3 +347,22 @@ export const WHOLE_HOUSE = { name: 'Whole House', listingId: '113182-13274' };
 
 /** Whole house = sum of suites × bundle factor (books all 4 at once → small discount). */
 export const WHOLE_HOUSE_FACTOR = Number(process.env.PRICING_WHOLE_HOUSE_FACTOR ?? '0.92');
+
+/**
+ * Whole-house (Casa) nightly price: the 4-suite bundle × the bundle factor,
+ * clamped to [casaMin, casaMax]. The clamp matters because the per-suite
+ * last-minute ladder can drag individual suites toward the suite floor; without
+ * it the bundle lands a few dollars under the Casa floor and trips the bounds
+ * sanity gate (which would abort the entire live push). Defaults mirror the
+ * gate's constants in sanity-checks.ts — pass them through so both sides agree
+ * by construction.
+ */
+export function wholeHousePrice(
+  suitePrices: number[],
+  factor: number = WHOLE_HOUSE_FACTOR,
+  casaMin = 250,
+  casaMax = 1300,
+): number {
+  const raw = Math.round(suitePrices.reduce((acc, p) => acc + p, 0) * factor);
+  return Math.min(casaMax, Math.max(casaMin, raw));
+}

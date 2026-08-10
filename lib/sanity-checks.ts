@@ -17,10 +17,13 @@ export interface GateViolation {
   detail: string;
 }
 
-const SUITE_MIN = 65;
-const SUITE_MAX = 400;
-const CASA_MIN = 250;
-const CASA_MAX = 1300;
+export const SUITE_MIN = 65;
+export const SUITE_MAX = 400;
+/** Whole-house (Casa) bundle floor/ceiling — also used to clamp the bundle in
+ *  run-pricing.ts so the engine can never produce a Casa price the bounds gate
+ *  would then abort the push for. Single source of truth for both sides. */
+export const CASA_MIN = 250;
+export const CASA_MAX = 1300;
 /** Churn gate: abort if more than this fraction of comparable dates move >40%. */
 const CHURN_FRACTION = 0.4;
 const CHURN_DELTA = 0.4;

@@ -12,6 +12,7 @@
 import {
   buildPriceSchedule,
   computeLearning,
+  wholeHousePrice,
   IL_BUCO_ROOMS,
   WHOLE_HOUSE,
   type DayPriceEntry,
@@ -27,7 +28,7 @@ import {
   type RestrictionEntry,
 } from './hostex-api';
 import { syncInventories, type SyncResult } from './inventory-sync';
-import { prePushGates, postPushVerify, type GateViolation, type VerifyResult } from './sanity-checks';
+import { prePushGates, postPushVerify, CASA_MIN, CASA_MAX, type GateViolation, type VerifyResult } from './sanity-checks';
 import { sendPricingAlert } from './pricing-alerts';
 import { addDays } from './season-calendar';
 
@@ -127,7 +128,15 @@ export async function runPricingUpdate(dryRun: boolean, daysAhead: number, by: s
   const suiteNames = IL_BUCO_ROOMS.map(r => r.name);
   const wholeHouseDays = schedules[suiteNames[0]].map((entry, i) => ({
     date: entry.date,
-    value: Math.round(suiteNames.reduce((acc, n) => acc + schedules[n][i].price, 0) * config.wholeHouseFactor),
+    // wholeHousePrice clamps the bundle to [CASA_MIN, CASA_MAX] so a suite-level
+    // discount (e.g. the last-minute ladder) can't drag the Casa under the floor
+    // the bounds gate enforces — the two can never disagree.
+    value: wholeHousePrice(
+      suiteNames.map(n => schedules[n][i].price),
+      config.wholeHouseFactor,
+      CASA_MIN,
+      CASA_MAX,
+    ),
   }));
 
   // ── 1b. Sanity gates — a violation aborts the live push ─────────────────────
