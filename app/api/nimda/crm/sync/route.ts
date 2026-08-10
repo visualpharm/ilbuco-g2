@@ -9,6 +9,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getCaller } from '@/lib/pricing-auth';
 import { syncAllGuests } from '@/lib/crm-sync';
 
+export const maxDuration = 300; // 5 minutes — enough for ~150 conversations
+
 export async function POST(req: NextRequest) {
   const caller = getCaller(req);
   if (!caller) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

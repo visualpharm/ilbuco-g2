@@ -52,17 +52,17 @@ interface PoolStats {
 }
 
 const STATUS_META: Record<string, { label: string; color: string }> = {
-  synced: { label: '🟢 Synced', color: 'text-emerald-600 bg-emerald-50' },
-  retrying: { label: '🟡 Retrying', color: 'text-amber-600 bg-amber-50' },
-  failed: { label: '🔴 Failed', color: 'text-red-600 bg-red-50' },
-  backup: { label: '🟠 Backup PIN', color: 'text-orange-600 bg-orange-50' },
-  revoked: { label: '⚫ Revoked', color: 'text-slate-500 bg-slate-100' },
+  synced: { label: '🟢 Sincronizado', color: 'text-emerald-600 bg-emerald-50' },
+  retrying: { label: '🟡 Reintentando', color: 'text-amber-600 bg-amber-50' },
+  failed: { label: '🔴 Falló', color: 'text-red-600 bg-red-50' },
+  backup: { label: '🟠 PIN backup', color: 'text-orange-600 bg-orange-50' },
+  revoked: { label: '⚫ Revocado', color: 'text-slate-500 bg-slate-100' },
 };
 
 function fmtDate(iso: string): string {
   if (!iso) return '—';
   const d = new Date(iso);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' });
+  return d.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: '2-digit' });
 }
 
 function fmtChannel(ch: ChannelStatus): string {
@@ -260,26 +260,26 @@ function NimdaPanel() {
         {activeTab === 'pins' && (
           <div className="ml-auto flex gap-3 items-center">
             <div className="flex gap-4 text-sm">
-              <span className="text-emerald-600">{syncedCount} synced</span>
-              <span className="text-amber-600">{retryingCount} retrying</span>
-              <span className="text-red-600">{failedCount} failed</span>
+              <span className="text-emerald-600">{syncedCount} sync</span>
+              <span className="text-amber-600">{retryingCount} reint.</span>
+              <span className="text-red-600">{failedCount} falló</span>
               {poolStats && (
                 <span className="text-slate-500">Pool: {poolStats.available}/{poolStats.total}</span>
               )}
-              <span className="text-slate-400">{contactCount} contacts</span>
+              <span className="text-slate-400">{contactCount} contactos</span>
             </div>
             <button
               onClick={() => setShowCreate(!showCreate)}
               className="bg-slate-900 text-white px-3 py-1.5 rounded-lg text-sm font-medium"
             >
-              + New PIN
+              + Nuevo PIN
             </button>
             <button
               onClick={rollPins}
               disabled={busy === 'roll'}
               className="border border-red-300 text-red-600 px-3 py-1.5 rounded-lg text-sm font-medium disabled:opacity-40"
             >
-              🔄 Roll All
+              🔄 Rotar todos
             </button>
           </div>
         )}
@@ -304,11 +304,11 @@ function NimdaPanel() {
             className="border rounded-lg px-2 py-1.5"
           >
             <option value="all">Todos los estados</option>
-            <option value="synced">🟢 Synced</option>
-            <option value="retrying">🟡 Retrying</option>
-            <option value="failed">🔴 Failed</option>
+            <option value="synced">🟢 Sincronizado</option>
+            <option value="retrying">🟡 Reintentando</option>
+            <option value="failed">🔴 Falló</option>
             <option value="backup">🟠 Backup</option>
-            <option value="revoked">⚫ Revoked</option>
+            <option value="revoked">⚫ Revocado</option>
           </select>
           <select
             value={filterProperty}
@@ -335,14 +335,14 @@ function NimdaPanel() {
             <table className="w-full text-sm">
               <thead className="bg-slate-50 text-slate-500">
                 <tr>
-                  <th className="text-left px-3 py-2 font-medium">Guest</th>
+                  <th className="text-left px-3 py-2 font-medium">Huésped</th>
                   <th className="text-left px-3 py-2 font-medium">Suite</th>
                   <th className="text-left px-3 py-2 font-medium">Check-in</th>
                   <th className="text-left px-3 py-2 font-medium">Check-out</th>
                   <th className="text-left px-3 py-2 font-medium">PIN</th>
-                  <th className="text-left px-3 py-2 font-medium">Status</th>
-                  <th className="text-left px-3 py-2 font-medium">Delivered</th>
-                  <th className="text-left px-3 py-2 font-medium">Source</th>
+                  <th className="text-left px-3 py-2 font-medium">Estado</th>
+                  <th className="text-left px-3 py-2 font-medium">Enviado</th>
+                  <th className="text-left px-3 py-2 font-medium">Origen</th>
                 </tr>
               </thead>
               <tbody>
@@ -381,12 +381,12 @@ function NimdaPanel() {
                           <td colSpan={8} className="px-6 py-4">
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-xs">
                               <div>
-                                <b className="text-slate-500">Reservation:</b>{' '}
+                                <b className="text-slate-500">Reserva:</b>{' '}
                                 <code className="bg-white px-1 rounded">{g.reservationCode}</code>
                               </div>
                               {g.lockUserId && (
                                 <div>
-                                  <b className="text-slate-500">Lock User ID:</b>{' '}
+                                  <b className="text-slate-500">ID cerradura:</b>{' '}
                                   <code className="bg-white px-1 rounded">{g.lockUserId}</code>
                                 </div>
                               )}
@@ -397,29 +397,29 @@ function NimdaPanel() {
                               )}
                               {g.guestPhone && (
                                 <div>
-                                  <b className="text-slate-500">Phone:</b> {g.guestPhone}
+                                  <b className="text-slate-500">Teléfono:</b> {g.guestPhone}
                                 </div>
                               )}
                               {g.backupPinIndex !== undefined && (
                                 <div>
-                                  <b className="text-slate-500">Backup PIN index:</b> {g.backupPinIndex}
+                                  <b className="text-slate-500">Índice backup:</b> {g.backupPinIndex}
                                 </div>
                               )}
                               <div>
-                                <b className="text-slate-500">Created:</b> {fmtDate(g.createdAt)}
+                                <b className="text-slate-500">Creado:</b> {fmtDate(g.createdAt)}
                               </div>
                               <div>
-                                <b className="text-slate-500">Updated:</b> {fmtDate(g.updatedAt)}
+                                <b className="text-slate-500">Actualizado:</b> {fmtDate(g.updatedAt)}
                               </div>
                             </div>
                             {g.channels.length > 0 && (
                               <div className="mt-3 space-y-1">
-                                <b className="text-xs text-slate-500">Delivery details:</b>
+                                <b className="text-xs text-slate-500">Detalles de envío:</b>
                                 {g.channels.map((ch, i) => (
                                   <div key={i} className="text-xs text-slate-600 flex gap-2">
                                     <span className="font-mono w-20">{ch.channel}</span>
                                     <span className={ch.sent ? 'text-emerald-600' : 'text-red-500'}>
-                                      {ch.sent ? '✓ sent' : `✗ ${ch.error || 'not sent'}`}
+                                      {ch.sent ? '✓ enviado' : `✗ ${ch.error || 'no enviado'}`}
                                     </span>
                                     {ch.sentAt && (
                                       <span className="text-slate-400">{fmtDate(ch.sentAt)}</span>
@@ -434,7 +434,7 @@ function NimdaPanel() {
                                 disabled={busy === `del-${g.reservationCode}`}
                                 className="text-red-500 text-xs border border-red-300 px-3 py-1 rounded-lg hover:bg-red-50 disabled:opacity-40"
                               >
-                                {busy === `del-${g.reservationCode}` ? 'Deleting…' : 'Delete PIN'}
+                                {busy === `del-${g.reservationCode}` ? 'Eliminando…' : 'Eliminar PIN'}
                               </button>
                             </div>
                           </td>
@@ -452,12 +452,12 @@ function NimdaPanel() {
         {showCreate && (
           <div className="bg-white rounded-xl shadow-sm p-4">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="font-medium">Create Manual PIN</h2>
+              <h2 className="font-medium">Crear PIN manual</h2>
               <button onClick={() => setShowCreate(false)} className="text-slate-400">✕</button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
               <div>
-                <label className="text-slate-500 text-xs">Name / Label</label>
+                <label className="text-slate-500 text-xs">Nombre / Etiqueta</label>
                 <input
                   value={createForm.name}
                   onChange={e => setCreateForm({ ...createForm, name: e.target.value })}
@@ -466,7 +466,7 @@ function NimdaPanel() {
                 />
               </div>
               <div>
-                <label className="text-slate-500 text-xs">PIN (4-8 digits)</label>
+                <label className="text-slate-500 text-xs">PIN (4-8 dígitos)</label>
                 <input
                   value={createForm.pin}
                   onChange={e => setCreateForm({ ...createForm, pin: e.target.value.replace(/[^\d]/g, '') })}
@@ -484,13 +484,13 @@ function NimdaPanel() {
                     onChange={e => setCreateForm({ ...createForm, permanent: e.target.checked })}
                     className="w-4 h-4"
                   />
-                  Unlimited time
+                  Tiempo ilimitado
                 </label>
               </div>
               {!createForm.permanent && (
                 <>
                   <div>
-                    <label className="text-slate-500 text-xs">Valid from</label>
+                    <label className="text-slate-500 text-xs">Válido desde</label>
                     <input
                       type="date"
                       value={createForm.checkIn}
@@ -499,7 +499,7 @@ function NimdaPanel() {
                     />
                   </div>
                   <div>
-                    <label className="text-slate-500 text-xs">Valid until</label>
+                    <label className="text-slate-500 text-xs">Válido hasta</label>
                     <input
                       type="date"
                       value={createForm.checkOut}
@@ -516,7 +516,7 @@ function NimdaPanel() {
                 disabled={busy === 'create' || !createForm.name || !createForm.pin}
                 className="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium disabled:opacity-40"
               >
-                {busy === 'create' ? 'Creating…' : 'Create PIN'}
+                {busy === 'create' ? 'Creando…' : 'Crear PIN'}
               </button>
             </div>
           </div>
@@ -526,18 +526,18 @@ function NimdaPanel() {
         {manualPins.length > 0 && (
           <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             <div className="px-4 py-3 border-b">
-              <h2 className="font-medium">Manual PINs ({manualPins.length})</h2>
-              <p className="text-xs text-slate-400">PINs created directly — not tied to a reservation</p>
+              <h2 className="font-medium">PINs manuales ({manualPins.length})</h2>
+              <p className="text-xs text-slate-400">PINs creados directamente — sin reserva asociada</p>
             </div>
             <table className="w-full text-sm">
               <thead className="bg-slate-50 text-slate-500">
                 <tr>
-                  <th className="text-left px-3 py-2 font-medium">Name</th>
+                  <th className="text-left px-3 py-2 font-medium">Nombre</th>
                   <th className="text-left px-3 py-2 font-medium">PIN</th>
-                  <th className="text-left px-3 py-2 font-medium">Type</th>
-                  <th className="text-left px-3 py-2 font-medium">Status</th>
-                  <th className="text-left px-3 py-2 font-medium">Created</th>
-                  <th className="text-left px-3 py-2 font-medium">Actions</th>
+                  <th className="text-left px-3 py-2 font-medium">Tipo</th>
+                  <th className="text-left px-3 py-2 font-medium">Estado</th>
+                  <th className="text-left px-3 py-2 font-medium">Creado</th>
+                  <th className="text-left px-3 py-2 font-medium">Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -548,7 +548,7 @@ function NimdaPanel() {
                       <td className="px-3 py-2.5 font-medium">{g.guestName}</td>
                       <td className="px-3 py-2.5 font-mono font-bold tracking-wider">{g.pin ?? '—'}</td>
                       <td className="px-3 py-2.5 text-slate-500">
-                        {g.isPermanent ? '♾️ Permanent' : fmtDate(g.checkIn) + ' → ' + fmtDate(g.checkOut)}
+                        {g.isPermanent ? '♾️ Permanente' : fmtDate(g.checkIn) + ' → ' + fmtDate(g.checkOut)}
                       </td>
                       <td className="px-3 py-2.5">
                         <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${meta.color}`}>
@@ -562,7 +562,7 @@ function NimdaPanel() {
                           disabled={busy === `del-${g.reservationCode}`}
                           className="text-red-500 text-xs hover:underline"
                         >
-                          Delete
+                          Eliminar
                         </button>
                       </td>
                     </tr>
@@ -576,10 +576,10 @@ function NimdaPanel() {
         {/* Backup PIN pool status */}
         {poolStats && poolStats.total > 0 && (
           <div className="bg-white rounded-xl shadow-sm p-4">
-            <h2 className="font-medium mb-2">Backup PIN Pool</h2>
+            <h2 className="font-medium mb-2">Pool de PINs backup</h2>
             <div className="flex gap-6 text-sm text-slate-600">
-              <span>Available: <b className={poolStats.available > 0 ? 'text-emerald-600' : 'text-red-600'}>{poolStats.available}</b></span>
-              <span>In use: <b>{poolStats.inUse}</b></span>
+              <span>Disponibles: <b className={poolStats.available > 0 ? 'text-emerald-600' : 'text-red-600'}>{poolStats.available}</b></span>
+              <span>En uso: <b>{poolStats.inUse}</b></span>
               <span>Total: <b>{poolStats.total}</b></span>
             </div>
           </div>

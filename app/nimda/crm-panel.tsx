@@ -2,14 +2,17 @@
 
 /**
  * Il Buco CRM panel — guest history table with sort, search, filter,
- * and multi-select (with shift-click range).
+ * and multi-select (with shift-click).
+ *
+ * Tabla de historial de huéspedes con búsqueda, filtros, selección múltiple,
+ * y motor de outreach por WhatsApp.
  *
  * Shown as a tab inside /nimda. Data comes from /api/nimda/crm/guests.
- * "Sync Guests" button triggers /api/nimda/crm/sync.
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { LANGUAGE_FLAGS } from '@/lib/crm-store';
+import { LANGUAGE_FLAGS, type CrmGuest as CrmGuestType } from '@/lib/crm-store';
+import { getPropertyGroup } from '@/lib/hostex-api';
 
 interface GuestReservation {
   code: string;
@@ -57,12 +60,17 @@ interface CrmGuest {
   firstBookedAt?: string;
 }
 
-type SortField = 'name' | 'language' | 'whatsapp' | 'stays' | 'lastStay' | 'happiness' | 'channel';
+type SortField = 'name' | 'language' | 'whatsapp' | 'stays' | 'lastStay' | 'happiness' | 'channel' | 'property';
 type SortDir = 'asc' | 'desc';
 
 function fmtDate(iso?: string): string {
   if (!iso) return '—';
-  return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' });
+  return new Date(iso).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: '2-digit' });
+}
+
+function fmtDateTime(iso?: string): string {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleString('es-AR', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' });
 }
 
 function happinessColor(score?: number): string {
@@ -73,31 +81,39 @@ function happinessColor(score?: number): string {
   return 'text-red-600 font-bold';
 }
 
+// Determine which property group a guest belongs to (for filtering)
+function guestPropertyGroup(g: CrmGuest): 'ilbuco' | 'recharge' | 'mixed' | 'other' {
+  const groups = new Set(g.reservations.map(r => getPropertyGroup(r.property)));
+  if (groups.size === 0) return 'other';
+  if (groups.size === 1) return [...groups][0] as 'ilbuco' | 'recharge' | 'other';
+  return 'mixed';
+}
+
 // Quick message templates for the outreach composer
 const TEMPLATES: Record<string, { name: string; template: string; description: string }> = {
   post_stay_review: {
-    name: '📋 Review request',
-    description: 'Ask for a review after checkout',
+    name: '📋 Reseña',
+    description: 'Pedir reseña después del checkout',
     template: `¡{Hola|Hey|Buenas} {name}! {Espero|Esperamos} que hayas llegado bien a casa 🌲 ¿Nos {dejarías|dejan} una reseña? {Ayuda mucho|Significa mucho} 🙏`,
   },
   off_season_nomad: {
-    name: '🏝️ Off-season nomad',
-    description: 'Monthly remote-work rate for May-Sep',
+    name: '🏝️ Nómada baja temporada',
+    description: 'Tarifa mensual para mayo-septiembre',
     template: `{Hola|Hey|Buenas} {name}! {Recordamos|No nos olvidamos} de vos. Si {querés|tenés ganas de} volver a trabajar al bosque, tenemos tarifa nómada para estadas largas (mayo-septiembre). ¿Te {interesa|mando} los precios?`,
   },
   return_discount: {
-    name: '🎁 Return discount',
-    description: '15% off for past guests',
+    name: '🎁 Descuento retorno',
+    description: '15% off para huéspedes que vuelven',
     template: `¡{Hola|Hey} {name}! {Como ya nos conocemos|Como ya estuviste acá}, te {ofrecemos|damos} 15% off en tu próxima reserva directa. Código VOLVER15 en book.ilbuco.com.ar 🌲`,
   },
   holiday: {
-    name: '🎉 Holiday availability',
-    description: 'Notify about holiday openings',
+    name: '🎉 Feriado disponible',
+    description: 'Avisar fechas libres para feriados',
     template: `{Hola|Hey} {name}! {Quedan|Tenemos} fechas libres para {el feriado|Semana Santa}. Si {querés|pensás} volver a Cariló, {avisanos|escribinos} pronto que se llenan rápido 🌊`,
   },
   referral: {
-    name: '👥 Referral',
-    description: 'Ask happy guests to refer friends',
+    name: '👥 Referido',
+    description: 'Pedir que recomienden a amigos',
     template: `{Hola|Hey} {name}! Si {conocés|tenés} alguien que le {gustaría|encantaría} Il Buco, {mandalos|mándalos}. A vos y a ellos les {damos|hacemos} una noche gratis 🌲✨`,
   },
 };
@@ -116,6 +132,8 @@ export default function CrmPanel() {
   const [sortDir, setSortDir] = useState<SortDir>('desc');
   const [filterChannel, setFilterChannel] = useState('all');
   const [filterLanguage, setFilterLanguage] = useState('all');
+  const [filterProperty, setFilterProperty] = useState('all');
+  const [filterContact, setFilterContact] = useState('all'); // all / whatsapp / email
 
   // Selection state
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -139,7 +157,7 @@ export default function CrmPanel() {
       setGuests(data.guests ?? []);
       setLastSyncAt(data.lastSyncAt ?? null);
     } catch {
-      flash('Failed to load guests');
+      flash('Error al cargar huéspedes');
     } finally {
       setLoading(false);
     }
@@ -149,18 +167,18 @@ export default function CrmPanel() {
 
   async function syncGuests() {
     setSyncing(true);
-    flash('Syncing from Hostex + WhatsApp... (this takes 30-60s)');
+    flash('Sincronizando desde Hostex + WhatsApp... (tarda 1-5 min)');
     try {
       const res = await fetch('/api/nimda/crm/sync', { method: 'POST' });
       const data = await res.json();
       if (data.success || data.totalGuests !== undefined) {
-        flash(`✓ Synced: ${data.totalGuests} guests, ${data.reservations} reservations, ${data.conversations} conversations, ${data.reviews} reviews`);
+        flash(`✓ Sincronizado: ${data.totalGuests} huéspedes, ${data.reservations} reservas, ${data.conversations} conversaciones, ${data.reviews} reseñas`);
         await load();
       } else {
-        flash(`Sync error: ${data.error || 'unknown'}`);
+        flash(`Error de sync: ${data.error || 'desconocido'}`);
       }
     } catch (err) {
-      flash('Sync failed');
+      flash('Falló la sincronización');
     } finally {
       setSyncing(false);
     }
@@ -168,18 +186,18 @@ export default function CrmPanel() {
 
   async function generateSummaries() {
     setGeneratingSummaries(true);
-    flash('Generating AI happiness summaries... (up to 20 guests, ~1 min)');
+    flash('Generando resúmenes de felicidad con IA... (hasta 20 huéspedes, ~1 min)');
     try {
       const res = await fetch('/api/nimda/crm/summaries', { method: 'POST' });
       const data = await res.json();
       if (data.success) {
-        flash(`✓ Generated ${data.updated} summaries`);
+        flash(`✓ ${data.updated} resúmenes generados`);
         await load();
       } else {
-        flash(`Summary error: ${data.error || 'unknown'}`);
+        flash(`Error: ${data.error || 'desconocido'}`);
       }
     } catch {
-      flash('Summary generation failed');
+      flash('Falló la generación de resúmenes');
     } finally {
       setGeneratingSummaries(false);
     }
@@ -190,15 +208,15 @@ export default function CrmPanel() {
   const selectedWithPhone = selectedGuests.filter(g => g.phone);
 
   async function sendOutreach() {
-    if (!messageTemplate.trim()) { flash('Write a message template first'); return; }
-    if (selectedWithPhone.length === 0) { flash('None of the selected guests have a phone number'); return; }
+    if (!messageTemplate.trim()) { flash('Escribí un mensaje primero'); return; }
+    if (selectedWithPhone.length === 0) { flash('Ninguno de los seleccionados tiene teléfono'); return; }
 
     const confirmed = confirm(
-      `Send WhatsApp to ${selectedWithPhone.length} guest(s)?\n\n` +
-      `This will send real messages via the Il Buco WhatsApp number.\n` +
-      `Each send has a 15-45s delay for safety.\n\n` +
-      `First message preview:\n"${previewFirstMessage()}"\n\n` +
-      `Continue?`
+      `¿Enviar WhatsApp a ${selectedWithPhone.length} huésped(es)?\n\n` +
+      `Se envía desde el número de WhatsApp de Il Buco.\n` +
+      `Cada envío tiene 15-45s de delay por seguridad.\n\n` +
+      `Vista previa del primer mensaje:\n"${previewFirstMessage()}"\n\n` +
+      `¿Continuar?`
     );
     if (!confirmed) return;
 
@@ -216,13 +234,13 @@ export default function CrmPanel() {
       const data = await res.json();
       if (data.success) {
         const r = data.report;
-        flash(`✓ Sent ${r.sent}/${r.total} (${r.skipped} skipped, ${r.failed} failed)`);
+        flash(`✓ Enviados ${r.sent}/${r.total} (${r.skipped} salteados, ${r.failed} fallidos)`);
         setShowOutreach(false);
       } else {
-        flash(`Send error: ${data.error || 'unknown'}`);
+        flash(`Error de envío: ${data.error || 'desconocido'}`);
       }
     } catch {
-      flash('Send failed');
+      flash('Falló el envío');
     } finally {
       setSendingOutreach(false);
       setSendProgress(null);
@@ -231,7 +249,7 @@ export default function CrmPanel() {
 
   /** Preview the first rendered message for the confirm dialog. */
   function previewFirstMessage(): string {
-    if (selectedWithPhone.length === 0) return '(no guests with phone selected)';
+    if (selectedWithPhone.length === 0) return '(sin huéspedes con teléfono)';
     const g = selectedWithPhone[0];
     return renderSpintaxPreview(messageTemplate, g.name);
   }
@@ -239,7 +257,6 @@ export default function CrmPanel() {
   /** Render a quick preview of the spintax for display (picks first option). */
   function renderSpintaxPreview(template: string, name: string): string {
     const firstName = name.split(/\s+/)[0] || name;
-    // For preview, expand spintax by picking first option
     const firstOption = template.replace(/\{([^{}]*)\}/g, (_, content) => {
       return content.split('|')[0];
     });
@@ -274,6 +291,25 @@ export default function CrmPanel() {
       result = result.filter(g => g.language === filterLanguage);
     }
 
+    // Property filter (Il Buco vs Recharge)
+    if (filterProperty !== 'all') {
+      result = result.filter(g => {
+        const group = guestPropertyGroup(g);
+        if (filterProperty === 'ilbuco') return group === 'ilbuco' || group === 'mixed';
+        if (filterProperty === 'recharge') return group === 'recharge' || group === 'mixed';
+        return true;
+      });
+    }
+
+    // Contact filter (has WhatsApp / has email)
+    if (filterContact === 'whatsapp') {
+      result = result.filter(g => g.phone && g.channels.includes('whatsapp'));
+    } else if (filterContact === 'email') {
+      result = result.filter(g => g.email);
+    } else if (filterContact === 'phone') {
+      result = result.filter(g => g.phone);
+    }
+
     // Sort
     result.sort((a, b) => {
       let cmp = 0;
@@ -281,6 +317,7 @@ export default function CrmPanel() {
         case 'name': cmp = a.name.localeCompare(b.name); break;
         case 'language': cmp = a.language.localeCompare(b.language); break;
         case 'whatsapp': cmp = (a.phone ?? 'z').localeCompare(b.phone ?? 'z'); break;
+        case 'property': cmp = (a.reservations[0]?.property ?? 'z').localeCompare(b.reservations[0]?.property ?? 'z'); break;
         case 'stays': cmp = a.reservations.length - b.reservations.length; break;
         case 'lastStay':
           cmp = (a.reservations[a.reservations.length - 1]?.checkOut ?? '')
@@ -296,7 +333,7 @@ export default function CrmPanel() {
     });
 
     return result;
-  }, [guests, search, filterChannel, filterLanguage, sortField, sortDir]);
+  }, [guests, search, filterChannel, filterLanguage, filterProperty, filterContact, sortField, sortDir]);
 
   // ── Selection handlers ──────────────────────────────────────────────────────
   function toggleSort(field: SortField) {
@@ -311,7 +348,6 @@ export default function CrmPanel() {
   function toggleSelect(id: string, shiftKey: boolean) {
     const newSelected = new Set(selected);
     if (shiftKey && lastCheckedRef.current) {
-      // Range select from lastChecked to this row
       const ids = filtered.map(g => g.id);
       const startIdx = ids.indexOf(lastCheckedRef.current);
       const endIdx = ids.indexOf(id);
@@ -341,52 +377,65 @@ export default function CrmPanel() {
 
   // ── Render ──────────────────────────────────────────────────────────────────
   if (loading) {
-    return <div className="flex items-center justify-center py-20 text-slate-400">Loading CRM...</div>;
+    return <div className="flex items-center justify-center py-20 text-slate-400">Cargando CRM...</div>;
   }
 
   return (
     <div className="space-y-4">
       {/* Toolbar */}
-      <div className="bg-white rounded-xl shadow-sm p-3 flex flex-wrap gap-3 items-center text-sm">
+      <div className="bg-white rounded-xl shadow-sm p-3 flex flex-wrap gap-2 items-center text-sm">
         <input
           type="text"
           value={search}
           onChange={e => setSearch(e.target.value)}
-          placeholder="Search name, email, phone..."
+          placeholder="Buscar nombre, email, teléfono..."
           className="border rounded-lg px-3 py-1.5 flex-1 min-w-[12rem]"
         />
+        <select value={filterProperty} onChange={e => setFilterProperty(e.target.value)}
+          className="border rounded-lg px-2 py-1.5">
+          <option value="all">Todas las propiedades</option>
+          <option value="ilbuco">🌲 Il Buco</option>
+          <option value="recharge">🌿 Recharge Retreat</option>
+        </select>
         <select value={filterChannel} onChange={e => setFilterChannel(e.target.value)}
           className="border rounded-lg px-2 py-1.5">
-          <option value="all">All channels</option>
+          <option value="all">Todos los canales</option>
           {channels.map(c => <option key={c} value={c}>{c}</option>)}
         </select>
         <select value={filterLanguage} onChange={e => setFilterLanguage(e.target.value)}
           className="border rounded-lg px-2 py-1.5">
-          <option value="all">All languages</option>
+          <option value="all">Todos los idiomas</option>
           {languages.map(l => <option key={l} value={l}>{LANGUAGE_FLAGS[l as keyof typeof LANGUAGE_FLAGS] || '🌐'} {l}</option>)}
         </select>
-        <span className="text-slate-400">
-          {filtered.length} / {guests.length} guests
+        <select value={filterContact} onChange={e => setFilterContact(e.target.value)}
+          className="border rounded-lg px-2 py-1.5">
+          <option value="all">Todo contacto</option>
+          <option value="whatsapp">📱 Solo con WhatsApp</option>
+          <option value="phone">☎️ Solo con teléfono</option>
+          <option value="email">✉️ Solo con email</option>
+        </select>
+        <span className="text-slate-400 text-xs">
+          {filtered.length} / {guests.length}
         </span>
         <button
           onClick={syncGuests}
           disabled={syncing}
           className="bg-slate-900 text-white px-3 py-1.5 rounded-lg text-sm font-medium disabled:opacity-40"
         >
-          {syncing ? 'Syncing...' : '↻ Sync Guests'}
+          {syncing ? 'Sincronizando...' : '↻ Sincronizar'}
         </button>
         <button
           onClick={generateSummaries}
           disabled={generatingSummaries}
           className="bg-indigo-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium disabled:opacity-40"
         >
-          {generatingSummaries ? '🧠 AI...' : '🧠 Score Happiness'}
+          {generatingSummaries ? '🧠 IA...' : '🧠 Felicidad'}
         </button>
       </div>
 
       {lastSyncAt && (
         <div className="text-xs text-slate-400 px-1">
-          Last sync: {fmtDate(lastSyncAt)}
+          Última sincronización: {fmtDateTime(lastSyncAt)}
         </div>
       )}
 
@@ -395,8 +444,8 @@ export default function CrmPanel() {
         <div className="bg-white rounded-xl shadow-sm p-12 text-center">
           <p className="text-slate-400 mb-2">
             {guests.length === 0
-              ? 'No guests yet. Click "Sync Guests" to pull from Hostex.'
-              : 'No guests match your filters.'}
+              ? 'Sin huéspedes todavía. Tocá "Sincronizar" para traerlos de Hostex.'
+              : 'Ningún huéspede coincide con los filtros.'}
           </p>
         </div>
       ) : (
@@ -412,13 +461,14 @@ export default function CrmPanel() {
                     className="w-4 h-4"
                   />
                 </th>
-                <SortHeader label="Name" field="name" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
-                <SortHeader label="Lang" field="language" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
+                <SortHeader label="Nombre" field="name" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
+                <SortHeader label="Idioma" field="language" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
                 <SortHeader label="WhatsApp" field="whatsapp" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
-                <SortHeader label="Stays" field="stays" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
-                <SortHeader label="Last stay" field="lastStay" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
-                <SortHeader label="Channel" field="channel" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
-                <SortHeader label="Happiness" field="happiness" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
+                <SortHeader label="Propiedad" field="property" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
+                <SortHeader label="Estadías" field="stays" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
+                <SortHeader label="Última" field="lastStay" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
+                <SortHeader label="Canal" field="channel" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
+                <SortHeader label="Felicidad" field="happiness" sortField={sortField} sortDir={sortDir} onClick={toggleSort} />
               </tr>
             </thead>
             <tbody>
@@ -427,6 +477,11 @@ export default function CrmPanel() {
                 const isSelected = selected.has(g.id);
                 const happiness = g.summary?.happinessScore ?? g.reviewScore;
                 const lastStay = g.reservations[g.reservations.length - 1];
+                const propGroup = guestPropertyGroup(g);
+                const propLabel = propGroup === 'ilbuco' ? '🌲 Il Buco'
+                  : propGroup === 'recharge' ? '🌿 Recharge'
+                  : propGroup === 'mixed' ? '🌲🌿 Ambas'
+                  : '—';
                 return (
                   <>
                     <tr
@@ -457,10 +512,13 @@ export default function CrmPanel() {
                       <td className="px-3 py-2.5 text-slate-500 text-xs font-mono" onClick={() => setExpanded(isExpanded ? null : g.id)}>
                         {g.phone ? (
                           <span className="inline-flex items-center gap-1">
-                            {g.channels.includes('whatsapp') && <span title="Verified on WhatsApp">✅</span>}
+                            {g.channels.includes('whatsapp') && <span title="Verificado en WhatsApp">✅</span>}
                             {g.phone}
                           </span>
                         ) : '—'}
+                      </td>
+                      <td className="px-3 py-2.5 text-slate-500 text-xs" onClick={() => setExpanded(isExpanded ? null : g.id)}>
+                        {propLabel}
                       </td>
                       <td className="px-3 py-2.5 text-center" onClick={() => setExpanded(isExpanded ? null : g.id)}>
                         {g.reservations.length || '—'}
@@ -468,7 +526,7 @@ export default function CrmPanel() {
                       <td className="px-3 py-2.5 text-slate-500" onClick={() => setExpanded(isExpanded ? null : g.id)}>
                         {fmtDate(lastStay?.checkOut)}
                       </td>
-                      <td className="px-3 py-2.5 text-slate-500 capitalize" onClick={() => setExpanded(isExpanded ? null : g.id)}>
+                      <td className="px-3 py-2.5 text-slate-500 capitalize text-xs" onClick={() => setExpanded(isExpanded ? null : g.id)}>
                         {g.channels.join(', ') || '—'}
                       </td>
                       <td className={`px-3 py-2.5 ${happinessColor(happiness)}`} onClick={() => setExpanded(isExpanded ? null : g.id)}>
@@ -477,25 +535,41 @@ export default function CrmPanel() {
                     </tr>
                     {isExpanded && (
                       <tr key={g.id + '-detail'} className="bg-slate-50">
-                        <td colSpan={8} className="px-6 py-4">
-                          {/* Guest details */}
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs mb-4">
-                            {g.email && <div><b className="text-slate-500">Email:</b> {g.email}</div>}
-                            {g.phone && <div><b className="text-slate-500">Phone:</b> {g.phone}</div>}
-                            {g.country && <div><b className="text-slate-500">Country:</b> {g.country}</div>}
-                            <div><b className="text-slate-500">Language:</b> {LANGUAGE_FLAGS[g.language as keyof typeof LANGUAGE_FLAGS]} {g.language}</div>
+                        <td colSpan={9} className="px-6 py-4">
+                          {/* === ALL guest info === */}
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs mb-4">
+                            {g.email && (
+                              <div><b className="text-slate-500">Email:</b><br />{g.email}</div>
+                            )}
+                            {g.phone && (
+                              <div><b className="text-slate-500">Teléfono:</b><br />{g.phone}</div>
+                            )}
+                            {g.country && (
+                              <div><b className="text-slate-500">País:</b><br />{g.country}</div>
+                            )}
+                            <div>
+                              <b className="text-slate-500">Idioma:</b><br />
+                              {LANGUAGE_FLAGS[g.language as keyof typeof LANGUAGE_FLAGS]} {g.language}
+                            </div>
+                            {g.firstBookedAt && (
+                              <div><b className="text-slate-500">Primera reserva:</b><br />{fmtDate(g.firstBookedAt)}</div>
+                            )}
+                            <div>
+                              <b className="text-slate-500">Canales:</b><br />
+                              <span className="capitalize">{g.channels.join(', ')}</span>
+                            </div>
                           </div>
 
                           {/* AI Summary */}
                           {g.summary ? (
-                            <div className="bg-white rounded-lg p-3 mb-4 text-sm">
+                            <div className="bg-white rounded-lg p-3 mb-4 text-sm border border-indigo-100">
                               <div className="flex items-center gap-2 mb-1">
-                                <b>AI Summary</b>
+                                <b>🧠 Resumen IA</b>
                                 <span className={happinessColor(g.summary.happinessScore)}>
-                                  {g.summary.happinessScore}/5
+                                  Felicidad: {g.summary.happinessScore}/5
                                 </span>
                                 <span className="text-xs text-slate-400">
-                                  {g.summary.sentiment} · {fmtDate(g.summary.generatedAt)}
+                                  ({g.summary.sentiment}) · {fmtDate(g.summary.generatedAt)}
                                 </span>
                               </div>
                               <p className="text-slate-600">{g.summary.summary}</p>
@@ -504,25 +578,31 @@ export default function CrmPanel() {
                                   {g.summary.keyMoments.map((m, i) => <li key={i}>{m}</li>)}
                                 </ul>
                               )}
+                              {g.summary.recommendedOffer && (
+                                <div className="mt-2 text-xs text-indigo-600">
+                                  <b>Oferta recomendada:</b> {g.summary.recommendedOffer}
+                                </div>
+                              )}
                             </div>
                           ) : g.reviewContent ? (
                             <div className="bg-white rounded-lg p-3 mb-4 text-sm">
-                              <b>Review ({g.reviewScore}/5):</b>
+                              <b>Reseña ({g.reviewScore}/5):</b>
                               <p className="text-slate-600 mt-1">{g.reviewContent}</p>
                             </div>
                           ) : null}
 
-                          {/* Reservations */}
+                          {/* Reservations — ALL */}
                           {g.reservations.length > 0 && (
                             <div className="mb-4">
-                              <b className="text-xs text-slate-500">Stays ({g.reservations.length})</b>
+                              <b className="text-xs text-slate-500">Estadías ({g.reservations.length})</b>
                               <div className="space-y-1 mt-1">
                                 {g.reservations.map(r => (
-                                  <div key={r.code} className="text-xs flex gap-3">
+                                  <div key={r.code} className="text-xs flex flex-wrap gap-x-3 gap-y-1 bg-white rounded px-2 py-1">
                                     <span className="font-mono text-slate-400">{r.code}</span>
-                                    <span>{r.property}</span>
+                                    <span className="font-medium">{r.property}</span>
                                     <span className="text-slate-500">{fmtDate(r.checkIn)} → {fmtDate(r.checkOut)}</span>
-                                    <span className="text-slate-400">{r.guests} guests</span>
+                                    <span className="text-slate-400">{r.guests} pers.</span>
+                                    <span className="text-slate-400 capitalize">{r.channel}</span>
                                     {r.totalRate && <span className="text-slate-400">{r.currency} {r.totalRate}</span>}
                                   </div>
                                 ))}
@@ -530,24 +610,30 @@ export default function CrmPanel() {
                             </div>
                           )}
 
-                          {/* Messages preview (last 5) */}
+                          {/* Messages — ALL, no truncation */}
                           {g.messages.length > 0 && (
                             <div>
                               <b className="text-xs text-slate-500">
-                                Messages ({g.messages.length}) — last 5:
+                                Mensajes ({g.messages.length})
                               </b>
-                              <div className="space-y-1 mt-1 max-h-40 overflow-y-auto">
-                                {g.messages.slice(-5).map((m, i) => (
-                                  <div key={i} className="text-xs flex gap-2">
-                                    <span className={`font-mono w-14 ${m.direction === 'inbound' ? 'text-blue-500' : 'text-slate-400'}`}>
-                                      {m.direction === 'inbound' ? '← guest' : '→ host'}
+                              <div className="space-y-1 mt-1 max-h-60 overflow-y-auto">
+                                {g.messages.map((m, i) => (
+                                  <div key={i} className="text-xs flex gap-2 bg-white rounded px-2 py-1">
+                                    <span className={`font-mono w-14 shrink-0 ${m.direction === 'inbound' ? 'text-blue-500' : 'text-slate-400'}`}>
+                                      {m.direction === 'inbound' ? '← huésped' : '→ host'}
                                     </span>
-                                    <span className="text-slate-500 w-16">{fmtDate(m.timestamp)}</span>
-                                    <span className="text-slate-600 flex-1 truncate">{m.text}</span>
+                                    <span className="text-slate-500 w-28 shrink-0">{fmtDateTime(m.timestamp)}</span>
+                                    <span className="text-slate-400 w-16 shrink-0 capitalize">{m.source}</span>
+                                    <span className="text-slate-700 flex-1 whitespace-pre-wrap break-words">{m.text}</span>
                                   </div>
                                 ))}
                               </div>
                             </div>
+                          )}
+
+                          {/* If no data at all */}
+                          {g.reservations.length === 0 && g.messages.length === 0 && !g.reviewContent && !g.summary && (
+                            <p className="text-xs text-slate-400 italic">Sin datos adicionales para este huésped.</p>
                           )}
                         </td>
                       </tr>
@@ -563,24 +649,24 @@ export default function CrmPanel() {
       {/* Selection bar */}
       {selected.size > 0 && (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl text-sm z-50 flex items-center gap-4">
-          <span>{selected.size} selected</span>
+          <span>{selected.size} seleccionado(s)</span>
           {selectedWithPhone.length !== selected.size && (
             <span className="text-amber-400 text-xs">
-              ({selectedWithPhone.length} with phone)
+              ({selectedWithPhone.length} con teléfono)
             </span>
           )}
           <button
             onClick={() => setSelected(new Set())}
             className="text-slate-400 hover:text-white"
           >
-            Clear
+            Limpiar
           </button>
           <span className="text-slate-500">|</span>
           <button
             onClick={() => setShowOutreach(!showOutreach)}
             className="bg-emerald-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium"
           >
-            📱 Send WhatsApp
+            📱 Enviar WhatsApp
           </button>
         </div>
       )}
@@ -591,7 +677,7 @@ export default function CrmPanel() {
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold">📱 WhatsApp Outreach</h2>
+                <h2 className="text-lg font-semibold">📱 Outreach por WhatsApp</h2>
                 <button
                   onClick={() => !sendingOutreach && setShowOutreach(false)}
                   className="text-slate-400 hover:text-slate-600 text-xl"
@@ -602,7 +688,7 @@ export default function CrmPanel() {
 
               {/* Quick templates */}
               <div className="mb-4">
-                <label className="text-xs text-slate-500 font-medium">Quick templates:</label>
+                <label className="text-xs text-slate-500 font-medium">Plantillas rápidas:</label>
                 <div className="flex flex-wrap gap-2 mt-1">
                   {Object.entries(TEMPLATES).map(([key, t]) => (
                     <button
@@ -620,7 +706,7 @@ export default function CrmPanel() {
               {/* Message editor */}
               <div className="mb-3">
                 <label className="text-xs text-slate-500 font-medium">
-                  Message template <span className="text-slate-400">(use {`{name}`} for first name, {`{Hi|Hola|Hey}`} for random variation)</span>
+                  Plantilla de mensaje <span className="text-slate-400">({`{name}`} = nombre, {`{Hola|Hey}`} = variación aleatoria)</span>
                 </label>
                 <textarea
                   value={messageTemplate}
@@ -635,10 +721,10 @@ export default function CrmPanel() {
               {/* Preview */}
               {messageTemplate.trim() && (
                 <div className="mb-4">
-                  <label className="text-xs text-slate-500 font-medium">Preview (first selected guest):</label>
+                  <label className="text-xs text-slate-500 font-medium">Vista previa (primer huésped seleccionado):</label>
                   <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 mt-1 text-sm">
                     <div className="text-xs text-slate-400 mb-1">
-                      To: {selectedWithPhone[0]?.name ?? '—'} ({selectedWithPhone[0]?.phone ?? 'no phone'})
+                      Para: {selectedWithPhone[0]?.name ?? '—'} ({selectedWithPhone[0]?.phone ?? 'sin teléfono'})
                     </div>
                     <div className="whitespace-pre-wrap">{previewFirstMessage()}</div>
                   </div>
@@ -648,32 +734,32 @@ export default function CrmPanel() {
               {/* Recipients summary */}
               <div className="mb-4 text-sm bg-slate-50 rounded-lg p-3">
                 <div className="flex justify-between">
-                  <span className="text-slate-600">Recipients with phone:</span>
+                  <span className="text-slate-600">Destinatarios con teléfono:</span>
                   <span className="font-medium">{selectedWithPhone.length}</span>
                 </div>
                 <div className="flex justify-between text-xs text-slate-400">
-                  <span>Max per batch: 8 (anti-ban)</span>
-                  <span>~{selectedWithPhone.length > 8 ? '⚠️ select ≤8' : `${selectedWithPhone.length * 30}s est.`}</span>
+                  <span>Máx por lote: 8 (anti-ban)</span>
+                  <span>~{selectedWithPhone.length > 8 ? '⚠️ seleccioná ≤8' : `${selectedWithPhone.length * 30}s aprox.`}</span>
                 </div>
                 {selectedWithPhone.length > 8 && (
                   <div className="text-xs text-amber-600 mt-1">
-                    ⚠️ Too many selected. The API will reject more than 8 at once.
-                    Select fewer or send in batches.
+                    ⚠️ Demasiados seleccionados. La API rechaza más de 8 por vez.
+                    Seleccioná menos o enviá en lotes.
                   </div>
                 )}
               </div>
 
               {/* Safety notice */}
               <div className="mb-4 text-xs text-slate-400 bg-amber-50 border border-amber-100 rounded-lg p-3">
-                <b>Safety:</b> Messages are sent from the Il Buco WhatsApp number with 15-45s
-                randomized delays. Quiet hours (22:00-08:00 Argentina) are enforced automatically.
-                Only send to guests who know you — cold outreach risks the number getting blocked.
+                <b>Seguridad:</b> Los mensajes se envían desde el número de WhatsApp de Il Buco
+                con delays aleatorios de 15-45s. Se respeta horario de descanso (22:00-08:00 Argentina).
+                Solo enviar a huéspedes que te conocen — el outreach en frío puede bloquear el número.
               </div>
 
               {/* Send progress */}
               {sendProgress && (
                 <div className="mb-4 text-sm bg-blue-50 rounded-lg p-3">
-                  Sending... {sendProgress.done}/{sendProgress.total}
+                  Enviando... {sendProgress.done}/{sendProgress.total}
                 </div>
               )}
 
@@ -684,14 +770,14 @@ export default function CrmPanel() {
                   disabled={sendingOutreach}
                   className="border rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-40"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   onClick={sendOutreach}
                   disabled={sendingOutreach || !messageTemplate.trim() || selectedWithPhone.length === 0 || selectedWithPhone.length > 8}
                   className="bg-emerald-600 text-white rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-40"
                 >
-                  {sendingOutreach ? 'Sending...' : `Send to ${selectedWithPhone.length} guest(s)`}
+                  {sendingOutreach ? 'Enviando...' : `Enviar a ${selectedWithPhone.length} huésped(es)`}
                 </button>
               </div>
             </div>

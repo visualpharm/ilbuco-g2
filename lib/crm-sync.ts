@@ -308,8 +308,10 @@ export async function syncAllGuests(): Promise<SyncReport> {
     }
   }
 
-  // 5. Pull conversations for guests with conversation IDs (limit to avoid timeout)
-  // Only fetch conversations for the last 50 guests to stay within Vercel's 60s limit
+  // 5. Pull conversations for guests with conversation IDs.
+  // Fetch ALL guests with conversations (was capped at 50, which left older
+  // guests — including Russian speakers — without messages for language detection).
+  // The sync route has maxDuration=300 (5 min) which allows ~100-150 conversations.
   const guestsWithConv = [...guestMap.values()]
     .filter(g => g.reservations.some(r => r.conversationId))
     .sort((a, b) => {
@@ -317,7 +319,7 @@ export async function syncAllGuests(): Promise<SyncReport> {
       const bLast = b.reservations[b.reservations.length - 1]?.checkOut ?? '';
       return bLast.localeCompare(aLast);
     })
-    .slice(0, 50);
+    .slice(0, 150);
 
   for (const guest of guestsWithConv) {
     for (const res of guest.reservations) {

@@ -21,11 +21,26 @@ export const PROPERTY_NAMES: Record<string, string> = {
   '12282946': 'Terrazzo',
   '12282947': 'Paraiso',
   '12282948': 'Penthouse',
+  '12282949': 'Recharge Retreat',
   '12299611': 'Il Buco (Whole House)',
 };
 
 export function getPropertyName(propertyId: string | number): string {
   return PROPERTY_NAMES[String(propertyId)] || `Property ${propertyId}`;
+}
+
+/**
+ * Classify a property into a group for filtering:
+ *   - "ilbuco" — the 4 suites + whole house
+ *   - "recharge" — Recharge Retreat (the rancho)
+ */
+export const ILBUCO_PROPERTY_IDS = ['12282945', '12282946', '12282947', '12282948', '12299611'];
+export const RECHARGE_PROPERTY_IDS = ['12282949'];
+
+export function getPropertyGroup(propertyName: string): 'ilbuco' | 'recharge' | 'other' {
+  if (propertyName === 'Recharge Retreat') return 'recharge';
+  if (ILBUCO_PROPERTY_IDS.some(id => PROPERTY_NAMES[id] === propertyName)) return 'ilbuco';
+  return 'other';
 }
 
 // Listing IDs for calendar queries
@@ -354,6 +369,127 @@ export async function getCalendarAvailability(
       };
     }),
   };
+}
+
+// ─── Direct-booking reservation creation ──────────────────────────────────────
+
+/**
+ * Stable Hostex IDs for direct bookings on ilbuco.com.ar.
+ * Fetched once from GET /v3/custom_channels and GET /v3/income_methods.
+ *
+ *  - custom_channel_id 29 = "Booking Site" (the booking_site channel_type used
+ *    by all our listings; this is how Hostex tags direct-booking reservations).
+ *  - income_method_id 198 = "Other" (no Mercado Pago option exists in Hostex;
+ *    payments arrive via MP but are recorded generically).
+ *  - 34 = "Stripe", 35 = "Paypal", 195 = "Debit Card", 196 = "Credit Card",
+ *    197 = "Cash" — available if we want finer payment-method tracking later.
+ */
+export const DIRECT_BOOKING_CHANNEL_ID = 29;
+export const DIRECT_BOOKING_INCOME_METHOD_ID = 198;
+
+/** Suite slug → Hostex property_id (for direct-booking creation). */
+export const SUITE_PROPERTY_IDS: Record<string, number> = {
+  giardino: 12282945,
+  terrazzo: 12282946,
+  paraiso: 12282947,
+  penthouse: 12282948,
+  'whole-house': 12299611,
+};
+
+export const PROPERTY_ID_BY_LISTING: Record<string, number> = {
+  '110800-13274': 12282945, // Giardino
+  '110801-13274': 12282946, // Terrazzo
+  '110802-13274': 12282947, // Paraiso
+  '110803-13274': 12282948, // Penthouse
+  '113182-13274': 12299611, // Whole House
+};
+
+export interface CreateReservationParams {
+  property_id: number;
+  check_in_date: string;
+  check_out_date: string;
+  guest_name: string;
+  /** Total rate in the reservation currency (integer). */
+  rate_amount: number;
+  /** Commission — 0 for direct bookings. */
+  commission_amount?: number;
+  /** Amount already collected (full rate for pay-first flow). */
+  received_amount: number;
+  currency?: string;
+  income_method_id?: number;
+  custom_channel_id?: number;
+  number_of_guests?: number;
+  email?: string;
+  mobile?: string;
+  remarks?: string;
+}
+
+export interface CreatedReservation {
+  reservation_code: string;
+  status: string;
+}
+
+/**
+ * Create a direct-booking reservation in Hostex.
+ * Endpoint: POST /v3/reservations
+ *
+ * Pay-first flow: only called after Mercado Pago confirms payment, so
+ * received_amount always equals rate_amount. The reservation_created webhook
+ * then fires guest-ops automation (PIN, locks, messages) automatically.
+ */
+export async function createReservation(
+  params: CreateReservationParams
+): Promise<CreatedReservation> {
+  const body = {
+    property_id: params.property_id,
+    custom_channel_id: params.custom_channel_id ?? DIRECT_BOOKING_CHANNEL_ID,
+    check_in_date: params.check_in_date,
+    check_out_date: params.check_out_date,
+    guest_name: params.guest_name,
+    currency: params.currency ?? 'USD',
+    rate_amount: params.rate_amount,
+    commission_amount: params.commission_amount ?? 0,
+    received_amount: params.received_amount,
+    income_method_id: params.income_method_id ?? DIRECT_BOOKING_INCOME_METHOD_ID,
+    ...(params.number_of_guests && { number_of_guests: params.number_of_guests }),
+    ...(params.email && { email: params.email }),
+    ...(params.mobile && { mobile: params.mobile }),
+    ...(params.remarks && { remarks: params.remarks }),
+  };
+
+  const res = await fetch(`${HOSTEX_BASE}/reservations`, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify(body),
+  });
+  const data = await res.json();
+  if (data.error_code !== 200) {
+    throw new Error(`Hostex create-reservation error: ${data.error_msg}`);
+  }
+
+  const r = data.data?.reservation ?? data.data;
+  return {
+    reservation_code: r.reservation_code ?? r.code,
+    status: r.status ?? 'accepted',
+  };
+}
+
+/**
+ * Cancel a direct-booking reservation.
+ * Endpoint: DELETE /v3/reservations/{reservation_code}
+ *
+ * Only works for direct bookings (not OTA channel bookings).
+ * Used for manual cancellations from /nimda — not for the booking flow itself.
+ */
+export async function cancelReservation(reservationCode: string): Promise<void> {
+  const res = await fetch(
+    `${HOSTEX_BASE}/reservations/${encodeURIComponent(reservationCode)}`,
+    { method: 'DELETE', headers: headers() }
+  );
+  const data = await res.json();
+  if (data.error_code !== 200) {
+    throw new Error(`Hostex cancel-reservation error: ${data.error_msg}`);
+  }
 }
 
 // ─── CRM: Full reservations, conversations list, reviews ─────────────────────
