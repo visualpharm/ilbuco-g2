@@ -13,6 +13,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LANGUAGE_FLAGS, type CrmGuest as CrmGuestType } from '@/lib/crm-store';
 import { getPropertyGroup } from '@/lib/hostex-api';
+import { scanOtaCompliance } from '@/lib/ota-compliance';
 
 interface GuestReservation {
   code: string;
@@ -136,48 +137,71 @@ function guestPropertyGroup(g: CrmGuest): 'ilbuco' | 'recharge' | 'mixed' | 'oth
 }
 
 // Quick message templates for the outreach composer
-const TEMPLATES: Record<string, { name: string; template: string; description: string; ota?: boolean }> = {
+// otaSafe: true = safe to send via Airbnb/Booking (no direct-booking content)
+// otaSafe: false = WhatsApp only (contains direct booking offers, URLs, etc.)
+const TEMPLATES: Record<string, { name: string; template: string; description: string; otaSafe: boolean }> = {
+  // ─── OTA-SAFE (compliant for Airbnb/Booking) ───────────────────────────
   post_stay_review: {
     name: '📋 Pedir reseña',
-    description: 'Después del checkout',
-    ota: true,
+    description: 'Después del checkout — compatible OTA',
+    otaSafe: true,
     template: `¡{Hola|Hey|Buenas} {name}! {Espero|Esperamos} que hayas llegado bien a casa 🌲 ¿Nos {dejarías|dejan} una reseña? {Ayuda mucho|Significa mucho} 🙏`,
-  },
-  return_repeat: {
-    name: '🔄 Huésped recurrente',
-    description: 'Ya vino varias veces',
-    template: `¡{Hola|Hey} {name}! {Qué bueno|Nos alegra} verte de nuevo. {Ya es|Vienen siendo} {stays} estadías en {property} 🌲 Si {querés|tenés ganas de} volver, tenemos algo especial para vos.`,
-  },
-  off_season_nomad: {
-    name: '🏝️ Nómada baja temporada',
-    description: 'Tarifa mensual mayo-septiembre',
-    template: `{Hola|Hey} {name}! {Hace|Ya van} {monthsAgo} {meses|mes} desde tu última visita a {property}. Si {querés|tenés ganas de} volver a trabajar al bosque, tenemos tarifa nómada para estadas largas. ¿Te {interesa|mando} los precios?`,
-  },
-  return_discount: {
-    name: '🎁 Descuento retorno',
-    description: '15% off para huéspedes que vuelven',
-    template: `¡{Hola|Hey} {name}! {Como ya nos conocemos|Como ya estuviste acá {stays} {vez|veces}}, te {ofrecemos|damos} 15% off en tu próxima reserva directa. Código VOLVER15 en book.ilbuco.com.ar 🌲`,
-  },
-  holiday: {
-    name: '🎉 Feriado disponible',
-    description: 'Avisar fechas libres',
-    template: `{Hola|Hey} {name}! {Quedan|Tenemos} fechas libres para {el feriado|Semana Santa} en {property}. Si {querés|pensás} volver a Cariló, {avisanos|escribinos} pronto que se llenan rápido 🌊`,
-  },
-  referral: {
-    name: '👥 Referido',
-    description: 'Pedir que recomienden',
-    template: `{Hola|Hey} {name}! Si {conocés|tenés} alguien que le {gustaría|encantaría} {property}, {mandalos|mándalos}. A vos y a ellos les {damos|hacemos} una noche gratis 🌲✨`,
-  },
-  we_miss_you: {
-    name: '💭 Te extrañamos',
-    description: 'Hace mucho que no vuelve',
-    template: `{Hola|Hey} {name}! {Hace|Ya pasaron} {monthsAgo} {meses|mes} desde tu estadía en {property} 🌲 {¿Cómo estás?|¿Todo bien?} Si {extrañás|extrañan} el bosque, {tenemos|hay} disponibilidad este {year}.`,
   },
   ota_thank_you: {
     name: '🙏 Gracias (OTA)',
-    description: 'Mensaje post-estadía por Airbnb/Booking — solo agradecimiento',
-    ota: true,
-    template: `¡Gracias {name} por elegir {property}! {Espero|Esperamos} que hayan disfrutado su estadía en Cariló 🌲 Quedamos a disposición para lo que necesiten. ¡Hasta pronto!`,
+    description: 'Agradecimiento post-estadía — compatible OTA',
+    otaSafe: true,
+    template: `¡Gracias {name} por elegir {property}! {Espero|Esperamos} que hayan disfrutado su estadía en Cariló 🌲 Quedamos a disposición. ¡Hasta pronto!`,
+  },
+  ota_book_again: {
+    name: '📅 Volver (OTA)',
+    description: 'Invitar a reservar de nuevo por la plataforma — compatible OTA',
+    otaSafe: true,
+    template: `¡{Hola|Hey} {name}! {Qué bueno|Nos alegra} que hayas disfrutado {property}. Si {querés|tienen ganas de} volver a Cariló, {tenemos|hay} disponibilidad en nuestras suites. ¡Los esperamos! 🌲`,
+  },
+  ota_seasonal: {
+    name: '🌸 Temporada disponible (OTA)',
+    description: 'Avisar disponibilidad de temporada — compatible OTA',
+    otaSafe: true,
+    template: `¡{Hola|Hey} {name}! {Ya|Se viene} la nueva temporada en Cariló 🌊 Si {querés|piensan} volver a disfrutar el bosque y la playa, {tenemos|hay} fechas disponibles en {property}. ¡Escribinos por acá!`,
+  },
+
+  // ─── WHATSAPP ONLY (not OTA-compliant) ────────────────────────────────
+  return_repeat: {
+    name: '🔄 Recurrente (WA)',
+    description: 'Huésped recurrente con oferta directa — solo WhatsApp',
+    otaSafe: false,
+    template: `¡{Hola|Hey} {name}! {Qué bueno|Nos alegra} verte de nuevo. {Ya es|Vienen siendo} {stays} estadías en {property} 🌲 Si {querés|tenés ganas de} volver, tenemos algo especial para vos por WhatsApp.`,
+  },
+  off_season_nomad: {
+    name: '🏝️ Nómada (WA)',
+    description: 'Tarifa nómada directa — solo WhatsApp',
+    otaSafe: false,
+    template: `{Hola|Hey} {name}! {Hace|Ya van} {monthsAgo} {meses|mes} desde tu última visita a {property}. Si {querés|tenés ganas de} volver a trabajar al bosque, tenemos tarifa nómada para estadas largas. ¿Te {interesa|mando} los precios?`,
+  },
+  return_discount: {
+    name: '🎁 Descuento (WA)',
+    description: '15% off directo — solo WhatsApp',
+    otaSafe: false,
+    template: `¡{Hola|Hey} {name}! {Como ya nos conocemos|Como ya estuviste acá {stays} {vez|veces}}, te {ofrecemos|damos} 15% off en tu próxima reserva directa. Código VOLVER15 en book.ilbuco.com.ar 🌲`,
+  },
+  holiday: {
+    name: '🎉 Feriado (WA)',
+    description: 'Fechas libres con oferta directa — solo WhatsApp',
+    otaSafe: false,
+    template: `{Hola|Hey} {name}! {Quedan|Tenemos} fechas libres para {el feriado|Semana Santa} en {property}. Si {querés|pensás} volver a Cariló, {avisanos|escribinos} por WhatsApp pronto que se llenan rápido 🌊`,
+  },
+  referral: {
+    name: '👥 Referido (WA)',
+    description: 'Oferta referidos — solo WhatsApp',
+    otaSafe: false,
+    template: `{Hola|Hey} {name}! Si {conocés|tenés} alguien que le {gustaría|encantaría} {property}, {mandalos|mándalos}. A vos y a ellos les {damos|hacemos} una noche gratis 🌲✨`,
+  },
+  we_miss_you: {
+    name: '💭 Te extrañamos (WA)',
+    description: 'Reactivación con link directo — solo WhatsApp',
+    otaSafe: false,
+    template: `{Hola|Hey} {name}! {Hace|Ya pasaron} {monthsAgo} {meses|mes} desde tu estadía en {property} 🌲 {¿Cómo estás?|¿Todo bien?} Si {extrañás|extrañan} el bosque, {tenemos|hay} disponibilidad este {year}. Reservá en book.ilbuco.com.ar`,
   },
 };
 
@@ -904,21 +928,30 @@ export default function CrmPanel() {
 
                   {/* Quick templates — filtered by channel */}
                   <div className="mb-3">
-                    <label className="text-xs text-slate-500 font-medium">Plantillas:</label>
+                    <label className="text-xs text-slate-500 font-medium">
+                      Plantillas {outreachChannel === 'ota' && <span className="text-blue-600">(solo compatibles OTA):</span>}:
+                    </label>
                     <div className="flex flex-wrap gap-2 mt-1">
                       {Object.entries(TEMPLATES)
-                        .filter(([_, t]) => outreachChannel === 'whatsapp' ? !t.ota : t.ota || true)
+                        .filter(([_, t]) => outreachChannel === 'whatsapp' ? true : t.otaSafe)
                         .map(([key, t]) => (
                         <button
                           key={key}
                           onClick={() => setMessageTemplate(t.template)}
-                          className="border rounded-lg px-2 py-1 text-xs hover:bg-emerald-50 hover:border-emerald-300"
+                          className={`border rounded-lg px-2 py-1 text-xs hover:bg-emerald-50 hover:border-emerald-300 ${
+                            t.otaSafe ? '' : 'border-amber-200 bg-amber-50'
+                          }`}
                           title={t.description}
                         >
                           {t.name}
                         </button>
                       ))}
                     </div>
+                    {outreachChannel === 'whatsapp' && (
+                      <p className="text-xs text-slate-400 mt-1">
+                        🟡 = WhatsApp only · Las plantillas sin marca funcionan en ambos canales
+                      </p>
+                    )}
                   </div>
 
                   {/* Message editor */}
@@ -929,10 +962,40 @@ export default function CrmPanel() {
                       value={messageTemplate}
                       onChange={e => setMessageTemplate(e.target.value)}
                       rows={5}
-                      className="w-full border rounded-lg px-3 py-2 mt-1 text-sm"
+                      className={`w-full border rounded-lg px-3 py-2 mt-1 text-sm ${
+                        outreachChannel === 'ota' && messageTemplate.trim() && !scanOtaCompliance(messageTemplate).compliant
+                          ? 'border-red-400 bg-red-50'
+                          : ''
+                      }`}
                       placeholder="Escribí el mensaje o usá una plantilla..."
                     />
                   </div>
+
+                  {/* Real-time OTA compliance scanner */}
+                  {outreachChannel === 'ota' && messageTemplate.trim() && (() => {
+                    const scan = scanOtaCompliance(messageTemplate);
+                    if (scan.compliant && scan.violations.length === 0) {
+                      return (
+                        <div className="mb-3 text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg p-2 flex items-center gap-2">
+                          ✓ Mensaje compatible con política OTA
+                        </div>
+                      );
+                    }
+                    return (
+                      <div className="mb-3 space-y-1">
+                        {scan.violations.map((v, i) => (
+                          <div key={i} className={`text-xs rounded-lg p-2 flex items-start gap-2 ${
+                            v.severity === 'block'
+                              ? 'text-red-700 bg-red-50 border border-red-300'
+                              : 'text-amber-700 bg-amber-50 border border-amber-200'
+                          }`}>
+                            <span>{v.severity === 'block' ? '🚫' : '⚠️'}</span>
+                            <span>{v.message}</span>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })()}
 
                   {/* Placeholder chips */}
                   <div className="mb-3">
@@ -1007,7 +1070,11 @@ export default function CrmPanel() {
                     </button>
                     <button
                       onClick={fetchPreview}
-                      disabled={!messageTemplate.trim() || (outreachChannel === 'whatsapp' && (selectedWithPhone.length === 0 || selectedWithPhone.length > 8))}
+                      disabled={
+                        !messageTemplate.trim() ||
+                        (outreachChannel === 'whatsapp' && (selectedWithPhone.length === 0 || selectedWithPhone.length > 8)) ||
+                        (outreachChannel === 'ota' && messageTemplate.trim() && !scanOtaCompliance(messageTemplate).compliant)
+                      }
                       className="bg-emerald-600 text-white rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-40"
                     >
                       Ver vista previa →
