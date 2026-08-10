@@ -355,3 +355,158 @@ export async function getCalendarAvailability(
     }),
   };
 }
+
+// ─── CRM: Full reservations, conversations list, reviews ─────────────────────
+
+export interface FullReservation {
+  reservation_code: string;
+  status: string;
+  channel_type: string;
+  conversation_id?: string;
+  guest_name: string;
+  guest_email: string | null;
+  guest_phone: string | null;
+  property_id: number;
+  check_in_date: string;
+  check_out_date: string;
+  number_of_guests?: number;
+  number_of_adults?: number;
+  number_of_children?: number;
+  guests?: Array<{
+    name?: string;
+    phone?: string;
+    email?: string;
+    country?: string;
+    is_booker?: boolean;
+  }>;
+  rates?: { total_rate?: { currency?: string; amount?: number } };
+  payment?: { status?: string };
+  cancelled_at?: string | null;
+  booked_at?: string;
+}
+
+/**
+ * Fetch ALL reservations with full detail (for CRM).
+ * Returns every field Hostex exposes — unlike getReservations() which only
+ * returns minimal spans for inventory sync.
+ * Chunked in 170-day windows (Hostex caps at 180).
+ */
+export async function getFullReservations(start: string, end: string): Promise<FullReservation[]> {
+  const out: FullReservation[] = [];
+  const addDaysLocal = (d: string, n: number) => {
+    const dt = new Date(d + 'T12:00:00Z');
+    dt.setUTCDate(dt.getUTCDate() + n);
+    return dt.toISOString().split('T')[0];
+  };
+
+  for (let winStart = start; winStart <= end; winStart = addDaysLocal(winStart, 170)) {
+    const winEnd = addDaysLocal(winStart, 169) < end ? addDaysLocal(winStart, 169) : end;
+    for (let offset = 0; ; offset += 100) {
+      const res = await fetch(
+        `${HOSTEX_BASE}/reservations?start_check_in_date=${winStart}&end_check_in_date=${winEnd}&offset=${offset}&limit=100`,
+        { headers: headers() }
+      );
+      const data = await res.json();
+      if (data.error_code !== 200) {
+        throw new Error(`Hostex reservations error: ${data.error_msg}`);
+      }
+      const page = data.data?.reservations ?? [];
+      for (const r of page) {
+        out.push({
+          reservation_code: r.reservation_code,
+          status: r.status,
+          channel_type: r.channel_type ?? 'unknown',
+          conversation_id: r.conversation_id,
+          guest_name: r.guest_name || 'Guest',
+          guest_email: r.guest_email ?? null,
+          guest_phone: r.guest_phone ?? null,
+          property_id: r.property_id,
+          check_in_date: r.check_in_date,
+          check_out_date: r.check_out_date,
+          number_of_guests: r.number_of_guests,
+          number_of_adults: r.number_of_adults,
+          number_of_children: r.number_of_children,
+          guests: r.guests,
+          rates: r.rates,
+          payment: r.payment,
+          cancelled_at: r.cancelled_at,
+          booked_at: r.booked_at,
+        });
+      }
+      if (page.length < 100) break;
+    }
+  }
+  return out;
+}
+
+export interface ConversationListItem {
+  id: string;
+  channel_type: string;
+  guest: { name?: string; email?: string; phone?: string };
+  last_message_at?: string;
+  property_title?: string;
+}
+
+/**
+ * List ALL conversations (for CRM inbox view).
+ * No filters available on the API — pages through everything.
+ */
+export async function listConversations(): Promise<ConversationListItem[]> {
+  const out: ConversationListItem[] = [];
+  for (let offset = 0; ; offset += 100) {
+    const res = await fetch(
+      `${HOSTEX_BASE}/conversations?offset=${offset}&limit=100`,
+      { headers: headers() }
+    );
+    const data = await res.json();
+    if (data.error_code !== 200) {
+      throw new Error(`Hostex conversations error: ${data.error_msg}`);
+    }
+    const page = data.data?.conversations ?? [];
+    out.push(...page);
+    if (page.length < 100) break;
+  }
+  return out;
+}
+
+export interface HostexReview {
+  reservation_code: string;
+  property_id: number;
+  channel_type: string;
+  check_in_date: string;
+  check_out_date: string;
+  guest_review?: { score?: number; content?: string; created_at?: string };
+  host_review?: { score?: number; content?: string };
+}
+
+/**
+ * Fetch reviews (host + guest) for the CRM happiness scoring.
+ * Chunked in 170-day windows by checkout date.
+ */
+export async function getReviews(start: string, end: string): Promise<HostexReview[]> {
+  const out: HostexReview[] = [];
+  const addDaysLocal = (d: string, n: number) => {
+    const dt = new Date(d + 'T12:00:00Z');
+    dt.setUTCDate(dt.getUTCDate() + n);
+    return dt.toISOString().split('T')[0];
+  };
+
+  for (let winStart = start; winStart <= end; winStart = addDaysLocal(winStart, 170)) {
+    const winEnd = addDaysLocal(winStart, 169) < end ? addDaysLocal(winStart, 169) : end;
+    for (let offset = 0; ; offset += 100) {
+      const res = await fetch(
+        `${HOSTEX_BASE}/reviews?start_check_out_date=${winStart}&end_check_out_date=${winEnd}&offset=${offset}&limit=100`,
+        { headers: headers() }
+      );
+      const data = await res.json();
+      if (data.error_code !== 200) {
+        throw new Error(`Hostex reviews error: ${data.error_msg}`);
+      }
+      const page = data.data?.reviews ?? [];
+      out.push(...page);
+      if (page.length < 100) break;
+    }
+  }
+  return out;
+}
+

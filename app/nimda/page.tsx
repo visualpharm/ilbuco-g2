@@ -1,16 +1,20 @@
 'use client';
 
 /**
- * /nimda — Il Buco guest PIN admin panel (admin spelled backwards).
+ * /nimda — Il Buco admin panel (admin spelled backwards).
  *
- * Shows every reservation with its PIN, booked dates, lock-sync status, and
- * delivery status per channel. Ivan and Andrés log in with their shared passwords.
+ * Two tabs:
+ *   - PINs: lock PIN management (guest PINs, manual PINs, backup pool)
+ *   - CRM: guest history, AI summaries, mass messaging
  *
- * Phase 1: read-only table with status badges + filters.
- * Phase 3: manual actions (re-send PIN, force retry, assign backup).
+ * Ivan and Andrés log in with their shared passwords.
  */
 
 import { useCallback, useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+
+// CRM panel is loaded dynamically (client-only, keeps initial bundle small)
+const CrmPanel = dynamic(() => import('./crm-panel'), { ssr: false });
 
 interface ChannelStatus {
   channel: 'whatsapp' | 'email' | 'hostex';
@@ -81,6 +85,7 @@ export default function NimdaPanel() {
   const [toast, setToast] = useState('');
   const [showCreate, setShowCreate] = useState(false);
   const [createForm, setCreateForm] = useState({ name: '', pin: '', permanent: true, checkIn: '', checkOut: '' });
+  const [activeTab, setActiveTab] = useState<'pins' | 'crm'>('pins');
 
   const flash = (msg: string) => { setToast(msg); setTimeout(() => setToast(''), 5000); };
 
@@ -213,33 +218,58 @@ export default function NimdaPanel() {
       {/* Header */}
       <header className="sticky top-0 z-20 bg-white border-b px-4 py-3 flex flex-wrap items-center gap-3">
         <h1 className="font-semibold text-lg">Nimda — Il Buco</h1>
-        <span className="text-sm text-slate-400">Guest PIN Management</span>
-        <div className="ml-auto flex gap-3 items-center">
-          <div className="flex gap-4 text-sm">
-            <span className="text-emerald-600">{syncedCount} synced</span>
-            <span className="text-amber-600">{retryingCount} retrying</span>
-            <span className="text-red-600">{failedCount} failed</span>
-            {poolStats && (
-              <span className="text-slate-500">Pool: {poolStats.available}/{poolStats.total}</span>
-            )}
-            <span className="text-slate-400">{contactCount} contacts</span>
-          </div>
+        {/* Tab switcher */}
+        <div className="flex gap-1">
           <button
-            onClick={() => setShowCreate(!showCreate)}
-            className="bg-slate-900 text-white px-3 py-1.5 rounded-lg text-sm font-medium"
+            onClick={() => setActiveTab('pins')}
+            className={`px-3 py-1 rounded-full text-sm font-medium ${activeTab === 'pins' ? 'bg-slate-900 text-white' : 'bg-slate-200 text-slate-700'}`}
           >
-            + New PIN
+            🔑 PINs
           </button>
           <button
-            onClick={rollPins}
-            disabled={busy === 'roll'}
-            className="border border-red-300 text-red-600 px-3 py-1.5 rounded-lg text-sm font-medium disabled:opacity-40"
+            onClick={() => setActiveTab('crm')}
+            className={`px-3 py-1 rounded-full text-sm font-medium ${activeTab === 'crm' ? 'bg-slate-900 text-white' : 'bg-slate-200 text-slate-700'}`}
           >
-            🔄 Roll All
+            📋 CRM
           </button>
         </div>
+        {activeTab === 'pins' && (
+          <div className="ml-auto flex gap-3 items-center">
+            <div className="flex gap-4 text-sm">
+              <span className="text-emerald-600">{syncedCount} synced</span>
+              <span className="text-amber-600">{retryingCount} retrying</span>
+              <span className="text-red-600">{failedCount} failed</span>
+              {poolStats && (
+                <span className="text-slate-500">Pool: {poolStats.available}/{poolStats.total}</span>
+              )}
+              <span className="text-slate-400">{contactCount} contacts</span>
+            </div>
+            <button
+              onClick={() => setShowCreate(!showCreate)}
+              className="bg-slate-900 text-white px-3 py-1.5 rounded-lg text-sm font-medium"
+            >
+              + New PIN
+            </button>
+            <button
+              onClick={rollPins}
+              disabled={busy === 'roll'}
+              className="border border-red-300 text-red-600 px-3 py-1.5 rounded-lg text-sm font-medium disabled:opacity-40"
+            >
+              🔄 Roll All
+            </button>
+          </div>
+        )}
       </header>
 
+      {/* CRM tab */}
+      {activeTab === 'crm' && (
+        <main className="max-w-6xl mx-auto p-4">
+          <CrmPanel />
+        </main>
+      )}
+
+      {/* PINs tab */}
+      {activeTab === 'pins' && (
       <main className="max-w-6xl mx-auto p-4 space-y-4">
         {/* Filters */}
         <div className="bg-white rounded-xl shadow-sm p-3 flex flex-wrap gap-3 items-center text-sm">
@@ -531,6 +561,7 @@ export default function NimdaPanel() {
           </div>
         )}
       </main>
+      )} {/* end PINs tab */}
 
       {/* Toast */}
       {toast && (
