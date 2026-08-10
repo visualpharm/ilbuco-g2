@@ -213,6 +213,53 @@ export async function getReservations(start: string, end: string): Promise<Reser
   return out;
 }
 
+export interface HostexReservation {
+  reservation_code: string;
+  status: string;
+  channel_type: string;
+  guest_name: string;
+  guest_email: string | null;
+  guest_phone: string | null;
+  property_id: number;
+  property_name: string;
+  check_in_date: string;
+  check_out_date: string;
+  check_in_details?: {
+    arrival_at?: { hour: number; minute: number };
+    departure_at?: { hour: number; minute: number };
+  };
+}
+
+/**
+ * Fetch a single reservation by its code.
+ * Used by the guest-ops webhook to get full booking details (guest info, dates).
+ */
+export async function getReservation(reservationCode: string): Promise<HostexReservation | null> {
+  const res = await fetch(
+    `${HOSTEX_BASE}/reservations?reservation_code=${encodeURIComponent(reservationCode)}`,
+    { headers: headers() }
+  );
+  const data = await res.json();
+  if (data.error_code !== 200) {
+    throw new Error(`Hostex reservation lookup error: ${data.error_msg}`);
+  }
+  const r = data.data?.reservations?.[0];
+  if (!r) return null;
+  return {
+    reservation_code: r.reservation_code,
+    status: r.status,
+    channel_type: r.channel_type ?? 'unknown',
+    guest_name: r.guest_name || 'Guest',
+    guest_email: r.guest_email ?? null,
+    guest_phone: r.guest_phone ?? null,
+    property_id: r.property_id,
+    property_name: getPropertyName(r.property_id),
+    check_in_date: r.check_in_date,
+    check_out_date: r.check_out_date,
+    check_in_details: r.check_in_details,
+  };
+}
+
 export interface HostexMessage {
   id: string;
   sender_role: 'guest' | 'host';

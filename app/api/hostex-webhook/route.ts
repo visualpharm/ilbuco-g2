@@ -59,6 +59,51 @@ function logInteraction(entry: Record<string, unknown>) {
   }
 }
 
+/**
+ * Guest PIN automation trigger — called fire-and-forget when a reservation
+ * webhook arrives. Fetches the reservation from Hostex and passes it to the
+ * guest-ops orchestrator. Wrapped so failures don't affect the webhook ACK.
+ */
+async function handleGuestOpsWebhook(reservationCode: string, eventType: string): Promise<void> {
+  // Skip if guest-ops env vars aren't configured (no U-tec credentials)
+  if (!process.env.UTEC_CLIENT_ID) {
+    console.log('[guest-ops webhook] UTEC_CLIENT_ID not set — skipping PIN automation');
+    return;
+  }
+
+  try {
+    const { getReservation } = await import('@/lib/hostex-api');
+    const { handleNewReservation } = await import('@/lib/run-guest-ops');
+
+    const reservation = await getReservation(reservationCode);
+    if (!reservation) {
+      console.log(`[guest-ops webhook] Reservation ${reservationCode} not found in Hostex`);
+      return;
+    }
+
+    // Only process accepted reservations
+    if (reservation.status !== 'accepted') {
+      console.log(`[guest-ops webhook] Reservation ${reservationCode} status: ${reservation.status} — skipping`);
+      return;
+    }
+
+    await handleNewReservation({
+      code: reservation.reservation_code,
+      guestName: reservation.guest_name,
+      guestEmail: reservation.guest_email ?? undefined,
+      guestPhone: reservation.guest_phone ?? undefined,
+      propertyId: String(reservation.property_id),
+      checkIn: reservation.check_in_date,
+      checkOut: reservation.check_out_date,
+      channel: reservation.channel_type,
+    });
+
+    console.log(`[guest-ops webhook] Processed ${eventType} for ${reservationCode} (${reservation.guest_name})`);
+  } catch (e) {
+    console.error(`[guest-ops webhook] Failed for ${reservationCode}:`, e);
+  }
+}
+
 export async function POST(request: NextRequest) {
   // Validate webhook secret
   const secret = request.headers.get('x-hostex-webhook-secret') || request.headers.get('x-webhook-secret');
@@ -82,10 +127,21 @@ export async function POST(request: NextRequest) {
   }
 
   // Non-message events (reservations created/cancelled, calendar changes) have no
-  // conversation_id → run the suite↔casa inventory cross-block sync instead.
+  // conversation_id → run the suite↔casa inventory cross-block sync + guest-ops.
   if (!conversationId) {
     console.log('Webhook non-message event:', JSON.stringify(body).slice(0, 200));
     const synced = await maybeSyncInventories();
+
+    // Fire guest PIN automation on reservation events (non-blocking)
+    const reservationCode = body.data?.reservation_code || body.reservation_code || '';
+    const eventType = body.event || body.data?.event || '';
+    if (reservationCode && (eventType === 'reservation_created' || eventType === 'reservation_updated')) {
+      // Fire-and-forget — don't block the webhook ACK (3s timeout)
+      void handleGuestOpsWebhook(reservationCode, eventType).catch(e =>
+        console.error('[guest-ops webhook] error:', e)
+      );
+    }
+
     return NextResponse.json({ ok: true, event: 'non_message', inventory_sync: synced });
   }
 

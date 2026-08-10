@@ -7,6 +7,22 @@
     {
       "path": "/api/pricing/sync-inventory",
       "schedule": "30 8 * * *"
+    },
+    {
+      "path": "/api/guest-ops?job=retries",
+      "schedule": "*/15 * * * *"
+    },
+    {
+      "path": "/api/guest-ops?job=pre-checkin",
+      "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/guest-ops?job=post-checkout",
+      "schedule": "30 * * * *"
+    },
+    {
+      "path": "/api/guest-ops?job=reconcile",
+      "schedule": "30 3 * * *"
     }
   ]
 }
