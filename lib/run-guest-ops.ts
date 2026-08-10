@@ -21,6 +21,7 @@ import {
   updateRetryQueue,
   type PinAssignment,
   type GuestOpsState,
+  type DeliveryChannel,
 } from './guest-ops-store';
 import {
   listDevices,
@@ -257,9 +258,30 @@ export async function handleNewReservation(
 
 // ─── Deliver PIN (internal helper) ───────────────────────────────────────────
 
-async function deliverThePin(state: GuestOpsState, reservationCode: string): Promise<void> {
+/**
+ * Deliver the PIN to the guest.
+ *
+ * Channel rules:
+ *   - Email + Hostex thread: ALWAYS deliver (guest needs the code even if
+ *     the lock is temporarily offline — they can punch it in later)
+ *   - WhatsApp: ONLY deliver after the PIN is confirmed synced on the lock.
+ *     This prevents sending a code the guest can't use yet.
+ */
+async function deliverThePin(
+  state: GuestOpsState,
+  reservationCode: string,
+  opts: { whatsappOnlyIfSynced?: boolean } = {}
+): Promise<void> {
   const assignment = state.pinAssignments[reservationCode];
   if (!assignment || !assignment.pin) return;
+
+  const whatsappOnlyIfSynced = opts.whatsappOnlyIfSynced ?? true;
+
+  // Determine which channels to use
+  const allChannels: DeliveryChannel[] = ['email', 'hostex'];
+  if (!whatsappOnlyIfSynced || assignment.lockStatus === 'synced') {
+    allChannels.push('whatsapp');
+  }
 
   const data: PinMessageData = {
     guestName: assignment.guestName,
@@ -273,6 +295,7 @@ async function deliverThePin(state: GuestOpsState, reservationCode: string): Pro
     guestPhone: assignment.guestPhone,
     guestEmail: assignment.guestEmail,
     conversationId: undefined, // TODO: pass conversationId from reservation
+    channels: allChannels,
   });
 
   // Update the assignment with delivery results
@@ -332,6 +355,9 @@ export async function processRetryQueue(dryRun = false): Promise<GuestOpsReport>
           };
           state = upsertAssignment(state, synced);
           state = updateRetryQueue(state, q => q.filter(qi => qi !== item));
+
+          // Deliver WhatsApp now that we know it's synced
+          await deliverThePin(state, item.reservationCode);
           continue;
         }
 
@@ -350,6 +376,10 @@ export async function processRetryQueue(dryRun = false): Promise<GuestOpsReport>
           state = upsertAssignment(state, synced);
           state = updateRetryQueue(state, q => q.filter(qi => qi !== item));
           console.log(`[guest-ops] ✅ Retry succeeded for ${item.reservationCode}`);
+
+          // Now that the PIN is synced, deliver via WhatsApp (was skipped earlier)
+          await deliverThePin(state, item.reservationCode);
+          await sendPricingAlert(`✅ [guest-ops] PIN synced for ${assignment.guestName} after ${item.attempts} retry attempt(s). WhatsApp sent.`);
         } else {
           // Record failure and advance Fibonacci
           const failed = recordFailure(item, new Error('Confirmation timed out'));
