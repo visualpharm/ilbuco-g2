@@ -30,6 +30,57 @@ import { loadState as loadGuestOpsState } from './guest-ops-store';
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 /**
+ * Merge multi-room reservations from the same booking.
+ *
+ * When a guest books multiple rooms for the same dates, Hostex creates
+ * separate reservation_codes per room. From the CRM perspective this is
+ * ONE stay, not N stays. This function groups reservations by check-in
+ * date and merges same-date groups into a single reservation that lists
+ * all rooms.
+ *
+ * Grouping criteria: same check_in_date + same check_out_date.
+ * The merged reservation keeps the first code, concatenates property names,
+ * sums guests, and keeps the highest total rate.
+ */
+function mergeMultiRoomReservations(reservations: GuestReservation[]): GuestReservation[] {
+  if (reservations.length <= 1) return reservations;
+
+  const groups = new Map<string, GuestReservation[]>();
+  for (const r of reservations) {
+    const key = `${r.checkIn}|${r.checkOut}`;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(r);
+  }
+
+  const merged: GuestReservation[] = [];
+  for (const group of groups.values()) {
+    if (group.length === 1) {
+      merged.push(group[0]);
+      continue;
+    }
+
+    // Multiple rooms in the same dates — merge into one
+    const first = group[0];
+    const properties = [...new Set(group.map(r => r.property))].sort();
+    const totalGuests = group.reduce((sum, r) => sum + (r.guests || 0), 0);
+    const maxRate = group.reduce((max, r) => Math.max(max, r.totalRate ?? 0), 0);
+    const channels = [...new Set(group.map(r => r.channel))];
+
+    merged.push({
+      ...first,
+      property: properties.join(' + '),
+      guests: totalGuests,
+      totalRate: maxRate > 0 ? maxRate : first.totalRate,
+      channel: channels[0] ?? first.channel,
+      conversationId: first.conversationId,
+    });
+  }
+
+  merged.sort((a, b) => a.checkIn.localeCompare(b.checkIn));
+  return merged;
+}
+
+/**
  * Generate a stable guest ID from phone or email or name.
  * Deduplicates across sources.
  */
@@ -431,7 +482,19 @@ export async function syncAllGuests(): Promise<SyncReport> {
     console.log(`[crm-sync] Merged ${mergedCount} duplicate guests`);
   }
 
-  // 9. Save
+  // 9. Merge multi-room reservations — a guest who books 3 rooms for the
+  //    same dates should count as ONE stay, not three. Hostex creates
+  //    separate reservation_codes per room; we collapse them.
+  for (const guest of deduped.values()) {
+    const before = guest.reservations.length;
+    guest.reservations = mergeMultiRoomReservations(guest.reservations);
+    const after = guest.reservations.length;
+    if (after < before) {
+      console.log(`[crm-sync] ${guest.name}: ${before} → ${after} stays (merged multi-room)`);
+    }
+  }
+
+  // 10. Save
   newState = { ...newState, guests: Object.fromEntries(deduped) };
   newState.lastSyncAt = new Date().toISOString();
   await saveCrmState(newState);
