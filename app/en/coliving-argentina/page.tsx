@@ -749,7 +749,7 @@ export default function ColivingArgentinaPage() {
                 All prices include utilities, internet, housekeeping, and community events
               </p>
               <Link
-                href="https://book.ilbuco.com.ar"
+                href="/reservar"
                 className="inline-flex items-center justify-center px-8 py-4 bg-black text-white text-lg font-semibold rounded-lg hover:bg-gray-800 transition-colors"
               >
                 Check Availability <ArrowRight className="ml-2 h-5 w-5" />

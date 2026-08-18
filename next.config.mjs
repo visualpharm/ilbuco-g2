@@ -10,7 +10,7 @@ const nextConfig = {
     return [
       {
         source: '/book',
-        destination: '/contacts',
+        destination: '/reservar',
         permanent: true,
       },
       {

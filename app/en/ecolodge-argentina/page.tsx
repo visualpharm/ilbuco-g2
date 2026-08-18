@@ -51,7 +51,7 @@ export default function EcolodgeArgentina() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
-                    href="https://book.ilbuco.com.ar"
+                    href="/reservar"
                     className="inline-flex items-center px-8 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition-colors font-semibold"
                   >
                     Book Eco Stay
@@ -295,7 +295,7 @@ export default function EcolodgeArgentina() {
                 Plan Your Eco Stay
               </Link>
               <Link
-                href="https://book.ilbuco.com.ar"
+                href="/reservar"
                 className="inline-flex items-center px-8 py-3 border border-gray-300 text-white rounded-md hover:bg-gray-800 transition-colors font-semibold"
               >
                 Check Availability

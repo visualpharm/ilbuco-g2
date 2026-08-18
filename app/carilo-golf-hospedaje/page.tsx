@@ -269,7 +269,7 @@ export default function CariloGolfHospedaje() {
                 Reservar Golf Package
               </Link>
               <Link
-                href="https://book.ilbuco.com.ar"
+                href="/reservar"
                 className="inline-flex items-center px-8 py-3 border border-gray-300 text-white rounded-md hover:bg-gray-800 transition-colors font-semibold"
               >
                 Ver Disponibilidad
