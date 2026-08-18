@@ -12,7 +12,10 @@
  * Env:
  *   MERCADO_PAGO_ACCESS_TOKEN — from https://www.mercadopago.com.ar/developers/panel
  *   MERCADO_PAGO_PUBLIC_KEY   — public key (for frontend SDK if needed later)
+ *   MERCADO_PAGO_WEBHOOK_SECRET — "Firma secreta" from Tus Integraciones → Webhooks
  */
+
+import { createHmac, timingSafeEqual } from 'crypto';
 
 const MP_API = 'https://api.mercadopago.com';
 
@@ -171,11 +174,10 @@ export async function getPayment(paymentId: number | string): Promise<PaymentInf
 
 /**
  * Verify the x-signature header on MP webhook notifications.
- * MP signs with HMAC-SHA256 over "{data.id}.{topic or type}" using the webhook secret.
  *
- * Note: this is optional — Vercel's HTTPS endpoint is not publicly guessable,
- * and the real protection is that we only act on verified payment.get() results.
- * Full signature verification can be added when MERCADO_PAGO_WEBHOOK_SECRET is set.
+ * MP signs with HMAC-SHA256 over the manifest "id:{data.id};request-id:{x-request-id};ts:{ts};"
+ * using the per-application webhook secret (Tus Integraciones → Webhooks → "Firma secreta").
+ * Docs: https://www.mercadopago.com.ar/developers/en/docs/checkout-pro/payment-notifications
  */
 export function verifyWebhookSignature(
   dataId: string,
@@ -183,23 +185,25 @@ export function verifyWebhookSignature(
   xRequestId: string,
   secret: string
 ): boolean {
-  if (!secret || !xSignature || !xRequestId) return false;
-  // MP v2 signature: {header "ts=...,v1=..."} where the template is "{request_id}.{data_id}"
+  if (!secret || !xSignature || !xRequestId || !dataId) return false;
   try {
-    // Parse ts and v1 from the header
     const parts = Object.fromEntries(
-      xSignature.split(',').map((p) => p.trim().split('='))
+      xSignature.split(',').map((p) => {
+        const [key, ...val] = p.trim().split('=');
+        return [key, val.join('=')];
+      })
     );
     const ts = parts.ts;
     const v1 = parts.v1;
     if (!ts || !v1) return false;
 
-    const manifest = `id:{xRequestId};ts:{ts};`.replace('{xRequestId}', xRequestId).replace('{ts}', ts);
-    // For now, return true — full HMAC verification requires crypto.subtle (async)
-    // and is best done server-side. The getPayment() call is the real source of truth.
-    void manifest;
-    void dataId;
-    return true;
+    const manifest = `id:${dataId};request-id:${xRequestId};ts:${ts};`;
+    const expected = createHmac('sha256', secret).update(manifest).digest('hex');
+
+    const receivedBuf = Buffer.from(v1, 'utf8');
+    const expectedBuf = Buffer.from(expected, 'utf8');
+    if (receivedBuf.length !== expectedBuf.length) return false;
+    return timingSafeEqual(receivedBuf, expectedBuf);
   } catch {
     return false;
   }

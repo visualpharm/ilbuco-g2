@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getPayment } from '@/lib/mercadopago-client';
+import { getPayment, verifyWebhookSignature } from '@/lib/mercadopago-client';
 import { createReservation, type CreateReservationParams } from '@/lib/hostex-api';
 import { sendPricingAlert } from '@/lib/pricing-alerts';
 
@@ -16,6 +16,22 @@ import { sendPricingAlert } from '@/lib/pricing-alerts';
  *
  * Always returns 200 so MP doesn't retry — we handle errors via Telegram alerts.
  */
+
+// In-memory dedup — good enough for serverless (retries/replays arrive within minutes),
+// same pattern as app/api/hostex-webhook/route.ts's isDuplicate(). Prevents a duplicate
+// Hostex reservation if MP redelivers the notification or a request is replayed.
+const processedPayments = new Map<string, number>();
+
+function isProcessed(paymentId: string): boolean {
+  const now = Date.now();
+  processedPayments.forEach((ts, id) => {
+    if (now - ts > 30 * 60 * 1000) processedPayments.delete(id);
+  });
+  if (processedPayments.has(paymentId)) return true;
+  processedPayments.set(paymentId, now);
+  return false;
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -28,6 +44,28 @@ export async function POST(req: Request) {
     const paymentId = body.data?.id ?? body.resource;
     if (!paymentId) {
       return NextResponse.json({ ok: true, ignored: true });
+    }
+
+    // Verify x-signature when the secret is configured. Fails closed (rejects) on a
+    // bad signature; if MERCADO_PAGO_WEBHOOK_SECRET isn't set yet, logs loudly and
+    // continues — getPayment() below is still the real source of truth for status/amount.
+    const webhookSecret = process.env.MERCADO_PAGO_WEBHOOK_SECRET;
+    if (webhookSecret) {
+      const xSignature = req.headers.get('x-signature') || '';
+      const xRequestId = req.headers.get('x-request-id') || '';
+      const valid = verifyWebhookSignature(String(paymentId), xSignature, xRequestId, webhookSecret);
+      if (!valid) {
+        console.error('[mp/webhook] invalid x-signature — rejecting', { paymentId });
+        return NextResponse.json({ ok: false, error: 'invalid signature' }, { status: 401 });
+      }
+    } else {
+      console.warn('[mp/webhook] MERCADO_PAGO_WEBHOOK_SECRET not set — signature NOT verified');
+    }
+
+    // Skip if we've already processed this payment ID in this lambda instance
+    if (isProcessed(String(paymentId))) {
+      console.log(`[mp/webhook] payment ${paymentId} already processed — skipping`);
+      return NextResponse.json({ ok: true, duplicate: true });
     }
 
     // Fetch the payment to get the real status and external_reference
@@ -52,13 +90,6 @@ export async function POST(req: Request) {
     const propertyId = Number(propertyIdStr);
     const guests = Number(guestsStr);
     const total = Number(totalStr);
-
-    // Idempotency: check if a Hostex reservation already exists for this reference.
-    // The external_reference is unique per preference, so if we already created a
-    // reservation from it, we skip. We use a simple approach: the reservation's
-    // remarks field will contain the MP payment ID, which we can search for.
-    // For now, we rely on MP not sending duplicate approved notifications for the
-    // same payment ID — getPayment always returns the same record.
 
     // ─── Create Hostex reservation ─────────────────────────────────────────────
     const suiteLabel = suite === 'whole-house'
