@@ -26,7 +26,7 @@ if (!VAPI_WEBHOOK_SECRET) {
   process.exit(1);
 }
 const VAPI_API_URL = 'https://api.vapi.ai/assistant';
-const VAPI_SERVER_URL = process.env.VAPI_SERVER_URL || 'https://spider-annotation-sen-louise.trycloudflare.com/api/vapi/server';
+const VAPI_SERVER_URL = process.env.VAPI_SERVER_URL || 'https://ilbuco.com.ar/api/vapi/server';
 // Static header Vapi echoes back on every webhook call — verified server-side
 // in lib/vapi-auth.ts. Vapi's Server config has no plain `secret` field
 // anymore (see docs.vapi.ai/server-url/server-authentication), so a custom
