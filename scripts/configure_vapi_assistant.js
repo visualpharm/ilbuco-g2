@@ -15,9 +15,26 @@
 
 const axios = require('axios');
 
-const VAPI_PRIVATE_KEY = process.env.VAPI_PRIVATE_KEY || 'ac7556fd-4f11-4a76-8518-e0f6c4442ad4';
+const VAPI_PRIVATE_KEY = process.env.VAPI_PRIVATE_KEY;
+if (!VAPI_PRIVATE_KEY) {
+  console.error('VAPI_PRIVATE_KEY not configured (set it in .env.local or the environment)');
+  process.exit(1);
+}
+const VAPI_WEBHOOK_SECRET = process.env.VAPI_WEBHOOK_SECRET;
+if (!VAPI_WEBHOOK_SECRET) {
+  console.error('VAPI_WEBHOOK_SECRET not configured (set it in .env.local or the environment) — required so Vapi authenticates its own webhook calls to /api/vapi/server');
+  process.exit(1);
+}
 const VAPI_API_URL = 'https://api.vapi.ai/assistant';
 const VAPI_SERVER_URL = process.env.VAPI_SERVER_URL || 'https://spider-annotation-sen-louise.trycloudflare.com/api/vapi/server';
+// Static header Vapi echoes back on every webhook call — verified server-side
+// in lib/vapi-auth.ts. Vapi's Server config has no plain `secret` field
+// anymore (see docs.vapi.ai/server-url/server-authentication), so a custom
+// header is the shared-secret mechanism here.
+const VAPI_SERVER_CONFIG = {
+  url: VAPI_SERVER_URL,
+  headers: { 'x-vapi-webhook-secret': VAPI_WEBHOOK_SECRET }
+};
 
 // Voice Agent System Prompt - adapted for voice interactions
 const VOICE_SYSTEM_PROMPT = `Sos un asistente de voz para Il Buco, una villa en Cariló, Argentina.
@@ -126,9 +143,7 @@ const assistantConfig = {
     tools: [
       {
         type: 'function',
-        server: {
-          url: VAPI_SERVER_URL
-        },
+        server: VAPI_SERVER_CONFIG,
         function: {
           name: 'check_availability',
           description: 'REQUIRED: Check real-time room availability. You MUST call this function BEFORE answering ANY question about availability, rooms, dates, or booking. Never assume availability without checking.',
@@ -227,7 +242,7 @@ const assistantConfig = {
       }
     }
   ],
-  serverUrl: VAPI_SERVER_URL,
+  server: VAPI_SERVER_CONFIG,
   silenceTimeoutSeconds: 30,
   maxDurationSeconds: 600,
   endCallPhrases: [

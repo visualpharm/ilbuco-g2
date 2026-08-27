@@ -3,42 +3,57 @@
 import { useState, useEffect } from "react"
 import { MarkdownViewer } from "@/components/markdown-viewer"
 
+const VANISH_PASSWORD_HEADER = "x-vanish-password"
+
 export default function VanishPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [password, setPassword] = useState("")
   const [markdownContent, setMarkdownContent] = useState("")
   const [loading, setLoading] = useState(true)
 
-  // Check authentication on mount
+  // Check authentication on mount — re-validate the stored password against
+  // the server on every load. The server is the only source of truth for
+  // whether a password is correct; nothing is trusted client-side.
   useEffect(() => {
-    const auth = sessionStorage.getItem('vanish-auth')
-    if (auth === 'spotless') {
-      setIsAuthenticated(true)
-      loadContent()
+    const storedPassword = sessionStorage.getItem('vanish-password')
+    if (storedPassword) {
+      loadContent(storedPassword)
     } else {
       setLoading(false)
     }
   }, [])
 
-  const handleLogin = () => {
-    if (password === 'spotless') {
+  const handleLogin = async () => {
+    const ok = await loadContent(password)
+    if (ok) {
       setIsAuthenticated(true)
-      sessionStorage.setItem('vanish-auth', 'spotless')
-      loadContent()
+      sessionStorage.setItem('vanish-password', password)
     } else {
       alert('Incorrect password')
     }
   }
 
-  const loadContent = async () => {
+  // Returns true if the password was accepted by the server.
+  const loadContent = async (candidatePassword: string): Promise<boolean> => {
     try {
-      const response = await fetch('/api/vanish/content')
+      const response = await fetch('/api/vanish/content', {
+        headers: { [VANISH_PASSWORD_HEADER]: candidatePassword }
+      })
+      if (response.status === 401) {
+        sessionStorage.removeItem('vanish-password')
+        setIsAuthenticated(false)
+        return false
+      }
       const data = await response.json()
       if (data.success) {
         setMarkdownContent(data.content)
+        setIsAuthenticated(true)
+        return true
       }
+      return false
     } catch (error) {
       console.error('Failed to load content:', error)
+      return false
     } finally {
       setLoading(false)
     }
@@ -46,10 +61,12 @@ export default function VanishPage() {
 
   const saveMarkdown = async (content: string) => {
     try {
+      const storedPassword = sessionStorage.getItem('vanish-password') || ''
       const response = await fetch('/api/vanish/save', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          [VANISH_PASSWORD_HEADER]: storedPassword
         },
         body: JSON.stringify({ content })
       })
@@ -113,4 +130,3 @@ export default function VanishPage() {
     </div>
   )
 }
-
