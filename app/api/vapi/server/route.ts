@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { verifyVapiWebhookSecret, isAllowedVapiControlUrl, VAPI_WEBHOOK_SECRET_HEADER } from '@/lib/vapi-auth';
 
 const HOSTEX_API_URL = 'https://api.hostex.io/v3/listings/calendar';
 
@@ -237,6 +238,11 @@ async function logConversation(callId: string, data: {
 }
 
 export async function POST(request: NextRequest) {
+  if (!verifyVapiWebhookSecret(request.headers.get(VAPI_WEBHOOK_SECRET_HEADER))) {
+    console.error('[Vapi Server] Rejected request: missing/invalid webhook secret');
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const body: VapiServerMessage = await request.json();
     const messageType = body.message?.type;
@@ -306,6 +312,16 @@ export async function POST(request: NextRequest) {
           }
 
           if (!controlUrl) {
+            results.push({
+              name: functionName,
+              toolCallId: toolCall.id,
+              result: 'No puedo transferir la llamada en este momento. Por favor intentá de nuevo más tarde.'
+            });
+            continue;
+          }
+
+          if (!isAllowedVapiControlUrl(controlUrl)) {
+            console.error('[Vapi Server] Rejected controlUrl outside vapi.ai allowlist:', controlUrl);
             results.push({
               name: functionName,
               toolCallId: toolCall.id,
