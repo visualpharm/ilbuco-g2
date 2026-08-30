@@ -3,6 +3,11 @@
 # dependencies
 /node_modules
 
+# python virtualenvs (were accidentally committed)
+venv/
+.venv/
+virtual/
+
 # next.js
 /.next/
 /out/
