@@ -10,7 +10,12 @@ import type { NextRequest } from 'next/server';
 export const ROLE_COOKIE = 'pricing_role';
 
 function secret(): string {
-  return process.env.ADMIN_TOKEN || 'dev-secret';
+  // Fail closed: ADMIN_TOKEN must be set in production
+  const token = process.env.ADMIN_TOKEN;
+  if (!token) {
+    throw new Error('ADMIN_TOKEN environment variable must be set');
+  }
+  return token;
 }
 
 export function signRole(role: string): string {

@@ -30,10 +30,13 @@ function isDuplicate(messageId: string): boolean {
 }
 
 export async function POST(request: NextRequest) {
-  // Validate API key
+  // Validate API key - fail closed if unset
   const apiKey = request.headers.get('x-api-key');
   const expectedKey = process.env.WAHA_API_KEY;
-  if (expectedKey && apiKey !== expectedKey) {
+  if (!expectedKey) {
+    return NextResponse.json({ error: 'Server misconfigured: WAHA_API_KEY not set' }, { status: 500 });
+  }
+  if (apiKey !== expectedKey) {
     return NextResponse.json({ error: 'Invalid API key' }, { status: 401 });
   }
 

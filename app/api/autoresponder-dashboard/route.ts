@@ -37,9 +37,13 @@ function readLog(): LogEntry[] {
 }
 
 export async function GET(request: NextRequest) {
-  // Simple password protection
+  // Require DASHBOARD_KEY - fail closed if unset (no hardcoded backdoor)
+  const dashboardKey = process.env.DASHBOARD_KEY;
+  if (!dashboardKey) {
+    return NextResponse.json({ error: 'Server misconfigured: DASHBOARD_KEY not set' }, { status: 500 });
+  }
   const password = request.nextUrl.searchParams.get('key');
-  if (password !== process.env.DASHBOARD_KEY && password !== 'ilbuco2026') {
+  if (password !== dashboardKey) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

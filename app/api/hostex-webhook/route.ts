@@ -105,10 +105,13 @@ async function handleGuestOpsWebhook(reservationCode: string, eventType: string)
 }
 
 export async function POST(request: NextRequest) {
-  // Validate webhook secret
+  // Validate webhook secret - fail closed if unset
   const secret = request.headers.get('x-hostex-webhook-secret') || request.headers.get('x-webhook-secret');
   const expectedSecret = process.env.HOSTEX_WEBHOOK_SECRET;
-  if (expectedSecret && secret !== expectedSecret) {
+  if (!expectedSecret) {
+    return NextResponse.json({ error: 'Server misconfigured: HOSTEX_WEBHOOK_SECRET not set' }, { status: 500 });
+  }
+  if (secret !== expectedSecret) {
     return NextResponse.json({ error: 'Invalid webhook secret' }, { status: 401 });
   }
 
