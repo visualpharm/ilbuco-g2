@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getCalendarAvailability, SUITE_PROPERTY_IDS, PROPERTY_NAMES } from '@/lib/hostex-api';
 import { createPreference } from '@/lib/mercadopago-client';
+import { isDirectBookingEnabled } from '@/lib/direct-booking';
 import { minStayForDate, suitesClosedForDate, DEFAULT_STAY_POLICY } from '@/lib/stay-policy';
 
 /**
@@ -13,10 +14,20 @@ import { minStayForDate, suitesClosedForDate, DEFAULT_STAY_POLICY } from '@/lib/
  * handler only after MP confirms payment. The booking details travel through
  * the MP external_reference so the webhook can reconstruct them.
  *
+ * Gated on MERCADO_PAGO_WEBHOOK_SECRET (see lib/direct-booking.ts): without the
+ * signing secret the confirming webhook can't run, so we refuse to take payments.
+ *
  * Body: { suite, checkIn, checkOut, guests, name, email, phone, remarks? }
  */
 export async function POST(req: Request) {
   try {
+    if (!isDirectBookingEnabled()) {
+      return NextResponse.json(
+        { error: 'Direct booking is temporarily unavailable — please book via book.ilbuco.com.ar' },
+        { status: 503 }
+      );
+    }
+
     const body = await req.json();
     const { suite, checkIn, checkOut, guests, name, email, phone, remarks } = body;
 

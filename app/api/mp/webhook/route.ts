@@ -14,7 +14,9 @@ import { sendPricingAlert } from '@/lib/pricing-alerts';
  *   2. Create a Hostex direct-booking reservation (pay-first → received_amount = rate_amount)
  *   3. Hostex fires reservation_created webhook → existing guest-ops automation kicks in
  *
- * Always returns 200 so MP doesn't retry — we handle errors via Telegram alerts.
+ * Responses: processing errors return 200 (with a Telegram alert) so MP doesn't
+ * retry an already-failing flow; a missing MERCADO_PAGO_WEBHOOK_SECRET returns 503
+ * so MP retries after the secret is configured; an invalid signature returns 401.
  */
 
 // In-memory dedup — good enough for serverless (retries/replays arrive within minutes),
@@ -46,20 +48,21 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true, ignored: true });
     }
 
-    // Verify x-signature when the secret is configured. Fails closed (rejects) on a
-    // bad signature; if MERCADO_PAGO_WEBHOOK_SECRET isn't set yet, logs loudly and
-    // continues — getPayment() below is still the real source of truth for status/amount.
+    // Signature verification fails CLOSED. An unsigned webhook must never create
+    // reservations — a forged or replayed payment notification would otherwise
+    // block calendar dates in Hostex. Bad signature → 401; missing secret → 503
+    // (MP retries the delivery once the secret lands in the env).
     const webhookSecret = process.env.MERCADO_PAGO_WEBHOOK_SECRET;
-    if (webhookSecret) {
-      const xSignature = req.headers.get('x-signature') || '';
-      const xRequestId = req.headers.get('x-request-id') || '';
-      const valid = verifyWebhookSignature(String(paymentId), xSignature, xRequestId, webhookSecret);
-      if (!valid) {
-        console.error('[mp/webhook] invalid x-signature — rejecting', { paymentId });
-        return NextResponse.json({ ok: false, error: 'invalid signature' }, { status: 401 });
-      }
-    } else {
-      console.warn('[mp/webhook] MERCADO_PAGO_WEBHOOK_SECRET not set — signature NOT verified');
+    if (!webhookSecret) {
+      console.error('[mp/webhook] MERCADO_PAGO_WEBHOOK_SECRET not set — rejecting (fail-closed); MP will retry');
+      return NextResponse.json({ ok: false, error: 'webhook not configured' }, { status: 503 });
+    }
+
+    const xSignature = req.headers.get('x-signature') || '';
+    const xRequestId = req.headers.get('x-request-id') || '';
+    if (!verifyWebhookSignature(String(paymentId), xSignature, xRequestId, webhookSecret)) {
+      console.error('[mp/webhook] invalid x-signature — rejecting', { paymentId });
+      return NextResponse.json({ ok: false, error: 'invalid signature' }, { status: 401 });
     }
 
     // Skip if we've already processed this payment ID in this lambda instance
