@@ -70,7 +70,7 @@ export default function Rooms() {
                       <Translate text={roomsTranslations.terraceSuite.title} />
                     </h2>
                     <a
-                      href="https://book.ilbuco.com.ar/listing/110801"
+                      href="/reservar/terrazzo"
                       className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
                     >
                       <Translate text={{
@@ -176,7 +176,7 @@ export default function Rooms() {
                       <Translate text={roomsTranslations.penthouseSuite.title} />
                     </h2>
                     <a
-                      href="https://book.ilbuco.com.ar/listing/110803"
+                      href="/reservar/penthouse"
                       className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
                     >
                       <Translate text={{
@@ -256,7 +256,7 @@ export default function Rooms() {
                       <Translate text={roomsTranslations.gardenSuite.title} />
                     </h2>
                     <a
-                      href="https://book.ilbuco.com.ar/listing/110800"
+                      href="/reservar/giardino"
                       className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
                     >
                       <Translate text={{
@@ -323,7 +323,7 @@ export default function Rooms() {
                       <Translate text={roomsTranslations.forestSuite.title} />
                     </h2>
                     <a
-                      href="https://book.ilbuco.com.ar/listing/110802"
+                      href="/reservar/paraiso"
                       className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
                     >
                       <Translate text={{

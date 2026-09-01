@@ -180,7 +180,7 @@ export default function Contact() {
                           </p>
                         </div>
                         <a
-                          href="https://book.ilbuco.com.ar/"
+                          href="/reservar"
                           className="block w-full sm:w-auto text-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors sm:ml-4"
                         >
                           <Translate

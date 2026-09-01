@@ -61,4 +61,6 @@ Temporary Items
 
 # Conversation logs
 /logs/
+# Agent/tooling scratch dirs
+.playwright-mcp/
 .zcode/
