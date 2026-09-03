@@ -72,13 +72,16 @@ export async function POST(request: NextRequest) {
   try {
     const state = await loadState();
 
-    // Try to match this phone to an existing reservation
+    // Try to match this phone to an existing reservation. Full normalized
+    // digits-only equality only — a last-8-digit suffix match let any phone
+    // sharing the trailing digits (different country/area code, or a
+    // purchased/VoIP number) receive another guest's door PIN (security audit
+    // 2026-09-03, finding 4). phoneToChatId() is the repo's existing E.164
+    // normalizer (digits-only + AR mobile "9" insertion), reused here so both
+    // sides compare on the same canonical form.
     const matchingAssignment = Object.values(state.pinAssignments).find(a => {
       if (!a.guestPhone) return false;
-      const normalizedGuest = a.guestPhone.replace(/[^\d]/g, '');
-      const normalizedInbound = fromPhone.replace(/[^\d]/g, '');
-      // Match on last 8 digits (handles country code variations)
-      return normalizedGuest.slice(-8) === normalizedInbound.slice(-8);
+      return phoneToChatId(a.guestPhone) === phoneToChatId(fromPhone);
     });
 
     // Upsert contact
