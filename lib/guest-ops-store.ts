@@ -7,12 +7,14 @@
  *   - backupPool: static backup PINs available for fallback
  *   - contacts: phone → { name, email, optInAt, reservations }
  *
- * Uses the same versioned-pathname pattern as pricing-config.ts: each save creates
- * a new pathname (guest-ops-v/<ms>.json) so Vercel Blob's CDN doesn't serve stale
- * data on read-after-write. Old versions are pruned to KEEP_VERSIONS.
+ * Uses the shared versioned-blob-store: each save creates a NEW pathname with a
+ * 128-bit crypto-random segment (guest-ops-v2/<ms>-<rand>.json) so Vercel Blob's
+ * CDN doesn't serve stale data on read-after-write AND the URL holding guest
+ * PINs/PII is not enumerable (security audit 2026-09-03, finding 1). Legacy
+ * guest-ops-v/<ms>.json blobs keep loading until pruning retires them.
  */
 
-import { put, list, del } from '@vercel/blob';
+import { createVersionedStore } from './versioned-blob-store';
 import type { QueueItem } from './utec-retry';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -111,8 +113,30 @@ export function defaultState(): GuestOpsState {
 
 // ─── Persistence ─────────────────────────────────────────────────────────────
 
-const VERSION_PREFIX = 'guest-ops-v/';
 const KEEP_VERSIONS = 6;
+
+// Security audit 2026-09-03, finding 1: this state holds active door PINs and
+// guest PII, and the blob store domain is public, so the blob URL is the
+// capability — it must not be enumerable. New writes go to guest-ops-v2/ with
+// a 128-bit crypto-random pathname segment; loads still see legacy
+// guest-ops-v/<ms>.json blobs (the list prefix 'guest-ops-v' matches both),
+// so existing bookings keep working across the migration, and best-effort
+// pruning retires the guessable legacy URLs within KEEP_VERSIONS saves.
+const guestOpsStore = createVersionedStore<GuestOpsState>({
+  generationPrefix: 'guest-ops-v2/',
+  listPrefix: 'guest-ops-v',
+  keepVersions: KEEP_VERSIONS,
+  defaults: defaultState,
+  // Merge with defaults so new fields never come back undefined
+  merge: (def, state) => ({
+    ...def,
+    ...state,
+    pinAssignments: state.pinAssignments ?? {},
+    retryQueue: state.retryQueue ?? [],
+    backupPool: state.backupPool ?? [],
+    contacts: state.contacts ?? {},
+  }),
+});
 
 /**
  * Load the latest state from Vercel Blob.
@@ -120,49 +144,20 @@ const KEEP_VERSIONS = 6;
  */
 export async function loadState(): Promise<GuestOpsState> {
   try {
-    const { blobs } = await list({ prefix: VERSION_PREFIX, limit: 1000 });
-    if (!blobs.length) return defaultState();
-    const latest = blobs.reduce((a, b) => (a.pathname > b.pathname ? a : b));
-    const res = await fetch(latest.url, { cache: 'no-store' });
-    if (!res.ok) throw new Error(`blob fetch ${res.status}`);
-    const state = (await res.json()) as GuestOpsState;
-    // Merge with defaults so new fields never come back undefined
-    const def = defaultState();
-    return {
-      ...def,
-      ...state,
-      pinAssignments: state.pinAssignments ?? {},
-      retryQueue: state.retryQueue ?? [],
-      backupPool: state.backupPool ?? [],
-      contacts: state.contacts ?? {},
-    };
+    return await guestOpsStore.load();
   } catch {
     return defaultState();
   }
 }
 
 /**
- * Save state to Vercel Blob with a versioned pathname.
+ * Save state to Vercel Blob with a versioned, unguessable pathname.
  * Old versions are pruned to KEEP_VERSIONS.
  */
 export async function saveState(state: GuestOpsState, by?: string): Promise<void> {
   state.updatedAt = new Date().toISOString();
   if (by) state.updatedBy = by;
-  const key = `${VERSION_PREFIX}${String(Date.now()).padStart(14, '0')}.json`;
-  await put(key, JSON.stringify(state, null, 2), {
-    access: 'public',
-    addRandomSuffix: false,
-    contentType: 'application/json',
-  });
-
-  // Prune old versions (best-effort)
-  try {
-    const { blobs } = await list({ prefix: VERSION_PREFIX, limit: 1000 });
-    const stale = blobs
-      .sort((a, b) => b.pathname.localeCompare(a.pathname))
-      .slice(KEEP_VERSIONS);
-    if (stale.length) await del(stale.map(b => b.url));
-  } catch { /* pruning failure is harmless */ }
+  await guestOpsStore.save(state);
 }
 
 // ─── Pure update helpers (return new state, don't mutate) ─────────────────────

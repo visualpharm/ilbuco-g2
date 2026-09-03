@@ -4,12 +4,14 @@
  * Holds the unified guest directory merged from Hostex (reservations +
  * conversations + reviews), WAHA (WhatsApp contacts), and Telegram.
  *
- * Uses the same versioned-pathname pattern as guest-ops-store and
- * pricing-config: each save creates a new pathname so Vercel Blob's CDN
- * doesn't serve stale reads.
+ * Uses the shared versioned-blob-store (see lib/versioned-blob-store.ts): each
+ * save creates a NEW pathname with a 128-bit crypto-random segment so Vercel
+ * Blob's CDN doesn't serve stale reads AND the URL holding the guest roster is
+ * not enumerable (security audit 2026-09-03, finding 1). Legacy
+ * ilbuco-crm-v/<ms>.json blobs keep loading until pruning retires them.
  */
 
-import { put, list, del } from '@vercel/blob';
+import { createVersionedStore } from './versioned-blob-store';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -77,18 +79,24 @@ export function defaultCrmState(): CrmState {
 
 // ─── Persistence ─────────────────────────────────────────────────────────────
 
-const VERSION_PREFIX = 'ilbuco-crm-v/';
 const KEEP_VERSIONS = 6;
+
+// Security audit 2026-09-03, finding 1: the CRM blob holds the full guest
+// roster (names, phones, emails, stay dates) at a public store, so its URL
+// must not be enumerable. New writes go to ilbuco-crm-v2/ with a 128-bit
+// crypto-random pathname segment; loads still see legacy ilbuco-crm-v/<ms>.json
+// blobs, so the migration never orphans existing data.
+const crmStore = createVersionedStore<CrmState>({
+  generationPrefix: 'ilbuco-crm-v2/',
+  listPrefix: 'ilbuco-crm-v',
+  keepVersions: KEEP_VERSIONS,
+  defaults: defaultCrmState,
+  merge: (def, state) => ({ ...def, ...state, guests: state.guests ?? {} }),
+});
 
 export async function loadCrmState(): Promise<CrmState> {
   try {
-    const { blobs } = await list({ prefix: VERSION_PREFIX, limit: 1000 });
-    if (!blobs.length) return defaultCrmState();
-    const latest = blobs.reduce((a, b) => (a.pathname > b.pathname ? a : b));
-    const res = await fetch(latest.url, { cache: 'no-store' });
-    if (!res.ok) throw new Error(`blob fetch ${res.status}`);
-    const state = (await res.json()) as CrmState;
-    return { ...defaultCrmState(), ...state, guests: state.guests ?? {} };
+    return await crmStore.load();
   } catch {
     return defaultCrmState();
   }
@@ -96,20 +104,7 @@ export async function loadCrmState(): Promise<CrmState> {
 
 export async function saveCrmState(state: CrmState): Promise<void> {
   state.updatedAt = new Date().toISOString();
-  const key = `${VERSION_PREFIX}${String(Date.now()).padStart(14, '0')}.json`;
-  await put(key, JSON.stringify(state, null, 2), {
-    access: 'public',
-    addRandomSuffix: false,
-    contentType: 'application/json',
-  });
-
-  try {
-    const { blobs } = await list({ prefix: VERSION_PREFIX, limit: 1000 });
-    const stale = blobs
-      .sort((a, b) => b.pathname.localeCompare(a.pathname))
-      .slice(KEEP_VERSIONS);
-    if (stale.length) await del(stale.map(b => b.url));
-  } catch { /* pruning failure is harmless */ }
+  await crmStore.save(state);
 }
 
 // ─── Query helpers ───────────────────────────────────────────────────────────
