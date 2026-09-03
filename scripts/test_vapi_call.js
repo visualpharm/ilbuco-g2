@@ -6,7 +6,11 @@
  * It monitors the call logs to see if availability data is returned correctly.
  */
 
-const VAPI_PRIVATE_KEY = 'ac7556fd-4f11-4a76-8518-e0f6c4442ad4';
+const VAPI_PRIVATE_KEY = process.env.VAPI_PRIVATE_KEY;
+if (!VAPI_PRIVATE_KEY) {
+  console.error('VAPI_PRIVATE_KEY not configured (set it in .env.local or the environment)');
+  process.exit(1);
+}
 const ASSISTANT_ID = '20b94c7f-c293-4c22-9d1a-2a9a2fcd22a2';
 
 async function getRecentCalls() {
