@@ -76,6 +76,25 @@ export const defaultBlobIO: BlobIO = {
 /** 32 hex chars = 16 bytes from crypto RNG = 128 bits of URL entropy. */
 export const RANDOM_SEGMENT_LENGTH = 32;
 
+/**
+ * Monotonic ms clock for save() pathnames. `Date.now()` is not guaranteed to
+ * advance between two calls in the same process — two saves issued back to
+ * back can land in the same millisecond, and when they share a generation
+ * prefix the ordering tie-break in comparePathnames() falls through to the
+ * random hex segment, which carries no relation to save order (surfaced as a
+ * ~50% flake in a tight-loop test: 6 successive saves, 2 landing in the same
+ * ms, the wrong one sorted "newest"). Track the last value handed out and
+ * bump by 1ms on a same-ms call so within-process saves stay strictly
+ * orderable by pathname alone; real wall-clock saves (network-latency apart,
+ * the normal case) are unaffected.
+ */
+let lastMs = 0;
+export function monotonicNowMs(): number {
+  const now = Date.now();
+  lastMs = now > lastMs ? now : lastMs + 1;
+  return lastMs;
+}
+
 /** `<generationPrefix><14-digit ms>-<32 hex>.json` */
 export function makeStatePathname(
   generationPrefix: string,
@@ -174,7 +193,7 @@ export function createVersionedStore<T>(opts: VersionedStoreOptions<T>): Version
     },
 
     async save(state: T): Promise<void> {
-      const pathname = makeStatePathname(opts.generationPrefix, Date.now());
+      const pathname = makeStatePathname(opts.generationPrefix, monotonicNowMs());
       await io.put(pathname, JSON.stringify(state, null, 2), {
         access: 'public',
         addRandomSuffix: false,
