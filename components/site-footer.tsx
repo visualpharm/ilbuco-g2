@@ -91,7 +91,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-gray-200 bg-white py-6">
       <div className="container mx-auto px-4">
-        <div className="space-y-4 text-sm">
+        <div className="space-y-4 text-base">
           {/* First Line: Copyright and SEO Links */}
           <div className="flex flex-col items-center gap-4 text-center">
             <div className="text-gray-500">
@@ -113,6 +113,16 @@ export function SiteFooter() {
             </div>
           </div>
           
+          {!/(?:^|\/)(reservar|admin|nimda|dashboard|guest|voice|vanish)(?:\/|$)/.test(pathname) && (
+            <nav aria-label={language.code === 'es' ? 'Otros proyectos' : 'Other projects'} className="project-links flex flex-wrap justify-center gap-x-6 gap-y-4 border-t border-gray-200 pt-5 text-base text-blue-700">
+              <a href="https://usabruno.com">Bruno</a>
+              <a href="https://lira-voice.app">Lira</a>
+              <a href="https://humanrounds.org">Human Rounds</a>
+              <a href="https://inglesconjenny.vercel.app">Inglés con Jenny</a>
+              <a href="https://finda-capital.com">Finda Capital</a>
+            </nav>
+          )}
+
           {/* Second Line: Contact Info and Social */}
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 text-gray-600">
             <div className="flex items-center gap-2">
