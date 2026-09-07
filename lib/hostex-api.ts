@@ -44,7 +44,7 @@ export function getPropertyGroup(propertyName: string): 'ilbuco' | 'recharge' | 
 }
 
 // Listing IDs for calendar queries
-const LISTINGS = [
+export const LISTINGS = [
   { channel_type: 'booking_site', listing_id: '110800-13274', name: 'Giardino' },
   { channel_type: 'booking_site', listing_id: '110801-13274', name: 'Terrazzo' },
   { channel_type: 'booking_site', listing_id: '110802-13274', name: 'Paraiso' },
@@ -646,3 +646,289 @@ export async function getReviews(start: string, end: string): Promise<HostexRevi
   return out;
 }
 
+// ─── Safety sync: strict availability helpers (inventory protection) ──────────
+//
+// These back lib/inventory-sync.ts (the close-only protection sync). They are
+// deliberately STRICTER than the legacy helpers above: every response is
+// validated for HTTP status, error_code and payload completeness, and a
+// partial/malformed read THROWS instead of degrading to an empty result — a
+// silently-empty read would make the sync believe nothing needs closing, which
+// is the exact failure mode the protection sync exists to prevent.
+
+/** Raw Hostex v3 envelope shared by all endpoints. */
+interface HostexEnvelope {
+  request_id?: string;
+  error_code?: number;
+  error_msg?: string;
+}
+
+async function strictRequest<T>(
+  label: string,
+  url: string,
+  init: RequestInit,
+  validate: (body: HostexEnvelope) => T
+): Promise<T> {
+  const res = await fetch(url, { ...init, signal: AbortSignal.timeout(45000), cache: 'no-store' });
+  if (!res.ok) {
+    throw new Error(`Hostex ${label}: HTTP ${res.status} ${res.statusText}`);
+  }
+  let body: HostexEnvelope;
+  try {
+    body = (await res.json()) as HostexEnvelope;
+  } catch {
+    throw new Error(`Hostex ${label}: response is not JSON`);
+  }
+  if (body.error_code !== 200) {
+    throw new Error(`Hostex ${label}: error_code ${body.error_code} (${body.error_msg ?? 'no message'})`);
+  }
+  return validate(body);
+}
+
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+function assertIsoDate(label: string, d: unknown): asserts d is string {
+  if (typeof d !== 'string' || !ISO_DATE_RE.test(d) || !Number.isFinite(Date.parse(d + 'T00:00:00Z')) || new Date(d + 'T00:00:00Z').toISOString().slice(0, 10) !== d) {
+    throw new Error(`Hostex ${label}: malformed date ${JSON.stringify(d)}`);
+  }
+}
+
+/** Validated reservation span (safety-sync scope only). */
+export interface StrictReservationSpan {
+  reservation_code: string;
+  stay_code: string;
+  property_id: number;
+  check_in_date: string;
+  check_out_date: string;
+  status: string;
+  cancelled_at: string | null;
+}
+
+/**
+ * Fetch ALL accepted reservations whose stay overlaps the night window
+ * [startNight, endNight] — checkout-exclusive: a stay overlaps iff
+ * check_in <= endNight && check_out > startNight.
+ *
+ * Unlike getReservations() (check-in window keyed, 35-day pad upstream), this
+ * reads all pages without date filters, then filters overlaps locally.
+ * Live Hostex rejects unpaired start_check_out_date / end_check_in_date filters;
+ * paired check-in windows would still miss long stays already in progress.
+ * Pagination is bounded with duplicate/non-progress guards that throw: a
+ * looping or silently-truncated page sequence must fail loudly, never look
+ * like "no overlapping reservations".
+ */
+export async function getOverlappingReservations(
+  startNight: string,
+  endNight: string
+): Promise<StrictReservationSpan[]> {
+  const out: StrictReservationSpan[] = [];
+  const seen = new Set<string>();
+  const MAX_PAGES = 50; // 5,000 stays — far beyond anything real for 5 properties
+
+  let offset = 0;
+  for (let page = 0; ; page++) {
+    if (page >= MAX_PAGES) {
+      throw new Error(`Hostex reservations(overlap): exceeded ${MAX_PAGES} pages — refusing to guess`);
+    }
+    const url =
+      `${HOSTEX_BASE}/reservations?offset=${offset}&limit=100`;
+    const spans = await strictRequest('reservations(overlap)', url, { headers: headers() }, body => {
+      const rows = (body as { data?: { reservations?: unknown } }).data?.reservations;
+      if (!Array.isArray(rows)) {
+        throw new Error('Hostex reservations(overlap): success envelope missing data.reservations');
+      }
+      return rows.map(raw => {
+        const r = raw as Record<string, unknown>;
+        if (
+          typeof r.reservation_code !== 'string' || !r.reservation_code ||
+          typeof r.stay_code !== 'string' || !r.stay_code ||
+          typeof r.property_id !== 'number' ||
+          typeof r.status !== 'string'
+        ) {
+          throw new Error('Hostex reservations(overlap): malformed reservation row');
+        }
+        assertIsoDate('reservations(overlap).check_in_date', r.check_in_date);
+        assertIsoDate('reservations(overlap).check_out_date', r.check_out_date);
+        if (r.check_out_date <= r.check_in_date) throw new Error('Hostex invalid stay interval');
+        return {
+          reservation_code: r.reservation_code,
+          stay_code: r.stay_code,
+          property_id: r.property_id,
+          check_in_date: r.check_in_date,
+          check_out_date: r.check_out_date,
+          status: r.status,
+          cancelled_at: typeof r.cancelled_at === 'string' ? r.cancelled_at : null,
+        } satisfies StrictReservationSpan;
+      });
+    });
+
+    let newRows = 0;
+    for (const span of spans) {
+      if (seen.has(span.stay_code)) throw new Error('Hostex reservations(overlap): duplicate stay; snapshot not progressing safely');
+      seen.add(span.stay_code);
+      out.push(span);
+      newRows++;
+    }
+    if (spans.length < 100) break;
+    if (newRows === 0) {
+      throw new Error(`Hostex reservations(overlap): pagination not progressing at offset ${offset} (full page of duplicates)`);
+    }
+    offset += spans.length;
+  }
+
+  // Server-side filters are not trusted for correctness — re-apply the exact
+  // overlap + liveness semantics client-side.
+  return out.filter(
+    r =>
+      r.status === 'accepted' &&
+      !r.cancelled_at &&
+      r.property_id !== 0 &&
+      r.check_in_date <= endNight &&
+      r.check_out_date > startNight
+  );
+}
+
+/**
+ * Close (never open) property-level availability. Endpoint: POST /v3/availabilities
+ *
+ * Property-level closures cascade to every channel listing mapped to the
+ * property (Airbnb, Booking.com, booking_site, …) — unlike listing-inventory
+ * writes, which touch one channel and get overwritten again by property
+ * availability. `available` is typed `false`: this helper CANNOT reopen a date.
+ *
+ * A 200 only queues an asynchronous task — acceptance is not success. Verify
+ * with getPropertyAvailabilities() / getListingInventories().
+ */
+export async function closePropertyAvailabilities(
+  propertyIds: number[],
+  dates: string[],
+  dryRun = false
+): Promise<{ submitted: number; skipped: number }> {
+  if (!dates.length) return { submitted: 0, skipped: 0 };
+  if (dryRun) {
+    console.log(`[availabilities dry-run] properties ${propertyIds.join(',')}: would close ${dates.length} dates`);
+    return { submitted: 0, skipped: dates.length };
+  }
+  const available: false = false;
+  const CHUNK = 100;
+  let submitted = 0;
+  for (let i = 0; i < dates.length; i += CHUNK) {
+    const chunk = dates.slice(i, i + CHUNK);
+    // Per docs the 200 response is the bare CommonResponse envelope (no data).
+    await strictRequest('availabilities(update)', `${HOSTEX_BASE}/availabilities`, {
+      method: 'POST',
+      headers: headers(),
+      body: JSON.stringify({ property_ids: propertyIds, dates: chunk, available }),
+    }, () => true);
+    submitted += chunk.length;
+  }
+  return { submitted, skipped: 0 };
+}
+
+/** Property-level availability readback: property_id → (date → available). */
+export async function getPropertyAvailabilities(
+  propertyIds: number[],
+  startDate: string,
+  endDate: string
+): Promise<Map<number, Map<string, boolean>>> {
+  const url =
+    `${HOSTEX_BASE}/availabilities?property_ids=${propertyIds.join(',')}` +
+    `&start_date=${startDate}&end_date=${endDate}`;
+  return strictRequest('availabilities(query)', url, { headers: headers() }, body => {
+    const props = (body as { data?: { properties?: unknown } }).data?.properties;
+    if (!Array.isArray(props)) {
+      throw new Error('Hostex availabilities(query): success envelope missing data.properties');
+    }
+    const out = new Map<number, Map<string, boolean>>();
+    for (const p of props as Array<Record<string, unknown>>) {
+      if (typeof p.id !== 'number' || !Array.isArray(p.availabilities)) {
+        throw new Error('Hostex availabilities(query): malformed property entry');
+      }
+      if (!propertyIds.includes(p.id) || out.has(p.id)) throw new Error('Hostex duplicate or unexpected property availability');
+      const byDate = new Map<string, boolean>();
+      for (const a of p.availabilities as Array<Record<string, unknown>>) {
+        assertIsoDate('availabilities(query).date', a.date);
+        if (typeof a.available !== 'boolean') {
+          throw new Error('Hostex availabilities(query): malformed availability entry');
+        }
+        if (byDate.has(a.date)) throw new Error('Hostex duplicate availability date');
+        byDate.set(a.date, a.available);
+      }
+      out.set(p.id, byDate);
+    }
+    for (const id of propertyIds) {
+      if (!out.has(id)) {
+        throw new Error(`Hostex availabilities(query): requested property ${id} missing from response`);
+      }
+    }
+    return out;
+  });
+}
+
+/** Listing-level inventory readback: `${channel_type}:${listing_id}` → (date → inventory). */
+export async function getListingInventories(
+  listings: Array<{ channel_type: string; listing_id: string }>,
+  startDate: string,
+  endDate: string
+): Promise<Map<string, Map<string, number>>> {
+  return strictRequest('listings(calendar)', `${HOSTEX_BASE}/listings/calendar`, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify({ start_date: startDate, end_date: endDate, listings }),
+  }, body => {
+    const rows = (body as { data?: { listings?: unknown } }).data?.listings;
+    if (!Array.isArray(rows)) {
+      throw new Error('Hostex listings(calendar): success envelope missing data.listings');
+    }
+    const out = new Map<string, Map<string, number>>();
+    for (const l of rows as Array<Record<string, unknown>>) {
+      if (typeof l.listing_id !== 'string' || typeof l.channel_type !== 'string' || !Array.isArray(l.calendar)) {
+        throw new Error('Hostex listings(calendar): malformed listing entry');
+      }
+      if (out.has(`${l.channel_type}:${l.listing_id}`) || !listings.some(w => w.channel_type === l.channel_type && w.listing_id === l.listing_id)) throw new Error('Hostex duplicate or unexpected listing');
+      const byDate = new Map<string, number>();
+      for (const day of l.calendar as Array<Record<string, unknown>>) {
+        assertIsoDate('listings(calendar).date', day.date);
+        if (typeof day.inventory !== 'number' || !Number.isInteger(day.inventory) || day.inventory < 0) {
+          throw new Error('Hostex listings(calendar): malformed calendar entry');
+        }
+        if (byDate.has(day.date)) throw new Error('Hostex duplicate calendar date');
+        byDate.set(day.date, day.inventory);
+      }
+      out.set(`${l.channel_type}:${l.listing_id}`, byDate);
+    }
+    for (const l of listings) {
+      if (!out.has(`${l.channel_type}:${l.listing_id}`)) {
+        throw new Error(`Hostex listings(calendar): requested listing ${l.listing_id} missing from response`);
+      }
+    }
+    return out;
+  });
+}
+
+
+/** Live property mapping: verify all connected rate plans, not just direct booking. */
+export async function getProtectionListings(propertyIds: number[]): Promise<Map<number, Array<{channel_type: string; listing_id: string}>>> {
+  return strictRequest('properties', `${HOSTEX_BASE}/properties`, { headers: headers() }, body => {
+    const rows = (body as {data?: {properties?: unknown}}).data?.properties;
+    if (!Array.isArray(rows)) throw new Error('Hostex missing property mappings');
+    const out = new Map<number, Array<{channel_type: string; listing_id: string}>>();
+    const owners = new Set<string>();
+    for (const r of rows) {
+      if (!propertyIds.includes(r.id)) continue;
+      if (out.has(r.id) || !Array.isArray(r.channels)) throw new Error('Hostex invalid property mapping');
+      const channels = r.channels.map((c: {channel_type: unknown; listing_id: unknown}) => {
+        if (typeof c.channel_type !== 'string' || typeof c.listing_id !== 'string') throw new Error('Hostex invalid channel mapping');
+        const key = `${c.channel_type}:${c.listing_id}`;
+        if (owners.has(key)) throw new Error('Hostex duplicate listing ownership');
+        owners.add(key);
+        return {channel_type: c.channel_type, listing_id: c.listing_id};
+      });
+      for (const c of ['airbnb', 'booking.com', 'booking_site']) {
+        if (!channels.some((l: {channel_type: string}) => l.channel_type === c)) throw new Error(`Hostex ${r.id} missing ${c} mapping`);
+      }
+      out.set(r.id, channels);
+    }
+    if (out.size !== propertyIds.length) throw new Error('Hostex incomplete property mappings');
+    return out;
+  });
+}
