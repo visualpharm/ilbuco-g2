@@ -529,3 +529,5 @@ Use the API key from the environment variable `GOOGLE_MAPS_API_KEY` to access th
 - Business description based on reviews
 - Opening hours
 - Contact information
+
+Before non-trivial work: check `docs/solutions/INDEX.md`; capture lessons with /compound.
