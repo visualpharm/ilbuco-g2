@@ -118,7 +118,7 @@ export function SiteFooter() {
               <a href="https://usabruno.com">Bruno</a>
               <a href="https://lira-voice.app">Lira</a>
               <a href="https://humanrounds.org">Human Rounds</a>
-              <a href="https://inglesconjenny.vercel.app">Inglés con Jenny</a>
+              <a href="https://inglesconjenny.com">Inglés con Jenny</a>
               <a href="https://finda-capital.com">Finda Capital</a>
             </nav>
           )}
