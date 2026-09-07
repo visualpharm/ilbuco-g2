@@ -64,3 +64,6 @@ Temporary Items
 # Agent/tooling scratch dirs
 .playwright-mcp/
 .zcode/
+
+# Python operational checks
+__pycache__/
