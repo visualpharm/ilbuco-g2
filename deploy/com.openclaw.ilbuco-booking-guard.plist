@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.openclaw.ilbuco-booking-guard</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/python3</string>
+    <string>/Users/ivan/projects/ilbuco-g2/scripts/booking_guard_scheduler.py</string>
+  </array>
+  <key>StartInterval</key><integer>900</integer>
+  <key>RunAtLoad</key><true/>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key><string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>HOME</key><string>/Users/ivan</string>
+    <key>ZCODE_FLASH_TIMEOUT</key><string>600</string>
+  </dict>
+  <key>WorkingDirectory</key><string>/Users/ivan/projects/ilbuco-g2</string>
+  <key>StandardOutPath</key><string>/Users/ivan/.local/share/ilbuco-booking-guard/scheduler.log</string>
+  <key>StandardErrorPath</key><string>/Users/ivan/.local/share/ilbuco-booking-guard/scheduler.log</string>
+  <key>ProcessType</key><string>Background</string>
+</dict>
+</plist>
