@@ -101,6 +101,12 @@ def validate_span(r):
     dates(r['check_in_date'], r['check_out_date'])
 
 
+def manual_block(r):
+    # Andrés mirrors OTA stays as $0 direct holds; they overlap by design.
+    rate = ((r.get('rates') or {}).get('total_rate') or {}).get('amount')
+    return r.get('channel_type') == 'hostex_direct' and rate == 0
+
+
 def protection_plan(reservations, start, end):
     expected = {p: set() for p in PROPERTIES}
     owners = {}
@@ -121,7 +127,8 @@ def protection_plan(reservations, start, end):
             for b in rows[i+1:]:
                 if a['property_id'] == b['property_id'] or HOUSE in (a['property_id'], b['property_id']):
                     conflicts.append({'date': day, 'reservations': sorted([
-                        a['reservation_code'], b['reservation_code']])})
+                        a['reservation_code'], b['reservation_code']]),
+                        'manual_block': manual_block(a) or manual_block(b)})
     return expected, conflicts
 
 
@@ -278,7 +285,9 @@ def run(db, api, apply):
             'source_error': source_error, 'repair_error': repair_error, 'write_attempts': attempts,
             'protection_nights': sum(map(len, expected.values())),
             'submitted_nights': submitted, 'unverified_channel_nights': gaps,
-            'conflicts': conflicts, 'notifications_registered': len(notices),
+            'conflicts': [c for c in conflicts if not c['manual_block']],
+            'manual_block_overlaps': [c for c in conflicts if c['manual_block']],
+            'notifications_registered': len(notices),
             'notifications_without_hostex_record': missing_imports,
             'upcoming_booking_ids_without_independent_notification': source_gap,
             'independent_source_complete': False,

@@ -39,6 +39,19 @@ class ProtectionTests(unittest.TestCase):
                                   reservation(g.HOUSE, 'house')], '2026-12-20', '2026-12-31')
         self.assertEqual(len(c), 9)
 
+    def test_manual_zero_rate_block_is_not_a_double_sale(self):
+        zero = {'total_rate': {'currency': 'USD', 'amount': 0}}
+        paid = {'total_rate': {'currency': 'USD', 'amount': 704}}
+        p, c = g.protection_plan([
+            reservation(g.HOUSE, 'mirror', '2026-12-22', '2026-12-24', channel_type='hostex_direct', rates=zero),
+            reservation(g.HOUSE, 'vanesa', '2026-12-22', '2026-12-24', channel_type='booking.com', rates=paid),
+            reservation(g.SUITES[0], 'javier', '2026-12-23', '2026-12-24', channel_type='booking.com', rates=paid),
+        ], '2026-12-01', '2026-12-31')
+        self.assertEqual(p[g.HOUSE], {'2026-12-22', '2026-12-23'})
+        real = [x['reservations'] for x in c if not x['manual_block']]
+        self.assertEqual(real, [['javier', 'vanesa']])
+        self.assertEqual(sum(x['manual_block'] for x in c), 3)
+
     def test_invalid_interval_rejected(self):
         with self.assertRaises(ValueError):
             g.dates('2026-12-24', '2026-12-22')
