@@ -378,7 +378,7 @@ export async function POST(request: NextRequest) {
     const systemPrompt = buildSystemPrompt(language, availabilityContext);
 
     const openai = new OpenAI({ apiKey: openaiKey });
-    const model = 'gpt-5.2-chat-latest';
+    const model = 'gpt-6-sol';
     const startTime = Date.now();
 
     // Build initial messages
