@@ -251,10 +251,12 @@ function formatDateRange(dates: string[]): string {
 
 export async function POST(request: NextRequest) {
   try {
-    const openaiKey = process.env.OPENAI_API_KEY;
+    // OpenRouter key (own daily cap) first; direct OpenAI as fallback.
+    const openrouterKey = process.env.OPENROUTER_API_KEY;
+    const openaiKey = openrouterKey || process.env.OPENAI_API_KEY;
     if (!openaiKey) {
       return NextResponse.json(
-        { error: 'OpenAI API key not configured' },
+        { error: 'LLM API key not configured' },
         { status: 500 }
       );
     }
@@ -377,8 +379,10 @@ export async function POST(request: NextRequest) {
     // Build system prompt from external file
     const systemPrompt = buildSystemPrompt(language, availabilityContext);
 
-    const openai = new OpenAI({ apiKey: openaiKey });
-    const model = 'gpt-6-sol';
+    const openai = openrouterKey
+      ? new OpenAI({ apiKey: openrouterKey, baseURL: 'https://openrouter.ai/api/v1' })
+      : new OpenAI({ apiKey: openaiKey });
+    const model = openrouterKey ? 'openai/gpt-6-sol' : 'gpt-6-sol';
     const startTime = Date.now();
 
     // Build initial messages
