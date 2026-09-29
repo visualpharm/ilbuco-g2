@@ -117,7 +117,6 @@ const tools: OpenAI.ChatCompletionTool[] = [
 ];
 
 const HOSTEX_API_URL = 'https://api.hostex.io/v3/listings/calendar';
-const HOSTEX_RESERVATIONS_URL = 'https://api.hostex.io/v3/reservations';
 
 // Log directory for chat conversations
 const LOG_DIR = path.join(process.cwd(), 'logs', 'conversations');
@@ -142,88 +141,6 @@ async function logChatConversation(data: {
     await fs.appendFile(logFile, JSON.stringify(logEntry) + '\n');
   } catch (error) {
     console.error('[Chat API] Error logging conversation:', error);
-  }
-}
-
-// Mapping from listing_id to suite name
-const LISTING_ID_TO_SUITE: Record<string, string> = {
-  '110800-13274': 'Giardino',
-  '110801-13274': 'Terrazzo',
-  '110802-13274': 'Paraiso',
-  '110803-13274': 'Penthouse',
-};
-
-interface CurrentGuest {
-  firstName: string;
-  lastName: string;
-  suite: string;
-  checkIn: string;
-  checkOut: string;
-}
-
-// Fetch current reservations to verify guests
-async function getCurrentGuests(): Promise<CurrentGuest[]> {
-  const hostexKey = process.env.HOSTEX_API_KEY;
-  if (!hostexKey) return [];
-
-  try {
-    const today = new Date().toISOString().split('T')[0];
-
-    // Query reservations with a wide date range to capture all active stays
-    // The API may filter by booking date or check-in date, so we use a 90-day window
-    const threeMonthsAgo = new Date();
-    threeMonthsAgo.setDate(threeMonthsAgo.getDate() - 90);
-    const startDate = threeMonthsAgo.toISOString().split('T')[0];
-
-    const threeMonthsFromNow = new Date();
-    threeMonthsFromNow.setDate(threeMonthsFromNow.getDate() + 90);
-    const endDateReservations = threeMonthsFromNow.toISOString().split('T')[0];
-
-    // Fetch reservations using GET with query params (limit=100 to get all recent reservations)
-    const url = `${HOSTEX_RESERVATIONS_URL}?start_date=${startDate}&end_date=${endDateReservations}&limit=100`;
-
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Hostex-Access-Token': hostexKey,
-      },
-    });
-
-    if (!response.ok) return [];
-    const data = await response.json();
-    if (data.error_code !== 200) return [];
-
-    const reservations = data.data?.reservations || [];
-    const currentGuests: CurrentGuest[] = [];
-
-    for (const res of reservations) {
-      // Check if reservation is active today (check_in <= today < check_out)
-      const checkIn = res.check_in_date || res.check_in;
-      const checkOut = res.check_out_date || res.check_out;
-
-      if (checkIn && checkOut && checkIn <= today && today < checkOut) {
-        const guestName = res.guest_name || '';
-        const nameParts = guestName.trim().split(/\s+/);
-        const firstName = nameParts[0] || '';
-        const lastName = nameParts.slice(1).join(' ') || '';
-
-        if (firstName) {
-          currentGuests.push({
-            firstName,
-            lastName,
-            suite: 'Guest', // Suite not needed for name-only verification
-            checkIn,
-            checkOut,
-          });
-        }
-      }
-    }
-
-    return currentGuests;
-  } catch (error) {
-    console.error('Error fetching reservations:', error);
-    return [];
   }
 }
 
@@ -351,15 +268,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Accept only user/assistant roles from the client (drop client-supplied
+    // system roles), keep the last 20 messages and cap per-message length
+    const MAX_MESSAGES = 20;
+    const MAX_MESSAGE_CHARS = 4000;
+    const sanitizedMessages = messages
+      .filter((m: { role?: unknown; content?: unknown }) =>
+        (m?.role === 'user' || m?.role === 'assistant') &&
+        typeof m?.content === 'string' && m.content.trim().length > 0)
+      .slice(-MAX_MESSAGES)
+      .map((m: { role: string; content: string }) => ({
+        role: m.role as 'user' | 'assistant',
+        content: m.content.slice(0, MAX_MESSAGE_CHARS),
+      }));
+
+    if (sanitizedMessages.length === 0) {
+      return NextResponse.json(
+        { error: 'No valid messages provided' },
+        { status: 400 }
+      );
+    }
+
     // Fetch real-time availability for the next 90 days (covers ~3 months)
     const today = getTodayDate();
     const endDate = getDatePlusDays(90);
-
-    // Fetch availability and current guests in parallel
-    const [availability, currentGuests] = await Promise.all([
-      getAvailability(today, endDate),
-      getCurrentGuests(),
-    ]);
+    const availability = await getAvailability(today, endDate);
 
     let availabilityContext = '';
     if (availability) {
@@ -441,18 +374,8 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Build guest context for verification
-    let guestContext = '';
-    if (currentGuests.length > 0) {
-      guestContext = '\n\n## CURRENT VERIFIED GUESTS (confidential - for verification only):\n';
-      for (const guest of currentGuests) {
-        const fullName = guest.lastName ? `${guest.firstName} ${guest.lastName}` : guest.firstName;
-        guestContext += `- ${fullName} (staying ${guest.checkIn} to ${guest.checkOut})\n`;
-      }
-    }
-
     // Build system prompt from external file
-    const systemPrompt = buildSystemPrompt(language, availabilityContext, guestContext);
+    const systemPrompt = buildSystemPrompt(language, availabilityContext);
 
     const openai = new OpenAI({ apiKey: openaiKey });
     const model = 'gpt-5.2-chat-latest';
@@ -461,10 +384,7 @@ export async function POST(request: NextRequest) {
     // Build initial messages
     const chatMessages: OpenAI.ChatCompletionMessageParam[] = [
       { role: 'system', content: systemPrompt },
-      ...messages.map((m: { role: string; content: string }) => ({
-        role: m.role as 'user' | 'assistant',
-        content: m.content
-      }))
+      ...sanitizedMessages
     ];
 
     let reply = '';
@@ -536,7 +456,7 @@ export async function POST(request: NextRequest) {
     const sessionId = `chat-${Date.now()}-${Math.random().toString(36).substring(7)}`;
     logChatConversation({
       sessionId,
-      messages,
+      messages: sanitizedMessages,
       response: reply,
       language: detectedLanguage,
       model,

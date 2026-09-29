@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { verifyVapiWebhookSecret, VAPI_WEBHOOK_SECRET_HEADER } from '@/lib/vapi-auth';
 
 const HOSTEX_API_URL = 'https://api.hostex.io/v3/listings/calendar';
 
@@ -207,6 +208,11 @@ function formatAvailabilityResponse(availability: {
 }
 
 export async function POST(request: NextRequest) {
+  if (!verifyVapiWebhookSecret(request.headers.get(VAPI_WEBHOOK_SECRET_HEADER))) {
+    console.error('[Vapi] Rejected request: missing/invalid webhook secret');
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const body: VapiRequest = await request.json();
     console.log('[Vapi] Received request:', JSON.stringify(body, null, 2));

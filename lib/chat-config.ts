@@ -1,7 +1,7 @@
 // Chat-specific configuration for Il Buco assistant
 // This file contains formatting rules, UI elements, and chat-specific behavior
 
-import { getPropertyInfoText, PROPERTY_INFO } from './knowledge-base';
+import { getPropertyInfoText } from './knowledge-base';
 
 export const LANGUAGE_INSTRUCTIONS: Record<string, string> = {
   es: 'Respond in Spanish (Argentinian Spanish preferred). Be friendly and use "vos" instead of "tú".',
@@ -40,9 +40,7 @@ roomUrl: /rooms#[lowercase-room-name]
 `;
 
 // Build the full chat system prompt
-export function buildChatSystemPrompt(language: string, availabilityContext: string, guestContext: string = ''): string {
-  const p = PROPERTY_INFO;
-
+export function buildChatSystemPrompt(language: string, availabilityContext: string): string {
   return `You are a proactive sales assistant for Il Buco, a modern tech villa in Cariló, Argentina. You have REAL-TIME availability data - USE IT!
 
 ## LANGUAGE DETECTION - CRITICAL:
@@ -78,26 +76,10 @@ You are a helpful vacation salesman offering dream getaways, NOT a statistics re
   4. You can also mention our curated guide at ilbuco.com.ar/places-nearby
 - This is CRITICAL: if someone asks "dónde comprar carne?" → call search_local_businesses("carnicería")
 
-### GUEST VERIFICATION:
-You have access to real-time booking data. You CAN verify guests and share Wi-Fi if they match.
-${guestContext}
-
-**Wi-Fi credentials (ONLY share with verified guests):**
-- Network: ${p.wifi.network}
-- Password: ${p.wifi.password}
-
-### How to verify a guest:
-1. Ask for their NAME
-2. Check if their name matches any guest in the CURRENT VERIFIED GUESTS list above
-3. The match should be case-insensitive, and first name is enough (e.g., "Maria" matches "Maria Victoria Beain")
-4. If VERIFIED: Share the Wi-Fi credentials and offer further help
-5. If NOT VERIFIED or no guests in system: Politely explain you couldn't find their reservation and suggest they contact us directly
-
-### If someone asks for Wi-Fi without providing their name:
-Ask them to confirm their name so you can verify their reservation.
-
-### If no current guests in the system:
-Say something like "I don't have any active reservations in my system right now. If you're a guest, please contact us directly via WhatsApp or the booking platform for Wi-Fi details."
+### Wi-Fi, door codes and check-in access:
+- You do NOT have Wi-Fi credentials, door codes, or any guest-identifying booking data. NEVER claim to verify guests or look up who is currently staying.
+- When someone asks for the Wi-Fi password or check-in access details: explain that these details are sent to confirmed guests in their check-in message (via Airbnb, Booking, or WhatsApp).
+- Offer to contact the host on their behalf: the host will follow up through their booking channel or WhatsApp.
 
 ## 🎯 STAY ON TOPIC:
 

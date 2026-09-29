@@ -116,7 +116,12 @@ export const PROPERTY_INFO = {
 
   wifi: {
     network: 'Il Buco',
-    password: 'terminator1',
+    // Secret — never hardcode in source. Server-side only: read from
+    // WIFI_PASSWORD for authenticated consumers (guest autoresponder webhook).
+    // Getter so the env var is read at access time, not module-load time.
+    get password(): string {
+      return process.env.WIFI_PASSWORD ?? '';
+    },
     guestOnly: true,
   },
 };
