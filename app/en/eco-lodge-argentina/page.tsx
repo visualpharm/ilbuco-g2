@@ -110,7 +110,8 @@ export default function EcoLodgeArgentinaPage() {
                   Solar Power System
                 </h3>
                 <p className="text-gray-700">
-                  100% renewable energy from our comprehensive solar panel system, 
+                  100% renewable energy from our{" "}
+                  <a href="https://usabruno.com/locations/carilo/" className="text-gray-700 no-underline hover:text-gray-900">solar panels in Cariló</a>,
                   ensuring zero carbon footprint for your stay.
                 </p>
               </div>
