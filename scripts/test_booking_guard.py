@@ -4,6 +4,7 @@ import unittest
 from unittest.mock import patch
 import sqlite3
 import datetime as dt
+import types
 
 spec = importlib.util.spec_from_file_location('guard', Path(__file__).with_name('booking_guard.py'))
 g = importlib.util.module_from_spec(spec)
@@ -55,6 +56,12 @@ class ProtectionTests(unittest.TestCase):
     def test_invalid_interval_rejected(self):
         with self.assertRaises(ValueError):
             g.dates('2026-12-24', '2026-12-22')
+
+    def test_failed_source_read_keeps_stderr_cause(self):
+        run = types.SimpleNamespace(returncode=1, stdout='', stderr='noise\noauth2: "invalid_grant" "Token has been expired or revoked."')
+        with patch.object(g.subprocess, 'run', return_value=run):
+            with self.assertRaisesRegex(RuntimeError, 'gogx.*invalid_grant'):
+                g.command_json(['/Users/ivan/.claude/bin/gogx', 'gmail'])
 
     def test_authenticated_email_is_only_an_identity_trigger(self):
         d = {'headers': {'from': 'noreply@booking.com'},

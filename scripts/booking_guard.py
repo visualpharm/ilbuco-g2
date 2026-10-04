@@ -39,7 +39,9 @@ def dates(start, checkout):
 def command_json(args):
     p = subprocess.run(args, capture_output=True, text=True, timeout=90)
     if p.returncode:
-        raise RuntimeError('Read failed: ' + Path(args[0]).name)
+        # The bare tool name is undiagnosable; keep the stderr cause in status.json.
+        tail = p.stderr.strip().splitlines()[-1][-200:] if p.stderr.strip() else ''
+        raise RuntimeError('Read failed: ' + Path(args[0]).name + (': ' + tail if tail else ''))
     return json.loads(p.stdout)
 
 

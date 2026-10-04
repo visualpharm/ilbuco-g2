@@ -70,6 +70,19 @@ def card(title, body):
         return False
 
 
+def log_line(text):
+    """One line per tick; stdout is wired to scheduler.log by the LaunchAgent.
+    Without it a Flash failure leaves no local trace (only the deduped Noe card),
+    and failure frequency cannot be established after the fact."""
+    path = STATE / 'scheduler.log'
+    try:
+        if path.exists() and path.stat().st_size > 1_000_000:
+            path.replace(STATE / 'scheduler.log.old')
+    except OSError:
+        pass
+    print(f'{now()} {text}', flush=True)
+
+
 def run_flash():
     env = dict(os.environ, ZCODE_FLASH_TIMEOUT=os.environ.get('ZCODE_FLASH_TIMEOUT', '600'))
     p = subprocess.run([FLASH, str(REPO), str(PROMPT)], capture_output=True, text=True, env=env, timeout=900)
@@ -115,6 +128,10 @@ def main():
             card('Il Buco booking guard: Flash run failed' + ('' if status['fallback_success'] else ', direct run failed too'),
                  f'Flash error: {error}\nDirect guard run succeeded: {status["fallback_success"]}')
     EXECUTOR_STATUS.write_text(json.dumps(status, indent=1))
+    if result:
+        log_line('flash=ok')
+    else:
+        log_line(f'flash=failed error={error!r} fallback={status["fallback_success"]}')
 
 
 if __name__ == '__main__':
