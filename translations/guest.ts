@@ -218,34 +218,13 @@ Obrigado por cuidar da casa como se fosse sua.`,
       emoji: "⚡",
       title: { es: "Electricidad", en: "Electricity", pt: "Eletricidade" },
       content: {
-        es: `Todo lo eléctrico está en la **sala de máquinas**: bajá al sótano y girá a la derecha dos veces.
-
-- Buscá los **disyuntores caídos** y subilos.
-- ⚠️ Si vuelven a saltar, no insistas hasta encontrar la causa.
-
-**Si está mojado afuera:** suele ser agua en una lámpara exterior. Apagá las **luces de afuera** desde el living y probá el disyuntor de nuevo.
-
-Si sigue, llamá a nuestro electricista:
+        es: `Si falta la luz o algo eléctrico no funciona, llamá a nuestro electricista:
 
 :::card-electrician`,
-        en: `Everything electrical is in the **machine room**: go down to the basement and turn right twice.
-
-- Look for **breakers that are down** and switch them back on.
-- ⚠️ If they trip again, don't insist until you find the cause.
-
-**If it's wet outside:** it's usually water in an outdoor light fixture. Turn off the **outdoor lights** from the living room and try the breaker again.
-
-If it continues, call our electrician:
+        en: `If the power is out or something electrical stops working, call our electrician:
 
 :::card-electrician`,
-        pt: `Tudo elétrico está na **sala de máquinas**: desça ao porão e vire à direita duas vezes.
-
-- Procure os **disjuntores desligados** e religue-os.
-- ⚠️ Se desarmarem de novo, não insista até achar a causa.
-
-**Se estiver molhado lá fora:** costuma ser água numa luminária externa. Desligue as **luzes de fora** pela sala e tente o disjuntor de novo.
-
-Se continuar, chame o nosso eletricista:
+        pt: `Se faltar luz ou algo elétrico parar de funcionar, chame o nosso eletricista:
 
 :::card-electrician`,
       },
@@ -285,17 +264,17 @@ Se continuar, chame o nosso eletricista:
       emoji: "🧯",
       title: { es: "Seguridad", en: "Safety", pt: "Segurança" },
       content: {
-        es: `- 🧯 **Matafuego:** en la cocina, señalizado.
+        es: `- 🧯 **Matafuego:** en la escalera del sótano, señalizado.
 - ⛑️ **Botiquín:** en el baño principal.
 - 🚨 **Emergencias:** 911 · Bomberos 100 · Emergencia médica 107.
 
 Ante cualquier urgencia, primero ponete a salvo y después escribinos.`,
-        en: `- 🧯 **Fire extinguisher:** in the kitchen, marked.
+        en: `- 🧯 **Fire extinguisher:** on the basement stairs, marked.
 - ⛑️ **First-aid kit:** in the main bathroom.
 - 🚨 **Emergencies:** 911 · Fire 100 · Medical 107.
 
 In any emergency, get to safety first and then message us.`,
-        pt: `- 🧯 **Extintor:** na cozinha, sinalizado.
+        pt: `- 🧯 **Extintor:** na escada do porão, sinalizado.
 - ⛑️ **Kit de primeiros socorros:** no banheiro principal.
 - 🚨 **Emergências:** 911 · Bombeiros 100 · Emergência médica 107.
 

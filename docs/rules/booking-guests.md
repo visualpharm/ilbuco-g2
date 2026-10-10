@@ -41,10 +41,7 @@ Thank you for staying in our house! As any house, it comes with maintenance. Her
 - if there is no internet, the problem is most likely with the fiber optic cable. Contact them https://fibraalhogar.com.ar/. They had bad service, sorry.
 
 #### Electricity
-- Everything electrical is in the machine room, go to the basement and turn right twice. 
-- See for breakers down and try to turn them on. If they jump back, don't try until you find the problem.
-- If it's wet outside, it's probably water in the outdoor light fixture. Turn off the lights outside with the switches in the living room and try the breaker again.
-- At this point contact our electrician, David, whatsapp +54 9 11 5878-3996
+- If the power is out or something electrical stops working, contact our electrician, David, whatsapp +54 9 11 5878-3996
 
 #### Water
 - If there's **no water**, that's probably the electrical problem, so it's still David.
