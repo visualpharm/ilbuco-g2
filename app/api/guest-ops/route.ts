@@ -17,6 +17,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { runGuestOpsJob } from '@/lib/run-guest-ops';
 import { getCaller } from '@/lib/pricing-auth';
 
+export const maxDuration = 300;
+
 export async function GET(req: NextRequest) {
   const caller = getCaller(req);
   if (!caller) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
