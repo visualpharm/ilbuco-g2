@@ -39,6 +39,7 @@ import {
   recordFailure,
   isReady,
   findPending,
+  RetryableError,
   type QueueItem,
 } from './utec-retry';
 import { checkOut as poolCheckOut, release as poolRelease } from './pin-pool';
@@ -212,6 +213,13 @@ export async function handleNewReservation(
 
     const schedule = buildGuestSchedule(checkIn, checkOut);
     try {
+      // Lock offline (bridge down): don't burn the confirmation timeout per stay —
+      // queue the add; the 15-min retry sweep programs it when the lock is back.
+      const lockStatus = await getDeviceStatus(deviceId);
+      if (!lockStatus.online) {
+        throw new RetryableError('Lock is offline in U-tec', 'DEVICE_OFFLINE');
+      }
+
       // Dedup: a lock user named after the reservation code may already exist.
       const users = await listUsers(deviceId);
       const existingUser = users.find(u => u.name === reservation.code);
