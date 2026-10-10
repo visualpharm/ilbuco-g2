@@ -232,6 +232,7 @@ export interface HostexReservation {
   reservation_code: string;
   status: string;
   channel_type: string;
+  conversation_id?: string;
   guest_name: string;
   guest_email: string | null;
   guest_phone: string | null;
@@ -264,6 +265,7 @@ export async function getReservation(reservationCode: string): Promise<HostexRes
     reservation_code: r.reservation_code,
     status: r.status,
     channel_type: r.channel_type ?? 'unknown',
+    conversation_id: r.conversation_id ?? undefined,
     guest_name: r.guest_name || 'Guest',
     guest_email: r.guest_email ?? null,
     guest_phone: r.guest_phone ?? null,

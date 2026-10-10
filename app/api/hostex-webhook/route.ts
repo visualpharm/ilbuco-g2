@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, after } from 'next/server';
 import { getConversation, sendMessage, getPropertyName, getCalendarAvailability } from '@/lib/hostex-api';
 import { generateAutoResponse } from '@/lib/openrouter-client';
 import { buildAutoresponderPrompt } from '@/lib/autoresponder-prompt';
@@ -8,6 +8,8 @@ import { DEFAULT_STAY_POLICY } from '@/lib/stay-policy';
 import { todayAR } from '@/lib/run-pricing';
 import { appendFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
+
+export const maxDuration = 60;
 
 // Throttle: at most one inventory sync per 60s per lambda instance (webhooks
 // arrive in bursts when a booking syncs across channels). Short 120-day horizon
@@ -81,9 +83,11 @@ async function handleGuestOpsWebhook(reservationCode: string, eventType: string)
       return;
     }
 
-    // Only process accepted reservations
+    // Anything but accepted (cancelled, denied, …) must not keep a working code.
     if (reservation.status !== 'accepted') {
-      console.log(`[guest-ops webhook] Reservation ${reservationCode} status: ${reservation.status} — skipping`);
+      const { handleCancelledReservation } = await import('@/lib/run-guest-ops');
+      const rep = await handleCancelledReservation(reservationCode);
+      console.log(`[guest-ops webhook] Reservation ${reservationCode} status: ${reservation.status} — ${rep.details}`);
       return;
     }
 
@@ -92,6 +96,7 @@ async function handleGuestOpsWebhook(reservationCode: string, eventType: string)
       guestName: reservation.guest_name,
       guestEmail: reservation.guest_email ?? undefined,
       guestPhone: reservation.guest_phone ?? undefined,
+      conversationId: reservation.conversation_id,
       propertyId: String(reservation.property_id),
       checkIn: reservation.check_in_date,
       checkOut: reservation.check_out_date,
@@ -105,8 +110,11 @@ async function handleGuestOpsWebhook(reservationCode: string, eventType: string)
 }
 
 export async function POST(request: NextRequest) {
-  // Validate webhook secret - fail closed if unset
-  const secret = request.headers.get('x-hostex-webhook-secret') || request.headers.get('x-webhook-secret');
+  // Validate webhook secret - fail closed if unset. Hostex sends the per-webhook
+  // secret in `Hostex-Webhook-Secret-Token` (the x-* names are kept for manual tests).
+  const secret = request.headers.get('hostex-webhook-secret-token')
+    || request.headers.get('x-hostex-webhook-secret')
+    || request.headers.get('x-webhook-secret');
   const expectedSecret = process.env.HOSTEX_WEBHOOK_SECRET;
   if (!expectedSecret) {
     return NextResponse.json({ error: 'Server misconfigured: HOSTEX_WEBHOOK_SECRET not set' }, { status: 500 });
@@ -133,19 +141,21 @@ export async function POST(request: NextRequest) {
   // conversation_id → run the suite↔casa inventory cross-block sync + guest-ops.
   if (!conversationId) {
     console.log('Webhook non-message event:', JSON.stringify(body).slice(0, 200));
-    const synced = await maybeSyncInventories();
 
-    // Fire guest PIN automation on reservation events (non-blocking)
     const reservationCode = body.data?.reservation_code || body.reservation_code || '';
     const eventType = body.event || body.data?.event || '';
-    if (reservationCode && (eventType === 'reservation_created' || eventType === 'reservation_updated')) {
-      // Fire-and-forget — don't block the webhook ACK (3s timeout)
-      void handleGuestOpsWebhook(reservationCode, eventType).catch(e =>
-        console.error('[guest-ops webhook] error:', e)
-      );
-    }
+    const isReservationEvent = reservationCode && (eventType === 'reservation_created' || eventType === 'reservation_updated');
 
-    return NextResponse.json({ ok: true, event: 'non_message', inventory_sync: synced });
+    // Hostex waits 5s total for the response and a bare un-awaited promise is
+    // frozen with the lambda on Vercel — both jobs run in after() instead.
+    after(async () => {
+      const jobs: Promise<unknown>[] = [maybeSyncInventories()];
+      if (isReservationEvent) jobs.push(handleGuestOpsWebhook(reservationCode, eventType));
+      const results = await Promise.allSettled(jobs);
+      for (const r of results) if (r.status === 'rejected') console.error('[hostex webhook] after() job failed:', r.reason);
+    });
+
+    return NextResponse.json({ ok: true, event: 'non_message', queued: true });
   }
 
   // Dedup

@@ -43,7 +43,8 @@ import {
 } from './utec-retry';
 import { checkOut as poolCheckOut, release as poolRelease } from './pin-pool';
 import { deliverPin, type PinMessageData } from './messaging';
-import { getPropertyName } from './hostex-api';
+import { getPropertyName, getFullReservations, getReservation } from './hostex-api';
+import { stayBoundary, hoursUntil, DELIVERY_LEAD_HOURS, PIN_TIMEZONE } from './guest-pin-times';
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -104,43 +105,78 @@ export interface GuestOpsReport {
 
 // ─── Main flow: handle new reservation ───────────────────────────────────────
 
+export interface ReservationInput {
+  code: string;
+  guestName: string;
+  guestEmail?: string;
+  guestPhone?: string;
+  propertyId: string;
+  /** Date-only ("2026-10-11") or ISO timestamp. */
+  checkIn: string;
+  checkOut: string;
+  channel: string;
+  conversationId?: string;
+}
+
+function datesChanged(a: PinAssignment, checkIn: string, checkOut: string): boolean {
+  return new Date(a.checkIn).getTime() !== new Date(checkIn).getTime()
+    || new Date(a.checkOut).getTime() !== new Date(checkOut).getTime();
+}
+
 /**
- * Process a new reservation: generate PIN, try to program the lock, deliver.
- *
- * Called fire-and-forget from the Hostex webhook (must not block the 3s ACK).
+ * Process a reservation (new or updated): make sure a PIN exists, is programmed
+ * on the lock for the stay's dates, and is delivered when due. Idempotent —
+ * Hostex repeats events, and the hourly sweep re-runs it for upcoming stays.
  */
 export async function handleNewReservation(
-  reservation: {
-    code: string;
-    guestName: string;
-    guestEmail?: string;
-    guestPhone?: string;
-    propertyId: string;
-    checkIn: string;
-    checkOut: string;
-    channel: string;
-    conversationId?: string;
-  },
+  reservation: ReservationInput,
   dryRun = false
 ): Promise<GuestOpsReport> {
   const errors: string[] = [];
   console.log(`[guest-ops] handleNewReservation ${reservation.code} (${reservation.guestName})`);
+  const checkIn = stayBoundary(reservation.checkIn);
+  const checkOut = stayBoundary(reservation.checkOut);
 
   try {
-    const state = await loadState();
-
-    // Skip if already processed
+    let state = await loadState();
     const existing = state.pinAssignments[reservation.code];
-    if (existing && existing.lockStatus === 'synced') {
-      return { job: 'new-reservation', success: true, details: 'Already synced', at: new Date().toISOString() };
+
+    // Same stay already handled: just make sure delivery happened.
+    if (existing && existing.lockStatus !== 'revoked' && !datesChanged(existing, checkIn, checkOut)) {
+      if (existing.lockStatus === 'synced' || existing.lockStatus === 'backup') {
+        if (!dryRun) await deliverAndSave(state, reservation.code);
+        return { job: 'new-reservation', success: true, details: 'Already handled', at: new Date().toISOString() };
+      }
+      if (state.retryQueue.some(q => q.reservationCode === reservation.code)) {
+        return { job: 'new-reservation', success: true, details: 'Lock sync already queued', at: new Date().toISOString() };
+      }
     }
 
-    // Generate PIN
-    const activePins = getActivePins(state);
-    const pin = generatePin(activePins);
     const propertyName = getPropertyName(reservation.propertyId);
+    const pin = existing?.pin && existing.lockStatus !== 'revoked'
+      ? existing.pin
+      : generatePin(getActivePins(state));
 
-    // Create the assignment record
+    if (dryRun) {
+      return {
+        job: 'new-reservation',
+        success: true,
+        details: `Dry-run: would program a PIN for ${reservation.guestName} (${reservation.code}) ${checkIn} → ${checkOut}`,
+        at: new Date().toISOString(),
+      };
+    }
+
+    const deviceId = await findDeviceForProperty(reservation.propertyId);
+
+    // Dates moved: remove the old lock user first, it is re-added with the new schedule.
+    if (existing?.lockUserId && datesChanged(existing, checkIn, checkOut) && deviceId) {
+      try {
+        await deleteUser(deviceId, existing.lockUserId);
+      } catch (err) {
+        errors.push(`Could not remove old lock user: ${err instanceof Error ? err.message : String(err)}`);
+      }
+    }
+
     const assignment: PinAssignment = {
       reservationCode: reservation.code,
       guestName: reservation.guestName,
@@ -149,104 +185,72 @@ export async function handleNewReservation(
       propertyId: reservation.propertyId,
       propertyName,
       channel: reservation.channel,
-      checkIn: reservation.checkIn,
-      checkOut: reservation.checkOut,
+      checkIn,
+      checkOut,
       pin,
       lockStatus: 'retrying',
-      channels: [],
+      conversationId: reservation.conversationId ?? existing?.conversationId,
+      // A moved stay is a new message to the guest.
+      channels: existing && !datesChanged(existing, checkIn, checkOut) ? existing.channels : [],
+      alertedAt: existing?.alertedAt,
       retryAttempts: 0,
-      createdAt: new Date().toISOString(),
+      createdAt: existing?.createdAt ?? new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
 
-    let newState = upsertAssignment(state, assignment);
+    state = upsertAssignment(state, assignment);
+    // Drop stale queued ops for this reservation; a fresh one is queued below if needed.
+    state = updateRetryQueue(state, q => q.filter(qi => qi.reservationCode !== reservation.code));
 
-    if (dryRun) {
-      console.log(`[guest-ops dry-run] Would program PIN ${pin} for ${reservation.guestName}`);
-      return {
-        job: 'new-reservation',
-        success: true,
-        details: `Dry-run: PIN ${pin} generated for ${reservation.guestName}`,
-        at: new Date().toISOString(),
-      };
-    }
-
-    // Try to program the lock
-    const deviceId = await findDeviceForProperty(reservation.propertyId);
     if (!deviceId) {
       errors.push('No U-tec device found — is the lock registered?');
       assignment.lockStatus = 'failed';
-      newState = upsertAssignment(state, assignment);
-      await saveState(newState);
-      // Still deliver the PIN — it may be a manual-entry lock scenario
-      await deliverThePin(newState, reservation.code);
+      state = upsertAssignment(state, assignment);
+      await saveState(state);
       return { job: 'new-reservation', success: false, details: 'No lock device', errors, at: new Date().toISOString() };
     }
 
-    // Dedup check: does a user with this name (reservation code) already exist?
-    const users = await listUsers(deviceId);
-    const existingUser = users.find(u => u.name === reservation.code);
-    if (existingUser) {
-      // Already programmed — mark synced
-      assignment.lockStatus = 'synced';
-      assignment.lockUserId = existingUser.id;
-      newState = upsertAssignment(state, assignment);
-      await saveState(newState);
-      await deliverThePin(newState, reservation.code);
-      return { job: 'new-reservation', success: true, details: 'PIN already on lock', at: new Date().toISOString() };
-    }
-
-    // Attempt to add the temporary user
-    const schedule = buildGuestSchedule(reservation.checkIn, reservation.checkOut);
+    const schedule = buildGuestSchedule(checkIn, checkOut);
     try {
-      await addTemporaryUser(deviceId, reservation.code, pin, schedule);
+      // Dedup: a lock user named after the reservation code may already exist.
+      const users = await listUsers(deviceId);
+      const existingUser = users.find(u => u.name === reservation.code);
+      if (existingUser && !(existing && datesChanged(existing, checkIn, checkOut))) {
+        assignment.lockStatus = 'synced';
+        assignment.lockUserId = existingUser.id;
+        state = upsertAssignment(state, assignment);
+        await saveState(state);
+        await deliverAndSave(state, reservation.code);
+        return { job: 'new-reservation', success: true, details: 'PIN already on lock', at: new Date().toISOString() };
+      }
 
-      // Poll to confirm (add returns no ID)
+      await addTemporaryUser(deviceId, reservation.code, pin, schedule);
       const userId = await confirmUserAdded(deviceId, reservation.code);
       if (userId) {
         assignment.lockStatus = 'synced';
         assignment.lockUserId = userId;
-        newState = upsertAssignment(state, assignment);
-        await saveState(newState);
-        await deliverThePin(newState, reservation.code);
-        console.log(`[guest-ops] ✅ PIN ${pin} synced to lock for ${reservation.code}`);
+        state = upsertAssignment(state, assignment);
+        await saveState(state);
+        await deliverAndSave(state, reservation.code);
+        console.log(`[guest-ops] PIN synced to lock for ${reservation.code}`);
         return { job: 'new-reservation', success: true, details: `PIN synced (user ${userId})`, at: new Date().toISOString() };
-      } else {
-        // Add succeeded but we couldn't confirm — enqueue for retry confirmation
-        errors.push('Add command sent but confirmation timed out — will verify on next sweep');
-        assignment.lockStatus = 'retrying';
-        newState = upsertAssignment(state, assignment);
-
-        // Enqueue a confirmation check
-        const queueItem = createQueueItem(reservation.code, 'add', deviceId, {
-          schedule,
-          pin,
-        });
-        newState = updateRetryQueue(newState, q => [...q, queueItem]);
-        await saveState(newState);
-        await deliverThePin(newState, reservation.code);
       }
+
+      // Add sent but not confirmed — retry queue verifies it.
+      errors.push('Add command sent but confirmation timed out — will verify on next sweep');
+      state = updateRetryQueue(state, q => [...q, createQueueItem(reservation.code, 'add', deviceId, { schedule, pin })]);
+      await saveState(state);
     } catch (err) {
-      // Lock programming failed — enqueue for Fibonacci retry
       console.error(`[guest-ops] Lock programming failed for ${reservation.code}:`, err);
-      const queueItem = createQueueItem(reservation.code, 'add', deviceId, {
-        schedule,
-        pin,
-      });
-      const failedItem = recordFailure(queueItem, err);
-      newState = updateRetryQueue(newState, q => [...q, failedItem]);
-      assignment.retryAttempts = failedItem.attempts;
-      newState = upsertAssignment(newState, assignment);
-      await saveState(newState);
-
-      // Still deliver — guest needs to know their code
-      await deliverThePin(newState, reservation.code);
-
+      const failedItem = recordFailure(createQueueItem(reservation.code, 'add', deviceId, { schedule, pin }), err);
+      state = updateRetryQueue(state, q => [...q, failedItem]);
+      state = upsertAssignment(state, { ...assignment, retryAttempts: failedItem.attempts });
+      await saveState(state);
       errors.push(`Lock programming failed: ${err instanceof Error ? err.message : String(err)}`);
       return { job: 'new-reservation', success: false, details: 'Enqueued for retry', errors, at: new Date().toISOString() };
     }
 
-    return { job: 'new-reservation', success: true, details: 'Processed', at: new Date().toISOString() };
+    return { job: 'new-reservation', success: false, details: 'Enqueued for confirmation', errors, at: new Date().toISOString() };
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     errors.push(msg);
@@ -256,56 +260,103 @@ export async function handleNewReservation(
   }
 }
 
+/**
+ * Cancelled reservation: take the code off the lock and mark it revoked.
+ */
+export async function handleCancelledReservation(code: string, dryRun = false): Promise<GuestOpsReport> {
+  const at = new Date().toISOString();
+  const state = await loadState();
+  const a = state.pinAssignments[code];
+  if (!a || a.lockStatus === 'revoked') {
+    return { job: 'cancel', success: true, details: 'Nothing to revoke', at };
+  }
+  if (dryRun) return { job: 'cancel', success: true, details: `Dry-run: would revoke ${code}`, at };
+  return { ...(await revokeAssignment(state, a)), job: 'cancel' };
+}
+
+/**
+ * Remove an assignment's lock user (queueing a retry on failure), recycle a
+ * backup PIN, mark it revoked and persist.
+ */
+async function revokeAssignment(state: GuestOpsState, assignment: PinAssignment): Promise<GuestOpsReport> {
+  let s = state;
+  const errors: string[] = [];
+  // Cancel any pending add for it.
+  s = updateRetryQueue(s, q => q.filter(qi => !(qi.reservationCode === assignment.reservationCode && qi.operation === 'add')));
+
+  const deviceId = await findDeviceForProperty(assignment.propertyId).catch(() => null);
+  if (assignment.lockUserId && deviceId) {
+    try {
+      await deleteUser(deviceId, assignment.lockUserId);
+    } catch (err) {
+      errors.push(`Revoke failed (queued): ${err instanceof Error ? err.message : String(err)}`);
+      const failed = recordFailure(
+        createQueueItem(assignment.reservationCode, 'delete', deviceId, { id: assignment.lockUserId }), err);
+      s = updateRetryQueue(s, q => [...q, failed]);
+    }
+  }
+  if (assignment.lockStatus === 'backup') {
+    s = { ...s, backupPool: poolRelease(s, assignment.reservationCode) };
+  }
+  s = upsertAssignment(s, { ...assignment, lockStatus: 'revoked' });
+  await saveState(s);
+  console.log(`[guest-ops] Revoked PIN for ${assignment.reservationCode}`);
+  return { job: 'revoke', success: errors.length === 0, details: `Revoked ${assignment.reservationCode}`, errors, at: new Date().toISOString() };
+}
+
 // ─── Deliver PIN (internal helper) ───────────────────────────────────────────
 
 /**
- * Deliver the PIN to the guest.
- *
- * Channel rules:
- *   - Email + Hostex thread: ALWAYS deliver (guest needs the code even if
- *     the lock is temporarily offline — they can punch it in later)
- *   - WhatsApp: ONLY deliver after the PIN is confirmed synced on the lock.
- *     This prevents sending a code the guest can't use yet.
+ * Deliver the PIN to the guest — only when it is usable and due:
+ *   - the code is on the lock (synced) or a backup PIN is assigned,
+ *   - check-in is within DELIVERY_LEAD_HOURS (earlier bookings get it later),
+ *   - the stay has not ended.
+ * Channels that already succeeded are not repeated.
  */
-async function deliverThePin(
-  state: GuestOpsState,
-  reservationCode: string,
-  opts: { whatsappOnlyIfSynced?: boolean } = {}
-): Promise<void> {
-  const assignment = state.pinAssignments[reservationCode];
-  if (!assignment || !assignment.pin) return;
+async function deliverIfDue(state: GuestOpsState, reservationCode: string): Promise<GuestOpsState> {
+  const a = state.pinAssignments[reservationCode];
+  if (!a || !a.pin || a.isManual) return state;
+  if (a.lockStatus !== 'synced' && a.lockStatus !== 'backup') return state;
+  if (hoursUntil(a.checkIn) > DELIVERY_LEAD_HOURS || hoursUntil(a.checkOut) < 0) return state;
 
-  const whatsappOnlyIfSynced = opts.whatsappOnlyIfSynced ?? true;
-
-  // Determine which channels to use
-  const allChannels: DeliveryChannel[] = ['email', 'hostex'];
-  if (!whatsappOnlyIfSynced || assignment.lockStatus === 'synced') {
-    allChannels.push('whatsapp');
-  }
+  const wanted: DeliveryChannel[] = ['email', 'hostex'];
+  const pending = wanted.filter(ch => !a.channels.some(c => c.channel === ch && c.sent));
+  if (!pending.length) return state;
 
   const data: PinMessageData = {
-    guestName: assignment.guestName,
-    pin: assignment.pin,
-    propertyName: assignment.propertyName,
-    checkIn: assignment.checkIn,
-    checkOut: assignment.checkOut,
+    guestName: a.guestName,
+    pin: a.pin,
+    propertyName: a.propertyName,
+    checkIn: a.checkIn,
+    checkOut: a.checkOut,
   };
-
   const results = await deliverPin(data, {
-    guestPhone: assignment.guestPhone,
-    guestEmail: assignment.guestEmail,
-    conversationId: undefined, // TODO: pass conversationId from reservation
-    channels: allChannels,
+    guestEmail: a.guestEmail,
+    conversationId: a.conversationId,
+    channels: pending,
   });
 
-  // Update the assignment with delivery results
-  const updated: PinAssignment = {
-    ...assignment,
-    channels: results,
-    updatedAt: new Date().toISOString(),
-  };
-  const newState = upsertAssignment(state, updated);
-  await saveState(newState);
+  const merged = [
+    ...a.channels.filter(c => !pending.includes(c.channel)),
+    ...results,
+  ];
+  let updated: PinAssignment = { ...a, channels: merged };
+  const delivered = merged.some(c => c.sent);
+
+  // Nobody got the code and check-in is close: tell the owner once.
+  if (!delivered && !a.alertedAt && hoursUntil(a.checkIn) < 24) {
+    await sendPricingAlert(
+      `🟡 [guest-ops] Code for ${a.guestName} (${a.reservationCode}, check-in ${a.checkIn.slice(0, 10)}) ` +
+      `could not be sent to the guest: ${results.map(r => `${r.channel}: ${r.error ?? 'failed'}`).join('; ')}. Send it manually.`
+    );
+    updated = { ...updated, alertedAt: new Date().toISOString() };
+  }
+  return upsertAssignment(state, updated);
+}
+
+/** deliverIfDue + persist (for single-reservation flows). */
+async function deliverAndSave(state: GuestOpsState, reservationCode: string): Promise<void> {
+  await saveState(await deliverIfDue(state, reservationCode));
 }
 
 // ─── Cron jobs ───────────────────────────────────────────────────────────────
@@ -356,8 +407,7 @@ export async function processRetryQueue(dryRun = false): Promise<GuestOpsReport>
           state = upsertAssignment(state, synced);
           state = updateRetryQueue(state, q => q.filter(qi => qi !== item));
 
-          // Deliver WhatsApp now that we know it's synced
-          await deliverThePin(state, item.reservationCode);
+          state = await deliverIfDue(state, item.reservationCode);
           continue;
         }
 
@@ -377,9 +427,7 @@ export async function processRetryQueue(dryRun = false): Promise<GuestOpsReport>
           state = updateRetryQueue(state, q => q.filter(qi => qi !== item));
           console.log(`[guest-ops] ✅ Retry succeeded for ${item.reservationCode}`);
 
-          // Now that the PIN is synced, deliver via WhatsApp (was skipped earlier)
-          await deliverThePin(state, item.reservationCode);
-          await sendPricingAlert(`✅ [guest-ops] PIN synced for ${assignment.guestName} after ${item.attempts} retry attempt(s). WhatsApp sent.`);
+          state = await deliverIfDue(state, item.reservationCode);
         } else {
           // Record failure and advance Fibonacci
           const failed = recordFailure(item, new Error('Confirmation timed out'));
@@ -418,129 +466,170 @@ export async function processRetryQueue(dryRun = false): Promise<GuestOpsReport>
   return { job: 'retries', success: errors.length === 0, details: `Processed ${processed} items`, processed, errors, at: now.toISOString() };
 }
 
+/** Upcoming-stay window the hourly sweep keeps programmed on the lock. */
+const SYNC_AHEAD_DAYS = 14;
+
+function arDate(offsetDays = 0): string {
+  const d = new Date(Date.now() + offsetDays * 86400_000);
+  return new Intl.DateTimeFormat('en-CA', { timeZone: PIN_TIMEZONE }).format(d);
+}
+
 /**
- * Pre-checkin sweep — ensure PINs are ready for check-ins within 24h.
- * If lock sync is still failing, fall back to backup PIN pool.
- * Called by cron hourly.
+ * Source-of-truth sync with Hostex (webhooks are thin, can be dropped, and are
+ * never replayed): accepted stays checking in within SYNC_AHEAD_DAYS get a PIN;
+ * stays we hold that Hostex now reports cancelled lose it.
+ */
+async function syncWithHostex(dryRun: boolean): Promise<{ ensured: number; revoked: number; errors: string[] }> {
+  const errors: string[] = [];
+  let ensured = 0;
+  let revoked = 0;
+
+  const upcoming = await getFullReservations(arDate(-1), arDate(SYNC_AHEAD_DAYS));
+  const seen = new Set<string>();
+  for (const r of upcoming) {
+    if (seen.has(r.reservation_code)) continue; // multi-room stays share one code
+    seen.add(r.reservation_code);
+    if (r.status !== 'accepted' || r.cancelled_at) continue;
+    const res = await handleNewReservation({
+      code: r.reservation_code,
+      guestName: r.guest_name,
+      guestEmail: r.guest_email ?? undefined,
+      guestPhone: r.guest_phone ?? undefined,
+      propertyId: String(r.property_id),
+      checkIn: r.check_in_date,
+      checkOut: r.check_out_date,
+      channel: r.channel_type,
+      conversationId: r.conversation_id ?? undefined,
+    }, dryRun);
+    if (res.details !== 'Already handled' && res.details !== 'Lock sync already queued') ensured++;
+    if (res.errors?.length) errors.push(...res.errors.map(e => `${r.reservation_code}: ${e}`));
+  }
+
+  // Cancellations / date moves for stays we already hold.
+  const state = await loadState();
+  for (const a of Object.values(state.pinAssignments)) {
+    if (a.isManual || a.lockStatus === 'revoked' || seen.has(a.reservationCode)) continue;
+    if (hoursUntil(a.checkOut) < 0) continue;
+    try {
+      const r = await getReservation(a.reservationCode);
+      if (r && r.status !== 'accepted') {
+        if (!dryRun) await handleCancelledReservation(a.reservationCode);
+        revoked++;
+      } else if (r && r.status === 'accepted' && datesChanged(a, stayBoundary(r.check_in_date), stayBoundary(r.check_out_date))) {
+        await handleNewReservation({
+          code: r.reservation_code, guestName: r.guest_name,
+          guestEmail: r.guest_email ?? undefined, guestPhone: r.guest_phone ?? undefined,
+          propertyId: String(r.property_id), checkIn: r.check_in_date, checkOut: r.check_out_date,
+          channel: r.channel_type, conversationId: a.conversationId,
+        }, dryRun);
+        ensured++;
+      }
+    } catch (err) {
+      errors.push(`${a.reservationCode}: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  }
+  return { ensured, revoked, errors };
+}
+
+/**
+ * Pre-checkin sweep (hourly):
+ *   1. sync with Hostex (create missing PINs, revoke cancelled),
+ *   2. deliver codes that are now due,
+ *   3. within 24h of check-in, fall back to a backup PIN when the lock still isn't synced.
  */
 export async function runPreCheckinSweep(dryRun = false): Promise<GuestOpsReport> {
   console.log('[guest-ops] runPreCheckinSweep');
+  const errors: string[] = [];
+  let sync = { ensured: 0, revoked: 0, errors: [] as string[] };
+  try {
+    sync = await syncWithHostex(dryRun);
+    errors.push(...sync.errors);
+  } catch (err) {
+    errors.push(`Hostex sync: ${err instanceof Error ? err.message : String(err)}`);
+  }
+
   let state = await loadState();
-  const upcoming = Object.values(state.pinAssignments).filter(a => {
-    const checkIn = new Date(a.checkIn).getTime();
-    const now = Date.now();
-    const in24h = now + 24 * 3600 * 1000;
-    return checkIn > now && checkIn < in24h && a.lockStatus !== 'synced' && a.lockStatus !== 'revoked';
-  });
-
   let processed = 0;
-  for (const assignment of upcoming) {
-    processed++;
-    if (assignment.lockStatus === 'backup') continue; // already using backup
 
-    // Check if the lock sync has failed or is still retrying close to check-in
-    if (assignment.lockStatus === 'failed' || assignment.lockStatus === 'retrying') {
-      if (dryRun) {
-        console.log(`[guest-ops dry-run] Would assign backup PIN for ${assignment.reservationCode}`);
-        continue;
-      }
-
-      // Assign a backup PIN
-      const result = poolCheckOut(state, assignment.reservationCode);
-      if ('error' in result) {
-        await sendPricingAlert(
-          `🔴 [guest-ops] Backup PIN pool EXHAUSTED — cannot cover ${assignment.guestName} (${assignment.reservationCode}). Manual intervention needed!`
-        );
-        continue;
-      }
-
-      state = { ...state, backupPool: result.pool };
-      const updated: PinAssignment = {
-        ...assignment,
-        lockStatus: 'backup',
-        backupPinIndex: result.index,
-        pin: result.pin, // override with the backup PIN
-        updatedAt: new Date().toISOString(),
-      };
-      state = upsertAssignment(state, updated);
-
-      // Re-deliver the backup PIN to the guest
-      await deliverThePin(state, assignment.reservationCode);
-
-      await sendPricingAlert(
-        `🟡 [guest-ops] Using BACKUP PIN for ${assignment.guestName} — lock sync didn't complete in time.`
-      );
+  if (!dryRun) {
+    for (const code of Object.keys(state.pinAssignments)) {
+      state = await deliverIfDue(state, code);
     }
   }
 
-  await saveState(state);
-  return { job: 'pre-checkin', success: true, details: `${upcoming.length} upcoming, ${processed} processed`, processed, at: new Date().toISOString() };
-}
-
-// findDeviceForProperty already caches via deviceIdCache declared above it.
-
-/**
- * Post-checkout sweep — revoke PINs and recycle backup PINs after checkout.
- * Called by cron hourly.
- */
-export async function runPostCheckoutSweep(dryRun = false): Promise<GuestOpsReport> {
-  console.log('[guest-ops] runPostCheckoutSweep');
-  let state = await loadState();
-  const now = Date.now();
-  let processed = 0;
-
-  const recent = Object.values(state.pinAssignments).filter(a => {
-    const checkOut = new Date(a.checkOut).getTime();
-    return checkOut < now && checkOut > now - 6 * 3600 * 1000 && a.lockStatus !== 'revoked';
+  const upcoming = Object.values(state.pinAssignments).filter(a => {
+    const h = hoursUntil(a.checkIn);
+    return !a.isManual && h > 0 && h < 24 && a.lockStatus !== 'synced' && a.lockStatus !== 'revoked' && a.lockStatus !== 'backup';
   });
 
-  for (const assignment of recent) {
+  for (const assignment of upcoming) {
     processed++;
-    if (dryRun) {
-      console.log(`[guest-ops dry-run] Would revoke PIN for ${assignment.reservationCode}`);
+    if (dryRun) continue;
+
+    const result = poolCheckOut(state, assignment.reservationCode);
+    if ('error' in result) {
+      if (!assignment.alertedAt) {
+        await sendPricingAlert(
+          `🔴 [guest-ops] Lock is not accepting the code for ${assignment.guestName} (${assignment.reservationCode}, ` +
+          `check-in ${assignment.checkIn.slice(0, 10)}) and the backup PIN pool is empty. Check the lock's Wi-Fi bridge.`
+        );
+        state = upsertAssignment(state, { ...assignment, alertedAt: new Date().toISOString() });
+      }
       continue;
     }
 
-    // If synced to lock, delete the user
-    if (assignment.lockUserId) {
-      try {
-        const deviceId = await findDeviceForProperty(assignment.propertyId);
-        if (deviceId) {
-          await deleteUser(deviceId, assignment.lockUserId);
-        }
-      } catch (err) {
-        console.error(`[guest-ops] Failed to revoke ${assignment.reservationCode}:`, err);
-        // Enqueue for retry
-        const deviceId = await findDeviceForProperty(assignment.propertyId);
-        if (deviceId) {
-          const queueItem = createQueueItem(assignment.reservationCode, 'delete', deviceId, { id: assignment.lockUserId });
-          const failedItem = recordFailure(queueItem, err);
-          state = updateRetryQueue(state, q => [...q, failedItem]);
-        }
-      }
-    }
-
-    // If using a backup PIN, recycle it
-    if (assignment.lockStatus === 'backup') {
-      const pool = poolRelease(state, assignment.reservationCode);
-      state = { ...state, backupPool: pool };
-    }
-
-    // Mark as revoked
-    const revoked: PinAssignment = {
+    state = { ...state, backupPool: result.pool };
+    state = upsertAssignment(state, {
       ...assignment,
-      lockStatus: 'revoked',
-      updatedAt: new Date().toISOString(),
-    };
-    state = upsertAssignment(state, revoked);
-    console.log(`[guest-ops] 🔒 Revoked PIN for ${assignment.reservationCode}`);
+      lockStatus: 'backup',
+      backupPinIndex: result.index,
+      pin: result.pin,
+      channels: [], // new code → send again
+    });
+    state = await deliverIfDue(state, assignment.reservationCode);
+    await sendPricingAlert(`🟡 [guest-ops] Using BACKUP PIN for ${assignment.guestName} — lock sync didn't complete in time.`);
   }
 
-  await saveState(state);
-  return { job: 'post-checkout', success: true, details: `${processed} checked out`, processed, at: new Date().toISOString() };
+  if (!dryRun) await saveState(state);
+  return {
+    job: 'pre-checkin',
+    success: errors.length === 0,
+    details: `${sync.ensured} ensured, ${sync.revoked} revoked, ${processed} on backup path`,
+    processed: sync.ensured + sync.revoked + processed,
+    errors,
+    at: new Date().toISOString(),
+  };
 }
 
-// findDeviceForProperty already caches via deviceIdCache declared above it.
+/**
+ * Post-checkout sweep — revoke PINs and recycle backup PINs after checkout.
+ * Called by cron hourly; looks back 48h so a missed run still catches up.
+ */
+export async function runPostCheckoutSweep(dryRun = false): Promise<GuestOpsReport> {
+  console.log('[guest-ops] runPostCheckoutSweep');
+  const state = await loadState();
+  const errors: string[] = [];
+  let processed = 0;
+
+  const due = Object.values(state.pinAssignments).filter(a => {
+    const out = new Date(a.checkOut).getTime();
+    return !a.isPermanent && out < Date.now() && out > Date.now() - 48 * 3600_000 && a.lockStatus !== 'revoked';
+  });
+
+  let s = state;
+  for (const a of due) {
+    processed++;
+    if (dryRun) {
+      console.log(`[guest-ops dry-run] Would revoke PIN for ${a.reservationCode}`);
+      continue;
+    }
+    const rep = await revokeAssignment(s, a);
+    if (rep.errors?.length) errors.push(...rep.errors);
+    s = await loadState(); // revokeAssignment persisted
+  }
+
+  return { job: 'post-checkout', success: errors.length === 0, details: `${processed} checked out`, processed, errors, at: new Date().toISOString() };
+}
 
 /**
  * Reconciliation sweep — clean up orphaned lock users.

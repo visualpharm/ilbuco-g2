@@ -1,17 +1,17 @@
 /**
  * Multi-channel PIN delivery dispatcher.
  *
- * Delivery chain (in priority order):
- *   1. WhatsApp (if the guest has messaged us → 24h window open)
- *   2. Email (always — reliable primary)
- *   3. Hostex thread (Airbnb + Booking in-app via sendMessage)
+ * Channels:
+ *   - Hostex thread (Airbnb / Booking.com / direct-site chat via sendMessage) — primary
+ *   - Email (Mailgun, when configured)
+ * WhatsApp is not a server-side channel: WAHA was removed (2026-10-08) and
+ * WhatsApp Web is only reachable from the owner's Mac, not from Vercel.
  *
  * Each channel is independent — a failure in one doesn't block the others.
  * Results are recorded per-channel for the Nimda dashboard.
  */
 
 import { sendEmail, isMailConfigured } from './mail';
-import { sendText, phoneToChatId, hasOpenWindow, isSessionReady, isWahaConfigured } from './waha-client';
 import { sendMessage } from './hostex-api';
 import type { ChannelStatus, DeliveryChannel } from './guest-ops-store';
 
@@ -103,34 +103,16 @@ export interface DeliveryResult {
 async function deliverViaChannel(
   channel: DeliveryChannel,
   data: PinMessageData,
-  opts: { guestPhone?: string; conversationId?: string }
+  opts: { conversationId?: string }
 ): Promise<DeliveryResult> {
   try {
     switch (channel) {
-      case 'whatsapp': {
-        if (!isWahaConfigured()) return { channel, sent: false, error: 'WAHA not configured' };
-        if (!opts.guestPhone) return { channel, sent: false, error: 'No guest phone' };
+      case 'whatsapp':
+        return { channel, sent: false, error: 'WhatsApp is not available from the server' };
 
-        const ready = await isSessionReady();
-        if (!ready) return { channel, sent: false, error: 'WAHA session not WORKING' };
-
-        const chatId = phoneToChatId(opts.guestPhone);
-        // Only send if the guest has an open 24h window
-        const windowOpen = await hasOpenWindow(chatId);
-        if (!windowOpen) return { channel, sent: false, error: '24h window not open (guest must message first)' };
-
-        await sendText(chatId, buildPinText(data));
-        return { channel, sent: true };
-      }
-
-      case 'email': {
-        if (!data.guestName || !isMailConfigured()) {
-          return { channel, sent: false, error: 'Mail not configured or no guest name' };
-        }
-        // Email needs a guest email — but PinMessageData doesn't carry it.
-        // The caller passes it via opts in practice. For now, skip if no email.
-        return { channel, sent: false, error: 'Email delivery requires guest email (pass via orchestrator)' };
-      }
+      case 'email':
+        // Sent by deliverPin() once it has the guest's address; reaching here means it could not.
+        return { channel, sent: false, error: isMailConfigured() ? 'No guest email' : 'Mailgun not configured' };
 
       case 'hostex': {
         if (!opts.conversationId) return { channel, sent: false, error: 'No conversation ID' };
@@ -147,10 +129,9 @@ async function deliverViaChannel(
 }
 
 export interface DeliverPinOptions {
-  guestPhone?: string;
   guestEmail?: string;
   conversationId?: string;
-  /** Which channels to try. Default: all three. */
+  /** Which channels to try. Default: email + hostex. */
   channels?: DeliveryChannel[];
 }
 
@@ -162,13 +143,12 @@ export async function deliverPin(
   data: PinMessageData,
   opts: DeliverPinOptions
 ): Promise<ChannelStatus[]> {
-  const channels = opts.channels ?? ['whatsapp', 'email', 'hostex'];
+  const channels = opts.channels ?? ['email', 'hostex'];
   const results: ChannelStatus[] = [];
 
   // Run all channels in parallel — they're independent
   const deliveries = channels.map(async (channel) => {
     const result = await deliverViaChannel(channel, data, {
-      guestPhone: opts.guestPhone,
       conversationId: opts.conversationId,
     });
 

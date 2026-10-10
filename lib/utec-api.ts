@@ -24,6 +24,7 @@
  */
 
 import { RetryableError } from './utec-retry';
+import { formatLockTime } from './guest-pin-times';
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
@@ -272,11 +273,7 @@ export async function getDeviceStatus(deviceId: string): Promise<{
  * @param checkOut ISO date string for check-out
  */
 export function buildGuestSchedule(checkIn: string, checkOut: string): TemporaryUserSchedule {
-  const fmt = (iso: string) => {
-    const d = new Date(iso);
-    const pad = (n: number) => String(n).padStart(2, '0');
-    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-  };
+  const fmt = formatLockTime; // Argentina wall-clock; the lock runs on local time
   return {
     daterange: [fmt(checkIn), fmt(checkOut)],
     weeks: [0, 1, 2, 3, 4, 5, 6], // all days

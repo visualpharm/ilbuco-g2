@@ -52,8 +52,12 @@ export interface PinAssignment {
   lockUserId?: string;
   /** If using a backup PIN, which one from the pool. */
   backupPinIndex?: number;
+  /** Hostex conversation (booking thread) used to deliver the PIN to the guest. */
+  conversationId?: string;
   /** Per-channel delivery status. */
   channels: ChannelStatus[];
+  /** Set once the owner was alerted that this stay needs manual attention (no repeat alerts). */
+  alertedAt?: string;
   /** Retry attempts for lock sync. */
   retryAttempts: number;
   /** ISO timestamps. */
