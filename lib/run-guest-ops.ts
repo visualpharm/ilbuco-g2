@@ -386,7 +386,21 @@ export async function processRetryQueue(dryRun = false): Promise<GuestOpsReport>
     return { job: 'retries', success: true, details: 'No items ready', processed: 0, at: now.toISOString() };
   }
 
+  // One status check per lock per sweep: an offline lock would otherwise cost the
+  // 30s confirmation poll per queued item and burn retry attempts for nothing.
+  const lockOnline = new Map<string, boolean>();
+  const isLockOnline = async (deviceId: string): Promise<boolean> => {
+    if (!lockOnline.has(deviceId)) {
+      lockOnline.set(deviceId, await getDeviceStatus(deviceId).then(st => st.online, () => false));
+    }
+    return lockOnline.get(deviceId)!;
+  };
+
   for (const item of readyItems) {
+    if (!dryRun && !(await isLockOnline(item.deviceId))) {
+      console.log(`[guest-ops] lock ${item.deviceId} offline — leaving ${item.reservationCode} queued`);
+      continue;
+    }
     processed++;
     try {
       if (dryRun) {
