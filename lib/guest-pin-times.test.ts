@@ -26,3 +26,12 @@ test('hoursUntil', () => {
   const now = new Date('2026-10-10T00:00:00Z');
   assert.equal(hoursUntil('2026-10-10T12:00:00Z', now), 12);
 });
+
+import { isDeliveryDue } from './guest-pin-times.ts';
+test('delivery window: 48h before check-in until check-in time, never retroactive', () => {
+  const ci = stayBoundary('2026-10-12'); // 12:00 AR = 15:00Z
+  assert.equal(isDeliveryDue(ci, new Date('2026-10-09T00:00:00Z')), false); // >48h
+  assert.equal(isDeliveryDue(ci, new Date('2026-10-10T16:00:00Z')), true);  // <48h
+  assert.equal(isDeliveryDue(ci, new Date('2026-10-12T16:00:00Z')), true);  // arrival day, before 15:00 check-in
+  assert.equal(isDeliveryDue(ci, new Date('2026-10-12T20:00:00Z')), false); // already in
+});

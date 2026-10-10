@@ -48,3 +48,7 @@ Source: docs/booking-protection.md; docs/solutions/hostex/booking-protection.md.
 ## 2026-09-29 · Website chat on its own capped OpenRouter key, model gpt-6-sol
 Decided: route the public chat through a dedicated capped OpenRouter key, move the model to gpt-6-sol, and remove guest roster/Wi-Fi data from the public chat prompt. · Why: gpt-5.2-chat-latest was retired by OpenAI and the OpenAI org was out of credits; roster removal closes a data leak. · Rejected: paying into the OpenAI org. · Undo: switch chat back to a direct OpenAI key. · By: agent
 Source: commits b8ca9b4, d523235, e1d428e.
+
+## 2026-10-10 · Guest PIN automation: webhook secret header, Hostex-thread delivery, no WAHA
+Decided: the Hostex webhook points at ilbuco.com.ar and is authenticated by `Hostex-Webhook-Secret-Token`; PIN work runs in `after()`; stays are 12:00→12:00 Argentina time; codes reach guests through the Hostex booking thread (email when Mailgun is configured) once synced and within 48h of check-in; hourly sync with Hostex creates missing PINs and revokes cancelled stays. · Why: every webhook since August was rejected 401 (wrong header, wrong project), WAHA was removed, and date-only stays expired a night early. · Rejected: WhatsApp from the server (no path from Vercel). · Undo: revert the commit; recreate the webhook. · By: agent
+Source: docs/solutions/guest-ops/hostex-webhook-and-pin-delivery.md.

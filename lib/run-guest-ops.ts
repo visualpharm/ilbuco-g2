@@ -44,7 +44,7 @@ import {
 import { checkOut as poolCheckOut, release as poolRelease } from './pin-pool';
 import { deliverPin, type PinMessageData } from './messaging';
 import { getPropertyName, getFullReservations, getReservation } from './hostex-api';
-import { stayBoundary, hoursUntil, DELIVERY_LEAD_HOURS, PIN_TIMEZONE } from './guest-pin-times';
+import { stayBoundary, hoursUntil, isDeliveryDue, PIN_TIMEZONE } from './guest-pin-times';
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -309,7 +309,8 @@ async function revokeAssignment(state: GuestOpsState, assignment: PinAssignment)
 /**
  * Deliver the PIN to the guest — only when it is usable and due:
  *   - the code is on the lock (synced) or a backup PIN is assigned,
- *   - check-in is within DELIVERY_LEAD_HOURS (earlier bookings get it later),
+ *   - check-in is within the delivery window (earlier bookings get it later;
+ *     stays already under way are never messaged retroactively),
  *   - the stay has not ended.
  * Channels that already succeeded are not repeated.
  */
@@ -317,7 +318,7 @@ async function deliverIfDue(state: GuestOpsState, reservationCode: string): Prom
   const a = state.pinAssignments[reservationCode];
   if (!a || !a.pin || a.isManual) return state;
   if (a.lockStatus !== 'synced' && a.lockStatus !== 'backup') return state;
-  if (hoursUntil(a.checkIn) > DELIVERY_LEAD_HOURS || hoursUntil(a.checkOut) < 0) return state;
+  if (!isDeliveryDue(a.checkIn) || hoursUntil(a.checkOut) < 0) return state;
 
   const wanted: DeliveryChannel[] = ['email', 'hostex'];
   const pending = wanted.filter(ch => !a.channels.some(c => c.channel === ch && c.sent));

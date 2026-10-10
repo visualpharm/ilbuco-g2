@@ -37,3 +37,16 @@ export function hoursUntil(iso: string, now: Date = new Date()): number {
 
 /** How long before check-in the code is sent to the guest. */
 export const DELIVERY_LEAD_HOURS = 48;
+
+/** After this many hours past the 12:00 boundary (≈ 15:00 check-in) the guest is already in; no code message. */
+const ARRIVED_AFTER_HOURS = 3;
+
+/**
+ * Is the guest's code message due? Within DELIVERY_LEAD_HOURS before check-in,
+ * until check-in time on arrival day. Stays already under way got their
+ * instructions another way and are never messaged retroactively.
+ */
+export function isDeliveryDue(checkIn: string, now: Date = new Date()): boolean {
+  const h = hoursUntil(checkIn, now);
+  return h <= DELIVERY_LEAD_HOURS && h >= -ARRIVED_AFTER_HOURS;
+}
