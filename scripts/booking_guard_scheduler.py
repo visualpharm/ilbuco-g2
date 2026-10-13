@@ -22,6 +22,7 @@ EXECUTOR_STATUS = STATE / 'flash-executor-status.json'
 REPO = Path('/Users/ivan/projects/ilbuco-g2')
 FLASH = '/Users/ivan/.claude/bin/zcode-flash-task'
 NOE = 'http://127.0.0.1:8766/task/new'
+FLASH_FAILURES_BEFORE_CARD = 3
 
 
 def now():
@@ -124,9 +125,13 @@ def main():
         status['new_failure'] = prior.get('state') != 'failed' or prior.get('error') != error
         status['fallback_success'] = run_direct()
         status['fallback_checked_at'] = load(STATE / 'status.json').get('checked_at')
-        if status['new_failure'] or not status['fallback_success']:
+        status['consecutive_failures'] = (prior.get('consecutive_failures', 0) if prior.get('state') == 'failed' else 0) + 1
+        # A lone Flash timeout that the direct run covered is not worth a card;
+        # board only when the guard itself did not run, or Flash stays down.
+        if not status['fallback_success'] or status['consecutive_failures'] == FLASH_FAILURES_BEFORE_CARD:
             card('Il Buco booking guard: Flash run failed' + ('' if status['fallback_success'] else ', direct run failed too'),
-                 f'Flash error: {error}\nDirect guard run succeeded: {status["fallback_success"]}')
+                 f'Flash error: {error}\nConsecutive Flash failures: {status["consecutive_failures"]}\n'
+                 f'Direct guard run succeeded: {status["fallback_success"]}')
     EXECUTOR_STATUS.write_text(json.dumps(status, indent=1))
     if result:
         log_line('flash=ok')
