@@ -86,7 +86,12 @@ def log_line(text):
 
 def run_flash():
     env = dict(os.environ, ZCODE_FLASH_TIMEOUT=os.environ.get('ZCODE_FLASH_TIMEOUT', '600'))
-    p = subprocess.run([FLASH, str(REPO), str(PROMPT)], capture_output=True, text=True, env=env, timeout=900)
+    try:
+        p = subprocess.run([FLASH, str(REPO), str(PROMPT)], capture_output=True, text=True, env=env, timeout=900)
+    except subprocess.TimeoutExpired:
+        # A hung wrapper (e.g. ZCode risk-control stall) must degrade to the
+        # direct fallback like any other Flash failure, not crash the tick.
+        return None, 'Flash wrapper exceeded outer 900s timeout'
     if p.returncode:
         return None, (p.stderr.strip().splitlines() or [f'exit {p.returncode}'])[-1][:300]
     try:
