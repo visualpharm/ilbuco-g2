@@ -17,6 +17,11 @@ def reservation(p=g.SUITES[0], code='one', start='2026-12-20', end='2026-12-23',
 
 
 class ProtectionTests(unittest.TestCase):
+    def test_missing_item_mcp_never_starts_credential_process(self):
+        with patch.object(g.subprocess, 'run', side_effect=AssertionError('credential CLI attempted')):
+            with self.assertRaisesRegex(RuntimeError, 'quiet 1Password item MCP'):
+                g.Hostex()
+
     def test_checkout_exclusive_and_dependencies(self):
         p, _ = g.protection_plan([reservation()], '2026-12-01', '2026-12-31')
         self.assertEqual(p[g.HOUSE], {'2026-12-20', '2026-12-21', '2026-12-22'})

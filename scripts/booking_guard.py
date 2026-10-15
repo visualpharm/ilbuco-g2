@@ -25,7 +25,6 @@ SUITES = (12282945, 12282946, 12282947, 12282948)
 PROPERTIES = (*SUITES, HOUSE)
 STATE = Path.home() / '.local/share/ilbuco-booking-guard'
 GOG = '/Users/ivan/.claude/bin/gogx'
-OP = '/Users/ivan/.claude/bin/opx'
 ACCOUNT = os.environ.get('BOOKING_GUARD_ACCOUNT', '')
 
 
@@ -47,15 +46,11 @@ def command_json(args):
 
 class Hostex:
     def __init__(self):
-        # Credential source is 1Password, never a project environment file.
-        p = subprocess.run([OP, 'document', 'get', 'env-backup: projects/ilbuco-g2/.env.local',
-                            '--vault', 'AI'], capture_output=True, text=True, timeout=90)
-        if p.returncode:
-            raise RuntimeError('Hostex credential unavailable from 1Password')
-        m = re.search(r'^HOSTEX_API_KEY=["\']?([^\r\n"\']+)', p.stdout, re.M)
-        if not m:
-            raise RuntimeError('Hostex credential missing from vault document')
-        self.key = m.group(1)
+        # No credential process, project env file, popup or fabricated MCP API.
+        raise RuntimeError(
+            'Hostex credentials blocked: quiet 1Password item MCP (AI World) '
+            'is not connected; CLI credential retrieval is disabled.'
+        )
 
     def request(self, path, body=None):
         # stdin keeps the token out of process arguments and log files. curl is
