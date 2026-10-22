@@ -39,6 +39,22 @@ export const LISTING_NAMES: ListingName[] = [...SUITES, WHOLE_HOUSE_NAME];
 export const SUITE_COST_FLOOR = 65;
 export const CASA_COST_FLOOR = 250;
 
+/**
+ * Estimated cost of one turnover clean (USD), Ivan 2026-10-22 (m734273) — an estimate,
+ * not a proven minimum:
+ *   labour  $20 — Melody's marginal pay per guest checkout: regression of her monthly
+ *                 Ualá transfers from Ivan (157, Aug 2025 → Sep 2026, monthly blue-rate
+ *                 USD) on Hostex checkouts: $20.4 per checkout (s.e. 3.1; $15–21 across
+ *                 lag and weighting variants) + $291/month fixed, R² 0.78. Her transfers
+ *                 are multiples of ARS 6,000/hour, so $20 ≈ 5 hours. Payments Andrés made
+ *                 from the Il Buco account are not in the data.
+ *   supplies $6 — assumed, not measured: amenities and paper ~$3, cleaning products ~$1,
+ *                 laundry cycle ~$1, linen and towel wear ~$1
+ * Whole house = four suites (assumption). Every night floor must exceed a full turnover,
+ * so even a one-night stay at the floor pays for its clean (tested).
+ */
+export const TURNOVER_COST_USD = { suite: 26, casa: 104 } as const;
+
 /** Above these a quote is not a price but a currency mix-up (pesos labelled dollars). */
 export const ABSURD_NIGHT_USD: Record<ListingName, number> = {
   Giardino: 1000, Terrazzo: 1000, Paraiso: 1000, Penthouse: 1000, 'Whole House': 4000,

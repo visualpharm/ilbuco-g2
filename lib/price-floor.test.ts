@@ -15,6 +15,9 @@ import {
   checkQuote,
   deriveFloors,
   subFloorNightlyMentions,
+  TURNOVER_COST_USD,
+  SUITE_COST_FLOOR,
+  CASA_COST_FLOOR,
   PriceBelowFloorError,
   type SoldNight,
 } from './price-floor.ts';
@@ -171,4 +174,14 @@ test('guest calendar: a sub-floor night is neither priced nor available', () => 
   assert.deepEqual(r.dates[0], { date: OFF, available: false, price: 0 });
   assert.equal(r.price, 100);
   assert.equal(r.available, true);
+});
+
+test('every night floor pays for a full turnover clean, so a one-night stay covers it', () => {
+  for (const tier of Object.values(PRICE_FLOORS)) {
+    for (const l of LISTING_NAMES) {
+      const clean = l === 'Whole House' ? TURNOVER_COST_USD.casa : TURNOVER_COST_USD.suite;
+      assert.ok(tier[l] > clean, `${l} $${tier[l]} vs clean $${clean}`);
+    }
+  }
+  assert.ok(SUITE_COST_FLOOR > TURNOVER_COST_USD.suite && CASA_COST_FLOOR > TURNOVER_COST_USD.casa);
 });
