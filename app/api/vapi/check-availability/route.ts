@@ -125,11 +125,11 @@ async function getAvailability(startDate: string, endDate: string, listingId?: s
       let isAvailable = true;
 
       for (const day of listing.calendar || []) {
-        if (day.inventory === 1) {
+        // A night under the hard floor is not for sale — the voice line never offers or quotes it
+        const price = guestNightPrice(listingInfo.name, day.date, day.price);
+        if (day.inventory === 1 && price) {
           availableDates.push(day.date);
-          // A night under the hard floor loses its price — the voice line never quotes it
-          const price = guestNightPrice(listingInfo.name, day.date, day.price);
-          if (price && (minPrice === null || price < minPrice)) {
+          if (minPrice === null || price < minPrice) {
             minPrice = price;
           }
         } else {

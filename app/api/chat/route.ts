@@ -182,9 +182,9 @@ async function getAvailability(startDate: string, endDate: string) {
       let minPrice: number | null = null;
 
       for (const day of listing.calendar || []) {
-        const isAvailable = day.inventory === 1;
-        // A night under the hard floor loses its price — the chat never quotes it
+        // A night under the hard floor is not for sale — the chat never offers or quotes it
         const price = guestNightPrice(listingInfo.name, day.date, day.price) ?? 0;
+        const isAvailable = day.inventory === 1 && price > 0;
         dates[day.date] = {
           available: isAvailable,
           price

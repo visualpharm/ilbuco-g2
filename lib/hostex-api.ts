@@ -377,15 +377,22 @@ export async function getCalendarAvailability(
 
 /**
  * Guest-facing calendar: same as getCalendarAvailability, but a night priced under
- * the hard floor (lib/price-floor.ts) loses its price (0) so it is never quoted.
+ * the hard floor (lib/price-floor.ts) is not for sale — no price, not available —
+ * so no guest surface can show or sum it.
  */
 export async function getGuestCalendar(startDate: string, endDate: string): Promise<AvailabilityResult> {
-  const cal = await getCalendarAvailability(startDate, endDate);
+  return guestSafeCalendar(await getCalendarAvailability(startDate, endDate));
+}
+
+export function guestSafeCalendar(cal: AvailabilityResult): AvailabilityResult {
   return {
     rooms: cal.rooms.map(room => {
-      const dates = room.dates.map(d => ({ ...d, price: guestNightPrice(room.name, d.date, d.price) ?? 0 }));
-      const prices = dates.filter(d => d.available && d.price > 0).map(d => d.price);
-      return { ...room, dates, price: prices.length ? Math.min(...prices) : null };
+      const dates = room.dates.map(d => {
+        const price = guestNightPrice(room.name, d.date, d.price);
+        return price === null ? { ...d, price: 0, available: false } : d;
+      });
+      const prices = dates.filter(d => d.available).map(d => d.price);
+      return { ...room, dates, available: prices.length > 0, price: prices.length ? Math.min(...prices) : null };
     }),
   };
 }

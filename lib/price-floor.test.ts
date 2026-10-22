@@ -14,11 +14,13 @@ import {
   guestNightPrice,
   checkQuote,
   deriveFloors,
+  subFloorNightlyMentions,
   PriceBelowFloorError,
   type SoldNight,
 } from './price-floor.ts';
 import { computeNightPrice, BASE_PRICES, type PriceOverride } from './pricing-engine.ts';
 import { prePushGates } from './sanity-checks.ts';
+import { guestSafeCalendar } from './hostex-api.ts';
 
 const PEAK = '2027-01-15';
 const OFF = '2026-10-27';
@@ -28,7 +30,7 @@ test('a $30/night suite quote is an error, in peak and off season', () => {
     assert.throws(() => assertAboveFloor('Giardino', checkIn, 30), PriceBelowFloorError);
     const q = checkQuote({ listing: 'Giardino', checkIn, checkOut, nightly: 30 });
     assert.equal(q.ok, false);
-    assert.match(q.errors[0], /below the \$\d+ floor/);
+    assert.match(q.errors[0], /below the \$\d+\/night floor/);
   }
 });
 
@@ -128,4 +130,45 @@ test('deriveFloors: half the median, capped at the cheapest sale, never under co
   assert.equal(d.peak.casa, 325);    // 650/2
   assert.equal(d.off.suites, 65);    // 47.5 → cost floor
   assert.equal(d.high.suites, null); // no history
+});
+
+test('each quoted night clears its own floor: a stay into peak is held to the peak floor', () => {
+  // Dec 19 (high, $65) + Dec 20 (peak, $70): $135 total = $67.50/night → stop
+  const q = checkQuote({ listing: 'Giardino', checkIn: '2026-12-19', checkOut: '2026-12-21', total: 135 });
+  assert.equal(q.ok, false);
+  // total and nightly both given: both are checked
+  const both = checkQuote({ listing: 'Giardino', checkIn: OFF, checkOut: '2026-10-29', total: 400, nightly: 30 });
+  assert.equal(both.ok, false);
+  assert.match(both.errors.join(' '), /\$30\/night/);
+});
+
+test('pesos labelled as dollars are stopped as a currency mix-up', () => {
+  const q = checkQuote({ listing: 'Terrazzo', checkIn: OFF, checkOut: '2026-10-29', total: 320_000, currency: 'USD' });
+  assert.equal(q.ok, false);
+  assert.match(q.errors[0], /check the currency/);
+});
+
+test('outbound text: nightly figures under the floor are found, fees and real prices are not', () => {
+  assert.deepEqual(subFloorNightlyMentions('Giardino is free, $30/night.'), [30]);
+  assert.deepEqual(subFloorNightlyMentions('Te queda a US$ 45 por noche'), [45]);
+  assert.deepEqual(subFloorNightlyMentions('40 USD la noche'), [40]);
+  assert.deepEqual(subFloorNightlyMentions('Penthouse $251/night, cleaning $10, extra guest $10'), []);
+  assert.deepEqual(subFloorNightlyMentions('$160.000 por noche'), []);
+  assert.deepEqual(subFloorNightlyMentions('US$105 per night'), []);
+});
+
+test('guest calendar: a sub-floor night is neither priced nor available', () => {
+  const cal = guestSafeCalendar({
+    rooms: [{
+      name: 'Paraiso', available: true, price: 30,
+      dates: [
+        { date: OFF, available: true, price: 30 },
+        { date: '2026-10-28', available: true, price: 100 },
+      ],
+    }],
+  });
+  const r = cal.rooms[0];
+  assert.deepEqual(r.dates[0], { date: OFF, available: false, price: 0 });
+  assert.equal(r.price, 100);
+  assert.equal(r.available, true);
 });

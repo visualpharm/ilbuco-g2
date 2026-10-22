@@ -69,23 +69,31 @@ const ars = (n: number) => `ARS ${Math.round(n).toLocaleString('es-AR')}`;
 
 interface SiteQuote { usdTotal: number | null; arsTotal: number | null; arsPerUsd: number | null }
 
-/** Booking-site quote (what a guest pays on book.ilbuco.com.ar: nights + cleaning + extra guests). */
+/**
+ * Booking-site quote (what a guest pays on book.ilbuco.com.ar: nights + cleaning +
+ * extra guests). Null totals = the site doesn't sell the stay (min stay, closed,
+ * booked). A failed or inconsistent read is CannotVerify, never "OK".
+ */
 async function siteQuote(listing: ListingName, checkIn: string, checkOut: string, guests: number): Promise<SiteQuote> {
   const get = async (currency: string) => {
     const url = `https://book.ilbuco.com.ar/api/guest/listing/${SITE_IDS[listing]}?language=en&target_currency=${currency}` +
       `&check_in=${checkIn}&check_out=${checkOut}&number_of_adult=${guests}&number_of_child=0`;
-    const res = await fetch(url, { headers: { 'User-Agent': SITE_UA, Accept: 'application/json' } });
-    if (!res.ok) throw new Error(`site quote ${res.status}`);
-    const data = (await res.json()).data ?? {};
-    const rate = (data.rates ?? [])[0];
-    return { total: rate?.total ? rate.total / 100 : null, quote: Number(data.quote) || null };
+    const res = await fetch(url, { headers: { 'User-Agent': SITE_UA, Accept: 'application/json' } }).catch(e => {
+      throw new CannotVerify(`booking-site quote: ${(e as Error).message}`);
+    });
+    const body = res.ok ? await res.json().catch(() => null) : null;
+    if (!body?.data) throw new CannotVerify(`booking-site quote failed (HTTP ${res.status})`);
+    const rate = (body.data.rates ?? [])[0];
+    return { total: rate?.total ? rate.total / 100 : null, quote: Number(body.data.quote) || null };
   };
-  try {
-    const [u, a] = await Promise.all([get('USD'), get('ARS')]);
-    return { usdTotal: u.total, arsTotal: a.total, arsPerUsd: a.quote };
-  } catch {
-    return { usdTotal: null, arsTotal: null, arsPerUsd: null };
+  const [u, a] = await Promise.all([get('USD'), get('ARS')]);
+  const arsPerUsd = a.quote;
+  if (!arsPerUsd || arsPerUsd < 300 || arsPerUsd > 10000) throw new CannotVerify(`booking-site ARS rate ${arsPerUsd} looks wrong`);
+  // The two currencies must describe the same stay at the stated rate (±3%)
+  if (u.total && a.total && Math.abs(a.total / u.total / arsPerUsd - 1) > 0.03) {
+    throw new CannotVerify(`booking-site totals disagree: ${usd(u.total)} vs ${ars(a.total)} at ${arsPerUsd.toFixed(0)}`);
   }
+  return { usdTotal: u.total, arsTotal: a.total, arsPerUsd };
 }
 
 async function quoteMode(): Promise<number> {
@@ -157,6 +165,7 @@ async function scanMode(): Promise<number> {
   const days = num('--days') ?? 365;
   const start = new Date().toLocaleString('sv-SE', { timeZone: 'America/Argentina/Buenos_Aires' }).split(' ')[0];
   const problems: string[] = [];
+  const seen = new Set<string>();
   let checked = 0;
   // Hostex calendar reads cap around 180 days — read in windows
   for (let off = 0; off < days; off += 90) {
@@ -166,12 +175,17 @@ async function scanMode(): Promise<number> {
     for (const room of cal.rooms) {
       if (!(LISTING_NAMES as string[]).includes(room.name)) continue;
       for (const d of room.dates) {
-        if (d.date < a || d.date >= b) continue;
+        if (d.date < a || d.date >= b || seen.has(`${room.name} ${d.date}`)) continue;
+        seen.add(`${room.name} ${d.date}`);
         checked++;
         const floor = priceFloor(room.name, d.date);
         if (!(d.price >= floor)) problems.push(`${room.name} ${d.date}: $${d.price} < $${floor}`);
       }
     }
+  }
+  // Every listing × every day must come back exactly once — a short read is not a pass
+  if (checked !== LISTING_NAMES.length * days) {
+    throw new CannotVerify(`Hostex returned ${checked} of ${LISTING_NAMES.length * days} listing-nights`);
   }
   if (problems.length) {
     console.log(`STOP — ${problems.length} of ${checked} Hostex nights under the floor:`);
@@ -205,7 +219,7 @@ async function deriveMode(): Promise<number> {
     for (const date of dates) nights.push({ listing, date, price: perNight });
   }
   const derived = deriveFloors(nights);
-  console.log(`Derived from ${nights.length} sold nights (accepted USD reservations):`);
+  console.log(`Derived from ${nights.length} sold nights (accepted USD reservations, stay average per night):`);
   for (const [tier, d] of Object.entries(derived)) {
     const cur = PRICE_FLOORS[tier as keyof typeof PRICE_FLOORS];
     console.log(`  ${tier.padEnd(9)} suites ${d.suites ?? '—'} (in code ${cur.Giardino})   casa ${d.casa ?? '—'} (in code ${cur[WHOLE_HOUSE_NAME]})`);

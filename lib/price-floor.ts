@@ -7,20 +7,25 @@
  * is never shown or sent: callers get an error instead of a price.
  *
  * Derivation (Hostex booking history: accepted USD reservations with check-in
- * 2025-06 → 2027-02, accommodation only, per night — 426 sold nights, pulled 2026-10-22):
+ * 2025-06 → 2027-02, pulled 2026-10-22 — 128 reservations, 426 sold nights; a night's price is its
+ * stay's accommodation total / nights, the reservation total when Hostex has no
+ * accommodation line):
  *
  *   tier      suites: cheapest / median sold   casa: cheapest / median sold
  *   peak      $75 / $145   (240 nights)        $526 / $650  (11 nights)
  *   high      $102 / $106  (9)                  —
  *   shoulder  $72 / $102   (112)               $475         (3)
- *   off       $72 / $95    (47)                $360         (1)
+ *   off       $72 / $95    (50)                $360         (1)
  *
- *   floor = half the tier's median sold price, capped at the cheapest night ever
- *           actually sold (never block a price we have really taken), and never
- *           under the cost floor: suites $65 (infra $50 × 1.3), casa $250.
+ *   floor = half the tier's (lower) median sold night, capped at the cheapest night
+ *           ever actually sold (never block a price we have really taken), rounded
+ *           down to $5, and never under the cost floor: suites $65 (the engine's
+ *           PRICING_FLOOR, infra $50 × 1.3), casa $250 (the pre-push gate's CASA_MIN).
+ *           A tier without history (casa high) takes the cost floor.
  *
- * Suites are pooled: per-suite samples are too thin, and the four sell within ~15%
- * of each other. Re-derive with `scripts/price-check.ts derive` when history grows.
+ * Nights over $1500 are skipped as data-entry errors. Suites are pooled: per-suite
+ * tier samples are thin, and the suites' base prices differ by under 20%.
+ * Re-derive with `scripts/price-check derive` when history grows.
  */
 
 import { getSeasonTier, type SeasonTier } from './season-calendar';
@@ -33,6 +38,11 @@ export const LISTING_NAMES: ListingName[] = [...SUITES, WHOLE_HOUSE_NAME];
 /** Cost floors: below these a night loses money regardless of season. */
 export const SUITE_COST_FLOOR = 65;
 export const CASA_COST_FLOOR = 250;
+
+/** Above these a quote is not a price but a currency mix-up (pesos labelled dollars). */
+export const ABSURD_NIGHT_USD: Record<ListingName, number> = {
+  Giardino: 1000, Terrazzo: 1000, Paraiso: 1000, Penthouse: 1000, 'Whole House': 4000,
+};
 
 const suites = (v: number) => Object.fromEntries(SUITES.map(s => [s, v])) as Record<(typeof SUITES)[number], number>;
 
@@ -85,6 +95,29 @@ export function guestNightPrice(listing: string, date: string, priceUsd: number 
     console.error(`[price-floor] ${(e as Error).message}`);
     return null;
   }
+}
+
+/**
+ * Nightly prices written in an outbound message ("$30/night", "US$ 45 por noche",
+ * "40 USD la noche") that sit under the lowest floor of any listing. Whatever the
+ * currency, a two-digit nightly figure under $65 is never a real Il Buco price.
+ */
+export function subFloorNightlyMentions(text: string): number[] {
+  const lowest = Math.min(...LISTING_NAMES.flatMap(l => Object.values(PRICE_FLOORS).map(t => t[l])));
+  const night = String.raw`\s*(?:\/|per|por|a|la|x|each|cada)?\s*(?:la\s+)?(?:night|noche|nite)`;
+  const patterns = [
+    new RegExp(String.raw`(?:US\$|U\$S|USD|\$)\s?(\d[\d.,]*)` + night, 'gi'),
+    new RegExp(String.raw`(\d[\d.,]*)\s?(?:USD|US\$|dólares|dolares|dollars|pesos)` + night, 'gi'),
+  ];
+  const found: number[] = [];
+  for (const re of patterns) {
+    for (const m of text.matchAll(re)) {
+      // "1.234" / "1,234" are thousands; a trailing ",50" / ".50" is cents
+      const n = Number(m[1].replace(/[.,](?=\d{3}(\D|$))/g, '').replace(',', '.'));
+      if (Number.isFinite(n) && n < lowest) found.push(n);
+    }
+  }
+  return found;
 }
 
 // ─── Quote check (what noe runs before a price goes to a guest) ──────────────
@@ -140,22 +173,27 @@ export function checkQuote(q: QuoteInput): QuoteCheck {
   const floors = dates.map(d => priceFloor(listing, d));
   const floorTotal = floors.reduce((a, b) => a + b, 0);
 
+  // Each quoted night must clear the floor on its own. A total can't be split by
+  // night, so its average must clear the stay's highest nightly floor.
   let quotedUsd: number | null = null;
-  const amount = q.total ?? (q.nightly !== undefined ? q.nightly * dates.length : undefined);
-  if (amount !== undefined) {
-    const cur = q.currency ?? 'USD';
+  const cur = q.currency ?? 'USD';
+  const toUsd = (n: number) => (cur === 'ARS' ? n / q.arsPerUsd! : n);
+  const fmt = (n: number) => n.toFixed(n < 10 ? 2 : 0);
+  const maxFloor = floors.length ? Math.max(...floors) : 0;
+  if ((q.total !== undefined || q.nightly !== undefined) && dates.length) {
     if (cur === 'ARS' && !(q.arsPerUsd && q.arsPerUsd > 0)) {
       errors.push('ARS quote without an ARS/USD rate — cannot verify');
     } else {
-      quotedUsd = cur === 'ARS' ? amount / q.arsPerUsd! : amount;
-      if (!(quotedUsd >= floorTotal)) {
-        const perNight = dates.length ? quotedUsd / dates.length : quotedUsd;
-        const fmt = (n: number) => n.toFixed(n < 10 ? 2 : 0);
-        errors.push(
-          `quoted $${fmt(quotedUsd)} for ${dates.length} night(s) ($${fmt(perNight)}/night) ` +
-          `is below the $${floorTotal} floor`
-        );
+      const amounts: Array<[string, number]> = [];
+      if (q.nightly !== undefined) amounts.push(['nightly', toUsd(q.nightly)]);
+      if (q.total !== undefined) amounts.push(['total', toUsd(q.total) / dates.length]);
+      for (const [kind, perNight] of amounts) {
+        const what = kind === 'nightly' ? `quoted $${fmt(perNight)}/night` :
+          `quoted $${fmt(perNight * dates.length)} for ${dates.length} night(s) ($${fmt(perNight)}/night)`;
+        if (!(perNight >= maxFloor)) errors.push(`${what} is below the $${maxFloor}/night floor`);
+        else if (perNight > ABSURD_NIGHT_USD[listing]) errors.push(`${what} is not a nightly price — check the currency`);
       }
+      quotedUsd = q.total !== undefined ? toUsd(q.total) : toUsd(q.nightly!) * dates.length;
     }
   }
 

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse, after } from 'next/server';
 import { getConversation, sendMessage, getPropertyName, getGuestCalendar } from '@/lib/hostex-api';
+import { subFloorNightlyMentions } from '@/lib/price-floor';
 import { generateAutoResponse } from '@/lib/openrouter-client';
 import { buildAutoresponderPrompt } from '@/lib/autoresponder-prompt';
 import { syncInventories } from '@/lib/inventory-sync';
@@ -269,7 +270,13 @@ async function processMessage(conversationId: string, incomingMessage: string, s
   const result = await generateAutoResponse(systemPrompt, history, latestGuestMessage);
   const responseTime = Date.now() - startTime;
 
-  // 5. Act on the result
+  // 5. Act on the result — a reply quoting a nightly price under the hard floor
+  // (lib/price-floor.ts) is never auto-sent
+  const subFloor = subFloorNightlyMentions(result.reply);
+  if (subFloor.length) {
+    result.confidence = 'escalate';
+    result.escalation_reason = `price below floor: $${subFloor.join(', $')}/night`;
+  }
   if (result.confidence === 'auto' && result.reply.trim()) {
     await sendMessage(conversationId, result.reply);
   }
