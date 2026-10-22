@@ -31,6 +31,7 @@ import { syncInventories, type SyncResult } from './inventory-sync';
 import { prePushGates, postPushVerify, CASA_MIN, CASA_MAX, type GateViolation, type VerifyResult } from './sanity-checks';
 import { sendPricingAlert } from './pricing-alerts';
 import { addDays } from './season-calendar';
+import { priceFloor } from './price-floor';
 
 const ENGINE_VERSION = 'v2.4-gated';
 
@@ -134,7 +135,7 @@ export async function runPricingUpdate(dryRun: boolean, daysAhead: number, by: s
     value: wholeHousePrice(
       suiteNames.map(n => schedules[n][i].price),
       config.wholeHouseFactor,
-      CASA_MIN,
+      Math.max(CASA_MIN, priceFloor(WHOLE_HOUSE.name, entry.date)),
       CASA_MAX,
     ),
   }));

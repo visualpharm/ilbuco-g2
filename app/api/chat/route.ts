@@ -4,6 +4,7 @@ import { LISTINGS, buildSystemPrompt, buildBookingDeepLink } from '@/lib/chat-pr
 import { promises as fs } from 'fs';
 import path from 'path';
 import { searchLocalBusinessDatabase } from '@/lib/local-businesses';
+import { guestNightPrice } from '@/lib/price-floor';
 
 // Google Places API for local business search (fallback)
 const GOOGLE_PLACES_API = 'https://maps.googleapis.com/maps/api/place';
@@ -182,14 +183,16 @@ async function getAvailability(startDate: string, endDate: string) {
 
       for (const day of listing.calendar || []) {
         const isAvailable = day.inventory === 1;
+        // A night under the hard floor loses its price — the chat never quotes it
+        const price = guestNightPrice(listingInfo.name, day.date, day.price) ?? 0;
         dates[day.date] = {
           available: isAvailable,
-          price: day.price || 0
+          price
         };
         if (isAvailable) {
           hasAvailability = true;
-          if (day.price && (minPrice === null || day.price < minPrice)) {
-            minPrice = day.price;
+          if (price && (minPrice === null || price < minPrice)) {
+            minPrice = price;
           }
         }
       }
@@ -319,7 +322,7 @@ export async function POST(request: NextRequest) {
         const isAvailableToday = todayData?.available || false;
         const todayPrice = todayData?.price || 0;
         const deepLink = buildBookingDeepLink(today, tomorrow);
-        availabilityContext += `- ${suiteName}: ${isAvailableToday ? `✅ AVAILABLE at $${todayPrice}/night` : '❌ BOOKED'}`;
+        availabilityContext += `- ${suiteName}: ${isAvailableToday ? `✅ AVAILABLE${todayPrice ? ` at $${todayPrice}/night` : ''}` : '❌ BOOKED'}`;
         if (isAvailableToday) availabilityContext += ` | Book: ${deepLink}`;
         availabilityContext += '\n';
       }
@@ -362,11 +365,11 @@ export async function POST(request: NextRequest) {
           const maxPrice = prices.length > 0 ? Math.max(...prices) : null;
 
           if (monthDates.length > 0) {
-            const priceStr = minPrice === maxPrice ? `$${minPrice}` : `$${minPrice}-$${maxPrice}`;
+            const priceStr = minPrice === null ? '' : minPrice === maxPrice ? ` at $${minPrice}/night` : ` at $${minPrice}-$${maxPrice}/night`;
             const firstAvailable = monthDates[0];
             const checkOut = getNextDay(firstAvailable);
             const deepLink = buildBookingDeepLink(firstAvailable, checkOut);
-            availabilityContext += `- ${suiteName}: ✅ ${monthDates.length} nights available at ${priceStr}/night\n`;
+            availabilityContext += `- ${suiteName}: ✅ ${monthDates.length} nights available${priceStr}\n`;
             availabilityContext += `  Available dates: ${formatDateRange(monthDates)}\n`;
             availabilityContext += `  First available: ${firstAvailable} | Book: ${deepLink}\n`;
           } else {

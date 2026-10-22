@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyVapiWebhookSecret, VAPI_WEBHOOK_SECRET_HEADER } from '@/lib/vapi-auth';
+import { guestNightPrice } from '@/lib/price-floor';
 
 const HOSTEX_API_URL = 'https://api.hostex.io/v3/listings/calendar';
 
@@ -126,8 +127,10 @@ async function getAvailability(startDate: string, endDate: string, listingId?: s
       for (const day of listing.calendar || []) {
         if (day.inventory === 1) {
           availableDates.push(day.date);
-          if (day.price && (minPrice === null || day.price < minPrice)) {
-            minPrice = day.price;
+          // A night under the hard floor loses its price — the voice line never quotes it
+          const price = guestNightPrice(listingInfo.name, day.date, day.price);
+          if (price && (minPrice === null || price < minPrice)) {
+            minPrice = price;
           }
         } else {
           isAvailable = false;

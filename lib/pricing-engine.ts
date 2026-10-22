@@ -27,6 +27,7 @@
  */
 
 import { getSeasonTier, isWeekendNight, isHolidayNight, isFiestasNight, addDays, type SeasonTier } from './season-calendar';
+import { priceFloor } from './price-floor';
 
 export type { SeasonTier };
 export { getSeasonTier };
@@ -50,7 +51,8 @@ export const BASE_PRICES: Record<SeasonTier, Record<string, number>> = {
 /** Per-tier price ceilings (sanity cap; fiestas can exceed the peak cap by design). */
 export const CEILINGS: Record<SeasonTier, number> = { peak: 320, high: 250, shoulder: 200, off: 140 };
 
-/** Hard floor: infra cost ($50) × 1.3, overridable. */
+/** Cost floor: infra cost ($50) × 1.3, overridable. The per-season hard floor
+ *  (lib/price-floor.ts) applies on top, so the engine never emits a sub-floor night. */
 const FLOOR = Number(process.env.PRICING_FLOOR ?? '65');
 
 // ─── Modifiers ────────────────────────────────────────────────────────────────
@@ -202,12 +204,13 @@ export function computeNightPrice(
   const demand = demandFactor(dateStr, ctx);
 
   // Fiestas nights skip the ceiling — they're supposed to be carísimos
+  const floor = Math.max(FLOOR, priceFloor(roomName, dateStr));
   const raw = base * learned * weekend * holiday * demand;
-  const capped = fiestas ? Math.max(FLOOR, raw) : Math.min(CEILINGS[tier], Math.max(FLOOR, raw));
+  const capped = fiestas ? Math.max(floor, raw) : Math.min(CEILINGS[tier], Math.max(floor, raw));
   const engine = Math.round(capped);
 
   const o = settings.overrides ? findOverride(settings.overrides, roomName, dateStr) : null;
-  const price = o ? Math.max(FLOOR, applyOverride(o, engine)) : engine;
+  const price = o ? Math.max(floor, applyOverride(o, engine)) : engine;
 
   return {
     date: dateStr,

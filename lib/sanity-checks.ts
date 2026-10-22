@@ -11,6 +11,7 @@
 import { BASE_PRICES, IL_BUCO_ROOMS, WHOLE_HOUSE, type DayPriceEntry, type SeasonTier } from './pricing-engine';
 import { isFiestasNight, addDays } from './season-calendar';
 import { getCalendarAvailability } from './hostex-api';
+import { priceFloor } from './price-floor';
 
 export interface GateViolation {
   gate: string;
@@ -40,18 +41,20 @@ export function prePushGates(
 ): GateViolation[] {
   const v: GateViolation[] = [];
 
-  // 1. Per-night bounds
+  // 1. Per-night bounds — the floor is per season (lib/price-floor.ts)
   for (const [room, schedule] of Object.entries(schedules)) {
     for (const e of schedule) {
-      if (e.price < SUITE_MIN || e.price > SUITE_MAX) {
-        v.push({ gate: 'bounds', detail: `${room} ${e.date}: $${e.price} outside $${SUITE_MIN}–${SUITE_MAX}` });
+      const min = Math.max(SUITE_MIN, priceFloor(room, e.date));
+      if (e.price < min || e.price > SUITE_MAX) {
+        v.push({ gate: 'bounds', detail: `${room} ${e.date}: $${e.price} outside $${min}–${SUITE_MAX}` });
         break; // one example per room is enough
       }
     }
   }
   for (const d of wholeHouseDays) {
-    if (d.value < CASA_MIN || d.value > CASA_MAX) {
-      v.push({ gate: 'bounds', detail: `Casa ${d.date}: $${d.value} outside $${CASA_MIN}–${CASA_MAX}` });
+    const min = Math.max(CASA_MIN, priceFloor(WHOLE_HOUSE.name, d.date));
+    if (d.value < min || d.value > CASA_MAX) {
+      v.push({ gate: 'bounds', detail: `Casa ${d.date}: $${d.value} outside $${min}–${CASA_MAX}` });
       break;
     }
   }

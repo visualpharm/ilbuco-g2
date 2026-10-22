@@ -26,6 +26,7 @@ This file stays thin: principles, what Ivan decides, and how we work. Detailed r
 
 - Commands: `npm run dev` · `npm run build` · `npm run start` · `npm run lint`
 - Tests: `npm run test` (tsx runner, `lib/*.test.ts`); full local gate: `~/.claude/bin/local-ci` → `./scripts/local-ci.sh` (Python booking-guard tests + unit tests + production build)
+- Price floor: `lib/price-floor.ts` — no guest-facing price under it; check a quote with `scripts/price-check <listing> <check-in> <check-out> [--total N] [--ars]`, scan Hostex with `scripts/price-check scan`
 - Site checks after major changes (broken links, missing images/alt, translation completeness, hreflang/canonical, sitemap): docs/rules/testing.md
 - Commits: Conventional Commits (`feat:`, `fix:`, `build:`, `docs:`), one coherent verified slice per commit.
 - Decisions log: append to `docs/decisions.md`; contradicting a logged Ivan decision needs his Yes.

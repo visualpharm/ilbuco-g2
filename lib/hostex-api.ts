@@ -1,5 +1,7 @@
 // Centralized Hostex API client for Il Buco autoresponder
 
+import { guestNightPrice } from './price-floor';
+
 const HOSTEX_BASE = 'https://api.hostex.io/v3';
 
 function getApiKey(): string {
@@ -369,6 +371,21 @@ export async function getCalendarAvailability(
           price: d.price,
         })),
       };
+    }),
+  };
+}
+
+/**
+ * Guest-facing calendar: same as getCalendarAvailability, but a night priced under
+ * the hard floor (lib/price-floor.ts) loses its price (0) so it is never quoted.
+ */
+export async function getGuestCalendar(startDate: string, endDate: string): Promise<AvailabilityResult> {
+  const cal = await getCalendarAvailability(startDate, endDate);
+  return {
+    rooms: cal.rooms.map(room => {
+      const dates = room.dates.map(d => ({ ...d, price: guestNightPrice(room.name, d.date, d.price) ?? 0 }));
+      const prices = dates.filter(d => d.available && d.price > 0).map(d => d.price);
+      return { ...room, dates, price: prices.length ? Math.min(...prices) : null };
     }),
   };
 }

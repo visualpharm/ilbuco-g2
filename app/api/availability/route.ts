@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getCalendarAvailability } from '@/lib/hostex-api';
+import { getGuestCalendar } from '@/lib/hostex-api';
 
 /**
  * GET /api/availability
@@ -35,7 +35,7 @@ export async function GET(req: Request) {
         return NextResponse.json({ error: 'End date must be after start date' }, { status: 400 });
       }
 
-      const calendar = await getCalendarAvailability(start, end);
+      const calendar = await getGuestCalendar(start, end);
 
       const rooms = calendar.rooms.map((room) => {
         const slug = room.name.toLowerCase().replace(/\s+/g, '-');
@@ -61,7 +61,7 @@ export async function GET(req: Request) {
     // ─── Today snapshot (original behavior) ─────────────────────────────────────
     const today = new Date().toISOString().split('T')[0];
 
-    const calendar = await getCalendarAvailability(today, today);
+    const calendar = await getGuestCalendar(today, today);
     let availableSuites = 0;
     let wholeHouseAvailable = false;
     const availablePrices: number[] = [];

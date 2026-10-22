@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse, after } from 'next/server';
-import { getConversation, sendMessage, getPropertyName, getCalendarAvailability } from '@/lib/hostex-api';
+import { getConversation, sendMessage, getPropertyName, getGuestCalendar } from '@/lib/hostex-api';
 import { generateAutoResponse } from '@/lib/openrouter-client';
 import { buildAutoresponderPrompt } from '@/lib/autoresponder-prompt';
 import { syncInventories } from '@/lib/inventory-sync';
@@ -242,8 +242,8 @@ async function processMessage(conversationId: string, incomingMessage: string, s
     try {
       const today = new Date().toISOString().split('T')[0];
       const endDate = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-      const avail = await getCalendarAvailability(today, endDate);
-      const available = avail.rooms.filter(r => r.available);
+      const avail = await getGuestCalendar(today, endDate);
+      const available = avail.rooms.filter(r => r.available && r.price);
       if (available.length > 0) {
         availabilityText = available.map(r =>
           `${r.name}: available, from $${r.price}/night`

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getCalendarAvailability, SUITE_PROPERTY_IDS, PROPERTY_NAMES } from '@/lib/hostex-api';
+import { assertAboveFloor, PriceBelowFloorError } from '@/lib/price-floor';
 import { createPreference } from '@/lib/mercadopago-client';
 import { isDirectBookingEnabled } from '@/lib/direct-booking';
 import { minStayForDate, suitesClosedForDate, DEFAULT_STAY_POLICY } from '@/lib/stay-policy';
@@ -91,10 +92,17 @@ export async function POST(req: Request) {
       );
     }
 
-    // Sum nightly prices
-    const nightlyPrices = roomData.dates
-      .filter((d) => d.date >= checkIn && d.date < checkOut)
-      .map((d) => d.price);
+    // Sum nightly prices — a night under the hard floor (or unpriced) stops the checkout
+    const stayDays = roomData.dates.filter((d) => d.date >= checkIn && d.date < checkOut);
+    try {
+      if (stayDays.length !== nights) throw new PriceBelowFloorError(roomData.name, checkIn, 0, 0);
+      for (const d of stayDays) assertAboveFloor(roomData.name, d.date, d.price);
+    } catch (e) {
+      if (!(e instanceof PriceBelowFloorError)) throw e;
+      console.error(`[mp/create-preference] ${e.message}`);
+      return NextResponse.json({ error: 'Price unavailable for these dates' }, { status: 500 });
+    }
+    const nightlyPrices = stayDays.map((d) => d.price);
 
     const total = nightlyPrices.reduce((sum, p) => sum + (p || 0), 0);
 

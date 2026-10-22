@@ -1,0 +1,3 @@
+#!/bin/sh
+# Last stop before a price goes to an Il Buco guest — see scripts/price-check.ts.
+exec npx --yes tsx "$(dirname "$0")/price-check.ts" "$@"
