@@ -82,7 +82,7 @@ export default function Food() {
                   <Link
                     key={tab.id}
                     href={tab.href}
-                    className={`px-4 py-3 text-sm font-medium rounded-t-lg transition-colors flex items-center space-x-2 ${
+                    className={`px-4 py-3 text-base font-medium rounded-t-lg transition-colors flex items-center space-x-2 ${
                       tab.active
                         ? "bg-black text-white border-b-2 border-black"
                         : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
@@ -139,7 +139,7 @@ export default function Food() {
                           (salad bar!),{" "}
                           <a
                             href="https://goo.gl/maps/8ZQZgqXH8JZQeULt8"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
                             <span>La Parrillita</span>
@@ -149,14 +149,14 @@ export default function Food() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=La+Cabrera+Caril%C3%B3"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-base mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
                             <span>Google Maps</span>
                           </a>
                           <a
                             href="https://www.instagram.com/lacabrera_carilo/"
-                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
+                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-base inline-flex items-center"
                           >
                             <Icons.Instagram />
                             <span>@lacabrera_carilo</span>
@@ -177,14 +177,14 @@ export default function Food() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Il+Gatto+Nero+Valeria+del+Mar"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-base mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
                             <span>Google Maps</span>
                           </a>
                           <a
                             href="https://www.instagram.com/__ilgattonero/"
-                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
+                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-base inline-flex items-center"
                           >
                             <Icons.Instagram />
                             <span>@__ilgattonero</span>
@@ -203,14 +203,14 @@ export default function Food() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Il+Panettone+Caril%C3%B3"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-base mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
                             <span>Google Maps</span>
                           </a>
                           <a
                             href="https://www.instagram.com/panaderia.ilpanettone/"
-                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
+                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-base inline-flex items-center"
                           >
                             <Icons.Instagram />
                             <span>@panaderia.ilpanettone</span>
@@ -229,14 +229,14 @@ export default function Food() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Enris+Caril%C3%B3"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-base mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
                             <span>Google Maps</span>
                           </a>
                           <a
                             href="https://www.instagram.com/enris.ar/"
-                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
+                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-base inline-flex items-center"
                           >
                             <Icons.Instagram />
                             <span>@enris.ar</span>
@@ -255,7 +255,7 @@ export default function Food() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Masse+Caril%C3%B3"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3 flex items-center"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base mr-3 flex items-center"
                           >
                             <Icons.GoogleMaps />
                             <span>Google Maps</span>
@@ -264,7 +264,7 @@ export default function Food() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/masse.carilo/"
-                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                             >
                               @masse.carilo
                             </a>

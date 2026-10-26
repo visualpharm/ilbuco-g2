@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
 import Image from "next/image"
-import { MapPin, Calendar, ArrowRight, Trophy, Clock, Car, Utensils } from "lucide-react"
+import { MapPin, Calendar, ArrowRight, Trophy, Clock, Car, Utensils } from "@/components/icons8-lucide"
 import { HeroImage } from "@/components/hero-image"
 
 export const metadata: Metadata = {
@@ -181,7 +181,7 @@ export default function CariloGolfHospedaje() {
                         <span className="font-semibold text-green-800">Disponible para Alquiler</span>
                       </div>
                       <p className="text-green-700 text-lg font-bold">$15 USD por día</p>
-                      <p className="text-sm text-green-600 mt-1">Incluye pelotas de práctica</p>
+                      <p className="text-base text-green-600 mt-1">Incluye pelotas de práctica</p>
                     </div>
                   </div>
                   <div className="relative">
@@ -233,7 +233,7 @@ export default function CariloGolfHospedaje() {
 
               <div className="bg-gradient-to-r from-green-50 to-blue-50 p-8 rounded-lg">
                 <h3 className="text-xl font-semibold mb-4">¿Por Qué Elegir Il Buco para tu Golf Trip?</h3>
-                <div className="grid md:grid-cols-3 gap-6 text-sm">
+                <div className="grid md:grid-cols-3 gap-6 text-base">
                   <div>
                     <strong>Ubicación Estratégica</strong>
                     <p className="text-gray-600 mt-1">Acceso rápido a los mejores campos de la costa atlántica argentina</p>

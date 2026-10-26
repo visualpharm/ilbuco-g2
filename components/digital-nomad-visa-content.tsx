@@ -67,10 +67,10 @@ export function DigitalNomadVisaContent() {
 
             <div className="bg-green-50 border-l-4 border-green-500 p-6 mb-6 rounded-r-lg">
               <h3 className="text-lg font-semibold text-green-900 mb-3">Who Can Apply for Digital Nomad Visa?</h3>
-              <p className="text-green-800 text-sm mb-2">
+              <p className="text-green-800 text-base mb-2">
                 Only citizens of countries that do not require a tourist visa for Argentina can get this nomad visa. This covers most Europeans, North Americans, Australians, New Zealanders, Brits, and many others.
               </p>
-              <p className="text-green-800 text-sm">
+              <p className="text-green-800 text-base">
                 <a href="https://en.wikipedia.org/wiki/Visa_policy_of_Argentina" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline font-medium">
                   Check if your country needs a visa to visit Argentina →
                 </a>
@@ -83,21 +83,21 @@ export function DigitalNomadVisaContent() {
                   <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
                   <span className="font-semibold text-gray-900">Multiple-entry</span>
                 </div>
-                <p className="text-sm text-gray-600">Tax-free foreign income for digital nomads</p>
+                <p className="text-base text-gray-600">Tax-free foreign income for digital nomads</p>
               </div>
               <div className="bg-white rounded-lg p-4 border border-blue-100">
                 <div className="flex items-center mb-2">
                   <div className="w-2 h-2 bg-red-500 rounded-full mr-2"></div>
                   <span className="font-semibold text-gray-900">Foreign work only</span>
                 </div>
-                <p className="text-sm text-gray-600">Digital nomad visa not valid for Argentine companies</p>
+                <p className="text-base text-gray-600">Digital nomad visa not valid for Argentine companies</p>
               </div>
               <div className="bg-white rounded-lg p-4 border border-blue-100">
                 <div className="flex items-center mb-2">
                   <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
                   <span className="font-semibold text-gray-900">Up to 1 Year Stay</span>
                 </div>
-                <p className="text-sm text-gray-600">180 days + 180 day extension possible</p>
+                <p className="text-base text-gray-600">180 days + 180 day extension possible</p>
               </div>
             </div>
             
@@ -156,25 +156,25 @@ export function DigitalNomadVisaContent() {
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
                     <span className="text-blue-600 font-bold">1-2</span>
                   </div>
-                  <p className="text-sm font-medium">Weeks to prepare nomad visa documents</p>
+                  <p className="text-base font-medium">Weeks to prepare nomad visa documents</p>
                 </div>
                 <div className="p-4">
                   <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
                     <span className="text-green-600 font-bold">24H</span>
                   </div>
-                  <p className="text-sm font-medium">TIE 24H express processing option</p>
+                  <p className="text-base font-medium">TIE 24H express processing option</p>
                 </div>
                 <div className="p-4">
                   <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2">
                     <span className="text-purple-600 font-bold">2-4</span>
                   </div>
-                  <p className="text-sm font-medium">Weeks standard nomad visa processing</p>
+                  <p className="text-base font-medium">Weeks standard nomad visa processing</p>
                 </div>
                 <div className="p-4">
                   <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-2">
                     <span className="text-yellow-600 font-bold">180</span>
                   </div>
-                  <p className="text-sm font-medium">Days initial digital nomad visa validity</p>
+                  <p className="text-base font-medium">Days initial digital nomad visa validity</p>
                 </div>
               </div>
             </div>
@@ -203,14 +203,14 @@ export function DigitalNomadVisaContent() {
                   
                   <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
                     <h4 className="font-semibold text-yellow-900 mb-2">Argentina's Relaxed Immigration Policy</h4>
-                    <p className="text-yellow-800 text-sm mb-3">
+                    <p className="text-yellow-800 text-base mb-3">
                       Immigration enforcement here is very relaxed. Unlike most countries, <strong>overstaying is not technically illegal</strong> in Argentina. If you overstay your tourist visa, you simply pay a fine before you leave.
                     </p>
-                    <p className="text-yellow-800 text-sm mb-3">
+                    <p className="text-yellow-800 text-base mb-3">
                       <strong>Overstay Fine (Habilitación de Salida):</strong><br />
                       If you overstay your permitted time in Argentina, you must pay a fixed fine of <strong>ARS 40,000 (about USD 40 as of June 2025)</strong> before departure.
                     </p>
-                    <p className="text-yellow-800 text-sm">
+                    <p className="text-yellow-800 text-base">
                       This amount is the same no matter how long you overstayed — 1 day or 3 months, the fine does not change.
                     </p>
                   </div>
@@ -218,7 +218,7 @@ export function DigitalNomadVisaContent() {
                   <div className="grid md:grid-cols-2 gap-4 mt-6">
                     <div className="p-4 bg-green-50 rounded-lg">
                       <h5 className="font-semibold text-green-900 mb-2">✅ Tourist Entry Pros</h5>
-                      <ul className="text-green-800 text-sm space-y-1">
+                      <ul className="text-green-800 text-base space-y-1">
                         <li>• No paperwork or visa fees</li>
                         <li>• Immediate entry upon arrival</li>
                         <li>• Can extend once for 180 days total</li>
@@ -228,7 +228,7 @@ export function DigitalNomadVisaContent() {
                     
                     <div className="p-4 bg-red-50 rounded-lg">
                       <h5 className="font-semibold text-red-900 mb-2">❌ Tourist Entry Cons</h5>
-                      <ul className="text-red-800 text-sm space-y-1">
+                      <ul className="text-red-800 text-base space-y-1">
                         <li>• No legal work authorization</li>
                         <li>• Doesn't count toward residency</li>
                         <li>• Limited to 180 days + overstay</li>
@@ -238,7 +238,7 @@ export function DigitalNomadVisaContent() {
                   </div>
                   
                   <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-                    <p className="text-blue-800 text-sm">
+                    <p className="text-blue-800 text-base">
                       <strong>Bottom line:</strong> For short-term stays (3-6 months), the tourist route might be simpler. For longer stays or those wanting legal resident status, the digital nomad visa is worth pursuing.
                     </p>
                   </div>
@@ -269,28 +269,28 @@ export function DigitalNomadVisaContent() {
                   <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                   <div>
                     <span className="font-medium text-gray-900">Valid passport</span>
-                    <p className="text-sm text-gray-600">6+ months validity remaining</p>
+                    <p className="text-base text-gray-600">6+ months validity remaining</p>
                   </div>
                 </li>
                 <li className="flex items-start">
                   <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                   <div>
                     <span className="font-medium text-gray-900">Background check</span>
-                    <p className="text-sm text-gray-600">FBI clearance or equivalent (apostilled)</p>
+                    <p className="text-base text-gray-600">FBI clearance or equivalent (apostilled)</p>
                   </div>
                 </li>
                 <li className="flex items-start">
                   <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                   <div>
                     <span className="font-medium text-gray-900">Proof of income</span>
-                    <p className="text-sm text-gray-600">Bank statements, employment letter</p>
+                    <p className="text-base text-gray-600">Bank statements, employment letter</p>
                   </div>
                 </li>
                 <li className="flex items-start">
                   <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                   <div>
                     <span className="font-medium text-gray-900">Health insurance</span>
-                    <p className="text-sm text-gray-600">Valid coverage in Argentina</p>
+                    <p className="text-base text-gray-600">Valid coverage in Argentina</p>
                   </div>
                 </li>
               </ul>
@@ -301,15 +301,15 @@ export function DigitalNomadVisaContent() {
               <div className="space-y-4">
                 <div className="p-4 bg-green-50 rounded-lg">
                   <h4 className="font-semibold text-green-900 mb-2">Minimum Income</h4>
-                  <p className="text-green-800 text-sm">$1,000-$2,500 USD per month (unofficial guideline)</p>
+                  <p className="text-green-800 text-base">$1,000-$2,500 USD per month (unofficial guideline)</p>
                 </div>
                 <div className="p-4 bg-blue-50 rounded-lg">
                   <h4 className="font-semibold text-blue-900 mb-2">Bank Statements</h4>
-                  <p className="text-blue-800 text-sm">Last 3-6 months showing consistent income</p>
+                  <p className="text-blue-800 text-base">Last 3-6 months showing consistent income</p>
                 </div>
                 <div className="p-4 bg-purple-50 rounded-lg">
                   <h4 className="font-semibold text-purple-900 mb-2">Processing Fees</h4>
-                  <p className="text-purple-800 text-sm">Approximately $200 USD total</p>
+                  <p className="text-purple-800 text-base">Approximately $200 USD total</p>
                 </div>
               </div>
             </div>
@@ -338,7 +338,7 @@ export function DigitalNomadVisaContent() {
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Gather Required Documents</h3>
                 <p className="text-gray-600 mb-3">Collect all necessary documents including passport, background check, income proof, and health insurance. Allow 2-4 weeks for document preparation.</p>
                 <div className="bg-yellow-50 p-3 rounded border-l-4 border-yellow-400">
-                  <p className="text-sm text-yellow-800">💡 Start with background check first - it takes the longest to obtain</p>
+                  <p className="text-base text-yellow-800">💡 Start with background check first - it takes the longest to obtain</p>
                 </div>
               </div>
             </div>
@@ -409,7 +409,7 @@ export function DigitalNomadVisaContent() {
                   <span className="text-2xl">✅</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Free Digital Nomad Visa Documentation</h3>
-                <p className="text-gray-600 text-sm">Confirmation of stay letter valid for nomad visa documents</p>
+                <p className="text-gray-600 text-base">Confirmation of stay letter valid for nomad visa documents</p>
               </div>
               
               <div className="text-center">
@@ -417,7 +417,7 @@ export function DigitalNomadVisaContent() {
                   <span className="text-2xl">💸</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Digital Nomad Visa Translation Help</h3>
-                <p className="text-gray-600 text-sm">Low-cost assistance with nomad visa document prep and translations</p>
+                <p className="text-gray-600 text-base">Low-cost assistance with nomad visa document prep and translations</p>
               </div>
               
               <div className="text-center">
@@ -425,7 +425,7 @@ export function DigitalNomadVisaContent() {
                   <span className="text-2xl">🧭</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Digital Nomad Visa Concierge</h3>
-                <p className="text-gray-600 text-sm">We escort you to migration office and handle the nomad visa process</p>
+                <p className="text-gray-600 text-base">We escort you to migration office and handle the nomad visa process</p>
               </div>
             </div>
             
@@ -439,7 +439,7 @@ export function DigitalNomadVisaContent() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </a>
-              <p className="text-gray-600 text-sm mt-4">Perfect for 3+ month stays • Cariló, Argentina</p>
+              <p className="text-gray-600 text-base mt-4">Perfect for 3+ month stays • Cariló, Argentina</p>
             </div>
           </div>
         </div>
@@ -454,10 +454,10 @@ export function DigitalNomadVisaContent() {
               </svg>
               <div>
                 <h3 className="font-semibold text-gray-900 mb-2">Disclaimer</h3>
-                <p className="text-gray-600 text-sm mb-2">
+                <p className="text-gray-600 text-base mb-2">
                   This article is not a reprint of official sources. It is based on experience, forum reports, and practical knowledge compiled for real-world use.
                 </p>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   For questions or to stay at Il Buco: <a href="/en/the-house" className="text-green-600 hover:underline font-medium">Contact us here</a>
                 </p>
               </div>
@@ -484,7 +484,7 @@ export function DigitalNomadVisaContent() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 Do I need an apostille for my digital nomad visa documents? And what about translations?
               </h3>
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 text-base leading-relaxed">
                 Yes, for any official documents from abroad, you'll need proper legalization. If it's issued by a government or institution abroad (background check, birth certificate, marriage certificate), get an Apostille of The Hague. For translations: all documents not originally in Spanish must be translated. Argentina specifically prefers translations done by a certified public translator and then "legalized" by the Colegio de Traductores (Translator's Association).
               </p>
             </div>
@@ -494,7 +494,7 @@ export function DigitalNomadVisaContent() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 How much income do I need to show for the digital nomad visa? Is there a minimum?
               </h3>
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 text-base leading-relaxed">
                 There's no fixed minimum income published by the government for the nomad visa. However, unofficial sources often cite around $1,000-$2,500 USD per month as a sensible minimum. The key is to show consistent revenue or funds. They mainly want to ensure you won't be stranded or take local jobs. In your cover letter, you can explicitly state "I earn $X per month which is sufficient for my stay."
               </p>
             </div>
@@ -504,7 +504,7 @@ export function DigitalNomadVisaContent() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 How long does the digital nomad visa approval take?
               </h3>
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 text-base leading-relaxed">
                 Officially, the online nomad visa is processed in about 10 business days (2 weeks) if everything is perfect. Realistically, most applicants report waiting 2-6 weeks for email approval. Factors affecting timing include consulate workload, holidays, and document clarifications. Always apply as early as possible and don't fly to Argentina until your visa is approved.
               </p>
             </div>
@@ -514,7 +514,7 @@ export function DigitalNomadVisaContent() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 Can I apply for the digital nomad visa while I'm already in Argentina as a tourist?
               </h3>
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 text-base leading-relaxed">
                 Technically, the TIE online process requires you to be outside Argentina during processing. If you apply while physically in Argentina, Migraciones will likely deny the application. Workarounds include: 1) Leave and apply from abroad (e.g., Uruguay or Chile), or 2) Do a status change (Cambio de Categoría) in Argentina through DNM, which involves higher fees (~$200) and is more bureaucratic. For detailed information about all visa options for remote workers, including tourist visa extensions and the Rentista visa, see our comprehensive <a href="/en/argentina-remote-work-visa" className="text-blue-600 hover:underline">Argentina remote work visa guide</a>.
               </p>
             </div>
@@ -524,7 +524,7 @@ export function DigitalNomadVisaContent() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 Does time on the digital nomad visa count towards permanent residency or citizenship?
               </h3>
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 text-base leading-relaxed">
                 This is a gray area. The digital nomad visa is classified as "residencia transitoria" (transitory residence), not "residencia temporaria" which usually counts towards permanent residency. However, an immigration lawyer advised one nomad that the time might count towards the 2-year citizenship eligibility. It's not officially confirmed, so consult legal advice if you're planning long-term residency. For more comprehensive information about living as a digital nomad in Argentina, including community, banking, and lifestyle aspects, check out our <a href="/en/digital-nomad-argentina" className="text-blue-600 hover:underline">complete digital nomad guide</a>. If you're interested in joining a <a href="/en/coliving-argentina" className="text-blue-600 hover:underline">coliving community in Argentina</a> or exploring <a href="/en/coliving-south-america" className="text-blue-600 hover:underline">coliving options across South America</a>, we have detailed guides for those as well.
               </p>
             </div>
@@ -534,7 +534,7 @@ export function DigitalNomadVisaContent() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 Is the digital nomad visa "tax-free"? Do I pay Argentine taxes?
               </h3>
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 text-base leading-relaxed">
                 No, as long as your income is from outside Argentina, you won't pay Argentine income tax. The digital nomad visa doesn't make you a tax resident. Argentina taxes residents only on Argentine-sourced income, and foreign income is exempt for residents who aren't Argentine nationals. Your salary from abroad is not taxed by Argentina, but you might still owe taxes in your home country.
               </p>
             </div>
@@ -544,7 +544,7 @@ export function DigitalNomadVisaContent() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 Can I work for an Argentine company or take local freelance gigs on this visa?
               </h3>
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 text-base leading-relaxed">
                 No. The digital nomad visa is explicitly for work for employers/clients outside Argentina. It does not grant work authorization for Argentine entities. If you want to work for an Argentine company, you'd need a different visa (like a work visa sponsored by that company). The nomad visa is meant to encourage you to spend your foreign income in Argentina, not to enter its labor market.
               </p>
             </div>
@@ -554,7 +554,7 @@ export function DigitalNomadVisaContent() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 What if my digital nomad visa application is denied? Can I appeal?
               </h3>
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 text-base leading-relaxed">
                 If denied, understand why first. Common reasons include missing/incorrect documents or ineligibility. If it's correctable (missing document authentication, translation not provided), you generally can re-submit documents without paying again for one-time reconsideration. The $200 in fees is non-refundable, but a denial isn't permanent - you can apply again after fixing issues.
               </p>
             </div>
@@ -564,7 +564,7 @@ export function DigitalNomadVisaContent() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 Can I bring my spouse or children under this digital nomad visa?
               </h3>
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-700 text-base leading-relaxed">
                 There isn't a specific family version of the nomad visa. Each adult would need to qualify and apply individually. If you have a spouse who also works remotely, they should apply separately. For dependent children, they can usually stay as tourists for up to 90 days, but for longer family stays, consider exploring other visa types or family sponsorship options.
               </p>
             </div>
@@ -574,7 +574,7 @@ export function DigitalNomadVisaContent() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 Any tips to make the digital nomad visa process smoother?
               </h3>
-              <div className="text-gray-700 text-sm leading-relaxed space-y-2">
+              <div className="text-gray-700 text-base leading-relaxed space-y-2">
                 <p>• Label files clearly (e.g., "Smith_Passport.jpg", "Smith_EmploymentLetter.pdf")</p>
                 <p>• Include a line in your cover letter that you won't engage in local employment</p>
                 <p>• If you have multiple nationalities, use the passport that gives visa-free entry to Argentina</p>
@@ -611,7 +611,7 @@ export function DigitalNomadVisaContent() {
                   <span className="text-2xl">✅</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Free Digital Nomad Visa Documentation</h3>
-                <p className="text-gray-600 text-sm">Confirmation of stay letter valid for nomad visa documents</p>
+                <p className="text-gray-600 text-base">Confirmation of stay letter valid for nomad visa documents</p>
               </div>
               
               <div className="text-center">
@@ -619,7 +619,7 @@ export function DigitalNomadVisaContent() {
                   <span className="text-2xl">💸</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Digital Nomad Visa Translation Help</h3>
-                <p className="text-gray-600 text-sm">Low-cost assistance with nomad visa document prep and translations</p>
+                <p className="text-gray-600 text-base">Low-cost assistance with nomad visa document prep and translations</p>
               </div>
               
               <div className="text-center">
@@ -627,7 +627,7 @@ export function DigitalNomadVisaContent() {
                   <span className="text-2xl">🧭</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Digital Nomad Visa Concierge</h3>
-                <p className="text-gray-600 text-sm">We escort you to migration office and handle the nomad visa process</p>
+                <p className="text-gray-600 text-base">We escort you to migration office and handle the nomad visa process</p>
               </div>
             </div>
             
@@ -641,7 +641,7 @@ export function DigitalNomadVisaContent() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </a>
-              <p className="text-gray-600 text-sm mt-4">Perfect for 3+ month digital nomad stays • Cariló, Argentina</p>
+              <p className="text-gray-600 text-base mt-4">Perfect for 3+ month digital nomad stays • Cariló, Argentina</p>
             </div>
           </div>
         </div>

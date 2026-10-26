@@ -77,7 +77,7 @@ export default function Nature() {
                   <Link
                     key={tab.id}
                     href={tab.href}
-                    className={`px-4 py-3 text-sm font-medium rounded-t-lg transition-colors flex items-center space-x-2 ${
+                    className={`px-4 py-3 text-base font-medium rounded-t-lg transition-colors flex items-center space-x-2 ${
                       tab.active
                         ? "bg-black text-white border-b-2 border-black"
                         : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
@@ -134,7 +134,7 @@ export default function Nature() {
                             }}
                           />
                         </p>
-                        <ul className="mt-3 text-sm text-gray-600 space-y-1">
+                        <ul className="mt-3 text-base text-gray-600 space-y-1">
                           <li>
                             • <Translate text={{ en: "Swimming in the Atlantic", es: "Nadar en el Atlántico", pt: "Natação no Atlântico" }} />
                           </li>
@@ -176,7 +176,7 @@ export default function Nature() {
                             }}
                           />
                         </p>
-                        <ul className="mt-3 text-sm text-gray-600 space-y-1">
+                        <ul className="mt-3 text-base text-gray-600 space-y-1">
                           <li>
                             • <Translate
                               text={{ en: "Nature walking trails", es: "Senderos naturales para caminar", pt: "Trilhas naturais para caminhada" }}
@@ -220,7 +220,7 @@ export default function Nature() {
                             }}
                           />
                         </p>
-                        <ul className="mt-3 text-sm text-gray-600 space-y-1">
+                        <ul className="mt-3 text-base text-gray-600 space-y-1">
                           <li>
                             • <Translate
                               text={{ en: "Regular bike rentals", es: "Alquiler de bicicletas regulares", pt: "Aluguel de bicicletas regulares" }}
@@ -260,7 +260,7 @@ export default function Nature() {
                             }}
                           />
                         </p>
-                        <ul className="mt-3 text-sm text-gray-600 space-y-1">
+                        <ul className="mt-3 text-base text-gray-600 space-y-1">
                           <li>
                             • <Translate text={{ en: "Landscape photography", es: "Fotografía de paisajes", pt: "Fotografia de paisagens" }} />
                           </li>

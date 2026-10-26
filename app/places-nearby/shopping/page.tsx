@@ -92,7 +92,7 @@ export default function Shopping() {
                   <Link
                     key={tab.id}
                     href={tab.href}
-                    className={`px-4 py-3 text-sm font-medium rounded-t-lg transition-colors flex items-center space-x-2 ${
+                    className={`px-4 py-3 text-base font-medium rounded-t-lg transition-colors flex items-center space-x-2 ${
                       tab.active
                         ? "bg-black text-white border-b-2 border-black"
                         : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
@@ -150,7 +150,7 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Proveedur%C3%ADa+Chicho+Caril%C3%B3"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
@@ -159,7 +159,7 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/proveeduria_chicho_esta_loco/"
-                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                             >
                               @proveeduria_chicho_esta_loco
                             </a>
@@ -187,7 +187,7 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=La+Proveedur%C3%ADa+Menor+Coste+Caril%C3%B3"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
@@ -196,7 +196,7 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/menorcoste/"
-                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                             >
                               @menorcoste
                             </a>
@@ -232,14 +232,14 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Coto+Pinamar"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
                           </a>
                           <a
                             href="https://www.cotodigital3.com.ar/"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             cotodigital3.com.ar
                           </a>
@@ -260,14 +260,14 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Disco+Pinamar"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
                           </a>
                           <a
                             href="https://www.disco.com.ar/"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             disco.com.ar
                           </a>
@@ -301,14 +301,14 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Verduler%C3%ADa+Bel%C3%A9n+Caril%C3%B3"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
                           </a>
                           <a
                             href="https://waze.com/ul?place=ChIJ4zObzLKdnJUR3db27yKHe_U"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             Open in Waze
                           </a>
@@ -330,7 +330,7 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Boutique+de+Frutas+Caril%C3%B3"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
@@ -339,7 +339,7 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/boutique_de_frutas/"
-                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                             >
                               @boutique_de_frutas
                             </a>
@@ -375,7 +375,7 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Ferreter%C3%ADa+Jorjito+Caril%C3%B3"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
@@ -384,7 +384,7 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/ferreteria_jorgito/"
-                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                             >
                               @ferreteria_jorgito
                             </a>
@@ -408,14 +408,14 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Qu%C3%ADmica+Limpia+Maurito+Pinamar"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
                           </a>
                           <a
                             href="https://www.facebook.com/LMaurito/"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             Facebook Page
                           </a>
@@ -436,14 +436,14 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Centro+Comercial+Caril%C3%B3"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
                           </a>
                           <a
                             href="https://maps.app.goo.gl/HSdLEiSF9qGJRWY7A"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             Open in Google Maps
                           </a>
@@ -464,7 +464,7 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Caba%C3%B1a+Guerrero+Caril%C3%B3"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
@@ -473,7 +473,7 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/cabana.guerrero/"
-                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                             >
                               @cabana.guerrero
                             </a>
@@ -496,7 +496,7 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Pescader%C3%ADa+La+Constanza+Caril%C3%B3"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
@@ -505,7 +505,7 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/pescaderiasdicostanzoar/"
-                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                             >
                               @pescaderiasdicostanzoar
                             </a>
@@ -528,7 +528,7 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Pescader%C3%ADa+La+Constanza+Pinamar"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
@@ -537,7 +537,7 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/pescaderiasdicostanzoar/"
-                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                             >
                               @pescaderiasdicostanzoar
                             </a>
@@ -559,7 +559,7 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Helader%C3%ADa+Colonial+Valeria+del+Mar"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
@@ -568,7 +568,7 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/colonialhelados/"
-                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                             >
                               @colonialhelados
                             </a>
@@ -590,7 +590,7 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Lucciano%27s+Pinamar"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base mr-3"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
@@ -599,7 +599,7 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/luccianos_/"
-                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                             >
                               @luccianos_
                             </a>
@@ -621,7 +621,7 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Il+Panettone+Caril%C3%B3"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base mr-3"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
@@ -630,7 +630,7 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/panaderia.ilpanettone/"
-                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                             >
                               @panaderia.ilpanettone
                             </a>
@@ -652,7 +652,7 @@ export default function Shopping() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Masse+Caril%C3%B3"
-                            className="text-blue-600 hover:text-blue-800 transition-colors text-sm mr-3"
+                            className="text-blue-600 hover:text-blue-800 transition-colors text-base mr-3"
                           >
                             <Icons.GoogleMaps />
                             Google Maps
@@ -661,7 +661,7 @@ export default function Shopping() {
                             <Icons.Instagram />
                             <a
                               href="https://www.instagram.com/masse.carilo/"
-                              className="text-blue-600 hover:text-blue-800 transition-colors text-sm"
+                              className="text-blue-600 hover:text-blue-800 transition-colors text-base"
                             >
                               @masse.carilo
                             </a>

@@ -13,7 +13,7 @@ import {
   Users,
   Star,
   Shield,
-} from "lucide-react"
+} from "@/components/icons8-lucide"
 import { Icons8Icon } from "@/components/icons8-icon"
 
 export const metadata: Metadata = {
@@ -46,7 +46,7 @@ export default function ApartHotelEnCariloPage() {
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
                     href="/the-house"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-base md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
                     Ver Casa <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
@@ -256,9 +256,6 @@ export default function ApartHotelEnCariloPage() {
                   </div>
                 </div>
                 <div className="md:col-span-2 space-y-6">
-                  <svg className="h-12 w-12 text-gray-300" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
-                    <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                  </svg>
                   <p className="text-2xl font-medium">
                     "El servicio de apart hotel superó nuestras expectativas. La atención personalizada combinada con la privacidad de la villa fue perfecta."
                   </p>

@@ -227,7 +227,7 @@ export function TheHouseContent() {
                   <Translate text={translations.home.highlights.title} />
                 </h2>
 
-                <HouseHighlights showAllFeatures={false} />
+                <HouseHighlights showAllFeatures={false} narrow />
               </div>
 
               <BookStayCta />

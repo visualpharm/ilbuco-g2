@@ -19,7 +19,7 @@ import {
   Building,
   Crown,
   DollarSign,
-} from "lucide-react"
+} from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Coliving South America 2025 - Best Coliving Spaces & Communities | Il Buco",
@@ -284,8 +284,8 @@ export default function ColivingSouthAmericaPage() {
                   <Home className="h-6 w-6 text-green-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Budget Coliving</h3>
-                <p className="text-gray-600 text-sm mb-4">Hostel-style with shared rooms</p>
-                <ul className="space-y-1 text-sm text-gray-600">
+                <p className="text-gray-600 text-base mb-4">Hostel-style with shared rooms</p>
+                <ul className="space-y-1 text-base text-gray-600">
                   <li>• $200-400/month</li>
                   <li>• Shared dorms</li>
                   <li>• Basic WiFi</li>
@@ -299,8 +299,8 @@ export default function ColivingSouthAmericaPage() {
                   <Building className="h-6 w-6 text-gray-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Standard Coliving</h3>
-                <p className="text-gray-600 text-sm mb-4">Private rooms with shared common areas</p>
-                <ul className="space-y-1 text-sm text-gray-600">
+                <p className="text-gray-600 text-base mb-4">Private rooms with shared common areas</p>
+                <ul className="space-y-1 text-base text-gray-600">
                   <li>• $400-800/month</li>
                   <li>• Private bedrooms</li>
                   <li>• Coworking space</li>
@@ -314,8 +314,8 @@ export default function ColivingSouthAmericaPage() {
                   <Star className="h-6 w-6 text-purple-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Premium Coliving</h3>
-                <p className="text-gray-600 text-sm mb-4">Upscale amenities and everything</p>
-                <ul className="space-y-1 text-sm text-gray-600">
+                <p className="text-gray-600 text-base mb-4">Upscale amenities and everything</p>
+                <ul className="space-y-1 text-base text-gray-600">
                   <li>• $800-1500/month</li>
                   <li>• En-suite bathrooms</li>
                   <li>• High-speed fiber</li>
@@ -329,8 +329,8 @@ export default function ColivingSouthAmericaPage() {
                   <Crown className="h-6 w-6 text-yellow-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Luxury Coliving</h3>
-                <p className="text-gray-600 text-sm mb-4">Villa-style with everything</p>
-                <ul className="space-y-1 text-sm text-gray-600">
+                <p className="text-gray-600 text-base mb-4">Villa-style with everything</p>
+                <ul className="space-y-1 text-base text-gray-600">
                   <li>• $1500-3000/month</li>
                   <li>• Suite-style rooms</li>
                   <li>• Pool and gym</li>
@@ -345,7 +345,7 @@ export default function ColivingSouthAmericaPage() {
               <div className="overflow-x-auto">
                 <table className="min-w-full">
                   <thead>
-                    <tr className="border-b border-gray-200 text-sm">
+                    <tr className="border-b border-gray-200 text-base">
                       <th className="text-left py-3 px-4">Feature</th>
                       <th className="text-center py-3 px-4">Budget</th>
                       <th className="text-center py-3 px-4">Standard</th>
@@ -353,7 +353,7 @@ export default function ColivingSouthAmericaPage() {
                       <th className="text-center py-3 px-4">Luxury</th>
                     </tr>
                   </thead>
-                  <tbody className="text-sm">
+                  <tbody className="text-base">
                     <tr className="border-b border-gray-100">
                       <td className="py-3 px-4">Private Room</td>
                       <td className="py-3 px-4 text-center">❌</td>
@@ -470,7 +470,7 @@ export default function ColivingSouthAmericaPage() {
                   <div className="space-y-4">
                     <div>
                       <p className="font-semibold text-gray-900 mb-2">Internet Speed Needs:</p>
-                      <ul className="space-y-1 text-sm text-gray-600">
+                      <ul className="space-y-1 text-base text-gray-600">
                         <li>• Basic work: 25+ Mbps</li>
                         <li>• Video calls: 50+ Mbps</li>
                         <li>• Streaming/uploading: 100+ Mbps</li>
@@ -478,7 +478,7 @@ export default function ColivingSouthAmericaPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-gray-900 mb-2">Workspace Setup:</p>
-                      <ul className="space-y-1 text-sm text-gray-600">
+                      <ul className="space-y-1 text-base text-gray-600">
                         <li>• Dedicated desk vs shared spaces</li>
                         <li>• 24/7 access needs</li>
                         <li>• Meeting room availability</li>
@@ -561,17 +561,17 @@ export default function ColivingSouthAmericaPage() {
                   <div>
                     <Waves className="h-12 w-12 text-blue-600 mx-auto mb-4" />
                     <h3 className="font-semibold text-gray-900 mb-2">5 Min to Beach</h3>
-                    <p className="text-gray-600 text-sm">Private path through pine forest</p>
+                    <p className="text-gray-600 text-base">Private path through pine forest</p>
                   </div>
                   <div>
                     <Wifi className="h-12 w-12 text-green-600 mx-auto mb-4" />
                     <h3 className="font-semibold text-gray-900 mb-2">100+ Mbps Fiber</h3>
-                    <p className="text-gray-600 text-sm">Reliable connection with backup</p>
+                    <p className="text-gray-600 text-base">Reliable connection with backup</p>
                   </div>
                   <div>
                     <Users className="h-12 w-12 text-purple-600 mx-auto mb-4" />
                     <h3 className="font-semibold text-gray-900 mb-2">4-8 Residents</h3>
-                    <p className="text-gray-600 text-sm">Intimate community size</p>
+                    <p className="text-gray-600 text-base">Intimate community size</p>
                   </div>
                 </div>
               </div>
@@ -604,7 +604,7 @@ export default function ColivingSouthAmericaPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Sarah M.</h4>
-                    <p className="text-gray-600 text-sm">UX Designer, Germany</p>
+                    <p className="text-gray-600 text-base">UX Designer, Germany</p>
                   </div>
                 </div>
               </div>
@@ -624,7 +624,7 @@ export default function ColivingSouthAmericaPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Marcus L.</h4>
-                    <p className="text-gray-600 text-sm">Software Engineer, Sweden</p>
+                    <p className="text-gray-600 text-base">Software Engineer, Sweden</p>
                   </div>
                 </div>
               </div>
@@ -644,7 +644,7 @@ export default function ColivingSouthAmericaPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Ana R.</h4>
-                    <p className="text-gray-600 text-sm">Marketing Director, Brazil</p>
+                    <p className="text-gray-600 text-base">Marketing Director, Brazil</p>
                   </div>
                 </div>
               </div>

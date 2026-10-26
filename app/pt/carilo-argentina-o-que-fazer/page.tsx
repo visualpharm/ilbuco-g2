@@ -16,7 +16,7 @@ import {
   Star,
   MapPin,
   Calendar,
-} from "lucide-react"
+} from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Cariló Argentina O Que Fazer - Guia Completo de Atividades | IL BUCO",
@@ -48,7 +48,7 @@ export default function CariloArgentinaOQueFazerPage() {
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
                     href="/pt/the-house"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-base md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
                     Ver Casa <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>

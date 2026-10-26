@@ -18,6 +18,8 @@ interface HouseHighlightsProps {
   commonAreasTail?: ReactNode
   /** The /the-house page itself omits the card that links to it. */
   showAllFeatures?: boolean
+  /** Two columns for narrow page bodies. */
+  narrow?: boolean
 }
 
 /** The house's highlight cards, shared by the home page and /the-house. */
@@ -26,6 +28,7 @@ export function HouseHighlights({
   accommodationTail,
   commonAreasTail,
   showAllFeatures = true,
+  narrow = false,
 }: HouseHighlightsProps) {
   const { language } = useLanguage()
   const prefix = language.code === "es" ? "" : `/${language.code}`
@@ -69,7 +72,7 @@ export function HouseHighlights({
   ]
 
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div className={`grid gap-6 md:grid-cols-2 ${narrow ? "" : "lg:grid-cols-3"}`}>
       {items.map((item, i) => (
         <div key={i} className="flex items-start gap-3 rounded-lg bg-white p-5 shadow-sm">
           <Image src={`/icons/icons8/${item.icon}`} alt="" width={24} height={24} className="mt-0.5 flex-shrink-0" style={{ filter: ICON_FILTER }} />

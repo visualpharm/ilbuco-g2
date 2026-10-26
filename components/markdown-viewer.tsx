@@ -378,7 +378,7 @@ export function MarkdownViewer({
     return (
       <div className={`space-y-4 ${className}`}>
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-medium text-gray-700">Edit Markdown</h3>
+          <h3 className="text-base font-medium text-gray-700">Edit Markdown</h3>
           <div className="flex gap-2">
             <Button
               onClick={handleSave}
@@ -403,11 +403,11 @@ export function MarkdownViewer({
         <Textarea
           value={editContent}
           onChange={(e) => setEditContent(e.target.value)}
-          className="min-h-96 font-mono text-sm resize-y"
+          className="min-h-96 font-mono text-base resize-y"
           placeholder="Enter your markdown content here..."
           autoFocus
         />
-        <div className="text-xs text-gray-500">
+        <div className="text-base text-gray-500">
           Tip: Use Markdown syntax for formatting. Changes will save when you click Save or lose focus.
         </div>
       </div>
@@ -434,7 +434,7 @@ export function MarkdownViewer({
                     {/* Title - clickable for navigation */}
                     <button
                       onClick={() => scrollToSection(heading.id)}
-                      className="flex-1 text-left text-sm text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                      className="flex-1 text-left text-base text-gray-700 hover:text-blue-600 transition-colors font-medium"
                     >
                       {heading.title}
                     </button>
@@ -574,13 +574,13 @@ export function MarkdownViewer({
             code: ({ inline, children }) => {
               if (inline) {
                 return (
-                  <code className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono">
+                  <code className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-base font-mono">
                     {children}
                   </code>
                 )
               }
               return (
-                <code className="block bg-gray-100 text-gray-800 p-4 rounded-lg text-sm font-mono overflow-x-auto">
+                <code className="block bg-gray-100 text-gray-800 p-4 rounded-lg text-base font-mono overflow-x-auto">
                   {children}
                 </code>
               )

@@ -17,7 +17,7 @@ import {
   Heart,
   Mountain,
   Flower,
-} from "lucide-react"
+} from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Eco Lodge Argentina - Sustainable Accommodation in Carilo | Il Buco",
@@ -208,7 +208,7 @@ export default function EcoLodgeArgentinaPage() {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Forest-First Design
                       </h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-base">
                         Buildings positioned to preserve existing trees and natural 
                         forest corridors for wildlife movement
                       </p>
@@ -223,7 +223,7 @@ export default function EcoLodgeArgentinaPage() {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Wildlife Habitat Support
                       </h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-base">
                         Native bird houses, pollinator gardens, and wildlife corridors 
                         supporting local ecosystem biodiversity
                       </p>
@@ -238,7 +238,7 @@ export default function EcoLodgeArgentinaPage() {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Native Plant Landscaping
                       </h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-base">
                         Indigenous plants requiring minimal water and maintenance, 
                         supporting local pollinators and soil health
                       </p>
@@ -253,7 +253,7 @@ export default function EcoLodgeArgentinaPage() {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Minimal Site Disturbance
                       </h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-base">
                         Construction methods that minimize soil disruption and 
                         preserve natural drainage patterns
                       </p>
@@ -295,7 +295,7 @@ export default function EcoLodgeArgentinaPage() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Forest Walks
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   Guided nature walks learning about local flora, fauna, and conservation efforts
                 </p>
               </div>
@@ -307,7 +307,7 @@ export default function EcoLodgeArgentinaPage() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Beach Cleanup
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   Weekly community beach cleanups protecting marine ecosystems
                 </p>
               </div>
@@ -319,7 +319,7 @@ export default function EcoLodgeArgentinaPage() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Organic Gardening
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   Hands-on permaculture workshops and organic food production
                 </p>
               </div>
@@ -331,7 +331,7 @@ export default function EcoLodgeArgentinaPage() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Bird Watching
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   Early morning birding tours with local ornithologists and naturalists
                 </p>
               </div>
@@ -369,7 +369,7 @@ export default function EcoLodgeArgentinaPage() {
                   Ground-level suite with direct garden access, natural ventilation, 
                   and organic cotton bedding.
                 </p>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <ul className="space-y-2 text-base text-gray-600">
                   <li className="flex items-center">
                     <Leaf className="h-4 w-4 text-green-500 mr-2" />
                     Organic materials throughout
@@ -401,7 +401,7 @@ export default function EcoLodgeArgentinaPage() {
                   Elevated suite overlooking pine canopy with passive cooling 
                   and sustainable bamboo furnishings.
                 </p>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <ul className="space-y-2 text-base text-gray-600">
                   <li className="flex items-center">
                     <Tree className="h-4 w-4 text-green-500 mr-2" />
                     Bamboo furniture
@@ -433,7 +433,7 @@ export default function EcoLodgeArgentinaPage() {
                   Top-floor suite with private terrace, green roof elements, 
                   and panoramic forest views.
                 </p>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <ul className="space-y-2 text-base text-gray-600">
                   <li className="flex items-center">
                     <Flower className="h-4 w-4 text-green-500 mr-2" />
                     Green roof garden
@@ -472,7 +472,7 @@ export default function EcoLodgeArgentinaPage() {
                 </div>
                 <div className="text-3xl font-bold text-gray-900 mb-2">100%</div>
                 <h3 className="font-semibold text-gray-900 mb-2">Renewable Energy</h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   All energy needs met through solar power system
                 </p>
               </div>
@@ -483,7 +483,7 @@ export default function EcoLodgeArgentinaPage() {
                 </div>
                 <div className="text-3xl font-bold text-gray-900 mb-2">80%</div>
                 <h3 className="font-semibold text-gray-900 mb-2">Water Conservation</h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   Reduction in municipal water usage through harvesting
                 </p>
               </div>
@@ -494,7 +494,7 @@ export default function EcoLodgeArgentinaPage() {
                 </div>
                 <div className="text-3xl font-bold text-gray-900 mb-2">95%</div>
                 <h3 className="font-semibold text-gray-900 mb-2">Waste Diversion</h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   Waste diverted from landfills through recycling and composting
                 </p>
               </div>
@@ -505,7 +505,7 @@ export default function EcoLodgeArgentinaPage() {
                 </div>
                 <div className="text-3xl font-bold text-gray-900 mb-2">200+</div>
                 <h3 className="font-semibold text-gray-900 mb-2">Trees Protected</h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   Native pine trees preserved during construction
                 </p>
               </div>

@@ -5,7 +5,7 @@ import { useParams, useSearchParams, useRouter } from "next/navigation"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, Loader2, ShieldCheck, Lock } from "lucide-react"
+import { Loader2, ShieldCheck, Lock } from "@/components/icons8-lucide"
 import { useLanguage } from "@/contexts/language-context"
 
 export default function CheckoutPage() {
@@ -99,8 +99,8 @@ export default function CheckoutPage() {
             <p className="text-gray-500 mb-4">
               {t("Faltan datos de la reserva", "Missing booking details", "Dados incompletos", "Недостаточно данных")}
             </p>
-            <Button onClick={() => router.push("/reservar")} variant="outline">
-              {t("Volver", "Back", "Voltar", "Назад")}
+            <Button onClick={() => router.push("/reservar")}>
+              {t("Elegir fechas", "Choose dates", "Escolher datas", "Выбрать даты")}
             </Button>
           </div>
         </div>
@@ -115,14 +115,6 @@ export default function CheckoutPage() {
 
       <main className="flex-1">
         <div className="container mx-auto px-4 py-6">
-          <button
-            onClick={() => router.push(`/reservar/${slug}`)}
-            className="flex items-center text-sm text-gray-600 hover:text-black transition-colors mb-4"
-          >
-            <ChevronLeft className="h-4 w-4 mr-1" />
-            {t("Volver", "Back", "Voltar", "Назад")}
-          </button>
-
           <h1 className="text-2xl font-bold mb-6">
             {t("Confirmá tu reserva", "Confirm your booking", "Confirme sua reserva", "Подтвердите бронирование")}
           </h1>
@@ -131,7 +123,7 @@ export default function CheckoutPage() {
             {/* ─── Guest form ─── */}
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                <label className="block text-base font-medium text-gray-700 mb-1.5">
                   {t("Nombre completo", "Full name", "Nome completo", "Полное имя")} *
                 </label>
                 <input
@@ -146,7 +138,7 @@ export default function CheckoutPage() {
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <label className="block text-base font-medium text-gray-700 mb-1.5">
                     {t("Email", "Email", "Email", "Email")} *
                   </label>
                   <input
@@ -160,7 +152,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <label className="block text-base font-medium text-gray-700 mb-1.5">
                     {t("Teléfono", "Phone", "Telefone", "Телефон")}
                   </label>
                   <input
@@ -174,7 +166,7 @@ export default function CheckoutPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                <label className="block text-base font-medium text-gray-700 mb-1.5">
                   {t("Comentarios", "Special requests", "Observações", "Пожелания")}
                 </label>
                 <textarea
@@ -192,7 +184,7 @@ export default function CheckoutPage() {
               </div>
 
               {error && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-base">
                   {error}
                 </div>
               )}
@@ -216,7 +208,7 @@ export default function CheckoutPage() {
                   )}
                 </Button>
 
-                <p className="text-xs text-gray-400 mt-3 flex items-center gap-1">
+                <p className="text-base text-gray-400 mt-3 flex items-center gap-1">
                   <ShieldCheck className="h-3.5 w-3.5" />
                   {t(
                     "Pago seguro · Serás redirigido a Mercado Pago",
@@ -235,7 +227,7 @@ export default function CheckoutPage() {
                   {t("Detalle de tu reserva", "Your booking", "Sua reserva", "Ваше бронирование")}
                 </h2>
 
-                <div className="space-y-3 text-sm">
+                <div className="space-y-3 text-base">
                   <div className="flex justify-between">
                     <span className="text-gray-500">{t("Suite", "Suite", "Suíte", "Сьют")}</span>
                     <span className="font-medium">{suiteName}</span>
@@ -259,7 +251,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="border-t mt-4 pt-4 space-y-2">
-                  <div className="flex justify-between text-sm text-gray-600">
+                  <div className="flex justify-between text-base text-gray-600">
                     <span>{t("Precio promedio/noche", "Average price/night", "Preço médio/noite", "Средняя цена/ночь")}</span>
                     <span>${nightlyAvg}</span>
                   </div>

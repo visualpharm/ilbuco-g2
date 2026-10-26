@@ -68,7 +68,7 @@ export function AvailabilityBadge() {
   return (
     <div
       className={`
-        hidden lg:inline-flex items-center gap-1.5 text-xs
+        hidden lg:inline-flex items-center gap-1.5 text-base
         ${isAvailable
           ? 'text-green-700 dark:text-green-400'
           : 'text-red-600 dark:text-red-400'

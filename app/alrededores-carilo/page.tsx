@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Car, MapPin, Camera, Waves, TreePine, Heart, Clock, Globe } from "lucide-react"
+import { ArrowRight, Car, MapPin, Camera, Waves, TreePine, Heart, Clock, Globe } from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Alrededores de Cariló 2025 | Qué Visitar Cerca de Cariló",
@@ -67,7 +67,7 @@ export default function AlrededoresCarilo() {
                       <Globe className="h-6 w-6 text-blue-600" />
                     </div>
                     <h2 className="text-3xl font-bold text-gray-900">Pinamar</h2>
-                    <div className="ml-4 flex items-center text-sm text-gray-600">
+                    <div className="ml-4 flex items-center text-base text-gray-600">
                       <Car className="h-4 w-4 mr-1" />
                       <span>20 min</span>
                     </div>
@@ -81,7 +81,7 @@ export default function AlrededoresCarilo() {
                   <div className="space-y-4">
                     <div className="bg-blue-50 p-4 rounded-lg">
                       <h4 className="font-semibold text-gray-800 mb-2">Servicios Esenciales</h4>
-                      <ul className="text-gray-700 text-sm space-y-1">
+                      <ul className="text-gray-700 text-base space-y-1">
                         <li>• Servicios bancarios completos (Macro, Galicia, Provincia)</li>
                         <li>• Oficinas gubernamentales y trámites</li>
                         <li>• Supermercados grandes con delivery</li>
@@ -91,7 +91,7 @@ export default function AlrededoresCarilo() {
                     
                     <div className="bg-green-50 p-4 rounded-lg">
                       <h4 className="font-semibold text-gray-800 mb-2">Actividades Destacadas</h4>
-                      <ul className="text-gray-700 text-sm space-y-1">
+                      <ul className="text-gray-700 text-base space-y-1">
                         <li>• Sand Masters - Escuela de 4x4</li>
                         <li>• Centro comercial y shopping</li>
                         <li>• Amplia oferta gastronómica</li>
@@ -130,7 +130,7 @@ export default function AlrededoresCarilo() {
                       <Waves className="h-6 w-6 text-teal-600" />
                     </div>
                     <h2 className="text-3xl font-bold text-gray-900">Valeria del Mar</h2>
-                    <div className="ml-4 flex items-center text-sm text-gray-600">
+                    <div className="ml-4 flex items-center text-base text-gray-600">
                       <Car className="h-4 w-4 mr-1" />
                       <span>10 min</span>
                     </div>
@@ -144,7 +144,7 @@ export default function AlrededoresCarilo() {
                   <div className="space-y-4">
                     <div className="bg-teal-50 p-4 rounded-lg">
                       <h4 className="font-semibold text-gray-800 mb-2">Destacados Gastronómicos</h4>
-                      <ul className="text-gray-700 text-sm space-y-1">
+                      <ul className="text-gray-700 text-base space-y-1">
                         <li>• Impeke Burgers - Hamburguesas gourmet</li>
                         <li>• Colonial - Heladería artesanal de calidad excepcional</li>
                         <li>• Cafés y restaurantes familiares</li>
@@ -153,7 +153,7 @@ export default function AlrededoresCarilo() {
                     
                     <div className="bg-purple-50 p-4 rounded-lg">
                       <h4 className="font-semibold text-gray-800 mb-2">Arte y Cultura</h4>
-                      <ul className="text-gray-700 text-sm space-y-1">
+                      <ul className="text-gray-700 text-base space-y-1">
                         <li>• Fusion Arte del Mar - Taller de cerámica</li>
                         <li>• Tiendas de artesanías locales</li>
                         <li>• Galerías de arte costero</li>
@@ -177,7 +177,7 @@ export default function AlrededoresCarilo() {
                       <TreePine className="h-6 w-6 text-amber-600" />
                     </div>
                     <h2 className="text-3xl font-bold text-gray-900">Mar de las Pampas</h2>
-                    <div className="ml-4 flex items-center text-sm text-gray-600">
+                    <div className="ml-4 flex items-center text-base text-gray-600">
                       <Car className="h-4 w-4 mr-1" />
                       <span>25 min</span>
                     </div>
@@ -191,7 +191,7 @@ export default function AlrededoresCarilo() {
                   <div className="space-y-4">
                     <div className="bg-amber-50 p-4 rounded-lg">
                       <h4 className="font-semibold text-gray-800 mb-2">Experiencia Bohemia</h4>
-                      <ul className="text-gray-700 text-sm space-y-1">
+                      <ul className="text-gray-700 text-base space-y-1">
                         <li>• Arquitectura bohemia y única</li>
                         <li>• Negocios artesanales y conceptuales</li>
                         <li>• Gastronomía gourmet y alternativa</li>
@@ -201,7 +201,7 @@ export default function AlrededoresCarilo() {
                     
                     <div className="bg-rose-50 p-4 rounded-lg">
                       <h4 className="font-semibold text-gray-800 mb-2">Cultura y Eventos</h4>
-                      <ul className="text-gray-700 text-sm space-y-1">
+                      <ul className="text-gray-700 text-base space-y-1">
                         <li>• Festival de música clásica anual</li>
                         <li>• Talleres de arte y artesanías</li>
                         <li>• Mercados de diseño local</li>
@@ -240,7 +240,7 @@ export default function AlrededoresCarilo() {
                       <Camera className="h-6 w-6 text-orange-600" />
                     </div>
                     <h2 className="text-3xl font-bold text-gray-900">Faro Querandí</h2>
-                    <div className="ml-4 flex items-center text-sm text-gray-600">
+                    <div className="ml-4 flex items-center text-base text-gray-600">
                       <Car className="h-4 w-4 mr-1" />
                       <span>35 min</span>
                     </div>
@@ -254,7 +254,7 @@ export default function AlrededoresCarilo() {
                   <div className="space-y-4">
                     <div className="bg-orange-50 p-4 rounded-lg">
                       <h4 className="font-semibold text-gray-800 mb-2">Atractivos Principales</h4>
-                      <ul className="text-gray-700 text-sm space-y-1">
+                      <ul className="text-gray-700 text-base space-y-1">
                         <li>• Faro histórico (no se puede subir)</li>
                         <li>• Vistas panorámicas del océano</li>
                         <li>• Lugar perfecto para fotografías</li>
@@ -264,7 +264,7 @@ export default function AlrededoresCarilo() {
                     
                     <div className="bg-yellow-50 p-4 rounded-lg">
                       <h4 className="font-semibold text-gray-800 mb-2">Actividades Especiales</h4>
-                      <ul className="text-gray-700 text-sm space-y-1">
+                      <ul className="text-gray-700 text-base space-y-1">
                         <li>• Sandboard en dunas circundantes</li>
                         <li>• Senderismo por la costa</li>
                         <li>• Observación de aves marinas</li>
@@ -287,7 +287,7 @@ export default function AlrededoresCarilo() {
                   <Heart className="h-6 w-6 text-green-600" />
                 </div>
                 <h2 className="text-3xl font-bold text-gray-900">Recharge Retreat</h2>
-                <div className="ml-4 flex items-center text-sm text-gray-600">
+                <div className="ml-4 flex items-center text-base text-gray-600">
                   <Car className="h-4 w-4 mr-1" />
                   <span>30 min</span>
                 </div>
@@ -301,7 +301,7 @@ export default function AlrededoresCarilo() {
               <div className="grid md:grid-cols-2 gap-8 mb-8">
                 <div className="bg-green-50 p-6 rounded-lg">
                   <h4 className="font-semibold text-gray-800 mb-4">Programas de Bienestar</h4>
-                  <ul className="text-gray-700 text-sm space-y-2 text-left">
+                  <ul className="text-gray-700 text-base space-y-2 text-left">
                     <li>• Retiros de desconexión digital</li>
                     <li>• Meditación y mindfulness</li>
                     <li>• Yoga frente al mar</li>
@@ -311,7 +311,7 @@ export default function AlrededoresCarilo() {
                 
                 <div className="bg-blue-50 p-6 rounded-lg">
                   <h4 className="font-semibold text-gray-800 mb-4">Actividades en Naturaleza</h4>
-                  <ul className="text-gray-700 text-sm space-y-2 text-left">
+                  <ul className="text-gray-700 text-base space-y-2 text-left">
                     <li>• Caminatas conscientes por el bosque</li>
                     <li>• Baños de bosque (forest bathing)</li>
                     <li>• Observación de vida silvestre</li>

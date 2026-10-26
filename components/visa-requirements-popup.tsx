@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { X } from "lucide-react"
+import { X } from "@/components/icons8-lucide"
 import { Translate } from "./translate"
 
 interface VisaRequirementsPopupProps {
@@ -70,7 +70,7 @@ export function VisaRequirementsPopup({ isOpen, onClose }: VisaRequirementsPopup
                 </svg>
               </div>
               <div className="ml-3">
-                <h3 className="text-sm font-medium text-red-800">
+                <h3 className="text-base font-medium text-red-800">
                   <Translate
                     text={{
                       en: "Digital Nomad Visa Not Available",
@@ -79,7 +79,7 @@ export function VisaRequirementsPopup({ isOpen, onClose }: VisaRequirementsPopup
                     }}
                   />
                 </h3>
-                <div className="mt-2 text-sm text-red-700">
+                <div className="mt-2 text-base text-red-700">
                   <p>
                     <Translate
                       text={{
@@ -114,7 +114,7 @@ export function VisaRequirementsPopup({ isOpen, onClose }: VisaRequirementsPopup
                 className="w-full h-auto"
               />
               <div className="p-3 bg-gray-50 text-center">
-                <p className="text-xs text-gray-600">
+                <p className="text-base text-gray-600">
                   <Translate
                     text={{
                       en: "Argentina Visa Policy Map - Green: No visa required, Red: Visa required",
@@ -127,7 +127,7 @@ export function VisaRequirementsPopup({ isOpen, onClose }: VisaRequirementsPopup
             </div>
 
             {/* Countries Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 text-sm">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 text-base">
               {visaRequiredCountries.map((country) => (
                 <div key={country} className="bg-red-100 text-red-800 px-2 py-1 rounded text-center">
                   {country}
@@ -145,7 +145,7 @@ export function VisaRequirementsPopup({ isOpen, onClose }: VisaRequirementsPopup
                 </svg>
               </div>
               <div className="ml-3">
-                <h3 className="text-sm font-medium text-blue-800">
+                <h3 className="text-base font-medium text-blue-800">
                   <Translate
                     text={{
                       en: "Alternative Options",
@@ -154,7 +154,7 @@ export function VisaRequirementsPopup({ isOpen, onClose }: VisaRequirementsPopup
                     }}
                   />
                 </h3>
-                <div className="mt-2 text-sm text-blue-700 space-y-2">
+                <div className="mt-2 text-base text-blue-700 space-y-2">
                   <p>
                     <strong>
                       <Translate
@@ -216,7 +216,7 @@ export function VisaRequirementsPopup({ isOpen, onClose }: VisaRequirementsPopup
 
           {/* Contact info */}
           <div className="text-center pt-4 border-t">
-            <p className="text-gray-600 text-sm">
+            <p className="text-gray-600 text-base">
               <Translate
                 text={{
                   en: "Need help with visa requirements? Contact us for guidance.",
@@ -227,7 +227,7 @@ export function VisaRequirementsPopup({ isOpen, onClose }: VisaRequirementsPopup
             </p>
             <a 
               href="/contacts" 
-              className="inline-flex items-center mt-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors"
+              className="inline-flex items-center mt-2 px-4 py-2 bg-blue-600 text-white text-base font-medium rounded-md hover:bg-blue-700 transition-colors"
             >
               <Translate
                 text={{

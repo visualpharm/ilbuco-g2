@@ -6,7 +6,7 @@ import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Button } from "@/components/ui/button"
-import { CheckCircle2, MessageCircle, Clock, KeyRound, Mail } from "lucide-react"
+import { CheckCircle2, MessageCircle, Clock, KeyRound, Mail } from "@/components/icons8-lucide"
 import { useLanguage } from "@/contexts/language-context"
 
 function ConfirmationContent() {
@@ -67,9 +67,6 @@ function ConfirmationContent() {
                 "Мы отправили вам письмо с деталями."
               )}
             </p>
-            <Link href="/">
-              <Button variant="outline">{t("Volver al inicio", "Back to home", "Voltar ao início", "На главную")}</Button>
-            </Link>
           </div>
         </main>
         <SiteFooter />
@@ -184,11 +181,6 @@ function ConfirmationContent() {
                   {t("Escribir por WhatsApp", "Message on WhatsApp", "WhatsApp", "Написать в WhatsApp")}
                 </Button>
               </a>
-              <Link href="/">
-                <Button variant="outline" className="w-full sm:w-auto">
-                  {t("Volver al inicio", "Back to home", "Voltar", "На главную")}
-                </Button>
-              </Link>
             </div>
           </div>
         </div>
@@ -215,7 +207,7 @@ function BookingSummary({
 
   return (
     <div className="border-2 border-gray-200 rounded-xl p-5 mb-6 text-left">
-      <div className="space-y-2 text-sm">
+      <div className="space-y-2 text-base">
         <div className="flex justify-between">
           <span className="text-gray-500">{t("Suite", "Suite", "Suíte", "Сьют")}</span>
           <span className="font-medium">{suiteName || "—"}</span>
@@ -252,8 +244,8 @@ function Step({ icon, title, desc }: { icon: React.ReactNode; title: string; des
         {icon}
       </div>
       <div>
-        <p className="font-medium text-sm">{title}</p>
-        <p className="text-sm text-gray-500">{desc}</p>
+        <p className="font-medium text-base">{title}</p>
+        <p className="text-base text-gray-500">{desc}</p>
       </div>
     </div>
   )

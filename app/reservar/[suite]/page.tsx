@@ -6,7 +6,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
-import { Users, MapPin, Check, Loader2, ChevronLeft } from "lucide-react"
+import { Users, MapPin, Check, Loader2 } from "@/components/icons8-lucide"
 import { format, differenceInCalendarDays } from "date-fns"
 import { es, enUS, ptBR } from "date-fns/locale"
 import { useLanguage } from "@/contexts/language-context"
@@ -241,15 +241,6 @@ export default function SuitePage() {
 
       <main className="flex-1">
         <div className="container mx-auto px-4 py-6">
-          {/* Back link */}
-          <button
-            onClick={() => router.push("/reservar")}
-            className="flex items-center text-sm text-gray-600 hover:text-black transition-colors mb-4"
-          >
-            <ChevronLeft className="h-4 w-4 mr-1" />
-            {t("Volver a la búsqueda", "Back to search", "Voltar à busca", "Назад к поиску")}
-          </button>
-
           {/* ─── Gallery ─── */}
           <div className="grid md:grid-cols-4 gap-2 mb-8 rounded-xl overflow-hidden">
             <div className="md:col-span-4 lg:col-span-3 h-64 md:h-96 bg-gray-100">
@@ -276,7 +267,7 @@ export default function SuitePage() {
             {/* ─── Left: details ─── */}
             <div>
               <h1 className="text-3xl font-bold mb-2">{detail.name}</h1>
-              <div className="flex items-center gap-4 text-sm text-gray-600 mb-6">
+              <div className="flex items-center gap-4 text-base text-gray-600 mb-6">
                 <span className="flex items-center gap-1">
                   <Users className="h-4 w-4" /> {t("Hasta", "Up to", "Até", "До")} {detail.capacity} {t("huéspedes", "guests", "hóspedes", "гостей")}
                 </span>
@@ -295,7 +286,7 @@ export default function SuitePage() {
               </h2>
               <div className="grid grid-cols-2 gap-3 mb-8">
                 {(detail.amenities[language.code] || detail.amenities.es).map((a, i) => (
-                  <div key={i} className="flex items-center gap-2 text-sm">
+                  <div key={i} className="flex items-center gap-2 text-base">
                     <Check className="h-4 w-4 text-green-600 flex-shrink-0" />
                     {a}
                   </div>
@@ -310,7 +301,7 @@ export default function SuitePage() {
                   {pricing ? (
                     <>
                       <span className="text-3xl font-bold">${pricing.nightly[0]}</span>
-                      <span className="text-gray-500 text-sm">/ {t("noche", "night", "noite", "ночь")}</span>
+                      <span className="text-gray-500 text-base">/ {t("noche", "night", "noite", "ночь")}</span>
                     </>
                   ) : (
                     <>
@@ -322,7 +313,7 @@ export default function SuitePage() {
                 </div>
 
                 {/* Date picker */}
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-base font-medium text-gray-700 mb-2">
                   {t("Fechas", "Dates", "Datas", "Даты")}
                 </label>
                 <div className="flex justify-center mb-4">
@@ -337,7 +328,7 @@ export default function SuitePage() {
                 </div>
 
                 {/* Guests */}
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-base font-medium text-gray-700 mb-2">
                   {t("Huéspedes", "Guests", "Hóspedes", "Гости")}
                 </label>
                 <div className="flex items-center border rounded-lg px-3 py-2.5 mb-4">
@@ -345,7 +336,7 @@ export default function SuitePage() {
                   <select
                     value={guests}
                     onChange={(e) => setGuests(Number(e.target.value))}
-                    className="bg-transparent text-sm font-medium outline-none cursor-pointer w-full"
+                    className="bg-transparent text-base font-medium outline-none cursor-pointer w-full"
                   >
                     {Array.from({ length: detail.capacity }, (_, i) => i + 1).map((n) => (
                       <option key={n} value={n}>{n}</option>
@@ -357,7 +348,7 @@ export default function SuitePage() {
                 {pricing && !availabilityError && (
                   <div className="border-t pt-4 mb-4">
                     {pricing.nightly.map((price, i) => (
-                      <div key={i} className="flex justify-between text-sm text-gray-600 mb-1">
+                      <div key={i} className="flex justify-between text-base text-gray-600 mb-1">
                         <span>{t("Noche", "Night", "Noite", "Ночь")} {i + 1}</span>
                         <span>${price}</span>
                       </div>
@@ -376,7 +367,7 @@ export default function SuitePage() {
                 )}
 
                 {availabilityError && (
-                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm mb-4">
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-base mb-4">
                     {availabilityError}
                   </div>
                 )}
@@ -389,7 +380,7 @@ export default function SuitePage() {
                   {t("Reservar", "Reserve", "Reservar", "Забронировать")}
                 </Button>
 
-                <p className="text-xs text-gray-400 text-center mt-3">
+                <p className="text-base text-gray-400 text-center mt-3">
                   {t(
                     "Pago seguro vía Mercado Pago · No se cobra nada hasta confirmar",
                     "Secure payment via Mercado Pago · No charge until confirmed",

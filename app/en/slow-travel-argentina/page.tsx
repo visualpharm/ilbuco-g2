@@ -16,7 +16,7 @@ import {
   Sunrise,
   Mountain,
   Compass,
-} from "lucide-react"
+} from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Slow Travel Argentina - Mindful Extended Stays in Carilo | Il Buco",
@@ -178,7 +178,7 @@ export default function SlowTravelArgentinaPage() {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Diverse Landscapes
                       </h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-base">
                         From coastlines to mountains, explore varied environments 
                         without the pressure of rushed sightseeing
                       </p>
@@ -193,7 +193,7 @@ export default function SlowTravelArgentinaPage() {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Relaxed Pace of Life
                       </h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-base">
                         Argentine culture naturally embraces a slower, more thoughtful 
                         approach to daily life and relationships
                       </p>
@@ -208,7 +208,7 @@ export default function SlowTravelArgentinaPage() {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Affordable Extended Stays
                       </h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-base">
                         Your budget stretches further, allowing for longer stays 
                         and deeper exploration without financial stress
                       </p>
@@ -223,7 +223,7 @@ export default function SlowTravelArgentinaPage() {
                       <h3 className="font-semibold text-gray-900 mb-2">
                         Warm Hospitality
                       </h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-base">
                         Argentines are known for their warmth and openness to 
                         sharing their culture with interested visitors
                       </p>
@@ -313,7 +313,7 @@ export default function SlowTravelArgentinaPage() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Morning Meditation
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   Start each day with peaceful meditation sessions overlooking the ocean
                 </p>
               </div>
@@ -325,7 +325,7 @@ export default function SlowTravelArgentinaPage() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Forest Bathing
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   Practice mindful walking and forest bathing in Carilo's pine groves
                 </p>
               </div>
@@ -337,7 +337,7 @@ export default function SlowTravelArgentinaPage() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Photography Walks
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   Capture the changing light and seasons through contemplative photography
                 </p>
               </div>
@@ -349,7 +349,7 @@ export default function SlowTravelArgentinaPage() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Local Connections
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   Build relationships with neighbors, local artisans, and fellow travelers
                 </p>
               </div>

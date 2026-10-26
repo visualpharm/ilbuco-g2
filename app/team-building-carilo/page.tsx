@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
 import Image from "next/image"
-import { MapPin, Users, Target, Calendar, ArrowRight } from "lucide-react"
+import { MapPin, Users, Target, Calendar, ArrowRight } from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Team Building en Cariló 2025 | Dinámicas Grupales y Actividades de Integración",
@@ -197,7 +197,7 @@ export default function TeamBuildingCarilo() {
                   Cada miembro del equipo tiene su espacio privado con baño en suite, 
                   terraza y todas las comodidades para descansar después de las actividades.
                 </p>
-                <ul className="text-sm text-gray-600 space-y-1">
+                <ul className="text-base text-gray-600 space-y-1">
                   <li>• 4 suites independientes</li>
                   <li>• Baños privados en cada suite</li>
                   <li>• Terrazas con vista al bosque</li>
@@ -211,7 +211,7 @@ export default function TeamBuildingCarilo() {
                   Áreas compartidas diseñadas para la colaboración, relajación y 
                   continuación natural de las dinámicas de team building.
                 </p>
-                <ul className="text-sm text-gray-600 space-y-1">
+                <ul className="text-base text-gray-600 space-y-1">
                   <li>• Living amplio para reuniones informales</li>
                   <li>• Cocina completamente equipada</li>
                   <li>• Terraza con BBQ para eventos</li>

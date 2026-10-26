@@ -111,7 +111,7 @@ export function PlacePhoto({
   if (loading) {
     return (
       <div className={`bg-gray-200 animate-pulse ${className}`} style={{ width, height }}>
-        <div className="text-xs text-gray-500 p-2">Loading photo...</div>
+        <div className="text-base text-gray-500 p-2">Loading photo...</div>
       </div>
     );
   }
@@ -120,8 +120,8 @@ export function PlacePhoto({
     console.log('Error or no photo URL:', { error, photoUrl, placeId });
     return (
       <div className={`bg-gray-200 flex items-center justify-center flex-col p-4 text-center ${className}`} style={{ width, height }}>
-        <div className="text-sm text-gray-700 mb-2">Photo not available</div>
-        <div className="text-xs text-gray-500">{error || 'No photo found'}</div>
+        <div className="text-base text-gray-700 mb-2">Photo not available</div>
+        <div className="text-base text-gray-500">{error || 'No photo found'}</div>
         <span className="text-gray-500">Photo not available</span>
       </div>
     );

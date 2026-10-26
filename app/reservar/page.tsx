@@ -6,7 +6,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Calendar } from "@/components/ui/calendar"
 import { Button } from "@/components/ui/button"
-import { Users, Search, Star, MapPin, Check, X, Loader2 } from "lucide-react"
+import { Users, Search, Star, MapPin, Check, X, Loader2 } from "@/components/icons8-lucide"
 import { format, differenceInCalendarDays } from "date-fns"
 import { es, enUS, ptBR } from "date-fns/locale"
 import { useLanguage } from "@/contexts/language-context"
@@ -187,27 +187,27 @@ export default function ReservarPage() {
               <div className="grid md:grid-cols-[1fr_1fr_auto_auto] gap-4 items-end">
                 {/* Date range picker */}
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-base font-medium text-gray-700 mb-2">
                     {t("Fechas", "Dates", "Datas", "Даты")}
                   </label>
                   <div className="flex items-center gap-2 flex-wrap">
                     <div className="flex-1 min-w-[140px] border rounded-lg px-3 py-2.5">
                       {dateRange?.from ? (
-                        <span className="text-sm font-medium">
+                        <span className="text-base font-medium">
                           {format(dateRange.from, "dd MMM yyyy", { locale: dateLocale })}
                         </span>
                       ) : (
-                        <span className="text-sm text-gray-400">{t("Check-in", "Check-in", "Check-in", "Заезд")}</span>
+                        <span className="text-base text-gray-600">{t("Check-in", "Check-in", "Check-in", "Заезд")}</span>
                       )}
                     </div>
-                    <span className="text-gray-400">→</span>
+                    <span className="text-gray-600">→</span>
                     <div className="flex-1 min-w-[140px] border rounded-lg px-3 py-2.5">
                       {dateRange?.to ? (
-                        <span className="text-sm font-medium">
+                        <span className="text-base font-medium">
                           {format(dateRange.to, "dd MMM yyyy", { locale: dateLocale })}
                         </span>
                       ) : (
-                        <span className="text-sm text-gray-400">{t("Check-out", "Check-out", "Check-out", "Выезд")}</span>
+                        <span className="text-base text-gray-600">{t("Check-out", "Check-out", "Check-out", "Выезд")}</span>
                       )}
                     </div>
                   </div>
@@ -215,15 +215,15 @@ export default function ReservarPage() {
 
                 {/* Guests */}
                 <div className="min-w-[120px]">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-base font-medium text-gray-700 mb-2">
                     {t("Huéspedes", "Guests", "Hóspedes", "Гости")}
                   </label>
                   <div className="flex items-center border rounded-lg px-3 py-2.5">
-                    <Users className="h-4 w-4 text-gray-400 mr-2" />
+                    <Users className="h-4 w-4 text-gray-600 mr-2" />
                     <select
                       value={guests}
                       onChange={(e) => setGuests(Number(e.target.value))}
-                      className="bg-transparent text-sm font-medium outline-none cursor-pointer"
+                      className="bg-transparent text-base font-medium outline-none cursor-pointer"
                     >
                       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map((n) => (
                         <option key={n} value={n}>{n}</option>
@@ -278,14 +278,14 @@ export default function ReservarPage() {
               )}
 
               {nights > 0 && (
-                <p className="text-center text-sm text-gray-500 mt-4">
+                <p className="text-center text-base text-gray-500 mt-4">
                   {nights} {nights === 1 ? t("noche", "night", "noite", "ночь") : t("noches", "nights", "noites", "ночей")}
                 </p>
               )}
             </div>
 
             {searchError && (
-              <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+              <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-base">
                 {searchError}
               </div>
             )}
@@ -330,15 +330,15 @@ export default function ReservarPage() {
                             <div className="flex items-center gap-2 mb-1">
                               <h3 className="text-lg font-bold">{suite.name}</h3>
                               {suite.slug === "whole-house" && (
-                                <span className="text-xs bg-gray-100 px-2 py-0.5 rounded-full">
+                                <span className="text-base bg-gray-100 px-2 py-0.5 rounded-full">
                                   {t("Casa completa", "Entire house", "Casa completa", "Весь дом")}
                                 </span>
                               )}
                             </div>
-                            <p className="text-sm text-gray-600 mb-2">
+                            <p className="text-base text-gray-600 mb-2">
                               {suite.description[language.code] || suite.description.es}
                             </p>
-                            <div className="flex items-center gap-3 text-xs text-gray-500 flex-wrap">
+                            <div className="flex items-center gap-3 text-base text-gray-500 flex-wrap">
                               <span className="flex items-center gap-1">
                                 <Users className="h-3 w-3" /> {suite.capacity}
                               </span>
@@ -355,11 +355,11 @@ export default function ReservarPage() {
                                 <div>
                                   <div className="text-2xl font-bold">
                                     ${avail!.price}
-                                    <span className="text-sm font-normal text-gray-500">
+                                    <span className="text-base font-normal text-gray-500">
                                       {" "}/ {t("noche", "night", "noite", "ночь")}
                                     </span>
                                   </div>
-                                  <div className="text-sm text-gray-500">
+                                  <div className="text-base text-gray-500">
                                     {nights} {nights === 1 ? t("noche", "night", "noite", "ночь") : t("noches", "nights", "noites", "ночей")} · ${(avail!.price || 0) * nights} {t("total", "total", "total", "итого")}
                                   </div>
                                 </div>
@@ -368,9 +368,9 @@ export default function ReservarPage() {
                                 </Button>
                               </>
                             ) : (
-                              <div className="flex items-center gap-2 text-gray-400">
+                              <div className="flex items-center gap-2 text-gray-600">
                                 <X className="h-5 w-5" />
-                                <span className="text-sm font-medium">
+                                <span className="text-base font-medium">
                                   {t("No disponible", "Unavailable", "Indisponível", "Недоступно")}
                                 </span>
                               </div>
@@ -398,7 +398,7 @@ export default function ReservarPage() {
                       <img src={suite.image} alt={suite.name} className="w-full h-48 object-cover" />
                       <div className="p-4">
                         <h3 className="font-bold mb-1">{suite.name}</h3>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-base text-gray-500">
                           {t("Desde", "From", "A partir de", "От")} $65 USD / {t("noche", "night", "noite", "ночь")}
                         </p>
                       </div>

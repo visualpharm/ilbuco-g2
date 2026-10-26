@@ -151,7 +151,7 @@ function RoomCardWidget({ card, langCode }: { card: RoomCard; langCode: 'en' | '
             {card.name}
           </a>
           {dateRange && (
-            <span className="text-xs text-gray-500 whitespace-nowrap">
+            <span className="text-base text-gray-500 whitespace-nowrap">
               {dateRange}
             </span>
           )}
@@ -159,7 +159,7 @@ function RoomCardWidget({ card, langCode }: { card: RoomCard; langCode: 'en' | '
 
         <div className="flex items-center gap-2">
           {isAvailable && (
-            <span className="text-green-700 font-bold text-sm whitespace-nowrap">
+            <span className="text-green-700 font-bold text-base whitespace-nowrap">
               {chatTranslations.currency[langCode]}{card.price}<span className="font-normal text-gray-500">{chatTranslations.perNight[langCode]}</span>
             </span>
           )}
@@ -168,12 +168,12 @@ function RoomCardWidget({ card, langCode }: { card: RoomCard; langCode: 'en' | '
               href={card.bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="py-1 px-3 text-xs font-medium bg-black text-white rounded-lg hover:bg-gray-800 transition-colors whitespace-nowrap"
+              className="py-1 px-3 text-base font-medium bg-black text-white rounded-lg hover:bg-gray-800 transition-colors whitespace-nowrap"
             >
               {chatTranslations.bookNow[langCode]}
             </a>
           ) : (
-            <span className="text-red-500 text-sm">{chatTranslations.booked[langCode]}</span>
+            <span className="text-red-500 text-base">{chatTranslations.booked[langCode]}</span>
           )}
         </div>
       </div>
@@ -205,7 +205,7 @@ function DevInfoButton({ devInfo }: { devInfo: DevInfo }) {
         </svg>
       </button>
       {isOpen && (
-        <div className="absolute bottom-full right-0 mb-1 bg-gray-800 text-white text-xs rounded-lg p-2 shadow-lg z-10 whitespace-nowrap">
+        <div className="absolute bottom-full right-0 mb-1 bg-gray-800 text-white text-base rounded-lg p-2 shadow-lg z-10 whitespace-nowrap">
           <div className="space-y-0.5">
             <div><span className="text-gray-400">Model:</span> {devInfo.model}</div>
             <div><span className="text-gray-400">Tokens:</span> {devInfo.promptTokens}+{devInfo.completionTokens}={devInfo.totalTokens}</div>
@@ -379,8 +379,8 @@ function ChatWidgetInner() {
                 </svg>
               </div>
               <div>
-                <h3 className="font-semibold text-sm">Il Buco</h3>
-                <p className="text-xs text-white/70">{chatTranslations.title[langCode]}</p>
+                <h3 className="font-semibold text-base">Il Buco</h3>
+                <p className="text-base text-white/70">{chatTranslations.title[langCode]}</p>
               </div>
             </div>
             <button
@@ -402,7 +402,7 @@ function ChatWidgetInner() {
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm ${
+                  className={`max-w-[85%] px-4 py-3 rounded-2xl text-base ${
                     message.role === 'user'
                       ? 'bg-black text-white rounded-br-md'
                       : 'bg-white text-gray-800 border border-gray-200 rounded-bl-md shadow-sm'
@@ -425,7 +425,7 @@ function ChatWidgetInner() {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-white text-gray-500 px-4 py-3 rounded-2xl rounded-bl-md text-sm border border-gray-200 shadow-sm">
+                <div className="bg-white text-gray-500 px-4 py-3 rounded-2xl rounded-bl-md text-base border border-gray-200 shadow-sm">
                   <span className="flex items-center gap-2">
                     <span className="flex gap-1">
                       <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
@@ -449,7 +449,7 @@ function ChatWidgetInner() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder={chatTranslations.placeholder[langCode]}
-                className="flex-1 px-4 py-2.5 text-sm border border-gray-300 rounded-full focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
+                className="flex-1 px-4 py-2.5 text-base border border-gray-300 rounded-full focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
                 disabled={isLoading}
               />
               <button

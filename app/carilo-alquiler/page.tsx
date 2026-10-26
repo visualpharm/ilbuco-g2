@@ -12,7 +12,7 @@ import {
   Wifi,
   Car,
   TreesIcon as Tree,
-} from "lucide-react"
+} from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Cariló Alquiler - Casa Premium en el Bosque de Pinos | IL BUCO",
@@ -44,7 +44,7 @@ export default function CariloAlquilerPage() {
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
                     href="/book"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-base md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
                     Ver Disponibilidad <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>

@@ -16,7 +16,7 @@ import {
   Briefcase,
   CreditCard,
   Building,
-} from "lucide-react"
+} from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Argentina Remote Work Visa Guide 2025 - Complete Digital Nomad Visa Requirements",
@@ -58,7 +58,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                   Complete guide to visa options for remote workers and digital nomads in Argentina. From tourist visas to permanent residency, here's everything about your options, requirements, and how to actually apply.
                 </p>
                 <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
-                  <p className="text-sm text-gray-700">
+                  <p className="text-base text-gray-700">
                     <strong>Good news:</strong> Argentina introduced the Digital Nomad Visa in May 2022! It's now available alongside other visa options for remote workers.
                   </p>
                 </div>
@@ -118,7 +118,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                       <p className="text-gray-600">Just show up at the airport/border and get stamped</p>
                     </div>
                     <div className="bg-blue-100 p-4 rounded-lg">
-                      <p className="text-sm text-gray-700">
+                      <p className="text-base text-gray-700">
                         <strong>Cost:</strong> Free
                       </p>
                     </div>
@@ -150,7 +150,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                       </ul>
                     </div>
                     <div className="bg-green-100 p-4 rounded-lg">
-                      <p className="text-sm text-gray-700">
+                      <p className="text-base text-gray-700">
                         <strong>Extension Cost:</strong> About $200 USD<br />
                         <strong>Visa Run Cost:</strong> $50-100 USD (ferry/bus)
                       </p>
@@ -191,7 +191,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                       </ul>
                     </div>
                     <div className="bg-emerald-100 p-4 rounded-lg">
-                      <p className="text-sm text-gray-700">
+                      <p className="text-base text-gray-700">
                         <strong>Cost:</strong> Around $200 USD total<br />
                         <strong>Processing:</strong> 10-20 business days
                       </p>
@@ -223,11 +223,11 @@ export default function ArgentinaRemoteWorkVisaPage() {
                   <div className="space-y-3">
                     <div>
                       <p className="font-semibold text-gray-900">Income Requirement:</p>
-                      <p className="text-gray-600 text-sm">$2,000+ USD/month from passive sources</p>
+                      <p className="text-gray-600 text-base">$2,000+ USD/month from passive sources</p>
                     </div>
                     <div>
                       <p className="font-semibold text-gray-900">Documents Needed:</p>
-                      <ul className="text-gray-600 text-sm space-y-1">
+                      <ul className="text-gray-600 text-base space-y-1">
                         <li>• Income proof (apostilled)</li>
                         <li>• Criminal background check</li>
                         <li>• Birth certificate</li>
@@ -235,7 +235,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                       </ul>
                     </div>
                     <div className="bg-purple-100 p-3 rounded-lg">
-                      <p className="text-sm text-gray-700">
+                      <p className="text-base text-gray-700">
                         <strong>Duration:</strong> 1 year (renewable)<br />
                         <strong>Cost:</strong> Around $600 USD
                       </p>
@@ -255,7 +255,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                   <div className="space-y-3">
                     <div>
                       <p className="font-semibold text-gray-900">Requirements:</p>
-                      <ul className="text-gray-600 text-sm space-y-1">
+                      <ul className="text-gray-600 text-base space-y-1">
                         <li>• Enrollment in accredited school</li>
                         <li>• Minimum 15-20 hours/week</li>
                         <li>• Can work remotely (not locally)</li>
@@ -263,14 +263,14 @@ export default function ArgentinaRemoteWorkVisaPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-gray-900">Popular Schools:</p>
-                      <ul className="text-gray-600 text-sm space-y-1">
+                      <ul className="text-gray-600 text-base space-y-1">
                         <li>• Universidad de Buenos Aires</li>
                         <li>• COINED Spanish School</li>
                         <li>• Academia Buenos Aires</li>
                       </ul>
                     </div>
                     <div className="bg-yellow-100 p-3 rounded-lg">
-                      <p className="text-sm text-gray-700">
+                      <p className="text-base text-gray-700">
                         <strong>Duration:</strong> 6-12 months<br />
                         <strong>Cost:</strong> About $300 USD plus tuition
                       </p>
@@ -290,7 +290,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                   <div className="space-y-3">
                     <div>
                       <p className="font-semibold text-gray-900">Requirements:</p>
-                      <ul className="text-gray-600 text-sm space-y-1">
+                      <ul className="text-gray-600 text-base space-y-1">
                         <li>• Government pension proof</li>
                         <li>• Minimum $2,000 USD/month</li>
                         <li>• Usually 60+ years old</li>
@@ -298,14 +298,14 @@ export default function ArgentinaRemoteWorkVisaPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-gray-900">Benefits:</p>
-                      <ul className="text-gray-600 text-sm space-y-1">
+                      <ul className="text-gray-600 text-base space-y-1">
                         <li>• Fast track to permanent residency</li>
                         <li>• Tax benefits on pension</li>
                         <li>• Healthcare access</li>
                       </ul>
                     </div>
                     <div className="bg-red-100 p-3 rounded-lg">
-                      <p className="text-sm text-gray-700">
+                      <p className="text-base text-gray-700">
                         <strong>Duration:</strong> 1 year then permanent<br />
                         <strong>Cost:</strong> Around $600 USD
                       </p>
@@ -341,21 +341,21 @@ export default function ArgentinaRemoteWorkVisaPage() {
                         <span className="font-bold text-blue-600 mr-3">1.</span>
                         <div>
                           <p className="font-medium">Check if your country gets visa-free entry</p>
-                          <p className="text-sm"></p>
+                          <p className="text-base"></p>
                         </div>
                       </li>
                       <li className="flex items-start">
                         <span className="font-bold text-blue-600 mr-3">2.</span>
                         <div>
                           <p className="font-medium">Book accommodation - need the address for immigration</p>
-                          <p className="text-sm"></p>
+                          <p className="text-base"></p>
                         </div>
                       </li>
                       <li className="flex items-start">
                         <span className="font-bold text-blue-600 mr-3">3.</span>
                         <div>
                           <p className="font-medium">Get documents ready - passport, return ticket (maybe), proof of funds</p>
-                          <p className="text-sm"></p>
+                          <p className="text-base"></p>
                         </div>
                       </li>
                     </ol>
@@ -367,21 +367,21 @@ export default function ArgentinaRemoteWorkVisaPage() {
                         <span className="font-bold text-green-600 mr-3">1.</span>
                         <div>
                           <p className="font-medium">Apply online at migraciones.gob.ar - do it 10 days before expiry</p>
-                          <p className="text-sm"></p>
+                          <p className="text-base"></p>
                         </div>
                       </li>
                       <li className="flex items-start">
                         <span className="font-bold text-green-600 mr-3">2.</span>
                         <div>
                           <p className="font-medium">Pay fee online - about $200 USD with credit card</p>
-                          <p className="text-sm"></p>
+                          <p className="text-base"></p>
                         </div>
                       </li>
                       <li className="flex items-start">
                         <span className="font-bold text-green-600 mr-3">3.</span>
                         <div>
                           <p className="font-medium">Get digital extension - usually takes 48 hours</p>
-                          <p className="text-sm"></p>
+                          <p className="text-base"></p>
                         </div>
                       </li>
                     </ol>
@@ -398,7 +398,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div className="bg-purple-50 p-6 rounded-lg">
                       <h4 className="font-semibold text-gray-900 mb-3">Phase 1: Documentation</h4>
-                      <ul className="space-y-2 text-sm text-gray-600">
+                      <ul className="space-y-2 text-base text-gray-600">
                         <li>• Apostilled income proof</li>
                         <li>• FBI background check (apostilled)</li>
                         <li>• Birth certificate (apostilled)</li>
@@ -408,7 +408,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                     </div>
                     <div className="bg-purple-50 p-6 rounded-lg">
                       <h4 className="font-semibold text-gray-900 mb-3">Phase 2: Translation</h4>
-                      <ul className="space-y-2 text-sm text-gray-600">
+                      <ul className="space-y-2 text-base text-gray-600">
                         <li>• Official Spanish translation</li>
                         <li>• Use certified translator</li>
                         <li>• Cost: $50-100 per document</li>
@@ -417,7 +417,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                     </div>
                     <div className="bg-purple-50 p-6 rounded-lg">
                       <h4 className="font-semibold text-gray-900 mb-3">Phase 3: Submission</h4>
-                      <ul className="space-y-2 text-sm text-gray-600">
+                      <ul className="space-y-2 text-base text-gray-600">
                         <li>• Book appointment online</li>
                         <li>• Submit at Migraciones</li>
                         <li>• They take your fingerprints</li>
@@ -428,7 +428,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                   </div>
                   
                   <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-                    <p className="text-sm text-gray-700">
+                    <p className="text-base text-gray-700">
                       <strong>Pro Tip:</strong> Just hire an immigration lawyer ($800-1500). They know the system and prevent expensive mistakes.
                     </p>
                   </div>
@@ -493,58 +493,58 @@ export default function ArgentinaRemoteWorkVisaPage() {
               <table className="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Document</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-gray-900">Tourist</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-gray-900">Rentista</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-gray-900">Student</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-gray-900">Pensionado</th>
+                    <th className="px-6 py-4 text-left text-base font-semibold text-gray-900">Document</th>
+                    <th className="px-6 py-4 text-center text-base font-semibold text-gray-900">Tourist</th>
+                    <th className="px-6 py-4 text-center text-base font-semibold text-gray-900">Rentista</th>
+                    <th className="px-6 py-4 text-center text-base font-semibold text-gray-900">Student</th>
+                    <th className="px-6 py-4 text-center text-base font-semibold text-gray-900">Pensionado</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   <tr>
-                    <td className="px-6 py-4 text-sm text-gray-700">Valid Passport (6+ months)</td>
+                    <td className="px-6 py-4 text-base text-gray-700">Valid Passport (6+ months)</td>
                     <td className="px-6 py-4 text-center">✅</td>
                     <td className="px-6 py-4 text-center">✅</td>
                     <td className="px-6 py-4 text-center">✅</td>
                     <td className="px-6 py-4 text-center">✅</td>
                   </tr>
                   <tr className="bg-gray-50">
-                    <td className="px-6 py-4 text-sm text-gray-700">Criminal Background Check</td>
+                    <td className="px-6 py-4 text-base text-gray-700">Criminal Background Check</td>
                     <td className="px-6 py-4 text-center">❌</td>
                     <td className="px-6 py-4 text-center">✅</td>
                     <td className="px-6 py-4 text-center">✅</td>
                     <td className="px-6 py-4 text-center">✅</td>
                   </tr>
                   <tr>
-                    <td className="px-6 py-4 text-sm text-gray-700">Birth Certificate (Apostilled)</td>
+                    <td className="px-6 py-4 text-base text-gray-700">Birth Certificate (Apostilled)</td>
                     <td className="px-6 py-4 text-center">❌</td>
                     <td className="px-6 py-4 text-center">✅</td>
                     <td className="px-6 py-4 text-center">✅</td>
                     <td className="px-6 py-4 text-center">✅</td>
                   </tr>
                   <tr className="bg-gray-50">
-                    <td className="px-6 py-4 text-sm text-gray-700">Income Proof</td>
+                    <td className="px-6 py-4 text-base text-gray-700">Income Proof</td>
                     <td className="px-6 py-4 text-center">ℹ️</td>
                     <td className="px-6 py-4 text-center">✅</td>
                     <td className="px-6 py-4 text-center">✅</td>
                     <td className="px-6 py-4 text-center">✅</td>
                   </tr>
                   <tr>
-                    <td className="px-6 py-4 text-sm text-gray-700">Health Insurance</td>
+                    <td className="px-6 py-4 text-base text-gray-700">Health Insurance</td>
                     <td className="px-6 py-4 text-center">ℹ️</td>
                     <td className="px-6 py-4 text-center">✅</td>
                     <td className="px-6 py-4 text-center">✅</td>
                     <td className="px-6 py-4 text-center">✅</td>
                   </tr>
                   <tr className="bg-gray-50">
-                    <td className="px-6 py-4 text-sm text-gray-700">School Enrollment Letter</td>
+                    <td className="px-6 py-4 text-base text-gray-700">School Enrollment Letter</td>
                     <td className="px-6 py-4 text-center">❌</td>
                     <td className="px-6 py-4 text-center">❌</td>
                     <td className="px-6 py-4 text-center">✅</td>
                     <td className="px-6 py-4 text-center">❌</td>
                   </tr>
                   <tr>
-                    <td className="px-6 py-4 text-sm text-gray-700">Pension Statement</td>
+                    <td className="px-6 py-4 text-base text-gray-700">Pension Statement</td>
                     <td className="px-6 py-4 text-center">❌</td>
                     <td className="px-6 py-4 text-center">❌</td>
                     <td className="px-6 py-4 text-center">❌</td>
@@ -552,7 +552,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                   </tr>
                 </tbody>
               </table>
-              <p className="text-sm text-gray-600 mt-2">
+              <p className="text-base text-gray-600 mt-2">
                 ✅ = Required | ❌ = Not Required | ℹ️ = Maybe
               </p>
             </div>
@@ -566,28 +566,28 @@ export default function ArgentinaRemoteWorkVisaPage() {
                     <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
                       <p className="font-medium text-gray-900">Apostille Everything</p>
-                      <p className="text-gray-600 text-sm">All foreign documents need apostille</p>
+                      <p className="text-gray-600 text-base">All foreign documents need apostille</p>
                     </div>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
                       <p className="font-medium text-gray-900">Recent Documents</p>
-                      <p className="text-gray-600 text-sm">Most stuff must be less than 3 months old</p>
+                      <p className="text-gray-600 text-base">Most stuff must be less than 3 months old</p>
                     </div>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
                       <p className="font-medium text-gray-900">Official Translations</p>
-                      <p className="text-gray-600 text-sm">Only use certified Argentine translators</p>
+                      <p className="text-gray-600 text-base">Only use certified Argentine translators</p>
                     </div>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
                       <p className="font-medium text-gray-900">Multiple Copies</p>
-                      <p className="text-gray-600 text-sm">Bring 2-3 copies of everything</p>
+                      <p className="text-gray-600 text-base">Bring 2-3 copies of everything</p>
                     </div>
                   </li>
                 </ul>
@@ -647,17 +647,17 @@ export default function ArgentinaRemoteWorkVisaPage() {
                     <a href="https://www.migraciones.gob.ar" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">
                       Migraciones Argentina →
                     </a>
-                    <p className="text-sm text-gray-600">Official immigration website</p>
+                    <p className="text-base text-gray-600">Official immigration website</p>
                   </li>
                   <li>
                     <a href="https://www.argentina.gob.ar/interior/migraciones" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">
                       Visa Information Portal →
                     </a>
-                    <p className="text-sm text-gray-600">Government visa guide</p>
+                    <p className="text-base text-gray-600">Government visa guide</p>
                   </li>
                   <li>
                     <p className="font-medium text-gray-900">Immigration Hotline</p>
-                    <p className="text-sm text-gray-600">+54 11 4317-0234</p>
+                    <p className="text-base text-gray-600">+54 11 4317-0234</p>
                   </li>
                 </ul>
               </div>
@@ -667,15 +667,15 @@ export default function ArgentinaRemoteWorkVisaPage() {
                 <ul className="space-y-3">
                   <li>
                     <p className="font-medium text-gray-900">Buenos Aires Expat Hub</p>
-                    <p className="text-sm text-gray-600">Facebook group with 25k+ members</p>
+                    <p className="text-base text-gray-600">Facebook group with 25k+ members</p>
                   </li>
                   <li>
                     <p className="font-medium text-gray-900">Argentina Visa Support</p>
-                    <p className="text-sm text-gray-600">WhatsApp groups for visa help</p>
+                    <p className="text-base text-gray-600">WhatsApp groups for visa help</p>
                   </li>
                   <li>
                     <p className="font-medium text-gray-900">r/Argentina</p>
-                    <p className="text-sm text-gray-600">Reddit community for expats</p>
+                    <p className="text-base text-gray-600">Reddit community for expats</p>
                   </li>
                 </ul>
               </div>
@@ -685,15 +685,15 @@ export default function ArgentinaRemoteWorkVisaPage() {
                 <ul className="space-y-3">
                   <li>
                     <p className="font-medium text-gray-900">ARCA Immigration</p>
-                    <p className="text-sm text-gray-600">English-speaking, expat-focused</p>
+                    <p className="text-base text-gray-600">English-speaking, expat-focused</p>
                   </li>
                   <li>
                     <p className="font-medium text-gray-900">Fragomen Argentina</p>
-                    <p className="text-sm text-gray-600">International immigration firm</p>
+                    <p className="text-base text-gray-600">International immigration firm</p>
                   </li>
                   <li>
                     <p className="font-medium text-gray-900">Local Bar Association</p>
-                    <p className="text-sm text-gray-600">Referrals: +54 11 4379-8700</p>
+                    <p className="text-base text-gray-600">Referrals: +54 11 4379-8700</p>
                   </li>
                 </ul>
               </div>

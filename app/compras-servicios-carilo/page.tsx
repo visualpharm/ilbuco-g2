@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, User, Car, MapPin, ShoppingBag, Package, Wrench, AlertTriangle } from "lucide-react"
+import { ArrowRight, User, Car, MapPin, ShoppingBag, Package, Wrench, AlertTriangle } from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Compras y Servicios Cariló 2025 | Supermercados y Tiendas",
@@ -69,17 +69,17 @@ export default function ComprasServiciosCarilo() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Chicho</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.3 (230 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Compras diarias con los mejores horarios y frutas/verduras de calidad, supermercado local confiable.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>12 min</span>
@@ -91,8 +91,8 @@ export default function ComprasServiciosCarilo() {
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Chicho+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -104,17 +104,17 @@ export default function ComprasServiciosCarilo() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">La Proveeduría</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.6 (125 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Productos gourmet premium estilo Whole Foods con opciones saludables como chips de kale en frascos de vidrio.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>15 min</span>
@@ -126,8 +126,8 @@ export default function ComprasServiciosCarilo() {
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=La+Proveedur%C3%ADa+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -139,21 +139,21 @@ export default function ComprasServiciosCarilo() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 md:col-span-2">
                   <div className="mb-4">
                     <h5 className="text-xl font-bold text-gray-800 mb-2">Supermercados en Pinamar</h5>
-                    <p className="text-gray-600 text-sm">Para compras grandes con delivery a Cariló</p>
+                    <p className="text-gray-600 text-base">Para compras grandes con delivery a Cariló</p>
                   </div>
                   
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="border-l-4 border-blue-500 pl-4">
                       <div className="flex items-center justify-between mb-2">
                         <h6 className="font-semibold text-gray-800">Coto</h6>
-                        <span className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        <span className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                           ⭐ 4.1 (1,850 reseñas)
                         </span>
                       </div>
-                      <p className="text-gray-700 text-sm mb-2">
+                      <p className="text-gray-700 text-base mb-2">
                         Compras grandes con delivery en Cariló, supermercado completo con productos nacionales e importados.
                       </p>
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2 text-base text-gray-600">
                         <Car className="h-4 w-4" />
                         <span>20 min drive</span>
                       </div>
@@ -162,14 +162,14 @@ export default function ComprasServiciosCarilo() {
                     <div className="border-l-4 border-green-500 pl-4">
                       <div className="flex items-center justify-between mb-2">
                         <h6 className="font-semibold text-gray-800">Disco</h6>
-                        <span className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                        <span className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                           ⭐ 4.2 (1,420 reseñas)
                         </span>
                       </div>
-                      <p className="text-gray-700 text-sm mb-2">
+                      <p className="text-gray-700 text-base mb-2">
                         Productos premium y orgánicos con delivery, excelente alternativa con selección especializada.
                       </p>
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2 text-base text-gray-600">
                         <Car className="h-4 w-4" />
                         <span>18 min drive</span>
                       </div>
@@ -194,17 +194,17 @@ export default function ComprasServiciosCarilo() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Belén</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.5 (180 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Las mejores frutas y verduras de la zona, seleccionadas diariamente con opciones orgánicas, verdulería de confianza.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>14 min</span>
@@ -216,8 +216,8 @@ export default function ComprasServiciosCarilo() {
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Bel%C3%A9n+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -229,17 +229,17 @@ export default function ComprasServiciosCarilo() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Boutique de Frutas</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.4 (95 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Frutas exóticas y productos gourmet autoservicio, cuidadosamente seleccionados, experiencia premium de frutas.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>16 min</span>
@@ -251,8 +251,8 @@ export default function ComprasServiciosCarilo() {
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Boutique+de+Frutas+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -264,17 +264,17 @@ export default function ComprasServiciosCarilo() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Cabaña Guerrero</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.7 (340 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Carnes premium con excelente selección de cortes especiales y embutidos artesanales, carnicería especializada de alta calidad.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>18 min</span>
@@ -286,8 +286,8 @@ export default function ComprasServiciosCarilo() {
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Caba%C3%B1a+Guerrero+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -299,17 +299,17 @@ export default function ComprasServiciosCarilo() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Pescadería La Constanza</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.3 (65 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Pescado fresco (no congelado) incluyendo salmón, merluza y mariscos, pescadería especializada cerrada en temporada baja.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>20 min</span>
@@ -323,13 +323,13 @@ export default function ComprasServiciosCarilo() {
                   <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4">
                     <div className="flex items-center">
                       <AlertTriangle className="h-4 w-4 text-amber-600 mr-2" />
-                      <span className="text-sm text-amber-800">Cerrado durante temporada baja</span>
+                      <span className="text-base text-amber-800">Cerrado durante temporada baja</span>
                     </div>
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Pescader%C3%ADa+La+Constanza+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -355,17 +355,17 @@ export default function ComprasServiciosCarilo() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Ferretería Jorgito</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.2 (28 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Resolver problemas del hogar, construcción y mantenimiento con herramientas y materiales de calidad.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>13 min</span>
@@ -373,8 +373,8 @@ export default function ComprasServiciosCarilo() {
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Ferreter%C3%ADa+Jorgito+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -386,17 +386,17 @@ export default function ComprasServiciosCarilo() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Lavandería Express</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.5 (35 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Mantener la ropa impecable con lavandería, limpieza en seco y tintorería profesional.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>15 min</span>
@@ -404,8 +404,8 @@ export default function ComprasServiciosCarilo() {
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Lavander%C3%ADa+Express+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -417,17 +417,17 @@ export default function ComprasServiciosCarilo() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Química Limpia Maurito</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.3 (22 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Productos de limpieza al por mayor con entrega semanal en Cariló.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <Car className="h-4 w-4" />
                       <span>20 min</span>
@@ -435,8 +435,8 @@ export default function ComprasServiciosCarilo() {
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Qu%C3%ADmica+Limpia+Maurito+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -469,7 +469,7 @@ export default function ComprasServiciosCarilo() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="border-l-4 border-blue-500 pl-4">
                     <h4 className="font-semibold text-gray-800 mb-2">Pinamar (20 min en auto)</h4>
-                    <ul className="text-gray-700 text-sm space-y-1">
+                    <ul className="text-gray-700 text-base space-y-1">
                       <li>• Banco Macro</li>
                       <li>• Banco Galicia</li>
                       <li>• Banco Provincia</li>
@@ -478,7 +478,7 @@ export default function ComprasServiciosCarilo() {
                   
                   <div className="border-l-4 border-green-500 pl-4">
                     <h4 className="font-semibold text-gray-800 mb-2">Villa Gesell (45 min en auto)</h4>
-                    <ul className="text-gray-700 text-sm space-y-1">
+                    <ul className="text-gray-700 text-base space-y-1">
                       <li>• Banco Santander</li>
                       <li>• Cajeros automáticos</li>
                       <li>• Servicios completos</li>
@@ -487,7 +487,7 @@ export default function ComprasServiciosCarilo() {
                 </div>
                 
                 <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-                  <p className="text-blue-800 text-sm">
+                  <p className="text-blue-800 text-base">
                     <strong>Recomendación:</strong> Planificar retiros de efectivo antes del viaje o durante visitas a Pinamar para otras compras.
                   </p>
                 </div>
@@ -583,7 +583,7 @@ export default function ComprasServiciosCarilo() {
                   de pinos, ofreciendo una experiencia de compras única donde la naturaleza y el comercio se combinan 
                   armoniosamente.
                 </p>
-                <div className="flex items-center justify-center text-sm text-gray-600">
+                <div className="flex items-center justify-center text-base text-gray-600">
                   <Car className="h-4 w-4 mr-1" />
                   <span>Desde Il Buco: 15 min caminando, 3 min en auto</span>
                 </div>

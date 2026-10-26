@@ -1,7 +1,7 @@
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
-import { ArrowRight, Users as Horse, Camera, Wifi, Car } from "lucide-react"
+import { ArrowRight, Users as Horse, Camera, Wifi, Car } from "@/components/icons8-lucide"
 
 export default function QueHacerEnInvierno() {
   return (

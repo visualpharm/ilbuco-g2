@@ -27,7 +27,7 @@ import {
   Utensils,
   Home,
   Sun,
-} from "lucide-react"
+} from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Digital Nomad Argentina 2025 - Complete Guide to Remote Work, Community & Lifestyle | Il Buco",
@@ -218,21 +218,21 @@ export default function DigitalNomadArgentinaPage() {
                       <CreditCard className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-medium text-gray-900">International Cards</p>
-                        <p className="text-gray-600 text-sm">Work everywhere but you lose 50% instantly. Don't.</p>
+                        <p className="text-gray-600 text-base">Work everywhere but you lose 50% instantly. Don't.</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <DollarSign className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-medium text-gray-900">Cash is King</p>
-                        <p className="text-gray-600 text-sm">Bring USD bills. The newer and crisper, the better rate</p>
+                        <p className="text-gray-600 text-base">Bring USD bills. The newer and crisper, the better rate</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Briefcase className="h-5 w-5 text-gray-600 mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-medium text-gray-900">Local Bank Account</p>
-                        <p className="text-gray-600 text-sm">Need residency. Worth it for Mercado Pago (Argentine Venmo)</p>
+                        <p className="text-gray-600 text-base">Need residency. Worth it for Mercado Pago (Argentine Venmo)</p>
                       </div>
                     </div>
                   </div>
@@ -277,7 +277,7 @@ export default function DigitalNomadArgentinaPage() {
                     <AlertCircle className="h-6 w-6 text-yellow-600 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-2">Pro Tip</h4>
-                      <p className="text-gray-700 text-sm">
+                      <p className="text-gray-700 text-base">
                         BA prices are getting silly. Cariló, Bariloche, Mendoza — 
                         better life, half the cost. Do the math.
                       </p>
@@ -455,25 +455,25 @@ export default function DigitalNomadArgentinaPage() {
                   <div className="bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-lg text-center">
                     <Waves className="h-8 w-8 text-green-600 mx-auto mb-3" />
                     <h4 className="font-semibold text-gray-900 mb-2">Beach Life</h4>
-                    <p className="text-gray-600 text-sm">Morning surf, sunset walks after calls</p>
+                    <p className="text-gray-600 text-base">Morning surf, sunset walks after calls</p>
                   </div>
                   
                   <div className="bg-gradient-to-br from-blue-50 to-cyan-100 p-6 rounded-lg text-center">
                     <Mountain className="h-8 w-8 text-blue-600 mx-auto mb-3" />
                     <h4 className="font-semibold text-gray-900 mb-2">Adventure</h4>
-                    <p className="text-gray-600 text-sm">Weekend trips to Patagonia or wine country</p>
+                    <p className="text-gray-600 text-base">Weekend trips to Patagonia or wine country</p>
                   </div>
                   
                   <div className="bg-gradient-to-br from-purple-50 to-pink-100 p-6 rounded-lg text-center">
                     <Utensils className="h-8 w-8 text-purple-600 mx-auto mb-3" />
                     <h4 className="font-semibold text-gray-900 mb-2">Cuisine</h4>
-                    <p className="text-gray-600 text-sm">Amazing steaks and Malbec wine</p>
+                    <p className="text-gray-600 text-base">Amazing steaks and Malbec wine</p>
                   </div>
                   
                   <div className="bg-gradient-to-br from-yellow-50 to-orange-100 p-6 rounded-lg text-center">
                     <Home className="h-8 w-8 text-orange-600 mx-auto mb-3" />
                     <h4 className="font-semibold text-gray-900 mb-2">Comfort</h4>
-                    <p className="text-gray-600 text-sm">Modern amenities in beautiful settings</p>
+                    <p className="text-gray-600 text-base">Modern amenities in beautiful settings</p>
                   </div>
                 </div>
               </div>
@@ -494,7 +494,7 @@ export default function DigitalNomadArgentinaPage() {
               <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Buenos Aires</h3>
                 <p className="text-gray-600 mb-4">The big city with endless cafes, coworking spaces, and things to do.</p>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <ul className="space-y-2 text-base text-gray-600">
                   <li className="flex items-center"><Wifi className="h-4 w-4 text-blue-500 mr-2" />Great internet</li>
                   <li className="flex items-center"><Users className="h-4 w-4 text-purple-500 mr-2" />Huge nomad community</li>
                   <li className="flex items-center"><Coffee className="h-4 w-4 text-brown-500 mr-2" />Never sleeps</li>
@@ -504,7 +504,7 @@ export default function DigitalNomadArgentinaPage() {
               <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Carilo</h3>
                 <p className="text-gray-600 mb-4">Exclusive beach town. Perfect for focused work and nature.</p>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <ul className="space-y-2 text-base text-gray-600">
                   <li className="flex items-center"><Waves className="h-4 w-4 text-blue-500 mr-2" />Beach lifestyle</li>
                   <li className="flex items-center"><Tree className="h-4 w-4 text-green-500 mr-2" />Pine forest setting</li>
                   <li className="flex items-center"><Shield className="h-4 w-4 text-gray-500 mr-2" />Safe and quiet</li>
@@ -514,7 +514,7 @@ export default function DigitalNomadArgentinaPage() {
               <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Bariloche</h3>
                 <p className="text-gray-600 mb-4">Mountain paradise with lakes, skiing, and outdoor activities all year.</p>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <ul className="space-y-2 text-base text-gray-600">
                   <li className="flex items-center"><Mountain className="h-4 w-4 text-gray-600 mr-2" />Incredible landscapes</li>
                   <li className="flex items-center"><Home className="h-4 w-4 text-red-500 mr-2" />Cozy mountain vibe</li>
                   <li className="flex items-center"><Users className="h-4 w-4 text-purple-500 mr-2" />Growing community</li>
@@ -524,7 +524,7 @@ export default function DigitalNomadArgentinaPage() {
               <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Mendoza</h3>
                 <p className="text-gray-600 mb-4">Wine country with perfect weather, outdoor stuff, and relaxed vibes.</p>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <ul className="space-y-2 text-base text-gray-600">
                   <li className="flex items-center"><Sun className="h-4 w-4 text-yellow-500 mr-2" />300+ sunny days</li>
                   <li className="flex items-center"><Utensils className="h-4 w-4 text-purple-500 mr-2" />Wine and food scene</li>
                   <li className="flex items-center"><DollarSign className="h-4 w-4 text-green-500 mr-2" />Affordable</li>
@@ -534,7 +534,7 @@ export default function DigitalNomadArgentinaPage() {
               <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Cordoba</h3>
                 <p className="text-gray-600 mb-4">University city with young energy, tech scene, and central location.</p>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <ul className="space-y-2 text-base text-gray-600">
                   <li className="flex items-center"><Building className="h-4 w-4 text-gray-600 mr-2" />Tech hub</li>
                   <li className="flex items-center"><Users className="h-4 w-4 text-purple-500 mr-2" />Student atmosphere</li>
                   <li className="flex items-center"><MapPin className="h-4 w-4 text-red-500 mr-2" />Central to everywhere</li>
@@ -544,7 +544,7 @@ export default function DigitalNomadArgentinaPage() {
               <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">Salta</h3>
                 <p className="text-gray-600 mb-4">Colonial charm up north with indigenous culture and dramatic landscapes.</p>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <ul className="space-y-2 text-base text-gray-600">
                   <li className="flex items-center"><Home className="h-4 w-4 text-orange-500 mr-2" />Colonial architecture</li>
                   <li className="flex items-center"><Mountain className="h-4 w-4 text-gray-600 mr-2" />Andean scenery</li>
                   <li className="flex items-center"><DollarSign className="h-4 w-4 text-green-500 mr-2" />Super affordable</li>
@@ -571,21 +571,21 @@ export default function DigitalNomadArgentinaPage() {
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
                       <p className="font-medium text-gray-900">Get a local SIM</p>
-                      <p className="text-gray-600 text-sm">Personal or Claro have the best coverage and cheap data</p>
+                      <p className="text-gray-600 text-base">Personal or Claro have the best coverage and cheap data</p>
                     </div>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
                       <p className="font-medium text-gray-900">Backup internet</p>
-                      <p className="text-gray-600 text-sm">Always have mobile hotspot ready for important calls</p>
+                      <p className="text-gray-600 text-base">Always have mobile hotspot ready for important calls</p>
                     </div>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
                       <p className="font-medium text-gray-900">Power outages</p>
-                      <p className="text-gray-600 text-sm">They happen. Keep stuff charged and maybe get a battery pack</p>
+                      <p className="text-gray-600 text-base">They happen. Keep stuff charged and maybe get a battery pack</p>
                     </div>
                   </li>
                 </ul>
@@ -598,21 +598,21 @@ export default function DigitalNomadArgentinaPage() {
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
                       <p className="font-medium text-gray-900">Learn basic Spanish</p>
-                      <p className="text-gray-600 text-sm">Even terrible Spanish helps. People appreciate you trying</p>
+                      <p className="text-gray-600 text-base">Even terrible Spanish helps. People appreciate you trying</p>
                     </div>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
                       <p className="font-medium text-gray-900">Embrace the late schedule</p>
-                      <p className="text-gray-600 text-sm">Shops close 1-5pm, dinner is late. Just go with it</p>
+                      <p className="text-gray-600 text-base">Shops close 1-5pm, dinner is late. Just go with it</p>
                     </div>
                   </li>
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
                       <p className="font-medium text-gray-900">Join WhatsApp groups</p>
-                      <p className="text-gray-600 text-sm">Essential for community, events, finding apartments</p>
+                      <p className="text-gray-600 text-base">Essential for community, events, finding apartments</p>
                     </div>
                   </li>
                 </ul>

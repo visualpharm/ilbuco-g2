@@ -25,7 +25,7 @@ export function AmenitiesToolTip({ children }: AmenitiesToolTipProps) {
       </button>
 
       {isOpen && (
-        <span className="absolute z-10 w-64 p-3 mt-2 text-sm bg-white border border-gray-200 rounded-lg shadow-lg left-1/2 transform -translate-x-1/2 block">
+        <span className="absolute z-10 w-64 p-3 mt-2 text-base bg-white border border-gray-200 rounded-lg shadow-lg left-1/2 transform -translate-x-1/2 block">
           <span className="text-gray-700 block">
             {translations.home.hero.amenitiesHint[language.code as keyof typeof translations.home.hero.amenitiesHint]}
           </span>

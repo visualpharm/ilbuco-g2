@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Coffee, ShoppingBag, Palette, Heart, Dumbbell, Church, MapPin, User, Car, Gamepad2, Theater, List } from "lucide-react"
+import { ArrowRight, Coffee, ShoppingBag, Palette, Heart, Dumbbell, Church, MapPin, User, Car, Gamepad2, Theater, List } from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Qué Hacer en Cariló Cuando Llueve 2025 | Actividades bajo Techo",
@@ -119,17 +119,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-2xl font-bold text-gray-800">Escape Room Pinamar</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.5 (75 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Desafío mental en equipo con la sala temática "Misión Pirata" para 2-6 personas en 60 minutos con niveles de dificultad ajustables.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>35 min</span>
@@ -142,7 +142,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Escape+Room+Pinamar+De+la+Sirena+700"
-                    className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -154,17 +154,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-2xl font-bold text-gray-800">Center Play</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.2 (110 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Centro de juegos tipo arcade con bowling, pool, metegol, pinballs y más. Local principal en Pinamar y sucursal en Valeria del Mar.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>30-40 min</span>
@@ -177,7 +177,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Center+Play+Pinamar+Av+Bunge"
-                    className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -189,17 +189,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-2xl font-bold text-gray-800">Teatro Municipal de la Torre</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.4 (65 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Programación activa de teatro independiente, comedia, stand-up y funciones infantiles incluso fuera de temporada en Pinamar.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>35 min</span>
@@ -212,7 +212,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Teatro+Municipal+de+la+Torre+Pinamar"
-                    className="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -224,17 +224,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-2xl font-bold text-gray-800">Cine Oasis</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 3.8 (90 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Funciones diarias de cine en Pinamar. Instalación modesta con la mayoría de películas dobladas al español.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>40 min</span>
@@ -247,7 +247,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Cine+Oasis+Av+Shaw+Pinamar"
-                    className="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -259,17 +259,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-2xl font-bold text-gray-800">Il Buco - Entretenimiento Digital</h5>
-                    <div className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-green-100 text-green-800 px-2 py-1 rounded-full">
                       ⭐ Tu residencia
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Ver películas y series en habitaciones privadas con Smart TV, Netflix, Disney+ y Max, o disfrutar en grupo en el living común.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>0 min</span>
@@ -282,7 +282,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <Link
                     href="/contacts"
-                    className="inline-flex items-center gap-1 text-green-600 hover:text-green-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-green-600 hover:text-green-800 text-base font-medium"
                   >
                     <ArrowRight className="h-4 w-4" />
                     Reservar tu Refugio contra la Lluvia
@@ -292,17 +292,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-2xl font-bold text-gray-800">Il Buco - Juegos de Mesa</h5>
-                    <div className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-green-100 text-green-800 px-2 py-1 rounded-full">
                       ⭐ Tu residencia
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Pasar tardes sin salir con colección de juegos de mesa, perfecto para conocer otros huéspedes o tiempo en familia.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>0 min</span>
@@ -315,7 +315,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <Link
                     href="/contacts"
-                    className="inline-flex items-center gap-1 text-green-600 hover:text-green-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-green-600 hover:text-green-800 text-base font-medium"
                   >
                     <ArrowRight className="h-4 w-4" />
                     Reservar tu Refugio contra la Lluvia
@@ -339,17 +339,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Galería Cariló Arte Contemporáneo</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.2 (35 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Exposiciones rotativas de más de 50 artistas nacionales y talleres para adultos y niños desde 3 años en temporada alta.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>12 min</span>
@@ -362,7 +362,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Galería+Cariló+Arte+Contemporáneo"
-                    className="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -374,17 +374,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">El Ojo y el Diamante</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.6 (28 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Casa/taller artístico con mosaico y vitrofusión atendido por sus propios artistas, solo con reserva previa.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>22 min</span>
@@ -397,7 +397,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=El+Ojo+y+el+Diamante+Valeria+del+Mar"
-                    className="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -409,17 +409,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Experiencias Allona</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.8 (42 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Talleres de cerámica, collage y jardinería con técnicas variadas en entorno tranquilo, materiales incluidos y grupos reducidos.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>38 min</span>
@@ -432,7 +432,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Experiencias+Allona+Pinamar"
-                    className="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -444,17 +444,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Biblioteca Popular Manuel Belgrano</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.1 (67 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Más de 50,000 libros, sala de lectura, computadoras con internet y galería de arte en espacio amplio y tranquilo.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>42 min</span>
@@ -467,7 +467,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Biblioteca+Popular+Manuel+Belgrano+Pinamar"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -479,17 +479,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Capilla Nuestra Señora del Perpetuo Socorro</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.7 (89 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Espacio de paz y reflexión diseñado por Alberto Vivot, construida enteramente en madera e integrada en el bosque.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>8 min</span>
@@ -502,7 +502,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Capilla+Nuestra+Señora+del+Perpetuo+Socorro+Cariló"
-                    className="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-purple-600 hover:text-purple-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -528,17 +528,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Cariló Palace Apart Hotel & Spa</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.3 (180 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Relajación completa con sauna, baño finlandés, gimnasio y sala de relax en ambiente de lujo cerca del mar.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>18 min</span>
@@ -551,7 +551,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Cariló+Palace+Apart+Hotel+Spa"
-                    className="inline-flex items-center gap-1 text-pink-600 hover:text-pink-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-pink-600 hover:text-pink-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -563,17 +563,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Howard Johnson Hotel Spa</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.1 (340 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Spa completo con piscina climatizada cubierta, gimnasio, sauna, ducha escocesa y salas de masajes profesionales.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>35 min</span>
@@ -586,7 +586,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Howard+Johnson+Hotel+Spa+Pinamar"
-                    className="inline-flex items-center gap-1 text-pink-600 hover:text-pink-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-pink-600 hover:text-pink-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -598,17 +598,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Cariló Village Hotel</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.2 (215 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Bienestar familiar con sauna seca, gimnasio completo con hidromasaje y horarios familiares amplios.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>15 min</span>
@@ -621,7 +621,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Cariló+Village+Hotel"
-                    className="inline-flex items-center gap-1 text-pink-600 hover:text-pink-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-pink-600 hover:text-pink-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -654,17 +654,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Dante</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.3 (145 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Disfrutar café intenso en ambiente con buena ambientación, perfecto para lecturas o conversaciones tranquilas.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>10 min</span>
@@ -677,7 +677,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Dante+Café+Cariló"
-                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -689,17 +689,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Panettone</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.3 (146 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Panadería artesanal con excelentes medialunas, café de especialidad y ambiente cálido ideal para desayunos prolongados.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>12 min</span>
@@ -712,7 +712,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Panettone+Cariló"
-                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -724,17 +724,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Havanna</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.1 (203 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Clásicos alfajores y chocolate caliente de la marca icónica argentina en ambiente familiar y confiable.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>14 min</span>
@@ -747,7 +747,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Havanna+Cariló"
-                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -759,17 +759,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Saka</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.4 (120 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Café gourmet con opciones veganas y tés de autor, ambiente moderno y opciones saludables para días lluviosos.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>11 min</span>
@@ -782,7 +782,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Saka+Cariló"
-                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -794,17 +794,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Hönecker</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.5 (73 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Chocolate artesanal y té premium en ambiente boutique, perfecto para caprichos dulces en tardes lluviosas.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>13 min</span>
@@ -817,7 +817,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Hönecker+Cariló"
-                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -829,17 +829,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">La Abuela Goye</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.6 (134 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Heladería tradicional con chocolate caliente casero y tortas artesanales, ambiente familiar nostálgico.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>15 min</span>
@@ -852,7 +852,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=La+Abuela+Goye+Cariló"
-                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -878,17 +878,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Paseo Aldea</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.4 (320 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Centro comercial cubierto con tiendas de ropa, accesorios, souvenirs y cafeterías, ideal para pasar toda la tarde.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>12 min</span>
@@ -901,7 +901,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Paseo+Aldea+Cariló"
-                    className="inline-flex items-center gap-1 text-green-600 hover:text-green-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-green-600 hover:text-green-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -913,17 +913,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Mercado del Puerto Cariló</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.2 (185 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Mercado cubierto con productos regionales, artesanías locales y gastronomía en un solo lugar con ambiente bohemio.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>15 min</span>
@@ -936,7 +936,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Mercado+del+Puerto+Cariló"
-                    className="inline-flex items-center gap-1 text-green-600 hover:text-green-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-green-600 hover:text-green-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -948,17 +948,17 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Shopping Los Pinos</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.1 (275 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Centro comercial en Pinamar con marcas conocidas, cine, patio de comidas y entretenimiento familiar bajo techo.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
                       <span>40 min</span>
@@ -971,7 +971,7 @@ export default function QueHacerCuandoLlueve() {
                   
                   <a
                     href="https://maps.google.com/?q=Shopping+Los+Pinos+Pinamar"
-                    className="inline-flex items-center gap-1 text-green-600 hover:text-green-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-green-600 hover:text-green-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -997,7 +997,7 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-2xl font-bold text-gray-800">Don Benito</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">
                       ⭐ 4.4 (187 reseñas)
                     </div>
                   </div>
@@ -1006,8 +1006,8 @@ export default function QueHacerCuandoLlueve() {
                     <strong>Para:</strong> Experiencia premium con carnes de exportación, ambiente elegante y servicio profesional en una steakhouse de primera clase.
                   </p>
                   
-                  <div className="flex items-center gap-6 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex items-center gap-6 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-2">
                       <User className="h-4 w-4" />
                       <span>15 min</span>
@@ -1032,7 +1032,7 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-2xl font-bold text-gray-800">La Cabrera Cariló</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">
                       ⭐ 4.3 (127 reseñas)
                     </div>
                   </div>
@@ -1041,8 +1041,8 @@ export default function QueHacerCuandoLlueve() {
                     <strong>Para:</strong> La parrilla de la famosa cadena porteña con su característico show de carnes crudas en mesa y cortes premium como el ojo de bife de 400g que los distingue.
                   </p>
                   
-                  <div className="flex items-center gap-6 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex items-center gap-6 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-2">
                       <User className="h-4 w-4" />
                       <span>18 min</span>
@@ -1067,7 +1067,7 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-2xl font-bold text-gray-800">Il Gato Nero</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">
                       ⭐ 4.1 (83 reseñas)
                     </div>
                   </div>
@@ -1076,8 +1076,8 @@ export default function QueHacerCuandoLlueve() {
                     <strong>Para:</strong> Pizzería con horno a leña y masa madre artesanal, reconocida por sus pizzas de autor y ambiente acogedor perfecto para compartir en días lluviosos.
                   </p>
                   
-                  <div className="flex items-center gap-6 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex items-center gap-6 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-2">
                       <User className="h-4 w-4" />
                       <span>14 min</span>
@@ -1102,7 +1102,7 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-2xl font-bold text-gray-800">De Mi Campo</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">
                       ⭐ 4.2 (156 reseñas)
                     </div>
                   </div>
@@ -1111,8 +1111,8 @@ export default function QueHacerCuandoLlueve() {
                     <strong>Para:</strong> Especialista en cordero patagónico y empanadas caseras con 12 variedades, destacado por su parrilla a leña y productos directo del productor.
                   </p>
                   
-                  <div className="flex items-center gap-6 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex items-center gap-6 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-2">
                       <User className="h-4 w-4" />
                       <span>16 min</span>
@@ -1137,7 +1137,7 @@ export default function QueHacerCuandoLlueve() {
                 <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-2xl font-bold text-gray-800">Masse</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">
                       ⭐ 4.4 (92 reseñas)
                     </div>
                   </div>
@@ -1146,8 +1146,8 @@ export default function QueHacerCuandoLlueve() {
                     <strong>Para:</strong> Único restaurante de autor en Cariló con menú degustación estacional, famoso por su lubina en costra de sal y presentaciones que sorprenden.
                   </p>
                   
-                  <div className="flex items-center gap-6 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
+                  <div className="flex items-center gap-6 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
                     <div className="flex items-center gap-2">
                       <User className="h-4 w-4" />
                       <span>13 min</span>

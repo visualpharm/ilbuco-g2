@@ -14,7 +14,7 @@ import {
   Star,
   TreesIcon as Tree,
   Eye,
-} from "lucide-react"
+} from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Casas en Alquiler en Cariló Frente al Mar - Villa Premium | IL BUCO",
@@ -46,7 +46,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
                     href="/the-house"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-base md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
                     Ver Casa <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
@@ -142,7 +142,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
                 <div className="text-center mb-4">
                   <Calendar className="h-8 w-8 mx-auto mb-2 text-black" />
                   <h3 className="text-xl font-semibold">Alquiler Semanal</h3>
-                  <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded">Más Popular</span>
+                  <span className="text-base bg-green-100 text-green-800 px-2 py-1 rounded">Más Popular</span>
                 </div>
                 <ul className="space-y-2 text-gray-600">
                   <li>• 7-14 días</li>
@@ -279,9 +279,6 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
                   </div>
                 </div>
                 <div className="md:col-span-2 space-y-6">
-                  <svg className="h-12 w-12 text-gray-300" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
-                    <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                  </svg>
                   <p className="text-2xl font-medium">
                     "Alquilar esta casa frente al mar en Cariló fue la mejor decisión. Despertar con vista al océano y tener la playa a pasos fue mágico."
                   </p>

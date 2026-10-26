@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { PlacePhoto } from "@/components/PlacePhoto"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, User, Car, MapPin, Utensils, Coffee, Wine, Clock } from "lucide-react"
+import { ArrowRight, User, Car, MapPin, Utensils, Coffee, Wine, Clock } from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Restaurantes Cariló 2025 | Gastronomía y Comida en Cariló",
@@ -81,30 +81,30 @@ export default function RestaurantesCarilo() {
                   </div>
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Don Benito</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.6 (420 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Experiencia premium con carnes de exportación, ambiente elegante y servicio profesional en una steakhouse de primera clase.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <User className="h-4 w-4" />
                       <span>15 min</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Car className="h-4 w-4" />
                       <span>4 min</span>
                     </div>
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Don+Benito+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -126,30 +126,30 @@ export default function RestaurantesCarilo() {
                   </div>
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">De Mi Campo</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.2 (777 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Familias que buscan parrilla tradicional con buffet de ensaladas, área para niños y precios accesibles en ambiente familiar.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <User className="h-4 w-4" />
                       <span>20 min</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Car className="h-4 w-4" />
                       <span>6 min</span>
                     </div>
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=De+Mi+Campo+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -171,30 +171,30 @@ export default function RestaurantesCarilo() {
                   </div>
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">La Colorada</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.5 (976 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Parrilla de buena calidad a precios atractivos, ubicada estratégicamente en la entrada de Cariló para fácil acceso.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <User className="h-4 w-4" />
                       <span>12 min</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Car className="h-4 w-4" />
                       <span>3 min</span>
                     </div>
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=La+Colorada+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -216,30 +216,30 @@ export default function RestaurantesCarilo() {
                   </div>
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">La Pulpería</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.0 (259 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Experiencia auténtica de parrilla tradicional con más de 35 años de historia, ambiente familiar y recetas clásicas argentinas.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <User className="h-4 w-4" />
                       <span>17 min</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Car className="h-4 w-4" />
                       <span>5 min</span>
                     </div>
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=La+Pulper%C3%ADa+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -273,26 +273,26 @@ export default function RestaurantesCarilo() {
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     />
-                    <div className="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded-full">$$$</div>
+                    <div className="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-base font-semibold px-2 py-1 rounded-full">$$$</div>
                   </div>
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Il Gatto Nero</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.7 (890 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> La mejor pizza napolitana de la zona por chefs italianos auténticos, ingredientes premium y técnicas tradicionales.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <User className="h-4 w-4" />
                       <span>16 min</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Car className="h-4 w-4" />
                       <span>4 min</span>
                     </div>
@@ -308,39 +308,39 @@ export default function RestaurantesCarilo() {
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
-                    <div className="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded-full">$$$</div>
+                    <div className="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-base font-semibold px-2 py-1 rounded-full">$$$</div>
                   </div>
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Pepe Napoli</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.0 (1,260 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Pizza napolitana de calidad con opciones clásicas y modernas, ambiente acogedor y precios razonables. Amplia carta de pastas y parrilla.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <User className="h-4 w-4" />
                       <span>17 min</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Car className="h-4 w-4" />
                       <span>5 min</span>
                     </div>
                   </div>
                   
-                  <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
+                  <div className="flex items-center gap-2 text-base text-gray-600 mb-4">
                     <Clock className="h-4 w-4 text-gray-400" />
                     <span>Abierto hasta las 00:30</span>
                   </div>
                   
                   <a
                     href="https://goo.gl/maps/example"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -361,30 +361,30 @@ export default function RestaurantesCarilo() {
                   </div>
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Impeke Burgers</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.3 (85 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Hamburguesas gourmet con ingredientes frescos en Valeria del Mar, ambiente relajado con carnes premium y opciones vegetarianas.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <User className="h-4 w-4" />
                       <span>25 min</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Car className="h-4 w-4" />
                       <span>8 min</span>
                     </div>
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Impeke+Burgers+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -405,30 +405,30 @@ export default function RestaurantesCarilo() {
                   </div>
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Enri's Hamburguesas</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.1 (62 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Hamburguesas caseras con opciones tradicionales y ambiente informal, precios accesibles para toda la familia.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <User className="h-4 w-4" />
                       <span>18 min</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Car className="h-4 w-4" />
                       <span>5 min</span>
                     </div>
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Enri%27s+Hamburguesas+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -454,30 +454,30 @@ export default function RestaurantesCarilo() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Panettone</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.2 (145 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Pan fresco y productos de panadería diarios, opción práctica para desayunos y meriendas.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <User className="h-4 w-4" />
                       <span>14 min</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Car className="h-4 w-4" />
                       <span>4 min</span>
                     </div>
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Panettone+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -489,30 +489,30 @@ export default function RestaurantesCarilo() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Masse</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.5 (98 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Panes artesanales elegantes con semillas e ingredientes premium, panadería boutique con opciones gourmet.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <User className="h-4 w-4" />
                       <span>17 min</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Car className="h-4 w-4" />
                       <span>5 min</span>
                     </div>
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Masse+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -524,30 +524,30 @@ export default function RestaurantesCarilo() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Lucciano's</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.4 (120 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Helados en el lugar más hermoso de Cariló con ambiente moderno y terraza, experiencia premium.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <User className="h-4 w-4" />
                       <span>14 min</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Car className="h-4 w-4" />
                       <span>4 min</span>
                     </div>
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Lucciano%27s+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -559,30 +559,30 @@ export default function RestaurantesCarilo() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Pórtico</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.2 (95 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Helados artesanales con sabores únicos y calidad premium, especialmente su especialidad de dulce de leche.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <User className="h-4 w-4" />
                       <span>16 min</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Car className="h-4 w-4" />
                       <span>5 min</span>
                     </div>
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=P%C3%B3rtico+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -594,30 +594,30 @@ export default function RestaurantesCarilo() {
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-gray-800">Colonial</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.3 (85 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-700 text-sm mb-4">
+                  <p className="text-gray-700 text-base mb-4">
                     <strong>Para:</strong> Helados artesanales de calidad excepcional en Valeria del Mar con sabores clásicos y especiales.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <User className="h-4 w-4" />
                       <span>22 min</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Car className="h-4 w-4" />
                       <span>8 min</span>
                     </div>
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Colonial+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -643,30 +643,30 @@ export default function RestaurantesCarilo() {
                 <div className="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-gray-600 transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-white">Bar Templeton</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.8 (42 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-300 text-sm mb-4">
+                  <p className="text-gray-300 text-base mb-4">
                     <strong>Para:</strong> Música en vivo y ambiente auténtico de bar, conciertos y entretenimiento local en un ambiente único.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-400 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <User className="h-4 w-4" />
                       <span>18 min</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Car className="h-4 w-4" />
                       <span>5 min</span>
                     </div>
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-purple-400 hover:text-purple-300 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=Bar+Templeton+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-purple-400 hover:text-purple-300 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >
@@ -678,30 +678,30 @@ export default function RestaurantesCarilo() {
                 <div className="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-gray-600 transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
                     <h5 className="text-xl font-bold text-white">The Garrison</h5>
-                    <div className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                    <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.6 (58 reseñas)
                     </div>
                   </div>
                   
-                  <p className="text-gray-300 text-sm mb-4">
+                  <p className="text-gray-300 text-base mb-4">
                     <strong>Para:</strong> Café de calidad con selección premium de whisky, perfecto para reuniones de negocios o encuentros sofisticados.
                   </p>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
-                    <span className="font-medium">Distancia desde Il Buco:</span>
-                    <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-400 mb-4">
+                    <span className="font-medium whitespace-nowrap">Distancia desde Il Buco:</span>
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <User className="h-4 w-4" />
                       <span>15 min</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 whitespace-nowrap">
                       <Car className="h-4 w-4" />
                       <span>4 min</span>
                     </div>
                   </div>
                   
                   <a
-                    href="#"
-                    className="inline-flex items-center gap-1 text-purple-400 hover:text-purple-300 text-sm font-medium"
+                    href="https://www.google.com/maps/search/?api=1&query=The+Garrison+Caril%C3%B3"
+                    className="inline-flex items-center gap-1 text-purple-400 hover:text-purple-300 text-base font-medium"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
                   >

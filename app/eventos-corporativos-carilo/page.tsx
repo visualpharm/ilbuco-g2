@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
 import Image from "next/image"
-import { MapPin, Users, Calendar, ArrowRight, Building2, Clock, Trophy } from "lucide-react"
+import { MapPin, Users, Calendar, ArrowRight, Building2, Clock, Trophy } from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Eventos Corporativos en Cariló 2025 | Reuniones y Conferencias Empresariales",
@@ -200,7 +200,7 @@ export default function EventosCorporativosCarilo() {
                   Acceso completo a las instalaciones durante todo el evento. 
                   Espacios de trabajo disponibles las 24 horas para equipos internacionales.
                 </p>
-                <ul className="text-sm text-gray-600 space-y-1">
+                <ul className="text-base text-gray-600 space-y-1">
                   <li>• Acceso sin restricciones horarias</li>
                   <li>• Seguridad y privacidad garantizada</li>
                   <li>• Catering y coffee breaks personalizados</li>
@@ -217,7 +217,7 @@ export default function EventosCorporativosCarilo() {
                   Actividades corporativas únicas que solo se pueden vivir en Cariló. 
                   Combinamos trabajo productivo con experiencias memorables.
                 </p>
-                <ul className="text-sm text-gray-600 space-y-1">
+                <ul className="text-base text-gray-600 space-y-1">
                   <li>• Cenas de gala en la playa privada</li>
                   <li>• Actividades de team building en el bosque</li>
                   <li>• Sesiones de work-life balance</li>

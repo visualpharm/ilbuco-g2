@@ -17,7 +17,7 @@ import {
   Mountain,
   Star,
   Clock,
-} from "lucide-react"
+} from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Digital Nomad Retreats Argentina - Focused Remote Work Programs | Il Buco",
@@ -352,7 +352,7 @@ export default function DigitalNomadRetreatsPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-2">Morning Wellness</h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-base">
                         Optional meditation, yoga, or beach walk to start the day mindfully
                       </p>
                     </div>
@@ -364,7 +364,7 @@ export default function DigitalNomadRetreatsPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-2">Deep Work Session</h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-base">
                         Focused work time in private workspaces with productivity techniques
                       </p>
                     </div>
@@ -376,7 +376,7 @@ export default function DigitalNomadRetreatsPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-2">Community Lunch</h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-base">
                         Shared meals with fellow retreat participants and networking
                       </p>
                     </div>
@@ -388,7 +388,7 @@ export default function DigitalNomadRetreatsPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-2">Workshop/Collaboration</h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-base">
                         Skills workshops, masterclasses, or collaborative project time
                       </p>
                     </div>
@@ -400,7 +400,7 @@ export default function DigitalNomadRetreatsPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-2">Community Time</h3>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-base">
                         Beach activities, group dinners, or reflection circles
                       </p>
                     </div>
@@ -441,7 +441,7 @@ export default function DigitalNomadRetreatsPage() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Goal Achievement
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   93% of participants achieve their stated goals by retreat completion
                 </p>
               </div>
@@ -453,7 +453,7 @@ export default function DigitalNomadRetreatsPage() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Lasting Network
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   Build professional relationships that continue long after the retreat
                 </p>
               </div>
@@ -465,7 +465,7 @@ export default function DigitalNomadRetreatsPage() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Skill Development
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   Learn from industry experts and successful digital nomads
                 </p>
               </div>
@@ -477,7 +477,7 @@ export default function DigitalNomadRetreatsPage() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Work-Life Balance
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-base">
                   Establish sustainable habits for long-term remote work success
                 </p>
               </div>
@@ -509,7 +509,7 @@ export default function DigitalNomadRetreatsPage() {
                 <p className="text-gray-700 mb-6">
                   Spring season retreat focusing on productivity systems and goal achievement.
                 </p>
-                <div className="space-y-2 text-sm text-gray-600 mb-6">
+                <div className="space-y-2 text-base text-gray-600 mb-6">
                   <p>• 8 spots remaining</p>
                   <p>• Early bird: $1,200 (reg $1,500)</p>
                   <p>• Includes accommodation & meals</p>
@@ -533,7 +533,7 @@ export default function DigitalNomadRetreatsPage() {
                 <p className="text-gray-700 mb-6">
                   Intensive business development program with mentor matching.
                 </p>
-                <div className="space-y-2 text-sm text-gray-600 mb-6">
+                <div className="space-y-2 text-base text-gray-600 mb-6">
                   <p>• 5 spots remaining</p>
                   <p>• Early bird: $2,800 (reg $3,500)</p>
                   <p>• Includes mentorship & materials</p>
@@ -557,7 +557,7 @@ export default function DigitalNomadRetreatsPage() {
                 <p className="text-gray-700 mb-6">
                   Advanced program for remote team leaders and managers.
                 </p>
-                <div className="space-y-2 text-sm text-gray-600 mb-6">
+                <div className="space-y-2 text-base text-gray-600 mb-6">
                   <p>• 12 spots available</p>
                   <p>• Early bird: $2,000 (reg $2,500)</p>
                   <p>• Executive coaching included</p>

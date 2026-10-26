@@ -14,7 +14,7 @@ import {
   Users,
   Navigation,
   Sunrise,
-} from "lucide-react"
+} from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Casas en Cariló Frente al Mar - Vista Océano desde el Bosque | IL BUCO",
@@ -46,7 +46,7 @@ export default function CasasEnCariloFrenteAlMarPage() {
                 <div className="pt-2 md:pt-3 lg:pt-4">
                   <Link
                     href="/the-house"
-                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-sm md:text-base rounded-md hover:bg-gray-800 transition-colors"
+                    className="inline-flex items-center px-5 md:px-6 py-2.5 md:py-3 bg-black text-white text-base md:text-base rounded-md hover:bg-gray-800 transition-colors"
                   >
                     Ver Casa Frente al Mar <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>

@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
 import Image from "next/image"
-import { MapPin, Leaf, ArrowRight, TreePine, Waves, Sun, Heart } from "lucide-react"
+import { MapPin, Leaf, ArrowRight, TreePine, Waves, Sun, Heart } from "@/components/icons8-lucide"
 import { HeroImage } from "@/components/hero-image"
 
 export const metadata: Metadata = {
@@ -198,7 +198,7 @@ export default function EcolodgeArgentina() {
                   Solar-powered systems and energy-efficient design minimize our carbon footprint 
                   while ensuring all modern comforts for our eco-conscious guests.
                 </p>
-                <ul className="text-sm text-gray-600 space-y-1">
+                <ul className="text-base text-gray-600 space-y-1">
                   <li>• Solar water heating systems</li>
                   <li>• LED lighting throughout</li>
                   <li>• Energy-efficient appliances</li>
@@ -215,7 +215,7 @@ export default function EcolodgeArgentina() {
                   We partner with local artisans, organic farmers, and conservation groups 
                   to ensure your eco-vacation supports the broader Cariló community.
                 </p>
-                <ul className="text-sm text-gray-600 space-y-1">
+                <ul className="text-base text-gray-600 space-y-1">
                   <li>• Local sourcing for amenities</li>
                   <li>• Community conservation projects</li>
                   <li>• Regional artisan partnerships</li>
@@ -259,7 +259,7 @@ export default function EcolodgeArgentina() {
 
               <div className="bg-gradient-to-r from-green-50 to-blue-50 p-8 rounded-lg">
                 <h3 className="text-xl font-semibold mb-4">Why Choose Our Argentina Ecolodge?</h3>
-                <div className="grid md:grid-cols-3 gap-6 text-sm">
+                <div className="grid md:grid-cols-3 gap-6 text-base">
                   <div>
                     <strong>Authentic Ecosystem</strong>
                     <p className="text-gray-600 mt-1">Genuine forest-to-ocean environment without artificial intervention</p>

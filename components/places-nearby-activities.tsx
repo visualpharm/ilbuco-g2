@@ -93,7 +93,7 @@ export function PlacesNearbyActivitiesContent() {
                   <Link
                     key={tab.id}
                     href={tab.href}
-                    className={`px-4 py-3 text-sm font-medium rounded-t-lg transition-colors flex items-center space-x-2 ${
+                    className={`px-4 py-3 text-base font-medium rounded-t-lg transition-colors flex items-center space-x-2 ${
                       tab.active
                         ? "bg-black text-white border-b-2 border-black"
                         : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
@@ -156,7 +156,7 @@ export function PlacesNearbyActivitiesContent() {
                                 href="https://www.google.com/maps/search/?api=1&query=CIE+Centro+de+Entrenamiento+Caril%C3%B3"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-4 inline-flex items-center"
+                                className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-base mr-4 inline-flex items-center"
                               >
                                 <Icons.GoogleMaps />
                                 <span>View on Map</span>
@@ -165,7 +165,7 @@ export function PlacesNearbyActivitiesContent() {
                                 href="https://www.instagram.com/somos_cie/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
+                                className="text-[#E1306C] hover:text-[#C13584] transition-colors text-base inline-flex items-center"
                               >
                                 <Icons.Instagram />
                                 <span>@somos_cie</span>
@@ -190,14 +190,14 @@ export function PlacesNearbyActivitiesContent() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Coco+Surf+Caril%C3%B3+Argentina"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-base mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
                             <span>Google Maps</span>
                           </a>
                           <a
                             href="https://www.instagram.com/coco.surf.carilo/"
-                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
+                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-base inline-flex items-center"
                           >
                             <Icons.Instagram />
                             <span>@coco.surf.carilo</span>
@@ -220,14 +220,14 @@ export function PlacesNearbyActivitiesContent() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Caril%C3%B3+Tennis+Club"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-base mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
                             <span>Google Maps</span>
                           </a>
                           <a
                             href="https://www.instagram.com/carilotennis.club/"
-                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
+                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-base inline-flex items-center"
                           >
                             <Icons.Instagram />
                             <span>@carilotennis.club</span>
@@ -250,7 +250,7 @@ export function PlacesNearbyActivitiesContent() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Parque+de+Calistenia+Caril%C3%B3"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-base mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
                             <span>Google Maps</span>
@@ -273,14 +273,14 @@ export function PlacesNearbyActivitiesContent() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Cabalgatas+Dos+Montes"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-base mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
                             <span>Google Maps</span>
                           </a>
                           <a
                             href="https://www.instagram.com/cabalgatasdosmontes/"
-                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
+                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-base inline-flex items-center"
                           >
                             <Icons.Instagram />
                             <span>@cabalgatasdosmontes</span>
@@ -303,14 +303,14 @@ export function PlacesNearbyActivitiesContent() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Motorrad+Caril%C3%B3"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-base mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
                             <span>Google Maps</span>
                           </a>
                           <a
                             href="https://www.guiadeplaya.com.ar/motorrad-carilo-alquiler-cuatriciclos.html"
-                            className="text-gray-600 hover:text-gray-800 transition-colors text-sm inline-flex items-center"
+                            className="text-gray-600 hover:text-gray-800 transition-colors text-base inline-flex items-center"
                           >
                             <Icons.Website />
                             <span>guiadeplaya.com.ar</span>
@@ -333,14 +333,14 @@ export function PlacesNearbyActivitiesContent() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Sandmasters+Pinamar"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-base mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
                             <span>Google Maps</span>
                           </a>
                           <a
                             href="https://www.instagram.com/sandmasters_/"
-                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
+                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-base inline-flex items-center"
                           >
                             <Icons.Instagram />
                             <span>@sandmasters_</span>
@@ -363,14 +363,14 @@ export function PlacesNearbyActivitiesContent() {
                         <p className="mt-2">
                           <a
                             href="https://www.google.com/maps/search/?api=1&query=Fusion+Arte+del+Mar+Valeria+del+Mar"
-                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-sm mr-3 inline-flex items-center"
+                            className="text-[#4285F4] hover:text-[#3367D6] transition-colors text-base mr-3 inline-flex items-center"
                           >
                             <Icons.GoogleMaps />
                             <span>Google Maps</span>
                           </a>
                           <a
                             href="https://www.instagram.com/fusionartedelmar/"
-                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-sm inline-flex items-center"
+                            className="text-[#E1306C] hover:text-[#C13584] transition-colors text-base inline-flex items-center"
                           >
                             <Icons.Instagram />
                             <span>@fusionartedelmar</span>

@@ -141,7 +141,7 @@ export function LanguageSelectorUrl() {
               <Link
                 key={lang.code}
                 href={targetPath}
-                className={`px-4 py-2 text-sm hover:bg-gray-100 flex items-center space-x-2 w-full ${
+                className={`px-4 py-2 text-base hover:bg-gray-100 flex items-center space-x-2 w-full ${
                   currentLanguage.code === lang.code ? "bg-blue-50 text-blue-600" : ""
                 }`}
                 onClick={() => setIsOpen(false)}

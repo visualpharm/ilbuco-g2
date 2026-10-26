@@ -22,7 +22,7 @@ import {
   Heart,
   Star,
   CheckCircle,
-} from "lucide-react"
+} from "@/components/icons8-lucide"
 
 export const metadata: Metadata = {
   title: "Coliving Argentina 2025 - Premium Community Living in Carilo Beach | Il Buco",
@@ -460,7 +460,7 @@ export default function ColivingArgentinaPage() {
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-3">Urban Coliving</h3>
                   <p className="text-gray-600 mb-4">Buenos Aires, Cordoba, Rosario</p>
-                  <ul className="space-y-2 text-sm text-gray-600">
+                  <ul className="space-y-2 text-base text-gray-600">
                     <li className="flex items-center"><MapPin className="h-4 w-4 text-red-500 mr-2" />City center locations</li>
                     <li className="flex items-center"><Users className="h-4 w-4 text-blue-500 mr-2" />20-50 residents</li>
                     <li className="flex items-center"><Coffee className="h-4 w-4 text-brown-500 mr-2" />Coworking spaces</li>
@@ -482,7 +482,7 @@ export default function ColivingArgentinaPage() {
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-3">Beach Coliving</h3>
                   <p className="text-gray-600 mb-4">Carilo, Mar del Plata, Pinamar</p>
-                  <ul className="space-y-2 text-sm text-gray-600">
+                  <ul className="space-y-2 text-base text-gray-600">
                     <li className="flex items-center"><Waves className="h-4 w-4 text-blue-500 mr-2" />Beachfront access</li>
                     <li className="flex items-center"><Home className="h-4 w-4 text-purple-500 mr-2" />4-12 residents</li>
                     <li className="flex items-center"><Sun className="h-4 w-4 text-yellow-500 mr-2" />Outdoor focus</li>
@@ -504,7 +504,7 @@ export default function ColivingArgentinaPage() {
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-3">Mountain Coliving</h3>
                   <p className="text-gray-600 mb-4">Bariloche, Villa La Angostura</p>
-                  <ul className="space-y-2 text-sm text-gray-600">
+                  <ul className="space-y-2 text-base text-gray-600">
                     <li className="flex items-center"><Tree className="h-4 w-4 text-green-500 mr-2" />Nature immersion</li>
                     <li className="flex items-center"><Shield className="h-4 w-4 text-gray-500 mr-2" />Quiet and peaceful</li>
                     <li className="flex items-center"><Coffee className="h-4 w-4 text-brown-500 mr-2" />Cozy atmosphere</li>
@@ -637,7 +637,7 @@ export default function ColivingArgentinaPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Julia Martinez</h4>
-                    <p className="text-gray-600 text-sm">Product Designer, Spain</p>
+                    <p className="text-gray-600 text-base">Product Designer, Spain</p>
                   </div>
                 </div>
               </div>
@@ -657,7 +657,7 @@ export default function ColivingArgentinaPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Tom Chen</h4>
-                    <p className="text-gray-600 text-sm">Software Developer, Canada</p>
+                    <p className="text-gray-600 text-base">Software Developer, Canada</p>
                   </div>
                 </div>
               </div>
@@ -677,7 +677,7 @@ export default function ColivingArgentinaPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Lisa Schmidt</h4>
-                    <p className="text-gray-600 text-sm">Marketing Consultant, Germany</p>
+                    <p className="text-gray-600 text-base">Marketing Consultant, Germany</p>
                   </div>
                 </div>
               </div>
@@ -713,7 +713,7 @@ export default function ColivingArgentinaPage() {
               </div>
               
               <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-500 p-8 rounded-xl relative">
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-base font-semibold">
                   Most Popular
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Monthly Stay</h3>
