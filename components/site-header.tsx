@@ -10,13 +10,13 @@ import { BookingPopup } from "./booking-popup"
 import { useNavItems } from "./use-nav-items"
 
 export function SiteHeader() {
-  const { home, items } = useNavItems()
+  const { home, atHome, items } = useNavItems()
   const [isBookingPopupOpen, setIsBookingPopupOpen] = useState(false)
 
   return (
     <header className="border-b">
       <div className="container mx-auto flex items-center justify-between px-4 py-4">
-        <Link href={home} className="text-2xl font-bold tracking-tight">
+        <Link href={home} aria-current={atHome ? "page" : undefined} className="text-2xl font-bold tracking-tight">
           IL BUCO
         </Link>
         <div className="flex items-center gap-2">

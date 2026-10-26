@@ -99,7 +99,7 @@ export function LocationContent({ introTail, carTail }: LocationContentProps) {
                   <p>
                     <Translate text={t.gettingHere.bus.description} />
                   </p>
-                  <figure className="mt-3">
+                  <div className="mt-3">
                     <Image
                       src={`${BLOB}/cama_ejecutivo.jpg-nW5M2EciGfoaFbCppu2LS7uEYekT5e.jpeg`}
                       alt="Cama Ejecutivo bus interior"
@@ -107,10 +107,10 @@ export function LocationContent({ introTail, carTail }: LocationContentProps) {
                       width={240}
                       className="rounded-lg object-cover"
                     />
-                    <figcaption className="mt-2">
+                    <p className="mt-2">
                       <Translate text={t.gettingHere.bus.tip} />
-                    </figcaption>
-                  </figure>
+                    </p>
+                  </div>
                 </Way>
                 <Way
                   icon="steering-wheel.png"

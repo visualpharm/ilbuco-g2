@@ -16,8 +16,10 @@ export function useNavItems() {
     { href: language.code === "es" ? "/que-hacer-en-carilo" : `${prefix}/places-nearby`, label: translations.nav.placesNearby },
     { href: `${prefix}/contacts`, label: translations.nav.contact },
   ]
+  const home = prefix || "/"
   return {
-    home: prefix || "/",
+    home,
+    atHome: pathname === home || pathname === home + "/",
     items: items.map((item) => ({
       ...item,
       current: pathname === item.href || pathname.startsWith(item.href + "/"),

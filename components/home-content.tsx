@@ -116,7 +116,7 @@ export function HomeContent({
 
         <section className="bg-white py-16">
           <div className="container mx-auto px-4">
-            <figure className="mx-auto max-w-md text-center">
+            <div className="mx-auto max-w-md text-center">
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-n9F4IHjvhVUozNWKdlOYin6434gR7J.png"
                 alt={speedAlt}
@@ -124,10 +124,7 @@ export function HomeContent({
                 height={400}
                 className="mx-auto"
               />
-              <figcaption className="mt-4 text-base text-gray-700">
-                <Translate text={translations.home.internetSpeed.caption} />
-              </figcaption>
-            </figure>
+            </div>
           </div>
         </section>
 
