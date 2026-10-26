@@ -231,7 +231,7 @@ export function ImageLightbox({ images, isOpen, currentIndex, onClose, onNext, o
       aria-modal="true"
       aria-label={t.dialog}
       className="fixed inset-0 z-[60] select-none"
-      style={{ backgroundColor: `rgba(0,0,0,${0.94 * fade})`, transition: animating ? `background-color ${ANIM_MS}ms` : "none" }}
+      style={{ backgroundColor: `rgba(0,0,0,${fade})`, transition: animating ? `background-color ${ANIM_MS}ms` : "none" }}
     >
       <div
         ref={stageRef}
