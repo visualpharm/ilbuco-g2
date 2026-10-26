@@ -2,7 +2,8 @@
 
 import { Translate } from "./translate"
 import { translations } from "@/translations/common"
-import { Mail, Phone, Instagram } from "lucide-react"
+import Image from "next/image"
+import { CONTACT } from "@/lib/contact"
 import { useLanguage } from "@/contexts/language-context"
 import { usePathname } from "next/navigation"
 
@@ -61,11 +62,6 @@ export function SiteFooter() {
   const currentSeoLinks = seoLinks[language.code as keyof typeof seoLinks] || []
   const pageHash = pathname.split('').reduce((a, b) => a + b.charCodeAt(0), 0)
   
-  // Debug: log what we're working with
-  if (typeof window !== 'undefined') {
-    console.log('Footer Debug:', { languageCode: language.code, pathname, currentSeoLinksCount: currentSeoLinks.length })
-  }
-  
   let footerLinks = []
   
   if (currentSeoLinks.length >= 3) {
@@ -91,30 +87,20 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-gray-200 bg-white py-6">
       <div className="container mx-auto px-4">
-        <div className="space-y-4 text-base">
-          {/* First Line: Copyright and SEO Links */}
-          <div className="flex flex-col items-center gap-4 text-center">
-            <div className="text-gray-500">
-              © {currentYear} <a href="https://aiandtractors.com" className="hover:underline">Ivan Braun</a>
-              {footerLinks.length > 0 && (
-                <span className="ml-4 space-x-4">
-                  {footerLinks.map((link, index) => (
-                    <a
-                      key={index}
-                      href={link.href}
-                      {...(link.href.startsWith('http') ? {} : {})}
-                      className="text-gray-500 hover:text-gray-700 no-underline"
-                    >
-                      {link.text}
-                    </a>
-                  ))}
-                </span>
-              )}
-            </div>
-          </div>
-          
+        <div className="space-y-3 text-base">
+          <p className="flex flex-wrap items-center justify-center gap-x-4 text-gray-700">
+            <span>
+              © {currentYear} <a href="https://aiandtractors.com" className="inline-flex min-h-[44px] items-center text-gray-700 no-underline hover:text-gray-900">Ivan Braun</a>
+            </span>
+            {footerLinks.map((link, index) => (
+              <a key={index} href={link.href} className="inline-flex min-h-[44px] items-center text-gray-700 no-underline hover:text-gray-900">
+                {link.text}
+              </a>
+            ))}
+          </p>
+
           {!/(?:^|\/)(reservar|admin|nimda|dashboard|guest|voice|vanish)(?:\/|$)/.test(pathname) && (
-            <nav aria-label={language.code === 'es' ? 'Otros proyectos' : 'Other projects'} className="project-links flex flex-wrap justify-center gap-x-6 gap-y-4 border-t border-gray-200 pt-5 text-base text-blue-700">
+            <nav aria-label={language.code === 'es' ? 'Otros proyectos' : 'Other projects'} className="project-links flex flex-wrap justify-center gap-x-6 border-t border-gray-200 pt-3 text-base text-blue-700 [&>a]:inline-flex [&>a]:min-h-[44px] [&>a]:items-center">
               <a href="https://usabruno.com">Bruno</a>
               <a href="https://lira-voice.app">Lira</a>
               <a href="https://humanrounds.org">Human Rounds</a>
@@ -123,34 +109,19 @@ export function SiteFooter() {
             </nav>
           )}
 
-          {/* Second Line: Contact Info and Social */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6 text-gray-600">
-            <div className="flex items-center gap-2">
-              <Mail className="h-4 w-4 flex-shrink-0" />
-              <a href="mailto:ciao@ilbuco.com.ar" className="hover:text-gray-800 transition-colors whitespace-nowrap">
-                ciao@ilbuco.com.ar
-              </a>
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone className="h-4 w-4 flex-shrink-0" />
-              <a
-                href="https://wa.me/541121275492?text=Hola!%20Me%20interesa%20IL%20BUCO.%20¿Podrían%20ayudarme?"
-                className="hover:text-green-600 transition-colors whitespace-nowrap"
-              >
-                +54 11 2127 5492
-              </a>
-            </div>
-            <div className="flex items-center gap-2">
-              <Instagram className="h-4 w-4 flex-shrink-0" />
-              <a
-                href="https://www.instagram.com/il.buco.carilo"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-pink-600 transition-colors whitespace-nowrap"
-              >
-                @il.buco.carilo
-              </a>
-            </div>
+          <div className="flex flex-col items-center justify-center gap-x-6 text-gray-800 sm:flex-row">
+            <a href={`mailto:${CONTACT.email}`} className="inline-flex min-h-[44px] items-center gap-2 hover:text-gray-950">
+              <Image src="/icons/icons8/mail.png" alt="" width={20} height={20} />
+              {CONTACT.email}
+            </a>
+            <a href={CONTACT.whatsappUrl} className="inline-flex min-h-[44px] items-center gap-2 whitespace-nowrap hover:text-gray-950">
+              <Image src="/icons/icons8/whatsapp.png" alt="" width={20} height={20} />
+              {CONTACT.phoneDisplay}
+            </a>
+            <a href={CONTACT.instagramUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[44px] items-center gap-2 hover:text-gray-950">
+              <Image src="/icons/icons8/instagram-sf.png" alt="" width={20} height={20} />
+              {CONTACT.instagram}
+            </a>
           </div>
         </div>
       </div>

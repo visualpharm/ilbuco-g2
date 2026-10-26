@@ -1,105 +1,81 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { X } from "lucide-react"
-import { LanguageSelector } from "./language-selector"
+import Image from "next/image"
 import { Translate } from "./translate"
 import { translations } from "@/translations/common"
-import { useLanguage } from "@/contexts/language-context"
 import { BookingPopup } from "./booking-popup"
+import { useNavItems } from "./use-nav-items"
 
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false)
   const [isBookingPopupOpen, setIsBookingPopupOpen] = useState(false)
-  const { language } = useLanguage()
-  const pathname = usePathname()
-  
-  // Determine language prefix based on current language code
-  const langPrefix = language.code === "es" ? "" : `/${language.code}`
+  const { home, items } = useNavItems()
+
+  useEffect(() => {
+    if (!isOpen) return
+    document.body.style.overflow = "hidden"
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setIsOpen(false)
+    document.addEventListener("keydown", onKey)
+    return () => {
+      document.body.style.overflow = ""
+      document.removeEventListener("keydown", onKey)
+    }
+  }, [isOpen])
 
   return (
     <div>
-      <button onClick={() => setIsOpen(true)} aria-label="Open menu">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+      <button
+        onClick={() => setIsOpen(true)}
+        aria-label="Menú"
+        aria-expanded={isOpen}
+        className="flex h-11 w-11 items-center justify-center rounded-md hover:bg-gray-100"
+      >
+        <Image src="/icons/icons8/menu.png" alt="" width={24} height={24} />
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 z-50 bg-white">
-          <div className="flex flex-col h-full">
-            <div className="flex justify-between items-center p-4 border-b">
-              <Link href={langPrefix || "/"} className="text-2xl font-bold tracking-tight" onClick={() => setIsOpen(false)}>
+        <div className="fixed inset-0 z-50 bg-white" role="dialog" aria-modal="true">
+          <div className="flex h-full flex-col">
+            <div className="flex items-center justify-between border-b px-4 py-4">
+              <Link href={home} className="text-2xl font-bold tracking-tight" onClick={() => setIsOpen(false)}>
                 IL BUCO
               </Link>
-              <button onClick={() => setIsOpen(false)} aria-label="Close menu">
-                <X className="h-6 w-6" />
+              <button
+                onClick={() => setIsOpen(false)}
+                aria-label="Cerrar"
+                className="flex h-11 w-11 items-center justify-center rounded-md hover:bg-gray-100"
+              >
+                <Image src="/icons/icons8/close.png" alt="" width={24} height={24} />
               </button>
             </div>
-            <nav className="flex flex-col p-4 space-y-4 max-h-[calc(100vh-80px)] overflow-y-auto">
-              <Link
-                href={`${langPrefix}/the-house`}
-                className="block text-lg font-medium hover:text-blue-600 transition-colors py-3"
-                onClick={() => setIsOpen(false)}
-              >
-                <Translate text={translations.nav.theHouse} />
-              </Link>
-              <Link
-                href={`${langPrefix}/rooms`}
-                className="block text-lg font-medium hover:text-blue-600 transition-colors py-3"
-                onClick={() => setIsOpen(false)}
-              >
-                <Translate text={translations.nav.rooms} />
-              </Link>
-              <Link
-                href={`${langPrefix}/location`}
-                className="block text-lg font-medium hover:text-blue-600 transition-colors py-3"
-                onClick={() => setIsOpen(false)}
-              >
-                <Translate text={translations.nav.location} />
-              </Link>
-              <Link
-                href={`${langPrefix}/places-nearby`}
-                className="block text-lg font-medium hover:text-blue-600 transition-colors py-3"
-                onClick={() => setIsOpen(false)}
-              >
-                <Translate text={translations.nav.placesNearby} />
-              </Link>
-              <Link
-                href={`${langPrefix}/contacts`}
-                className="block text-lg font-medium hover:text-blue-600 transition-colors py-3"
-                onClick={() => setIsOpen(false)}
-              >
-                <Translate text={translations.nav.contact} />
-              </Link>
+            <nav className="flex flex-col overflow-y-auto px-4 py-2">
+              {items.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={item.current ? "page" : undefined}
+                  className={`block py-3 text-lg ${item.current ? "font-semibold text-gray-900" : "font-medium text-gray-800"}`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Translate text={item.label} />
+                </Link>
+              ))}
               <button
                 onClick={() => {
                   setIsOpen(false)
                   setIsBookingPopupOpen(true)
                 }}
-                className="block text-center px-4 py-3 bg-black text-white text-lg font-medium rounded-md hover:bg-gray-800 transition-colors mt-4 w-full"
+                className="mt-4 self-start rounded-md bg-black px-6 py-3 text-lg font-medium text-white transition-colors hover:bg-gray-800"
               >
                 <Translate text={translations.nav.book} />
               </button>
-              <div className="py-3">
-                <LanguageSelector />
-              </div>
             </nav>
           </div>
         </div>
       )}
-      <BookingPopup 
-        isOpen={isBookingPopupOpen} 
-        onClose={() => setIsBookingPopupOpen(false)} 
-      />
+      <BookingPopup isOpen={isBookingPopupOpen} onClose={() => setIsBookingPopupOpen(false)} />
     </div>
   )
 }

@@ -1,6 +1,4 @@
 import Image from "next/image"
-import Link from "next/link"
-import { MapPin, User, Car } from "lucide-react"
 
 interface BusinessCardProps {
   name: string
@@ -44,56 +42,40 @@ export function BusinessCard({
   }
 }: BusinessCardProps) {
   return (
-    <div className={`bg-gradient-to-br from-${gradientFrom} to-${gradientTo} rounded-lg shadow-sm overflow-hidden`}>
-      <button
-        onClick={onImageClick}
-        className="relative w-full h-48 cursor-zoom-in hover:opacity-90 transition-opacity"
-      >
-        <Image
-          src={imageUrl}
-          alt={imageAlt}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        />
+    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md">
+      <button onClick={onImageClick} className="relative h-48 w-full cursor-zoom-in">
+        <Image src={imageUrl} alt={imageAlt} fill className="object-cover" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" />
       </button>
-      <div className="p-6">
-        <div>
-          <h3 className="text-xl font-semibold mb-2">{name}</h3>
-          <p className="text-gray-700 mb-3">
-            <strong>{translations.for}</strong> {description}
-          </p>
-          <div className="flex items-center gap-4 text-sm text-green-700 mb-3">
-            <span className="flex items-center">
-              <span className="text-yellow-500">★</span> {rating} ({reviewCount}+ {translations.reviews})
+      <div className="space-y-3 p-6 text-base">
+        <h3 className="text-xl font-semibold text-gray-900">{name}</h3>
+        <p className="text-gray-700">
+          <strong className="font-semibold text-gray-900">{translations.for}</strong> {description}
+        </p>
+        <p className="text-gray-800">
+          <span className="text-yellow-600" aria-hidden="true">★</span> {rating} ({reviewCount}+ {translations.reviews})
+        </p>
+        <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-gray-700">
+          <span>{translations.distanceFrom} Il Buco:</span>
+          <span className="inline-flex items-center gap-4 whitespace-nowrap">
+            <span className="inline-flex items-center gap-1">
+              <Image src="/icons/icons8/walking.png" alt="" width={18} height={18} />
+              {walkingTime}
             </span>
-          </div>
-          <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-            <span className="font-medium">
-              {translations.distanceFrom}{" "}
-              <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">
-                Il Buco
-              </Link>:
+            <span className="inline-flex items-center gap-1">
+              <Image src="/icons/icons8/car-sf.png" alt="" width={18} height={18} />
+              {drivingTime}
             </span>
-            <div className="flex items-center gap-1">
-              <User className="h-4 w-4" />
-              <span>{walkingTime}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Car className="h-4 w-4" />
-              <span>{drivingTime}</span>
-            </div>
-          </div>
-          <a
-            href={googleMapsUrl}
-            className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
-            target="_blank"
-            rel="nofollow noopener noreferrer"
-          >
-            <MapPin className="h-4 w-4" />
-            {translations.viewOnGoogleMaps}
-          </a>
-        </div>
+          </span>
+        </p>
+        <a
+          href={googleMapsUrl}
+          className="inline-flex min-h-[44px] items-center gap-2 font-medium text-blue-700 hover:text-blue-900"
+          target="_blank"
+          rel="nofollow noopener noreferrer"
+        >
+          <Image src="/icons/icons8/marker.png" alt="" width={18} height={18} />
+          {translations.viewOnGoogleMaps}
+        </a>
       </div>
     </div>
   )

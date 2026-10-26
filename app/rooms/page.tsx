@@ -6,6 +6,7 @@ import { Translate } from "@/components/translate"
 import { ImageGallery } from "@/components/image-gallery"
 import { roomsTranslations } from "@/translations/rooms"
 import { RoomFeatureIcon } from "@/components/room-feature-icon"
+import { OnlyLanguage } from "@/components/only-language"
 
 export default function Rooms() {
   const gardenSuiteImages = [
@@ -65,26 +66,26 @@ export default function Rooms() {
               <div className="space-y-16">
                 {/* Terrace Suite (Terrazo) */}
                 <div>
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
                     <h2 className="text-2xl font-bold">
                       <Translate text={roomsTranslations.terraceSuite.title} />
                     </h2>
                     <a
                       href="/reservar/terrazzo"
-                      className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
+                      className="inline-flex flex-shrink-0 items-center px-4 py-2.5 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-base"
                     >
                       <Translate text={{
-                        en: "Book Terrezzo",
-                        es: "Reservar Terrezzo",
-                        pt: "Reservar Terrezzo",
-                        ru: "Забронировать Terrezzo"
+                        en: "Book Terrazzo",
+                        es: "Reservar Terrazzo",
+                        pt: "Reservar Terrazzo",
+                        ru: "Забронировать Terrazzo"
                       }} />
                     </a>
                   </div>
-                  <p className="text-gray-600 mb-6">
-                    <Translate text={roomsTranslations.terraceSuite.subtitle} /> Ideal como <Link href="/casas-en-carilo-alquiler" className="text-gray-600 no-underline hover:text-gray-500">casa</Link> de lujo y <Link href="/carilo-golf-hospedaje" className="text-gray-600 no-underline hover:text-gray-500">hospedaje</Link> premium.
+                  <p className="text-gray-700 mb-6">
+                    <Translate text={roomsTranslations.terraceSuite.subtitle} /> <OnlyLanguage code="es">Ideal como <Link href="/casas-en-carilo-alquiler" className="text-inherit no-underline">casa</Link> de lujo y <Link href="/carilo-golf-hospedaje" className="text-inherit no-underline">hospedaje</Link> premium.</OnlyLanguage>
                   </p>
-                  <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
+                  <ul className="space-y-2 text-gray-800 mb-8">
                     <li className="flex items-start">
                       <RoomFeatureIcon name="flower" className="mr-3 mt-1" />
                       <span>
@@ -165,19 +166,19 @@ export default function Rooms() {
                     </li>
                   </ul>
 
-                  <ImageGallery images={terraceSuiteImages} />
+                  <ImageGallery images={terraceSuiteImages} className="mb-8" />
 
                 </div>
 
                 {/* Penthouse Suite */}
                 <div>
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
                     <h2 className="text-2xl font-bold">
                       <Translate text={roomsTranslations.penthouseSuite.title} />
                     </h2>
                     <a
                       href="/reservar/penthouse"
-                      className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
+                      className="inline-flex flex-shrink-0 items-center px-4 py-2.5 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-base"
                     >
                       <Translate text={{
                         en: "Book Penthouse",
@@ -187,10 +188,10 @@ export default function Rooms() {
                       }} />
                     </a>
                   </div>
-                  <p className="text-gray-600 mb-6">
+                  <p className="text-gray-700 mb-6">
                     <Translate text={roomsTranslations.penthouseSuite.subtitle} />
                   </p>
-                  <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
+                  <ul className="space-y-2 text-gray-800 mb-8">
                     <li className="flex items-start">
                       <RoomFeatureIcon name="flower" className="mr-3 mt-1" />
                       <span>
@@ -245,19 +246,19 @@ export default function Rooms() {
                     </li>
                   </ul>
 
-                  <ImageGallery images={penthouseSuiteImages} />
+                  <ImageGallery images={penthouseSuiteImages} className="mb-8" />
 
                 </div>
 
                 {/* Garden Suite (Giardino) */}
                 <div>
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
                     <h2 className="text-2xl font-bold">
                       <Translate text={roomsTranslations.gardenSuite.title} />
                     </h2>
                     <a
                       href="/reservar/giardino"
-                      className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
+                      className="inline-flex flex-shrink-0 items-center px-4 py-2.5 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-base"
                     >
                       <Translate text={{
                         en: "Book Giardino",
@@ -267,10 +268,10 @@ export default function Rooms() {
                       }} />
                     </a>
                   </div>
-                  <p className="text-gray-600 mb-6">
+                  <p className="text-gray-700 mb-6">
                     <Translate text={roomsTranslations.gardenSuite.subtitle} />
                   </p>
-                  <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
+                  <ul className="space-y-2 text-gray-800 mb-8">
                     <li className="flex items-start">
                       <RoomFeatureIcon name="wheelchair" className="mr-3 mt-1" />
                       <span>
@@ -312,19 +313,19 @@ export default function Rooms() {
                     </li>
                   </ul>
 
-                  <ImageGallery images={gardenSuiteImages} />
+                  <ImageGallery images={gardenSuiteImages} className="mb-8" />
 
                 </div>
 
                 {/* Forest-View Suite (Paraiso) */}
                 <div>
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
                     <h2 className="text-2xl font-bold">
                       <Translate text={roomsTranslations.forestSuite.title} />
                     </h2>
                     <a
                       href="/reservar/paraiso"
-                      className="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
+                      className="inline-flex flex-shrink-0 items-center px-4 py-2.5 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-base"
                     >
                       <Translate text={{
                         en: "Book Paraiso",
@@ -334,10 +335,10 @@ export default function Rooms() {
                       }} />
                     </a>
                   </div>
-                  <p className="text-gray-600 mb-6">
+                  <p className="text-gray-700 mb-6">
                     <Translate text={roomsTranslations.forestSuite.subtitle} />
                   </p>
-                  <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
+                  <ul className="space-y-2 text-gray-800 mb-8">
                     <li className="flex items-start">
                       <RoomFeatureIcon name="window" className="mr-3 mt-1" />
                       <span>
@@ -360,19 +361,6 @@ export default function Rooms() {
                             es: "Dormitorio separado + sala de estar/trabajo",
                             pt: "Quarto separado + sala de estar/trabalho",
                             ru: "Отдельная спальня + гостиная/рабочая комната"
-                          }}
-                        />
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <RoomFeatureIcon name="padlock" className="mr-3 mt-1" />
-                      <span>
-                        <Translate
-                          text={{
-                            en: "Enhanced privacy with distinct living areas",
-                            es: "Mayor privacidad con áreas de estar diferenciadas",
-                            pt: "Maior privacidade com áreas de estar distintas",
-                            ru: "Усиленная приватность с отдельными зонами"
                           }}
                         />
                       </span>
@@ -418,7 +406,7 @@ export default function Rooms() {
                     </li>
                   </ul>
 
-                  <ImageGallery images={forestSuiteImages} />
+                  <ImageGallery images={forestSuiteImages} className="mb-8" />
 
                 </div>
 
@@ -474,7 +462,7 @@ export default function Rooms() {
                       height={400}
                       className="w-full h-64 object-cover rounded-lg"
                     />
-                    <p className="text-sm text-gray-600 mt-3 font-medium">
+                    <p className="text-base text-gray-700 mt-3">
                       <Translate text={roomsTranslations.kitchenware.caption} />
                     </p>
                   </div>
@@ -485,10 +473,10 @@ export default function Rooms() {
                   <h2 className="text-2xl font-bold mb-2">
                     <Translate text={roomsTranslations.livingRoom.title} />
                   </h2>
-                  <p className="text-gray-600 mb-6">
+                  <p className="text-gray-700 mb-6">
                     <Translate text={roomsTranslations.livingRoom.subtitle} />
                   </p>
-                  <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-8">
+                  <ul className="space-y-2 text-gray-800 mb-8">
                      <li className="flex items-start">
                       <RoomFeatureIcon name="window" className="mr-3 mt-1" />
                       <span>
@@ -555,7 +543,7 @@ export default function Rooms() {
                     </li>
                   </ul>
 
-                  <ImageGallery images={livingRoomImages} />
+                  <ImageGallery images={livingRoomImages} className="mb-8" />
 
                 </div>
               </div>

@@ -38,7 +38,8 @@ export const RoomFeatureIcon: React.FC<RoomFeatureIconProps> = ({
   return (
     <img 
       src={iconUrl} 
-      alt={`${name} icon`}
+      alt=""
+      aria-hidden="true"
       width={size}
       height={size}
       className={`inline-block flex-shrink-0 ${className}`}

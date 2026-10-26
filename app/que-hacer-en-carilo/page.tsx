@@ -3,21 +3,11 @@
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { BusinessCard } from "@/components/business-card"
+import { ImageLightbox } from "@/components/image-lightbox"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import { useState, useEffect } from "react"
-import {
-  X,
-  ChevronLeft,
-  ChevronRight,
-  ArrowRight,
-  MapPin,
-  Waves,
-  Bike,
-  Car,
-  User
-} from "lucide-react"
+import { useState } from "react"
 
 // Translations for the page
 const translations = {
@@ -32,6 +22,12 @@ const translations = {
     en: " in Cariló",
     pt: " em Cariló",
     ru: " в Карило"
+  },
+  photos: {
+    es: "Fotos",
+    en: "Photos",
+    pt: "Fotos",
+    ru: "Фото"
   },
   indexTitle: {
     es: "Índice de Contenidos",
@@ -490,6 +486,11 @@ const cariloGalleryImages = [
     alt: "Cariló Golf Club campo de golf en Cariló",
     title: "Cariló Golf Club",
   },
+  {
+    src: "/photo/zona/File 24-04-2025, 10 36 15 PM (5) (1).jpg",
+    alt: "Qué hacer en Cariló - vista panorámica de playa y bosque de pinos",
+    title: "Playa de Cariló",
+  }
 ]
 
 export default function QueHacerEnCarilo() {
@@ -511,32 +512,6 @@ export default function QueHacerEnCarilo() {
     distanceFrom: t.distanceFrom[lang],
     viewOnGoogleMaps: t.viewOnGoogleMaps[lang]
   }
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (selectedImage === null) return
-
-      if (e.key === "Escape") {
-        setSelectedImage(null)
-      } else if (e.key === "ArrowLeft") {
-        setSelectedImage((prev) => (prev === null ? null : prev === 0 ? cariloGalleryImages.length - 1 : prev - 1))
-      } else if (e.key === "ArrowRight") {
-        setSelectedImage((prev) => (prev === null ? null : prev === cariloGalleryImages.length - 1 ? 0 : prev + 1))
-      }
-    }
-
-    if (selectedImage !== null) {
-      document.addEventListener("keydown", handleKeyDown)
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = "unset"
-    }
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown)
-      document.body.style.overflow = "unset"
-    }
-  }, [selectedImage])
 
   const openLightbox = (index: number) => {
     setSelectedImage(index)
@@ -565,74 +540,45 @@ export default function QueHacerEnCarilo() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
               <div className="space-y-4 md:space-y-5 lg:space-y-6 order-1 md:order-1">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  <span className="text-gray-600">{t.title[lang]}</span>{t.inCarilo[lang]}
+                  {t.title[lang]}{t.inCarilo[lang]}
                 </h1>
-                <div className="space-y-4">
-                  <h2 className="text-xl md:text-2xl font-semibold text-gray-800">{t.indexTitle[lang]}</h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <Link href="#playas-naturaleza" className="flex items-center p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors border border-blue-200">
-                      <Waves className="h-5 w-5 text-blue-600 mr-3" />
-                      <span className="text-sm font-medium text-gray-800">{t.beachNature[lang]}</span>
-                    </Link>
-                    <Link href="#deportes-fitness" className="flex items-center p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors border border-green-200">
-                      <span className="h-5 w-5 text-green-600 mr-3">🏃</span>
-                      <span className="text-sm font-medium text-gray-800">{t.sportsFitness[lang]}</span>
-                    </Link>
-                    <Link href="/restaurantes-carilo" className="flex items-center p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors border border-orange-200">
-                      <span className="h-5 w-5 text-orange-600 mr-3">🍽️</span>
-                      <span className="text-sm font-medium text-gray-800">{t.foodRestaurants[lang]}</span>
-                    </Link>
-                    <Link href="/que-hacer-en-carilo/cuando-llueve" className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200">
-                      <span className="h-5 w-5 text-gray-600 mr-3">🌧️</span>
-                      <span className="text-sm font-medium text-gray-800">{t.rainyDay[lang]}</span>
-                    </Link>
-                    <Link href="/que-hacer-en-carilo/en-invierno" className="flex items-center p-3 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors border border-indigo-200">
-                      <span className="h-5 w-5 text-indigo-600 mr-3">❄️</span>
-                      <span className="text-sm font-medium text-gray-800">{t.winterActivities[lang]}</span>
-                    </Link>
-                    <Link href="/alrededores-carilo" className="flex items-center p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors border border-purple-200">
-                      <Car className="h-5 w-5 text-purple-600 mr-3" />
-                      <span className="text-sm font-medium text-gray-800">{t.nearbyPlaces[lang]}</span>
-                    </Link>
-                  </div>
-                </div>
+                <nav aria-label={t.indexTitle[lang]}>
+                  <ul className="grid grid-cols-1 gap-x-8 sm:grid-cols-2 text-lg">
+                    {([
+                      ["#playas-naturaleza", t.beachNature[lang]],
+                      ["#deportes-fitness", t.sportsFitness[lang]],
+                      ["/restaurantes-carilo", t.foodRestaurants[lang]],
+                      ["/que-hacer-en-carilo/cuando-llueve", t.rainyDay[lang]],
+                      ["/que-hacer-en-carilo/en-invierno", t.winterActivities[lang]],
+                      ["/alrededores-carilo", t.nearbyPlaces[lang]],
+                    ] as const).map(([href, label]) => (
+                      <li key={href}>
+                        <Link href={href} className="inline-flex min-h-[44px] items-center text-blue-700 hover:text-blue-900">
+                          {label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
               </div>
               <div className="order-2 md:order-2">
-                <div className="space-y-1">
-                  {/* Main Hero Image */}
-                  <div className="relative h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] rounded-xl overflow-hidden">
-                    <Image
-                      src="/photo/zona/File 24-04-2025, 10 36 15 PM (5) (1).jpg"
-                      alt="Qué hacer en Cariló - vista panorámica de playa y bosque de pinos"
-                      fill
-                      className="object-cover"
-                      priority
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
-                    />
-                  </div>
-                  
-                  {/* Tiny Gallery Previews */}
-                  <div className="flex gap-1 overflow-x-auto pb-1 scrollbar-hide">
-                    {cariloGalleryImages.map((image, index) => (
-                      <button
-                        key={index}
-                        onClick={() => openLightbox(index)}
-                        className="relative flex-shrink-0 group cursor-pointer"
-                      >
-                        <div className="relative w-14 h-10 rounded-md overflow-hidden">
-                          <Image
-                            src={image.src}
-                            alt={image.alt}
-                            fill
-                            className="object-cover transition-transform duration-200 group-hover:scale-110"
-                            sizes="56px"
-                          />
-                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-200"></div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                <button
+                  onClick={() => openLightbox(cariloGalleryImages.length - 1)}
+                  className="group relative block h-[300px] w-full cursor-zoom-in overflow-hidden rounded-xl md:h-[350px] lg:h-[450px] xl:h-[500px]"
+                >
+                  <Image
+                    src="/photo/zona/File 24-04-2025, 10 36 15 PM (5) (1).jpg"
+                    alt="Qué hacer en Cariló - vista panorámica de playa y bosque de pinos"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                    priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
+                  />
+                  <span className="absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-md bg-white/90 px-3 py-2 text-base font-medium text-gray-900 shadow-sm">
+                    <Image src="/icons/icons8/gallery.png" alt="" width={20} height={20} />
+                    {t.photos[lang]}
+                  </span>
+                </button>
               </div>
             </div>
           </div>
@@ -654,7 +600,7 @@ export default function QueHacerEnCarilo() {
               {t.beachNatureTitle[lang]}
             </h2>
             <p className="text-lg text-gray-700 text-center max-w-4xl mx-auto mb-10">
-              {t.beachNatureDesc[lang]} <Link href="/team-building-carilo" className="text-gray-700 no-underline hover:text-gray-600">{t.groupActivities[lang]}</Link> {lang === 'ru' ? 'и' : 'y'} <Link href="/eventos-corporativos-carilo" className="text-gray-700 no-underline hover:text-gray-600">{t.events[lang]}</Link>{t.outdoorActivities[lang]}
+              {t.beachNatureDesc[lang]} <Link href="/team-building-carilo" className="text-gray-700 no-underline hover:text-gray-600">{t.groupActivities[lang]}</Link> {({ es: 'y', en: 'and', pt: 'e', ru: 'и' } as const)[lang]} <Link href="/eventos-corporativos-carilo" className="text-gray-700 no-underline hover:text-gray-600">{t.events[lang]}</Link>{t.outdoorActivities[lang]}
             </p>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -690,11 +636,8 @@ export default function QueHacerEnCarilo() {
                 translations={businessCardTranslations}
               />
 
-              <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg shadow-sm overflow-hidden">
-                <button
-                  onClick={() => openLightbox(16)}
-                  className="relative w-full h-48 cursor-zoom-in hover:opacity-90 transition-opacity"
-                >
+              <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md">
+                <button onClick={() => openLightbox(16)} className="relative h-48 w-full cursor-zoom-in">
                   <Image
                     src="/quehacer/motorrad2.jpg"
                     alt="Motorrad alquiler de bicicletas en Cariló"
@@ -703,32 +646,25 @@ export default function QueHacerEnCarilo() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 </button>
-                <div className="p-6">
-                  <div className="flex items-start mb-4">
-                    <Bike className="h-6 w-6 mr-3 mt-1 text-orange-600" />
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">{t.motorradTitle[lang]}</h3>
-                      <p className="text-gray-700 mb-3">
-                        {t.motorradDesc[lang]}
-                      </p>
-                      <div className="flex items-center gap-4 text-sm text-orange-700 mb-3">
-                        <span className="flex items-center">
-                          <span className="text-yellow-500">★</span> 4.6 (75+ {t.reviews[lang]})
-                        </span>
-                        <span>•</span>
-                        <span>{t.offRoadEquipment[lang]}</span>
-                      </div>
-                      <a
-                        href="https://www.google.com/maps/place/Motorrad,+Cerezo,+Cariló,+Provincia+de+Buenos+Aires,+Argentina"
-                        className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MapPin className="h-4 w-4" />
-                        {t.viewOnGoogleMaps[lang]} (24 {t.walkingTime[lang]})
-                      </a>
-                    </div>
-                  </div>
+                <div className="space-y-3 p-6 text-base">
+                  <h3 className="text-xl font-semibold text-gray-900">{t.motorradTitle[lang]}</h3>
+                  <p className="text-gray-700">{t.motorradDesc[lang]}</p>
+                  <p className="text-gray-800">
+                    <span className="text-yellow-600" aria-hidden="true">★</span> 4.6 (75+ {t.reviews[lang]}) · {t.offRoadEquipment[lang]}
+                  </p>
+                  <p className="flex items-center gap-1 text-gray-700">
+                    <Image src="/icons/icons8/walking.png" alt="" width={18} height={18} />
+                    24 min
+                  </p>
+                  <a
+                    href="https://www.google.com/maps/place/Motorrad,+Cerezo,+Cariló,+Provincia+de+Buenos+Aires,+Argentina"
+                    className="inline-flex min-h-[44px] items-center gap-2 font-medium text-blue-700 hover:text-blue-900"
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
+                    <Image src="/icons/icons8/marker.png" alt="" width={18} height={18} />
+                    {t.viewOnGoogleMaps[lang]}
+                  </a>
                 </div>
               </div>
             </div>
@@ -851,32 +787,24 @@ export default function QueHacerEnCarilo() {
                 {/* Gastronomy Card */}
                 <Link href="/restaurantes-carilo" className="block group">
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer">
-                    <div className="flex items-start justify-between mb-3">
-                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-amber-600 transition-colors">{t.restaurantsGastronomy[lang]}</h5>
-                      <div className="text-sm bg-amber-100 text-amber-800 px-2 py-1 rounded-full">
-                        🍽️ 25+ {t.options[lang]}
-                      </div>
+                    <div className="mb-3">
+                      <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors">{t.restaurantsGastronomy[lang]}</h3>
                     </div>
 
-                    <p className="text-gray-700 text-sm mb-4">
+                    <p className="text-gray-700 text-base mb-4">
                       <strong>{t.forDiscover[lang]}</strong>{t.discoverGastronomy[lang]}
                     </p>
 
-                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-700">
                       <span className="font-medium">{t.fromIlBuco[lang]}</span>
                       <div className="flex items-center gap-1">
-                        <User className="h-4 w-4" />
+                        <Image src="/icons/icons8/walking.png" alt="" width={18} height={18} />
                         <span>15-30 {t.min[lang]}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Car className="h-4 w-4" />
+                        <Image src="/icons/icons8/car-sf.png" alt="" width={18} height={18} />
                         <span>3-8 {t.min[lang]}</span>
                       </div>
-                    </div>
-
-                    <div className="inline-flex items-center gap-1 text-amber-600 group-hover:text-amber-800 text-sm font-medium transition-colors">
-                      <ArrowRight className="h-4 w-4" />
-                      {t.viewRestaurants[lang]}
                     </div>
                   </div>
                 </Link>
@@ -884,32 +812,24 @@ export default function QueHacerEnCarilo() {
                 {/* Rainy Day Activities */}
                 <Link href="/que-hacer-en-carilo/cuando-llueve" className="block group">
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer">
-                    <div className="flex items-start justify-between mb-3">
-                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">{t.rainingInCarilo[lang]}</h5>
-                      <div className="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
-                        🌧️ {t.indoorActivities[lang]}
-                      </div>
+                    <div className="mb-3">
+                      <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors">{t.rainingInCarilo[lang]}</h3>
                     </div>
 
-                    <p className="text-gray-700 text-sm mb-4">
+                    <p className="text-gray-700 text-base mb-4">
                       <strong>{t.forDiscover[lang]}</strong>{t.rainyDayDesc[lang]}
                     </p>
 
-                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-700">
                       <span className="font-medium">{t.fromIlBuco[lang]}</span>
                       <div className="flex items-center gap-1">
-                        <User className="h-4 w-4" />
+                        <Image src="/icons/icons8/walking.png" alt="" width={18} height={18} />
                         <span>15-30 {t.min[lang]}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Car className="h-4 w-4" />
+                        <Image src="/icons/icons8/car-sf.png" alt="" width={18} height={18} />
                         <span>5-10 {t.min[lang]}</span>
                       </div>
-                    </div>
-
-                    <div className="inline-flex items-center gap-1 text-blue-600 group-hover:text-blue-800 text-sm font-medium transition-colors">
-                      <ArrowRight className="h-4 w-4" />
-                      {t.rainyDayActivities[lang]}
                     </div>
                   </div>
                 </Link>
@@ -917,32 +837,24 @@ export default function QueHacerEnCarilo() {
                 {/* Winter Activities */}
                 <Link href="/que-hacer-en-carilo/en-invierno" className="block group">
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer">
-                    <div className="flex items-start justify-between mb-3">
-                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-indigo-600 transition-colors">{t.cariloInWinter[lang]}</h5>
-                      <div className="text-sm bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">
-                        ❄️ {t.noCrowds[lang]}
-                      </div>
+                    <div className="mb-3">
+                      <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors">{t.cariloInWinter[lang]}</h3>
                     </div>
 
-                    <p className="text-gray-700 text-sm mb-4">
+                    <p className="text-gray-700 text-base mb-4">
                       <strong>{t.forDiscover[lang]}</strong>{t.winterDesc[lang]}
                     </p>
 
-                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-700">
                       <span className="font-medium">{t.fromIlBuco[lang]}</span>
                       <div className="flex items-center gap-1">
-                        <User className="h-4 w-4" />
+                        <Image src="/icons/icons8/walking.png" alt="" width={18} height={18} />
                         <span>15-30 {t.min[lang]}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Car className="h-4 w-4" />
+                        <Image src="/icons/icons8/car-sf.png" alt="" width={18} height={18} />
                         <span>5-10 {t.min[lang]}</span>
                       </div>
-                    </div>
-
-                    <div className="inline-flex items-center gap-1 text-indigo-600 group-hover:text-indigo-800 text-sm font-medium transition-colors">
-                      <ArrowRight className="h-4 w-4" />
-                      {t.winterActivitiesLink[lang]}
                     </div>
                   </div>
                 </Link>
@@ -950,32 +862,24 @@ export default function QueHacerEnCarilo() {
                 {/* Shopping & Services */}
                 <Link href="/compras-servicios-carilo" className="block group">
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer">
-                    <div className="flex items-start justify-between mb-3">
-                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-green-600 transition-colors">{t.shoppingServices[lang]}</h5>
-                      <div className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                        🛒 {t.everythingNearby[lang]}
-                      </div>
+                    <div className="mb-3">
+                      <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors">{t.shoppingServices[lang]}</h3>
                     </div>
 
-                    <p className="text-gray-700 text-sm mb-4">
+                    <p className="text-gray-700 text-base mb-4">
                       <strong>{t.forDiscover[lang]}</strong>{t.shoppingDesc[lang]}
                     </p>
 
-                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-700">
                       <span className="font-medium">{t.fromIlBuco[lang]}</span>
                       <div className="flex items-center gap-1">
-                        <User className="h-4 w-4" />
+                        <Image src="/icons/icons8/walking.png" alt="" width={18} height={18} />
                         <span>20-40 {t.min[lang]}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Car className="h-4 w-4" />
+                        <Image src="/icons/icons8/car-sf.png" alt="" width={18} height={18} />
                         <span>3-10 {t.min[lang]}</span>
                       </div>
-                    </div>
-
-                    <div className="inline-flex items-center gap-1 text-green-600 group-hover:text-green-800 text-sm font-medium transition-colors">
-                      <ArrowRight className="h-4 w-4" />
-                      {t.viewShoppingServices[lang]}
                     </div>
                   </div>
                 </Link>
@@ -983,28 +887,20 @@ export default function QueHacerEnCarilo() {
                 {/* Surrounding Areas */}
                 <Link href="/alrededores-carilo" className="block group">
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer">
-                    <div className="flex items-start justify-between mb-3">
-                      <h5 className="text-xl font-bold text-gray-800 group-hover:text-teal-600 transition-colors">{t.surroundingsCarilo[lang]}</h5>
-                      <div className="text-sm bg-teal-100 text-teal-800 px-2 py-1 rounded-full">
-                        🗺️ {t.excursions[lang]}
-                      </div>
+                    <div className="mb-3">
+                      <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors">{t.surroundingsCarilo[lang]}</h3>
                     </div>
 
-                    <p className="text-gray-700 text-sm mb-4">
+                    <p className="text-gray-700 text-base mb-4">
                       <strong>{t.forDiscover[lang]}</strong>{t.surroundingsDesc[lang]}
                     </p>
 
-                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-700">
                       <span className="font-medium">{t.fromIlBuco[lang]}</span>
                       <div className="flex items-center gap-1">
-                        <Car className="h-4 w-4" />
+                        <Image src="/icons/icons8/car-sf.png" alt="" width={18} height={18} />
                         <span>10-30 {t.min[lang]}</span>
                       </div>
-                    </div>
-
-                    <div className="inline-flex items-center gap-1 text-teal-600 group-hover:text-teal-800 text-sm font-medium transition-colors">
-                      <ArrowRight className="h-4 w-4" />
-                      {t.exploreSurroundings[lang]}
                     </div>
                   </div>
                 </Link>
@@ -1016,65 +912,14 @@ export default function QueHacerEnCarilo() {
 
       <SiteFooter />
 
-      {/* Lightbox for Cariló Gallery */}
-      {selectedImage !== null && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center p-4">
-          {/* Close button */}
-          <button
-            onClick={closeLightbox}
-            className="absolute top-4 right-4 z-10 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all duration-200"
-          >
-            <X className="h-6 w-6 text-white" />
-          </button>
-
-          {/* Previous button */}
-          <button
-            onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all duration-200"
-          >
-            <ChevronLeft className="h-6 w-6 text-white" />
-          </button>
-
-          {/* Next button */}
-          <button
-            onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all duration-200"
-          >
-            <ChevronRight className="h-6 w-6 text-white" />
-          </button>
-
-          {/* Main image */}
-          <div className="relative max-w-7xl max-h-full w-full h-full flex items-center justify-center">
-            <div className="relative w-full h-full max-w-5xl max-h-[90vh]">
-              <Image
-                src={cariloGalleryImages[selectedImage].src}
-                alt={cariloGalleryImages[selectedImage].alt}
-                fill
-                className="object-contain"
-                sizes="100vw"
-                priority
-              />
-            </div>
-          </div>
-
-          {/* Image title */}
-          <div className="absolute bottom-16 left-1/2 -translate-x-1/2 px-4 py-2 bg-white bg-opacity-20 rounded-lg">
-            <span className="text-white text-lg font-medium">
-              {cariloGalleryImages[selectedImage].title}
-            </span>
-          </div>
-
-          {/* Image counter */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-white bg-opacity-20 rounded-full">
-            <span className="text-white text-sm">
-              {selectedImage + 1} / {cariloGalleryImages.length}
-            </span>
-          </div>
-
-          {/* Click outside to close */}
-          <div className="absolute inset-0 -z-10" onClick={closeLightbox} />
-        </div>
-      )}
+      <ImageLightbox
+        images={cariloGalleryImages}
+        isOpen={selectedImage !== null}
+        currentIndex={selectedImage ?? 0}
+        onClose={closeLightbox}
+        onNext={goToNext}
+        onPrevious={goToPrevious}
+      />
     </div>
   )
 }

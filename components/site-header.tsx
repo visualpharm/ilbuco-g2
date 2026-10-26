@@ -2,71 +2,51 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import Image from "next/image"
-import { usePathname } from "next/navigation"
 import { MobileMenu } from "./mobile-menu"
 import { LanguageSelector } from "./language-selector"
 import { Translate } from "./translate"
 import { translations } from "@/translations/common"
-import { useLanguage } from "@/contexts/language-context"
 import { BookingPopup } from "./booking-popup"
-import { AvailabilityBadge } from "./availability-badge"
+import { useNavItems } from "./use-nav-items"
 
 export function SiteHeader() {
-  const { language } = useLanguage()
-  const pathname = usePathname()
+  const { home, items } = useNavItems()
   const [isBookingPopupOpen, setIsBookingPopupOpen] = useState(false)
-  
-  // Determine language prefix based on current language code
-  const langPrefix = language.code === "es" ? "" : `/${language.code}`
-
-  // Determine if we're in a language-specific path
-  const isEnglish = pathname.startsWith("/en")
-  const isPortuguese = pathname.startsWith("/pt")
 
   return (
     <header className="border-b">
-      <div className="container mx-auto px-4 py-6 flex justify-between items-center">
-        <Link href={langPrefix || "/"} className="text-2xl font-bold tracking-tight">
+      <div className="container mx-auto flex items-center justify-between px-4 py-4">
+        <Link href={home} className="text-2xl font-bold tracking-tight">
           IL BUCO
         </Link>
-        <div className="flex items-center">
-          <nav className="hidden lg:flex items-center space-x-8">
-            <Link href={`${langPrefix}/the-house`} className="text-sm font-medium hover:text-blue-600 transition-colors">
-              <Translate text={translations.nav.theHouse} />
-            </Link>
-            <Link href={`${langPrefix}/rooms`} className="text-sm font-medium hover:text-blue-600 transition-colors">
-              <Translate text={translations.nav.rooms} />
-            </Link>
-            <Link href={`${langPrefix}/location`} className="text-sm font-medium hover:text-blue-600 transition-colors">
-              <Translate text={translations.nav.location} />
-            </Link>
-            <Link href={`${langPrefix}/${language.code === 'ru' ? 'places-nearby' : 'que-hacer-en-carilo'}`} className="text-sm font-medium hover:text-blue-600 transition-colors">
-              <Translate text={translations.nav.placesNearby} />
-            </Link>
-            <Link href={`${langPrefix}/contacts`} className="text-sm font-medium hover:text-blue-600 transition-colors">
-              <Translate text={translations.nav.contact} />
-            </Link>
+        <div className="flex items-center gap-2">
+          <nav className="hidden items-center gap-1 lg:flex">
+            {items.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={item.current ? "page" : undefined}
+                className={`inline-flex h-11 items-center rounded-md px-3 text-base transition-colors hover:text-blue-700 ${
+                  item.current ? "font-semibold text-gray-900" : "font-medium text-gray-800"
+                }`}
+              >
+                <Translate text={item.label} />
+              </Link>
+            ))}
           </nav>
-          <div className="flex items-center space-x-4 ml-4">
-            <AvailabilityBadge />
-            <button
-              onClick={() => setIsBookingPopupOpen(true)}
-              className="hidden sm:inline-flex items-center space-x-2 px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors whitespace-nowrap"
-            >
-              <Translate text={translations.nav.book} />
-            </button>
-            <LanguageSelector />
-            <div className="lg:hidden">
-              <MobileMenu />
-            </div>
+          <button
+            onClick={() => setIsBookingPopupOpen(true)}
+            className="ml-2 hidden h-11 items-center whitespace-nowrap rounded-md bg-black px-4 text-base font-medium text-white transition-colors hover:bg-gray-800 sm:inline-flex"
+          >
+            <Translate text={translations.nav.book} />
+          </button>
+          <LanguageSelector />
+          <div className="lg:hidden">
+            <MobileMenu />
           </div>
         </div>
       </div>
-      <BookingPopup 
-        isOpen={isBookingPopupOpen} 
-        onClose={() => setIsBookingPopupOpen(false)} 
-      />
+      <BookingPopup isOpen={isBookingPopupOpen} onClose={() => setIsBookingPopupOpen(false)} />
     </header>
   )
 }

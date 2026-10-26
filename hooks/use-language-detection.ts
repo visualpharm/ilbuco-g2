@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { usePathname } from "next/navigation"
 
 // List of Spanish-speaking countries and their flags
@@ -75,62 +75,24 @@ export function useLanguageDetection() {
     country: defaultFlags.es.name,
   }
   
-  const pathname = usePathname()
-  const [detectedLanguage, setDetectedLanguage] = useState<Language>(defaultLang)
-  const [isLoading, setIsLoading] = useState(false)
+  const pathname = usePathname() || "/"
+  const isLoading = false
+
+  // The language comes from the URL alone, so the server renders the same
+  // language the browser shows: no Spanish first paint on /en or /pt.
+  const langCode = /^\/(en|pt|ru)(\/|$)/.exec(pathname)?.[1] || "es"
+  const names: Record<string, string> = { es: "Español", en: "English", pt: "Português", ru: "Русский" }
+  const fallback = defaultFlags[langCode as keyof typeof defaultFlags] || defaultLang
+  const detectedLanguage: Language = {
+    code: langCode,
+    name: names[langCode],
+    flag: fallback.flag,
+    country: "name" in fallback ? fallback.name : defaultLang.country,
+  }
 
   useEffect(() => {
-    // Detect language based on URL path
-    let langCode = "es" // Default is Spanish
-    let countryCode = "AR" // Default country for Spanish
-
-    // Check URL path for language code
-    if (pathname.startsWith("/en")) {
-      langCode = "en"
-      countryCode = "US" // Default country for English
-    } else if (pathname.startsWith("/pt")) {
-      langCode = "pt"
-      countryCode = "BR" // Default country for Portuguese
-    } else if (pathname.startsWith("/ru")) {
-      langCode = "ru"
-      countryCode = "RU" // Default country for Russian
-    }
-
-    // Set language based on URL path
-    if (langCode === "es") {
-      const countryInfo = spanishSpeakingCountries.find(c => c.code === countryCode) || defaultFlags.es
-      setDetectedLanguage({
-        code: "es",
-        name: "Español",
-        flag: countryInfo.flag,
-        country: countryInfo.name,
-      })
-    } else if (langCode === "pt") {
-      const countryInfo = portugueseSpeakingCountries.find(c => c.code === countryCode) || defaultFlags.pt
-      setDetectedLanguage({
-        code: "pt",
-        name: "Português",
-        flag: countryInfo.flag,
-        country: countryInfo.name,
-      })
-    } else if (langCode === "en") {
-      const countryInfo = englishSpeakingCountries.find(c => c.code === countryCode) || defaultFlags.en
-      setDetectedLanguage({
-        code: "en",
-        name: "English",
-        flag: countryInfo.flag,
-        country: countryInfo.name,
-      })
-    } else if (langCode === "ru") {
-      const countryInfo = russianSpeakingCountries.find(c => c.code === countryCode) || defaultFlags.ru
-      setDetectedLanguage({
-        code: "ru",
-        name: "Русский",
-        flag: countryInfo.flag,
-        country: countryInfo.name,
-      })
-    }
-  }, [pathname])
+    document.documentElement.lang = langCode === "pt" ? "pt-BR" : langCode === "es" ? "es-AR" : langCode
+  }, [langCode])
 
   // Instead of setting the language through state/localStorage,
   // we redirect to the appropriate URL based on the language

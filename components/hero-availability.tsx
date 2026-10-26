@@ -27,8 +27,7 @@ export function HeroAvailability() {
         setData(result);
         setError(false);
       } catch (err) {
-        console.error('Error fetching availability:', err);
-        setError(true);
+                setError(true);
       } finally {
         setLoading(false);
       }
@@ -52,8 +51,8 @@ export function HeroAvailability() {
   if (availableSuites === 0) {
     const soldOutText = translations.availability.soldOutToday[langCode] || translations.availability.soldOutToday.en;
     return (
-      <div className="flex items-center gap-2 text-sm text-gray-600">
-        <span className="w-2 h-2 rounded-full bg-red-500" />
+      <div className="flex items-center gap-2 text-base text-gray-700">
+        <span className="w-2 h-2 rounded-full bg-gray-500" />
         <span>{soldOutText}</span>
       </div>
     );
@@ -74,12 +73,12 @@ export function HeroAvailability() {
   let priceText = '';
   if (minPrice && minPrice > 0) {
     const priceTemplate = translations.availability.todayFrom[langCode] || translations.availability.todayFrom.en;
-    priceText = priceTemplate.replace('${price}', `$${minPrice}`);
+    priceText = priceTemplate.replace('${price}', `US$${minPrice}`);
   }
 
   return (
-    <div className="flex items-center gap-2 text-sm">
-      <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+    <div className="flex items-center gap-2 text-base">
+      <span className="w-2 h-2 rounded-full bg-green-600" />
       <span className="text-gray-700">{availabilityText}</span>
       {priceText && (
         <span className="text-green-700 font-medium">· {priceText}</span>

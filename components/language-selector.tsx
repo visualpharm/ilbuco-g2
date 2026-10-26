@@ -109,9 +109,15 @@ export function LanguageSelector() {
       }
     }
 
+    function handleKey(event: KeyboardEvent) {
+      if (event.key === 'Escape') setIsOpen(false)
+    }
+
     document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('keydown', handleKey)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleKey)
     }
   }, [])
 
@@ -129,8 +135,9 @@ export function LanguageSelector() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-start h-10 px-3 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+        className="flex items-center justify-start h-11 px-3 rounded-md text-base font-medium text-gray-800 hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 w-full"
         aria-label="Change language"
+        aria-expanded={isOpen}
       >
         <span>{currentLanguage.name}</span>
       </button>
@@ -146,8 +153,9 @@ export function LanguageSelector() {
               <Link
                 key={lang.code}
                 href={targetPath}
-                className={`px-4 py-2 text-sm hover:bg-gray-100 flex items-center w-full ${
-                  language.code === lang.code ? "bg-blue-50 text-blue-600" : ""
+                aria-current={language.code === lang.code ? "true" : undefined}
+                className={`px-4 min-h-[44px] text-base hover:bg-gray-100 flex items-center w-full ${
+                  language.code === lang.code ? "font-semibold text-gray-900" : "text-gray-800"
                 }`}
                 onClick={() => setIsOpen(false)}
               >

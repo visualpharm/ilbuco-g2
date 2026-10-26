@@ -7,6 +7,8 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Translate } from "@/components/translate"
 import { HeroGallery } from "@/components/hero-gallery"
+import { HouseHighlights } from "@/components/house-highlights"
+import { BookStayCta } from "@/components/book-stay-cta"
 import { houseTranslations } from "@/translations/house"
 import { translations } from "@/translations/common"
 import { Win10Icon } from "@/components/win10-icon"
@@ -98,24 +100,19 @@ export function TheHouseContent() {
                         <button
                           key={index}
                           onClick={() => openLightbox(index)}
-                          className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                          className="group relative overflow-hidden rounded-lg cursor-zoom-in"
                         >
                           <Image 
                             src={image.src}
                             alt={image.alt}
                             width={300}
                             height={225}
-                            className="object-cover w-full h-48 group-hover:scale-110 transition-transform duration-300"
+                            className="object-cover w-full h-48 group-hover:scale-[1.03] transition-transform duration-300"
                           />
-                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-                            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white text-sm font-medium">
-                              Click to enlarge
-                            </div>
-                          </div>
                         </button>
                       ))}
                     </div>
-                    <p className="text-center text-sm text-gray-600 mt-3">
+                    <p className="text-center text-base text-gray-700 mt-3">
                       <Translate
                         text={{
                           en: "When Il Buco was still the hole",
@@ -230,191 +227,10 @@ export function TheHouseContent() {
                   <Translate text={translations.home.highlights.title} />
                 </h2>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-start mb-3">
-                      <Image src="/icons/icons8/wifi.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
-                      <div>
-                        <h3 className="text-lg font-semibold">
-                          <Translate text={translations.home.highlights.internet.title} />
-                        </h3>
-                        <p className="text-gray-600">
-                          <Translate text={translations.home.highlights.internet.description} />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-start mb-3">
-                      <Image src="/icons/icons8/house.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
-                      <div>
-                        <h3 className="text-lg font-semibold">
-                          <Translate text={translations.home.highlights.accommodation.title} />
-                        </h3>
-                        <p className="text-gray-600">
-                          <Translate text={translations.home.highlights.accommodation.description} />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-start mb-3">
-                      <Image src="/icons/icons8/thermometer.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
-                      <div>
-                        <h3 className="text-lg font-semibold">
-                          <Translate text={translations.home.highlights.climate.title} />
-                        </h3>
-                        <p className="text-gray-600">
-                          <Translate text={translations.home.highlights.climate.description} />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-start mb-3">
-                      <Image src="/icons/icons8/sofa.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
-                      <div>
-                        <h3 className="text-lg font-semibold">
-                          <Translate text={translations.home.highlights.commonAreas.title} />
-                        </h3>
-                        <p className="text-gray-600">
-                          <Translate text={translations.home.highlights.commonAreas.description} />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-start mb-3">
-                      <Image src="/icons/icons8/tree.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
-                      <div>
-                        <h3 className="text-lg font-semibold">
-                          <Translate text={translations.home.highlights.outdoorSpace.title} />
-                        </h3>
-                        <p className="text-gray-600">
-                          <Translate text={translations.home.highlights.outdoorSpace.description} />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-start mb-3">
-                      <Image src="/icons/icons8/refrigerator.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
-                      <div>
-                        <h3 className="text-lg font-semibold">
-                          <Translate text={translations.home.highlights.kitchen.title} />
-                        </h3>
-                        <p className="text-gray-600">
-                          <Translate text={translations.home.highlights.kitchen.description} />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-start mb-3">
-                      <Image src="/icons/icons8/bed.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
-                      <div>
-                        <h3 className="text-lg font-semibold">
-                          <Translate text={translations.home.highlights.bedding.title} />
-                        </h3>
-                        <p className="text-gray-600">
-                          <Translate text={translations.home.highlights.bedding.description} />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-start mb-3">
-                      <Image src="/icons/icons8/shower.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
-                      <div>
-                        <h3 className="text-lg font-semibold">
-                          <Translate text={translations.home.highlights.bathrooms.title} />
-                        </h3>
-                        <p className="text-gray-600">
-                          <Translate text={translations.home.highlights.bathrooms.description} />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-start mb-3">
-                      <Image src="/icons/icons8/droplet.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
-                      <div>
-                        <h3 className="text-lg font-semibold">
-                          <Translate text={translations.home.highlights.waterTreatment.title} />
-                        </h3>
-                        <p className="text-gray-600">
-                          <Translate text={translations.home.highlights.waterTreatment.description} />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-start mb-3">
-                      <Image src="/icons/icons8/speaker.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
-                      <div>
-                        <h3 className="text-lg font-semibold">
-                          <Translate text={translations.home.highlights.soundInsulation.title} />
-                        </h3>
-                        <p className="text-gray-600">
-                          <Translate text={translations.home.highlights.soundInsulation.description} />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-start mb-3">
-                      <Image src="/icons/icons8/thermometer.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
-                      <div>
-                        <h3 className="text-lg font-semibold">
-                          <Translate text={translations.home.highlights.fullInsulation.title} />
-                        </h3>
-                        <p className="text-gray-600">
-                          <Translate text={translations.home.highlights.fullInsulation.description} />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-start mb-3">
-                      <Image src="/icons/icons8/target.svg" alt="" width={24} height={24} className="mr-3 mt-1" style={{filter: 'brightness(0) saturate(100%) invert(40%) sepia(1%) saturate(1042%) hue-rotate(314deg) brightness(94%) contrast(80%)'}} />
-                      <div>
-                        <h3 className="text-lg font-semibold">
-                          <Translate text={translations.home.highlights.allFeatures.title} />
-                        </h3>
-                        <p className="text-gray-600">
-                          <Translate text={translations.home.highlights.allFeatures.description} />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <HouseHighlights showAllFeatures={false} />
               </div>
 
-              <div className="bg-gray-50 p-6 rounded-lg">
-                <h3 className="text-xl font-bold mb-4">
-                  <Translate text={houseTranslations.bookYourStay.title} />
-                </h3>
-                <p className="text-gray-700 mb-4">
-                  <Translate text={houseTranslations.bookYourStay.description} />
-                </p>
-                <Link
-                  href="/book"
-                  className="inline-flex items-center px-6 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
-                >
-                  <Translate text={houseTranslations.bookYourStay.button} />
-                </Link>
-              </div>
+              <BookStayCta />
             </div>
           </div>
         </section>

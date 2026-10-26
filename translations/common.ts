@@ -302,10 +302,10 @@ export const translations = {
     },
     internetSpeed: {
       caption: {
-        en: "*Screenshot sent by a tenant",
-        es: "*Captura de pantalla enviada por un inquilino",
-        pt: "*Screenshot enviado por um inquilino",
-        ru: "*Скриншот от жильца",
+        en: "Screenshot sent by a guest",
+        es: "Captura de pantalla enviada por un inquilino",
+        pt: "Screenshot enviado por um inquilino",
+        ru: "Скриншот от жильца",
       },
     },
     testimonial: {
@@ -421,6 +421,12 @@ export const translations = {
       es: "Hacer clic para ampliar",
       pt: "Clique para ampliar",
       ru: "Нажмите чтобы увеличить",
+    },
+    photos: {
+      en: "Photos",
+      es: "Fotos",
+      pt: "Fotos",
+      ru: "Фото",
     },
     clickToViewGallery: {
       en: "Click to view gallery",
