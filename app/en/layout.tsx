@@ -4,7 +4,7 @@ import { ClientLayout } from '@/components/client-layout'
 
 export const metadata: Metadata = {
   title: 'Coliving South America | IL BUCO',
-  description: 'Coliving South America in modern house. Luxury accommodation in Carilo with pool, high-speed WiFi for remote workers and digital nomads.',
+  description: 'Coliving South America in modern house. Luxury accommodation in Carilo with high-speed WiFi for remote workers and digital nomads.',
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '16x16' },

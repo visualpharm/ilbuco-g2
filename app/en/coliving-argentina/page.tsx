@@ -38,7 +38,7 @@ export const metadata: Metadata = {
         url: "/gallery/hero-villa-exterior.jpeg",
         width: 1200,
         height: 630,
-        alt: "Coliving Argentina - luxury villa with pool in pine forest",
+        alt: "Coliving Argentina - luxury villa in pine forest",
       },
     ],
     locale: "en_US",
@@ -82,7 +82,7 @@ export default function ColivingArgentinaPage() {
               <div className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="/gallery/hero-villa-exterior.jpeg"
-                  alt="Luxury coliving villa in Argentina with pool and pine forest"
+                  alt="Luxury coliving villa in Argentina in the pine forest"
                   fill
                   className="object-cover"
                   priority

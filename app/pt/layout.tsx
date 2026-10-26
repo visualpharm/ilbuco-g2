@@ -4,7 +4,7 @@ import { ClientLayout } from '@/components/client-layout'
 
 export const metadata: Metadata = {
   title: 'Coliving América do Sul | IL BUCO',
-  description: 'Coliving América do Sul em casa moderna. Acomodação de luxo em Carilo com piscina, WiFi de alta velocidade para trabalhadores remotos e nômades digitais.',
+  description: 'Coliving América do Sul em casa moderna. Acomodação de luxo em Carilo com WiFi de alta velocidade para trabalhadores remotos e nômades digitais.',
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '16x16' },

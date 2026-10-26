@@ -4,7 +4,7 @@ import { ClientLayout } from '@/components/client-layout'
 
 export const metadata: Metadata = {
   title: 'Коливинг Аргентина | IL BUCO',
-  description: 'Коливинг в Аргентине в современном доме. Роскошное жильё в Карило с бассейном, высокоскоростным WiFi для удалённых работников и цифровых кочевников.',
+  description: 'Коливинг в Аргентине в современном доме. Роскошное жильё в Карило с высокоскоростным WiFi для удалённых работников и цифровых кочевников.',
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '16x16' },

@@ -23,7 +23,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Villa de Luxo na Praia Argentina - Cariló Coliving | IL BUCO",
-  description: "Descubra nossa villa de luxo em Cariló, Argentina. Espaço perfeito para trabalho remoto, a apenas minutos da praia. Internet 500 Mbps, piscina na floresta e todas as comodidades premium.",
+  description: "Descubra nossa villa de luxo em Cariló, Argentina. Espaço perfeito para trabalho remoto, a apenas minutos da praia. Internet 500 Mbps, casa na floresta e todas as comodidades premium.",
   keywords: "argentina praia, villa luxo argentina, carilo coliving, trabalho remoto praia, casa tecnologica argentina, floresta pinheiros argentina",
   openGraph: {
     title: "Villa de Luxo na Praia Argentina - Cariló | IL BUCO",
