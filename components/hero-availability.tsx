@@ -51,10 +51,10 @@ export function HeroAvailability() {
   if (availableSuites === 0) {
     const soldOutText = translations.availability.soldOutToday[langCode] || translations.availability.soldOutToday.en;
     return (
-      <div className="flex items-center gap-2 text-base text-gray-700">
-        <span className="w-2 h-2 rounded-full bg-gray-500" />
-        <span>{soldOutText}</span>
-      </div>
+      <p className="text-base text-gray-700">
+        <span className="mr-2 inline-block h-2 w-2 rounded-full bg-gray-500 align-middle" />
+        {soldOutText}
+      </p>
     );
   }
 
@@ -77,12 +77,10 @@ export function HeroAvailability() {
   }
 
   return (
-    <div className="flex items-center gap-2 text-base">
-      <span className="w-2 h-2 rounded-full bg-green-600" />
-      <span className="text-gray-700">{availabilityText}</span>
-      {priceText && (
-        <span className="text-green-700 font-medium">· {priceText}</span>
-      )}
-    </div>
+    <p className="text-base text-gray-700">
+      <span className="mr-2 inline-block h-2 w-2 rounded-full bg-green-600 align-middle" />
+      {availabilityText}
+      {priceText && <span className="whitespace-nowrap font-medium text-green-700"> · {priceText}</span>}
+    </p>
   );
 }
