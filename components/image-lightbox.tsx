@@ -73,6 +73,14 @@ export function ImageLightbox({ images, isOpen, currentIndex, onClose, onNext, o
     }, ms)
   }, [])
 
+  // Return to rest without blocking the next gesture.
+  const springBack = useCallback(() => {
+    setAnimating(true)
+    setDx(0)
+    setDy(0)
+    window.setTimeout(() => !busy.current && setAnimating(false), reducedMotion() ? 0 : ANIM_MS)
+  }, [])
+
   const width = () => stageRef.current?.clientWidth || window.innerWidth
 
   const goNext = useCallback(() => {
@@ -124,13 +132,19 @@ export function ImageLightbox({ images, isOpen, currentIndex, onClose, onNext, o
       e.preventDefault()
       const w = wheel.current
       clearTimeout(w.timer)
+      // The gesture ended: finish it by how far it went; a short one springs back without blocking input.
       w.timer = setTimeout(() => {
+        const { x, y, locked } = w
         w.locked = false
         w.x = 0
         w.y = 0
-        if (!busy.current) settle()
+        if (locked || busy.current) return
+        if (Math.abs(y) > Math.abs(x) && Math.abs(y) > WHEEL_STEP) close(y > 0 ? -1 : 1)
+        else if (many && Math.abs(x) > WHEEL_STEP / 2) x > 0 ? goNext() : goPrev()
+        else springBack()
       }, WHEEL_IDLE_MS)
       if (w.locked || busy.current) return
+      setAnimating(false)
       const k = e.deltaMode === 1 ? 16 : 1
       w.x += e.deltaX * k
       w.y += e.deltaY * k
@@ -153,7 +167,7 @@ export function ImageLightbox({ images, isOpen, currentIndex, onClose, onNext, o
     }
     el.addEventListener("wheel", onWheel, { passive: false })
     return () => el.removeEventListener("wheel", onWheel)
-  }, [isOpen, many, goNext, goPrev, close, settle])
+  }, [isOpen, many, goNext, goPrev, close, springBack])
 
   const onPointerDown = (e: React.PointerEvent) => {
     if (busy.current || (e.pointerType === "mouse" && e.button !== 0)) return
@@ -193,7 +207,7 @@ export function ImageLightbox({ images, isOpen, currentIndex, onClose, onNext, o
     } else if (d.axis === "y" && my > 0 && (my > CLOSE_DISTANCE || speed > FLICK_SPEED)) {
       close(1)
     } else {
-      settle()
+      springBack()
     }
   }
 
