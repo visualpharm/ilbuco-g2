@@ -149,7 +149,8 @@ export async function handleNewReservation(
         if (!dryRun) await deliverAndSave(state, reservation.code);
         return { job: 'new-reservation', success: true, details: 'Already handled', at: new Date().toISOString() };
       }
-      if (state.retryQueue.some(q => q.reservationCode === reservation.code)) {
+      // An exhausted item is not a sync in progress: fall through and try the lock again.
+      if (findPending(state.retryQueue, reservation.code)) {
         return { job: 'new-reservation', success: true, details: 'Lock sync already queued', at: new Date().toISOString() };
       }
     }
