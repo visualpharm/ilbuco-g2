@@ -141,3 +141,16 @@ test('poolStats: reflects partial checkout', () => {
   assert.equal(stats.inUse, 1);
   assert.equal(stats.available, 4);
 });
+
+test('generatePin: four digits, never in use, never guessable', async () => {
+  const { generatePin, isGuessablePin } = await import('./pin-pool.ts');
+  const used = new Set([4821, 7350]);
+  for (let i = 0; i < 2000; i++) {
+    const pin = generatePin(used);
+    assert.ok(pin >= 1000 && pin <= 9999, String(pin));
+    assert.equal(used.has(pin), false);
+    assert.equal(isGuessablePin(pin), false);
+  }
+  for (const pin of [1111, 1234, 9876, 3456]) assert.equal(isGuessablePin(pin), true, String(pin));
+  for (const pin of [4821, 1203, 9870]) assert.equal(isGuessablePin(pin), false, String(pin));
+});

@@ -43,23 +43,12 @@ import {
   RetryableError,
   type QueueItem,
 } from './utec-retry';
-import { checkOut as poolCheckOut, release as poolRelease } from './pin-pool';
+import { checkOut as poolCheckOut, release as poolRelease, generatePin } from './pin-pool';
 import { deliverPin, type PinMessageData } from './messaging';
 import { getPropertyName, getFullReservations, getReservation } from './hostex-api';
 import { stayBoundary, hoursUntil, isDeliveryDue, PIN_TIMEZONE } from './guest-pin-times';
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
-
-/**
- * Generate a unique 6-digit PIN that doesn't collide with existing active PINs.
- */
-function generatePin(existingPins: Set<number>): number {
-  let pin: number;
-  do {
-    pin = Math.floor(100000 + Math.random() * 900000); // 100000–999999
-  } while (existingPins.has(pin));
-  return pin;
-}
 
 /**
  * Collect all active PINs to avoid collisions.

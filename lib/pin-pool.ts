@@ -86,3 +86,21 @@ export function poolStats(state: GuestOpsState): { available: number; inUse: num
     available: state.backupPool.length - inUse,
   };
 }
+
+/**
+ * Generate a unique 4-digit PIN (Ivan 2026-10-29: four digits are enough at the
+ * door; U-tec takes 4–8). Skips codes already in use and the guessable ones —
+ * one repeated digit (1111) or a straight run (1234, 9876).
+ */
+export function generatePin(existingPins: Set<number>, random: () => number = Math.random): number {
+  for (;;) {
+    const pin = 1000 + Math.floor(random() * 9000); // 1000–9999
+    if (!existingPins.has(pin) && !isGuessablePin(pin)) return pin;
+  }
+}
+
+export function isGuessablePin(pin: number): boolean {
+  const d = String(pin).split('').map(Number);
+  const steps = d.slice(1).map((x, i) => x - d[i]);
+  return steps.every(s => s === 0) || steps.every(s => s === 1) || steps.every(s => s === -1);
+}
