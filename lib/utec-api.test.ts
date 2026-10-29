@@ -33,3 +33,13 @@ test('lockUserCommand: delete carries the numeric user id', () => {
   const command = (body.devices as Array<{ command: { arguments: { id: unknown } } }>)[0].command;
   assert.equal(command.arguments.id, 8606451);
 });
+
+test('isReservationCodeName: Hostex codes yes, names typed in the Xthings app no', async () => {
+  const { isReservationCodeName } = await import('./guest-ops-store.ts');
+  for (const code of ['24-MV13EMXB-ihwhxlecdq', '9-5937823233-ihbygpu2hc', '5-6CS9E569R']) {
+    assert.equal(isReservationCodeName(code), true, code);
+  }
+  for (const name of ['Jennifer', 'Andresduffau@gmail.com', 'Limpieza 2', 'E2E-TEST-10291721', 'Guest']) {
+    assert.equal(isReservationCodeName(name), false, name);
+  }
+});

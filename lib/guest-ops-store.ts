@@ -291,3 +291,13 @@ export function getRecentCheckouts(state: GuestOpsState, withinHours: number): P
     return checkOut <= now && checkOut >= cutoff;
   });
 }
+
+/**
+ * Whether a lock user name is a Hostex reservation code ("24-MV13EMXB-ihwhxlecdq",
+ * "5-6CS9E569R") — the only temporary users the automation creates on its own.
+ * Temporary codes Andrés adds in the Xthings app carry ordinary names and are
+ * never ours to clean up.
+ */
+export function isReservationCodeName(name: string): boolean {
+  return /^\d+-[A-Za-z0-9]+(-[a-z0-9]+)?$/.test(name);
+}

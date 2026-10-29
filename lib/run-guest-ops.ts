@@ -22,6 +22,7 @@ import {
   type PinAssignment,
   type GuestOpsState,
   type DeliveryChannel,
+  isReservationCodeName,
 } from './guest-ops-store';
 import {
   listDevices,
@@ -677,7 +678,8 @@ export async function reconcileLocks(dryRun = false): Promise<GuestOpsReport> {
             a => a.reservationCode === user.name || a.lockUserId === user.id
           );
           if (!assignment) {
-            // Orphaned user — not in our assignments. Clean up if older than checkout.
+            // Not in our assignments: clean up only leftovers of our own guest PINs.
+            if (!isReservationCodeName(user.name)) continue;
             console.log(`[guest-ops] Found orphaned lock user: ${user.name} (${user.id})`);
             if (!dryRun) {
               try {
