@@ -1864,7 +1864,7 @@ function openCam(c, fly = true) {
   curCam = c; cams.forEach(k => k.el.classList.toggle('on', k === c));
   pCap.textContent = c.name;
   if (!qs.has('still')) {
-    if (!vid.getAttribute('src')) vid.src = 'walk.mp4';
+    if (!vid.getAttribute('src')) vid.src = (/\/[^/.]+$/.test(location.pathname) ? location.pathname + '/' : '') + 'walk.mp4';   // на сайте страница открыта как /3d без слэша
     const go = () => { vid.currentTime = c.t; vid.play().catch(() => {}); };
     vid.readyState >= 1 ? go() : vid.addEventListener('loadedmetadata', go, { once: true });
     vid.load && vid.readyState === 0 && vid.load();
