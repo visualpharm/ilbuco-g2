@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { verifyVapiWebhookSecret, isAllowedVapiControlUrl, VAPI_WEBHOOK_SECRET_HEADER } from '@/lib/vapi-auth';
+import { hostexFetch } from '@/lib/hostex-api';
 
 const HOSTEX_API_URL = 'https://api.hostex.io/v3/listings/calendar';
 
@@ -125,7 +126,7 @@ async function getTodayAvailability(): Promise<{ available: string[]; minPrice: 
   const tomorrowStr = tomorrow.toISOString().split('T')[0];
 
   try {
-    const response = await fetch(HOSTEX_API_URL, {
+    const response = await hostexFetch(HOSTEX_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -484,7 +485,7 @@ async function getDetailedAvailability(startDate: string, endDate: string, listi
     const daysBetween = getDatesBetween(startDate, endDate).length;
 
     const fetchCalendar = async (rangeStart: string, rangeEnd: string) => {
-      const response = await fetch(HOSTEX_API_URL, {
+      const response = await hostexFetch(HOSTEX_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

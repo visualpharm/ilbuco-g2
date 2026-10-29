@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyVapiWebhookSecret, VAPI_WEBHOOK_SECRET_HEADER } from '@/lib/vapi-auth';
+import { hostexFetch } from '@/lib/hostex-api';
 import { guestNightPrice } from '@/lib/price-floor';
 
 const HOSTEX_API_URL = 'https://api.hostex.io/v3/listings/calendar';
@@ -82,7 +83,7 @@ async function getAvailability(startDate: string, endDate: string, listingId?: s
       ? LISTINGS.filter(l => l.listing_id === listingId)
       : LISTINGS;
 
-    const response = await fetch(HOSTEX_API_URL, {
+    const response = await hostexFetch(HOSTEX_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

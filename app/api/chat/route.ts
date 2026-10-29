@@ -5,6 +5,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { searchLocalBusinessDatabase } from '@/lib/local-businesses';
 import { guestNightPrice } from '@/lib/price-floor';
+import { hostexFetch } from '@/lib/hostex-api';
 
 // Google Places API for local business search (fallback)
 const GOOGLE_PLACES_API = 'https://maps.googleapis.com/maps/api/place';
@@ -150,7 +151,7 @@ async function getAvailability(startDate: string, endDate: string) {
   if (!hostexKey) return null;
 
   try {
-    const response = await fetch(HOSTEX_API_URL, {
+    const response = await hostexFetch(HOSTEX_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

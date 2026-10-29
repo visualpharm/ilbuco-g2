@@ -10,11 +10,56 @@ function getApiKey(): string {
   return key;
 }
 
+// Hostex asks integrations to identify themselves (api-doc.hostex.io/reference/rate-limits).
+export const HOSTEX_USER_AGENT = 'ilbuco-website/1.0 (+https://ilbuco.com.ar)';
+
 function headers(): Record<string, string> {
   return {
     'Content-Type': 'application/json',
     'Hostex-Access-Token': getApiKey(),
+    'User-Agent': HOSTEX_USER_AGENT,
   };
+}
+
+// ─── Rate-limit guard ─────────────────────────────────────────────────────────
+//
+// Hostex signals a limit as HTTP 200 with error_code 429 and a Retry-After
+// header. Once seen, every Hostex call from this instance fails fast until the
+// window resets instead of spending more of the quota (2026-10-29: the site
+// token was capped at 1 request/hour and kept being hit).
+
+let blockedUntil = 0;
+
+export class HostexRateLimitError extends Error {
+  constructor(public retryAfterSec: number) {
+    super(`Hostex rate limited, retry in ${retryAfterSec}s`);
+  }
+}
+
+/** Seconds to wait after a 429 envelope: Retry-After, else 60, capped at 1h. */
+export function retryAfterSeconds(header: string | null): number {
+  const n = Number(header);
+  return Number.isFinite(n) && n > 0 ? Math.min(Math.ceil(n), 3600) : 60;
+}
+
+export function hostexBlockedFor(now = Date.now()): number {
+  return Math.max(0, Math.ceil((blockedUntil - now) / 1000));
+}
+
+/** fetch() for api.hostex.io: adds the User-Agent and honours Retry-After. */
+export async function hostexFetch(url: string, init: RequestInit = {}): Promise<Response> {
+  const wait = hostexBlockedFor();
+  if (wait > 0) throw new HostexRateLimitError(wait);
+  const h = new Headers(init.headers);
+  if (!h.has('User-Agent')) h.set('User-Agent', HOSTEX_USER_AGENT);
+  const res = await fetch(url, { ...init, headers: h });
+  const body = await res.clone().json().catch(() => null);
+  if (body?.error_code === 429) {
+    const sec = retryAfterSeconds(res.headers.get('retry-after'));
+    blockedUntil = Date.now() + sec * 1000;
+    console.warn(`[hostex] 429 (${res.headers.get('x-ratelimit-reason') ?? body.error_msg}); pausing ${sec}s`);
+  }
+  return res;
 }
 
 // Property ID → suite name mapping
@@ -89,7 +134,7 @@ export async function updateListingPrices(
   let updated = 0;
   for (let i = 0; i < prices.length; i += CHUNK) {
     const chunk = prices.slice(i, i + CHUNK);
-    const res = await fetch(`${HOSTEX_BASE}/listings/prices`, {
+    const res = await hostexFetch(`${HOSTEX_BASE}/listings/prices`, {
       method: 'POST',
       headers: headers(),
       body: JSON.stringify({
@@ -131,7 +176,7 @@ export async function updateListingRestrictions(
   let updated = 0;
   for (let i = 0; i < restrictions.length; i += CHUNK) {
     const chunk = restrictions.slice(i, i + CHUNK);
-    const res = await fetch(`${HOSTEX_BASE}/listings/restrictions`, {
+    const res = await hostexFetch(`${HOSTEX_BASE}/listings/restrictions`, {
       method: 'POST',
       headers: headers(),
       body: JSON.stringify({ channel_type: 'booking_site', listing_id: listingId, restrictions: chunk }),
@@ -167,7 +212,7 @@ export async function updateListingInventories(
   let updated = 0;
   for (let i = 0; i < inventories.length; i += CHUNK) {
     const chunk = inventories.slice(i, i + CHUNK);
-    const res = await fetch(`${HOSTEX_BASE}/listings/inventories`, {
+    const res = await hostexFetch(`${HOSTEX_BASE}/listings/inventories`, {
       method: 'POST',
       headers: headers(),
       body: JSON.stringify({ channel_type: 'booking_site', listing_id: listingId, inventories: chunk }),
@@ -205,7 +250,7 @@ export async function getReservations(start: string, end: string): Promise<Reser
   for (let winStart = start; winStart <= end; winStart = addDaysLocal(winStart, 170)) {
     const winEnd = addDaysLocal(winStart, 169) < end ? addDaysLocal(winStart, 169) : end;
     for (let offset = 0; ; offset += 100) {
-      const res = await fetch(
+      const res = await hostexFetch(
         `${HOSTEX_BASE}/reservations?start_check_in_date=${winStart}&end_check_in_date=${winEnd}&offset=${offset}&limit=100`,
         { headers: headers() }
       );
@@ -253,7 +298,7 @@ export interface HostexReservation {
  * Used by the guest-ops webhook to get full booking details (guest info, dates).
  */
 export async function getReservation(reservationCode: string): Promise<HostexReservation | null> {
-  const res = await fetch(
+  const res = await hostexFetch(
     `${HOSTEX_BASE}/reservations?reservation_code=${encodeURIComponent(reservationCode)}`,
     { headers: headers() }
   );
@@ -303,7 +348,7 @@ export interface HostexConversation {
 }
 
 export async function getConversation(conversationId: string): Promise<HostexConversation> {
-  const res = await fetch(`${HOSTEX_BASE}/conversations/${conversationId}`, {
+  const res = await hostexFetch(`${HOSTEX_BASE}/conversations/${conversationId}`, {
     headers: headers(),
   });
   const data = await res.json();
@@ -314,7 +359,7 @@ export async function getConversation(conversationId: string): Promise<HostexCon
 }
 
 export async function sendMessage(conversationId: string, message: string): Promise<void> {
-  const res = await fetch(`${HOSTEX_BASE}/conversations/${conversationId}`, {
+  const res = await hostexFetch(`${HOSTEX_BASE}/conversations/${conversationId}`, {
     method: 'POST',
     headers: headers(),
     body: JSON.stringify({ message }),
@@ -338,7 +383,7 @@ export async function getCalendarAvailability(
   startDate: string,
   endDate: string
 ): Promise<AvailabilityResult> {
-  const res = await fetch(`${HOSTEX_BASE}/listings/calendar`, {
+  const res = await hostexFetch(`${HOSTEX_BASE}/listings/calendar`, {
     method: 'POST',
     headers: headers(),
     body: JSON.stringify({
@@ -381,7 +426,24 @@ export async function getCalendarAvailability(
  * so no guest surface can show or sum it.
  */
 export async function getGuestCalendar(startDate: string, endDate: string): Promise<AvailabilityResult> {
-  return guestSafeCalendar(await getCalendarAvailability(startDate, endDate));
+  return guestSafeCalendar(await cachedCalendar(startDate, endDate));
+}
+
+// Guest surfaces (site calendar, chat, Hostex autoresponder) ask for the same
+// ranges over and over; one Hostex read per range per minute is enough. The
+// booking flow (create-preference) and pricing keep calling Hostex directly.
+const CALENDAR_TTL_MS = 60_000;
+const calendarCache = new Map<string, { at: number; value: Promise<AvailabilityResult> }>();
+
+export function cachedCalendar(startDate: string, endDate: string, now = Date.now()): Promise<AvailabilityResult> {
+  const key = `${startDate}|${endDate}`;
+  const hit = calendarCache.get(key);
+  if (hit && now - hit.at < CALENDAR_TTL_MS) return hit.value;
+  const value = getCalendarAvailability(startDate, endDate);
+  calendarCache.set(key, { at: now, value });
+  value.catch(() => { if (calendarCache.get(key)?.value === value) calendarCache.delete(key); });
+  if (calendarCache.size > 200) calendarCache.delete(calendarCache.keys().next().value!);
+  return value;
 }
 
 export function guestSafeCalendar(cal: AvailabilityResult): AvailabilityResult {
@@ -483,7 +545,7 @@ export async function createReservation(
     ...(params.remarks && { remarks: params.remarks }),
   };
 
-  const res = await fetch(`${HOSTEX_BASE}/reservations`, {
+  const res = await hostexFetch(`${HOSTEX_BASE}/reservations`, {
     method: 'POST',
     headers: headers(),
     body: JSON.stringify(body),
@@ -508,7 +570,7 @@ export async function createReservation(
  * Used for manual cancellations from /nimda — not for the booking flow itself.
  */
 export async function cancelReservation(reservationCode: string): Promise<void> {
-  const res = await fetch(
+  const res = await hostexFetch(
     `${HOSTEX_BASE}/reservations/${encodeURIComponent(reservationCode)}`,
     { method: 'DELETE', headers: headers() }
   );
@@ -564,7 +626,7 @@ export async function getFullReservations(start: string, end: string): Promise<F
   for (let winStart = start; winStart <= end; winStart = addDaysLocal(winStart, 170)) {
     const winEnd = addDaysLocal(winStart, 169) < end ? addDaysLocal(winStart, 169) : end;
     for (let offset = 0; ; offset += 100) {
-      const res = await fetch(
+      const res = await hostexFetch(
         `${HOSTEX_BASE}/reservations?start_check_in_date=${winStart}&end_check_in_date=${winEnd}&offset=${offset}&limit=100`,
         { headers: headers() }
       );
@@ -616,7 +678,7 @@ export interface ConversationListItem {
 export async function listConversations(): Promise<ConversationListItem[]> {
   const out: ConversationListItem[] = [];
   for (let offset = 0; ; offset += 100) {
-    const res = await fetch(
+    const res = await hostexFetch(
       `${HOSTEX_BASE}/conversations?offset=${offset}&limit=100`,
       { headers: headers() }
     );
@@ -656,7 +718,7 @@ export async function getReviews(start: string, end: string): Promise<HostexRevi
   for (let winStart = start; winStart <= end; winStart = addDaysLocal(winStart, 170)) {
     const winEnd = addDaysLocal(winStart, 169) < end ? addDaysLocal(winStart, 169) : end;
     for (let offset = 0; ; offset += 100) {
-      const res = await fetch(
+      const res = await hostexFetch(
         `${HOSTEX_BASE}/reviews?start_check_out_date=${winStart}&end_check_out_date=${winEnd}&offset=${offset}&limit=100`,
         { headers: headers() }
       );
@@ -694,7 +756,7 @@ async function strictRequest<T>(
   init: RequestInit,
   validate: (body: HostexEnvelope) => T
 ): Promise<T> {
-  const res = await fetch(url, { ...init, signal: AbortSignal.timeout(45000), cache: 'no-store' });
+  const res = await hostexFetch(url, { ...init, signal: AbortSignal.timeout(45000), cache: 'no-store' });
   if (!res.ok) {
     throw new Error(`Hostex ${label}: HTTP ${res.status} ${res.statusText}`);
   }
