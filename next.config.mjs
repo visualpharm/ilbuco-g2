@@ -7,6 +7,10 @@ const nextConfig = {
     loader: 'custom',
     loaderFile: './lib/imagekit-loader.ts',
   },
+  // 3D model of the house: one self-contained page in public/3d/ (index.html + walk.mp4)
+  async rewrites() {
+    return [{ source: '/3d', destination: '/3d/index.html' }]
+  },
   async redirects() {
     return [
       {
