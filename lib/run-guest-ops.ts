@@ -903,7 +903,16 @@ export async function rollAllPins(
         const newPin = generatePin(activePins);
 
         // Update on lock
-        await updateUser(deviceId, assignment.lockUserId, assignment.guestName, newPin);
+        // Guest PINs live on the lock under the reservation code with their stay window;
+        // manual ones under the label typed in the admin.
+        const temporary = !assignment.isManual || assignment.isPermanent === false;
+        await updateUser(
+          deviceId,
+          assignment.lockUserId,
+          assignment.isManual ? assignment.guestName : assignment.reservationCode,
+          newPin,
+          temporary ? buildGuestSchedule(assignment.checkIn, assignment.checkOut) : undefined
+        );
 
         // Update state
         const updated: PinAssignment = {

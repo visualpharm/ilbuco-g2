@@ -119,8 +119,8 @@ async function getAccessToken(): Promise<string> {
 interface ActionHeader {
   namespace: string;
   name: string;
-  payloadVersion?: number;
-  messageID?: string;
+  payloadVersion?: string;
+  messageId?: string;
 }
 
 interface ActionRequest {
@@ -138,7 +138,7 @@ async function sendAction(
 ): Promise<Record<string, unknown>> {
   const token = await getAccessToken();
   const body = {
-    header: { namespace, name },
+    header: { namespace, name, messageId: crypto.randomUUID(), payloadVersion: '1' },
     payload,
   };
 
@@ -215,6 +215,24 @@ export interface TemporaryUserSchedule {
   limit: number;
 }
 
+// ─── Lock user command shape ──────────────────────────────────────────────────
+
+/**
+ * Body of a st.lockUser command. U-tec nests the command as
+ * `{id, command: {capability, name, arguments}}` and wants numeric user IDs;
+ * the flat `{id, capability, command}` shape is silently ignored (the lock
+ * answers `devices: []` and nothing reaches it).
+ */
+export function lockUserCommand(
+  deviceId: string,
+  name: 'list' | 'get' | 'add' | 'update' | 'delete',
+  args?: Record<string, unknown>
+): Record<string, unknown> {
+  const command: Record<string, unknown> = { capability: 'st.lockUser', name };
+  if (args) command.arguments = args;
+  return { devices: [{ id: deviceId, command }] };
+}
+
 // ─── Device operations ───────────────────────────────────────────────────────
 
 /**
@@ -288,9 +306,7 @@ export function buildGuestSchedule(checkIn: string, checkOut: string): Temporary
  * Returns empty array if the lock is offline (can't query users remotely).
  */
 export async function listUsers(deviceId: string): Promise<UtecUser[]> {
-  const data = await sendAction('Uhome.Device', 'Command', {
-    devices: [{ id: deviceId, capability: 'st.lockUser', command: 'list' }],
-  });
+  const data = await sendAction('Uhome.Device', 'Command', lockUserCommand(deviceId, 'list'));
   const payload = data.payload as { devices?: Array<Record<string, unknown>> };
   const devEntry = payload?.devices?.[0];
   if (!devEntry) return []; // offline lock returns empty devices array
@@ -311,17 +327,13 @@ export async function listUsers(deviceId: string): Promise<UtecUser[]> {
  * Get a single PIN user (includes the password/PIN digit).
  */
 export async function getUser(deviceId: string, userId: string): Promise<UtecUser> {
-  const data = await sendAction('Uhome.Device', 'Command', {
-    devices: [
-      {
-        id: deviceId,
-        capability: 'st.lockUser',
-        command: 'get',
-        params: { id: userId },
-      },
-    ],
-  });
-  const usr = (data.payload?.devices?.[0] ?? data) as Record<string, unknown>;
+  const data = await sendAction(
+    'Uhome.Device',
+    'Command',
+    lockUserCommand(deviceId, 'get', { id: Number(userId) })
+  );
+  const payload = data.payload as { devices?: Array<{ user?: Record<string, unknown> }> } | undefined;
+  const usr = (payload?.devices?.[0]?.user ?? {}) as Record<string, unknown>;
   return {
     id: String(usr.id ?? userId),
     name: String(usr.name ?? ''),
@@ -350,24 +362,19 @@ export async function addTemporaryUser(
   password: number,
   schedule: TemporaryUserSchedule
 ): Promise<void> {
-  await sendAction('Uhome.Device', 'Command', {
-    devices: [
-      {
-        id: deviceId,
-        capability: 'st.lockUser',
-        command: 'add',
-        params: {
-          type: 2, // Temporary
-          name,
-          password,
-          daterange: schedule.daterange,
-          weeks: schedule.weeks,
-          timerange: schedule.timerange,
-          limit: schedule.limit,
-        },
-      },
-    ],
-  });
+  await sendAction(
+    'Uhome.Device',
+    'Command',
+    lockUserCommand(deviceId, 'add', {
+      type: 2, // Temporary
+      name,
+      password,
+      daterange: schedule.daterange,
+      weeks: schedule.weeks,
+      timerange: schedule.timerange,
+      limit: schedule.limit,
+    })
+  );
 }
 
 /**
@@ -386,20 +393,15 @@ export async function addPermanentUser(
   name: string,
   password: number
 ): Promise<void> {
-  await sendAction('Uhome.Device', 'Command', {
-    devices: [
-      {
-        id: deviceId,
-        capability: 'st.lockUser',
-        command: 'add',
-        params: {
-          type: 0, // Normal / Permanent
-          name,
-          password,
-        },
-      },
-    ],
-  });
+  await sendAction(
+    'Uhome.Device',
+    'Command',
+    lockUserCommand(deviceId, 'add', {
+      type: 0, // Normal / Permanent
+      name,
+      password,
+    })
+  );
 }
 
 /**
@@ -410,43 +412,37 @@ export async function addPermanentUser(
  * @param userId     Existing user ID to update
  * @param name       Updated name (pass existing to keep)
  * @param password   New PIN digit
+ * @param schedule   Temporary users only — U-tec wants the full user object,
+ *                   so omitting it would turn a guest PIN permanent
  */
 export async function updateUser(
   deviceId: string,
   userId: string,
   name: string,
-  password: number
+  password: number,
+  schedule?: TemporaryUserSchedule
 ): Promise<void> {
-  await sendAction('Uhome.Device', 'Command', {
-    devices: [
-      {
-        id: deviceId,
-        capability: 'st.lockUser',
-        command: 'update',
-        params: {
-          id: userId,
-          name,
-          password,
-        },
-      },
-    ],
-  });
+  await sendAction(
+    'Uhome.Device',
+    'Command',
+    lockUserCommand(deviceId, 'update', {
+      id: Number(userId),
+      name,
+      password,
+      ...(schedule ? { type: 2, ...schedule } : { type: 0 }),
+    })
+  );
 }
 
 /**
  * Delete a PIN user from the lock (revoke access).
  */
 export async function deleteUser(deviceId: string, userId: string): Promise<void> {
-  await sendAction('Uhome.Device', 'Command', {
-    devices: [
-      {
-        id: deviceId,
-        capability: 'st.lockUser',
-        command: 'delete',
-        params: { id: userId },
-      },
-    ],
-  });
+  await sendAction(
+    'Uhome.Device',
+    'Command',
+    lockUserCommand(deviceId, 'delete', { id: Number(userId) })
+  );
 }
 
 // ─── Webhook registration ────────────────────────────────────────────────────
