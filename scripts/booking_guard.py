@@ -25,6 +25,8 @@ SUITES = (12282945, 12282946, 12282947, 12282948)
 PROPERTIES = (*SUITES, HOUSE)
 STATE = Path.home() / '.local/share/ilbuco-booking-guard'
 GOG = '/Users/ivan/.claude/bin/gogx'
+OP = '/Users/ivan/.claude/bin/opx'
+HOSTEX_ITEM = 'rarubcibhozf4syozzp4r4obiy'  # 1P AI: ilbuco-g2 HOSTEX_API_KEY
 ACCOUNT = os.environ.get('BOOKING_GUARD_ACCOUNT', '')
 
 
@@ -46,17 +48,19 @@ def command_json(args):
 
 class Hostex:
     def __init__(self):
-        # No credential process, project env file, popup or fabricated MCP API.
-        raise RuntimeError(
-            'Hostex credentials blocked: quiet 1Password item MCP (AI World) '
-            'is not connected; CLI credential retrieval is disabled.'
-        )
+        # 1Password service account via opx: no popup, never a project env file.
+        p = subprocess.run([OP, 'read', f'op://AI/{HOSTEX_ITEM}/credential'],
+                           capture_output=True, text=True, timeout=90)
+        if p.returncode or not p.stdout.strip():
+            raise RuntimeError('Hostex credential unavailable from 1Password (opx)')
+        self.key = p.stdout.strip()
 
     def request(self, path, body=None):
         # stdin keeps the token out of process arguments and log files. curl is
         # used because this host's Python HTTP client is rejected by the edge.
         cfg = 'header = '+json.dumps('Hostex-Access-Token: '+self.key)+'\n'
         cfg += 'header = "Content-Type: application/json"\n'
+        cfg += 'header = "User-Agent: ilbuco-booking-guard/1.0 (+https://ilbuco.com.ar)"\n'
         if body is not None:
             cfg += 'request = "POST"\ndata = '+json.dumps(json.dumps(body))+'\n'
         p = subprocess.run(['curl', '-sS', '--fail-with-body', '--max-time', '40',

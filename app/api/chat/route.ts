@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { LISTINGS, buildSystemPrompt, buildBookingDeepLink } from '@/lib/chat-prompt';
-import { promises as fs } from 'fs';
-import path from 'path';
 import { searchLocalBusinessDatabase } from '@/lib/local-businesses';
 import { guestNightPrice } from '@/lib/price-floor';
 import { hostexFetch } from '@/lib/hostex-api';
+import { appendConversationLog } from '@/lib/conversation-log';
 
 // Google Places API for local business search (fallback)
 const GOOGLE_PLACES_API = 'https://maps.googleapis.com/maps/api/place';
@@ -120,8 +119,6 @@ const tools: OpenAI.ChatCompletionTool[] = [
 
 const HOSTEX_API_URL = 'https://api.hostex.io/v3/listings/calendar';
 
-// Log directory for chat conversations
-const LOG_DIR = path.join(process.cwd(), 'logs', 'conversations');
 
 // Log chat conversation
 async function logChatConversation(data: {
@@ -133,17 +130,7 @@ async function logChatConversation(data: {
   tokens: { prompt: number; completion: number; total: number };
   responseTimeMs: number;
 }) {
-  try {
-    await fs.mkdir(LOG_DIR, { recursive: true });
-    const logFile = path.join(LOG_DIR, `chat-${new Date().toISOString().split('T')[0]}.jsonl`);
-    const logEntry = {
-      ...data,
-      timestamp: new Date().toISOString(),
-    };
-    await fs.appendFile(logFile, JSON.stringify(logEntry) + '\n');
-  } catch (error) {
-    console.error('[Chat API] Error logging conversation:', error);
-  }
+  await appendConversationLog('chat', { ...data, timestamp: new Date().toISOString() });
 }
 
 async function getAvailability(startDate: string, endDate: string) {

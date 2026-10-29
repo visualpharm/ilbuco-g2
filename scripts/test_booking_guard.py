@@ -17,9 +17,18 @@ def reservation(p=g.SUITES[0], code='one', start='2026-12-20', end='2026-12-23',
 
 
 class ProtectionTests(unittest.TestCase):
-    def test_missing_item_mcp_never_starts_credential_process(self):
-        with patch.object(g.subprocess, 'run', side_effect=AssertionError('credential CLI attempted')):
-            with self.assertRaisesRegex(RuntimeError, 'quiet 1Password item MCP'):
+    def test_credential_comes_from_opx_item(self):
+        ok = types.SimpleNamespace(returncode=0, stdout='tok\n', stderr='')
+        with patch.object(g.subprocess, 'run', return_value=ok) as run:
+            self.assertEqual(g.Hostex().key, 'tok')
+        args = run.call_args.args[0]
+        self.assertEqual(args[0], g.OP)
+        self.assertIn(g.HOSTEX_ITEM, args[-1])
+
+    def test_missing_credential_fails_closed(self):
+        bad = types.SimpleNamespace(returncode=78, stdout='', stderr='no token')
+        with patch.object(g.subprocess, 'run', return_value=bad):
+            with self.assertRaisesRegex(RuntimeError, 'unavailable from 1Password'):
                 g.Hostex()
 
     def test_checkout_exclusive_and_dependencies(self):

@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
 import { verifyVapiWebhookSecret, isAllowedVapiControlUrl, VAPI_WEBHOOK_SECRET_HEADER } from '@/lib/vapi-auth';
 import { hostexFetch } from '@/lib/hostex-api';
+import { appendConversationLog } from '@/lib/conversation-log';
 
 const HOSTEX_API_URL = 'https://api.hostex.io/v3/listings/calendar';
 
@@ -14,7 +13,6 @@ const LISTINGS = [
 ];
 
 // Log directory for conversations
-const LOG_DIR = path.join(process.cwd(), 'logs', 'conversations');
 
 interface ToolCall {
   id: string;
@@ -210,7 +208,7 @@ async function generateDynamicGreeting(): Promise<string> {
   return greeting;
 }
 
-// Log conversation to file
+// Log conversation (function log on Vercel, file locally)
 async function logConversation(callId: string, data: {
   type: 'voice' | 'chat';
   timestamp: string;
@@ -220,22 +218,7 @@ async function logConversation(callId: string, data: {
   recordingUrl?: string;
   status?: string;
 }) {
-  try {
-    // Ensure log directory exists
-    await fs.mkdir(LOG_DIR, { recursive: true });
-
-    const logFile = path.join(LOG_DIR, `${data.type}-${new Date().toISOString().split('T')[0]}.jsonl`);
-    const logEntry = {
-      callId,
-      ...data,
-      loggedAt: new Date().toISOString(),
-    };
-
-    await fs.appendFile(logFile, JSON.stringify(logEntry) + '\n');
-    console.log(`[Vapi Server] Logged conversation: ${callId}`);
-  } catch (error) {
-    console.error('[Vapi Server] Error logging conversation:', error);
-  }
+  await appendConversationLog(data.type, { callId, ...data });
 }
 
 export async function POST(request: NextRequest) {

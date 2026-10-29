@@ -3,7 +3,7 @@
 
 Runs the guard prompt on ZCode GLM Flash. If Flash fails, runs the guard
 directly so protection never lapses. Alerts and new executor failures become
-one Noe card each, deduplicated by signature; unchanged runs stay quiet.
+one message to the hub session noe each, deduplicated by signature; unchanged runs stay quiet.
 """
 import datetime as dt
 import fcntl
@@ -13,15 +13,14 @@ import os
 from pathlib import Path
 import subprocess
 import sys
-import urllib.parse
-import urllib.request
 
 STATE = Path.home() / '.local/share/ilbuco-booking-guard'
 PROMPT = STATE / 'flash-prompt.txt'
 EXECUTOR_STATUS = STATE / 'flash-executor-status.json'
 REPO = Path('/Users/ivan/projects/ilbuco-g2')
 FLASH = '/Users/ivan/.claude/bin/zcode-flash-task'
-NOE = 'http://127.0.0.1:8766/task/new'
+# The Noe board on :8766 was archived 2026-10-14; alerts go to the hub session noe.
+HUB = '/Users/ivan/agents-hub-main/bin/hub'
 FLASH_FAILURES_BEFORE_CARD = 3
 
 
@@ -61,14 +60,19 @@ def strings(node):
 
 
 def card(title, body):
-    data = urllib.parse.urlencode({'title': title[:80], 'project': 'ilbuco-g2', 'comment': body,
-                                   'state': 'awaiting-ivan', 'priority': 'high'}).encode()
+    text = f'{title}\n\n{body}'[:3000]
+    # Stable client id: a retried tick never posts the same alert twice.
+    cid = 'ilbuco-guard-' + hashlib.sha256(text.encode()).hexdigest()[:16]
     try:
-        urllib.request.urlopen(urllib.request.Request(NOE, data=data), timeout=20).read()
-        return True
-    except OSError as e:
-        print(f'Noe card failed: {e}', file=sys.stderr)
+        p = subprocess.run([HUB, 'agent-send', 'noe', text, '--as', 'ilbuco-booking-guard', '--id', cid],
+                           capture_output=True, text=True, timeout=60)
+    except (OSError, subprocess.TimeoutExpired) as e:
+        print(f'Hub alert failed: {e}', file=sys.stderr)
         return False
+    if p.returncode:
+        print(f'Hub alert failed: exit {p.returncode} {p.stderr.strip()[-200:]}', file=sys.stderr)
+        return False
+    return True
 
 
 def log_line(text):
