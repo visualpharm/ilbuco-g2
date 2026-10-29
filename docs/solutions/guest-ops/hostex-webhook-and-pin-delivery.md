@@ -15,3 +15,10 @@ Production project: Vercel `ilbuco` (ilbuco.com.ar). The `ilbuco-g2` project has
 - Never transfer ownership to someone else: the OpenAPI token belongs to the owner account, so the lock would vanish from the PIN automation.
 - Network: SSID «Il Buco» (2.4 GHz), password in 1P AI «Il Buco WiFi (Paraíso 324)»; the source is the Hostex wifi fields of Giardino/Terrazzo/Paraiso. The Il Buco irrigation controller in Home Assistant (`binary_sensor.il_buco_connectivity`) shows whether the house internet is up.
 - `battery` in the device status is 0–5 bars, not percent.
+
+## Lock user command shape (2026-10-29)
+
+- `st.lockUser` commands go as `{"devices":[{"id":<device>,"command":{"capability":"st.lockUser","name":"list|get|add|update|delete","arguments":{…}}}]}` with numeric user ids; header carries `messageId` and `payloadVersion: "1"`. Source: U-tec Postman docs (collection 42799536/2sAYk8v3Eb, «Lock User Management»).
+- The flat `{id, capability, command}` shape is accepted with HTTP 200 and `devices: []` — no error, nothing happens. Until this fix no automated or admin PIN ever reached the lock; check a new command against the live `list`, not the HTTP status.
+- `get` returns `devices[0].user` (with `password`); `add/update/delete` return only `st.deferredResponse` — confirm through `list`. `update` takes the full user object: a temporary user needs `type: 2` and the schedule again or it turns permanent.
+- Nightly reconcile deletes only unknown temporary users named like a Hostex reservation code; codes added by hand in Xthings Home stay.
