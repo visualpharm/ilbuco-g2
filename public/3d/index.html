@@ -2074,6 +2074,8 @@ function frame() {
     if (anim.k >= 1) anim = null;
   }
   controls.update();
+  const cd = camera.position.distanceTo(controls.target);   // туман от расстояния до дома: издалека (телефон) дом не выбеливается
+  scene.fog.near = cd + 25; scene.fog.far = cd + 110;
   renderer.render(scene, camera);
   const w = innerWidth, h = innerHeight;
   labels.forEach(l => {
