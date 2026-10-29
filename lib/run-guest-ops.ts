@@ -375,14 +375,15 @@ async function deliverAndSave(state: GuestOpsState, reservationCode: string): Pr
  * Process the retry queue — attempt items whose nextAttemptAt has passed.
  * Called by cron every 15 minutes.
  */
-export async function processRetryQueue(dryRun = false): Promise<GuestOpsReport> {
+export async function processRetryQueue(dryRun = false, force = false): Promise<GuestOpsReport> {
   console.log('[guest-ops] processRetryQueue');
   let state = await loadState();
   let processed = 0;
   const errors: string[] = [];
   const now = new Date();
 
-  const readyItems = state.retryQueue.filter(q => isReady(q, now));
+  // force: the lock just came back — don't wait out the backoff of attempts made while it was away.
+  const readyItems = state.retryQueue.filter(q => (force ? q.status === 'pending' : isReady(q, now)));
   if (!readyItems.length) {
     return { job: 'retries', success: true, details: 'No items ready', processed: 0, at: now.toISOString() };
   }
@@ -720,10 +721,10 @@ export async function reconcileLocks(dryRun = false): Promise<GuestOpsReport> {
 /**
  * Master dispatcher — called by the /api/guest-ops cron route.
  */
-export async function runGuestOpsJob(job: string, dryRun = false): Promise<GuestOpsReport> {
+export async function runGuestOpsJob(job: string, dryRun = false, force = false): Promise<GuestOpsReport> {
   switch (job) {
     case 'retries':
-      return processRetryQueue(dryRun);
+      return processRetryQueue(dryRun, force);
     case 'pre-checkin':
       return runPreCheckinSweep(dryRun);
     case 'post-checkout':

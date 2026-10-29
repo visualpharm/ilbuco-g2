@@ -4,7 +4,7 @@
  * GET → invoked by Vercel Cron (Bearer CRON_SECRET) with ?job=<name>.
  *       Cron calls are always live. Manual GET (admin token / UI cookie)
  *       is dry-run unless ?live=1.
- * POST → manual trigger by admin. Body: { job, dry_run? }
+ * POST → manual trigger by admin. Body: { job, dry_run?, force? } — force runs every pending retry now.
  *
  * Jobs:
  *   retries       — Fibonacci retry queue sweep (every 15 min)
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
   const caller = getCaller(req);
   if (!caller) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  let body: { job?: string; dry_run?: boolean } = {};
+  let body: { job?: string; dry_run?: boolean; force?: boolean } = {};
   try { body = await req.json(); } catch { /* empty body ok */ }
 
   if (!body.job) {
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const report = await runGuestOpsJob(body.job, body.dry_run ?? false);
+    const report = await runGuestOpsJob(body.job, body.dry_run ?? false, body.force ?? false);
     return NextResponse.json(report);
   } catch (err) {
     console.error('[guest-ops POST] error:', err);
