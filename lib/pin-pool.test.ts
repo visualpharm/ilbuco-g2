@@ -154,3 +154,12 @@ test('generatePin: four digits, never in use, never guessable', async () => {
   for (const pin of [1111, 1234, 9876, 3456]) assert.equal(isGuessablePin(pin), true, String(pin));
   for (const pin of [4821, 1203, 9870]) assert.equal(isGuessablePin(pin), false, String(pin));
 });
+
+test('needsNewPin: only an undelivered PIN outside the 4-digit format is swapped', async () => {
+  const { needsNewPin } = await import('./pin-pool.ts');
+  assert.equal(needsNewPin(482193, false), true);
+  assert.equal(needsNewPin(1234, false), true);
+  assert.equal(needsNewPin(4821, false), false);
+  assert.equal(needsNewPin(482193, true), false);
+  assert.equal(needsNewPin(undefined, false), false);
+});

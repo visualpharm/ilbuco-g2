@@ -43,7 +43,7 @@ import {
   RetryableError,
   type QueueItem,
 } from './utec-retry';
-import { checkOut as poolCheckOut, release as poolRelease, generatePin } from './pin-pool';
+import { checkOut as poolCheckOut, release as poolRelease, generatePin, needsNewPin } from './pin-pool';
 import { deliverPin, type PinMessageData } from './messaging';
 import { getPropertyName, getFullReservations, getReservation } from './hostex-api';
 import { stayBoundary, hoursUntil, isDeliveryDue, PIN_TIMEZONE } from './guest-pin-times';
@@ -146,6 +146,7 @@ export async function handleNewReservation(
 
     const propertyName = getPropertyName(reservation.propertyId);
     const pin = existing?.pin && existing.lockStatus !== 'revoked'
+        && !needsNewPin(existing.pin, existing.channels.length > 0)
       ? existing.pin
       : generatePin(getActivePins(state));
 
@@ -400,7 +401,7 @@ export async function processRetryQueue(dryRun = false, force = false): Promise<
         continue;
       }
 
-      const assignment = state.pinAssignments[item.reservationCode];
+      let assignment = state.pinAssignments[item.reservationCode];
       if (!assignment) {
         // Assignment was cleaned up — remove from queue
         state = updateRetryQueue(state, q => q.filter(qi => qi !== item));
@@ -427,6 +428,12 @@ export async function processRetryQueue(dryRun = false, force = false): Promise<
         }
 
         // Retry the add
+        if (needsNewPin(assignment.pin, assignment.channels.length > 0)) {
+          const activePins = getActivePins(state);
+          activePins.delete(assignment.pin!);
+          assignment = { ...assignment, pin: generatePin(activePins), updatedAt: now.toISOString() };
+          state = upsertAssignment(state, assignment);
+        }
         const schedule = buildGuestSchedule(assignment.checkIn, assignment.checkOut);
         await addTemporaryUser(item.deviceId, item.reservationCode, assignment.pin!, schedule);
         const userId = await confirmUserAdded(item.deviceId, item.reservationCode);

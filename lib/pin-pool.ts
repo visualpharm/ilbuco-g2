@@ -99,6 +99,15 @@ export function generatePin(existingPins: Set<number>, random: () => number = Ma
   }
 }
 
+/**
+ * A PIN the guest hasn't been sent yet keeps its number only if it is still in the
+ * current format; older 6-digit ones are swapped before they reach the lock.
+ */
+export function needsNewPin(pin: number | undefined, delivered: boolean): boolean {
+  if (delivered || pin === undefined) return false;
+  return pin < 1000 || pin > 9999 || isGuessablePin(pin);
+}
+
 export function isGuessablePin(pin: number): boolean {
   const d = String(pin).split('').map(Number);
   const steps = d.slice(1).map((x, i) => x - d[i]);
