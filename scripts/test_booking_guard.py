@@ -27,9 +27,24 @@ class ProtectionTests(unittest.TestCase):
 
     def test_missing_credential_fails_closed(self):
         bad = types.SimpleNamespace(returncode=78, stdout='', stderr='no token')
-        with patch.object(g.subprocess, 'run', return_value=bad):
+        with patch.object(g.subprocess, 'run', return_value=bad), patch.object(g.time, 'sleep'):
             with self.assertRaisesRegex(RuntimeError, 'unavailable from 1Password'):
                 g.Hostex()
+
+    def test_credential_read_retries_transient_failure(self):
+        bad = types.SimpleNamespace(returncode=1, stdout='', stderr='network blip')
+        ok = types.SimpleNamespace(returncode=0, stdout='tok\n', stderr='')
+        with patch.object(g.subprocess, 'run', side_effect=[bad, bad, ok]) as run, \
+                patch.object(g.time, 'sleep'):
+            self.assertEqual(g.Hostex().key, 'tok')
+        self.assertEqual(run.call_count, 3)
+
+    def test_missing_credential_reports_cause_after_retries(self):
+        bad = types.SimpleNamespace(returncode=1, stdout='', stderr='network blip')
+        with patch.object(g.subprocess, 'run', return_value=bad) as run, patch.object(g.time, 'sleep'):
+            with self.assertRaisesRegex(RuntimeError, 'unavailable from 1Password.*network blip'):
+                g.Hostex()
+        self.assertEqual(run.call_count, 3)
 
     def test_checkout_exclusive_and_dependencies(self):
         p, _ = g.protection_plan([reservation()], '2026-12-01', '2026-12-31')

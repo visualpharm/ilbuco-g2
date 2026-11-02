@@ -16,6 +16,7 @@ import os
 from pathlib import Path
 import re
 import sqlite3
+import time
 import subprocess
 import urllib.parse
 from zoneinfo import ZoneInfo
@@ -49,11 +50,18 @@ def command_json(args):
 class Hostex:
     def __init__(self):
         # 1Password service account via opx: no popup, never a project env file.
-        p = subprocess.run([OP, 'read', f'op://AI/{HOSTEX_ITEM}/credential'],
-                           capture_output=True, text=True, timeout=90)
-        if p.returncode or not p.stdout.strip():
-            raise RuntimeError('Hostex credential unavailable from 1Password (opx)')
-        self.key = p.stdout.strip()
+        # op read fails transiently (network blip, wedged daemon): retry like
+        # glm-mcp-credential does, and keep the stderr cause in status.json.
+        for attempt in range(3):
+            p = subprocess.run([OP, 'read', f'op://AI/{HOSTEX_ITEM}/credential'],
+                               capture_output=True, text=True, timeout=90)
+            if not p.returncode and p.stdout.strip():
+                self.key = p.stdout.strip()
+                return
+            if attempt < 2:
+                time.sleep(float(os.environ.get('GUARD_CREDENTIAL_RETRY_SLEEP', '5')))
+        tail = (p.stderr or '').strip().splitlines()[-1][-150:] if (p.stderr or '').strip() else f'exit {p.returncode}'
+        raise RuntimeError(f'Hostex credential unavailable from 1Password (opx): {tail}')
 
     def request(self, path, body=None):
         # stdin keeps the token out of process arguments and log files. curl is
