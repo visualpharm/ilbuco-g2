@@ -15,3 +15,10 @@ Add automatic tests to the repo that run after `npm run build`, covering:
 8. After making a major change (e.g., adding a new page), download this page and the front page. If they return an error, restart the server and try again. If it still fails, start fixing it without waiting for me to respond. 
 
 These tests should run with `npm run test:site`, and optionally run on build via a postbuild script.
+
+## Site icons (favicon, apple-touch-icon, web manifest)
+Every path in `metadata.icons` and `manifest` of each `app/**/layout.tsx`, and every icon `src` in the web manifest, must exist and answer 200.
+
+1. Before push: `lib/site-icons.test.ts` (part of `npm test` and `./scripts/local-ci.sh`) fails when any of these paths is missing from `public/`.
+2. After each deploy (push to `main` → Vercel): run `scripts/check-icons` (default `https://ilbuco.com.ar`, or pass a preview URL); it exits 1 and lists every path that does not answer 200. Fix it the same turn.
+3. New icon sizes are generated from `public/favicon.svg`, never redrawn.

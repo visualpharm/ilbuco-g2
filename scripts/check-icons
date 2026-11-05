@@ -1,0 +1,3 @@
+#!/bin/sh
+# After a deploy: every icon in metadata.icons and site.webmanifest answers 200 live — see scripts/check-icons.ts.
+exec npx --yes tsx "$(dirname "$0")/check-icons.ts" "$@"
