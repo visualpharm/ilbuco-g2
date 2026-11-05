@@ -44,7 +44,7 @@ import {
   type QueueItem,
 } from './utec-retry';
 import { checkOut as poolCheckOut, release as poolRelease, generatePin, needsNewPin } from './pin-pool';
-import { deliverPin, type PinMessageData } from './messaging';
+import { deliverPin, keyBoxCodeFor, type PinMessageData } from './messaging';
 import { getPropertyName, getFullReservations, getReservation } from './hostex-api';
 import { stayBoundary, hoursUntil, isDeliveryDue, PIN_TIMEZONE } from './guest-pin-times';
 
@@ -330,6 +330,7 @@ async function deliverIfDue(state: GuestOpsState, reservationCode: string): Prom
     propertyName: a.propertyName,
     checkIn: a.checkIn,
     checkOut: a.checkOut,
+    keyBoxCode: keyBoxCodeFor(a.propertyName),
   };
   const results = await deliverPin(data, {
     guestEmail: a.guestEmail,

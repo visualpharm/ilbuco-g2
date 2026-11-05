@@ -15,6 +15,25 @@ import { sendEmail, isMailConfigured } from './mail';
 import { sendMessage } from './hostex-api';
 import type { ChannelStatus, DeliveryChannel } from './guest-ops-store';
 
+// ─── Key boxes ───────────────────────────────────────────────────────────────
+
+/**
+ * Key-box code for a unit, from env KEYBOX_CODES (JSON object keyed by unit
+ * name, e.g. {"Giardino":"1234"}). The repo is public, so codes never live in
+ * source. Matching ignores case and accents ("Paraíso" = "Paraiso").
+ */
+export function keyBoxCodeFor(propertyName: string, raw = process.env.KEYBOX_CODES): string | undefined {
+  if (!raw || !propertyName) return undefined;
+  let map: Record<string, unknown>;
+  try { map = JSON.parse(raw); } catch { return undefined; }
+  const norm = (x: string) => x.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toLowerCase();
+  const want = norm(propertyName);
+  for (const [k, v] of Object.entries(map)) {
+    if (norm(k) === want && (typeof v === 'string' || typeof v === 'number') && String(v).trim()) return String(v).trim();
+  }
+  return undefined;
+}
+
 // ─── Message templates ───────────────────────────────────────────────────────
 
 export interface PinMessageData {
@@ -26,6 +45,8 @@ export interface PinMessageData {
   /** WhatsApp number for the guest to message us (for contact capture) */
   wabaNumber?: string;
   address?: string;
+  /** Code of the unit's key box, when the unit has one */
+  keyBoxCode?: string;
 }
 
 /**
@@ -41,7 +62,12 @@ export function buildPinText(data: PinMessageData): string {
   let msg = `🔑 *${data.propertyName} — Check-in*\n\n`;
   msg += `Hola ${data.guestName}! / Hi ${data.guestName}!\n\n`;
   msg += `Your door code: *${data.pin}*\n`;
-  msg += `Tu código de puerta: *${data.pin}*\n\n`;
+  msg += `Tu código de puerta: *${data.pin}*\n`;
+  if (data.keyBoxCode) {
+    msg += `Key box (${data.propertyName}): *${data.keyBoxCode}*\n`;
+    msg += `Caja de llaves (${data.propertyName}): *${data.keyBoxCode}*\n`;
+  }
+  msg += `\n`;
   msg += `Check-in: ${dateStr(data.checkIn)}\n`;
   msg += `Check-out: ${dateStr(data.checkOut)}\n`;
   if (data.address) {
@@ -74,6 +100,10 @@ export function buildPinEmail(data: PinMessageData): { subject: string; html: st
         <p style="color: #64748b; font-size: 14px; margin: 0 0 8px;">Your door code / Tu código</p>
         <p style="font-size: 36px; font-weight: bold; letter-spacing: 8px; color: #0f172a; margin: 0;">${data.pin}</p>
       </div>
+      ${data.keyBoxCode ? `<div style="background: #f1f5f9; border-radius: 12px; padding: 16px; text-align: center; margin: 16px 0;">
+        <p style="color: #334155; font-size: 14px; margin: 0 0 8px;">Key box / Caja de llaves — ${data.propertyName}</p>
+        <p style="font-size: 28px; font-weight: bold; letter-spacing: 6px; color: #0f172a; margin: 0;">${data.keyBoxCode}</p>
+      </div>` : ''}
       <table style="width: 100%; color: #475569; font-size: 14px;">
         <tr><td style="padding: 4px 0;">Check-in:</td><td style="font-weight: 600;">${dateStr(data.checkIn)}</td></tr>
         <tr><td style="padding: 4px 0;">Check-out:</td><td style="font-weight: 600;">${dateStr(data.checkOut)}</td></tr>
