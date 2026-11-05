@@ -1893,7 +1893,8 @@ function openCam(c, fly = true) {
     goTo(e.clone().addScaledVector(d, -0.01), e.clone().addScaledVector(d, 1.2));
   }
 }
-function closeCam() { panel.classList.remove('show'); vid.pause(); curCam = null; cams.forEach(k => k.el.classList.remove('on')); resize(); }
+pImg.addEventListener('load', () => { if (panel.classList.contains('show')) resize(); });   // высота панели меняется, когда фото готово
+function closeCam() { panel.classList.remove('show'); vid.pause(); if (curCam) curCam.cone.visible = curCam.fl === curF && camsOn; curCam = null; cams.forEach(k => k.el.classList.remove('on')); resize(); }
 panel.onclick = e => e.stopPropagation();
 panel.querySelector('.x').onclick = closeCam;
 addEventListener('keydown', e => { if (e.key === 'Escape') closeCam(); });
@@ -1980,7 +1981,7 @@ function labelOn(l) { return l.fl === curF; }
 function setFloor(f) {
   curF = f;
   ORDER.forEach(n => { if (floors[n]) floors[n].visible = visibleFor(n); });
-  cams.forEach(c => c.cone.visible = c.fl === f && camsOn);
+  cams.forEach(c => c.cone.visible = c.fl === f && camsOn && c !== curCam);   // стоя в точке, свой конус не заслоняет вид
   lawn.visible = f !== 'sub';
   const cut = { sub: 0.3, pb: FL.p1, p1: FL.p2, p2: FL.roof }[f];   // на этаже сосна — пенёк до верха этажа: место видно, план не закрыт
   pineTops.forEach(({ top, t, h }) => { top.visible = !cut; const k = cut ? Math.min(1, cut / h) : 1; t.scale.y = k; t.position.y = h * k / 2; });
@@ -2064,10 +2065,15 @@ function resize() {
   const w = innerWidth, h = innerHeight, desk = w >= 700;
   renderer.setSize(w, h);
   const open = panel.classList.contains('show');
+  camera.fov = 38;
   if (desk) {
     const dl = NAVW - (open ? panel.offsetWidth + 20 : 0), fw = w + Math.abs(dl);
     camera.aspect = fw / h; camera.setViewOffset(fw, h, dl < 0 ? -dl : 0, 0, w, h);
-  } else if (open) { const ph2 = panel.offsetHeight + 16; camera.aspect = w / (h + ph2); camera.setViewOffset(w, h + ph2, 0, ph2, w, h); }
+    if (open) camera.fov = 2 * Math.atan(Math.tan(32 * Math.PI / 180) * h / (w - panel.offsetWidth - 20)) * 180 / Math.PI;   // в точке съёмки: ~64° по ширине свободной части
+  } else if (open) {
+    const ph2 = panel.offsetHeight + 16; camera.aspect = w / (h + ph2); camera.setViewOffset(w, h + ph2, 0, ph2, w, h);
+    camera.fov = 2 * Math.atan(Math.tan(32 * Math.PI / 180) * (h + ph2) / w) * 180 / Math.PI;   // телефон в точке съёмки: обзор ~64° по ширине, а не узкая щель
+  }
   else { camera.aspect = w / h; camera.clearViewOffset(); }
   camera.updateProjectionMatrix();
 }
