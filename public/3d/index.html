@@ -1405,11 +1405,12 @@ slab(7.26, -0.24, 13.8, 8.5, 0.12, tex.floor, -0.12);           // номер Pa
 slab(7.2, 8.6, 13.8, 12.2, 0.1, tex.deck, -0.1);             // патио: серая плитка (по видео-обходу)
 
 // --- стены: зал и лестница
-wall('y', 0.01, -0.25, 13.8);                       // южная стена по оси A (глухая)
+wall('y', 0.01, -0.25, 13.8, [[0.25, 0.95, 'w']]);  // южная стена по оси A: окно в торце западного коридора (видео 5:23)
 wallX(7.03, 0.26, 3.06);                         // стена между лестничным отсеком и Paraiso
 wallY(3.0, 1.42, 7.1, mat.plaster, 0.28);        // южная стена санузлов
-// западная стена: окно лестницы, боковая дверь (проём на плане), стеклянная дверь у кухни, два небольших окна зала (по видео)
-wall('x', -0.2, -0.24, 15.3, [[2.0, 2.6, 'w'], [3.4, 4.3, 'd'], [7.95, 8.85, 'g'], [10.0, 10.7, 'w'], [12.5, 13.2, 'w']]);
+// западная стена: два окна коридора (на плане проём, по видео — окно напротив двери туалета, 5:09), стеклянная дверь в сад
+// у западного края кухни рядом с нишей холодильника (видео 4:47, 5:07), два небольших окна зала
+wall('x', -0.2, -0.24, 15.3, [[2.0, 2.6, 'w'], [3.4, 4.3, 'w'], [5.55, 6.4, 'g', 1, 2.25], [10.0, 10.7, 'w'], [12.5, 13.2, 'w']]);
 // восточная стена зала со стороны патио: три больших чёрных окна с чёрной рифлёной панелью снизу (по видео)
 wall('x', 7.2, 8.5, 15.3, [[9.1, 10.5, 'b'], [11.3, 12.7, 'b'], [13.5, 14.9, 'b']]);
 // северная стена зала: окно во всю ширину почти от пола до потолка, снаружи деревянные ламели (по видео и фото)
@@ -1442,22 +1443,29 @@ cyl(6.62, 3.16, 0.3, 0.02, mat.black, 1.35, 32).rotation.x = Math.PI / 2;       
 box(4.45, 4.75, 5.05, 5.3, 0.85, mat.white); { const d = cyl(4.75, 4.73, 0.17, 0.04, mat.steel, 0.42, 20); d.rotation.x = Math.PI / 2; } // стиральная машина
 
 // --- кухня (общая) у северной стены санузлов, лицом в зал (по видео): дубовый портал с высокими пеналами по краям,
-// белая плитка, открытые полки, белая круглая вытяжка с трубой, чёрная столешница, духовка; справа — стальной
-// двухдверный холодильник в нише за белой колонной до потолка
+// белая плитка, открытые полки, белая круглая вытяжка с трубой, чёрная столешница, духовка. Восточный край — белый
+// простенок с выключателями; стальной двухдверный холодильник — в нише белой колонны у западной стены, рядом стеклянная
+// дверь в сад (видео 4:13, 4:25, 4:47–5:07). От входной двери: слева кухня, справа весь зал — одно помещение (Иван)
 const KB = 5.52, KF = 6.14;                                                                 // задняя и передняя линии кухни
-box(1.5, KB, 2.1, KF, 2.3, mat.oak); box(4.5, KB, 5.0, KF, 2.3, mat.oak);                  // высокие пеналы
-box(1.5, KB, 5.0, KF, 0.14, mat.oak, 2.3);                                                  // верх портала
-box(2.1, KB, 4.5, KF, 0.88, mat.oak); box(2.1, KB, 4.5, KF + 0.03, 0.04, mat.counter, 0.88);
-for (let x = 2.3; x < 4.4; x += 0.6) box(x, KF, x + 0.3, KF + 0.02, 0.025, mat.black, 0.7);   // чёрные ручки
-box(2.1, KB, 4.5, KB + 0.03, 1.38, mat.white, 0.92);                                        // белая плитка
-[1.45, 1.8].forEach(z => { box(2.1, KB, 2.7, KB + 0.3, 0.03, mat.oak, z); box(3.9, KB, 4.5, KB + 0.3, 0.03, mat.oak, z); }); // открытые полки
-cyl(3.3, 5.8, 0.27, 0.22, mat.white, 1.55, 32); cyl(3.3, 5.72, 0.09, H - 1.77, mat.white, 1.77, 16); // круглая вытяжка и труба
-box(3.0, KF, 3.6, KF + 0.02, 0.5, mat.black, 0.2);                                          // духовка
-box(3.05, 5.62, 3.55, 6.02, 0.01, mat.black, 0.925);                                        // варочная
-box(3.95, 5.62, 4.4, 6.02, 0.01, mat.steel, 0.925);                                         // мойка
-box(5.05, KB, 5.9, KF + 0.05, 1.82, mat.steel); box(5.47, KF + 0.05, 5.49, KF + 0.06, 1.6, mat.black, 0.1, false); // холодильник side-by-side
-box(5.0, KB, 5.95, KF + 0.06, H - 1.9, mat.white, 1.9);                                     // перемычка над нишей
-box(5.95, KB, 6.55, KF + 0.12, H, mat.white);                                               // белая колонна до потолка
+box(2.3, KB, 2.9, KF, 2.3, mat.oak); box(5.3, KB, 5.8, KF, 2.3, mat.oak);                  // высокие пеналы
+box(2.3, KB, 5.8, KF, 0.14, mat.oak, 2.3);                                                  // верх портала
+box(2.9, KB, 5.3, KF, 0.88, mat.oak); box(2.9, KB, 5.3, KF + 0.03, 0.04, mat.counter, 0.88);
+for (let x = 3.1; x < 5.2; x += 0.6) box(x, KF, x + 0.3, KF + 0.02, 0.025, mat.black, 0.7);   // чёрные ручки
+box(2.9, KB, 5.3, KB + 0.03, 1.38, mat.white, 0.92);                                        // белая плитка
+[1.45, 1.8].forEach(z => { box(2.9, KB, 3.5, KB + 0.3, 0.03, mat.oak, z); box(4.7, KB, 5.3, KB + 0.3, 0.03, mat.oak, z); }); // открытые полки
+cyl(4.1, 5.8, 0.27, 0.22, mat.white, 1.55, 32); cyl(4.1, 5.72, 0.09, H - 1.77, mat.white, 1.77, 16); // круглая вытяжка и труба
+box(3.8, KF, 4.4, KF + 0.02, 0.5, mat.black, 0.2);                                          // духовка
+box(3.85, 5.62, 4.35, 6.02, 0.01, mat.black, 0.925);                                        // варочная
+box(4.75, 5.62, 5.2, 6.02, 0.01, mat.steel, 0.925);                                         // мойка
+box(5.8, KB, 6.4, KF + 0.1, H, mat.white);                                                  // белый простенок до потолка
+box(6.12, KF + 0.1, 6.2, KF + 0.11, 0.08, mat.paint2, 1.1, false); box(6.12, KF + 0.1, 6.2, KF + 0.11, 0.1, mat.paint2, 1.35, false); // выключатель, термостат
+// белая колонна у западной стены с нишей холодильника, ниша смотрит на юг — к стеклянной двери
+box(-0.09, 7.35, 1.35, 7.5, H, mat.white);                                                  // задняя стенка ниши
+box(0.92, 6.5, 1.35, 7.35, H, mat.white);                                                    // щека ниши со стороны зала
+box(-0.09, 6.5, 0.92, 7.35, H - 1.9, mat.white, 1.9);                                       // перемычка над нишей
+box(0.03, 6.62, 0.89, 7.33, 1.82, mat.steel);                                               // холодильник side-by-side
+box(0.45, 6.6, 0.47, 6.62, 1.6, mat.black, 0.1, false); box(0.24, 6.6, 0.32, 6.61, 0.14, mat.black, 1.25, false); // стык дверей, дисплей
+box(-0.08, 6.4, -0.07, 6.48, 0.08, mat.paint2, 1.1, false);                                 // выключатель у двери
 
 // --- зал: один длинный светлый деревянный стол с бело-серыми стульями; диван вдоль окна, перед ним ТВ (по видео и словам Ивана)
 function chair(x, y, mat0, rot, G0) {
@@ -1484,6 +1492,9 @@ function longTable(x0, y0, x1, y1, n, top, cm, ends = true) {
   if (ends) { chair(x0 - 0.12, (y0 + y1) / 2, cm, 1.5 * Math.PI); chair(x1 + 0.12, (y0 + y1) / 2, cm, 0.5 * Math.PI); }
 }
 longTable(2.4, 10.0, 4.8, 10.9, 3, mat.lightOak, mat.chairWhite);
+// два круглых белых столика с серыми стульями у западных окон (видео 3:59, 4:49)
+mat.chairGrey = S(0x5f6f7e, { roughness: 0.9 });   // серо-голубые стулья (фото «cocina»)
+roundTable(0.95, 9.5, 0.4, 3, mat.chairGrey); roundTable(0.95, 11.55, 0.4, 3, mat.chairGrey);
 // Г-образный диван лицом к окну и пуф (как в v6); ТВ на тумбе перед окнами, лицом к дивану
 box(2.0, 12.06, 5.5, 13.0, 0.42, mat.sofaGrey); box(2.0, 13.0, 3.0, 14.0, 0.42, mat.sofaGrey);
 box(2.0, 12.0, 5.5, 12.25, 0.85, mat.sofaGrey); box(2.0, 12.0, 2.25, 14.0, 0.85, mat.sofaGrey);
@@ -1517,7 +1528,8 @@ box(7.0, 5.52, 7.68, 5.88, 0.45, mat.white); box(7.02, 5.54, 7.66, 5.86, 0.07, m
 
 // --- Paraiso: прихожая → гостиная с кухней (север), спальня (юг), ванная (запад). По видео-обходу; план — для стен
 wall('y', 5.36, 8.62, 8.86, [], mat.plaster);
-wall('y', 5.36, 7.72, 8.62, [[7.72, 8.62, 'i']], mat.plaster, 0.001);   // дверь входа в номер из вестибюля
+box(7.74, 5.31, 8.6, 5.41, 2.08, mat.white);                              // дверь в номер из вестибюля — закрыта (видео 1:06)
+box(8.38, 5.41, 8.52, 5.45, 0.03, mat.black, 1.0);                         // ручка
 wallY(5.36, 7.72, 8.62, mat.plaster, 0.16, H - 2.1, 2.1);               // стена над дверью
 wall('x', 7.16, 2.97, 5.3, [[4.3, 5.0, 'i', -1]], mat.plaster, 0.16);    // западная стена прихожей: дверь в ванную (проём на плане)
 wall('x', 8.86, 2.97, 8.39, [[3.65, 4.75, 'o']], mat.plaster);            // проём из прихожей в гостиную; выше — стена вестибюля
@@ -1785,7 +1797,7 @@ box(-0.4, 8.66, -0.2, 19.26, 0.45, bconc); box(7.52, 8.66, 7.72, 19.26, 0.45, bc
 railing(-0.3, 8.8, -0.3, 19.16, 0.55, 0.45); railing(7.62, 8.8, 7.62, 19.16, 0.55, 0.45); railing(-0.3, 19.16, 7.62, 19.16, 0.55, 0.45);
 longTable(3.6, 9.9, 6.0, 10.7, 3, mat.black, mat.wicker);
 
-// --- КРЫША (+9,3): плоская бетонная плита над 2-м этажом и труба мангала; выхода на крышу нет
+// --- КРЫША (+9,3): плоская бетонная плита над 2-м этажом и труба мангала
 // лестница на крышу (есть на плане): марш в той же клетке, наверху — будка выхода с дверью на север
 floor('p2'); stairU(FL.roof - FL.p2, { flip: true, end: 6.92 });
 floor('roof'); WH = 2.3;
@@ -1831,7 +1843,7 @@ addLabel('Número Paraiso', 'Living Room · sala con cocina', 11.0, 5.6, 0.9);
 addLabel('Baño de invitados', 'inodoro, lavatorio y nicho del lavarropas', 2.6, 4.2, 0.9);
 addLabel('Baño Paraiso', 'posición aproximada: no figura en el plano', 5.8, 4.4, 0.9);
 addLabel('Dormitorio Paraiso', 'puerta frente a la entrada del número', 10.4, 1.4, 0.9);
-addLabel('Cocina común', 'roble, mesada negra, heladera de dos puertas', 2.9, 6.6, 1.0);
+addLabel('Cocina común', 'roble y mesada negra; heladera en la columna junto a la puerta al jardín', 4.0, 6.6, 1.0);
 addLabel('Patio con sillones', 'baldosa gris y cuatro sillones negros', 10.4, 11.3, 0.5);
 addLabel('Sala y comedor comunes', 'mesa larga de madera, sofá frente a la TV', 3.4, 11.5, 0.9);
 addLabel('Escalera', '', 3.9, 1.5, 0.9);
@@ -1852,6 +1864,8 @@ addLabel('Puerta del número Paraiso', 'desde el vestíbulo', 8.17, 5.36, 1.4);
 const panel = document.getElementById('photo'), vid = panel.querySelector('video'), pImg = panel.querySelector('img.big'),
   pCap = panel.querySelector('.cap'), pUse = panel.querySelector('.use'), pTh = panel.querySelector('.th');
 const EYE = 1.6, cams = [];
+const NOVID = !!window.NOVID;   // версия для «Страниц» хаба: видеофайла нет, точка показывает ракурс и фото
+if (NOVID) vid.style.display = 'none';
 let curCam = null;
 function showPhoto(c, i) {
   const p = c.photos[i];
@@ -1864,7 +1878,7 @@ function showPhoto(c, i) {
 function openCam(c, fly = true) {
   curCam = c; cams.forEach(k => k.el.classList.toggle('on', k === c));
   pCap.textContent = c.name;
-  if (!qs.has('still')) {
+  if (!qs.has('still') && !NOVID) {
     if (!vid.getAttribute('src')) vid.src = (/\/[^/.]+$/.test(location.pathname) ? location.pathname + '/' : '') + 'walk.mp4';   // на сайте страница открыта как /3d без слэша
     const go = () => { vid.currentTime = c.t; vid.play().catch(() => {}); };
     vid.readyState >= 1 ? go() : vid.addEventListener('loadedmetadata', go, { once: true });
@@ -1896,7 +1910,7 @@ function addCam(name, fl, t, [x, y], [lx, ly], photos = [], z = EYE) {
   floors[fl].add(g); c.cone = g;
   const el = document.createElement('div');
   el.className = 'dot cam';
-  el.innerHTML = '<i></i><div class="tip"><b>' + name + '</b><span>video' + (photos.length ? ' y ' + photos.length + (photos.length > 1 ? ' fotos' : ' foto') : '') + '</span></div>';
+  el.innerHTML = '<i></i><div class="tip"><b>' + name + '</b><span>' + (NOVID ? '' : 'video') + (photos.length ? (NOVID ? '' : ' y ') + photos.length + (photos.length > 1 ? ' fotos' : ' foto') : '') + '</span></div>';
   el.onclick = e => { e.stopPropagation(); labels.forEach(l => l.el.classList.remove('open')); openCam(c); };
   labelsEl.appendChild(el); c.el = el; cams.push(c);
   labels.push({ el, pos: new THREE.Vector3(x, z + FL[fl], -y), fl, cam: c });
@@ -1931,7 +1945,7 @@ addCam('Sala común', 'pb', 222, [6.6, 7.3], [2.0, 14.0], [
   ph('sala1', 'ventana larga con vidrios divididos, sofá, techo de hormigón con huellas de tablas.'),
   ph('sala2', 'sofá gris grande, TV, celosía de madera sobre la ventana.'),
   ph('sala_fondo', 'sala al fondo con mesa de madera y ventanas negras.')]);
-addCam('Cocina común', 'pb', 240, [3.4, 9.2], [3.4, 5.6], [
+addCam('Cocina común', 'pb', 240, [4.0, 9.2], [3.2, 5.6], [
   ph('cc1', 'muebles de roble, mesada negra, estantes abiertos, campana blanca, horno.'),
   ph('cc2', 'frente completo de roble con estantes abiertos.'),
   ph('cc3', 'alacena de roble con vajilla.'),
