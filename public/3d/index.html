@@ -1675,8 +1675,9 @@ box(RAMP[1] - 0.5, 19.1, RAMP[1] - 0.2, 19.14, 0.04, mat.black, 2.1, false);
 wall('y', 3.04, -0.4, 7.72, [[0.0, 1.3, 'd', -2]], mat.plaster, 0.15);   // стена лестничной клетки; дверь в гараж закрыта — гостям он недоступен (Иван)
 wall('x', 7.72, -0.34, 3.04, [], mat.plaster, 0.15);                 // стена клетки по оси 2 (лист 2)
 stairU(-FL.sub, { x0: 2.44, end: 6.92 });                           // нижний марш — вдоль наружной южной стены (Иван)
-// огнетушитель на стене у начала лестницы
-cyl(-0.17, 2.6, 0.085, 0.5, mat.red, 0.85, 16); cyl(-0.17, 2.6, 0.03, 0.12, mat.black, 1.35, 8); box(-0.29, 2.55, -0.25, 2.65, 0.2, mat.black, 1.1);
+// огнетушитель стоит в юго-западном углу, куда спускается лестница (Иван, 05.11); крупнее настоящего, чтобы был виден
+cyl(-0.06, 0.02, 0.17, 0.9, mat.red, 0, 24); cyl(-0.06, 0.02, 0.06, 0.16, mat.black, 0.9, 12);
+box(-0.08, 0.02, 0.16, 0.08, 0.04, mat.black, 1.04); box(0.12, 0.02, 0.17, 0.08, 0.55, mat.black, 0.5);   // ручка и шланг
 box(-0.2, 13.86, 7.5, 14.06, 0.02, mat.black);                     // решётка водостока по оси D
 // пандус: внутри D–E подъём ~1 м, дальше за осью E — до земли
 function ramp(y0, y1, z0, z1) {
@@ -1852,6 +1853,7 @@ addLabel('Sala y comedor comunes', 'mesa larga de madera, sofá frente a la TV',
 addLabel('Escalera', '', 3.9, 1.5, 0.9);
 addLabel('Puerta de entrada', 'madera con paño fijo, desde el patio', 8.05, 8.5, 1.4);
 addLabel('Depósito · sin acceso', '', 3.4, 10.0, 1.6, 'sub', true);
+addLabel('Matafuego', 'al pie de la escalera', 0.6, 0.02, 2.0, 'sub', true);
 addLabel('Rampa del garaje', 'ubicación y largo aproximados', 2.5, 23.0, 0.4, 'pb');
 addLabel('Departamento norte', 'dormitorio con dos camas, living con cocina', 5.0, 17.6, 1.0, 'p1');
 addLabel('Departamento sur', 'dormitorio, living con cocina, salida al balcón', 4.0, 8.4, 1.0, 'p1');
@@ -2022,7 +2024,8 @@ const NAV = [
       { id: 'pb-cocina', name: 'Cocina', box: [-0.25, 4.6, 7.26, 9.6] }] },
     { id: 'pb-patio', name: 'Patio', box: [7.2, 8.6, 13.8, 12.2] }] },
   { id: 'sub', name: 'Subsuelo', f: 'sub', kids: [
-    { id: 'sub-garaje', name: 'Depósito', box: [-0.4, 3.04, 7.72, 19.26] }] },
+    { id: 'sub-garaje', name: 'Depósito', box: [-0.4, 3.04, 7.72, 19.26] },
+    { id: 'sub-escalera', name: 'Escalera', box: [-0.4, -0.34, 7.72, 3.04], az: [0, -1] }] },   // с севера: с юго-запада угол с огнетушителем закрыт стенами
 ];
 const byId = {};
 (function walk(list, parent, f) { list.forEach(n => { n.parent = parent; n.f = n.f || f; n.box = n.box || B.house; byId[n.id] = n; if (n.kids) walk(n.kids, n, n.f); }); })(NAV, null, null);
@@ -2037,11 +2040,12 @@ function navView(n) {
   const t = new THREE.Vector3((x0 + x1) / 2, base + (n.id === 'all' ? 3.5 : top ? 0.6 : 1.0), -(y0 + y1) / 2);
   const el = plan ? 1.55 : n.id === 'all' ? 0.62 : top ? 0.82 : 1.0;
   // видимые размеры прямоугольника с этого азимута и угла; расстояние — чтобы он целиком влез в кадр
-  const ax = Math.abs(AZ.x), az = Math.abs(AZ.z);
+  const AZn = n.az ? new THREE.Vector3(n.az[0], 0, n.az[1]).normalize() : AZ;
+  const ax = Math.abs(AZn.x), az = Math.abs(AZn.z);
   const sw = plan ? w : w * az + h * ax, sh = plan ? h : (w * ax + h * az) * Math.sin(el) + hgt * Math.cos(el);
   const fov = 38 * Math.PI / 180, asp = freeAspect();
   const d = Math.max(sh, sw / asp) / (2 * Math.tan(fov / 2)) * (top ? 1.12 : 1.25) + (plan ? hgt : (w * ax + h * az) / 2 * Math.cos(el));
-  const dir = plan ? new THREE.Vector3(0, 1, 0.0001) : AZ.clone().multiplyScalar(Math.cos(el)).setY(Math.sin(el));
+  const dir = plan ? new THREE.Vector3(0, 1, 0.0001) : AZn.clone().multiplyScalar(Math.cos(el)).setY(Math.sin(el));
   return [t.clone().add(dir.normalize().multiplyScalar(d)), t];
 }
 const navEl = document.getElementById('nav'), navL = document.getElementById('navl'), navT = document.getElementById('navt');
