@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """15-minute scheduler for the booking guard (LaunchAgent com.openclaw.ilbuco-booking-guard).
 
-Runs the guard prompt on ZCode GLM Flash. If Flash fails, runs the guard
-directly so protection never lapses. Alerts and new executor failures become
+Runs the guard directly first (deterministic: protection never depends on
+Flash), then asks ZCode GLM Flash to judge the fresh status.json for an alert.
+Flash no longer runs the guard itself: under load the guard takes over 126 s,
+ZCode's Bash tool limit, and Flash then polled the backgrounded run until the
+600 s wrapper timeout (three ticks in a row on 2026-11-06). Alerts and new executor failures become
 one message to the hub session noe each, deduplicated by signature; unchanged runs stay quiet.
 """
 import datetime as dt
@@ -13,6 +16,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import time
 
 STATE = Path.home() / '.local/share/ilbuco-booking-guard'
 PROMPT = STATE / 'flash-prompt.txt'
@@ -89,13 +93,14 @@ def log_line(text):
 
 
 def run_flash():
-    env = dict(os.environ, ZCODE_FLASH_TIMEOUT=os.environ.get('ZCODE_FLASH_TIMEOUT', '600'))
+    # Flash only reads status.json now; a run past 300 s is a hang, not work.
+    env = dict(os.environ, ZCODE_FLASH_TIMEOUT=str(min(int(os.environ.get('ZCODE_FLASH_TIMEOUT', '300')), 300)))
     try:
-        p = subprocess.run([FLASH, str(REPO), str(PROMPT)], capture_output=True, text=True, env=env, timeout=900)
+        p = subprocess.run([FLASH, str(REPO), str(PROMPT)], capture_output=True, text=True, env=env, timeout=660)
     except subprocess.TimeoutExpired:
-        # A hung wrapper (e.g. ZCode risk-control stall) must degrade to the
-        # direct fallback like any other Flash failure, not crash the tick.
-        return None, 'Flash wrapper exceeded outer 900s timeout'
+        # A hung wrapper (e.g. a credential or ZCode stall) must become a logged
+        # Flash failure like any other, not crash the tick.
+        return None, 'Flash wrapper exceeded outer 660s timeout'
     if p.returncode:
         return None, (p.stderr.strip().splitlines() or [f'exit {p.returncode}'])[-1][:300]
     try:
@@ -109,28 +114,42 @@ def run_flash():
 
 
 def run_direct():
-    try:
-        p = subprocess.run(['python3', str(REPO / 'scripts/booking_guard.py'), '--apply'],
-                           capture_output=True, text=True, timeout=600)
-    except subprocess.TimeoutExpired:
-        # A hung direct run must degrade to the failure card and log line like
-        # any other failure, not crash the tick with no trace (seen 2026-10-14).
-        return False, 'direct run exceeded 600s timeout'
-    # The guard prints its own failure JSON as the last stdout line; without it
-    # the card cannot say why the direct run failed (status.json gets overwritten
-    # by the next successful run before anyone reads it).
-    reason = ''
-    for line in reversed((p.stdout or '').strip().splitlines()):
+    """Returns (ok, reason, ran). ran=False: another guard run held run.lock
+    for the whole wait, so this tick did not check anything itself."""
+    deadline = time.monotonic() + 300
+    while True:
         try:
-            d = json.loads(line)
-        except ValueError:
-            continue
-        if isinstance(d, dict) and d.get('status') == 'failed':
-            reason = str(d.get('reason', ''))[:300]
-            break
-    if not reason and p.returncode:
-        reason = ((p.stderr or '').strip().splitlines() or [f'exit {p.returncode}'])[-1][:300]
-    return p.returncode == 0, reason
+            p = subprocess.run(['python3', str(REPO / 'scripts/booking_guard.py'), '--apply'],
+                               capture_output=True, text=True, timeout=600)
+        except subprocess.TimeoutExpired:
+            # A hung direct run must degrade to the failure card and log line like
+            # any other failure, not crash the tick with no trace (seen 2026-10-14).
+            return False, 'direct run exceeded 600s timeout', True
+        # The guard prints its own failure JSON as the last stdout line; without it
+        # the card cannot say why the direct run failed (status.json gets overwritten
+        # by the next successful run before anyone reads it).
+        reason, busy = '', False
+        for line in reversed((p.stdout or '').strip().splitlines()):
+            try:
+                d = json.loads(line)
+            except ValueError:
+                continue
+            if isinstance(d, dict) and d.get('status') == 'failed':
+                reason = str(d.get('reason', ''))[:300]
+                break
+            if isinstance(d, dict) and d.get('status') == 'already-running':
+                busy = True
+                break
+        if busy:
+            # Another guard run (a manual one, or a leftover of an old Flash run)
+            # holds run.lock: wait for it instead of reporting a check that did not happen.
+            if time.monotonic() < deadline:
+                time.sleep(10)
+                continue
+            return p.returncode == 0, 'guard run.lock held by another run for 300s', False
+        if not reason and p.returncode:
+            reason = ((p.stderr or '').strip().splitlines() or [f'exit {p.returncode}'])[-1][:300]
+        return p.returncode == 0, reason, True
 
 
 def main():
@@ -138,43 +157,47 @@ def main():
     try:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
     except BlockingIOError:
+        log_line('skip: previous tick still running')
         return
     prior = load(EXECUTOR_STATUS)
+    started = time.monotonic()
+    direct_ok, direct_reason, ran = run_direct()
+    direct_secs = time.monotonic() - started
     result, error = run_flash()
     status = {'checked_at': now(), 'state': 'ok' if result else 'failed', 'error': error,
               'alert_signatures': prior.get('alert_signatures', [])[-50:],
-              'failure_card_open': bool(prior.get('failure_card_open'))}
+              'failure_card_open': bool(prior.get('failure_card_open')),
+              'direct_success': direct_ok, 'direct_reason': direct_reason or None,
+              'direct_ran': ran, 'direct_seconds': round(direct_secs),
+              'direct_checked_at': load(STATE / 'status.json').get('checked_at')}
     if result:
-        status['failure_card_open'] = False
         alert = result.get('alert')
         sig = result.get('signature') or (hashlib.sha256(alert.encode()).hexdigest()[:16] if alert else None)
         if alert and sig not in status['alert_signatures']:
             if card(f'Il Buco booking guard: {alert}', f'{alert}\n\nGuard result:\n{json.dumps(result, indent=1)}'):
                 status['alert_signatures'].append(sig)
-    else:
+    if result and direct_ok:
+        status['failure_card_open'] = False
+    elif not result:
         status['new_failure'] = prior.get('state') != 'failed' or prior.get('error') != error
-        status['fallback_success'], direct_reason = run_direct()
-        status['fallback_reason'] = direct_reason or None
-        status['fallback_checked_at'] = load(STATE / 'status.json').get('checked_at')
         status['consecutive_failures'] = (prior.get('consecutive_failures', 0) if prior.get('state') == 'failed' else 0) + 1
-        # A lone Flash timeout that the direct run covered is not worth a card;
-        # board only when the guard itself did not run, or Flash stays down.
-        # One open failure card per episode: repeat ticks stay quiet until a
-        # successful run clears the flag (2026-10-14: four cards in two hours).
-        if ((not status['fallback_success'] or status['consecutive_failures'] == FLASH_FAILURES_BEFORE_CARD)
-                and not status['failure_card_open']):
-            body = (f'Flash error: {error}\nConsecutive Flash failures: {status["consecutive_failures"]}\n'
-                    f'Direct guard run succeeded: {status["fallback_success"]}')
-            if direct_reason:
-                body += f'\nDirect failure reason: {direct_reason}'
-            if card('Il Buco booking guard: Flash run failed'
-                    + ('' if status['fallback_success'] else ', direct run failed too'), body):
-                status['failure_card_open'] = True
+    # A lone Flash failure is not worth a card: the guard already ran directly.
+    # Board when the guard itself failed, or Flash stays down. One open failure
+    # card per episode: repeat ticks stay quiet until a clean tick clears the flag
+    # (2026-10-14: four cards in two hours).
+    flash_down = not result and status.get('consecutive_failures') == FLASH_FAILURES_BEFORE_CARD
+    if (not direct_ok or flash_down) and not status['failure_card_open']:
+        title = 'Il Buco booking guard: ' + ('direct guard run failed' if not direct_ok else 'Flash run failed')
+        body = (f'Direct guard run succeeded: {direct_ok} ({round(direct_secs)}s)\n'
+                f'Flash error: {error}\nConsecutive Flash failures: {status.get("consecutive_failures", 0)}')
+        if direct_reason:
+            body += f'\nDirect failure reason: {direct_reason}'
+        if card(title, body):
+            status['failure_card_open'] = True
     EXECUTOR_STATUS.write_text(json.dumps(status, indent=1))
-    if result:
-        log_line('flash=ok')
-    else:
-        log_line(f'flash=failed error={error!r} fallback={status["fallback_success"]}')
+    log_line(f'direct={"ok" if direct_ok else "failed"} {round(direct_secs)}s'
+             + (f' reason={direct_reason!r}' if direct_reason else '')
+             + (' flash=ok' if result else f' flash=failed error={error!r}'))
 
 
 if __name__ == '__main__':
