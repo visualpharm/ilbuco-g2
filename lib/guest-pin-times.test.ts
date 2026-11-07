@@ -35,3 +35,16 @@ test('delivery window: 48h before check-in until check-in time, never retroactiv
   assert.equal(isDeliveryDue(ci, new Date('2026-10-12T16:00:00Z')), true);  // arrival day, before 15:00 check-in
   assert.equal(isDeliveryDue(ci, new Date('2026-10-12T20:00:00Z')), false); // already in
 });
+
+test('delivery window: a stay booked on arrival day gets its code after check-in time', () => {
+  // 2026-11-07: Alejandro Supital booked Giardino at 16:43 for the same day; the lock took his
+  // code at once, but "already in" held the message back and staff gave him a personal code.
+  const ci = stayBoundary('2026-11-07');
+  assert.equal(isDeliveryDue(ci, new Date('2026-11-07T19:44:00Z'), '2026-11-07T19:43:15Z'), true);
+  assert.equal(isDeliveryDue(ci, new Date('2026-11-08T02:00:00Z'), '2026-11-07T19:43:15Z'), true);
+  // Booked the evening before: still late enough to have no instructions.
+  assert.equal(isDeliveryDue(ci, new Date('2026-11-07T20:00:00Z'), '2026-11-06T22:00:00Z'), true);
+  // Known for days: the guest is in, no retroactive message.
+  assert.equal(isDeliveryDue(ci, new Date('2026-11-07T20:00:00Z'), '2026-11-01T10:00:00Z'), false);
+  assert.equal(isDeliveryDue(ci, new Date('2026-11-07T20:00:00Z')), false);
+});

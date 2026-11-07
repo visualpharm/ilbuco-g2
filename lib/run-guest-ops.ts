@@ -378,7 +378,7 @@ async function deliverIfDue(state: GuestOpsState, reservationCode: string): Prom
   const a = state.pinAssignments[reservationCode];
   if (!a || !a.pin || a.isManual) return state;
   if (a.lockStatus !== 'synced' && a.lockStatus !== 'backup') return state;
-  if (!isDeliveryDue(a.checkIn) || hoursUntil(a.checkOut) < 0) return state;
+  if (!isDeliveryDue(a.checkIn, new Date(), a.createdAt) || hoursUntil(a.checkOut) < 0) return state;
 
   const wanted: DeliveryChannel[] = ['email', 'hostex'];
   const pending = wanted.filter(ch => !a.channels.some(c => c.channel === ch && c.sent));

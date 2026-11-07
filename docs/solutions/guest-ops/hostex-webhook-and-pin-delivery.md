@@ -49,3 +49,8 @@ Production project: Vercel `ilbuco` (ilbuco.com.ar). The `ilbuco-g2` project has
 
 - Hosts block dates by hand ($0, 1 guest, guest's name) and the guest later books on Booking.com: Silvia Krauel had Giardino 5-6AHHVU3CU ($0, from 30.03) plus Booking 9-6861866133 ($416) — two codes for one door. Vanesa / Vanesa Moya repeat the pattern on Casa in December.
 - `placeholderStays()` (lib/lock-users.ts): accepted, amount exactly 0, overlapping an accepted paid stay on the same property with the same first name. The hourly sync (looking a month back for the paid twin) and the webhook revoke and skip such holds. A $0 stay with no paid twin (friends, family) keeps its code; an unknown amount is not a hold.
+
+## A same-day booking gets its code after 15:00 too (2026-11-07)
+
+- Alejandro Supital booked Giardino at 16:43 for the same night. The lock took his code in seconds, but `isDeliveryDue` treated anyone past check-in time + 3 h as "already in, instructions came another way" and never sent it; staff gave him a personal code instead.
+- Now a stay we learned of (assignment `createdAt`) less than 24 h before check-in is delivered whenever the lock has the code, until checkout. Stays known for longer keep the old "never retroactive" rule.

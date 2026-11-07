@@ -41,12 +41,19 @@ export const DELIVERY_LEAD_HOURS = 48;
 /** After this many hours past the 12:00 boundary (≈ 15:00 check-in) the guest is already in; no code message. */
 const ARRIVED_AFTER_HOURS = 3;
 
+/** A stay we learned of less than this before check-in may have had no instructions at all. */
+const LATE_BOOKING_HOURS = 24;
+
 /**
  * Is the guest's code message due? Within DELIVERY_LEAD_HOURS before check-in,
  * until check-in time on arrival day. Stays already under way got their
- * instructions another way and are never messaged retroactively.
+ * instructions another way and are never messaged retroactively — unless we only
+ * learned of the stay (`knownSince`) within a day of check-in: then nobody else
+ * gave them a code and it goes out as soon as the lock has it (the caller stops at checkout).
  */
-export function isDeliveryDue(checkIn: string, now: Date = new Date()): boolean {
+export function isDeliveryDue(checkIn: string, now: Date = new Date(), knownSince?: string): boolean {
   const h = hoursUntil(checkIn, now);
-  return h <= DELIVERY_LEAD_HOURS && h >= -ARRIVED_AFTER_HOURS;
+  if (h > DELIVERY_LEAD_HOURS) return false;
+  if (h >= -ARRIVED_AFTER_HOURS) return true;
+  return knownSince !== undefined && hoursUntil(checkIn, new Date(knownSince)) < LATE_BOOKING_HOURS;
 }
