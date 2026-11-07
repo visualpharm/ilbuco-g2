@@ -33,8 +33,12 @@ import {
   updateUser,
   deleteUser,
   confirmUserAdded,
+  getUser,
+  waitForLockUser,
   buildGuestSchedule,
+  type UtecUser,
 } from './utec-api';
+import { guestLockName, findOwnLockUser, isOnLock, isGuestLockName } from './lock-users';
 import {
   createQueueItem,
   recordFailure,
@@ -81,6 +85,44 @@ async function findDeviceForProperty(propertyId: string): Promise<string | null>
   const id = devices[0].id;
   deviceIdCache.set(propertyId, id);
   return id;
+}
+
+/** Lock user ids held by other assignments — never adopt one of those by name. */
+function lockUserIdsInUse(state: GuestOpsState, exceptCode: string): Set<string> {
+  const ids = new Set<string>();
+  for (const a of Object.values(state.pinAssignments)) {
+    if (a.reservationCode !== exceptCode && a.lockUserId) ids.add(a.lockUserId);
+  }
+  return ids;
+}
+
+function lockNameFor(a: Pick<PinAssignment, 'guestName' | 'checkIn' | 'propertyName'>): string {
+  return guestLockName(a.guestName, a.checkIn, a.propertyName);
+}
+
+/** The lock has not taken the code yet — worth retrying, never fatal. */
+function notOnLockError(what: string): RetryableError {
+  return new RetryableError(`${what} — the lock has not taken the code yet (sync_status 0)`, 'NOT_ON_LOCK');
+}
+
+/**
+ * Make sure an existing lock user is on the physical lock under its expected name.
+ * A user stuck in the U-tec cloud (sync_status 0) or carrying an old name is
+ * written again — U-tec then pushes it to the lock. It is written with the
+ * assignment's PIN and stay window: the code the guest gets is the code on the lock.
+ * @returns true once the lock has it
+ */
+async function settleLockUser(
+  deviceId: string,
+  user: UtecUser,
+  a: Pick<PinAssignment, 'guestName' | 'checkIn' | 'checkOut' | 'propertyName' | 'pin'>
+): Promise<boolean> {
+  const expectedName = lockNameFor(a);
+  if (isOnLock(user) && user.name === expectedName) return true;
+  if (!a.pin) throw new Error(`No PIN to write for lock user ${user.id}`);
+  await updateUser(deviceId, user.id, expectedName, a.pin, buildGuestSchedule(a.checkIn, a.checkOut));
+  const after = await waitForLockUser(deviceId, u => u.id === user.id && u.name === expectedName);
+  return !!after && isOnLock(after);
 }
 
 // ─── Report types ────────────────────────────────────────────────────────────
@@ -212,32 +254,43 @@ export async function handleNewReservation(
         throw new RetryableError('Lock is offline in U-tec', 'DEVICE_OFFLINE');
       }
 
-      // Dedup: a lock user named after the reservation code may already exist.
+      // Dedup: our lock user may already exist (stored id, its name, or the legacy
+      // reservation-code name). It counts only once the physical lock has it.
+      const lockName = lockNameFor(assignment);
+      const takenIds = lockUserIdsInUse(state, reservation.code);
       const users = await listUsers(deviceId);
-      const existingUser = users.find(u => u.name === reservation.code);
-      if (existingUser && !(existing && datesChanged(existing, checkIn, checkOut))) {
-        assignment.lockStatus = 'synced';
+      const existingUser = existing && datesChanged(existing, checkIn, checkOut)
+        ? undefined
+        : findOwnLockUser(users, { lockUserId: existing?.lockUserId, expectedName: lockName, reservationCode: reservation.code, takenIds });
+      if (existingUser) {
         assignment.lockUserId = existingUser.id;
-        state = upsertAssignment(state, assignment);
-        await saveState(state);
-        await deliverAndSave(state, reservation.code);
-        return { job: 'new-reservation', success: true, details: 'PIN already on lock', at: new Date().toISOString() };
+        if (await settleLockUser(deviceId, existingUser, assignment)) {
+          assignment.lockStatus = 'synced';
+          state = upsertAssignment(state, assignment);
+          await saveState(state);
+          await deliverAndSave(state, reservation.code);
+          return { job: 'new-reservation', success: true, details: 'PIN already on lock', at: new Date().toISOString() };
+        }
+        errors.push('Lock user exists but the lock has not taken it — re-sent, the retry sweep verifies it');
+      } else {
+        await addTemporaryUser(deviceId, lockName, pin, schedule);
+        const added = await waitForLockUser(deviceId, u => u.name === lockName && !takenIds.has(u.id));
+        if (added) assignment.lockUserId = added.id;
+        if (added && isOnLock(added)) {
+          assignment.lockStatus = 'synced';
+          state = upsertAssignment(state, assignment);
+          await saveState(state);
+          await deliverAndSave(state, reservation.code);
+          console.log(`[guest-ops] PIN synced to lock for ${reservation.code}`);
+          return { job: 'new-reservation', success: true, details: `PIN synced (user ${added.id})`, at: new Date().toISOString() };
+        }
+        errors.push(added
+          ? 'Lock user added but the lock has not taken it yet — the retry sweep verifies it'
+          : 'Add command sent but confirmation timed out — will verify on next sweep');
       }
 
-      await addTemporaryUser(deviceId, reservation.code, pin, schedule);
-      const userId = await confirmUserAdded(deviceId, reservation.code);
-      if (userId) {
-        assignment.lockStatus = 'synced';
-        assignment.lockUserId = userId;
-        state = upsertAssignment(state, assignment);
-        await saveState(state);
-        await deliverAndSave(state, reservation.code);
-        console.log(`[guest-ops] PIN synced to lock for ${reservation.code}`);
-        return { job: 'new-reservation', success: true, details: `PIN synced (user ${userId})`, at: new Date().toISOString() };
-      }
-
-      // Add sent but not confirmed — retry queue verifies it.
-      errors.push('Add command sent but confirmation timed out — will verify on next sweep');
+      // Not on the lock yet — the retry queue verifies (and re-sends) it.
+      state = upsertAssignment(state, assignment);
       state = updateRetryQueue(state, q => [...q, createQueueItem(reservation.code, 'add', deviceId, { schedule, pin })]);
       await saveState(state);
     } catch (err) {
@@ -410,22 +463,29 @@ export async function processRetryQueue(dryRun = false, force = false): Promise<
       }
 
       if (item.operation === 'add') {
-        // Check dedup first
+        // Check dedup first: our user may be in U-tec already, maybe not yet on the lock.
+        const lockName = lockNameFor(assignment);
+        const takenIds = lockUserIdsInUse(state, item.reservationCode);
         const users = await listUsers(item.deviceId);
-        const existing = users.find(u => u.name === item.reservationCode);
+        const existing = findOwnLockUser(users, {
+          lockUserId: assignment.lockUserId, expectedName: lockName, reservationCode: item.reservationCode, takenIds,
+        });
         if (existing) {
-          // Already synced — mark and remove from queue
-          const synced: PinAssignment = {
-            ...assignment,
-            lockStatus: 'synced',
-            lockUserId: existing.id,
-            updatedAt: now.toISOString(),
-          };
-          state = upsertAssignment(state, synced);
-          state = updateRetryQueue(state, q => q.filter(qi => qi !== item));
-
-          state = await deliverIfDue(state, item.reservationCode);
-          continue;
+          const onLock = await settleLockUser(item.deviceId, existing, assignment);
+          if (onLock) {
+            const synced: PinAssignment = {
+              ...assignment,
+              lockStatus: 'synced',
+              lockUserId: existing.id,
+              updatedAt: now.toISOString(),
+            };
+            state = upsertAssignment(state, synced);
+            state = updateRetryQueue(state, q => q.filter(qi => qi !== item));
+            state = await deliverIfDue(state, item.reservationCode);
+            continue;
+          }
+          // Re-sent; still only in the cloud. Count the attempt, check again later.
+          throw Object.assign(notOnLockError(`Lock user ${existing.id}`), { lockUserId: existing.id });
         }
 
         // Retry the add
@@ -436,14 +496,14 @@ export async function processRetryQueue(dryRun = false, force = false): Promise<
           state = upsertAssignment(state, assignment);
         }
         const schedule = buildGuestSchedule(assignment.checkIn, assignment.checkOut);
-        await addTemporaryUser(item.deviceId, item.reservationCode, assignment.pin!, schedule);
-        const userId = await confirmUserAdded(item.deviceId, item.reservationCode);
+        await addTemporaryUser(item.deviceId, lockName, assignment.pin!, schedule);
+        const added = await waitForLockUser(item.deviceId, u => u.name === lockName && !takenIds.has(u.id));
 
-        if (userId) {
+        if (added && isOnLock(added)) {
           const synced: PinAssignment = {
             ...assignment,
             lockStatus: 'synced',
-            lockUserId: userId,
+            lockUserId: added.id,
             updatedAt: now.toISOString(),
           };
           state = upsertAssignment(state, synced);
@@ -452,13 +512,11 @@ export async function processRetryQueue(dryRun = false, force = false): Promise<
 
           state = await deliverIfDue(state, item.reservationCode);
         } else {
-          // Record failure and advance Fibonacci
-          const failed = recordFailure(item, new Error('Confirmation timed out'));
-          if (failed) {
-            state = updateRetryQueue(state, q => q.map(qi => qi === item ? failed : qi));
-            const updated: PinAssignment = { ...assignment, retryAttempts: failed.attempts };
-            state = upsertAssignment(state, updated);
-          }
+          // Not on the lock yet (or not even in U-tec): advance Fibonacci, keep retrying.
+          throw Object.assign(
+            added ? notOnLockError(`Lock user ${added.id}`) : new RetryableError('Confirmation timed out', 'NOT_CONFIRMED'),
+            { lockUserId: added?.id },
+          );
         }
       } else if (item.operation === 'delete') {
         if (item.payload.id) {
@@ -472,7 +530,9 @@ export async function processRetryQueue(dryRun = false, force = false): Promise<
         state = updateRetryQueue(state, q => q.map(qi => qi === item ? failed : qi));
         const assignment = state.pinAssignments[item.reservationCode];
         if (assignment) {
-          state = upsertAssignment(state, { ...assignment, retryAttempts: failed.attempts });
+          // Remember a user that reached U-tec, so the next attempt re-sends it instead of adding a twin.
+          const lockUserId = (err as { lockUserId?: string }).lockUserId ?? assignment.lockUserId;
+          state = upsertAssignment(state, { ...assignment, lockUserId, retryAttempts: failed.attempts });
         }
         if (failed.status === 'exhausted') {
           errors.push(`${item.reservationCode} exhausted after ${failed.attempts} retries`);
@@ -555,6 +615,63 @@ async function syncWithHostex(dryRun: boolean): Promise<{ ensured: number; revok
 }
 
 /**
+ * Check the codes we consider synced against the lock itself (one list call per
+ * lock): a code stuck in the U-tec cloud (sync_status 0) is written again, one
+ * under an old name gets its "Guest DD-MM Unit" name, one that vanished from the
+ * lock is queued to be added again. PINs and schedules are never changed here.
+ */
+async function verifyLockUsers(
+  state: GuestOpsState,
+  dryRun: boolean
+): Promise<{ state: GuestOpsState; fixed: number; errors: string[] }> {
+  const errors: string[] = [];
+  let fixed = 0;
+  let s = state;
+  const watched = Object.values(s.pinAssignments).filter(a =>
+    !a.isManual && a.lockUserId && a.lockStatus === 'synced'
+    && hoursUntil(a.checkOut) > 0 && hoursUntil(a.checkIn) < SYNC_AHEAD_DAYS * 24);
+  const usersByDevice = new Map<string, UtecUser[]>();
+
+  for (const a of watched) {
+    try {
+      const deviceId = await findDeviceForProperty(a.propertyId);
+      if (!deviceId) continue;
+      if (!usersByDevice.has(deviceId)) usersByDevice.set(deviceId, await listUsers(deviceId));
+      const users = usersByDevice.get(deviceId)!;
+      if (!users.length) continue; // offline lock answers an empty list — nothing to judge
+      const expected = lockNameFor(a);
+      const user = users.find(u => u.id === a.lockUserId);
+      if (user && isOnLock(user) && user.name === expected) continue;
+      fixed++;
+      if (dryRun) continue;
+
+      if (user && await settleLockUser(deviceId, user, a)) {
+        console.log(`[guest-ops] lock user ${user.id} settled for ${a.reservationCode}`);
+        continue;
+      }
+      // Still not on the lock (or gone from it): back to the retry queue, no delivery until it is.
+      console.warn(`[guest-ops] ${a.reservationCode}: lock user ${a.lockUserId} ${user ? 'not on the lock (sync_status 0)' : 'missing from the lock'}`);
+      s = upsertAssignment(s, {
+        ...a,
+        lockStatus: 'retrying',
+        lockUserId: user ? a.lockUserId : undefined,
+        updatedAt: new Date().toISOString(),
+      });
+      if (!findPending(s.retryQueue, a.reservationCode)) {
+        const schedule = buildGuestSchedule(a.checkIn, a.checkOut);
+        s = updateRetryQueue(s, q => [
+          ...q.filter(qi => qi.reservationCode !== a.reservationCode),
+          createQueueItem(a.reservationCode, 'add', deviceId, { schedule, pin: a.pin ?? undefined }),
+        ]);
+      }
+    } catch (err) {
+      errors.push(`${a.reservationCode}: lock check failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  }
+  return { state: s, fixed, errors };
+}
+
+/**
  * Pre-checkin sweep (hourly):
  *   1. sync with Hostex (create missing PINs, revoke cancelled),
  *   2. deliver codes that are now due,
@@ -563,6 +680,19 @@ async function syncWithHostex(dryRun: boolean): Promise<{ ensured: number; revok
 export async function runPreCheckinSweep(dryRun = false): Promise<GuestOpsReport> {
   console.log('[guest-ops] runPreCheckinSweep');
   const errors: string[] = [];
+
+  // First the lock itself: a code the lock never took must not count as synced
+  // when the Hostex sync below re-checks the stay and delivers due codes.
+  let lockCheck = { fixed: 0 };
+  try {
+    const checked = await verifyLockUsers(await loadState(), dryRun);
+    lockCheck = checked;
+    errors.push(...checked.errors);
+    if (!dryRun && checked.fixed) await saveState(checked.state);
+  } catch (err) {
+    errors.push(`Lock check: ${err instanceof Error ? err.message : String(err)}`);
+  }
+
   let sync = { ensured: 0, revoked: 0, errors: [] as string[] };
   try {
     sync = await syncWithHostex(dryRun);
@@ -617,7 +747,7 @@ export async function runPreCheckinSweep(dryRun = false): Promise<GuestOpsReport
   return {
     job: 'pre-checkin',
     success: errors.length === 0,
-    details: `${sync.ensured} ensured, ${sync.revoked} revoked, ${processed} on backup path`,
+    details: `${lockCheck.fixed} lock users fixed, ${sync.ensured} ensured, ${sync.revoked} revoked, ${processed} on backup path`,
     processed: sync.ensured + sync.revoked + processed,
     errors,
     at: new Date().toISOString(),
@@ -677,8 +807,14 @@ export async function reconcileLocks(dryRun = false): Promise<GuestOpsReport> {
             a => a.reservationCode === user.name || a.lockUserId === user.id
           );
           if (!assignment) {
-            // Not in our assignments: clean up only leftovers of our own guest PINs.
-            if (!isReservationCodeName(user.name)) continue;
+            // Not in our assignments: clean up only leftovers of our own guest PINs —
+            // legacy reservation-code names always, "Guest DD-MM Unit" names once their
+            // stay is over (a name like that could also be typed by hand in the app).
+            if (!isGuestLockName(user.name)) continue;
+            if (!isReservationCodeName(user.name)) {
+              const end = (await getUser(device.id, user.id)).schedule?.daterange[1];
+              if (!end || new Date(`${end.replace(' ', 'T')}:00-03:00`).getTime() > Date.now()) continue;
+            }
             console.log(`[guest-ops] Found orphaned lock user: ${user.name} (${user.id})`);
             if (!dryRun) {
               try {
@@ -904,13 +1040,13 @@ export async function rollAllPins(
         const newPin = generatePin(activePins);
 
         // Update on lock
-        // Guest PINs live on the lock under the reservation code with their stay window;
+        // Guest PINs live on the lock as "Guest DD-MM Unit" with their stay window;
         // manual ones under the label typed in the admin.
         const temporary = !assignment.isManual || assignment.isPermanent === false;
         await updateUser(
           deviceId,
           assignment.lockUserId,
-          assignment.isManual ? assignment.guestName : assignment.reservationCode,
+          assignment.isManual ? assignment.guestName : lockNameFor(assignment),
           newPin,
           temporary ? buildGuestSchedule(assignment.checkIn, assignment.checkOut) : undefined
         );

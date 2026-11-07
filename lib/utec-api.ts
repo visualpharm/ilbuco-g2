@@ -25,6 +25,7 @@
 
 import { RetryableError } from './utec-retry';
 import { formatLockTime } from './guest-pin-times';
+import { parseSyncStatus, isOnLock } from './lock-users';
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
@@ -199,9 +200,12 @@ export interface UtecUser {
   name: string;
   type: number; // 0=Normal, 2=Temporary, 3=Admin
   status?: string;
-  sync_status?: string;
+  /** 1 = on the physical lock, 0 = only in the U-tec cloud (see isOnLock). */
+  sync_status?: number;
   /** Only present on `get` (not `list`) */
   password?: number;
+  /** Temporary users, only on `get`: the schedule as the lock holds it. */
+  schedule?: TemporaryUserSchedule;
 }
 
 export interface TemporaryUserSchedule {
@@ -318,7 +322,7 @@ export async function listUsers(deviceId: string): Promise<UtecUser[]> {
       name: String(usr.name ?? ''),
       type: Number(usr.type ?? 0),
       status: usr.status ? String(usr.status) : undefined,
-      sync_status: usr.sync_status ? String(usr.sync_status) : undefined,
+      sync_status: parseSyncStatus(usr.sync_status),
     };
   });
 }
@@ -340,7 +344,15 @@ export async function getUser(deviceId: string, userId: string): Promise<UtecUse
     type: Number(usr.type ?? 0),
     password: usr.password ? Number(usr.password) : undefined,
     status: usr.status ? String(usr.status) : undefined,
-    sync_status: usr.sync_status ? String(usr.sync_status) : undefined,
+    sync_status: parseSyncStatus(usr.sync_status),
+    schedule: Array.isArray(usr.daterange)
+      ? {
+          daterange: usr.daterange as [string, string],
+          weeks: (usr.weeks as number[] | undefined) ?? [0, 1, 2, 3, 4, 5, 6],
+          timerange: (usr.timerange as [string, string] | undefined) ?? ['00:00', '23:59'],
+          limit: Number(usr.limit ?? 0),
+        }
+      : undefined,
   };
 }
 
@@ -468,15 +480,40 @@ export async function registerWebhook(url: string, token: string): Promise<void>
 // ─── Confirmation polling ────────────────────────────────────────────────────
 
 /**
- * After addTemporaryUser, poll listUsers to confirm the PIN was created.
- * The `add` command is async — it returns a deferred ack and the lock applies
- * the change later. This function polls until the user appears or times out.
+ * Poll the lock's user list until a user matching `match` is on the physical
+ * lock (sync_status 1). `add`/`update` return only a deferred ack, and a user
+ * can sit in the U-tec cloud with sync_status 0 while the lock never gets it.
  *
- * @param deviceId     Lock device ID
- * @param name         The name we used (reservation code) to match against
- * @param timeoutMs    Total time to poll (default 30s)
- * @param intervalMs   Poll interval (default 3s)
- * @returns The user ID if found, null on timeout
+ * @returns the user once on the lock; at timeout the last match still in the
+ *          cloud only (check isOnLock), or null if it never appeared
+ */
+export async function waitForLockUser(
+  deviceId: string,
+  match: (u: UtecUser) => boolean,
+  timeoutMs = 30_000,
+  intervalMs = 3_000
+): Promise<UtecUser | null> {
+  const deadline = Date.now() + timeoutMs;
+  let seen: UtecUser | null = null;
+  while (Date.now() < deadline) {
+    try {
+      const users = await listUsers(deviceId);
+      const found = users.find(match);
+      if (found) {
+        seen = found;
+        if (isOnLock(found)) return found;
+      }
+    } catch {
+      // Transient error during polling — keep trying until deadline
+    }
+    await new Promise(r => setTimeout(r, intervalMs));
+  }
+  return seen;
+}
+
+/**
+ * After an add, poll until the user named `name` is on the lock.
+ * @returns the user ID (also when it only reached the cloud), null on timeout
  */
 export async function confirmUserAdded(
   deviceId: string,
@@ -484,16 +521,6 @@ export async function confirmUserAdded(
   timeoutMs = 30_000,
   intervalMs = 3_000
 ): Promise<string | null> {
-  const deadline = Date.now() + timeoutMs;
-  while (Date.now() < deadline) {
-    try {
-      const users = await listUsers(deviceId);
-      const match = users.find(u => u.name === name);
-      if (match) return match.id;
-    } catch {
-      // Transient error during polling — keep trying until deadline
-    }
-    await new Promise(r => setTimeout(r, intervalMs));
-  }
-  return null;
+  const user = await waitForLockUser(deviceId, u => u.name === name, timeoutMs, intervalMs);
+  return user?.id ?? null;
 }

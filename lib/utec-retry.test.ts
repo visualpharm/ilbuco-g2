@@ -209,3 +209,13 @@ test('findPending: ignores exhausted items', () => {
   const found = findPending([exhausted], 'RES1');
   assert.equal(found, undefined);
 });
+
+test('recordFailure: a code the lock has not taken yet keeps retrying (was fatal on "Confirmation timed out")', async () => {
+  const { RetryableError } = await import('./utec-retry.ts');
+  const item = createQueueItem('5-6CS9E569R', 'add', 'AA:BB', {});
+  for (const err of [new RetryableError('Confirmation timed out', 'NOT_CONFIRMED'), new RetryableError('not on lock', 'NOT_ON_LOCK')]) {
+    const failed = recordFailure(item, err);
+    assert.equal(failed.status, 'pending');
+    assert.equal(failed.attempts, 1);
+  }
+});

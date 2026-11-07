@@ -21,4 +21,16 @@ Production project: Vercel `ilbuco` (ilbuco.com.ar). The `ilbuco-g2` project has
 - `st.lockUser` commands go as `{"devices":[{"id":<device>,"command":{"capability":"st.lockUser","name":"list|get|add|update|delete","arguments":{…}}}]}` with numeric user ids; header carries `messageId` and `payloadVersion: "1"`. Source: U-tec Postman docs (collection 42799536/2sAYk8v3Eb, «Lock User Management»).
 - The flat `{id, capability, command}` shape is accepted with HTTP 200 and `devices: []` — no error, nothing happens. Until this fix no automated or admin PIN ever reached the lock; check a new command against the live `list`, not the HTTP status.
 - `get` returns `devices[0].user` (with `password`); `add/update/delete` return only `st.deferredResponse` — confirm through `list`. `update` takes the full user object: a temporary user needs `type: 2` and the schedule again or it turns permanent.
-- Nightly reconcile deletes only unknown temporary users named like a Hostex reservation code; codes added by hand in Xthings Home stay.
+- Nightly reconcile deletes unknown temporary users named like a Hostex reservation code, and unknown "Guest DD-MM Unit" users once their stay is over; codes added by hand in Xthings Home stay.
+
+## Code in U-tec ≠ code on the door: sync_status (2026-11-07)
+
+- `list` gives each user `sync_status`: **1 = on the physical lock, 0 = only in the U-tec cloud**. Lara Desmaras' code sat at 0 on check-in day while the server called it synced and had sent it to her; the old parser turned 0 into `undefined`.
+- A user stuck at 0 reaches the lock when it is written again: `update` with the same PIN and schedule (and any name). Seconds later `list` shows 1.
+- The server now counts a code as synced and sends it only at `sync_status` 1. The hourly `pre-checkin` job first checks every synced upcoming code against `list`: 0 → written again; still 0 → back to the retry queue (no delivery; within 24h of check-in the backup path); gone from the lock → added again. "Not on the lock yet" and "confirmation timed out" are retryable — they used to exhaust the queue on the second attempt.
+- Lock users are named "Guest DD-MM Unit" (`lib/lock-users.ts`, e.g. "Bruno Sergio 07-11 Penthouse", whole house = "Casa"); matching is by the stored U-tec user id, with the old reservation-code name as fallback. U-tec took a 66-character name in a test; we cap at 40. Renaming = `update` with the same PIN and schedule.
+
+## Hostex must not hand out a fixed door code (2026-11-07)
+
+- The guest-facing code is only the personal PIN from the «🔑 Check-in» message. The automation template «Il Buco - Check In <unit>» (sent 1 day before check-in at 07:00, after the PIN message) used to say the code was 8649, which is not on the lock.
+- Hostex property → Check-in Guide → Door lock: a «Fixed code» there is copied into every reservation's `check_in_details.lock_code` and shown in the guest's check-in guide after 12:00. Giardino and Paraiso had 8649; removed (saved with «apply to existing reservations», `extend_exist_reservation: 1`). Recharge Retreat still has a fixed code — a separate place, left as is.
