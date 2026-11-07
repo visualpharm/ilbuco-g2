@@ -7,6 +7,11 @@ Flash no longer runs the guard itself: under load the guard takes over 126 s,
 ZCode's Bash tool limit, and Flash then polled the backgrounded run until the
 600 s wrapper timeout (three ticks in a row on 2026-11-06). Alerts and new executor failures become
 one message to the hub session noe each, deduplicated by signature; unchanged runs stay quiet.
+
+When Flash does not answer (2026-11-07: three ticks stalled on its second model
+request), the scheduler judges status.json itself with fixed rules and pages
+noe only for a real problem in the guard's data; Flash's own failure is a log
+line, and Flash is asked again on the next tick.
 """
 import datetime as dt
 import fcntl
@@ -25,7 +30,9 @@ REPO = Path('/Users/ivan/projects/ilbuco-g2')
 FLASH = '/Users/ivan/.claude/bin/zcode-flash-task'
 # The Noe board on :8766 was archived 2026-10-14; alerts go to the hub session noe.
 HUB = '/Users/ivan/agents-hub-main/bin/hub'
-FLASH_FAILURES_BEFORE_CARD = 3
+# status.json older than this means the guard has stopped updating it (ticks
+# run every 15-20 min; a held run lock may skip one).
+STALE_AFTER = 3600
 
 
 def now():
@@ -152,6 +159,54 @@ def run_direct():
         return p.returncode == 0, reason, True
 
 
+def conflict_key(c):
+    return json.dumps({'date': c.get('date'), 'reservations': sorted(map(str, c.get('reservations') or []))},
+                      sort_keys=True)
+
+
+def local_problems(st, prior):
+    """Deterministic stand-in for Flash's verdict on status.json.
+
+    Returns (problems, known_conflicts, known_source_error): problems is a list
+    of one-line texts worth a card; the known_* values are the baseline to
+    keep once those problems are reported. Known limits (Booking iCal without
+    an independent notification, manual block overlaps) and conflicts or a
+    source error Flash already judged stay quiet."""
+    if not st:
+        return ['status.json is missing or unreadable'], prior.get('known_conflicts'), prior.get('known_source_error')
+    problems = []
+    if st.get('status') == 'failed':
+        problems.append(f'guard run failed: {st.get("reason")}')
+    try:
+        age = (dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(st['checked_at'])).total_seconds()
+    except (KeyError, TypeError, ValueError):
+        age = None
+    if age is None or age > STALE_AFTER:
+        problems.append(f'status.json not updated since {st.get("checked_at")}')
+    if st.get('repair_error'):
+        problems.append(f'protective block repair failed: {st["repair_error"]}')
+    if st.get('unverified_channel_nights'):
+        nights = st['unverified_channel_nights']
+        problems.append(f'{len(nights)} protective block night(s) unverified on the channel: '
+                        + ', '.join(sorted({str(n.get("date")) for n in nights}))[:300])
+    if st.get('notifications_without_hostex_record'):
+        missing = st['notifications_without_hostex_record']
+        problems.append(f'{len(missing)} booking notification(s) without a Hostex reservation')
+    current = sorted(conflict_key(c) for c in st.get('conflicts') or [])
+    known = prior.get('known_conflicts')
+    if known is None:  # first fallback ever: no verdict to compare with, take what is there as known
+        known = current
+    new = [json.loads(k) for k in current if k not in known]
+    if new:
+        problems.append('new booking conflict: ' + '; '.join(f'{c["date"]} ({", ".join(c["reservations"])})'
+                                                            for c in new)[:300])
+    source = st.get('source_error')
+    known_source = prior.get('known_source_error', source)
+    if source and source != known_source:
+        problems.append(f'source error: {source}'[:300])
+    return problems, sorted(set(known) | set(current)) if new else current, source
+
+
 def main():
     lock = open(STATE / 'scheduler.lock', 'w')
     try:
@@ -176,28 +231,50 @@ def main():
         if alert and sig not in status['alert_signatures']:
             if card(f'Il Buco booking guard: {alert}', f'{alert}\n\nGuard result:\n{json.dumps(result, indent=1)}'):
                 status['alert_signatures'].append(sig)
-    if result and direct_ok:
-        status['failure_card_open'] = False
-    elif not result:
+    guard = load(STATE / 'status.json')
+    local = None
+    if result:
+        # Flash judged the current conflicts and source error: they are the baseline.
+        status['known_conflicts'] = sorted(conflict_key(c) for c in guard.get('conflicts') or [])
+        status['known_source_error'] = guard.get('source_error')
+    else:
         status['new_failure'] = prior.get('state') != 'failed' or prior.get('error') != error
         status['consecutive_failures'] = (prior.get('consecutive_failures', 0) if prior.get('state') == 'failed' else 0) + 1
-    # A lone Flash failure is not worth a card: the guard already ran directly.
-    # Board when the guard itself failed, or Flash stays down. One open failure
-    # card per episode: repeat ticks stay quiet until a clean tick clears the flag
-    # (2026-10-14: four cards in two hours).
-    flash_down = not result and status.get('consecutive_failures') == FLASH_FAILURES_BEFORE_CARD
-    if (not direct_ok or flash_down) and not status['failure_card_open']:
-        title = 'Il Buco booking guard: ' + ('direct guard run failed' if not direct_ok else 'Flash run failed')
+        problems, known_conflicts, known_source = local_problems(guard, prior)
+        if not direct_ok:  # the direct-failure card below already tells it
+            problems = [p for p in problems if not p.startswith('guard run failed')]
+        sent = True
+        for problem in problems:
+            sig = 'local:' + hashlib.sha256(problem.encode()).hexdigest()[:16]
+            if sig in status['alert_signatures']:
+                continue
+            body = (f'{problem}\n\nJudged by the scheduler itself: Flash did not answer ({error}).\n'
+                    f'Guard status:\n{json.dumps(guard, indent=1)[:4000]}')
+            if card(f'Il Buco booking guard: {problem}', body):
+                status['alert_signatures'].append(sig)
+            else:
+                sent = False
+        # Keep the old baseline when a card did not go out, so the next tick retries it.
+        status['known_conflicts'] = known_conflicts if sent else prior.get('known_conflicts')
+        status['known_source_error'] = known_source if sent else prior.get('known_source_error')
+        local = 'alert:' + '|'.join(problems) if problems else 'clean'
+    if direct_ok:
+        status['failure_card_open'] = False
+    # Flash's own failure is not worth a card: the guard ran directly and the
+    # scheduler judged status.json above. Board only when the guard itself
+    # failed; one open failure card per episode (2026-10-14: four cards in two hours).
+    if not direct_ok and not status['failure_card_open']:
         body = (f'Direct guard run succeeded: {direct_ok} ({round(direct_secs)}s)\n'
                 f'Flash error: {error}\nConsecutive Flash failures: {status.get("consecutive_failures", 0)}')
         if direct_reason:
             body += f'\nDirect failure reason: {direct_reason}'
-        if card(title, body):
+        if card('Il Buco booking guard: direct guard run failed', body):
             status['failure_card_open'] = True
     EXECUTOR_STATUS.write_text(json.dumps(status, indent=1))
     log_line(f'direct={"ok" if direct_ok else "failed"} {round(direct_secs)}s'
              + (f' reason={direct_reason!r}' if direct_reason else '')
-             + (' flash=ok' if result else f' flash=failed error={error!r}'))
+             + (' flash=ok' if result else f' flash=failed n={status["consecutive_failures"]} error={error!r}')
+             + (f' local={local[:300]}' if local else ''))
 
 
 if __name__ == '__main__':

@@ -29,7 +29,7 @@ class Tick(unittest.TestCase):
             p.start()
             self.addCleanup(p.stop)
         self.calls, self.cards = [], []
-        p = mock.patch.object(sched, 'card', lambda title, body: self.cards.append(title) or True)
+        p = mock.patch.object(sched, 'card', lambda title, body: self.cards.append(f'{title}\n{body}') or True)
         p.start()
         self.addCleanup(p.stop)
 
@@ -49,17 +49,66 @@ class Tick(unittest.TestCase):
         self.tick((True, '', True), ({'checked_at': 'x', 'alert': None}, None))
         self.assertEqual(self.calls, ['direct', 'flash'])
 
-    def test_flash_timeout_leaves_guard_run_and_no_card_until_three(self):
-        for n in range(1, 4):
+    def status(self, **over):
+        st = {'checked_at': sched.now(), 'source_error': None, 'repair_error': None, 'submitted_nights': 0,
+              'unverified_channel_nights': [], 'conflicts': [], 'notifications_without_hostex_record': [],
+              'changed': False, 'signature': 'abc'}
+        st.update(over)
+        (self.state / 'status.json').write_text(json.dumps(st))
+
+    def test_flash_timeout_leaves_guard_run_and_no_card_while_status_is_clean(self):
+        # 2026-11-07: Flash stalled on its second model request three ticks in a
+        # row while every direct run was fine; the old code paged noe anyway.
+        self.status()
+        for n in range(1, 5):
             st = self.tick((True, '', True), (None, 'ZCODE_FLASH_TIMEOUT: zcode ran past 300s'))
             self.assertEqual(st['consecutive_failures'], n)
             self.assertTrue(st['direct_success'])
-        self.assertEqual(self.calls.count('direct'), 3)
-        self.assertEqual(self.cards, ['Il Buco booking guard: Flash run failed'])
+        self.assertEqual(self.calls, ['direct', 'flash'] * 4)  # Flash is retried on every tick
+        self.assertEqual(self.cards, [])
+
+    def test_flash_timeout_with_a_failed_repair_cards_at_once_and_once(self):
+        self.status(repair_error='hostex 502 on /availabilities')
+        for _ in range(3):
+            self.tick((True, '', True), (None, 'ZCODE_FLASH_TIMEOUT: zcode ran past 300s'))
+        self.assertEqual(len(self.cards), 1)
+        self.assertIn('hostex 502', self.cards[0])
+
+    def test_flash_timeout_with_unverified_protective_block_cards(self):
+        self.status(unverified_channel_nights=[{'property_id': 1, 'date': '2026-12-01'}])
+        self.tick((True, '', True), (None, 'ZCODE_FLASH_TIMEOUT: zcode ran past 300s'))
+        self.assertEqual(len(self.cards), 1)
+        self.assertIn('unverified', self.cards[0])
+
+    def test_stale_status_cards_when_flash_is_down(self):
+        self.status(checked_at='2026-01-01T00:00:00+00:00')
+        self.tick((True, '', False), (None, 'ZCODE_FLASH_TIMEOUT: zcode ran past 300s'))
+        self.assertEqual(len(self.cards), 1)
+        self.assertIn('not updated', self.cards[0])
+
+    def test_known_conflicts_stay_quiet_new_conflict_cards(self):
+        old = {'date': '2026-12-24', 'manual_block': False, 'reservations': ['a', 'b']}
+        new = {'date': '2027-01-02', 'manual_block': False, 'reservations': ['c', 'd']}
+        self.status(conflicts=[old], source_error='booking login expired')
+        self.tick((True, '', True), ({'checked_at': 'x', 'alert': None}, None))  # Flash judged them known
+        self.tick((True, '', True), (None, 'ZCODE_FLASH_TIMEOUT: zcode ran past 300s'))
+        self.assertEqual(self.cards, [])
+        self.status(conflicts=[old, new], source_error='booking login expired')
+        self.tick((True, '', True), (None, 'ZCODE_FLASH_TIMEOUT: zcode ran past 300s'))
+        self.tick((True, '', True), (None, 'ZCODE_FLASH_TIMEOUT: zcode ran past 300s'))
+        self.assertEqual(len(self.cards), 1)
+        self.assertIn('2027-01-02', self.cards[0])
+
+    def test_first_fallback_does_not_page_about_conflicts_it_cannot_date(self):
+        # No baseline yet (first tick after the upgrade): existing conflicts are
+        # taken as known; only hard problems may page.
+        self.status(conflicts=[{'date': '2026-12-24', 'manual_block': False, 'reservations': ['a', 'b']}])
+        self.tick((True, '', True), (None, 'ZCODE_FLASH_TIMEOUT: zcode ran past 300s'))
+        self.assertEqual(self.cards, [])
 
     def test_failed_direct_run_cards_at_once(self):
         st = self.tick((False, 'hostex curl error', True), ({'checked_at': 'x', 'alert': None}, None))
-        self.assertEqual(self.cards, ['Il Buco booking guard: direct guard run failed'])
+        self.assertEqual([c.splitlines()[0] for c in self.cards], ['Il Buco booking guard: direct guard run failed'])
         self.assertTrue(st['failure_card_open'])
 
 
