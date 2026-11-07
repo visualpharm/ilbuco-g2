@@ -5,7 +5,7 @@ Production project: Vercel `ilbuco` (ilbuco.com.ar). The `ilbuco-g2` project has
 - Hostex authenticates a webhook with the per-webhook `Hostex-Webhook-Secret-Token` header. The secret is returned once by `POST /webhooks`, never again; lost = delete and recreate. Current webhook id 5859; secret in 1Password (AI, "ilbuco-g2 HOSTEX_WEBHOOK_SECRET") and Vercel `ilbuco` production env `HOSTEX_WEBHOOK_SECRET`.
 - Hostex waits 5s and never retries on an error status. Webhook work runs in `after()`; the hourly `pre-checkin` job re-syncs the next 14 days from Hostex and revokes cancelled stays, so a dropped event self-heals.
 - Stay window is 12:00 → 12:00 Argentina time (`lib/guest-pin-times.ts`). Date-only dates read as UTC midnight revoked codes the evening before checkout.
-- Delivery: Hostex booking thread (+ Mailgun email when configured) once the code is on the lock, from 48h before check-in until check-in time. No WhatsApp from the server (WAHA removed 2026-10-08).
+- Delivery: Hostex booking thread + Mailgun email (when the guest has an address) once the code is on the lock, from 48h before check-in until check-in time. No WhatsApp from the server (WAHA removed 2026-10-08).
 - One lock ("Il Buco Front Door", U-tec Latch-5-F, Wi-Fi built in — there is no bridge). When U-tec reports it Offline nothing can be programmed; codes queue and sync when it returns, and the five permanent backup codes «Respaldo 1–5» still open the door (see below).
 
 ## Lock offline: getting it back on Wi-Fi (2026-10-29)
@@ -54,3 +54,10 @@ Production project: Vercel `ilbuco` (ilbuco.com.ar). The `ilbuco-g2` project has
 
 - Alejandro Supital booked Giardino at 16:43 for the same night. The lock took his code in seconds, but `isDeliveryDue` treated anyone past check-in time + 3 h as "already in, instructions came another way" and never sent it; staff gave him a personal code instead.
 - Now a stay we learned of (assignment `createdAt`) less than 24 h before check-in is delivered whenever the lock has the code, until checkout. Stays known for longer keep the old "never retroactive" rule.
+
+## Email channel: mg.ilbuco.com.ar (2026-11-07)
+
+- Until 2026-11-07 Vercel `ilbuco` had no `MAILGUN_*` env, so every email attempt ended "Mailgun not configured" and guests got the code only in the Hostex thread.
+- Now: domain `mg.ilbuco.com.ar` on the shared Mailgun account (US region), DNS in the Cloudflare zone ilbuco.com.ar (SPF + DKIM `mailo._domainkey` TXT, `email.mg` CNAME, MX for bounces; the root MX stays ImprovMX). Vercel production env `MAILGUN_API_KEY` (a sending key limited to this domain, 1P AI «Mailgun sending key — mg.ilbuco.com.ar (Vercel ilbuco)»), `MAILGUN_DOMAIN`, `MAILGUN_FROM` = `Il Buco <ciao@ilbuco.com.ar>` (the public contact; replies go to ImprovMX). Env changes need a redeploy.
+- Pending email channels are retried by the next job, so stays already inside the delivery window got the email right after the switch. Check sends with `GET /v3/mg.ilbuco.com.ar/events`.
+
