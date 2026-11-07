@@ -7,7 +7,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  guestLockName, isGuestLockName, parseSyncStatus, isOnLock, findOwnLockUser, LOCK_NAME_MAX,
+  guestLockName, isGuestLockName, parseSyncStatus, isOnLock, findOwnLockUser, lockUserVerdict, LOCK_NAME_MAX,
 } from './lock-users.ts';
 
 test('guestLockName: guest, check-in day-month, unit', () => {
@@ -78,4 +78,15 @@ test('findOwnLockUser: stored id first, then the new name, then the legacy reser
   assert.equal(findOwnLockUser(users, { expectedName: 'Bruno Sergio 07-11 Penthouse', reservationCode: '9-5800932542-iio8bsglgk' })?.id, '12');
   // A stored id that is gone from the lock falls back to the name.
   assert.equal(findOwnLockUser(users, { ...ref, lockUserId: '99' })?.id, '10');
+});
+
+test('lockUserVerdict: an old name on a working code is only a rename, never "not on the lock"', () => {
+  // 2026-11-07: renaming Cecilia Ostuni's code (sync 1) waited 30 s for the lock, timed out,
+  // demoted her to retrying and sent a false "lock is not accepting the code" alert.
+  const name = 'Cecilia Ostuni 08-11 Giardino';
+  assert.equal(lockUserVerdict({ id: '1', name, sync_status: 1 }, name), 'ok');
+  assert.equal(lockUserVerdict({ id: '1', name: '9-6575276122-iipd7wpzgl', sync_status: 1 }, name), 'rename');
+  assert.equal(lockUserVerdict({ id: '1', name, sync_status: 0 }, name), 'push');
+  assert.equal(lockUserVerdict({ id: '1', name: 'old', sync_status: 0 }, name), 'push');
+  assert.equal(lockUserVerdict(undefined, name), 'missing');
 });

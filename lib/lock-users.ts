@@ -87,6 +87,22 @@ export function isOnLock(user: LockUserLike): boolean {
   return user.sync_status !== 0;
 }
 
+/**
+ * What a code we consider synced needs, judged from the lock's user list:
+ * - ok: on the door under its name;
+ * - rename: on the door, old name — rename with the same PIN, the door keeps working,
+ *   so the code stays synced even if the rename takes minutes to reach the lock;
+ * - push: only in the U-tec cloud (sync_status 0) — write it again, no delivery until it lands;
+ * - missing: gone from the lock — add it again.
+ */
+export type LockUserVerdict = 'ok' | 'rename' | 'push' | 'missing';
+
+export function lockUserVerdict(user: LockUserLike | undefined, expectedName: string): LockUserVerdict {
+  if (!user) return 'missing';
+  if (!isOnLock(user)) return 'push';
+  return user.name === expectedName ? 'ok' : 'rename';
+}
+
 /** Find our lock user: stored id first, then the expected name, then the legacy reservation-code name. */
 export function findOwnLockUser<U extends LockUserLike>(
   users: U[],

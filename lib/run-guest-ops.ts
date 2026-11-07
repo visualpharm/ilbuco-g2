@@ -38,7 +38,7 @@ import {
   buildGuestSchedule,
   type UtecUser,
 } from './utec-api';
-import { guestLockName, findOwnLockUser, isOnLock, isGuestLockName } from './lock-users';
+import { guestLockName, findOwnLockUser, isOnLock, isGuestLockName, lockUserVerdict } from './lock-users';
 import {
   createQueueItem,
   recordFailure,
@@ -631,6 +631,7 @@ async function verifyLockUsers(
     !a.isManual && a.lockUserId && a.lockStatus === 'synced'
     && hoursUntil(a.checkOut) > 0 && hoursUntil(a.checkIn) < SYNC_AHEAD_DAYS * 24);
   const usersByDevice = new Map<string, UtecUser[]>();
+  const settleDeadline = Date.now() + 120_000; // the cron function has 300 s in total
 
   for (const a of watched) {
     try {
@@ -641,11 +642,20 @@ async function verifyLockUsers(
       if (!users.length) continue; // offline lock answers an empty list — nothing to judge
       const expected = lockNameFor(a);
       const user = users.find(u => u.id === a.lockUserId);
-      if (user && isOnLock(user) && user.name === expected) continue;
+      const verdict = lockUserVerdict(user, expected);
+      if (verdict === 'ok') continue;
       fixed++;
       if (dryRun) continue;
 
-      if (user && await settleLockUser(deviceId, user, a)) {
+      if (verdict === 'rename' && user && a.pin) {
+        // The code already opens the door: rename with the same PIN and stay, don't wait —
+        // the lock applies queued writes one by one, and waiting here made renames look like failures.
+        await updateUser(deviceId, user.id, expected, a.pin, buildGuestSchedule(a.checkIn, a.checkOut));
+        console.log(`[guest-ops] lock user ${user.id} renamed to "${expected}" for ${a.reservationCode}`);
+        continue;
+      }
+      // Each wait below can take 30 s; past the budget, queue the rest for the 15-min retry job.
+      if (user && Date.now() < settleDeadline && await settleLockUser(deviceId, user, a)) {
         console.log(`[guest-ops] lock user ${user.id} settled for ${a.reservationCode}`);
         continue;
       }
