@@ -44,3 +44,8 @@ Production project: Vercel `ilbuco` (ilbuco.com.ar). The `ilbuco-g2` project has
 - The pool had been empty since launch («seed it in /nimda» never happened), so the 24h fallback could only alert. The hourly `pre-checkin` job now keeps five permanent lock users «Respaldo 1…5»: adds a missing one, adopts it on the next run by name with the PIN U-tec holds, and marks a slot ready only when a later run reads our PIN back at `sync_status` 1.
 - A slot handed to a guest is released at checkout with `rotate`: the next run writes a new PIN, so the guest's code stops opening the door. Slots in use are never touched. Names don't match `isGuestLockName`, so the orphan sweep leaves them alone.
 
+
+## A $0 hold under a paid booking gets no code (2026-11-07)
+
+- Hosts block dates by hand ($0, 1 guest, guest's name) and the guest later books on Booking.com: Silvia Krauel had Giardino 5-6AHHVU3CU ($0, from 30.03) plus Booking 9-6861866133 ($416) — two codes for one door. Vanesa / Vanesa Moya repeat the pattern on Casa in December.
+- `placeholderStays()` (lib/lock-users.ts): accepted, amount exactly 0, overlapping an accepted paid stay on the same property with the same first name. The hourly sync (looking a month back for the paid twin) and the webhook revoke and skip such holds. A $0 stay with no paid twin (friends, family) keeps its code; an unknown amount is not a hold.

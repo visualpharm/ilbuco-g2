@@ -291,6 +291,7 @@ export interface HostexReservation {
     arrival_at?: { hour: number; minute: number };
     departure_at?: { hour: number; minute: number };
   };
+  rates?: { total_rate?: { currency?: string; amount?: number } };
 }
 
 /**
@@ -321,6 +322,7 @@ export async function getReservation(reservationCode: string): Promise<HostexRes
     check_in_date: r.check_in_date,
     check_out_date: r.check_out_date,
     check_in_details: r.check_in_details,
+    rates: r.rates,
   };
 }
 

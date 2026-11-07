@@ -23,6 +23,44 @@ export function opensIlBucoDoor(propertyId: string): boolean {
   return ILBUCO_PROPERTY_IDS.includes(String(propertyId));
 }
 
+/** The fields of a Hostex stay that tell a placeholder from a real one. */
+export interface StayLike {
+  reservation_code: string;
+  status: string;
+  cancelled_at?: string | null;
+  property_id: number | string;
+  guest_name: string;
+  check_in_date: string;
+  check_out_date: string;
+  rates?: { total_rate?: { amount?: number } };
+}
+
+function firstName(name: string): string {
+  return name.normalize('NFD').replace(/\p{M}/gu, '').trim().toLowerCase().split(/\s+/)[0] ?? '';
+}
+
+/**
+ * Codes of $0 holds that shadow a paid booking of the same guest on the same unit:
+ * the host blocked the dates by hand ("Silvia Krauel", $0, 1 guest) and the guest
+ * then booked on Booking.com. One door, one guest, one code — the paid booking's.
+ * A $0 stay with no paid twin is a real free stay (friends, family) and keeps its code.
+ */
+export function placeholderStays(stays: StayLike[]): Set<string> {
+  const live = stays.filter(s => s.status === 'accepted' && !s.cancelled_at);
+  const out = new Set<string>();
+  for (const s of live) {
+    if (s.rates?.total_rate?.amount !== 0) continue;
+    const twin = live.some(o =>
+      o !== s
+      && (o.rates?.total_rate?.amount ?? 0) > 0
+      && String(o.property_id) === String(s.property_id)
+      && firstName(o.guest_name) === firstName(s.guest_name)
+      && o.check_in_date < s.check_out_date && s.check_in_date < o.check_out_date);
+    if (twin) out.add(s.reservation_code);
+  }
+  return out;
+}
+
 /** Short unit label on the lock (the whole-house listing is just "Casa"). */
 const UNIT_LABELS: Record<string, string> = {
   'Il Buco (Whole House)': 'Casa',

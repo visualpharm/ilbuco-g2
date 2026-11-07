@@ -97,3 +97,29 @@ test('opensIlBucoDoor: the suites and the whole house, not Recharge Retreat', as
   assert.equal(opensIlBucoDoor('12282949'), false); // the rancho: its own padlocks
   assert.equal(opensIlBucoDoor('default'), false);
 });
+
+test('placeholderStays: a $0 hold under a paid booking of the same guest gets no code', async () => {
+  const { placeholderStays } = await import('./lock-users.ts');
+  const stay = (code: string, amount: number | undefined, extra: Record<string, unknown> = {}) => ({
+    reservation_code: code, status: 'accepted', cancelled_at: null, property_id: 12282945,
+    guest_name: 'Silvia Krauel', check_in_date: '2026-11-20', check_out_date: '2026-11-23',
+    rates: amount === undefined ? undefined : { total_rate: { amount } }, ...extra,
+  });
+  // 2026-11-07: Giardino held two codes for Silvia Krauel — Booking 9-6861866133 ($416, 4 guests)
+  // and a hand-made hold 5-6AHHVU3CU from 30.03 ($0, 1 guest).
+  const silvia = [stay('9-6861866133-iguzfn7k2g', 416), stay('5-6AHHVU3CU', 0)];
+  assert.deepEqual([...placeholderStays(silvia)], ['5-6AHHVU3CU']);
+  // Same pattern with only the first name typed on the hold (Vanesa / Vanesa Moya, December).
+  assert.deepEqual([...placeholderStays([
+    stay('9-6827504390', 2632.5, { guest_name: 'Vanesa Moya', property_id: 12299611, check_in_date: '2026-12-22', check_out_date: '2026-12-28' }),
+    stay('5-6BT25MYLB', 0, { guest_name: 'Vanesa', property_id: 12299611, check_in_date: '2026-12-22', check_out_date: '2026-12-28' }),
+  ])], ['5-6BT25MYLB']);
+  // A free stay with no paid twin is real (friends, family): keeps its code.
+  assert.equal(placeholderStays([stay('5-6CIPR80FI', 0, { guest_name: 'Amiga Jenny' })]).size, 0);
+  // Another unit, another guest, back-to-back dates, a cancelled twin, an unknown amount: not a hold.
+  assert.equal(placeholderStays([stay('A', 416, { property_id: 12282946 }), stay('B', 0)]).size, 0);
+  assert.equal(placeholderStays([stay('A', 416, { guest_name: 'Otra Persona' }), stay('B', 0)]).size, 0);
+  assert.equal(placeholderStays([stay('A', 416, { check_in_date: '2026-11-23', check_out_date: '2026-11-25' }), stay('B', 0)]).size, 0);
+  assert.equal(placeholderStays([stay('A', 416, { status: 'cancelled' }), stay('B', 0)]).size, 0);
+  assert.equal(placeholderStays([stay('A', 416), stay('B', undefined)]).size, 0);
+});

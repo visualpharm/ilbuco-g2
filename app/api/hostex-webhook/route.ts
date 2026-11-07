@@ -92,6 +92,20 @@ async function handleGuestOpsWebhook(reservationCode: string, eventType: string)
       return;
     }
 
+    // A $0 hold under the same guest's paid booking: the paid one carries the door code.
+    if (reservation.rates?.total_rate?.amount === 0) {
+      const { getFullReservations } = await import('@/lib/hostex-api');
+      const { placeholderStays } = await import('@/lib/lock-users');
+      const shift = (d: string, days: number) => new Date(Date.parse(d + 'T12:00:00Z') + days * 86400_000).toISOString().slice(0, 10);
+      const around = await getFullReservations(shift(reservation.check_in_date, -30), reservation.check_out_date);
+      if (placeholderStays(around).has(reservation.reservation_code)) {
+        const { handleCancelledReservation } = await import('@/lib/run-guest-ops');
+        const rep = await handleCancelledReservation(reservationCode);
+        console.log(`[guest-ops webhook] ${reservationCode} is a $0 hold under a paid booking — no code (${rep.details})`);
+        return;
+      }
+    }
+
     await handleNewReservation({
       code: reservation.reservation_code,
       guestName: reservation.guest_name,

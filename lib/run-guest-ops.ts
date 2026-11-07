@@ -39,7 +39,7 @@ import {
   buildGuestSchedule,
   type UtecUser,
 } from './utec-api';
-import { guestLockName, findOwnLockUser, isOnLock, isGuestLockName, lockUserVerdict, opensIlBucoDoor } from './lock-users';
+import { guestLockName, findOwnLockUser, isOnLock, isGuestLockName, lockUserVerdict, opensIlBucoDoor, placeholderStays } from './lock-users';
 import {
   createQueueItem,
   recordFailure,
@@ -574,13 +574,26 @@ async function syncWithHostex(dryRun: boolean): Promise<{ ensured: number; revok
   let ensured = 0;
   let revoked = 0;
 
-  const upcoming = await getFullReservations(arDate(-1), arDate(SYNC_AHEAD_DAYS));
+  // A month back so a $0 hold can be matched to a paid twin that checked in earlier.
+  const nearby = await getFullReservations(arDate(-30), arDate(SYNC_AHEAD_DAYS));
+  const placeholders = placeholderStays(nearby);
+  const from = arDate(-1);
+  const upcoming = nearby.filter(r => r.check_in_date >= from);
   const seen = new Set<string>();
   for (const r of upcoming) {
     if (seen.has(r.reservation_code)) continue; // multi-room stays share one code
     seen.add(r.reservation_code);
     if (r.status !== 'accepted' || r.cancelled_at) continue;
     if (!opensIlBucoDoor(String(r.property_id))) continue; // the rancho has its own padlocks
+    if (placeholders.has(r.reservation_code)) {
+      // The guest's paid booking carries the code; a second one for the same door would confuse them.
+      const held = (await loadState()).pinAssignments[r.reservation_code];
+      if (held && held.lockStatus !== 'revoked') {
+        if (!dryRun) await handleCancelledReservation(r.reservation_code);
+        revoked++;
+      }
+      continue;
+    }
     const res = await handleNewReservation({
       code: r.reservation_code,
       guestName: r.guest_name,
