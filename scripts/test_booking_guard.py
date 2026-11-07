@@ -5,6 +5,10 @@ from unittest.mock import patch
 import sqlite3
 import datetime as dt
 import types
+import os
+import tempfile
+import threading
+import time
 
 spec = importlib.util.spec_from_file_location('guard', Path(__file__).with_name('booking_guard.py'))
 g = importlib.util.module_from_spec(spec)
@@ -16,36 +20,97 @@ def reservation(p=g.SUITES[0], code='one', start='2026-12-20', end='2026-12-23',
                 check_out_date=end, status='accepted', **kw)
 
 
-class ProtectionTests(unittest.TestCase):
+FAKE_OPX = """#!/bin/sh
+# Fake opx: step N of $FAKE_OPX_PLAN (comma list) decides what this call does.
+n=$(cat "$FAKE_OPX_COUNT" 2>/dev/null || echo 0); n=$((n+1)); echo $n > "$FAKE_OPX_COUNT"
+echo "$*" > "$FAKE_OPX_COUNT.args"
+step=$(echo "$FAKE_OPX_PLAN" | cut -d, -f$n)
+case "$step" in
+  hang) exec sleep 30 ;;
+  orphan) sleep 30 & echo tok ;;
+  fail) echo "network blip" >&2; exit 1 ;;
+  notoken) echo "no token" >&2; exit 78 ;;
+  *) echo tok ;;
+esac
+"""
+
+
+class CredentialTests(unittest.TestCase):
+    """Real child processes: the stall must be bounded, not just mocked away."""
+
+    def setUp(self):
+        self.dir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.dir.cleanup)
+        opx = Path(self.dir.name)/'opx'
+        opx.write_text(FAKE_OPX)
+        opx.chmod(0o755)
+        self.count = Path(self.dir.name)/'count'
+        patcher = patch.object(g, 'OP', str(opx))
+        patcher.start()
+        self.addCleanup(patcher.stop)
+        g._KEY = None
+        self.addCleanup(setattr, g, '_KEY', None)
+
+    def read(self, plan, limit=15):
+        env = {'FAKE_OPX_PLAN': plan, 'FAKE_OPX_COUNT': str(self.count),
+               'GUARD_CREDENTIAL_TIMEOUT': '2', 'GUARD_CREDENTIAL_RETRY_SLEEP': '0.1'}
+        box = {}
+
+        def go():
+            try:
+                box['key'] = g.Hostex().key
+            except Exception as e:
+                box['error'] = e
+        with patch.dict(os.environ, env):
+            t = threading.Thread(target=go, daemon=True)
+            started = time.monotonic()
+            t.start()
+            t.join(limit)
+            self.assertFalse(t.is_alive(), f'credential read still blocked after {limit}s')
+        box['seconds'] = time.monotonic() - started
+        box['calls'] = int(self.count.read_text()) if self.count.exists() else 0
+        return box
+
     def test_credential_comes_from_opx_item(self):
-        ok = types.SimpleNamespace(returncode=0, stdout='tok\n', stderr='')
-        with patch.object(g.subprocess, 'run', return_value=ok) as run:
-            self.assertEqual(g.Hostex().key, 'tok')
-        args = run.call_args.args[0]
-        self.assertEqual(args[0], g.OP)
-        self.assertIn(g.HOSTEX_ITEM, args[-1])
+        r = self.read('ok')
+        self.assertEqual(r['key'], 'tok')
+        self.assertIn(g.HOSTEX_ITEM, (Path(str(self.count)+'.args')).read_text())
+
+    def test_hanging_opx_is_bounded_and_retried(self):
+        r = self.read('hang,ok')
+        self.assertEqual(r.get('key'), 'tok', r.get('error'))
+        self.assertEqual(r['calls'], 2)
+
+    def test_child_holding_output_does_not_block(self):
+        r = self.read('orphan')
+        self.assertEqual(r.get('key'), 'tok', r.get('error'))
+        self.assertLess(r['seconds'], 10)
+
+    def test_key_read_once_per_process(self):
+        self.assertEqual(self.read('ok')['key'], 'tok')
+        self.assertEqual(self.read('fail')['key'], 'tok')
+        self.assertEqual(int(self.count.read_text()), 1)
 
     def test_missing_credential_fails_closed(self):
-        bad = types.SimpleNamespace(returncode=78, stdout='', stderr='no token')
-        with patch.object(g.subprocess, 'run', return_value=bad), patch.object(g.time, 'sleep'):
-            with self.assertRaisesRegex(RuntimeError, 'unavailable from 1Password'):
-                g.Hostex()
+        r = self.read('notoken,notoken,notoken')
+        self.assertRegex(str(r['error']), 'unavailable from 1Password.*exit 78.*no token')
+        self.assertEqual(r['calls'], 3)
 
-    def test_credential_read_retries_transient_failure(self):
-        bad = types.SimpleNamespace(returncode=1, stdout='', stderr='network blip')
-        ok = types.SimpleNamespace(returncode=0, stdout='tok\n', stderr='')
-        with patch.object(g.subprocess, 'run', side_effect=[bad, bad, ok]) as run, \
-                patch.object(g.time, 'sleep'):
-            self.assertEqual(g.Hostex().key, 'tok')
-        self.assertEqual(run.call_count, 3)
+    def test_transient_failure_retried(self):
+        r = self.read('fail,fail,ok')
+        self.assertEqual(r.get('key'), 'tok', r.get('error'))
+        self.assertEqual(r['calls'], 3)
 
-    def test_missing_credential_reports_cause_after_retries(self):
-        bad = types.SimpleNamespace(returncode=1, stdout='', stderr='network blip')
-        with patch.object(g.subprocess, 'run', return_value=bad) as run, patch.object(g.time, 'sleep'):
-            with self.assertRaisesRegex(RuntimeError, 'unavailable from 1Password.*network blip'):
-                g.Hostex()
-        self.assertEqual(run.call_count, 3)
+    def test_every_attempt_cause_reported(self):
+        r = self.read('hang,fail,hang', limit=20)
+        msg = str(r['error'])
+        self.assertRegex(msg, 'attempt 1: timed out after 2s')
+        self.assertRegex(msg, 'attempt 2: exit 1.*network blip')
+        self.assertRegex(msg, 'attempt 3: timed out')
+        self.assertNotIn('tok', msg)
 
+
+class ProtectionTests(unittest.TestCase):
     def test_checkout_exclusive_and_dependencies(self):
         p, _ = g.protection_plan([reservation()], '2026-12-01', '2026-12-31')
         self.assertEqual(p[g.HOUSE], {'2026-12-20', '2026-12-21', '2026-12-22'})

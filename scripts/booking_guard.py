@@ -15,7 +15,10 @@ import json
 import os
 from pathlib import Path
 import re
+import signal
 import sqlite3
+import sys
+import tempfile
 import time
 import subprocess
 import urllib.parse
@@ -47,21 +50,63 @@ def command_json(args):
     return json.loads(p.stdout)
 
 
+_KEY = None
+
+
+def read_credential():
+    """Hostex key from 1Password via opx, read once per process.
+
+    Under heavy load opx/op can stall far beyond its own watchdog, and with
+    pipes a lingering child keeps the read open after opx itself exits.
+    So: output goes to files (no pipe to wait on), opx runs in its own
+    process group that is killed whole on timeout and after exit, every
+    attempt is bounded, and the cause of each failed attempt (never the
+    value, never argv) ends up in the error that status.json keeps.
+    """
+    global _KEY
+    if _KEY:
+        return _KEY
+    timeout = float(os.environ.get('GUARD_CREDENTIAL_TIMEOUT', '75'))
+    pause = float(os.environ.get('GUARD_CREDENTIAL_RETRY_SLEEP', '10'))
+    causes = []
+    for attempt in range(3):
+        started = time.monotonic()
+        with tempfile.TemporaryFile() as out, tempfile.TemporaryFile() as err:
+            p = subprocess.Popen([OP, 'read', f'op://AI/{HOSTEX_ITEM}/credential'],
+                                 stdin=subprocess.DEVNULL, stdout=out, stderr=err,
+                                 start_new_session=True)
+            try:
+                rc = p.wait(timeout=timeout)
+                cause = f'exit {rc}'
+            except subprocess.TimeoutExpired:
+                rc = None
+                cause = f'timed out after {timeout:g}s'
+            finally:
+                try:
+                    os.killpg(p.pid, signal.SIGKILL)
+                except (ProcessLookupError, PermissionError):
+                    pass
+                p.wait()
+            out.seek(0)
+            err.seek(0)
+            value = out.read().decode(errors='replace').strip()
+            stderr = err.read().decode(errors='replace').strip()
+        if rc == 0 and value:
+            _KEY = value
+            return value
+        tail = stderr.splitlines()[-1][-150:] if stderr else ''
+        cause = f'attempt {attempt+1}: {cause} in {time.monotonic()-started:.0f}s' + (f' ({tail})' if tail else '')
+        causes.append(cause)
+        print('booking_guard: Hostex credential ' + cause, file=sys.stderr, flush=True)
+        if attempt < 2:
+            time.sleep(pause)
+    raise RuntimeError('Hostex credential unavailable from 1Password (opx): ' + '; '.join(causes))
+
+
 class Hostex:
     def __init__(self):
         # 1Password service account via opx: no popup, never a project env file.
-        # op read fails transiently (network blip, wedged daemon): retry like
-        # glm-mcp-credential does, and keep the stderr cause in status.json.
-        for attempt in range(3):
-            p = subprocess.run([OP, 'read', f'op://AI/{HOSTEX_ITEM}/credential'],
-                               capture_output=True, text=True, timeout=90)
-            if not p.returncode and p.stdout.strip():
-                self.key = p.stdout.strip()
-                return
-            if attempt < 2:
-                time.sleep(float(os.environ.get('GUARD_CREDENTIAL_RETRY_SLEEP', '5')))
-        tail = (p.stderr or '').strip().splitlines()[-1][-150:] if (p.stderr or '').strip() else f'exit {p.returncode}'
-        raise RuntimeError(f'Hostex credential unavailable from 1Password (opx): {tail}')
+        self.key = read_credential()
 
     def request(self, path, body=None):
         # stdin keeps the token out of process arguments and log files. curl is
