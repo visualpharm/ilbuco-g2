@@ -72,7 +72,7 @@ export interface PinAssignment {
 }
 
 export interface BackupPin {
-  /** The actual PIN digits, provisioned manually on the lock. */
+  /** The PIN digits last written to the lock for this slot. */
   pin: number;
   /** Whether this PIN is currently checked out to a reservation. */
   inUse: boolean;
@@ -80,6 +80,13 @@ export interface BackupPin {
   reservationCode?: string;
   /** When it was assigned. */
   assignedAt?: string;
+  /** Permanent lock user of this slot ("Respaldo 1"); absent on hand-provisioned legacy PINs. */
+  name?: string;
+  lockUserId?: string;
+  /** The lock holds `pin` (read back from U-tec on a later run than the write). */
+  ready?: boolean;
+  /** Handed to a guest who has left: needs a new PIN before it is handed out again. */
+  rotate?: boolean;
 }
 
 export interface Contact {

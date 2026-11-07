@@ -90,3 +90,10 @@ test('lockUserVerdict: an old name on a working code is only a rename, never "no
   assert.equal(lockUserVerdict({ id: '1', name: 'old', sync_status: 0 }, name), 'push');
   assert.equal(lockUserVerdict(undefined, name), 'missing');
 });
+
+test('opensIlBucoDoor: the suites and the whole house, not Recharge Retreat', async () => {
+  const { opensIlBucoDoor } = await import('./lock-users.ts');
+  for (const id of ['12282945', '12282946', '12282947', '12282948', '12299611']) assert.equal(opensIlBucoDoor(id), true, id);
+  assert.equal(opensIlBucoDoor('12282949'), false); // the rancho: its own padlocks
+  assert.equal(opensIlBucoDoor('default'), false);
+});

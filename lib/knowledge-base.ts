@@ -115,7 +115,8 @@ export const PROPERTY_INFO = {
   },
 
   wifi: {
-    network: 'Il Buco',
+    // The SSID guests see is "Buco" (check-in template since Feb 2026, guests write "red Buco").
+    network: 'Buco',
     // Secret — never hardcode in source. Server-side only: read from
     // WIFI_PASSWORD for authenticated consumers (guest autoresponder webhook).
     // Getter so the env var is read at access time, not module-load time.

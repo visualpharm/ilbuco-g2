@@ -163,3 +163,50 @@ test('needsNewPin: only an undelivered PIN outside the 4-digit format is swapped
   assert.equal(needsNewPin(482193, true), false);
   assert.equal(needsNewPin(undefined, false), false);
 });
+
+// ─── managed "Respaldo N" slots (2026-11-07: the pool was empty) ─────────────
+
+import { backupLockName, missingBackupNames, isAvailable, reconcileBackupSlot } from './pin-pool.ts';
+
+test('missingBackupNames: slots 1–5 by name, only the missing ones', () => {
+  assert.deepEqual(missingBackupNames([]), ['Respaldo 1', 'Respaldo 2', 'Respaldo 3', 'Respaldo 4', 'Respaldo 5']);
+  const pool = [{ pin: 4821, inUse: false, name: backupLockName(2), lockUserId: '9' }];
+  assert.deepEqual(missingBackupNames(pool, 3), ['Respaldo 1', 'Respaldo 3']);
+});
+
+test('a managed slot is handed out only once the lock holds its PIN', () => {
+  const slot = { pin: 4821, inUse: false, name: 'Respaldo 1', lockUserId: '9' };
+  assert.equal(isAvailable(slot), false);
+  assert.equal(isAvailable({ ...slot, ready: true }), true);
+  assert.equal(isAvailable({ ...slot, ready: true, rotate: true }), false);
+  // Hand-provisioned legacy PINs keep working as before.
+  assert.equal(isAvailable({ pin: 4821, inUse: false }), true);
+  const state = { ...defaultState(), backupPool: [slot, { ...slot, lockUserId: '10', pin: 5932, ready: true }] };
+  assert.equal(findAvailable(state), 1);
+  assert.deepEqual(poolStats(state), { total: 2, inUse: 0, available: 1 });
+});
+
+test('release: a guest\'s backup PIN is rotated before anyone else gets it', () => {
+  let state: GuestOpsState = { ...defaultState(), backupPool: [{ pin: 4821, inUse: false, name: 'Respaldo 1', lockUserId: '9', ready: true }] };
+  const c = checkOut(state, 'RES1');
+  assert.ok('pool' in c);
+  state = { ...state, backupPool: c.pool };
+  const [slot] = release(state, 'RES1');
+  assert.equal(slot.inUse, false);
+  assert.equal(slot.rotate, true);
+  assert.equal(slot.ready, false);
+  assert.equal(slot.reservationCode, undefined);
+  assert.equal(findAvailable({ ...state, backupPool: [slot] }), null);
+});
+
+test('reconcileBackupSlot: ready only when the lock has exactly our PIN', () => {
+  const slot = { pin: 4821, inUse: false, name: 'Respaldo 1', lockUserId: '9' };
+  assert.equal(reconcileBackupSlot(slot, true, 4821).ready, true);
+  assert.equal(reconcileBackupSlot(slot, false, 4821).ready, false); // only in the U-tec cloud
+  assert.equal(reconcileBackupSlot(slot, true, undefined).ready, false);
+  const changed = reconcileBackupSlot(slot, true, 7364); // changed by hand in the app
+  assert.equal(changed.pin, 7364);
+  assert.equal(changed.ready, false);
+  const used = { ...slot, inUse: true, reservationCode: 'R' };
+  assert.equal(reconcileBackupSlot(used, false, 1), used);
+});

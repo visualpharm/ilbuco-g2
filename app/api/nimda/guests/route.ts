@@ -8,6 +8,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCaller } from '@/lib/pricing-auth';
 import { loadState, listAssignments } from '@/lib/guest-ops-store';
+import { poolStats as computePoolStats } from '@/lib/pin-pool';
 
 export async function GET(req: NextRequest) {
   const caller = getCaller(req);
@@ -21,11 +22,7 @@ export async function GET(req: NextRequest) {
   const reservationGuests = assignments.filter(a => !a.isManual);
   const manualPins = assignments.filter(a => a.isManual);
 
-  const poolStats = {
-    total: backupPool.length,
-    inUse: backupPool.filter(p => p.inUse).length,
-    available: backupPool.filter(p => !p.inUse).length,
-  };
+  const poolStats = computePoolStats({ backupPool });
 
   return NextResponse.json({
     guests: reservationGuests,

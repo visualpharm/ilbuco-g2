@@ -22,6 +22,7 @@ import {
   type PinAssignment,
   type GuestOpsState,
   type DeliveryChannel,
+  type BackupPin,
   isReservationCodeName,
 } from './guest-ops-store';
 import {
@@ -38,7 +39,7 @@ import {
   buildGuestSchedule,
   type UtecUser,
 } from './utec-api';
-import { guestLockName, findOwnLockUser, isOnLock, isGuestLockName, lockUserVerdict } from './lock-users';
+import { guestLockName, findOwnLockUser, isOnLock, isGuestLockName, lockUserVerdict, opensIlBucoDoor } from './lock-users';
 import {
   createQueueItem,
   recordFailure,
@@ -47,9 +48,12 @@ import {
   RetryableError,
   type QueueItem,
 } from './utec-retry';
-import { checkOut as poolCheckOut, release as poolRelease, generatePin, needsNewPin } from './pin-pool';
+import {
+  checkOut as poolCheckOut, release as poolRelease, generatePin, needsNewPin,
+  missingBackupNames, reconcileBackupSlot, poolStats,
+} from './pin-pool';
 import { deliverPin, keyBoxCodeFor, type PinMessageData } from './messaging';
-import { getPropertyName, getFullReservations, getReservation } from './hostex-api';
+import { getPropertyName, getFullReservations, getReservation, ILBUCO_PROPERTY_IDS } from './hostex-api';
 import { stayBoundary, hoursUntil, isDeliveryDue, PIN_TIMEZONE } from './guest-pin-times';
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -167,6 +171,9 @@ export async function handleNewReservation(
 ): Promise<GuestOpsReport> {
   const errors: string[] = [];
   console.log(`[guest-ops] handleNewReservation ${reservation.code} (${reservation.guestName})`);
+  if (!opensIlBucoDoor(reservation.propertyId)) {
+    return { job: 'new-reservation', success: true, details: 'Not an Il Buco stay', at: new Date().toISOString() };
+  }
   const checkIn = stayBoundary(reservation.checkIn);
   const checkOut = stayBoundary(reservation.checkOut);
 
@@ -573,6 +580,7 @@ async function syncWithHostex(dryRun: boolean): Promise<{ ensured: number; revok
     if (seen.has(r.reservation_code)) continue; // multi-room stays share one code
     seen.add(r.reservation_code);
     if (r.status !== 'accepted' || r.cancelled_at) continue;
+    if (!opensIlBucoDoor(String(r.property_id))) continue; // the rancho has its own padlocks
     const res = await handleNewReservation({
       code: r.reservation_code,
       guestName: r.guest_name,
@@ -682,6 +690,76 @@ async function verifyLockUsers(
 }
 
 /**
+ * Keep DEFAULT_POOL_SIZE permanent "Respaldo N" codes on the lock:
+ * - a slot handed to a guest who has left gets a new PIN (the old one stops opening);
+ * - a slot is ready only once a later run reads our PIN back from the lock;
+ * - a missing slot is added; the next run adopts it by name with the PIN U-tec holds.
+ * Slots in use are never touched.
+ */
+async function maintainBackupPool(
+  current: BackupPin[],
+  deviceId: string,
+  dryRun: boolean,
+): Promise<{ pool: BackupPin[]; added: number; rotated: number; errors: string[] }> {
+  const errors: string[] = [];
+  const users = await listUsers(deviceId);
+  // An offline lock answers with no users: that is not "every slot is gone".
+  if (!users.length) return { pool: current, added: 0, rotated: 0, errors: ['Backup pool: lock returned no users'] };
+  const byId = new Map(users.map(u => [u.id, u]));
+  const state = await loadState();
+  const pool: BackupPin[] = [];
+  const written: number[] = [];
+  const used = () => new Set([...getActivePins(state), ...pool.map(b => b.pin), ...written]);
+  let rotated = 0;
+  let added = 0;
+
+  for (const slot of current) {
+    if (!slot.lockUserId || slot.inUse) { pool.push(slot); continue; }
+    const user = byId.get(slot.lockUserId);
+    if (!user) continue; // gone from the lock: added again below under its name
+    if (slot.rotate) {
+      if (dryRun) { pool.push(slot); rotated++; continue; }
+      const pin = generatePin(used());
+      try {
+        await updateUser(deviceId, slot.lockUserId, slot.name ?? user.name, pin);
+        pool.push({ ...slot, pin, rotate: false, ready: false });
+        rotated++;
+      } catch (err) {
+        pool.push(slot);
+        errors.push(`${slot.name}: new PIN failed: ${err instanceof Error ? err.message : String(err)}`);
+      }
+      continue;
+    }
+    if (slot.ready && isOnLock(user)) { pool.push(slot); continue; }
+    const read = await getUser(deviceId, slot.lockUserId).catch(() => null);
+    pool.push(reconcileBackupSlot(slot, isOnLock(user), read?.password));
+  }
+
+  const taken = new Set(pool.map(b => b.lockUserId));
+  for (const name of missingBackupNames(pool)) {
+    const user = users.find(u => u.name === name && !taken.has(u.id));
+    if (user) {
+      const read = await getUser(deviceId, user.id).catch(() => null);
+      if (read?.password) {
+        pool.push(reconcileBackupSlot({ pin: read.password, inUse: false, name, lockUserId: user.id }, isOnLock(user), read.password));
+        taken.add(user.id);
+      }
+      continue;
+    }
+    if (dryRun) { added++; continue; }
+    try {
+      const pin = generatePin(used());
+      await addPermanentUser(deviceId, name, pin);
+      written.push(pin);
+      added++;
+    } catch (err) {
+      errors.push(`${name}: add failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  }
+  return { pool, added, rotated, errors };
+}
+
+/**
  * Pre-checkin sweep (hourly):
  *   1. sync with Hostex (create missing PINs, revoke cancelled),
  *   2. deliver codes that are now due,
@@ -701,6 +779,21 @@ export async function runPreCheckinSweep(dryRun = false): Promise<GuestOpsReport
     if (!dryRun && checked.fixed) await saveState(checked.state);
   } catch (err) {
     errors.push(`Lock check: ${err instanceof Error ? err.message : String(err)}`);
+  }
+
+  // Backup codes on the door, so the fallback below has something to hand out.
+  let pool = 'backup pool unchecked';
+  try {
+    const deviceId = await findDeviceForProperty(ILBUCO_PROPERTY_IDS[0]);
+    if (deviceId) {
+      const m = await maintainBackupPool((await loadState()).backupPool, deviceId, dryRun);
+      errors.push(...m.errors);
+      if (!dryRun) await saveState({ ...(await loadState()), backupPool: m.pool });
+      const st = poolStats({ backupPool: m.pool });
+      pool = `backup pool ${st.available}/${st.total} ready (${m.added} added, ${m.rotated} new PINs)`;
+    }
+  } catch (err) {
+    errors.push(`Backup pool: ${err instanceof Error ? err.message : String(err)}`);
   }
 
   let sync = { ensured: 0, revoked: 0, errors: [] as string[] };
@@ -734,7 +827,7 @@ export async function runPreCheckinSweep(dryRun = false): Promise<GuestOpsReport
       if (!assignment.alertedAt) {
         await sendPricingAlert(
           `🔴 [guest-ops] Lock is not accepting the code for ${assignment.guestName} (${assignment.reservationCode}, ` +
-          `check-in ${assignment.checkIn.slice(0, 10)}) and the backup PIN pool is empty. Check the lock's Wi-Fi bridge.`
+          `check-in ${assignment.checkIn.slice(0, 10)}) and no backup PIN is ready. Check the lock's Wi-Fi.`
         );
         state = upsertAssignment(state, { ...assignment, alertedAt: new Date().toISOString() });
       }
@@ -757,7 +850,7 @@ export async function runPreCheckinSweep(dryRun = false): Promise<GuestOpsReport
   return {
     job: 'pre-checkin',
     success: errors.length === 0,
-    details: `${lockCheck.fixed} lock users fixed, ${sync.ensured} ensured, ${sync.revoked} revoked, ${processed} on backup path`,
+    details: `${lockCheck.fixed} lock users fixed, ${pool}, ${sync.ensured} ensured, ${sync.revoked} revoked, ${processed} on backup path`,
     processed: sync.ensured + sync.revoked + processed,
     errors,
     at: new Date().toISOString(),

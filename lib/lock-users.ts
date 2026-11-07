@@ -10,9 +10,18 @@
 
 import { formatLockTime } from './guest-pin-times';
 import { isReservationCodeName } from './guest-ops-store';
+import { ILBUCO_PROPERTY_IDS } from './hostex-api';
 
 /** Lock user names stay readable in the Xthings app list. U-tec itself took 66 chars in a test. */
 export const LOCK_NAME_MAX = 40;
+
+/**
+ * The lock is Il Buco's front door: only its suites and the whole house get a
+ * code. Recharge Retreat (the rancho, 30 min away) has its own padlocks.
+ */
+export function opensIlBucoDoor(propertyId: string): boolean {
+  return ILBUCO_PROPERTY_IDS.includes(String(propertyId));
+}
 
 /** Short unit label on the lock (the whole-house listing is just "Casa"). */
 const UNIT_LABELS: Record<string, string> = {
