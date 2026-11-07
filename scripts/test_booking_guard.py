@@ -27,6 +27,7 @@ echo "$*" > "$FAKE_OPX_COUNT.args"
 step=$(echo "$FAKE_OPX_PLAN" | cut -d, -f$n)
 case "$step" in
   hang) exec sleep 30 ;;
+  daemon) [ "$OP_CACHE" = false ] && echo tok || exec sleep 30 ;;
   orphan) sleep 30 & echo tok ;;
   fail) echo "network blip" >&2; exit 1 ;;
   notoken) echo "no token" >&2; exit 78 ;;
@@ -75,6 +76,13 @@ class CredentialTests(unittest.TestCase):
         r = self.read('ok')
         self.assertEqual(r['key'], 'tok')
         self.assertIn(g.HOSTEX_ITEM, (Path(str(self.count)+'.args')).read_text())
+
+    def test_wedged_op_daemon_is_not_used(self):
+        # A wedged shared `op daemon` hangs every cached op call (seen 2026-11-07
+        # 20:28Z: three 75 s attempts in a row); the guard must not depend on it.
+        r = self.read('daemon,daemon,daemon', limit=20)
+        self.assertEqual(r.get('key'), 'tok', r.get('error'))
+        self.assertEqual(r['calls'], 1)
 
     def test_hanging_opx_is_bounded_and_retried(self):
         r = self.read('hang,ok')

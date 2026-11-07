@@ -72,7 +72,11 @@ def read_credential():
     for attempt in range(3):
         started = time.monotonic()
         with tempfile.TemporaryFile() as out, tempfile.TemporaryFile() as err:
+            # OP_CACHE=false: op goes straight to 1Password instead of the shared
+            # `op daemon`; a wedged daemon hung every cached call for minutes
+            # (2026-11-07 20:28Z) while direct reads took ~2.4 s.
             p = subprocess.Popen([OP, 'read', f'op://AI/{HOSTEX_ITEM}/credential'],
+                                 env={**os.environ, 'OP_CACHE': 'false'},
                                  stdin=subprocess.DEVNULL, stdout=out, stderr=err,
                                  start_new_session=True)
             try:
