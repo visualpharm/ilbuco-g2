@@ -49,6 +49,9 @@ export interface PinMessageData {
   keyBoxCode?: string;
 }
 
+/** Host's 18-second clip of the front door: touch the panel, code, ↵, green light, handle down. */
+export const DOOR_VIDEO_URL = 'https://www.youtube.com/shorts/pNSzziDel-w';
+
 /**
  * Build the PIN delivery message text (WhatsApp / Hostex thread).
  * Bilingual ES/EN since most guests are Spanish or English speakers.
@@ -67,6 +70,10 @@ export function buildPinText(data: PinMessageData): string {
     msg += `Key box (${data.propertyName}): *${data.keyBoxCode}*\n`;
     msg += `Caja de llaves (${data.propertyName}): *${data.keyBoxCode}*\n`;
   }
+  msg += `\n`;
+  msg += `How to open the front door: touch the black panel to light it up, type *${data.pin}* and press ↵ (bottom right). Green light → push the handle down.\n`;
+  msg += `Cómo abrir la puerta principal: tocá el panel negro para que se encienda, marcá *${data.pin}* y apretá ↵ (abajo a la derecha). Luz verde → bajá la manija.\n`;
+  msg += `🎥 ${DOOR_VIDEO_URL}\n`;
   msg += `\n`;
   msg += `Check-in: ${dateStr(data.checkIn)}\n`;
   msg += `Check-out: ${dateStr(data.checkOut)}\n`;
@@ -100,6 +107,11 @@ export function buildPinEmail(data: PinMessageData): { subject: string; html: st
         <p style="color: #64748b; font-size: 14px; margin: 0 0 8px;">Your door code / Tu código</p>
         <p style="font-size: 36px; font-weight: bold; letter-spacing: 8px; color: #0f172a; margin: 0;">${data.pin}</p>
       </div>
+      <p style="color: #0f172a; font-size: 16px; line-height: 1.5;">
+        Touch the black panel to light it up, type <b>${data.pin}</b> and press <b>↵</b> (bottom right). Green light → push the handle down.<br>
+        Tocá el panel negro para que se encienda, marcá <b>${data.pin}</b> y apretá <b>↵</b> (abajo a la derecha). Luz verde → bajá la manija.<br>
+        <a href="${DOOR_VIDEO_URL}">🎥 Video</a>
+      </p>
       ${data.keyBoxCode ? `<div style="background: #f1f5f9; border-radius: 12px; padding: 16px; text-align: center; margin: 16px 0;">
         <p style="color: #334155; font-size: 14px; margin: 0 0 8px;">Key box / Caja de llaves — ${data.propertyName}</p>
         <p style="font-size: 28px; font-weight: bold; letter-spacing: 6px; color: #0f172a; margin: 0;">${data.keyBoxCode}</p>
