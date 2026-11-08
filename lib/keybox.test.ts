@@ -33,4 +33,6 @@ test('door code message says how to enter it: panel, code, ↵, video', () => {
   const { html } = buildPinEmail(base);
   assert.ok(html.includes('apretá <b>↵</b>'));
   assert.ok(html.includes('pNSzziDel-w'));
+  assert.ok(t.includes('ilbuco.com.ar/images/door-keypad.jpg'));
+  assert.ok(html.includes('<img src="https://ilbuco.com.ar/images/door-keypad.jpg"'));
 });

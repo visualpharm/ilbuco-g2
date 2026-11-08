@@ -51,6 +51,8 @@ export interface PinMessageData {
 
 /** Host's 18-second clip of the front door: touch the panel, code, ↵, green light, handle down. */
 export const DOOR_VIDEO_URL = 'https://www.youtube.com/shorts/pNSzziDel-w';
+/** Four-step picture of the same keypad with ↵ circled (public/images/door-keypad.jpg). */
+export const DOOR_PICTURE_URL = 'https://ilbuco.com.ar/images/door-keypad.jpg';
 
 /**
  * Build the PIN delivery message text (WhatsApp / Hostex thread).
@@ -73,6 +75,7 @@ export function buildPinText(data: PinMessageData): string {
   msg += `\n`;
   msg += `How to open the front door: touch the black panel to light it up, type *${data.pin}* and press ↵ (bottom right). Green light → push the handle down.\n`;
   msg += `Cómo abrir la puerta principal: tocá el panel negro para que se encienda, marcá *${data.pin}* y apretá ↵ (abajo a la derecha). Luz verde → bajá la manija.\n`;
+  msg += `🖼 ${DOOR_PICTURE_URL}\n`;
   msg += `🎥 ${DOOR_VIDEO_URL}\n`;
   msg += `\n`;
   msg += `Check-in: ${dateStr(data.checkIn)}\n`;
@@ -112,6 +115,7 @@ export function buildPinEmail(data: PinMessageData): { subject: string; html: st
         Tocá el panel negro para que se encienda, marcá <b>${data.pin}</b> y apretá <b>↵</b> (abajo a la derecha). Luz verde → bajá la manija.<br>
         <a href="${DOOR_VIDEO_URL}">🎥 Video</a>
       </p>
+      <img src="${DOOR_PICTURE_URL}" alt="1 Tocá el panel · 2 Marcá tu código · 3 Apretá ↵ · 4 Luz verde: bajá la manija" width="432" style="width: 100%; max-width: 432px; height: auto; border-radius: 12px; display: block; margin: 8px 0 16px;">
       ${data.keyBoxCode ? `<div style="background: #f1f5f9; border-radius: 12px; padding: 16px; text-align: center; margin: 16px 0;">
         <p style="color: #334155; font-size: 14px; margin: 0 0 8px;">Key box / Caja de llaves — ${data.propertyName}</p>
         <p style="font-size: 28px; font-weight: bold; letter-spacing: 6px; color: #0f172a; margin: 0;">${data.keyBoxCode}</p>
