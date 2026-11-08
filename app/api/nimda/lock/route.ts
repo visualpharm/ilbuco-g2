@@ -19,8 +19,13 @@ export async function GET(req: NextRequest) {
 
   const [device] = await listDevices().catch(() => []);
   if (!device) return NextResponse.json({ lockOnline: null, door: {} });
+  // U-tec now and then answers 500/504 or an empty list: one more try before showing no door states.
+  const readUsers = async () => {
+    const first = await listUsers(device.id).catch(() => []);
+    return first.length ? first : listUsers(device.id).catch(() => []);
+  };
   const [users, status, state] = await Promise.all([
-    listUsers(device.id).catch(() => []),
+    readUsers(),
     getDeviceStatus(device.id).catch(() => null),
     loadState(),
   ]);

@@ -277,12 +277,12 @@ function NimdaPanel() {
             📋 CRM
           </button>
         </div>
+        {activeTab === 'pins' && lockOnline === false && (
+          <span className="text-sm text-red-700 font-semibold whitespace-nowrap">Cerradura sin conexión</span>
+        )}
         {activeTab === 'pins' && (
-          <div className="ml-auto flex gap-3 items-center">
-            <div className="flex gap-4 text-sm">
-              {lockOnline === false && (
-                <span className="text-red-700 font-semibold">Cerradura sin conexión</span>
-              )}
+          <div className="ml-auto flex flex-wrap gap-3 items-center">
+            <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
               <span className="text-emerald-600">{syncedCount} sync</span>
               <span className="text-amber-600">{retryingCount} reint.</span>
               <span className="text-red-600">{failedCount} falló</span>
