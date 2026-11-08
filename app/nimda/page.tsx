@@ -43,6 +43,8 @@ interface Guest {
   updatedAt: string;
   isManual?: boolean;
   isPermanent?: boolean;
+  /** Live from the lock: on the door, only in the U-tec cloud, or gone. */
+  door?: 'door' | 'cloud' | 'gone';
 }
 
 interface PoolStats {
@@ -58,6 +60,14 @@ const STATUS_META: Record<string, { label: string; color: string }> = {
   backup: { label: '🟠 PIN backup', color: 'text-orange-600 bg-orange-50' },
   revoked: { label: '⚫ Revocado', color: 'text-slate-500 bg-slate-100' },
 };
+
+/** The stored status says U-tec accepted the code; the live door state says whether it opens. */
+function statusMeta(g: Pick<Guest, 'lockStatus' | 'door'>): { label: string; color: string } {
+  if (g.lockStatus !== 'revoked' && g.door === 'cloud') return { label: '🟡 Aún no en la puerta', color: 'text-amber-700 bg-amber-50' };
+  if (g.lockStatus !== 'revoked' && g.door === 'gone') return { label: '🔴 No está en la puerta', color: 'text-red-700 bg-red-50' };
+  if (g.lockStatus === 'synced' && g.door === 'door') return { label: '🟢 En la puerta', color: 'text-emerald-700 bg-emerald-50' };
+  return STATUS_META[g.lockStatus] || STATUS_META.failed;
+}
 
 function fmtDate(iso: string): string {
   if (!iso) return '—';
@@ -87,6 +97,7 @@ function NimdaPanel() {
   const [manualPins, setManualPins] = useState<Guest[]>([]);
   const [poolStats, setPoolStats] = useState<PoolStats | null>(null);
   const [contactCount, setContactCount] = useState(0);
+  const [lockOnline, setLockOnline] = useState<boolean | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [filterProperty, setFilterProperty] = useState<string>('all');
@@ -121,6 +132,7 @@ function NimdaPanel() {
     setManualPins(data.manualPins ?? []);
     setPoolStats(data.poolStats ?? null);
     setContactCount(data.contactCount ?? 0);
+    setLockOnline(data.lockOnline ?? null);
     setAuthed(true);
   }, []);
 
@@ -232,7 +244,7 @@ function NimdaPanel() {
   });
 
   const activeGuests = guests.filter(g => g.lockStatus !== 'revoked').length;
-  const syncedCount = guests.filter(g => g.lockStatus === 'synced').length;
+  const syncedCount = guests.filter(g => g.lockStatus === 'synced' && g.door !== 'cloud' && g.door !== 'gone').length;
   const retryingCount = guests.filter(g => g.lockStatus === 'retrying').length;
   const failedCount = guests.filter(g => g.lockStatus === 'failed').length;
 
@@ -260,6 +272,9 @@ function NimdaPanel() {
         {activeTab === 'pins' && (
           <div className="ml-auto flex gap-3 items-center">
             <div className="flex gap-4 text-sm">
+              {lockOnline === false && (
+                <span className="text-red-700 font-semibold">Cerradura sin conexión</span>
+              )}
               <span className="text-emerald-600">{syncedCount} sync</span>
               <span className="text-amber-600">{retryingCount} reint.</span>
               <span className="text-red-600">{failedCount} falló</span>
@@ -347,7 +362,7 @@ function NimdaPanel() {
               </thead>
               <tbody>
                 {filtered.map(g => {
-                  const meta = STATUS_META[g.lockStatus] || STATUS_META.failed;
+                  const meta = statusMeta(g);
                   const isExpanded = expanded === g.reservationCode;
                   return (
                     <>
@@ -542,7 +557,7 @@ function NimdaPanel() {
               </thead>
               <tbody>
                 {manualPins.map(g => {
-                  const meta = STATUS_META[g.lockStatus] || STATUS_META.failed;
+                  const meta = statusMeta(g);
                   return (
                     <tr key={g.reservationCode} className="border-t hover:bg-slate-50">
                       <td className="px-3 py-2.5 font-medium">{g.guestName}</td>

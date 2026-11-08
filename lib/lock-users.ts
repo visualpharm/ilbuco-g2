@@ -182,3 +182,18 @@ export function manualLockAction(
   if (isOnLock(user)) return 'ok';
   return ctx.online && ctx.minutesSinceWrite >= MANUAL_SETTLE_MIN ? 'push' : 'wait';
 }
+
+/**
+ * Where a code stands on the door right now, for the admin list: on the door (sync_status 1),
+ * only in the U-tec cloud (0), or gone from the lock. Unknown when we hold no lock user id or
+ * the lock answered no users. The stored «synced» only says U-tec accepted the code: on
+ * 2026-11-08 /nimda showed «Huespedes 16-11» synced while the offline lock did not have it.
+ */
+export type DoorState = 'door' | 'cloud' | 'gone';
+
+export function doorStateOf(lockUserId: string | undefined, users: LockUserLike[]): DoorState | undefined {
+  if (!lockUserId || !users.length) return undefined;
+  const user = users.find(u => u.id === lockUserId);
+  if (!user) return 'gone';
+  return isOnLock(user) ? 'door' : 'cloud';
+}

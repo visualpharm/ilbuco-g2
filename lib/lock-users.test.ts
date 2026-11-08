@@ -8,7 +8,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   guestLockName, isGuestLockName, parseSyncStatus, isOnLock, findOwnLockUser, lockUserVerdict, LOCK_NAME_MAX,
-  manualLockAction, MANUAL_SETTLE_MIN,
+  manualLockAction, MANUAL_SETTLE_MIN, doorStateOf,
 } from './lock-users.ts';
 
 test('guestLockName: guest, check-in day-month, unit', () => {
@@ -132,4 +132,13 @@ test('manualLockAction: a stuck admin code is written again only on an online lo
   assert.equal(manualLockAction(stuck, { online: true, minutesSinceWrite: MANUAL_SETTLE_MIN - 1 }), 'wait');
   assert.equal(manualLockAction(stuck, { online: true, minutesSinceWrite: MANUAL_SETTLE_MIN }), 'push');
   assert.equal(manualLockAction(undefined, { online: true, minutesSinceWrite: 120 }), 'missing');
+});
+
+test('doorStateOf: the admin shows what the door holds, not what U-tec accepted', () => {
+  const users = [{ id: '1', name: 'Melody', sync_status: 1 }, { id: '2', name: 'Huespedes 16-11', sync_status: 0 }];
+  assert.equal(doorStateOf('1', users), 'door');
+  assert.equal(doorStateOf('2', users), 'cloud');
+  assert.equal(doorStateOf('3', users), 'gone');
+  assert.equal(doorStateOf(undefined, users), undefined);
+  assert.equal(doorStateOf('1', []), undefined); // the lock answered no users: unknown, not «gone»
 });
