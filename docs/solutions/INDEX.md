@@ -6,4 +6,4 @@
 
 ## Guest ops
 
-- [Hostex webhook → PIN → delivery](guest-ops/hostex-webhook-and-pin-delivery.md): secret header, project, delivery window, lock-offline behavior.
+- [Hostex webhook → PIN → delivery](guest-ops/hostex-webhook-and-pin-delivery.md): secret header, project, delivery window, lock-offline behavior, admin codes stuck at sync 0, where stale door codes in guest chats came from.

@@ -163,3 +163,22 @@ export function findOwnLockUser<U extends LockUserLike>(
   return users.find(u => u.name === ref.expectedName && free(u))
     ?? users.find(u => u.name === ref.reservationCode && free(u));
 }
+
+/**
+ * A code typed in the admin (staff code, weekly guest fallback) that the lock has not taken yet.
+ * The hourly check never renames or re-adds these — only writes a stuck one again, and only once
+ * the lock is online and the code has had MANUAL_SETTLE_MIN to land: the lock applies queued
+ * writes one by one, so an early second write just queues behind the first.
+ * «Huespedes 16-11» sat at sync_status 0 on 2026-11-08 while the lock was offline.
+ */
+export const MANUAL_SETTLE_MIN = 20;
+export type ManualLockAction = 'ok' | 'push' | 'wait' | 'missing';
+
+export function manualLockAction(
+  user: LockUserLike | undefined,
+  ctx: { online: boolean; minutesSinceWrite: number },
+): ManualLockAction {
+  if (!user) return 'missing';
+  if (isOnLock(user)) return 'ok';
+  return ctx.online && ctx.minutesSinceWrite >= MANUAL_SETTLE_MIN ? 'push' : 'wait';
+}

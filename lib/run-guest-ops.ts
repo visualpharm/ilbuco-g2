@@ -39,7 +39,7 @@ import {
   buildGuestSchedule,
   type UtecUser,
 } from './utec-api';
-import { guestLockName, findOwnLockUser, isOnLock, isGuestLockName, lockUserVerdict, opensIlBucoDoor, placeholderStays } from './lock-users';
+import { guestLockName, findOwnLockUser, isOnLock, isGuestLockName, lockUserVerdict, manualLockAction, opensIlBucoDoor, placeholderStays } from './lock-users';
 import {
   createQueueItem,
   recordFailure,
@@ -640,6 +640,8 @@ async function syncWithHostex(dryRun: boolean): Promise<{ ensured: number; revok
  * lock): a code stuck in the U-tec cloud (sync_status 0) is written again, one
  * under an old name gets its "Guest DD-MM Unit" name, one that vanished from the
  * lock is queued to be added again. PINs and schedules are never changed here.
+ * Admin codes (staff, weekly guest fallback) stuck at sync_status 0 are written again
+ * once the lock is online — never renamed or re-added.
  */
 async function verifyLockUsers(
   state: GuestOpsState,
@@ -697,6 +699,36 @@ async function verifyLockUsers(
       }
     } catch (err) {
       errors.push(`${a.reservationCode}: lock check failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  }
+
+  // Codes typed in the admin (staff, weekly guest fallback): same PIN, name and window written
+  // again when the lock is online and the code is still only in the U-tec cloud.
+  const online = new Map<string, boolean>();
+  const manual = Object.values(s.pinAssignments).filter(a =>
+    a.isManual && a.lockUserId && a.pin && a.lockStatus === 'synced' && hoursUntil(a.checkOut) > 0);
+  for (const a of manual) {
+    try {
+      const deviceId = await findDeviceForProperty(a.propertyId);
+      if (!deviceId) continue;
+      if (!usersByDevice.has(deviceId)) usersByDevice.set(deviceId, await listUsers(deviceId));
+      const users = usersByDevice.get(deviceId)!;
+      if (!users.length) continue;
+      if (!online.has(deviceId)) online.set(deviceId, await getDeviceStatus(deviceId).then(st => st.online, () => false));
+      const user = users.find(u => u.id === a.lockUserId);
+      const minutesSinceWrite = (Date.now() - Date.parse(a.updatedAt)) / 60_000;
+      const action = manualLockAction(user, { online: online.get(deviceId)!, minutesSinceWrite });
+      if (action === 'missing') console.warn(`[guest-ops] manual code "${a.guestName}" is gone from the lock`);
+      if (action !== 'push') continue;
+      fixed++;
+      if (dryRun) continue;
+      const temporary = a.isPermanent === false;
+      await updateUser(deviceId, a.lockUserId!, a.guestName, a.pin!,
+        temporary ? buildGuestSchedule(a.checkIn, a.checkOut) : undefined);
+      console.log(`[guest-ops] manual code "${a.guestName}" written again (sync_status 0)`);
+      s = upsertAssignment(s, { ...a, updatedAt: new Date().toISOString() });
+    } catch (err) {
+      errors.push(`${a.guestName}: lock check failed: ${err instanceof Error ? err.message : String(err)}`);
     }
   }
   return { state: s, fixed, errors };

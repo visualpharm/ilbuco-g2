@@ -8,6 +8,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   guestLockName, isGuestLockName, parseSyncStatus, isOnLock, findOwnLockUser, lockUserVerdict, LOCK_NAME_MAX,
+  manualLockAction, MANUAL_SETTLE_MIN,
 } from './lock-users.ts';
 
 test('guestLockName: guest, check-in day-month, unit', () => {
@@ -122,4 +123,13 @@ test('placeholderStays: a $0 hold under a paid booking of the same guest gets no
   assert.equal(placeholderStays([stay('A', 416, { check_in_date: '2026-11-23', check_out_date: '2026-11-25' }), stay('B', 0)]).size, 0);
   assert.equal(placeholderStays([stay('A', 416, { status: 'cancelled' }), stay('B', 0)]).size, 0);
   assert.equal(placeholderStays([stay('A', 416), stay('B', undefined)]).size, 0);
+});
+
+test('manualLockAction: a stuck admin code is written again only on an online lock, after it had time to land', () => {
+  const stuck = { id: '7', name: 'Huespedes 16-11', sync_status: 0 };
+  assert.equal(manualLockAction({ ...stuck, sync_status: 1 }, { online: false, minutesSinceWrite: 0 }), 'ok');
+  assert.equal(manualLockAction(stuck, { online: false, minutesSinceWrite: 120 }), 'wait');
+  assert.equal(manualLockAction(stuck, { online: true, minutesSinceWrite: MANUAL_SETTLE_MIN - 1 }), 'wait');
+  assert.equal(manualLockAction(stuck, { online: true, minutesSinceWrite: MANUAL_SETTLE_MIN }), 'push');
+  assert.equal(manualLockAction(undefined, { online: true, minutesSinceWrite: 120 }), 'missing');
 });
