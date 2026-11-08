@@ -132,8 +132,16 @@ function NimdaPanel() {
     setManualPins(data.manualPins ?? []);
     setPoolStats(data.poolStats ?? null);
     setContactCount(data.contactCount ?? 0);
-    setLockOnline(data.lockOnline ?? null);
     setAuthed(true);
+    // The live lock answers in ~7 s: the list shows first, door states fill in.
+    fetch('/api/nimda/lock').then(r => r.ok ? r.json() : null).then(lock => {
+      if (!lock) return;
+      setLockOnline(lock.lockOnline ?? null);
+      const door = (lock.door ?? {}) as Record<string, Guest['door']>;
+      const withDoor = (list: Guest[]) => list.map(g => ({ ...g, door: door[g.reservationCode] }));
+      setGuests(withDoor);
+      setManualPins(withDoor);
+    }).catch(() => {});
   }, []);
 
   useEffect(() => { load().catch(() => setAuthed(false)); }, [load]);
