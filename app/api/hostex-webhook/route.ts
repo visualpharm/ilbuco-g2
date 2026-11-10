@@ -7,6 +7,7 @@ import { syncInventories } from '@/lib/inventory-sync';
 import { loadConfig } from '@/lib/pricing-config';
 import { DEFAULT_STAY_POLICY } from '@/lib/stay-policy';
 import { todayAR } from '@/lib/run-pricing';
+import { buildWake, wakeHub } from '@/lib/hub-wake';
 import { appendFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
@@ -171,6 +172,23 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ ok: true, event: 'non_message', queued: true });
+  }
+
+  // Wake the hub's guest-messaging session right away (the 2-min poll is the
+  // fallback). Started now, not in after(): for whitelisted guests the response
+  // waits for the autoresponder. after() only keeps the lambda alive for it.
+  const wake = buildWake(body);
+  if (wake) {
+    const started = Date.now();
+    const pending = wakeHub(wake).then(r => {
+      console.log(`[hub wake] ${wake.message_id} conv=${wake.conversation_id} test=${wake.test} ok=${r.ok} status=${r.status ?? ''} err=${r.error ?? ''} ms=${Date.now() - started}`);
+    });
+    after(() => pending);
+    // A test event never reaches the autoresponder or the guest.
+    if (wake.test) {
+      await pending;
+      return NextResponse.json({ ok: true, test: true, woke: wake.message_id });
+    }
   }
 
   // Dedup
