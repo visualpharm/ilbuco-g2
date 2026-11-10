@@ -82,5 +82,37 @@ class RelayTest(unittest.TestCase):
         self.assertLess(len(text), 2200)
 
 
+class AgentPost(unittest.TestCase):
+    def test_signed_urgent_post(self):
+        import hashlib, hmac, tempfile
+        d = tempfile.mkdtemp()
+        kf = os.path.join(d, 'k')
+        with open(kf, 'w') as f:
+            f.write('z' * 40 + '\n')
+        seen = {}
+
+        class Resp:
+            status = 202
+            def __enter__(self): return self
+            def __exit__(self, *a): return False
+            def read(self, n=-1): return b''
+
+        def opener(req, timeout):
+            seen['req'] = req
+            return Resp()
+
+        code, _ = R.Relay._agent_post('hi', 'hostex-1', url='https://hub.example/api/send/agent', key_file=kf,
+                                          opener=opener, clock=lambda: 1_800_000_000)
+        self.assertEqual(code, 0)
+        req = seen['req']
+        body = json.loads(req.data)
+        self.assertEqual((body['now'], body['agent'], body['client_id']), (True, 'hostex-webhook', 'hostex-1'))
+        h = {k.lower(): v for k, v in req.header_items()}
+        self.assertEqual(h['x-agent-timestamp'], '1800000000')
+        want = hmac.new(b'z' * 40, b'1800000000.' + req.data, hashlib.sha256).hexdigest()
+        self.assertEqual(h['x-agent-signature'], want)
+        self.assertEqual(h['x-hub'], '1')
+
+
 if __name__ == '__main__':
     unittest.main()

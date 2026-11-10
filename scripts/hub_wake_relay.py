@@ -22,6 +22,8 @@ import subprocess
 import sys
 import threading
 import time
+import urllib.error
+import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
@@ -32,6 +34,11 @@ SEEN_TTL = 24 * 3600
 ID_RE = re.compile(r'^[A-Za-z0-9_.:\-]{1,128}$')
 HUB = os.environ.get('HUB_WAKE_HUB', '/Users/ivan/agents-hub-main/bin/hub')
 TO = os.environ.get('HUB_WAKE_TO', 'noe')
+# Urgent path (hub module hubbahub-agent-send 0.4.0 + core right message.rush): POST /api/send/agent with now:true,
+# signed with the agent's key file (the same file the module reads, 0600). Both unset -> the CLI path (no --now).
+AGENT_URL = os.environ.get('HUB_WAKE_AGENT_URL', '')
+AGENT_KEY_FILE = os.environ.get('HUB_WAKE_AGENT_KEY_FILE', '')
+AGENT = 'hostex-webhook'
 UNANSWERED = '~/.claude/artifacts/comms/scripts/hostex_unanswered.py'
 
 
@@ -97,7 +104,7 @@ def wake_text(w):
 class Relay:
     def __init__(self, secret, run=None, clock=time.time):
         self.secret, self.clock = secret, clock
-        self.run = run or self._agent_send
+        self.run = run or (self._agent_post if AGENT_URL and AGENT_KEY_FILE else self._agent_send)
         self.seen, self.inflight, self.lock = {}, set(), threading.Lock()
 
     @staticmethod
@@ -106,6 +113,24 @@ class Relay:
         p = subprocess.run([HUB, 'agent-send', TO, text, '--as', 'hostex-webhook', '--id', cid],
                            capture_output=True, text=True, timeout=20, env=env)
         return p.returncode, (p.stdout + p.stderr).strip()[-200:]
+
+    @staticmethod
+    def _agent_post(text, cid, url=None, key_file=None, opener=urllib.request.urlopen, clock=time.time):
+        """Urgent delivery: the hub types it into the session mid-turn. -> (0, '') on 202, else (code, reason)."""
+        key = Path(key_file or AGENT_KEY_FILE).expanduser().read_bytes().strip()
+        raw = json.dumps({'agent': AGENT, 'to': TO, 'text': text, 'client_id': cid, 'now': True},
+                         ensure_ascii=False).encode()
+        ts = str(int(clock()))
+        sig = hmac.new(key, ts.encode() + b'.' + raw, hashlib.sha256).hexdigest()
+        req = urllib.request.Request(url or AGENT_URL, raw, method='POST', headers={
+            'Content-Type': 'application/json', 'X-Hub': '1', 'X-Agent-Timestamp': ts, 'X-Agent-Signature': sig})
+        try:
+            with opener(req, timeout=10) as r:
+                return (0, '') if r.status == 202 else (r.status, r.read(200).decode('utf-8', 'replace'))
+        except urllib.error.HTTPError as e:
+            return e.code, e.read(200).decode('utf-8', 'replace')
+        except OSError as e:
+            return 1, f'{type(e).__name__}'
 
     def handle(self, path, headers, raw):
         """(status, result dict). Pure apart from self.run — the tests drive it directly."""
