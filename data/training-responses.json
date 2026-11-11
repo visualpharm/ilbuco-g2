@@ -554,7 +554,7 @@
   {
     "category": "payment",
     "guest_message": "no entiendo para q informaría una tarjeta de crédito si abono por otro medio (transferencia )",
-    "host_response": "En cuanto a su reserva, me aparece que fueron USD 490, nosotros tomamos el dolar a un promedio del valor oficial de compra y venta, al día de hoy ese promedio es de $1418,29, así que el costo del hospedaje sería de $694.962,1. Nuestro alias para pagos en pesos es ilbuco.uala y en dolares ilbuco.usd",
+    "host_response": "En cuanto a su reserva, me aparece que fueron USD 490, nosotros tomamos el dolar a un promedio del valor oficial de compra y venta, al día de hoy ese promedio es de $1418,29, así que el costo del hospedaje sería de $694.962,1. Nuestro alias para pagos en pesos es RUMIA.FREGA.RIPIO (CVU 0000147800000074624201), a nombre de Ivan Boyko",
     "guest_name": "Maria jose Burella",
     "channel": "booking.com",
     "property": "Penthouse"
@@ -794,7 +794,7 @@
   {
     "category": "general",
     "guest_message": "Número de confirmación: 5507798032",
-    "host_response": "Bien, ahi ingresé la confirmación manualmente en el sistema, tiene reservada la suite con vista al jardín (Giardino), está todo perfecto, el costo de la reserva es de USD 691,50. Nosotros tomamos el dolar a un promedio del valor de venta y compra del dolar oficial del día (el día de hoy sería de $1374,99), por lo que si abonan por transferencia en pesos, el costo de su reserva sería de $950.805,58. Nuestro alias en pesos es ilbuco.uala y en dolares ilbuco.usd ambas cuentas a nombre de Ivan Boyko",
+    "host_response": "Bien, ahi ingresé la confirmación manualmente en el sistema, tiene reservada la suite con vista al jardín (Giardino), está todo perfecto, el costo de la reserva es de USD 691,50. Nosotros tomamos el dolar a un promedio del valor de venta y compra del dolar oficial del día (el día de hoy sería de $1374,99), por lo que si abonan por transferencia en pesos, el costo de su reserva sería de $950.805,58. Nuestro alias en pesos es RUMIA.FREGA.RIPIO (CVU 0000147800000074624201), a nombre de Ivan Boyko",
     "guest_name": "Anna Muzychenko",
     "channel": "booking.com",
     "property": ""
@@ -1114,7 +1114,7 @@
   {
     "category": "check-in",
     "guest_message": "Se puede pagar ahora con transferencia bancaria?",
-    "host_response": "Tenemos:\n\nGiardino: USD 415\nParaiso: USD 395\nTerrazzo: USD 440\nPenthouse: USD 550\n\nTotal: USD 1800\n\nNosotros tomamos el cambio a un promedio entre el valor de compra y venta del dolar oficial del dia de pago, el día de hoy ese promedio es de $1390,50. En pesos el pago sería de $2.502.900. El pago lo pueden hacer en pesos a ilbuco.uala o en dolares a ilbuco.usd ambas cuentas salen a nombre de Ivan Boyko",
+    "host_response": "Tenemos:\n\nGiardino: USD 415\nParaiso: USD 395\nTerrazzo: USD 440\nPenthouse: USD 550\n\nTotal: USD 1800\n\nNosotros tomamos el cambio a un promedio entre el valor de compra y venta del dolar oficial del dia de pago, el día de hoy ese promedio es de $1390,50. En pesos el pago sería de $2.502.900. El pago lo pueden hacer en pesos a RUMIA.FREGA.RIPIO (CVU 0000147800000074624201), la cuenta sale a nombre de Ivan Boyko",
     "guest_name": "Silvia Krauel",
     "channel": "booking.com",
     "property": "Terrazzo"
