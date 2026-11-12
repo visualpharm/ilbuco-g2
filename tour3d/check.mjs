@@ -13,6 +13,19 @@ const LANGS = (process.env.LANGS || 'es,en,pt,ru').split(',');
 const pre = l => (l === 'es' ? '' : '/' + l);
 const browser = await chromium.launch({ executablePath: CHROME, args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist', '--no-sandbox'] });
 const camera = p => p.evaluate(() => [camera.position.x, camera.position.y, camera.position.z].map(v => +v.toFixed(2)).join());
+const folded = p => p.evaluate(() => document.getElementById('nav').classList.contains('fold'));
+// how far the picked item's box sticks out of the free part of the screen (right of the menu on desktop, below it on a phone), px
+const outside = p => p.evaluate(() => {
+  const n = curNav, [x0, y0, x1, y1] = n.box, base = n.id === 'all' ? 0 : FL[n.f], top = base + (n.id === 'all' ? FL.roof + 1 : 2.7);
+  const W = innerWidth, H = innerHeight, nav = document.getElementById('nav').getBoundingClientRect();
+  const free = W >= 700 ? [nav.right, 0, W, H] : [0, nav.bottom, W, H];
+  let over = -1e9;
+  for (const x of [x0, x1]) for (const y of [y0, y1]) for (const z of [base, top]) {
+    const v = new THREE.Vector3(x, z, -y).project(camera), px = (v.x * 0.5 + 0.5) * W, py = (-v.y * 0.5 + 0.5) * H;
+    over = Math.max(over, free[0] - px, free[1] - py, px - free[2], py - free[3]);
+  }
+  return Math.round(over);
+});
 let failed = 0;
 for (const [w, h, size] of [[1440, 900, 'desktop'], [390, 844, 'phone']]) {
   const phone = size === 'phone';
@@ -42,11 +55,15 @@ for (const [w, h, size] of [[1440, 900, 'desktop'], [390, 844, 'phone']]) {
     if (phone) await p.locator('#navt').click();
     await p.locator('#nav button[data-n="p1"]').click();
     await p.waitForTimeout(1500);
+    // on a phone the menu folds after every pick, so the picked floor is not left under it
+    if (phone) { expect(await folded(p), 'menu stayed open after a floor was picked'); await p.locator('#navt').click(); }
     await p.locator('#nav button[data-n="p1-terrazzo"]').click();
     await p.waitForTimeout(2500);
     expect((await p.evaluate(() => document.querySelector('#nav button.on').textContent)) === 'Terrazzo', 'room not selected');
     expect((await camera(p)) !== c0, 'camera did not fly to the room');
-    if (phone) await p.evaluate(() => document.getElementById('nav').classList.contains('open') && document.getElementById('navt').click());
+    expect(phone ? await folded(p) : !(await folded(p)), phone ? 'menu stayed open after a room was picked' : 'menu folded on desktop');
+    const over = await outside(p);
+    expect(over <= 0, 'picked room is ' + over + 'px outside the free part of the screen');
     // orbit by mouse drag (desktop) or one-finger drag (phone)
     const c1 = await camera(p), x = w * 0.6, y = h * 0.7;
     if (phone) {

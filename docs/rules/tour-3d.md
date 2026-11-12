@@ -15,3 +15,4 @@
 - The "whole house" view looks from the east (entrance patio, balcony, terrace); from the south-west the pines cover it.
 - Windows go through `wall()` only (rectangular frame inside the opening); check each one against the partitions and slabs of its floor. Chairs are placed by `roundTable` / `longTable`, never by hand next to a table.
 - Static geometry of every floor is merged by `bake()` at the end of `scene.js`; anything that must move or be picked separately has to stay out of the floor groups.
+- Picking an item in the tour's menu flies the camera to it and the item must be fully on screen: on a phone (width under 700) the menu folds after every pick, floors and suites included; on desktop it stays open and the view is centred in the part of the screen right of it (`go()` in `tour3d/src/app.js`; `tour3d/check.mjs` checks both).

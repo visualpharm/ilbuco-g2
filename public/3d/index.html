@@ -2366,11 +2366,12 @@ function renderNav() {
   const ul = (list) => '<ul>' + list.map(n => '<li><button data-n="' + n.id + '" class="' + (n === curNav ? 'on' : path.has(n) ? 'path' : '') + '">' + T(n.name) + '</button>' + (n.kids && path.has(n) ? ul(n.kids) : '') + '</li>').join('') + '</ul>';
   navL.innerHTML = ul(NAV).slice(4, -5);
   navT.textContent = '☰ ' + [...path].reverse().map(n => T(n.name)).join(' · ');
-  navL.querySelectorAll('button').forEach(b => b.onclick = e => { e.stopPropagation(); go(byId[b.dataset.n]); if (innerWidth < 700 && !byId[b.dataset.n].kids) navEl.classList.add('fold'); });
+  navL.querySelectorAll('button').forEach(b => b.onclick = e => { e.stopPropagation(); go(byId[b.dataset.n]); });
 }
 navT.onclick = e => { e.stopPropagation(); navEl.classList.toggle('fold'); };
 function go(n, instant) {
   curNav = n; closeCam(); controls.minDistance = 2;
+  if (innerWidth < 700 && !instant) navEl.classList.add('fold');   // телефон: выбрал пункт — меню сворачивается, выбранное не остаётся под ним (Иван)
   setFloor(n.f); renderNav();
   const [p, t] = navView(n); goTo(p, t, instant);
 }
