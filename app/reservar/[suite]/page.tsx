@@ -277,7 +277,7 @@ export default function SuitePage() {
               </div>
 
               <p className="text-gray-700 leading-relaxed mb-8">
-                {detail.description[language.code] || detail.description.es}
+                {detail.description[language.code as "es" | "en" | "pt" | "ru"] || detail.description.es}
               </p>
 
               {/* Amenities */}
@@ -285,7 +285,7 @@ export default function SuitePage() {
                 {t("Comodidades", "Amenities", "Comodidades", "Удобства")}
               </h2>
               <div className="grid grid-cols-2 gap-3 mb-8">
-                {(detail.amenities[language.code] || detail.amenities.es).map((a, i) => (
+                {(detail.amenities[language.code as "es" | "en" | "pt" | "ru"] || detail.amenities.es).map((a, i) => (
                   <div key={i} className="flex items-center gap-2 text-base">
                     <Check className="h-4 w-4 text-green-600 flex-shrink-0" />
                     {a}

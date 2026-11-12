@@ -64,8 +64,8 @@ export default function VoiceTestPage() {
       addTranscriptEntry('system', 'Call connected');
     });
 
-    vapi.on('call-end', (info: unknown) => {
-      console.log('Call ended', info);
+    vapi.on('call-end', () => {
+      console.log('Call ended');
       setIsConnected(false);
       setIsConnecting(false);
       setCurrentSpeaker(null);

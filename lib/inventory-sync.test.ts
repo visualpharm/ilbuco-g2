@@ -46,18 +46,18 @@ interface RecordedCall {
   method: string;
   path: string;
   query: URLSearchParams;
-  body?: AnyObj;
+  body: AnyObj;
 }
 
 let calls: RecordedCall[] = [];
 const originalFetch = globalThis.fetch;
 
-function mockFetch(handler: (url: URL, method: string, body: AnyObj | undefined) => HandlerResult): void {
+function mockFetch(handler: (url: URL, method: string, body: AnyObj) => HandlerResult): void {
   globalThis.fetch = (async (input: any, init?: any) => {
     const url = new URL(typeof input === 'string' ? input : input.url);
     const method = (init?.method ?? 'GET').toUpperCase();
     const body = init?.body ? JSON.parse(String(init.body)) : undefined;
-    calls.push({ method, path: url.pathname, query: url.searchParams, body });
+    calls.push({ method, path: url.pathname, query: url.searchParams, body: body as AnyObj });
     const result = handler(url, method, body);
     if (isStatusResult(result)) {
       return new Response(JSON.stringify(result.json), { status: result.status });
@@ -118,7 +118,7 @@ interface WorldOpts {
  */
 function makeWorld(opts: WorldOpts = {}) {
   const closed = new Map<number, Set<string>>();
-  const handler = (url: URL, method: string, body: AnyObj | undefined): HandlerResult => {
+  const handler = (url: URL, method: string, body: AnyObj): HandlerResult => {
     if (url.pathname === '/v3/properties') return envelope({properties: CHANNELS});
     if (url.pathname === '/v3/reservations' && method === 'GET') {
       return envelope({ reservations: opts.reservations ?? [] });

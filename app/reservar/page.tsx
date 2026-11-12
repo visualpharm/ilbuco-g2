@@ -336,13 +336,13 @@ export default function ReservarPage() {
                               )}
                             </div>
                             <p className="text-base text-gray-600 mb-2">
-                              {suite.description[language.code] || suite.description.es}
+                              {suite.description[language.code as "es" | "en" | "pt" | "ru"] || suite.description.es}
                             </p>
                             <div className="flex items-center gap-3 text-base text-gray-500 flex-wrap">
                               <span className="flex items-center gap-1">
                                 <Users className="h-3 w-3" /> {suite.capacity}
                               </span>
-                              {suite.features[language.code]?.map((f, i) => (
+                              {suite.features[language.code as "es" | "en" | "pt" | "ru"]?.map((f, i) => (
                                 <span key={i}>{f}</span>
                               ))}
                             </div>

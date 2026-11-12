@@ -145,9 +145,9 @@ export async function getChatHistory(
     return (data || [])
       .filter((m) => m)
       .map((m) => ({
-        id: String(m.id?.id ?? m.id ?? ''),
-        fromMe: Boolean(m.fromMe ?? m.fromMe === true),
-        text: String(m.message?.conversation ?? m.text ?? m.body ?? ''),
+        id: String((m.id as { id?: unknown } | undefined)?.id ?? m.id ?? ''),
+        fromMe: Boolean(m.fromMe),
+        text: String((m.message as { conversation?: unknown } | undefined)?.conversation ?? m.text ?? m.body ?? ''),
         timestamp: Number(m.timestamp ?? 0),
       }))
       .reverse(); // WAHA returns newest-first; we want chronological

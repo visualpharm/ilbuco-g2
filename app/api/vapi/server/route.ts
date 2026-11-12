@@ -601,7 +601,7 @@ async function getDetailedAvailability(startDate: string, endDate: string, listi
               currentNights = 1;
               currentMinPrice = day.price || 0;
             } else {
-              currentEnd = addDays(currentEnd, 1);
+              currentEnd = addDays(currentEnd ?? day.date, 1);
               currentNights += 1;
               if (day.price && (currentMinPrice === null || day.price < currentMinPrice)) {
                 currentMinPrice = day.price;

@@ -496,7 +496,7 @@ export async function processRetryQueue(dryRun = false, force = false): Promise<
         }
 
         // Retry the add
-        if (needsNewPin(assignment.pin, assignment.channels.length > 0)) {
+        if (needsNewPin(assignment.pin ?? undefined, assignment.channels.length > 0)) {
           const activePins = getActivePins(state);
           activePins.delete(assignment.pin!);
           assignment = { ...assignment, pin: generatePin(activePins), updatedAt: now.toISOString() };

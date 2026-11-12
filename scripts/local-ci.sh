@@ -5,5 +5,6 @@ cd "$(dirname "$0")/.."
 python3 -m unittest discover -s scripts -p 'test_*.py'
 npm test
 npm run lint
+./node_modules/.bin/tsc --noEmit
 python3 tour3d/build.py --check
 ./node_modules/.bin/next build

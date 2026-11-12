@@ -571,7 +571,8 @@ export function MarkdownViewer({
                 {children}
               </blockquote>
             ),
-            code: ({ inline, children }) => {
+            code: ({ className, children }) => {
+              const inline = !/language-/.test(className || '') && !String(children).includes('\n')
               if (inline) {
                 return (
                   <code className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-base font-mono">

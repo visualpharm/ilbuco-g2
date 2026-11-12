@@ -410,8 +410,8 @@ export async function POST(request: NextRequest) {
 
         // Process each tool call
         for (const toolCall of message.tool_calls) {
-          if (toolCall.function.name === 'search_local_businesses') {
-            const args = JSON.parse(toolCall.function.arguments);
+          if ((toolCall as { function: { name: string; arguments: string } }).function.name === 'search_local_businesses') {
+            const args = JSON.parse((toolCall as { function: { name: string; arguments: string } }).function.arguments);
             const lang = (language === 'es' || language === 'en' || language === 'pt') ? language : 'es';
             const searchResult = await searchLocalBusinesses(args.query, lang as 'es' | 'en' | 'pt');
 
@@ -432,7 +432,7 @@ export async function POST(request: NextRequest) {
     }
 
     const responseTime = Date.now() - startTime;
-    const usage = totalTokens;
+    const usage = { prompt_tokens: totalTokens.prompt, completion_tokens: totalTokens.completion, total_tokens: totalTokens.total };
 
     // Detect response language from content
     const detectLanguage = (text: string): string => {

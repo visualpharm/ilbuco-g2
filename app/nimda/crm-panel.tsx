@@ -1139,7 +1139,7 @@ export default function CrmPanel() {
                       disabled={
                         !messageTemplate.trim() ||
                         (outreachChannel === 'whatsapp' && (selectedWithPhone.length === 0 || selectedWithPhone.length > 8)) ||
-                        (outreachChannel === 'ota' && messageTemplate.trim() && !scanOtaCompliance(messageTemplate).compliant)
+                        (outreachChannel === 'ota' && !!messageTemplate.trim() && !scanOtaCompliance(messageTemplate).compliant)
                       }
                       className="bg-emerald-600 text-white rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-40"
                     >
