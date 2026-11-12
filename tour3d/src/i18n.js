@@ -50,7 +50,7 @@ const TR = {
   'Living con cocina': ['Living room with kitchen', 'Sala com cozinha', 'Гостиная с кухней'],
   'ventana de esquina al noreste': ['corner window facing northeast', 'janela de canto para o nordeste', 'угловое окно на северо-восток'],
   'parrilla de ladrillo y bacha': ['brick grill and sink', 'churrasqueira de tijolo e pia', 'кирпичный гриль и мойка'],
-  'deck, canteros con pastos, mesa para 8': ['deck, planters with grasses, table for 8', 'deck, canteiros com capins, mesa para 8', 'настил, клумбы с травами, стол на 8 человек'],
+  'deck, canteros con pastos, mesa para 6': ['deck, planters with grasses, table for 6', 'deck, canteiros com capins, mesa para 6', 'настил, клумбы с травами, стол на 6 человек'],
   'Puerta de Giardino': ['Giardino door', 'Porta do Giardino', 'Дверь Giardino'],
   'desde el vestíbulo': ['from the entrance hall', 'pelo vestíbulo', 'из вестибюля'],
   // точки съёмки

@@ -15,19 +15,19 @@ addLabel('Baño de Giardino', '', 5.8, 4.4, 0.9);
 addLabel('Dormitorio de Giardino', 'puerta frente a la entrada de la suite', 10.4, 1.4, 0.9);
 addLabel('Cocina común', 'roble y mesada negra; heladera en la columna junto a la puerta al jardín', 4.0, 6.6, 1.0);
 addLabel('Patio con sillones', 'baldosa gris y cuatro sillones negros', 10.4, 11.3, 0.5);
-addLabel('Sala y comedor comunes', 'mesa larga de madera, sofá frente a la TV', 3.4, 11.5, 0.9);
+addLabel('Sala y comedor comunes', 'mesa larga de madera, sofá frente a la TV', 3.4, 13.4, 0.9);
 addLabel('Escalera', '', 3.9, 1.5, 0.9);
 addLabel('Puerta de entrada', 'madera con paño fijo, desde el patio', 8.05, 8.5, 1.4);
 addLabel('Depósito · sin acceso', '', 3.4, 10.0, 1.6, 'sub', true);
-addLabel('Matafuego', 'al pie de la escalera', 0.6, 0.02, 2.7, 'sub', true);
-addLabel('Rampa del garaje', '', 2.5, 23.0, 0.4, 'pb');
+addLabel('Matafuego', 'al pie de la escalera', 0.6, 0.02, 1.9, 'sub', true);
+addLabel('Rampa del garaje', '', 3.6, 26.5, 0.4, 'pb');
 addLabel('Paraiso', 'dormitorio, living, cocina y comedor', 5.6, 16.2, 1.0, 'p1');
 addLabel('Terrazzo', 'dormitorio, living con cocina, salida al balcón', 5.6, 6.2, 1.0, 'p1');
 addLabel('Balcón', 'deck de madera, plantas, sillones de ratán', 10.6, 3.0, 0.6, 'p1');
 addLabel('Living con cocina', 'ventana de esquina al noreste', 11.5, 5.8, 1.0, 'p2');
 addLabel('Dormitorio', '', 10.2, 1.0, 1.0, 'p2');
 addLabel('Quincho', 'parrilla de ladrillo y bacha', 3.3, 6.8, 1.0, 'p2');
-addLabel('Terraza', 'deck, canteros con pastos, mesa para 8', 3.0, 15.5, 0.6, 'p2');
+addLabel('Terraza', 'deck, canteros con pastos, mesa para 6', 3.0, 15.5, 0.6, 'p2');
 addLabel('Puerta de Giardino', 'desde el vestíbulo', 8.17, 5.36, 1.4);
 
 // --- ракурсы: точка — где снято видео и фото; конус показывает, куда смотрит камера.
@@ -89,7 +89,7 @@ function addCam(name, fl, t, [x, y], [lx, ly], photos = [], z = EYE) {
 }
 const ph = (k, use) => ({ k, use });
 // подвал и улица (снято с земли: z — над отметкой подвала)
-addCam('Portón del garaje', 'sub', 12, [2.5, 32], [2.5, 19], [ph('acceso', 'rampa de entrada al terreno y muro de hormigón.')], -FL.sub + EYE);
+addCam('Portón del garaje', 'sub', 12, [3.6, 32], [3.6, 19.4], [ph('acceso', 'rampa de entrada al terreno y muro de hormigón.')], -FL.sub + EYE);
 // planta baja
 addCam('Patio de entrada', 'pb', 54, [13.3, 11.8], [8.3, 8.6], [
   ph('patio1', 'patio con baldosa gris, muro de hormigón con encofrado, cuatro sillones negros y puerta de madera con paño fijo.'),
@@ -112,7 +112,7 @@ addCam('Giardino · dormitorio', 'pb', 168, [8.4, 2.3], [12.6, 0.6], [
   ph('par_dorm', 'cama con respaldo gris tapizado, ventana negra con cortina.'),
   ph('par_placard', 'placard blanco de piso a techo con tiradores negros.')]);
 addCam('Giardino · baño', 'pb', 204, [7.6, 4.6], [6.0, 4.2], [ph('par_bano', 'ducha con mampara de vidrio y marco negro, lavarropas, inodoro, bacha blanca.')]);
-addCam('Sala común', 'pb', 222, [6.6, 7.3], [2.0, 14.0], [
+addCam('Sala común', 'pb', 222, [6.6, 7.3], [2.4, 17.0], [
   ph('pasillo', 'paso hacia la zona común: ventana negra, piso símil madera.'),
   ph('sala1', 'ventana larga con vidrios divididos, sofá, techo de hormigón con huellas de tablas.'),
   ph('sala2', 'sofá gris grande, TV, celosía de madera sobre la ventana.'),
@@ -186,8 +186,8 @@ const NAV = [
     { id: 'pb-giardino', name: 'Giardino', box: [7.0, -0.24, 13.8, 8.5], kids: [
       { id: 'pb-par-living', name: 'Living', box: [8.86, 2.97, 13.8, 8.5] },
       { id: 'pb-par-dorm', name: 'Dormitorio', box: [7.0, -0.24, 13.8, 2.86] }] },
-    { id: 'pb-comun', name: 'Sala común', box: [-0.25, 3.0, 7.26, 15.45], kids: [
-      { id: 'pb-sala', name: 'Sala', box: [-0.25, 9.0, 7.26, 15.45] },
+    { id: 'pb-comun', name: 'Sala común', box: [-0.25, 3.0, 7.26, 19.3], kids: [
+      { id: 'pb-sala', name: 'Sala', box: [-0.25, 9.0, 7.26, 19.3] },
       { id: 'pb-cocina', name: 'Cocina', box: [-0.25, 4.6, 7.26, 9.6] }] },
     { id: 'pb-patio', name: 'Patio', box: [7.2, 8.6, 13.8, 12.2] }] },
   { id: 'sub', name: 'Subsuelo', f: 'sub', kids: [
