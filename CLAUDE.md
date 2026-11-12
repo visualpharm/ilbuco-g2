@@ -24,9 +24,10 @@ This file stays thin: principles, what Ivan decides, and how we work. Detailed r
 
 ## Work
 
-- Commands: `npm run dev` · `npm run build` · `npm run start` · `npm run lint`
-- Tests: `npm run test` (tsx runner, `lib/*.test.ts`); full local gate: `~/.claude/bin/local-ci` → `./scripts/local-ci.sh` (Python booking-guard tests + unit tests + production build)
+- Commands: `npm run dev` · `npm run build` · `npm run start`; `npm run lint` does not work (`next lint` is gone and there is no ESLint config) — check types with `npx tsc --noEmit`
+- Tests: `npm run test` (tsx runner, `lib/*.test.ts`); full local gate: `~/.claude/bin/local-ci` → `./scripts/local-ci.sh` (Python booking-guard tests + unit tests + 3D tour matches its sources + production build)
 - Price floor: `lib/price-floor.ts` — no guest-facing price under it; check a quote with `scripts/price-check <listing> <check-in> <check-out> [--total N] [--ars]`, scan Hostex with `scripts/price-check scan`
+- 3D tour at /3d: sources in `tour3d/`, rebuild with `python3 tour3d/build.py`, never edit `public/3d/index.html` by hand (docs/rules/tour-3d.md)
 - After each deploy: `scripts/check-icons` — every favicon/manifest icon answers 200 live (docs/rules/testing.md)
 - Site checks after major changes (broken links, missing images/alt, translation completeness, hreflang/canonical, sitemap): docs/rules/testing.md
 - Commits: Conventional Commits (`feat:`, `fix:`, `build:`, `docs:`), one coherent verified slice per commit.
@@ -43,3 +44,4 @@ Before non-trivial work: check `docs/solutions/INDEX.md`; capture lessons with /
 - `docs/rules/booking-guests.md` — booking links, payment options per language, guest page.
 - `docs/rules/places-businesses.md` — Google Maps API data, golden-standard business card design.
 - `docs/rules/testing.md` — automatic site tests.
+- `docs/rules/tour-3d.md` — 3D tour: build from `tour3d/`, languages, room names, menu link, browser check.

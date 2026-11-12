@@ -1,0 +1,700 @@
+// Il Buco · v7: весь дом. Planta baja — детально, подвал, 1-й и 2-й этажи, крыша — low poly. Плановые координаты в метрах: X на восток (оси 1–3), Y на север (оси A–E).
+// Планировка: «Bucho var 5.pdf» (Drive, 18.07.2022), лист GROUND FLOOR 160 м², 50 px = 1 м.
+// Материалы и мебель: фото готового дома (Google Photos 25.05.2025; фото сайта Il Buco).
+const H = 2.7; // чистая высота planta baja по разрезу (лист 5); стены во всю высоту
+// этажи: группы на своей отметке; координаты внутри — от пола этажа
+const FL = { sub: -3.95, pb: 0, p1: 3.0, p2: 6.3, roof: 9.3 };
+const floors = {};
+let G = null, WH = H;   // текущая группа и высота стен этажа
+function floor(name) { if (!floors[name]) { const g = new THREE.Group(); g.position.y = FL[name]; scene.add(g); floors[name] = g; } G = floors[name]; }
+const ST = 0.22; // условная толщина стен
+
+const scene = new THREE.Scene();
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.getElementById('stage').appendChild(renderer.domElement);
+
+// небо
+(function () {
+  const c = document.createElement('canvas'); c.width = 4; c.height = 256;
+  const g = c.getContext('2d'), gr = g.createLinearGradient(0, 0, 0, 256);
+  gr.addColorStop(0, '#9fc6e4'); gr.addColorStop(0.55, '#d9e8ef'); gr.addColorStop(1, '#f4efe2');
+  g.fillStyle = gr; g.fillRect(0, 0, 4, 256);
+  const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; scene.background = t;
+})();
+scene.fog = new THREE.Fog(0xe4ecee, 55, 130);
+
+const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 300);
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.maxPolarAngle = Math.PI / 2 - 0.02;
+controls.minDistance = 6;
+controls.maxDistance = 160;
+
+scene.add(new THREE.HemisphereLight(0xeaf3ff, 0x8a8068, 0.85));
+const sun = new THREE.DirectionalLight(0xfff0d6, 1.35);
+sun.position.set(-8, 34, 26);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.bias = -0.0004;
+Object.assign(sun.shadow.camera, { left: -26, right: 26, top: 26, bottom: -26, near: 1, far: 100 });
+scene.add(sun);
+
+// ---------- процедурные текстуры (по фото: плитка «под дерево», шалёвочный бетон, настил)
+function canvasTex(size, draw, world) {
+  const c = document.createElement('canvas'); c.width = c.height = size;
+  draw(c.getContext('2d'), size);
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.encoding = THREE.sRGBEncoding; t.anisotropy = 8;
+  t.userData.size = world; // сколько метров покрывает один тайл
+  return t;
+}
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+function planks(g, S, rows, base, vary, lines) {
+  const rh = S / rows;
+  for (let r = 0; r < rows; r++) {
+    let x = -rnd() * S * 0.6;
+    while (x < S) {
+      const len = S * (0.45 + rnd() * 0.4);
+      const k = (rnd() - 0.5) * vary;
+      g.fillStyle = `rgb(${base[0] + k},${base[1] + k * 0.9},${base[2] + k * 0.8})`;
+      g.fillRect(x, r * rh, len, rh);
+      g.strokeStyle = 'rgba(70,55,40,0.28)'; g.lineWidth = 2; g.strokeRect(x, r * rh, len, rh);
+      g.strokeStyle = 'rgba(80,60,40,0.10)'; g.lineWidth = 1;
+      for (let i = 0; i < lines; i++) { const y = r * rh + rnd() * rh; g.beginPath(); g.moveTo(x, y); g.lineTo(x + len, y + (rnd() - 0.5) * 3); g.stroke(); }
+      x += len;
+    }
+  }
+}
+const tex = {
+  floor: canvasTex(512, (g, S) => planks(g, S, 6, [188, 170, 146], 26, 7), 1.2),     // светлая плитка «под дерево», серо-коричневая
+  deck: canvasTex(512, (g, S) => { g.fillStyle = '#8c8e91'; g.fillRect(0, 0, S, S); const n = 4, c = S / n; for (let r = 0; r < n; r++) for (let q = 0; q < n; q++) { const k = Math.floor(rnd() * 16) - 8; g.fillStyle = `rgb(${140 + k},${142 + k},${145 + k})`; g.fillRect(q * c + 2, r * c + 2, c - 4, c - 4); } for (let i = 0; i < 3000; i++) { g.fillStyle = `rgba(${rnd() > 0.5 ? '255,255,255' : '40,40,40'},0.05)`; g.fillRect(rnd() * S, rnd() * S, 1 + rnd() * 3, 1 + rnd() * 3); } g.strokeStyle = 'rgba(50,50,52,0.55)'; g.lineWidth = 3; for (let i = 0; i <= n; i++) { g.beginPath(); g.moveTo(i * c, 0); g.lineTo(i * c, S); g.stroke(); g.beginPath(); g.moveTo(0, i * c); g.lineTo(S, i * c); g.stroke(); } }, 2.2),       // патио: серая каменная плитка (по видео-обходу)
+  concrete: canvasTex(512, (g, S) => {                                                // шалёвочный бетон
+    g.fillStyle = '#aaa8a2'; g.fillRect(0, 0, S, S);
+    for (let i = 0; i < 2500; i++) { g.fillStyle = `rgba(${rnd() > 0.5 ? '255,255,255' : '60,60,60'},0.05)`; g.fillRect(rnd() * S, rnd() * S, 2 + rnd() * 40, 1 + rnd() * 3); }
+    for (let i = 0; i < 8; i++) { g.fillStyle = 'rgba(40,40,40,0.28)'; g.fillRect(0, i * S / 8, S, 2); }
+  }, 1.2),
+  tile: canvasTex(512, (g, S) => {                                                    // крупная серая плитка санузлов
+    g.fillStyle = '#c4c1ba'; g.fillRect(0, 0, S, S);
+    for (let i = 0; i < 4; i++) { g.fillStyle = `rgba(${rnd() > 0.5 ? '255,255,255' : '90,90,90'},0.06)`; g.fillRect((i % 2) * S / 2, (i >> 1) * S / 2, S / 2, S / 2); }
+    g.fillStyle = 'rgba(80,80,80,0.5)'; g.fillRect(0, 0, S, 3); g.fillRect(0, 0, 3, S); g.fillRect(0, S / 2, S, 3); g.fillRect(S / 2, 0, 3, S);
+  }, 1.2),
+  grass: canvasTex(512, (g, S) => {
+    g.fillStyle = '#7fa65f'; g.fillRect(0, 0, S, S);
+    for (let i = 0; i < 6000; i++) { g.fillStyle = `rgba(${rnd() > 0.5 ? '120,160,80' : '60,100,50'},0.35)`; g.fillRect(rnd() * S, rnd() * S, 3, 3); }
+  }, 6),
+};
+function tm(t, w, d, o = {}) {
+  const c = t.clone(); c.needsUpdate = true; c.repeat.set(w / t.userData.size, d / t.userData.size);
+  return new THREE.MeshStandardMaterial(Object.assign({ map: c, roughness: 0.85 }, o));
+}
+const S = (c, o = {}) => new THREE.MeshStandardMaterial(Object.assign({ color: c, roughness: 0.8 }, o));
+const SL = (c, o = {}) => S(new THREE.Color(c).convertSRGBToLinear(), o);   // цвет как на фото (sRGB): растения, мульча
+const mat = {
+  plaster: S(0xf3f1ec), concrete: S(0xb0aea8, { roughness: 0.95 }), oak: S(0xc9a06a, { roughness: 0.6 }), woodDark: S(0x6b4d32, { roughness: 0.7 }),
+  rail: S(0xc08a4e, { roughness: 0.6 }), white: S(0xf6f5f2, { roughness: 0.5 }), black: SL(0x1e1f22, { roughness: 0.5 }),
+  counter: S(0x15161a, { roughness: 0.25, metalness: 0.2 }), steel: S(0xc9ccce, { roughness: 0.35, metalness: 0.6 }),
+  sofaGrey: S(0x9a9b9d, { roughness: 1 }), sofaBlue: S(0x2f4f9a, { roughness: 0.95 }), bedGrey: S(0x8e96a3, { roughness: 1 }), bedHead: S(0x5a5d66, { roughness: 1 }),
+  blanket: S(0xc9762f, { roughness: 1 }), chairBlack: S(0x25272b, { roughness: 0.6 }), chairWhite: S(0xefeeea, { roughness: 0.5 }), wicker: SL(0x232427, { roughness: 0.9 }),
+  glass: new THREE.MeshStandardMaterial({ color: 0xaad4e4, transparent: true, opacity: 0.34, roughness: 0.05, metalness: 0.0, side: THREE.DoubleSide, depthWrite: false }),
+  tree: S(0x4f7f4f, { roughness: 1 }), treeDark: S(0x3c6745, { roughness: 1 }), trunk: S(0x7b5a3b, { roughness: 1 }),
+};
+
+// plan(x,y) -> world(x, z)
+const P = (x, y) => [x, -y];
+function box(x0, y0, x1, y1, h, m, z0 = 0, cast = true) {
+  const g = new THREE.BoxGeometry(Math.abs(x1 - x0), h, Math.abs(y1 - y0));
+  const o = new THREE.Mesh(g, m);
+  const [px, pz] = P((x0 + x1) / 2, (y0 + y1) / 2);
+  o.position.set(px, z0 + h / 2, pz);
+  o.castShadow = cast; o.receiveShadow = true;
+  (G || scene).add(o);
+  return o;
+}
+function cyl(x, y, r, h, m, z0 = 0, seg = 24) {
+  const o = new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, seg), m);
+  const [px, pz] = P(x, y); o.position.set(px, z0 + h / 2, pz); o.castShadow = o.receiveShadow = true; (G || scene).add(o); return o;
+}
+// плита с текстурой сверху
+function slab(x0, y0, x1, y1, h, t, z0, o = {}) {
+  const top = tm(t, Math.abs(x1 - x0), Math.abs(y1 - y0), o), side = mat.concrete;
+  return box(x0, y0, x1, y1, h, [side, side, top, side, side, side], z0);
+}
+const wallX = (x, y0, y1, m = mat.plaster, t = ST, h = WH, z0 = 0) => box(x - t / 2, y0, x + t / 2, y1, h, m, z0);
+const wallY = (y, x0, x1, m = mat.plaster, t = ST, h = WH, z0 = 0) => box(x0, y - t / 2, x1, y + t / 2, h, m, z0);
+// стена с проёмами во всю высоту этажа WH; над проёмом — стена. ops: [от, до, тип, число створок]; тип: w окно (подоконник 0,8),
+// b окно с чёрной панелью до 0,9, v окно почти от пола до потолка, g остекление в пол, d деревянная дверь, f входная дверь,
+// i внутренняя дверь (белая, открытая), o проём без двери, q проём-«окно» без стекла (стены балкона)
+function wall(axis, pos, a0, a1, ops = [], m = mat.concrete, t = ST) {
+  const X = axis === 'x';
+  const seg = (s0, s1, z0, h) => { if (s1 - s0 > 0.001 && h > 0.001) (X ? box(pos - t / 2, s0, pos + t / 2, s1, h, m, z0) : box(s0, pos - t / 2, s1, pos + t / 2, h, m, z0)); };
+  const bar = (s0, s1, z0, h, mm = mat.black) => (X ? box(pos - t / 2 - 0.01, s0, pos + t / 2 + 0.01, s1, h, mm, z0) : box(s0, pos - t / 2 - 0.01, s1, pos + t / 2 + 0.01, h, mm, z0));
+  const pane = (s0, s1, z0, h) => (X ? box(pos - 0.02, s0, pos + 0.02, s1, h, mat.glass, z0, false) : box(s0, pos - 0.02, s1, pos + 0.02, h, mat.glass, z0, false));
+  let cur = a0;
+  ops.slice().sort((p, q) => p[0] - q[0]).forEach(([f, to, k, n, tp]) => {
+    seg(cur, f, 0, WH); cur = to;
+    const sill = k === 'w' ? 0.8 : k === 'b' ? 0.9 : k === 'v' ? 0.25 : k === 'q' ? 0.95 : 0;
+    const top = tp != null ? tp : k === 'v' || k === 'g' ? WH - 0.12 : k === 'i' || k === 'o' ? 2.1 : k === 'q' ? 2.25 : Math.min(2.4, WH - 0.25);
+    seg(f, to, top, WH - top);                                                            // перемычка до потолка
+    if (k === 'b') {
+      // окно «в пол»: проём до пола, внизу в той же раме тёмная глухая панель до 0,9 — снаружи и изнутри выглядит как продолжение стекла
+      (X ? box(pos - 0.03, f, pos + 0.03, to, sill, mat.panel, 0) : box(f, pos - 0.03, to, pos + 0.03, sill, mat.panel, 0));
+      pane(f, to, sill, top - sill);
+      bar(f - 0.03, f + 0.03, 0, top); bar(to - 0.03, to + 0.03, 0, top); bar(f, to, top - 0.03, 0.06); bar(f, to, 0, 0.05); bar(f, to, sill - 0.025, 0.05);
+      const parts = n > 0 ? n : Math.max(1, Math.round((to - f) / 1.2));
+      for (let q = 1; q < parts; q++) { const c = f + (to - f) * q / parts; bar(c - 0.02, c + 0.02, 0, top); }
+      return;
+    }
+    if (sill > 0) seg(f, to, 0, sill);
+    if (k === 'w' || k === 'v' || k === 'g') {
+      pane(f, to, sill, top - sill);
+      bar(f - 0.03, f + 0.03, sill, top - sill); bar(to - 0.03, to + 0.03, sill, top - sill); bar(f, to, top - 0.03, 0.06);
+      if (sill > 0) bar(f, to, sill - 0.03, 0.06); else bar(f, to, 0, 0.05);
+      const parts = n > 0 ? n : Math.max(1, Math.round((to - f) / 1.2));
+      for (let q = 1; q < parts; q++) { const c = f + (to - f) * q / parts; bar(c - 0.02, c + 0.02, sill, top - sill); }
+    } else if (k === 'd') {
+      const dm = n === -2 ? mat.black : mat.rail;   // n = -2 — чёрная дверь
+      (X ? box(pos - 0.04, f + 0.03, pos + 0.04, to - 0.03, top, dm, 0) : box(f + 0.03, pos - 0.04, to - 0.03, pos + 0.04, top, dm, 0));
+      (X ? box(pos + 0.05, to - 0.14, pos + 0.07, to - 0.1, 0.03, mat.black, 0.9) : box(to - 0.14, pos + 0.05, to - 0.1, pos + 0.07, 0.03, mat.black, 0.9));
+    } else if (k === 'i') {
+      const w = to - f, sg = n === -1 ? -1 : 1;   // створка открыта на 90°; n = -1 — в другую сторону
+      if (X) box(pos + sg * t / 2, f, pos + sg * (t / 2 + w), f + 0.04, top, mat.white, 0); else box(f, pos + sg * t / 2, f + 0.04, pos + sg * (t / 2 + w), top, mat.white, 0);
+    }
+  });
+  seg(cur, a1, 0, WH);
+}
+// плита перекрытия с отверстием под лестницу
+function deck(x0, y0, x1, y1, h, t, z0, hole) {
+  if (!hole) return slab(x0, y0, x1, y1, h, t, z0);
+  const [hx0, hy0, hx1, hy1] = hole;
+  slab(x0, y0, x1, hy0, h, t, z0); slab(x0, hy1, x1, y1, h, t, z0);
+  slab(x0, hy0, hx0, hy1, h, t, z0); slab(hx1, hy0, x1, hy1, h, t, z0);
+}
+// П-образная лестница: первый марш на восток, площадка у восточной стены клетки (1,3 м), второй марш на запад —
+// приходит ровно на отметку следующего этажа, где начинается этажная площадка. flip — первый марш вдоль северной половины.
+const STAIR_LAND = 5.0, STAIR_END = 6.3, STAIR_TR = 0.32;
+const stairX0 = rise => STAIR_LAND - (Math.round(rise / 0.18) >> 1) * STAIR_TR;   // западный край маршей
+function stairU(rise, { flip = false, x0 = stairX0(rise), end = STAIR_END, y0 = 0.28, y1 = 2.84, m = mat.concrete } = {}) {
+  const h = Math.round(rise / 0.18) >> 1, n = 2 * h, r = rise / n, tr = (STAIR_LAND - x0) / h, ym = (y0 + y1) / 2;
+  const A = flip ? [ym + 0.05, y1] : [y0, ym - 0.05], B = flip ? [y0, ym - 0.05] : [ym + 0.05, y1];
+  const TH = 0.2;   // толщина марша и площадки
+  const step = (xa, xb, ya, yb, top) => box(xa, ya, xb, yb, Math.min(top, r + TH), m, Math.max(0, top - r - TH));
+  const soffit = (xa, xb, ya, yb, za, zb) => {   // наклонная плита под маршем
+    const L = Math.hypot(xb - xa, zb - za), o = box(0, ya, L, yb, TH, m);
+    o.position.x = (xa + xb) / 2; o.position.y = (za + zb) / 2 - TH / 2; o.rotation.z = Math.atan2(zb - za, xb - xa);
+  };
+  for (let i = 0; i < h; i++) step(x0 + i * tr, x0 + (i + 1) * tr, A[0], A[1], (i + 1) * r);
+  soffit(x0, STAIR_LAND, A[0], A[1], 0, h * r - r);
+  box(STAIR_LAND, y0, end, y1, TH, m, h * r - TH);                            // промежуточная площадка — плита
+  const t2 = (STAIR_LAND - x0) / (h - 1);
+  for (let i = 0; i < h - 1; i++) { const xa = STAIR_LAND - (i + 1) * t2; step(xa, xa + t2, B[0], B[1], (h + i + 1) * r); }
+  soffit(STAIR_LAND, x0, B[0], B[1], h * r, rise - r);
+  // деревянный поручень на тонких чёрных стойках с внутренней стороны маршей (по видео)
+  const rail = (xa, xb, za, zb, y) => {
+    const L = xb - xa, Z = zb - za, o = box(0, y - 0.025, Math.hypot(L, Z), y + 0.025, 0.045, mat.rail, 0, false);
+    o.position.x = (xa + xb) / 2; o.position.y = (za + zb) / 2 + 0.92; o.rotation.z = Math.atan2(Z, L);
+    for (let k = 0; k <= Math.ceil(L / 0.9); k++) { const x = xa + L * k / Math.ceil(L / 0.9), z = za + Z * k / Math.ceil(L / 0.9); box(x - 0.015, y - 0.015, x + 0.015, y + 0.015, 0.92, mat.black, z, false); }
+  };
+  rail(x0 + 0.1, STAIR_LAND, r, h * r, flip ? ym + 0.08 : ym - 0.08);
+  rail(x0 + 0.1, STAIR_LAND, rise, h * r, flip ? ym - 0.08 : ym + 0.08);
+}
+
+tex.wood = canvasTex(512, (g, S) => planks(g, S, 8, [146, 108, 76], 30, 5), 1.6);         // деревянный настил террас
+Object.assign(mat, { curtain: S(0xd9c9a6, { roughness: 1 }), lightOak: S(0xd9bc8e, { roughness: 0.6 }), paint1: S(0x3f5268, { roughness: 0.4, metalness: 0.3 }),
+  paint2: S(0xe9e9e6, { roughness: 0.4, metalness: 0.2 }), glassDark: S(0x2c3238, { roughness: 0.2 }), panel: S(0x17191c, { roughness: 0.18, metalness: 0.35 }), soil: S(0x4f3a2a, { roughness: 1 }), rug: S(0xd8cfbf, { roughness: 1 }), red: S(0xc4211c, { roughness: 0.45 }), brick: S(0xb0654a, { roughness: 0.9 }), grassDry: S(0xa8a463, { roughness: 1 }), lamp: S(0xf3e6c8, { roughness: 0.6, emissive: 0x5a4a2a }), plant: SL(0x5a8a3c, { roughness: 1 }), plantDark: SL(0x3d6a2e, { roughness: 1 }) });
+
+// --- участок: газон с вырезом под пандус гаража (пандус — примерно: ширина и длина за осью E в плане не указаны)
+const RAMP = [0.6, 4.4, 19.26, 29.5];
+{
+  const sh = new THREE.Shape(); sh.absarc(7, 8, 46, 0, Math.PI * 2, false);
+  const h = new THREE.Path(); h.moveTo(RAMP[0], RAMP[2]); h.lineTo(RAMP[0], RAMP[3]); h.lineTo(RAMP[1], RAMP[3]); h.lineTo(RAMP[1], RAMP[2]); h.lineTo(RAMP[0], RAMP[2]);
+  sh.holes.push(h);
+  const gm = tex.grass.clone(); gm.needsUpdate = true; gm.repeat.set(1 / 6, 1 / 6);
+  var lawn = new THREE.Mesh(new THREE.ShapeGeometry(sh, 48), new THREE.MeshStandardMaterial({ map: gm, roughness: 1 }));
+  lawn.rotation.x = -Math.PI / 2; lawn.position.y = -0.03; lawn.receiveShadow = true; scene.add(lawn);
+}
+
+// ================= PLANTA BAJA (детально) =================
+floor('pb'); WH = H;
+// --- полы
+deck(-0.25, -0.24, 7.26, 15.45, 0.12, tex.floor, -0.12, [2.44, 0.15, 6.92, 2.95]);   // зал + лестничный отсек (проём — лестница в подвал)
+slab(1.42, 3.06, 6.86, 5.46, 0.14, tex.tile, -0.12);            // санузлы
+slab(7.26, -0.24, 13.8, 8.5, 0.12, tex.floor, -0.12);           // номер Paraiso
+slab(7.2, 8.6, 13.8, 12.2, 0.1, tex.deck, -0.1);             // патио: серая плитка (по видео-обходу)
+
+// --- стены: зал и лестница
+wall('y', 0.01, -0.25, 13.8, [[0.25, 0.95, 'w']]);  // южная стена по оси A: окно в торце западного коридора (видео 5:23)
+wallX(7.03, 0.26, 3.06);                         // стена между лестничным отсеком и Paraiso
+wallY(3.0, 1.42, 7.1, mat.plaster, 0.28);        // южная стена санузлов
+// западная стена: два окна коридора (на плане проём, по видео — окно напротив двери туалета, 5:09), стеклянная дверь в сад
+// у западного края кухни рядом с нишей холодильника (видео 4:47, 5:07), три окна зала напротив восточных (видео 3:59, фото зала)
+wall('x', -0.2, -0.24, 15.3, [[2.0, 2.6, 'w'], [3.4, 4.3, 'w'], [5.55, 6.4, 'g', 1, 2.25], [9.9, 10.7, 'w'], [11.9, 12.7, 'w'], [13.7, 14.5, 'w']]);
+// восточная стена зала со стороны патио: три больших чёрных окна с чёрной рифлёной панелью снизу (по видео)
+wall('x', 7.2, 8.5, 15.3, [[9.1, 10.5, 'b'], [11.3, 12.7, 'b'], [13.5, 14.9, 'b']]);
+[[9.1, 10.5], [11.3, 12.7], [13.5, 14.9]].forEach(([a, b]) => box(7.09, a, 7.16, b, 0.9, mat.concrete));   // изнутри под окнами — белая стена с подоконником (видео 3:59)
+// северная стена зала: окно во всю ширину почти от пола до потолка, снаружи деревянные ламели (по видео и фото)
+wall('y', 15.3, -0.2, 7.3, [[0.05, 7.05, 'v', 7]]);
+for (let x = -0.2; x <= 7.25; x += 0.3) box(x, 15.4, x + 0.1, 15.56, H, mat.woodDark);
+wallY(15.5, -0.25, 7.3, mat.woodDark, 0.06, 0.12, H - 0.12);
+// лестница: бетонная, П-образная, деревянный поручень (по видео)
+stairU(FL.p1, { flip: true, end: 6.92 });
+
+// --- санузлы: общий туалет (вход сбоку, из коридора у западной стены — по видео) с нишей стиральной машины; восточная кабина — ванная номера Paraiso
+wall('x', 1.52, 3.06, 5.46, [[4.55, 5.25, 'i']], mat.plaster);
+wallX(3.76, 3.06, 5.46, mat.plaster, 0.1); wallX(4.32, 3.06, 5.46, mat.plaster, 0.1);
+wallY(5.41, 1.42, 7.72);
+box(3.8, 3.1, 4.28, 3.7, 0.9, mat.white); cyl(4.04, 3.72, 0.16, 0.03, mat.black, 0.4, 20).rotation.x = Math.PI / 2; // стиральная машина
+{ const d = cyl(4.04, 3.74, 0.17, 0.05, mat.steel, 0.42, 20); d.rotation.x = Math.PI / 2; }
+box(1.9, 3.1, 2.3, 3.3, 0.75, mat.white); box(1.9, 3.3, 2.3, 3.7, 0.4, mat.white);             // унитаз
+box(2.55, 3.1, 3.15, 3.55, 0.85, mat.white); box(2.65, 3.17, 3.05, 3.47, 0.02, mat.black, 0.85); // тумба с раковиной
+// душ в стекле с чёрной рамкой и чёрная полка с полотенцами (по видео)
+box(2.65, 4.35, 3.7, 5.35, 0.05, mat.white);
+box(2.63, 4.35, 2.67, 5.35, 2.0, mat.glass, 0.05, false); box(2.65, 4.33, 3.7, 4.37, 2.0, mat.glass, 0.05, false);
+box(2.62, 4.32, 2.68, 5.35, 0.04, mat.black, 2.03); box(2.62, 4.32, 3.7, 4.38, 0.04, mat.black, 2.03); box(2.62, 4.32, 2.68, 4.38, 2.05, mat.black);
+box(3.52, 3.6, 3.7, 4.2, 0.03, mat.black, 1.1); box(3.54, 3.65, 3.68, 4.15, 0.12, mat.oak, 1.13);
+// ванная Paraiso (по видео: душ с чёрной рамкой, унитаз, белая тумба с круглым зеркалом, стиральная машина; положение приблизительное)
+box(4.45, 3.15, 5.4, 4.1, 0.05, mat.white);                                               // поддон душа
+[[4.45, 4.1, 5.4, 4.12], [5.38, 3.15, 5.4, 4.12]].forEach(([a, b, c, d]) => box(a, b, c, d, 2.0, mat.glass, 0.05, false));
+box(4.45, 4.08, 5.4, 4.14, 0.04, mat.black, 2.03); box(5.36, 3.15, 5.42, 4.14, 0.04, mat.black, 2.03);
+box(5.65, 3.15, 6.05, 3.35, 0.75, mat.white); box(5.65, 3.35, 6.05, 3.75, 0.4, mat.white);   // унитаз
+box(6.3, 3.15, 6.95, 3.6, 0.85, mat.white); box(6.4, 3.22, 6.85, 3.52, 0.02, mat.steel, 0.85); // тумба с раковиной
+cyl(6.62, 3.16, 0.3, 0.02, mat.black, 1.35, 32).rotation.x = Math.PI / 2;                    // круглое зеркало
+box(4.45, 4.75, 5.05, 5.3, 0.85, mat.white); { const d = cyl(4.75, 4.73, 0.17, 0.04, mat.steel, 0.42, 20); d.rotation.x = Math.PI / 2; } // стиральная машина
+
+// --- кухня (общая) у северной стены санузлов, лицом в зал (по видео): дубовый портал с высокими пеналами по краям,
+// белая плитка, открытые полки, белая круглая вытяжка с трубой, чёрная столешница, духовка. Восточный край — белый
+// простенок с выключателями; стальной двухдверный холодильник — в нише белой колонны у западной стены, рядом стеклянная
+// дверь в сад (видео 4:13, 4:25, 4:47–5:07). От входной двери: слева кухня, справа весь зал — одно помещение (Иван)
+const KB = 5.52, KF = 6.14;                                                                 // задняя и передняя линии кухни
+box(2.3, KB, 2.9, KF, 2.3, mat.oak); box(5.3, KB, 5.8, KF, 2.3, mat.oak);                  // высокие пеналы
+box(2.3, KB, 5.8, KF, 0.14, mat.oak, 2.3);                                                  // верх портала
+box(2.9, KB, 5.3, KF, 0.88, mat.oak); box(2.9, KB, 5.3, KF + 0.03, 0.04, mat.counter, 0.88);
+for (let x = 3.1; x < 5.2; x += 0.6) box(x, KF, x + 0.3, KF + 0.02, 0.025, mat.black, 0.7);   // чёрные ручки
+box(2.9, KB, 5.3, KB + 0.03, 1.38, mat.white, 0.92);                                        // белая плитка
+[1.45, 1.8].forEach(z => { box(2.9, KB, 3.5, KB + 0.3, 0.03, mat.oak, z); box(4.7, KB, 5.3, KB + 0.3, 0.03, mat.oak, z); }); // открытые полки
+cyl(4.1, 5.8, 0.27, 0.22, mat.white, 1.55, 32); cyl(4.1, 5.72, 0.09, H - 1.77, mat.white, 1.77, 16); // круглая вытяжка и труба
+box(3.8, KF, 4.4, KF + 0.02, 0.5, mat.black, 0.2);                                          // духовка
+box(3.85, 5.62, 4.35, 6.02, 0.01, mat.black, 0.925);                                        // варочная
+box(4.75, 5.62, 5.2, 6.02, 0.01, mat.steel, 0.925);                                         // мойка
+box(5.8, KB, 6.4, KF + 0.1, H, mat.white);                                                  // белый простенок до потолка
+box(6.12, KF + 0.1, 6.2, KF + 0.11, 0.08, mat.paint2, 1.1, false); box(6.12, KF + 0.1, 6.2, KF + 0.11, 0.1, mat.paint2, 1.35, false); // выключатель, термостат
+// белая колонна у западной стены с нишей холодильника, ниша смотрит на юг — к стеклянной двери
+box(-0.09, 7.35, 1.35, 7.5, H, mat.white);                                                  // задняя стенка ниши
+box(0.92, 6.5, 1.35, 7.35, H, mat.white);                                                    // щека ниши со стороны зала
+box(-0.09, 6.5, 0.92, 7.35, H - 1.9, mat.white, 1.9);                                       // перемычка над нишей
+box(0.03, 6.62, 0.89, 7.33, 1.82, mat.steel);                                               // холодильник side-by-side
+box(0.45, 6.6, 0.47, 6.62, 1.6, mat.black, 0.1, false); box(0.24, 6.6, 0.32, 6.61, 0.14, mat.black, 1.25, false); // стык дверей, дисплей
+box(-0.08, 6.4, -0.07, 6.48, 0.08, mat.paint2, 1.1, false);                                 // выключатель у двери
+
+// --- зал: один длинный светлый деревянный стол с бело-серыми стульями; диван вдоль окна, перед ним ТВ (по видео и словам Ивана)
+function chair(x, y, mat0, rot, G0) {
+  const g = new THREE.Group(); const [px, pz] = P(x, y); g.position.set(px, 0, pz); g.rotation.y = rot;
+  const seat = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.05, 0.42), mat0); seat.position.y = 0.45; g.add(seat);
+  const back = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.45, 0.05), mat0); back.position.set(0, 0.7, -0.2); g.add(back);
+  [[-0.17, -0.17], [0.17, -0.17], [-0.17, 0.17], [0.17, 0.17]].forEach(([dx, dz]) => {
+    const l = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.012, 0.45, 6), mat.woodDark); l.position.set(dx, 0.225, dz); g.add(l);
+  });
+  g.traverse(o => { o.castShadow = true; o.receiveShadow = true; }); (G || scene).add(g);
+}
+function roundTable(x, y, r, chairs, chairMat) {
+  cyl(x, y, r, 0.04, mat.white, 0.72); cyl(x, y, 0.05, 0.72, mat.steel);
+  for (let i = 0; i < chairs; i++) {
+    const a = (i / chairs) * Math.PI * 2 + 0.4, d = r + 0.12;
+    chair(x + Math.cos(a) * d, y + Math.sin(a) * d, chairMat, Math.atan2(-Math.cos(a), -Math.sin(a)) + Math.PI);
+  }
+}
+// прямоугольный стол вдоль X; стулья: по n с длинных сторон и по одному с торцов
+function longTable(x0, y0, x1, y1, n, top, cm, ends = true) {
+  box(x0, y0, x1, y1, 0.05, top, 0.71);
+  [[x0 + 0.08, y0 + 0.08], [x1 - 0.12, y0 + 0.08], [x0 + 0.08, y1 - 0.12], [x1 - 0.12, y1 - 0.12]].forEach(([x, y]) => box(x, y, x + 0.05, y + 0.05, 0.71, top));
+  for (let i = 0; i < n; i++) { const x = x0 + (x1 - x0) * (i + 0.5) / n; chair(x, y1 + 0.12, cm, 0); chair(x, y0 - 0.12, cm, Math.PI); }
+  if (ends) { chair(x0 - 0.12, (y0 + y1) / 2, cm, 1.5 * Math.PI); chair(x1 + 0.12, (y0 + y1) / 2, cm, 0.5 * Math.PI); }
+}
+longTable(2.4, 10.0, 4.8, 10.9, 3, mat.lightOak, mat.chairWhite);
+// два круглых белых столика с серыми стульями у западных окон (видео 3:59, 4:49)
+mat.chairGrey = S(0x5f6f7e, { roughness: 0.9 });   // серо-голубые стулья (фото «cocina»)
+roundTable(0.95, 11.2, 0.4, 3, mat.chairGrey); roundTable(0.95, 13.1, 0.4, 3, mat.chairGrey);
+// Г-образный диван лицом к окну и пуф (как в v6); ТВ на тумбе перед окнами, лицом к дивану
+box(2.0, 12.06, 5.5, 13.0, 0.42, mat.sofaGrey); box(2.0, 13.0, 3.0, 14.0, 0.42, mat.sofaGrey);
+box(2.0, 12.0, 5.5, 12.25, 0.85, mat.sofaGrey); box(2.0, 12.0, 2.25, 14.0, 0.85, mat.sofaGrey);
+box(3.4, 13.1, 4.9, 14.0, 0.36, mat.sofaGrey);                                              // пуф
+box(2.6, 14.55, 5.0, 14.95, 0.45, mat.oak);                                                 // тумба под ТВ
+box(3.15, 14.7, 4.45, 14.76, 0.76, mat.black, 0.55);                                        // телевизор
+// уют: ковёр, подушки и плед, торшер, растения в кашпо, подвесные лампы над столом, книги
+box(2.3, 12.9, 5.6, 14.45, 0.012, mat.rug, 0, false);
+[[2.4, mat.curtain], [3.1, mat.bedGrey], [4.3, mat.curtain], [4.9, mat.bedGrey]].forEach(([x, m]) => box(x, 12.24, x + 0.45, 12.36, 0.36, m, 0.42));
+box(2.26, 12.9, 2.38, 13.4, 0.36, mat.bedGrey, 0.42);
+box(2.3, 13.3, 2.98, 13.95, 0.04, mat.blanket, 0.42);
+cyl(5.75, 12.35, 0.12, 0.03, mat.black, 0); cyl(5.75, 12.35, 0.012, 1.5, mat.black, 0, 6); cyl(5.75, 12.35, 0.2, 0.28, mat.lamp, 1.42);
+[[6.7, 14.75], [0.25, 12.4], [6.7, 9.3]].forEach(([x, y]) => { cyl(x, y, 0.22, 0.42, mat.white); bush(x, y, 0.36, 0.38, false); });
+[3.1, 4.1].forEach(x => { cyl(x, 10.45, 0.005, H - 1.75, mat.black, 1.75, 4); cyl(x, 10.45, 0.17, 0.2, mat.lamp, 1.55); });
+[[2.7, mat.blanket], [2.8, mat.paint1], [2.9, mat.lightOak]].forEach(([x, m]) => box(x, 14.62, x + 0.07, 14.85, 0.24, m, 0.45));
+
+// --- фасад на патио (по видео): входная дверь в деревянной раме с боковым стеклом и фрамугой, маленькое окно,
+// угловое окно гостиной Paraiso в пол
+wall('y', 8.5, 7.16, 13.64, [[7.35, 8.75, 'o', 0, 2.45], [9.8, 10.6, 'w'], [12.7, 13.64, 'g', 1]]);
+[7.35, 8.27, 8.75].forEach(x => box(x - 0.04, 8.42, x + 0.04, 8.58, 2.45, mat.rail));       // деревянная рама входа
+box(7.39, 8.46, 8.23, 8.54, 2.08, mat.rail);                                                // дверь закрыта: деревянное полотно
+for (let x = 7.47; x < 8.2; x += 0.12) box(x, 8.44, x + 0.025, 8.56, 2.0, mat.woodDark, 0.04); // вертикальные рейки
+box(8.1, 8.56, 8.13, 8.6, 0.45, mat.black, 0.85);                                           // ручка
+box(8.31, 8.48, 8.71, 8.52, 2.08, mat.glass, 0, false);                                     // боковое стекло
+box(7.35, 8.42, 8.75, 8.58, 0.06, mat.rail, 2.08); box(7.35, 8.48, 8.75, 8.52, 0.27, mat.glass, 2.14, false); // фрамуга
+box(7.35, 8.42, 8.75, 8.58, 0.04, mat.rail, 2.41);
+box(13.69, 8.4, 13.81, 8.6, H, mat.black);                                                  // тонкая угловая стойка
+// --- вестибюль: белая скамья-обувница; дальше белая дверь номера Paraiso (по видео)
+box(7.0, 5.52, 7.68, 5.88, 0.45, mat.white); box(7.02, 5.54, 7.66, 5.86, 0.07, mat.sofaGrey, 0.45);
+
+// --- Paraiso: прихожая → гостиная с кухней (север), спальня (юг), ванная (запад). По видео-обходу; план — для стен
+wall('y', 5.36, 8.62, 8.86, [], mat.plaster);
+box(7.74, 5.31, 8.6, 5.41, 2.08, mat.white);                              // дверь в номер из вестибюля — закрыта (видео 1:06)
+box(8.38, 5.41, 8.52, 5.45, 0.03, mat.black, 1.0);                         // ручка
+wallY(5.36, 7.72, 8.62, mat.plaster, 0.16, H - 2.1, 2.1);               // стена над дверью
+wall('x', 7.16, 2.97, 5.3, [[4.3, 5.0, 'i', -1]], mat.plaster, 0.16);    // западная стена прихожей: дверь в ванную (проём на плане)
+wall('x', 8.86, 5.2, 8.39, [], mat.plaster);                             // стена вестибюля; прихожая открыта в гостиную без простенков (план; Иван, 08.11)
+// стена спальни: дверь из прихожей — напротив входа в номер
+wall('y', 2.86, 7.03, 13.64, [[7.82, 8.62, 'i', -1]], mat.plaster);
+// восточная стена: окно спальни над столом; угловое окно гостиной в пол — узкое стекло на север, широкое на восток (по видео)
+wall('x', 13.75, -0.24, 8.39, [[0.6, 2.2, 'w'], [5.3, 8.39, 'g', 2]]);
+// шторы бежевые на чёрной штанге по краям углового окна и у маленького окна
+box(12.42, 8.22, 12.7, 8.36, 2.48, mat.curtain, 0.04); box(13.48, 5.05, 13.62, 5.4, 2.48, mat.curtain, 0.04);
+box(12.35, 8.3, 13.62, 8.33, 0.03, mat.black, 2.53); box(13.56, 5.0, 13.59, 8.33, 0.03, mat.black, 2.53);
+box(9.55, 8.25, 9.8, 8.36, 1.55, mat.curtain, 0.9); box(9.5, 8.3, 10.9, 8.33, 0.03, mat.black, 2.47);
+box(13.4, 4.0, 13.64, 4.95, 0.3, mat.white, 2.2);                                           // кондиционер
+[3.12, 3.86].forEach(y => box(7.26, y, 7.3, y + 0.03, 1.35, mat.black)); box(7.26, 3.12, 7.48, 3.89, 0.03, mat.black, 1.3); box(7.26, 3.12, 7.5, 3.89, 0.03, mat.black, 0.35); // вешалка: крючки и полка для обуви
+// кухонная линия Paraiso вдоль южной стены гостиной: белый холодильник у прихожей, мойка, варочная, дубовые фасады,
+// белые навесные шкафы с микроволновкой (по видео)
+box(8.95, 2.97, 9.6, 3.62, 1.8, mat.white);                                                 // холодильник
+box(9.6, 2.97, 13.1, 3.57, 0.88, mat.oak); box(9.6, 2.97, 13.1, 3.6, 0.04, mat.counter, 0.88);
+for (let x = 9.8; x < 13.0; x += 0.6) box(x, 3.57, x + 0.3, 3.6, 0.025, mat.black, 0.7);
+box(9.8, 3.05, 10.25, 3.45, 0.01, mat.steel, 0.925);                                        // мойка
+box(11.4, 3.05, 12.0, 3.5, 0.01, mat.black, 0.925); box(11.4, 3.57, 12.0, 3.59, 0.5, mat.black, 0.2); // варочная и духовка
+box(9.6, 2.97, 13.1, 3.32, 0.75, mat.white, 1.55);                                          // навесные шкафы
+for (let x = 10.3; x < 13.0; x += 0.7) box(x, 3.32, x + 0.03, 3.34, 0.2, mat.black, 1.6);
+box(12.3, 3.32, 12.85, 3.34, 0.32, mat.black, 1.75);                                        // микроволновка
+// гостиная: серый диван-кровать под маленьким окном, ТВ на северной стене, круглый белый стол с четырьмя серыми стульями у углового окна
+box(9.3, 7.7, 11.2, 8.38, 0.42, mat.sofaGrey); box(9.3, 8.2, 11.2, 8.38, 0.75, mat.sofaGrey);
+box(11.4, 8.36, 12.4, 8.38, 0.6, mat.black, 1.1, false);                                    // телевизор
+roundTable(12.6, 7.1, 0.42, 4, mat.bedHead);
+// спальня: кровать с серой мягкой спинкой у южной стены, тумбы, стол под окном, белый шкаф от пола до потолка (по видео)
+box(9.0, 0.24, 10.6, 2.24, 0.4, mat.bedHead); box(9.05, 0.3, 10.55, 2.2, 0.22, mat.white, 0.4);
+box(8.95, 0.12, 10.65, 0.26, 1.15, mat.bedHead);                                            // спинка
+box(9.05, 0.9, 10.55, 2.2, 0.05, mat.bedGrey, 0.62);
+box(9.15, 0.35, 9.7, 0.75, 0.1, mat.white, 0.66); box(9.9, 0.35, 10.45, 0.75, 0.1, mat.white, 0.66);
+box(8.4, 0.15, 8.85, 0.55, 0.5, mat.oak); box(10.7, 0.15, 11.15, 0.55, 0.5, mat.oak);       // тумбы
+box(13.1, 0.8, 13.62, 2.0, 0.04, mat.white, 0.72);                                          // стол под окном
+[[13.12, 0.82], [13.56, 0.82], [13.12, 1.94], [13.56, 1.94]].forEach(([x, y]) => box(x, y, x + 0.04, y + 0.04, 0.72, mat.oak));
+box(7.16, 0.14, 7.76, 2.74, H, mat.white);                                                  // шкаф во всю западную стену, дверь — справа от него
+for (let y = 0.4; y < 2.7; y += 0.6) box(7.76, y, 7.78, y + 0.03, 0.4, mat.black, 0.9, false);
+box(13.4, 0.5, 13.64, 1.4, 0.3, mat.white, 2.2);                                            // кондиционер спальни
+
+// --- патио: четыре чёрных пластиковых кресла-«бочки» под плетение, без столика (по видео)
+function tubChair(x, y, rot) {
+  const g = new THREE.Group(); const [px, pz] = P(x, y); g.position.set(px, 0, pz); g.rotation.y = rot;
+  const seg = 28, open = 1.15;                                         // спереди вырез: подлокотники ниже спинки
+  const shell = new THREE.CylinderGeometry(0.4, 0.36, 1, seg, 1, true, open / 2, Math.PI * 2 - open);
+  const p = shell.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const a = Math.atan2(p.getX(i), p.getZ(i));                        // 0 = спереди (+z)… π = спинка
+    const top = 0.5 + 0.3 * Math.pow(Math.abs(a) / Math.PI, 1.5);
+    p.setY(i, p.getY(i) > 0 ? top : 0.4);
+  }
+  shell.computeVertexNormals();
+  const m = new THREE.MeshStandardMaterial({ color: 0x1d1e21, roughness: 0.85, side: THREE.DoubleSide });
+  const s = new THREE.Mesh(shell, m); g.add(s);
+  const seat = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.35, 0.05, seg), m); seat.position.y = 0.42; g.add(seat);
+  // низ — сплошная «бочка» до пола с арочными вырезами между четырьмя ножками
+  const drum = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.4, 0.26, seg, 1, true), m); drum.position.y = 0.29; g.add(drum);
+  [0.785, 2.356, 3.927, 5.498].forEach(a => {
+    const l = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.16, 0.06), m);
+    l.position.set(Math.sin(a) * 0.38, 0.08, Math.cos(a) * 0.38); l.rotation.y = a; g.add(l);
+  });
+  g.traverse(o => { o.castShadow = true; o.receiveShadow = true; }); (G || scene).add(g);
+}
+// группа у фасада между угловым окном и дверью, лицом друг к другу
+const tc = [10.45, 9.85];
+[[11.35, 9.75], [10.45, 9.2], [10.35, 10.6], [9.55, 9.95]].forEach(([x, y]) => tubChair(x, y, Math.atan2(tc[0] - x, -(tc[1] - y))));
+
+// ================= ОСТАЛЬНЫЕ ЭТАЖИ (по листам var 5 и видео-обходу; отметки — по разрезам) =================
+const bconc = tm(tex.concrete, 2.4, 2.4, { color: 0xbcb9b2, roughness: 0.95 });   // серый шалёвочный бетон снаружи (по видео)
+const mulch = SL(0x3a2a1e, { roughness: 1 });
+const flowerMats = [0xe8a0b4, 0xf4f1ea, 0xb79ad6, 0xf2c94c, 0xd2433a, 0xe0703a].map(c => SL(c, { roughness: 0.7 }));
+const flowerGeo = new THREE.IcosahedronGeometry(0.045, 0);
+function bush(x, y, r, z0 = 0, flowers = rnd() < 0.55) {   // круглый куст; у части — цветы
+  const g = new THREE.Group(), [px, pz] = P(x, y);
+  const o = new THREE.Mesh(new THREE.IcosahedronGeometry(r, 1), rnd() > 0.5 ? mat.plant : mat.plantDark); o.scale.y = 0.8; o.castShadow = o.receiveShadow = true; g.add(o);
+  if (flowers) { const fm = flowerMats[Math.floor(rnd() * flowerMats.length)]; for (let k = 0; k < 9; k++) { const a = rnd() * Math.PI * 2, b = rnd() * 1.2; const f = new THREE.Mesh(flowerGeo, fm); f.position.set(Math.cos(a) * Math.sin(b) * r, Math.cos(b) * r * 0.8, Math.sin(a) * Math.sin(b) * r); g.add(f); } }
+  g.position.set(px, z0 + r * 0.6, pz); G.add(g); return g;
+}
+const bladeMats = [SL(0x7d8a3c, { roughness: 1 }), SL(0x4f8a3a, { roughness: 1 }), SL(0xa0904a, { roughness: 1 })];
+const bladeGeo = new THREE.ConeGeometry(0.035, 1, 3); bladeGeo.translate(0, 0.5, 0);
+function tuft(x, y, z0 = 0.04) {   // пучок злаков: тонкие стебли веером
+  const g = new THREE.Group(), [px, pz] = P(x, y), m = bladeMats[Math.floor(rnd() * 3)], hh = 0.4 + rnd() * 0.35;
+  for (let k = 0; k < 9; k++) { const b = new THREE.Mesh(bladeGeo, m); b.scale.set(1, hh * (0.7 + rnd() * 0.4), 1); b.rotation.set((rnd() - 0.5) * 0.9, rnd() * 6.3, (rnd() - 0.5) * 0.9); b.castShadow = true; g.add(b); }
+  g.position.set(px, z0, pz); G.add(g);
+}
+// агава: розетка жёстких заострённых листьев — так на плане террас обозначены растения, такие же на видео (Иван: «цветы не такую форму имеют»)
+const agaveMats = [SL(0x7f9a7a, { roughness: 0.8 }), SL(0x6b7a4a, { roughness: 0.9 }), SL(0x5d8a4a, { roughness: 0.85 })];
+const leafGeo = new THREE.ConeGeometry(0.07, 1, 4); leafGeo.translate(0, 0.5, 0);
+function agave(x, y, r = 0.35, z0 = 0.04, green = 0) {
+  const g = new THREE.Group(), [px, pz] = P(x, y), m = green ? agaveMats[2] : agaveMats[Math.floor(rnd() * 2)], n = 14 + Math.floor(rnd() * 6);
+  for (let k = 0; k < n; k++) {
+    const l = new THREE.Mesh(leafGeo, m), inner = k < 5;
+    l.scale.set(1 + r, r * (inner ? 0.75 : 1.0) * (0.85 + rnd() * 0.3), 0.35);
+    l.rotation.set(inner ? 0.35 + rnd() * 0.3 : 0.85 + rnd() * 0.5, k * 2.4 + rnd() * 0.3, 0, 'YXZ');
+    l.castShadow = true; g.add(l);
+  }
+  g.position.set(px, z0, pz); G.add(g); return g;
+}
+// тонкое ограждение (по видео): стойки 35 мм, стальные тросы, деревянный поручень
+function railing(x0, y0, x1, y1, h = 1.0, z0 = 0) {
+  const L = Math.hypot(x1 - x0, y1 - y0), n = Math.max(1, Math.round(L / 1.5)), X = Math.abs(x1 - x0) > Math.abs(y1 - y0);
+  for (let i = 0; i <= n; i++) { const x = x0 + (x1 - x0) * i / n, y = y0 + (y1 - y0) * i / n; box(x - 0.018, y - 0.018, x + 0.018, y + 0.018, h - 0.045, mat.black, z0, false); }
+  for (let k = 1; k <= 5; k++) { const z = z0 + (h - 0.1) * k / 6; X ? box(x0, y0 - 0.004, x1, y0 + 0.004, 0.008, mat.steel, z, false) : box(x0 - 0.004, y0, x0 + 0.004, y1, 0.008, mat.steel, z, false); }
+  X ? box(x0 - 0.03, y0 - 0.035, x1 + 0.03, y0 + 0.035, 0.045, mat.rail, z0 + h - 0.045, false) : box(x0 - 0.035, y0 - 0.03, x0 + 0.035, y1 + 0.03, 0.045, mat.rail, z0 + h - 0.045, false);
+}
+// стеклянное ограждение с деревянным поручнем (балкон 1-го этажа, по видео)
+function glassRail(x0, y0, x1, y1, h = 1.0) {
+  const X = Math.abs(x1 - x0) > Math.abs(y1 - y0);
+  X ? box(x0, y0 - 0.01, x1, y0 + 0.01, h - 0.08, mat.glass, 0.05, false) : box(x0 - 0.01, y0, x0 + 0.01, y1, h - 0.08, mat.glass, 0.05, false);
+  X ? box(x0, y0 - 0.035, x1, y0 + 0.035, 0.045, mat.rail, h - 0.03, false) : box(x0 - 0.035, y0, x0 + 0.035, y1, 0.045, mat.rail, h - 0.03, false);
+  X ? box(x0, y0 - 0.03, x1, y0 + 0.03, 0.05, mat.black, 0, false) : box(x0 - 0.03, y0, x0 + 0.03, y1, 0.05, mat.black, 0, false);
+}
+// плавный контур: открытая кривая через точки и прямой возврат к началу
+const curvePts = pts => new THREE.CatmullRomCurve3(pts.map(([x, y]) => new THREE.Vector3(x, y, 0)), false, 'centripetal').getPoints(48).map(v => [v.x, v.y]);
+function flat(pts, h, m, z0 = 0) {
+  const sh = new THREE.Shape(); pts.forEach(([x, y], i) => i ? sh.lineTo(x, y) : sh.moveTo(x, y));
+  const o = new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: h, bevelEnabled: false }), m);
+  o.rotation.x = -Math.PI / 2; o.position.y = z0; o.castShadow = o.receiveShadow = true; G.add(o); return o;
+}
+const inPoly = (pts, x, y) => { let c = false; for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) { const [xi, yi] = pts[i], [xj, yj] = pts[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c; } return c; };
+const woodTop = (() => { const t = canvasTex(512, (g, S) => planks(g, S, 7, [146, 104, 70], 22, 9), 1.6); t.repeat.set(1 / 1.6, 1 / 1.6); return new THREE.MeshStandardMaterial({ map: t, roughness: 0.8 }); })();   // настил из тика
+// грядки: земля по прямоугольнику, на ней злаки и кусты вне настила
+function beds(x0, y0, x1, y1, skip, step = 0.55, sparse = 0.3, bushP = 0.3) {
+  box(x0, y0, x1, y1, 0.04, mulch, 0, false);
+  for (let x = x0 + step / 2; x < x1; x += step) for (let y = y0 + step / 2; y < y1; y += step) {
+    const px = x + (rnd() - 0.5) * step * 0.6, py = y + (rnd() - 0.5) * step * 0.6;
+    if (skip.some(p => inPoly(p, px, py)) || rnd() < sparse) continue;
+    rnd() >= bushP ? tuft(px, py) : agave(px, py, 0.2 + rnd() * 0.15);
+  }
+}
+// чёрная плетёная мебель: сиденье, спинка с одной стороны, подлокотники, серые подушки
+function wicker(x0, y0, x1, y1, back, z0 = 0.07) {
+  const b = 0.15, B = { n: [x0, y1 - b, x1, y1], s: [x0, y0, x1, y0 + b], e: [x1 - b, y0, x1, y1], w: [x0, y0, x0 + b, y1] }[back];
+  box(x0, y0, x1, y1, 0.36, mat.wicker, z0); box(...B, 0.78, mat.wicker, z0);
+  if (back === 'n' || back === 's') { box(x0, y0, x0 + b, y1, 0.62, mat.wicker, z0); box(x1 - b, y0, x1, y1, 0.62, mat.wicker, z0); }
+  else { box(x0, y0, x1, y0 + b, 0.62, mat.wicker, z0); box(x0, y1 - b, x1, y1, 0.62, mat.wicker, z0); }
+  box(x0 + b, y0 + b, x1 - b, y1 - b, 0.08, mat.bedHead, z0 + 0.36);
+}
+function car(x, y, paint) {
+  box(x - 0.9, y - 2.2, x + 0.9, y + 2.2, 0.62, paint, 0.28);
+  box(x - 0.8, y - 1.05, x + 0.8, y + 0.95, 0.5, mat.glassDark, 0.9);
+  box(x - 0.78, y - 0.95, x + 0.78, y + 0.85, 0.06, paint, 1.4);
+  [[-0.86, -1.4], [0.86, -1.4], [-0.86, 1.45], [0.86, 1.45]].forEach(([dx, dy]) => { const w = cyl(x + dx, y + dy, 0.33, 0.24, mat.black, 0.21, 14); w.rotation.z = Math.PI / 2; });
+}
+const STAIR_HOLE = x0 => [x0, 0.15, 6.92, 2.95];   // проём лестницы в перекрытии: над маршами и площадкой
+
+// --- ПОДВАЛ (−3,95): гараж на две машины, депозит, П-образная лестница, въезд по пандусу с севера (лист 2, разрез)
+floor('sub'); WH = -FL.sub - 0.12;
+slab(-0.4, -0.34, 7.72, 19.26, 0.15, tex.concrete, -0.15); slab(7.72, -0.34, 14.26, 13.96, 0.15, tex.concrete, -0.15);
+wall('x', -0.4, -0.34, 19.26); wall('y', -0.34, -0.4, 14.26); wall('x', 14.26, -0.34, 13.96);
+wall('y', 13.96, 7.72, 14.26); wall('x', 7.72, 13.96, 19.26);
+wall('y', 19.26, -0.4, 7.72, [[RAMP[0], RAMP[1], 'o', 0, 2.5]]);    // проём ворот: от пола подвала, внутреннего пандуса нет (Иван, 05.11)
+// деревянные ворота гаража из вертикальных досок (по видео)
+box(RAMP[0] + 0.03, 19.2, RAMP[1] - 0.03, 19.32, 2.5, mat.rail, 0);
+for (let x = RAMP[0] + 0.12; x < RAMP[1] - 0.05; x += 0.16) box(x, 19.14, x + 0.03, 19.2, 2.5, mat.woodDark, 0, false);
+box(RAMP[1] - 0.5, 19.1, RAMP[1] - 0.2, 19.14, 0.04, mat.black, 1.1, false);
+wall('y', 3.04, -0.4, 7.72, [[0.0, 1.3, 'd', -2]], mat.plaster, 0.15);   // стена лестничной клетки; дверь в гараж закрыта — гостям он недоступен (Иван)
+wall('x', 7.72, -0.34, 3.04, [], mat.plaster, 0.15);                 // стена клетки по оси 2 (лист 2)
+stairU(-FL.sub, { x0: 2.44, end: 6.92 });                           // нижний марш — вдоль наружной южной стены (Иван)
+// огнетушитель стоит в юго-западном углу, куда спускается лестница (Иван, 05.11); крупнее настоящего, чтобы был виден
+cyl(-0.06, 0.02, 0.17, 0.9, mat.red, 0, 24); cyl(-0.06, 0.02, 0.06, 0.16, mat.black, 0.9, 12);
+box(-0.08, 0.02, 0.16, 0.08, 0.04, mat.black, 1.04); box(0.12, 0.02, 0.17, 0.08, 0.55, mat.black, 0.5);   // ручка и шланг
+// пандус — только снаружи: от ворот по оси E вверх до земли; внутри гаража ровный пол (Иван, 05.11)
+function ramp(y0, y1, z0, z1) {
+  const o = box(RAMP[0], y0, RAMP[1], y0 + Math.hypot(y1 - y0, z1 - z0), 0.25, mat.concrete);
+  o.position.z = -(y0 + y1) / 2; o.position.y = (z0 + z1) / 2 - 0.125; o.rotation.x = Math.atan2(z1 - z0, y1 - y0);
+}
+ramp(19.26, RAMP[3], 0, -FL.sub);
+// подпорные стены — открытый въезд без перекрытия: верх стен идёт вровень с газоном (+0,35), у ворот они высокие, у улицы — низкие (фото с улицы)
+[RAMP[0] - 0.1, RAMP[1] + 0.1].forEach(x => {
+  const L = RAMP[3] - RAMP[2], sh = new THREE.Shape([[0, -0.3], [L, -FL.sub - 0.3], [L, -FL.sub + 0.35], [0, -FL.sub + 0.35]].map(([u, v]) => new THREE.Vector2(u, v)));
+  const gm = new THREE.ExtrudeGeometry(sh, { depth: 0.2, bevelEnabled: false }); gm.rotateY(Math.PI / 2);
+  const o = new THREE.Mesh(gm, mat.concrete); o.position.set(x - 0.1, 0, -RAMP[2]); o.castShadow = o.receiveShadow = true; G.add(o);
+});
+
+// --- 1-й ЭТАЖ (+3,0): лестничный холл, коридор вдоль западной стены, две квартиры; балкон над номером Paraiso (лист 3, видео)
+floor('p1'); WH = FL.p2 - FL.p1 - 0.3;
+deck(-0.4, -0.34, 7.72, 19.26, 0.3, tex.floor, -0.3, STAIR_HOLE(2.44));
+stairU(FL.p2 - FL.p1, { flip: true, end: 6.92 });
+wall('x', -0.4, -0.34, 19.26, [[1.0, 2.0, 'w'], [4.3, 5.1, 'w'], [7.6, 8.4, 'w'], [12.8, 13.8, 'w']]);   // к северу от оси D стена глухая (план), там изголовье
+wall('y', -0.34, -0.4, 7.72, [[2.6, 3.8, 'w']]);
+wall('x', 7.72, -0.34, 19.26, [[3.9, 5.1, 'w'], [6.4, 7.6, 'g', 1], [10.0, 11.4, 'w'], [14.4, 15.6, 'w'], [16.8, 18.0, 'w']]);
+wall('y', 19.26, -0.4, 7.72, [[0.0, 7.3, 'v', 6]]);
+for (let x = -0.4; x <= 7.7; x += 0.36) box(x, 19.38, x + 0.12, 19.56, WH, mat.woodDark);   // деревянные ламели северного фасада
+// холл и коридор вдоль западной стены (план 1° piso): справа — альков спальни южной квартиры, дверь в неё, санузлы; в торце — дверь в северную
+wall('x', 7.03, -0.34, 3.04, [], mat.plaster, 0.15);
+wall('y', 3.04, 1.1, 7.72, [], mat.plaster, 0.15);
+wall('x', 1.1, 3.04, 14.1, [[7.4, 8.3, 'i']], mat.plaster, 0.12);                    // коридор; дверь в южную квартиру
+wall('y', 14.1, -0.4, 3.5, [[-0.2, 0.8, 'i'], [2.3, 3.2, 'i', -1]], mat.plaster, 0.12);   // дверь в северную квартиру и в её санузел
+// ядро: два санузла спина к спине (северный — из северной квартиры, южный — из южной), с востока — две кухни; между квартирами стена
+wall('y', 8.36, 1.1, 3.5, [[2.3, 3.2, 'i']], mat.plaster, 0.12);
+wall('x', 3.5, 8.36, 14.1, [], mat.plaster, 0.15);
+wall('y', 11.3, 1.1, 7.72, [], mat.plaster, 0.15);
+// северный санузел: раковина, унитаз, душ во всю ширину за стеклом
+box(1.2, 13.45, 1.75, 14.0, 0.85, mat.white); box(1.3, 13.55, 1.65, 13.9, 0.02, mat.steel, 0.85);
+box(1.17, 12.6, 1.42, 13.0, 0.75, mat.white); box(1.42, 12.62, 1.95, 12.98, 0.4, mat.white);
+box(1.17, 11.38, 3.42, 12.25, 0.05, mat.white); box(1.17, 12.23, 3.42, 12.27, 2.0, mat.glass, 0.05, false);
+// южный санузел — зеркально
+box(1.2, 8.43, 1.75, 9.0, 0.85, mat.white); box(1.3, 8.53, 1.65, 8.9, 0.02, mat.steel, 0.85);
+box(1.17, 9.6, 1.42, 10.0, 0.75, mat.white); box(1.42, 9.62, 1.95, 9.98, 0.4, mat.white);
+box(1.17, 10.35, 3.42, 11.22, 0.05, mat.white); box(1.17, 10.33, 3.42, 10.37, 2.0, mat.glass, 0.05, false);
+// кухни на восточной стороне ядра: холодильник, тумбы с чёрной столешницей, мойка, варочная, белые навесные шкафы (план, видео 12:00)
+function kitchenette(c0, c1, fr0, fr1, sink, hob) {
+  box(3.58, fr0, 4.22, fr1, 1.8, mat.white);
+  box(3.58, c0, 4.22, c1, 0.88, mat.oak); box(3.58, c0, 4.25, c1, 0.04, mat.counter, 0.88);
+  box(3.7, sink, 4.1, sink + 0.5, 0.01, mat.steel, 0.925); box(3.68, hob, 4.12, hob + 0.4, 0.01, mat.black, 0.925);
+  box(3.58, c0, 3.93, c1, 0.7, mat.white, 1.55);
+}
+kitchenette(11.38, 13.3, 13.3, 14.03, 12.45, 11.6);
+kitchenette(9.2, 11.22, 8.43, 9.2, 9.6, 10.6);
+roundTable(6.5, 12.6, 0.45, 3, mat.chairWhite); roundTable(6.5, 10.0, 0.45, 3, mat.chairWhite);   // круглые столы (видео), места — по плану
+// северная квартира: спальня на западе — шкафы вдоль южной стены, двуспальная кровать изголовьем к западной стене
+wall('x', 3.8, 15.4, 19.26, [], mat.plaster, 0.12);
+wall('y', 15.4, -0.4, 3.8, [[2.6, 3.6, 'i']], mat.plaster, 0.12);
+box(-0.3, 15.48, 2.5, 16.15, 2.3, mat.white); for (let x = 0.3; x < 2.5; x += 0.7) box(x, 16.15, x + 0.03, 16.17, 0.4, mat.black, 0.9, false);
+box(-0.3, 16.9, -0.15, 18.6, 1.0, mat.bedHead); box(-0.15, 16.95, 2.3, 18.55, 0.4, mat.bedHead);
+box(-0.1, 17.0, 2.25, 18.5, 0.22, mat.white, 0.4); box(0.6, 17.0, 2.25, 18.5, 0.05, mat.bedGrey, 0.62);
+box(-0.05, 17.1, 0.4, 17.7, 0.1, mat.white, 0.62); box(-0.05, 17.8, 0.4, 18.4, 0.1, mat.white, 0.62);
+box(-0.3, 16.45, 0.15, 16.85, 0.5, mat.oak); box(-0.3, 18.65, 0.15, 19.1, 0.5, mat.oak);
+// гостиная: Г-образный диван спинкой к северному окну, журнальный столик
+box(3.95, 18.3, 7.3, 19.1, 0.42, mat.sofaGrey); box(3.95, 18.88, 7.3, 19.1, 0.8, mat.sofaGrey);
+box(3.95, 17.25, 4.85, 18.3, 0.42, mat.sofaGrey); box(3.95, 17.25, 4.17, 19.1, 0.8, mat.sofaGrey);
+box(6.0, 17.2, 7.1, 17.7, 0.4, mat.oak);
+// южная квартира: спальня-альков у коридора — шкафы вдоль северной стены, кровать изголовьем к западу; гостиная с диваном у южной стены
+wall('y', 7.3, 1.1, 4.4, [], mat.plaster, 0.12);
+box(1.24, 6.45, 4.34, 7.22, 2.3, mat.white); for (let x = 1.8; x < 4.3; x += 0.7) box(x, 6.43, x + 0.03, 6.45, 0.4, mat.black, 0.9, false);
+box(1.2, 4.0, 1.35, 5.9, 1.0, mat.bedHead); box(1.35, 4.05, 3.85, 5.85, 0.4, mat.bedHead);
+box(1.4, 4.1, 3.8, 5.8, 0.22, mat.white, 0.4); box(2.1, 4.1, 3.8, 5.8, 0.05, mat.bedGrey, 0.62);
+box(1.45, 4.2, 1.9, 4.85, 0.1, mat.white, 0.62); box(1.45, 5.0, 1.9, 5.65, 0.1, mat.white, 0.62);
+box(1.2, 6.0, 1.6, 6.4, 0.5, mat.oak); box(1.2, 3.45, 1.6, 3.85, 0.5, mat.oak);
+box(5.6, 3.15, 7.6, 4.05, 0.42, mat.sofaGrey); box(5.6, 3.15, 7.6, 3.37, 0.8, mat.sofaGrey);
+box(6.2, 4.85, 7.35, 5.35, 0.4, mat.oak);
+// балкон над Paraiso (по видео): бетонный пол, изогнутый деревянный «остров», вокруг земля с растениями и злаками;
+// толстые бетонные стены-панели с проёмами, между ними стекло с деревянным поручнем; потолок — плита 2-го этажа
+slab(7.72, -0.34, 14.26, 8.66, 0.3, tex.concrete, -0.3);
+const isl = curvePts([[7.85, 4.4], [8.7, 1.4], [10.6, 0.5], [12.5, 1.4], [12.0, 3.4], [10.7, 4.6], [11.1, 6.9], [9.6, 8.3], [7.85, 8.35]]);
+flat(isl, 0.07, woodTop, 0);
+beds(7.95, -0.2, 13.85, 8.5, [isl, [[7.8, -0.3], [8.65, -0.3], [8.65, 8.6], [7.8, 8.6]]], 0.55, 0.4, 0.25);   // по видео: мульча, редкие молодые злаки и агавы
+box(7.85, -0.2, 8.6, 8.5, 0.05, mat.concrete);   // серая дорожка вдоль стены дома
+wall('x', 14.0, -0.34, 3.6, [[0.6, 2.8, 'q']], bconc, 0.52);
+glassRail(14.2, 3.6, 14.2, 4.9);
+wall('x', 14.0, 4.9, 8.66, [[5.6, 7.7, 'q']], bconc, 0.52);
+glassRail(7.85, 8.6, 13.86, 8.6);
+wall('y', -0.08, 7.72, 11.4, [[8.6, 10.6, 'q']], bconc, 0.52);
+glassRail(11.4, -0.28, 13.86, -0.28);
+wicker(8.5, 5.6, 10.2, 6.4, 'n'); wicker(10.2, 4.3, 10.95, 5.1, 'e'); wicker(8.9, 3.2, 9.65, 3.95, 's');
+box(9.0, 4.55, 9.75, 5.25, 0.4, mat.wicker, 0.07);                                                    // столик-куб
+[[10.4, 2.4], [10.4, 6.2]].forEach(([x, y]) => box(x - 0.15, y - 0.15, x + 0.15, y + 0.15, 0.05, mat.lamp, WH - 0.05, false));   // светильники на потолке
+
+// --- 2-й ЭТАЖ (+6,3): план 2° piso и видео. Лестница выходит в коридор у западной стены, он ведёт к стеклянной двери на террасу.
+// Из коридора — дверь в квартиру: прихожая за quincho, из неё санузел, дальше общая комната с кухней и угловым окном, за ней
+// спальня. Quincho открыт на террасу (Иван, 08.11)
+floor('p2'); WH = FL.roof - FL.p2 - 0.3;
+deck(-0.4, -0.34, 14.26, 8.66, 0.3, tex.floor, -0.3, STAIR_HOLE(stairX0(FL.p2 - FL.p1)));
+slab(-0.4, 8.66, 7.72, 19.26, 0.3, tex.concrete, -0.3);
+wall('x', -0.4, -0.34, 8.66, [[1.0, 2.0, 'w'], [4.3, 5.1, 'w'], [6.6, 7.6, 'w']]);
+wall('y', -0.34, -0.4, 14.26, [[2.6, 3.8, 'w'], [9.4, 10.8, 'w'], [12.4, 13.6, 'w']]);
+wall('x', 14.26, -0.34, 8.66, [[1.0, 2.2, 'w'], [5.8, 8.66, 'g', 2]]);
+// фасад на террасу: стеклянная дверь коридора, открытый quincho, чёрная дверь квартиры, окно и угловое окно гостиной
+wall('y', 8.66, -0.4, 14.26, [[0.0, 1.0, 'g', 1], [2.05, 4.95, 'o', 0, WH], [8.0, 8.8, 'd', -2], [9.6, 11.6, 'v', 2], [12.4, 14.14, 'g', 1]], bconc);
+box(14.14, 8.56, 14.3, 8.72, WH, mat.black);                         // угловая стойка
+wall('x', 7.03, -0.34, 3.04, [], mat.plaster, 0.15);                  // лестничная клетка / спальня
+wall('y', 3.04, 1.1, 14.26, [[9.9, 10.8, 'i', -1]], mat.plaster, 0.15);   // клетка, прихожая, гостиная; дверь спальни из гостиной
+wall('x', 1.1, 3.04, 8.66, [[3.35, 4.25, 'i']], mat.plaster, 0.12);   // коридор; дверь в квартиру
+wall('y', 4.73, 1.1, 5.46, [], bconc, 0.15);                          // задняя стена quincho
+wall('x', 5.46, 4.73, 8.66, [], bconc, 0.15);
+wall('y', 5.82, 5.46, 7.72, [[5.65, 6.5, 'i']], mat.plaster, 0.12);   // санузел — дверь из прихожей
+wall('x', 7.72, 4.73, 8.66, [], mat.plaster, 0.12);                   // санузел и шкаф / кухня
+box(7.05, 4.85, 7.66, 5.75, 2.1, mat.white);                          // шкаф в прихожей
+// санузел: душ во всю ширину у фасада за стеклом, унитаз и тумба с раковиной у восточной стены
+box(5.55, 7.88, 7.65, 8.58, 0.05, mat.white); box(5.55, 7.86, 7.65, 7.9, 2.0, mat.glass, 0.05, false);
+box(7.4, 7.05, 7.66, 7.6, 0.75, mat.white); box(6.95, 7.13, 7.4, 7.52, 0.4, mat.white);
+box(7.15, 6.0, 7.66, 6.75, 0.85, mat.white); box(7.22, 6.12, 7.55, 6.62, 0.02, mat.steel, 0.85);
+// quincho: кирпичный мангал с бетонным колпаком у задней стены, слева полка, справа бетонная столешница буквой Г с мойкой (видео 6:23, 6:29)
+slab(1.17, 4.81, 5.39, 8.66, 0.02, tex.tile, 0);
+[1.55, 5.3].forEach(x => box(x - 0.08, 8.74, x + 0.08, 8.86, 0.22, mat.black, 2.2, false));   // бра на фасаде
+box(2.4, 4.81, 4.2, 5.6, 0.9, mat.white);
+box(2.4, 4.81, 4.2, 4.96, 1.25, mat.brick, 0.9); box(2.4, 4.81, 2.55, 5.6, 1.25, mat.brick, 0.9); box(4.05, 4.81, 4.2, 5.6, 1.25, mat.brick, 0.9);
+box(2.55, 5.0, 4.05, 5.5, 0.03, mat.black, 1.0);
+box(2.3, 4.81, 4.3, 5.7, 0.45, mat.concrete, 2.15);
+box(1.17, 4.81, 2.3, 5.3, 0.9, mat.concrete);
+box(4.3, 4.81, 5.39, 5.45, 0.9, mat.concrete); box(4.75, 5.45, 5.39, 6.9, 0.9, mat.concrete);
+box(4.3, 4.81, 5.39, 4.85, 0.9, mat.white, 0.9); box(5.35, 4.85, 5.39, 6.9, 0.9, mat.white, 0.9);
+box(4.85, 5.9, 5.25, 6.4, 0.01, mat.steel, 0.905); box(5.28, 6.12, 5.35, 6.18, 0.3, mat.black, 0.9);
+// общая комната: кухня вдоль стены санузла (холодильник, мойка, варочная), Г-образный диван в юго-восточном углу, стол на 4 у окна
+box(7.8, 4.85, 8.45, 5.6, 1.85, mat.white);
+box(7.8, 5.6, 8.45, 7.75, 0.88, mat.oak); box(7.8, 5.6, 8.48, 7.75, 0.04, mat.counter, 0.88); box(7.8, 5.6, 8.15, 7.75, 0.7, mat.white, 1.55);
+box(7.92, 6.0, 8.32, 6.5, 0.01, mat.steel, 0.925); box(7.92, 7.0, 8.32, 7.5, 0.01, mat.black, 0.925); box(8.45, 7.0, 8.47, 7.5, 0.5, mat.black, 0.2);
+box(11.5, 3.15, 14.15, 4.15, 0.42, mat.sofaGrey); box(11.5, 3.15, 14.15, 3.37, 0.8, mat.sofaGrey);
+box(13.15, 4.15, 14.15, 5.55, 0.42, mat.sofaGrey); box(13.93, 3.15, 14.15, 5.55, 0.8, mat.sofaGrey);
+box(11.6, 5.0, 12.6, 5.55, 0.4, mat.oak);
+box(10.25, 7.05, 11.65, 8.4, 0.05, mat.lightOak, 0.71);
+[[10.3, 7.1], [11.55, 7.1], [10.3, 8.3], [11.55, 8.3]].forEach(([x, y]) => box(x, y, x + 0.05, y + 0.05, 0.71, mat.lightOak));
+[7.4, 8.05].forEach(y => { chair(10.13, y, mat.chairWhite, 1.5 * Math.PI); chair(11.77, y, mat.chairWhite, 0.5 * Math.PI); });
+// спальня: шкаф у стены клетки, двуспальная кровать изголовьем к южной стене, тумбы, синий диван
+box(7.12, -0.2, 7.72, 2.9, 2.3, mat.white);
+box(9.35, -0.25, 11.15, -0.1, 1.0, mat.bedHead); box(9.4, -0.1, 11.1, 1.95, 0.4, mat.bedHead);
+box(9.45, -0.05, 11.05, 1.9, 0.22, mat.white, 0.4); box(9.45, 0.7, 11.05, 1.9, 0.05, mat.bedGrey, 0.62);
+box(9.55, 0.0, 10.2, 0.4, 0.1, mat.white, 0.62); box(10.3, 0.0, 10.95, 0.4, 0.1, mat.white, 0.62);
+box(8.85, -0.2, 9.25, 0.2, 0.5, mat.oak); box(11.25, -0.2, 11.65, 0.2, 0.5, mat.oak);
+box(12.1, -0.15, 14.0, 0.75, 0.42, mat.sofaBlue); box(12.1, -0.15, 14.0, 0.05, 0.8, mat.sofaBlue);
+// терраса на крыше 1-го этажа (план террасы): настил из досок рядами со сдвигом, вокруг мульча со злаками и агавами на местах
+// с плана; низкий бетонный парапет с тросовым ограждением; стол на 6 у quincho. Лестницы на крышу нет
+const PL = [[160, 183, 473], [183, 115, 407], [206, 137, 371], [229, 183, 417], [252, 152, 385], [275, 131, 363], [298, 177, 410], [321, 137, 371],
+  [344, 113, 346], [368, 79, 404], [391, 93, 326], [414, 77, 421], [437, 202, 390], [460, 189, 422], [483, 167, 390], [506, 176, 409], [529, 193, 426],
+  [552, 157, 390], [575, 174, 408], [598, 157, 390], [621, 127, 359], [645, 90, 417], [668, 72, 390], [691, 91, 408]]
+  .map(([py, a, b]) => { const y1 = 19.26 - (py - 15) / 66.3; return [Math.max(-0.2, -0.4 + (a - 37) / 66.6), Math.max(8.76, y1 - 0.32), Math.min(7.52, -0.4 + (b - 37) / 66.6), y1]; });
+PL.forEach(([a, b, c, d]) => box(a, b, c, d, 0.07, woodTop, 0));
+const AG = [[1.07, 18.13, 0.95], [3.0, 18.31, 0.8, 1], [4.48, 17.98, 0.6], [6.67, 17.83, 0.85, 1], [6.7, 16.32, 0.6], [6.1, 15.11, 0.6], [6.7, 13.75, 0.6], [6.33, 11.57, 0.6], [6.33, 9.83, 0.62], [0.17, 15.79, 0.6]];
+const sq = (x0, y0, x1, y1) => [[x0, y0], [x1, y0], [x1, y1], [x0, y1]];
+beds(-0.2, 8.76, 7.52, 19.06, [...PL.map(([a, b, c, d]) => sq(a - 0.12, b - 0.08, c + 0.12, d + 0.08)), ...AG.map(([x, y, r]) => sq(x - r * 0.8, y - r * 0.8, x + r * 0.8, y + r * 0.8))], 0.55, 0.5, 0);
+AG.forEach(([x, y, r, g]) => agave(x, y, r, 0.04, g));
+box(-0.4, 8.66, -0.2, 19.26, 0.45, bconc); box(7.52, 8.66, 7.72, 19.26, 0.45, bconc); box(-0.4, 19.06, 7.72, 19.26, 0.45, bconc);
+railing(-0.3, 8.8, -0.3, 19.16, 0.55, 0.45); railing(7.62, 8.8, 7.62, 19.16, 0.55, 0.45); railing(-0.3, 19.16, 7.62, 19.16, 0.55, 0.45);
+longTable(2.0, 9.5, 4.4, 10.3, 3, mat.black, mat.wicker);
+
+// --- КРЫША (+9,3): плоская бетонная плита и труба мангала над quincho. Выхода на крышу нет: будки и лестницы в доме нет —
+// они были только в проекте 2022 (Иван, 08.11)
+floor('roof'); WH = 2.3;
+slab(-0.4, -0.34, 14.26, 8.66, 0.3, tex.concrete, -0.3);
+box(3.0, 4.9, 3.6, 5.45, 1.0, mat.white); box(2.9, 4.8, 3.7, 5.55, 0.08, mat.white, 1.0);
+G = null;
+
+// --- сосны: места — по топосъёмке участка (лист SITEPLAN в «Bucho var 5.pdf», планилья деревьев), точность ~1 м;
+// после стройки их намного меньше (Иван, 05.11): оставлены 14 нумерованных — не ближе 1,5 м к дому и пандусу и не теснее 5 м друг к другу;
+// плана с оставленными соснами нет. Размер — по диаметру ствола из планильи
+const pineTops = [];
+function pine(x, y, s = 1) {   // приморская сосна: высокий голый ствол, плоская крона-зонт наверху (по фото)
+  const g = new THREE.Group(), top = new THREE.Group(), h = (11 + rnd() * 4) * s;
+  const t = new THREE.Mesh(new THREE.CylinderGeometry(0.15 * s, 0.28 * s, h, 7), mat.trunk); t.position.y = h / 2; t.castShadow = true; g.add(t);
+  for (let i = 0; i < 7; i++) {
+    const a = i / 7 * Math.PI * 2 + rnd(), d = i ? (1.0 + rnd() * 0.9) * s : 0, r = (1.1 + rnd() * 0.6) * s;   // кроны уже, чем были: сосен по съёмке много, дом должен читаться
+    const c = new THREE.Mesh(new THREE.IcosahedronGeometry(r, 1), i % 2 ? mat.treeDark : mat.tree);
+    c.scale.y = 0.36; c.position.set(Math.cos(a) * d, h + rnd() * 0.7 * s, Math.sin(a) * d); c.castShadow = true; top.add(c);
+    if (i) { const b = new THREE.Mesh(new THREE.CylinderGeometry(0.04 * s, 0.07 * s, d * 1.1, 5), mat.trunk); b.position.set(Math.cos(a) * d / 2, h - 0.5 * s, Math.sin(a) * d / 2); b.rotation.set(Math.sin(a) * 1.0, 0, -Math.cos(a) * 1.0); top.add(b); }
+  }
+  g.rotation.z = (rnd() - 0.5) * 0.1;
+  g.add(top); pineTops.push({ top, t, h });   // кроны прячутся при виде этажа — остаются стволы и тени
+  const [px, pz] = P(x, y); g.position.set(px, 0, pz); scene.add(g);
+}
+const PINE_OUT = [[-0.4, -0.34, 14.26, 19.26], [RAMP[0] - 0.2, RAMP[2], RAMP[1] + 0.2, RAMP[3]]];   // дом с подвалом и пандус: сосен внутри нет
+[[15.5, 35.2, 1.06], [-7.1, 29.5, 1.02], [11.9, 28.3, 1.11], [17.1, 23.8, 1.4], [8.2, 21.5, 0.93], [-4.8, 18.7, 0.97], [-9.5, 13.1, 1.06],
+  [-11.0, 7.3, 1.02], [-2.2, 3.1, 0.97], [-10.6, -0.6, 1.02], [-2.8, -2.5, 1.02], [-2.8, 10.3, 0.91], [-17.2, 6.2, 0.93], [-15.4, 17.9, 0.93]]
+  .filter(([x, y]) => !PINE_OUT.some(([a, b, c, d]) => x > a - 1.5 && x < c + 1.5 && y > b - 1.5 && y < d + 1.5))
+  .forEach(([x, y, s]) => pine(x, y, s));
+

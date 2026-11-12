@@ -67,3 +67,6 @@ Temporary Items
 
 # Python operational checks
 __pycache__/
+
+# 3D tour: the light copy is built on demand (tour3d/build.py --light)
+/tour3d/dist/
