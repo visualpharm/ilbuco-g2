@@ -42,7 +42,7 @@ It clicks the site's menu item, picks a room, turns the model, opens a shooting 
 
 ## Not in the repository
 
-- The architect's plans the model was measured from («Bucho var 5.pdf», 18.07.2022, in Ivan's Google Drive; DWG and structural sheets) — private documents.
+- The drawings the model is measured from — the construction album of 10.2024 (`buco-album-2024-10.pdf`: plans of four levels, facades, sections) — and the earlier 2022 project («Bucho var 5.pdf», DWG, structural sheets; not a source any more) — private documents.
 - Full-size originals of the photos and the earlier versions of the model.
 
 A copy of both is kept on the hub machine in `~/.claude/artifacts/ilbuco-3d/workspace-archive/`. Neither is needed to rebuild the tour.
