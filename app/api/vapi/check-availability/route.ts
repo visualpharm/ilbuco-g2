@@ -7,7 +7,7 @@ const HOSTEX_API_URL = 'https://api.hostex.io/v3/listings/calendar';
 
 const LISTINGS = [
   { channel_type: 'booking_site', listing_id: '110800-13274', name: 'Giardino', description: 'Ground floor suite with private garden terrace' },
-  { channel_type: 'booking_site', listing_id: '110801-13274', name: 'Terrazzo', description: 'Ground floor suite with the largest terrace' },
+  { channel_type: 'booking_site', listing_id: '110801-13274', name: 'Terrazzo', description: 'Second floor suite with the largest terrace' },
   { channel_type: 'booking_site', listing_id: '110802-13274', name: 'Paraiso', description: 'Second floor corner suite with two-sided windows' },
   { channel_type: 'booking_site', listing_id: '110803-13274', name: 'Penthouse', description: 'Top floor suite with forest views and rooftop access' },
 ];

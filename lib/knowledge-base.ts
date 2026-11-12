@@ -48,7 +48,7 @@ export const PROPERTY_INFO = {
     },
     {
       name: 'Terrazzo',
-      floor: 'Ground floor',
+      floor: 'Second floor',
       highlight: 'Largest terrace with outdoor dining',
       bedType: 'Queen',
       bookingId: '110801',

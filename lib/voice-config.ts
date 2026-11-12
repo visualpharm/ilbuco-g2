@@ -199,7 +199,7 @@ PROPERTY:
 ROOMS:
 We have 4 suites, each with private entrance, bathroom, kitchen and washer:
 - Giardino: ground floor, private garden with plants, queen bed
-- Terrazzo: ground floor, largest terrace with outdoor dining, queen bed
+- Terrazzo: first floor, largest terrace with outdoor dining, queen bed
 - Paraiso: first floor, corner suite with windows on two sides, twin beds
 - Penthouse: top floor, forest views, access to green roof, queen bed
 
@@ -230,7 +230,7 @@ REGRAS CRÍTICAS:
 QUARTOS:
 Temos 4 suítes, cada uma com entrada privada, banheiro, cozinha e máquina de lavar:
 - Giardino: térreo, jardim privado com plantas, cama queen
-- Terrazzo: térreo, maior terraço com área de jantar externa, cama queen
+- Terrazzo: primeiro andar, maior terraço com área de jantar externa, cama queen
 - Paraiso: primeiro andar, suíte de canto com janelas em dois lados, camas de solteiro
 - Penthouse: último andar, vista para a floresta, acesso ao telhado verde, cama queen
 
