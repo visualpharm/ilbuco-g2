@@ -123,7 +123,7 @@ El sistema va a transferir la llamada automáticamente
 HABITACIONES:
 Tenemos 4 suites, cada una con entrada privada, baño, cocina y lavarropas:
 - Giardino: planta baja, jardín privado con plantas, cama queen
-- Terrazzo: planta baja, la terraza más grande con comedor exterior, cama queen
+- Terrazzo: primer piso, la terraza más grande con comedor exterior, cama queen
 - Paraiso: primer piso, suite esquinera con ventanas en dos lados, dos camas individuales
 - Penthouse: último piso, vistas al bosque, acceso a terraza verde, cama queen
 
