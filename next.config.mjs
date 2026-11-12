@@ -7,9 +7,13 @@ const nextConfig = {
     loader: 'custom',
     loaderFile: './lib/imagekit-loader.ts',
   },
-  // 3D model of the house: one self-contained page in public/3d/ (index.html + walk.mp4)
+  // 3D tour of the house: one self-contained page in public/3d/ (index.html + walk.mp4).
+  // The page reads its language from the path, so every language of the site has its own address.
   async rewrites() {
-    return [{ source: '/3d', destination: '/3d/index.html' }]
+    return [
+      { source: '/3d', destination: '/3d/index.html' },
+      { source: '/:lang(en|pt|ru)/3d', destination: '/3d/index.html' },
+    ]
   },
   async redirects() {
     return [
