@@ -51,8 +51,10 @@ export function MobileMenu() {
               </button>
             </div>
             <nav className="flex flex-col overflow-y-auto px-4 py-2">
-              {items.map((item) => (
-                <Link
+              {items.map((item) => {
+                const NavLink = item.plain ? "a" : Link
+                return (
+                <NavLink
                   key={item.href}
                   href={item.href}
                   aria-current={item.current ? "page" : undefined}
@@ -60,8 +62,9 @@ export function MobileMenu() {
                   onClick={() => setIsOpen(false)}
                 >
                   <Translate text={item.label} />
-                </Link>
-              ))}
+                </NavLink>
+                )
+              })}
               <button
                 onClick={() => {
                   setIsOpen(false)

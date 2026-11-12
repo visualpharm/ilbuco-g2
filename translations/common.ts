@@ -14,6 +14,12 @@ export const translations = {
       pt: "A Casa",
       ru: "Дом",
     },
+    tour3d: {
+      en: "3D Tour",
+      es: "Tour 3D",
+      pt: "Tour 3D",
+      ru: "3D-тур",
+    },
     rooms: {
       en: "Rooms",
       es: "Habitaciones",

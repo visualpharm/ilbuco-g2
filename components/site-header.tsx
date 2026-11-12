@@ -21,8 +21,10 @@ export function SiteHeader() {
         </Link>
         <div className="flex items-center gap-2">
           <nav className="hidden items-center gap-1 lg:flex">
-            {items.map((item) => (
-              <Link
+            {items.map((item) => {
+              const NavLink = item.plain ? "a" : Link
+              return (
+              <NavLink
                 key={item.href}
                 href={item.href}
                 aria-current={item.current ? "page" : undefined}
@@ -31,8 +33,9 @@ export function SiteHeader() {
                 }`}
               >
                 <Translate text={item.label} />
-              </Link>
-            ))}
+              </NavLink>
+              )
+            })}
           </nav>
           <button
             onClick={() => setIsBookingPopupOpen(true)}
