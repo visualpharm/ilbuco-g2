@@ -114,13 +114,13 @@ const mat = {
   rail: S(0xc08a4e, { roughness: 0.6 }), white: S(0xf6f5f2, { roughness: 0.5 }), black: SL(0x1e1f22, { roughness: 0.5 }),
   counter: S(0x15161a, { roughness: 0.25, metalness: 0.2 }), steel: S(0xc9ccce, { roughness: 0.35, metalness: 0.6 }),
   sofaGrey: SL(0x9c9ea1, { roughness: 1 }), sofaBlue: S(0x2f4f9a, { roughness: 0.95 }), bedGrey: S(0x8e96a3, { roughness: 1 }), bedHead: S(0x5a5d66, { roughness: 1 }),
-  blanket: S(0xc9762f, { roughness: 1 }), chairBlack: S(0x25272b, { roughness: 0.6 }), chairWhite: S(0xefeeea, { roughness: 0.5 }), wicker: SL(0x232427, { roughness: 0.9 }),
+  quilt: SL(0x44474f, { roughness: 1 }), towel: SL(0x948a85, { roughness: 1 }), blanket: S(0xc9762f, { roughness: 1 }), chairBlack: S(0x25272b, { roughness: 0.6 }), chairWhite: S(0xefeeea, { roughness: 0.5 }), wicker: SL(0x232427, { roughness: 0.9 }),
   glass: new THREE.MeshStandardMaterial({ color: 0xaad4e4, transparent: true, opacity: 0.34, roughness: 0.05, metalness: 0.0, side: THREE.DoubleSide, depthWrite: false }),
   tree: S(0x4f7f4f, { roughness: 1 }), treeDark: S(0x3c6745, { roughness: 1 }), trunk: S(0x7b5a3b, { roughness: 1 }),
 };
 
 // мягкая мебель — не «кирпичи»: у материалов с userData.soft бокс получает скруглённые рёбра этого радиуса (диваны, кровати, подушки, плетёная мебель, шторы)
-Object.entries({ sofaGrey: 0.07, sofaBlue: 0.07, bedHead: 0.05, bedGrey: 0.03, wicker: 0.04 }).forEach(([k, r]) => { mat[k].userData.soft = r; });
+Object.entries({ sofaGrey: 0.07, sofaBlue: 0.07, bedHead: 0.05, bedGrey: 0.03, quilt: 0.06, towel: 0.06, wicker: 0.04 }).forEach(([k, r]) => { mat[k].userData.soft = r; });
 mat.linen = S(0xf6f5f2, { roughness: 0.9 }); mat.linen.userData.soft = 0.045;   // матрасы и подушки
 function softGeo(w, h, d, r) {
   const g = new THREE.BoxGeometry(w, h, d, 4, 4, 4), p = g.attributes.position, n = g.attributes.normal, hs = [w / 2, h / 2, d / 2], v = [0, 0, 0], c = [0, 0, 0];
@@ -432,6 +432,14 @@ function bed(x0, y0, x1, y1, head) {
     const m = (y0 + y1) / 2; box(x0 + 0.1, y0 + 0.15, x0 + 0.5, m - 0.1, 0.1, mat.linen, 0.64); box(x0 + 0.1, m + 0.1, x0 + 0.5, y1 - 0.15, 0.1, mat.linen, 0.64);
   }
 }
+// односпальная кровать изголовьем к западной стене, без изголовья и тумб (Paraiso, фото paraiso7): тёмно-серое покрывало на всю кровать,
+// одна подушка под ним у изголовья, свёрнутое серое полотенце поперёк кровати в ногах
+function singleBed(x0, y0, x1, y1) {
+  const z = 0.48, m = (y0 + y1) / 2;
+  box(x0, y0, x1, y1, z, mat.quilt);
+  box(x0 + 0.08, y0 + 0.14, x0 + 0.5, y1 - 0.14, 0.1, mat.quilt, z);
+  box(x1 - 0.55, m - 0.2, x1 - 0.37, m + 0.2, 0.13, mat.towel, z);
+}
 const toilet = (x, y, dir) => {   // бачок у стены, чаша — в сторону dir: 'n', 's', 'e', 'w'
   const v = { n: [0, 1], s: [0, -1], e: [1, 0], w: [-1, 0] }[dir], q = [Math.abs(v[1]), Math.abs(v[0])];
   box(x - q[0] * 0.2 - Math.abs(v[0]) * 0.1, y - q[1] * 0.2 - Math.abs(v[1]) * 0.1, x + q[0] * 0.2 + Math.abs(v[0]) * 0.1, y + q[1] * 0.2 + Math.abs(v[1]) * 0.1, 0.75, mat.white);
@@ -692,8 +700,7 @@ toilet(1.72, 11.3, 'e');
 box(1.63, 11.75, 2.13, 12.35, 0.85, mat.white); box(1.7, 11.85, 2.05, 12.25, 0.02, mat.steel, 0.85);
 kitchenette(3.97, 10.02, 11.75, 11.75, 12.43, 11.0, 10.2);
 roundTable(5.9, 11.2, 0.45, 3, mat.chairWhite);
-bed(0.51, 14.3, 2.6, 16.1, 'w');
-box(0.37, 13.89, 0.77, 14.24, 0.5, mat.oak); box(0.37, 16.16, 0.77, 16.51, 0.5, mat.oak);
+singleBed(0.4, 15.55, 2.4, 16.45); singleBed(0.4, 14.0, 2.4, 14.9);   // две раздельные односпальные, между ними проход (Иван, 12.11: «В Параисо две раздельные кровати»)
 box(3.5, 14.9, 4.06, 16.5, 2.3, mat.white); for (let y = 15.3; y < 16.4; y += 0.6) box(3.48, y, 3.5, y + 0.03, 0.4, mat.black, 0.9, false);
 // гостиная: Г-образный диван у стены спальни лицом к ТВ на восточной стене, журнальный столик
 box(4.22, 13.9, 5.1, 15.9, 0.42, mat.sofaGrey); box(4.22, 13.9, 4.44, 15.9, 0.8, mat.sofaGrey);

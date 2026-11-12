@@ -181,7 +181,7 @@ const NAV = [
       { id: 'p1-balcon', name: 'Balcón', box: [7.31, 0, 12.75, 7.51] }] },
     { id: 'p1-paraiso', name: 'Paraiso', box: [0, 9.86, 7.31, 16.9], kids: [
       { id: 'p1-norte-living', name: 'Living y cocina', box: [3.9, 9.86, 7.31, 16.9] },
-      { id: 'p1-norte-dorm', name: 'Dormitorio', box: [0, 13.81, 4.14, 16.9] }] }] },
+      { id: 'p1-norte-dorm', name: 'Dormitorio', box: [0, 13.81, 4.14, 16.9], az: [1, 0] }] }] },   // с востока, через стену со шкафом: с юго-запада южную кровать закрывает стена
   { id: 'pb', name: 'Planta baja', f: 'pb', kids: [
     { id: 'pb-giardino', name: 'Giardino', box: [7.2, 0, 12.75, 7.51], kids: [
       { id: 'pb-par-living', name: 'Living', box: [9.04, 3.25, 12.75, 7.51] },
