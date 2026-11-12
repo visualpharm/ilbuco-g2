@@ -24,7 +24,7 @@ This file stays thin: principles, what Ivan decides, and how we work. Detailed r
 
 ## Work
 
-- Commands: `npm run dev` · `npm run build` · `npm run start`; `npm run lint` does not work (`next lint` is gone and there is no ESLint config) — check types with `npx tsc --noEmit`
+- Commands: `npm run dev` · `npm run build` · `npm run start`; `npm run lint` = ESLint CLI (eslint.config.mjs, errors fail, warnings allowed; part of local-ci) — check types with `npx tsc --noEmit`
 - Tests: `npm run test` (tsx runner, `lib/*.test.ts`); full local gate: `~/.claude/bin/local-ci` → `./scripts/local-ci.sh` (Python booking-guard tests + unit tests + 3D tour matches its sources + production build)
 - Price floor: `lib/price-floor.ts` — no guest-facing price under it; check a quote with `scripts/price-check <listing> <check-in> <check-out> [--total N] [--ars]`, scan Hostex with `scripts/price-check scan`
 - 3D tour at /3d: sources in `tour3d/`, rebuild with `python3 tour3d/build.py`, never edit `public/3d/index.html` by hand (docs/rules/tour-3d.md)

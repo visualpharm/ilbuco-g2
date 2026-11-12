@@ -898,7 +898,7 @@ export async function closePropertyAvailabilities(
     console.log(`[availabilities dry-run] properties ${propertyIds.join(',')}: would close ${dates.length} dates`);
     return { submitted: 0, skipped: dates.length };
   }
-  const available: false = false;
+  const available = false as const;
   const CHUNK = 100;
   let submitted = 0;
   for (let i = 0; i < dates.length; i += CHUNK) {

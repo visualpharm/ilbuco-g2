@@ -383,7 +383,7 @@ export async function POST(request: NextRequest) {
     ];
 
     let reply = '';
-    let totalTokens = { prompt: 0, completion: 0, total: 0 };
+    const totalTokens = { prompt: 0, completion: 0, total: 0 };
 
     // Function calling loop (max 3 iterations to prevent infinite loops)
     for (let i = 0; i < 3; i++) {

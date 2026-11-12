@@ -58,7 +58,7 @@ export default function DigitalNomadRetreatsPage() {
                 <p className="text-xl text-gray-700 leading-relaxed">
                   Transform your remote work experience with our curated digital nomad retreats 
                   in Argentina. Structured programs combining productivity, personal growth, 
-                  wellness, and meaningful connections in Carilo's inspiring natural environment.
+                  wellness, and meaningful connections in Carilo&apos;s inspiring natural environment.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
@@ -429,7 +429,7 @@ export default function DigitalNomadRetreatsPage() {
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Experience the benefits of structured programming combined with 
-                Argentina's natural beauty and affordable lifestyle.
+                Argentina&apos;s natural beauty and affordable lifestyle.
               </p>
             </div>
             

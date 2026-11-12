@@ -55,9 +55,9 @@ export default function SlowTravelArgentinaPage() {
                   <span className="text-green-600"> Argentina</span>
                 </h1>
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  Rediscover the art of mindful travel in Argentina's hidden coastal gem. 
+                  Rediscover the art of mindful travel in Argentina&apos;s hidden coastal gem. 
                   Stay longer, connect deeper, and experience the transformative power of 
-                  slow travel in Carilo's pristine natural setting.
+                  slow travel in Carilo&apos;s pristine natural setting.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
@@ -95,7 +95,7 @@ export default function SlowTravelArgentinaPage() {
                 The Philosophy of Slow Travel
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Slow travel isn't just about spending more time in one place - it's about 
+                Slow travel isn&apos;t just about spending more time in one place - it&apos;s about 
                 creating meaningful connections, understanding local culture, and giving 
                 yourself space to truly experience a destination.
               </p>
@@ -163,7 +163,7 @@ export default function SlowTravelArgentinaPage() {
                     Why Argentina is Perfect for Slow Travel
                   </h2>
                   <p className="text-xl text-gray-600 mb-8">
-                    Argentina's unique combination of affordability, natural beauty, 
+                    Argentina&apos;s unique combination of affordability, natural beauty, 
                     and warm culture makes it an ideal destination for extended, 
                     mindful travel experiences.
                   </p>
@@ -326,7 +326,7 @@ export default function SlowTravelArgentinaPage() {
                   Forest Bathing
                 </h3>
                 <p className="text-gray-600 text-base">
-                  Practice mindful walking and forest bathing in Carilo's pine groves
+                  Practice mindful walking and forest bathing in Carilo&apos;s pine groves
                 </p>
               </div>
               
@@ -417,7 +417,7 @@ export default function SlowTravelArgentinaPage() {
             </h2>
             <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
               Trade rushed tourism for meaningful travel. Experience the transformative 
-              power of slow travel in one of South America's most beautiful and peaceful destinations.
+              power of slow travel in one of South America&apos;s most beautiful and peaceful destinations.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

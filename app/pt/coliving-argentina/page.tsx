@@ -280,7 +280,7 @@ export default function ColivingArgentinaPage() {
                   </div>
                 </div>
                 <p className="text-gray-700 mb-4">
-                  "O IL BUCO oferece a melhor experiência de coliving que já tive. A comunidade é incrível e a Argentina me surpreendeu com sua riqueza cultural e beleza natural."
+                  &quot;O IL BUCO oferece a melhor experiência de coliving que já tive. A comunidade é incrível e a Argentina me surpreendeu com sua riqueza cultural e beleza natural.&quot;
                 </p>
                 <p className="text-gray-600 font-medium">
                   Laura S., Desenvolvedora - Barcelona
@@ -296,7 +296,7 @@ export default function ColivingArgentinaPage() {
                   </div>
                 </div>
                 <p className="text-gray-700 mb-4">
-                  "Trabalhar remotamente nunca foi tão produtivo e prazeroso. O ambiente de Cariló e a qualidade das instalações são excepcionais. Voltarei com certeza!"
+                  &quot;Trabalhar remotamente nunca foi tão produtivo e prazeroso. O ambiente de Cariló e a qualidade das instalações são excepcionais. Voltarei com certeza!&quot;
                 </p>
                 <p className="text-gray-600 font-medium">
                   Carlos M., Empresário - São Paulo

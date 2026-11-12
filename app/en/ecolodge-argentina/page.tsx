@@ -45,8 +45,8 @@ export default function EcolodgeArgentina() {
                   <span className="text-gray-600">Argentina</span>
                 </h1>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  Experience sustainable luxury at Argentina's premier forest-to-ocean ecolodge. 
-                  Nestled in Cariló's pine forest, just minutes from pristine Atlantic beaches, 
+                  Experience sustainable luxury at Argentina&apos;s premier forest-to-ocean ecolodge. 
+                  Nestled in Cariló&apos;s pine forest, just minutes from pristine Atlantic beaches, 
                   we offer <Link href="/en/argentina-eco-vacations" className="text-gray-700 no-underline hover:text-gray-900">eco-conscious accommodations</Link> that honor nature.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -89,7 +89,7 @@ export default function EcolodgeArgentina() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Forest Integration</h3>
                 <p className="text-gray-700">
-                  Our ecolodge is thoughtfully integrated into Cariló's native pine forest, 
+                  Our ecolodge is thoughtfully integrated into Cariló&apos;s native pine forest, 
                   preserving existing trees and natural ecosystems while providing luxury comfort.
                 </p>
               </div>
@@ -101,7 +101,7 @@ export default function EcolodgeArgentina() {
                 <h3 className="text-xl font-semibold mb-3">Ocean Proximity</h3>
                 <p className="text-gray-700">
                   Located just 150 meters from the Atlantic Ocean, experience the unique 
-                  combination of forest tranquility and coastal energy in Argentina's premier eco-destination.
+                  combination of forest tranquility and coastal energy in Argentina&apos;s premier eco-destination.
                 </p>
               </div>
 
@@ -176,7 +176,7 @@ export default function EcolodgeArgentina() {
                 <p className="text-gray-700 text-center max-w-3xl mx-auto">
                   Our approach to <Link href="/en/eco-lodges-argentina" className="text-gray-700 no-underline hover:text-gray-900">sustainable tourism</Link> demonstrates how luxury accommodation can coexist 
                   harmoniously with environmental preservation. Every stay contributes to local conservation 
-                  efforts and community development in Argentina's coastal ecosystems.
+                  efforts and community development in Argentina&apos;s coastal ecosystems.
                 </p>
               </div>
             </div>
@@ -283,8 +283,8 @@ export default function EcolodgeArgentina() {
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-6">Ready for Your Argentina Eco Vacation?</h2>
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              Discover sustainable luxury where Argentina's coastal forest meets the Atlantic Ocean. 
-              Book your ecolodge experience in nature's perfect balance.
+              Discover sustainable luxury where Argentina&apos;s coastal forest meets the Atlantic Ocean. 
+              Book your ecolodge experience in nature&apos;s perfect balance.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

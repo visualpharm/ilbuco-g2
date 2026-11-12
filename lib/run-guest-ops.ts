@@ -939,7 +939,7 @@ export async function runPostCheckoutSweep(dryRun = false): Promise<GuestOpsRepo
  */
 export async function reconcileLocks(dryRun = false): Promise<GuestOpsReport> {
   console.log('[guest-ops] reconcileLocks');
-  let state = await loadState();
+  const state = await loadState();
   let processed = 0;
   const errors: string[] = [];
 

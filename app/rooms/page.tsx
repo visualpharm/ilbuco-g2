@@ -70,7 +70,7 @@ export default function Rooms() {
                     <h2 className="text-2xl font-bold">
                       <Translate text={roomsTranslations.terraceSuite.title} />
                     </h2>
-                    <a
+                    <Link
                       href="/reservar/terrazzo"
                       className="inline-flex flex-shrink-0 items-center px-4 py-2.5 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-base"
                     >
@@ -80,7 +80,7 @@ export default function Rooms() {
                         pt: "Reservar Terrazzo",
                         ru: "Забронировать Terrazzo"
                       }} />
-                    </a>
+                    </Link>
                   </div>
                   <p className="text-gray-700 mb-6">
                     <Translate text={roomsTranslations.terraceSuite.subtitle} /> <OnlyLanguage code="es">Ideal como <Link href="/casas-en-carilo-alquiler" className="text-inherit no-underline">casa</Link> de lujo y <Link href="/carilo-golf-hospedaje" className="text-inherit no-underline">hospedaje</Link> premium.</OnlyLanguage>
@@ -176,7 +176,7 @@ export default function Rooms() {
                     <h2 className="text-2xl font-bold">
                       <Translate text={roomsTranslations.penthouseSuite.title} />
                     </h2>
-                    <a
+                    <Link
                       href="/reservar/penthouse"
                       className="inline-flex flex-shrink-0 items-center px-4 py-2.5 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-base"
                     >
@@ -186,7 +186,7 @@ export default function Rooms() {
                         pt: "Reservar Penthouse",
                         ru: "Забронировать Penthouse"
                       }} />
-                    </a>
+                    </Link>
                   </div>
                   <p className="text-gray-700 mb-6">
                     <Translate text={roomsTranslations.penthouseSuite.subtitle} />
@@ -256,7 +256,7 @@ export default function Rooms() {
                     <h2 className="text-2xl font-bold">
                       <Translate text={roomsTranslations.gardenSuite.title} />
                     </h2>
-                    <a
+                    <Link
                       href="/reservar/giardino"
                       className="inline-flex flex-shrink-0 items-center px-4 py-2.5 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-base"
                     >
@@ -266,7 +266,7 @@ export default function Rooms() {
                         pt: "Reservar Giardino",
                         ru: "Забронировать Giardino"
                       }} />
-                    </a>
+                    </Link>
                   </div>
                   <p className="text-gray-700 mb-6">
                     <Translate text={roomsTranslations.gardenSuite.subtitle} />
@@ -323,7 +323,7 @@ export default function Rooms() {
                     <h2 className="text-2xl font-bold">
                       <Translate text={roomsTranslations.forestSuite.title} />
                     </h2>
-                    <a
+                    <Link
                       href="/reservar/paraiso"
                       className="inline-flex flex-shrink-0 items-center px-4 py-2.5 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-base"
                     >
@@ -333,7 +333,7 @@ export default function Rooms() {
                         pt: "Reservar Paraíso",
                         ru: "Забронировать Paraiso"
                       }} />
-                    </a>
+                    </Link>
                   </div>
                   <p className="text-gray-700 mb-6">
                     <Translate text={roomsTranslations.forestSuite.subtitle} />

@@ -97,7 +97,7 @@ export default function ColivingArgentinaPage() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                This Is Where You'll Live
+                This Is Where You&apos;ll Live
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Four suites, big common areas, rooftop BBQ. Pine forest everywhere. 
@@ -368,10 +368,10 @@ export default function ColivingArgentinaPage() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Carilo: Argentina's Premium Coastal Destination
+                Carilo: Argentina&apos;s Premium Coastal Destination
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Our coliving space is located in Carilo, an exclusive resort town on Argentina's 
+                Our coliving space is located in Carilo, an exclusive resort town on Argentina&apos;s 
                 Atlantic coast, offering the perfect balance of tranquility and sophistication.
               </p>
             </div>
@@ -617,7 +617,7 @@ export default function ColivingArgentinaPage() {
                 What Our Coliving Members Say
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Real stories from our international community members who've made Argentina their coliving home.
+                Real stories from our international community members who&apos;ve made Argentina their coliving home.
               </p>
             </div>
             
@@ -629,7 +629,7 @@ export default function ColivingArgentinaPage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6 italic">
-                  "The perfect balance of community and privacy. I've been super productive here while making lifelong friends. The beach access is a game-changer."
+                  &quot;The perfect balance of community and privacy. I&apos;ve been super productive here while making lifelong friends. The beach access is a game-changer.&quot;
                 </p>
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
@@ -649,7 +649,7 @@ export default function ColivingArgentinaPage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6 italic">
-                  "After trying coliving in Bali and Mexico, this is the best. The combination of nature, community, and infrastructure is unmatched."
+                  &quot;After trying coliving in Bali and Mexico, this is the best. The combination of nature, community, and infrastructure is unmatched.&quot;
                 </p>
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
@@ -669,7 +669,7 @@ export default function ColivingArgentinaPage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6 italic">
-                  "The community dinners and weekend activities create such a warm atmosphere. Never feels lonely, even when working on tough projects."
+                  &quot;The community dinners and weekend activities create such a warm atmosphere. Never feels lonely, even when working on tough projects.&quot;
                 </p>
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center">

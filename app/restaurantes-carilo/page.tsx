@@ -404,7 +404,7 @@ export default function RestaurantesCarilo() {
                     />
                   </div>
                   <div className="flex items-start justify-between mb-3">
-                    <h5 className="text-xl font-bold text-gray-800">Enri's Hamburguesas</h5>
+                    <h5 className="text-xl font-bold text-gray-800">Enri&apos;s Hamburguesas</h5>
                     <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.1 (62 reseñas)
                     </div>
@@ -523,7 +523,7 @@ export default function RestaurantesCarilo() {
 
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-3">
-                    <h5 className="text-xl font-bold text-gray-800">Lucciano's</h5>
+                    <h5 className="text-xl font-bold text-gray-800">Lucciano&apos;s</h5>
                     <div className="text-base bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
                       ⭐ 4.4 (120 reseñas)
                     </div>

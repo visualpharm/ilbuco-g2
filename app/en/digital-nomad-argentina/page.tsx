@@ -106,7 +106,7 @@ export default function DigitalNomadArgentinaPage() {
                 Where the Nomads Actually Are
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Argentina's got nomads everywhere now. Buenos Aires is the obvious spot, 
+                Argentina&apos;s got nomads everywhere now. Buenos Aires is the obvious spot, 
                 but Bariloche, Mendoza, and beach towns like Cariló are where people actually stay longer.
               </p>
             </div>
@@ -121,7 +121,7 @@ export default function DigitalNomadArgentinaPage() {
                   </div>
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Weekly Meetups</h4>
-                    <p className="text-gray-600">Tuesday asados, Thursday language swaps, weekend trips. You'll have friends in a week</p>
+                    <p className="text-gray-600">Tuesday asados, Thursday language swaps, weekend trips. You&apos;ll have friends in a week</p>
                   </div>
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Coworking Spaces</h4>
@@ -139,7 +139,7 @@ export default function DigitalNomadArgentinaPage() {
                   </div>
                   <div className="bg-blue-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Bariloche</h4>
-                    <p className="text-gray-600">Mountains + lakes + skiing. Nomads come for winter, stay because it's gorgeous</p>
+                    <p className="text-gray-600">Mountains + lakes + skiing. Nomads come for winter, stay because it&apos;s gorgeous</p>
                   </div>
                   <div className="bg-blue-50 p-6 rounded-lg">
                     <h4 className="font-semibold text-gray-900 mb-2">Mar del Plata</h4>
@@ -186,11 +186,11 @@ export default function DigitalNomadArgentinaPage() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                The Money Situation (It's Weird)
+                The Money Situation (It&apos;s Weird)
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Argentina's financial system is... special. Blue dollar, Western Union, 
-                cash is king. Here's what actually works.
+                Argentina&apos;s financial system is... special. Blue dollar, Western Union, 
+                cash is king. Here&apos;s what actually works.
               </p>
             </div>
             
@@ -202,12 +202,12 @@ export default function DigitalNomadArgentinaPage() {
                   <h4 className="font-semibold text-gray-900 mb-3">The Blue Dollar</h4>
                   <p className="text-gray-600 mb-4">
                     Not a myth. You literally get double your money. Everyone uses it. 
-                    Here's how:
+                    Here&apos;s how:
                   </p>
                   <ul className="space-y-2 text-gray-600">
                     <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Western Union transfers</li>
                     <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Crypto exchanges (USDT is super popular)</li>
-                    <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Cash exchanges at "cuevas" (just ask around)</li>
+                    <li className="flex items-center"><CheckCircle className="h-4 w-4 text-green-500 mr-2" />Cash exchanges at &quot;cuevas&quot; (just ask around)</li>
                   </ul>
                 </div>
                 
@@ -218,7 +218,7 @@ export default function DigitalNomadArgentinaPage() {
                       <CreditCard className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-medium text-gray-900">International Cards</p>
-                        <p className="text-gray-600 text-base">Work everywhere but you lose 50% instantly. Don't.</p>
+                        <p className="text-gray-600 text-base">Work everywhere but you lose 50% instantly. Don&apos;t.</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
@@ -297,8 +297,8 @@ export default function DigitalNomadArgentinaPage() {
                 The Visa Game (Pick Your Strategy)
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Argentina's got options. Digital nomad visa, tourist runs, student visas — 
-                here's what actually works and what's just paperwork.
+                Argentina&apos;s got options. Digital nomad visa, tourist runs, student visas — 
+                here&apos;s what actually works and what&apos;s just paperwork.
               </p>
             </div>
             
@@ -330,7 +330,7 @@ export default function DigitalNomadArgentinaPage() {
                   <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />90 days free (most countries)</li>
                   <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Extend for 90 more at immigration</li>
                   <li className="flex items-start"><CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />Uruguay ferry = reset (everyone does it)</li>
-                  <li className="flex items-start"><AlertCircle className="h-4 w-4 text-yellow-500 mr-2 mt-1 flex-shrink-0" />"Officially" 180 days/year (wink)</li>
+                  <li className="flex items-start"><AlertCircle className="h-4 w-4 text-yellow-500 mr-2 mt-1 flex-shrink-0" />&quot;Officially&quot; 180 days/year (wink)</li>
                 </ul>
               </div>
               
@@ -371,7 +371,7 @@ export default function DigitalNomadArgentinaPage() {
               </h3>
               <p className="text-gray-700 text-center max-w-3xl mx-auto">
                 Digital Nomad Visa: Show remote job, health insurance, clean record. 
-                Only works if you don't need a tourist visa normally. 
+                Only works if you don&apos;t need a tourist visa normally. 
                 <Link href="/en/argentina-remote-work-visa" className="text-blue-600 hover:text-blue-800 font-semibold">
                   Full breakdown here →
                 </Link>
@@ -385,11 +385,11 @@ export default function DigitalNomadArgentinaPage() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                What Life's Actually Like
+                What Life&apos;s Actually Like
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Work in the morning, steak for lunch, siesta, more work, 
-                dinner at 11pm. You'll adapt faster than you think.
+                dinner at 11pm. You&apos;ll adapt faster than you think.
               </p>
             </div>
             
@@ -404,7 +404,7 @@ export default function DigitalNomadArgentinaPage() {
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-2">Argentine Time</h4>
                         <p className="text-gray-600">
-                          Dinner's at 10pm. Clubs open at 2am. Nobody thinks this is weird. 
+                          Dinner&apos;s at 10pm. Clubs open at 2am. Nobody thinks this is weird. 
                           Perfect for west coast calls.
                         </p>
                       </div>
@@ -418,7 +418,7 @@ export default function DigitalNomadArgentinaPage() {
                         <h4 className="font-semibold text-gray-900 mb-2">Café Life</h4>
                         <p className="text-gray-600">
                           Order one cortado, stay 4 hours. Nobody cares. 
-                          Wifi's decent, coffee's strong.
+                          Wifi&apos;s decent, coffee&apos;s strong.
                         </p>
                       </div>
                     </div>
@@ -430,7 +430,7 @@ export default function DigitalNomadArgentinaPage() {
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-2">Making Friends</h4>
                         <p className="text-gray-600">
-                          Argentines adopt foreigners. You'll get invited to asados, 
+                          Argentines adopt foreigners. You&apos;ll get invited to asados, 
                           birthday parties, weekend trips. Just say yes.
                         </p>
                       </div>

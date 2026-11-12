@@ -257,7 +257,7 @@ export default function ApartHotelEnCariloPage() {
                 </div>
                 <div className="md:col-span-2 space-y-6">
                   <p className="text-2xl font-medium">
-                    "El servicio de apart hotel superó nuestras expectativas. La atención personalizada combinada con la privacidad de la villa fue perfecta."
+                    &quot;El servicio de apart hotel superó nuestras expectativas. La atención personalizada combinada con la privacidad de la villa fue perfecta.&quot;
                   </p>
                   <p className="text-gray-600">
                     Carlos M., Ejecutivo de Buenos Aires

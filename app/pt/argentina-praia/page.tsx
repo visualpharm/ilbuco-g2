@@ -342,7 +342,7 @@ export default function ArgentinaPraiaPage() {
                 </div>
                 <div className="md:col-span-2 space-y-6">
                   <p className="text-2xl font-medium">
-                    "Trabalhar em Cariló foi transformador. A conexão com a natureza e a proximidade com a praia criaram o ambiente perfeito para minha criatividade e produtividade."
+                    &quot;Trabalhar em Cariló foi transformador. A conexão com a natureza e a proximidade com a praia criaram o ambiente perfeito para minha criatividade e produtividade.&quot;
                   </p>
                   <p className="text-gray-600">
                     Sofia M., Designer Digital - São Paulo

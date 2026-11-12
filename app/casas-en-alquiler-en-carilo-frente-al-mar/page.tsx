@@ -280,7 +280,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
                 </div>
                 <div className="md:col-span-2 space-y-6">
                   <p className="text-2xl font-medium">
-                    "Alquilar esta casa frente al mar en Cariló fue la mejor decisión. Despertar con vista al océano y tener la playa a pasos fue mágico."
+                    &quot;Alquilar esta casa frente al mar en Cariló fue la mejor decisión. Despertar con vista al océano y tener la playa a pasos fue mágico.&quot;
                   </p>
                   <p className="text-gray-600">
                     Ana L., Familia de Córdoba

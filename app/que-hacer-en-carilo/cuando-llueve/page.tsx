@@ -125,7 +125,7 @@ export default function QueHacerCuandoLlueve() {
                   </div>
                   
                   <p className="text-gray-700 text-base mb-4">
-                    <strong>Para:</strong> Desafío mental en equipo con la sala temática "Misión Pirata" para 2-6 personas en 60 minutos con niveles de dificultad ajustables.
+                    <strong>Para:</strong> Desafío mental en equipo con la sala temática &quot;Misión Pirata&quot; para 2-6 personas en 60 minutos con niveles de dificultad ajustables.
                   </p>
                   
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-base text-gray-600 mb-4">

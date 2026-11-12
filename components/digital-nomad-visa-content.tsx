@@ -25,7 +25,7 @@ export function DigitalNomadVisaContent() {
               Argentina Digital Nomad Visa {getCurrentYearOrNext()}
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Complete Digital Nomad Visa Guide: How to Apply for Argentina's Remote Work Visa 🇦🇷
+              Complete Digital Nomad Visa Guide: How to Apply for Argentina&apos;s Remote Work Visa 🇦🇷
             </p>
           </div>
           
@@ -58,11 +58,11 @@ export function DigitalNomadVisaContent() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h2 className="text-3xl font-bold text-gray-900">What is Argentina's Digital Nomad Visa?</h2>
+              <h2 className="text-3xl font-bold text-gray-900">What is Argentina&apos;s Digital Nomad Visa?</h2>
             </div>
             
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Argentina introduced the Digital Nomad Visa in May 2022 as a special transitory residence permit for remote workers. It's essentially a 6-month digital nomad visa (extendable to 12 months) that lets you legally live and work remotely from Argentina for an extended period. Unlike a tourist entry (90 days on arrival for most), the nomad visa gives you formal status as a resident for the duration – without needing to be employed by an Argentine company.
+              Argentina introduced the Digital Nomad Visa in May 2022 as a special transitory residence permit for remote workers. It&apos;s essentially a 6-month digital nomad visa (extendable to 12 months) that lets you legally live and work remotely from Argentina for an extended period. Unlike a tourist entry (90 days on arrival for most), the nomad visa gives you formal status as a resident for the duration – without needing to be employed by an Argentine company.
             </p>
 
             <div className="bg-green-50 border-l-4 border-green-500 p-6 mb-6 rounded-r-lg">
@@ -198,11 +198,11 @@ export function DigitalNomadVisaContent() {
                 </h3>
                 <div className="space-y-4 text-gray-700">
                   <p className="leading-relaxed">
-                    If the digital nomad visa process seems overwhelming, you can still come to Argentina for <strong>90 days with no visa required</strong> (for most nationalities). Once you're here, you can also apply for a <strong>90-day extension one time</strong> to stay for a total of <strong>180 days with no visa needed</strong>.
+                    If the digital nomad visa process seems overwhelming, you can still come to Argentina for <strong>90 days with no visa required</strong> (for most nationalities). Once you&apos;re here, you can also apply for a <strong>90-day extension one time</strong> to stay for a total of <strong>180 days with no visa needed</strong>.
                   </p>
                   
                   <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
-                    <h4 className="font-semibold text-yellow-900 mb-2">Argentina's Relaxed Immigration Policy</h4>
+                    <h4 className="font-semibold text-yellow-900 mb-2">Argentina&apos;s Relaxed Immigration Policy</h4>
                     <p className="text-yellow-800 text-base mb-3">
                       Immigration enforcement here is very relaxed. Unlike most countries, <strong>overstaying is not technically illegal</strong> in Argentina. If you overstay your tourist visa, you simply pay a fine before you leave.
                     </p>
@@ -230,7 +230,7 @@ export function DigitalNomadVisaContent() {
                       <h5 className="font-semibold text-red-900 mb-2">❌ Tourist Entry Cons</h5>
                       <ul className="text-red-800 text-base space-y-1">
                         <li>• No legal work authorization</li>
-                        <li>• Doesn't count toward residency</li>
+                        <li>• Doesn&apos;t count toward residency</li>
                         <li>• Limited to 180 days + overstay</li>
                         <li>• No official resident benefits</li>
                       </ul>
@@ -349,7 +349,7 @@ export function DigitalNomadVisaContent() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Create TIE Account</h3>
-                <p className="text-gray-600 mb-3">Register on the <a href="https://www.radixportal.gob.ar/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Radix Portal</a> (Argentina's online immigration system). The TIE 24H service offers express processing.</p>
+                <p className="text-gray-600 mb-3">Register on the <a href="https://www.radixportal.gob.ar/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Radix Portal</a> (Argentina&apos;s online immigration system). The TIE 24H service offers express processing.</p>
               </div>
             </div>
             
@@ -369,7 +369,7 @@ export function DigitalNomadVisaContent() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Wait for Approval</h3>
-                <p className="text-gray-600 mb-3">Processing typically takes 2-4 weeks. You'll receive digital approval via email with your digital nomad visa permit.</p>
+                <p className="text-gray-600 mb-3">Processing typically takes 2-4 weeks. You&apos;ll receive digital approval via email with your digital nomad visa permit.</p>
               </div>
             </div>
             
@@ -379,7 +379,7 @@ export function DigitalNomadVisaContent() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Enter Argentina</h3>
-                <p className="text-gray-600">Present your digital approval at the border. You'll receive a 180-day entry stamp for your digital nomad visa stay.</p>
+                <p className="text-gray-600">Present your digital approval at the border. You&apos;ll receive a 180-day entry stamp for your digital nomad visa stay.</p>
               </div>
             </div>
           </div>
@@ -474,7 +474,7 @@ export function DigitalNomadVisaContent() {
               Digital Nomad Visa FAQ
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Everything you need to know about Argentina's digital nomad visa application process
+              Everything you need to know about Argentina&apos;s digital nomad visa application process
             </p>
           </div>
           
@@ -485,7 +485,7 @@ export function DigitalNomadVisaContent() {
                 Do I need an apostille for my digital nomad visa documents? And what about translations?
               </h3>
               <p className="text-gray-700 text-base leading-relaxed">
-                Yes, for any official documents from abroad, you'll need proper legalization. If it's issued by a government or institution abroad (background check, birth certificate, marriage certificate), get an Apostille of The Hague. For translations: all documents not originally in Spanish must be translated. Argentina specifically prefers translations done by a certified public translator and then "legalized" by the Colegio de Traductores (Translator's Association).
+                Yes, for any official documents from abroad, you&apos;ll need proper legalization. If it&apos;s issued by a government or institution abroad (background check, birth certificate, marriage certificate), get an Apostille of The Hague. For translations: all documents not originally in Spanish must be translated. Argentina specifically prefers translations done by a certified public translator and then &quot;legalized&quot; by the Colegio de Traductores (Translator&apos;s Association).
               </p>
             </div>
 
@@ -495,7 +495,7 @@ export function DigitalNomadVisaContent() {
                 How much income do I need to show for the digital nomad visa? Is there a minimum?
               </h3>
               <p className="text-gray-700 text-base leading-relaxed">
-                There's no fixed minimum income published by the government for the nomad visa. However, unofficial sources often cite around $1,000-$2,500 USD per month as a sensible minimum. The key is to show consistent revenue or funds. They mainly want to ensure you won't be stranded or take local jobs. In your cover letter, you can explicitly state "I earn $X per month which is sufficient for my stay."
+                There&apos;s no fixed minimum income published by the government for the nomad visa. However, unofficial sources often cite around $1,000-$2,500 USD per month as a sensible minimum. The key is to show consistent revenue or funds. They mainly want to ensure you won&apos;t be stranded or take local jobs. In your cover letter, you can explicitly state &quot;I earn $X per month which is sufficient for my stay.&quot;
               </p>
             </div>
 
@@ -505,14 +505,14 @@ export function DigitalNomadVisaContent() {
                 How long does the digital nomad visa approval take?
               </h3>
               <p className="text-gray-700 text-base leading-relaxed">
-                Officially, the online nomad visa is processed in about 10 business days (2 weeks) if everything is perfect. Realistically, most applicants report waiting 2-6 weeks for email approval. Factors affecting timing include consulate workload, holidays, and document clarifications. Always apply as early as possible and don't fly to Argentina until your visa is approved.
+                Officially, the online nomad visa is processed in about 10 business days (2 weeks) if everything is perfect. Realistically, most applicants report waiting 2-6 weeks for email approval. Factors affecting timing include consulate workload, holidays, and document clarifications. Always apply as early as possible and don&apos;t fly to Argentina until your visa is approved.
               </p>
             </div>
 
             {/* FAQ Item 4 */}
             <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Can I apply for the digital nomad visa while I'm already in Argentina as a tourist?
+                Can I apply for the digital nomad visa while I&apos;m already in Argentina as a tourist?
               </h3>
               <p className="text-gray-700 text-base leading-relaxed">
                 Technically, the TIE online process requires you to be outside Argentina during processing. If you apply while physically in Argentina, Migraciones will likely deny the application. Workarounds include: 1) Leave and apply from abroad (e.g., Uruguay or Chile), or 2) Do a status change (Cambio de Categoría) in Argentina through DNM, which involves higher fees (~$200) and is more bureaucratic. For detailed information about all visa options for remote workers, including tourist visa extensions and the Rentista visa, see our comprehensive <a href="/en/argentina-remote-work-visa" className="text-blue-600 hover:underline">Argentina remote work visa guide</a>.
@@ -525,17 +525,17 @@ export function DigitalNomadVisaContent() {
                 Does time on the digital nomad visa count towards permanent residency or citizenship?
               </h3>
               <p className="text-gray-700 text-base leading-relaxed">
-                This is a gray area. The digital nomad visa is classified as "residencia transitoria" (transitory residence), not "residencia temporaria" which usually counts towards permanent residency. However, an immigration lawyer advised one nomad that the time might count towards the 2-year citizenship eligibility. It's not officially confirmed, so consult legal advice if you're planning long-term residency. For more comprehensive information about living as a digital nomad in Argentina, including community, banking, and lifestyle aspects, check out our <a href="/en/digital-nomad-argentina" className="text-blue-600 hover:underline">complete digital nomad guide</a>. If you're interested in joining a <a href="/en/coliving-argentina" className="text-blue-600 hover:underline">coliving community in Argentina</a> or exploring <a href="/en/coliving-south-america" className="text-blue-600 hover:underline">coliving options across South America</a>, we have detailed guides for those as well.
+                This is a gray area. The digital nomad visa is classified as &quot;residencia transitoria&quot; (transitory residence), not &quot;residencia temporaria&quot; which usually counts towards permanent residency. However, an immigration lawyer advised one nomad that the time might count towards the 2-year citizenship eligibility. It&apos;s not officially confirmed, so consult legal advice if you&apos;re planning long-term residency. For more comprehensive information about living as a digital nomad in Argentina, including community, banking, and lifestyle aspects, check out our <a href="/en/digital-nomad-argentina" className="text-blue-600 hover:underline">complete digital nomad guide</a>. If you&apos;re interested in joining a <a href="/en/coliving-argentina" className="text-blue-600 hover:underline">coliving community in Argentina</a> or exploring <a href="/en/coliving-south-america" className="text-blue-600 hover:underline">coliving options across South America</a>, we have detailed guides for those as well.
               </p>
             </div>
 
             {/* FAQ Item 6 */}
             <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Is the digital nomad visa "tax-free"? Do I pay Argentine taxes?
+                Is the digital nomad visa &quot;tax-free&quot;? Do I pay Argentine taxes?
               </h3>
               <p className="text-gray-700 text-base leading-relaxed">
-                No, as long as your income is from outside Argentina, you won't pay Argentine income tax. The digital nomad visa doesn't make you a tax resident. Argentina taxes residents only on Argentine-sourced income, and foreign income is exempt for residents who aren't Argentine nationals. Your salary from abroad is not taxed by Argentina, but you might still owe taxes in your home country.
+                No, as long as your income is from outside Argentina, you won&apos;t pay Argentine income tax. The digital nomad visa doesn&apos;t make you a tax resident. Argentina taxes residents only on Argentine-sourced income, and foreign income is exempt for residents who aren&apos;t Argentine nationals. Your salary from abroad is not taxed by Argentina, but you might still owe taxes in your home country.
               </p>
             </div>
 
@@ -545,7 +545,7 @@ export function DigitalNomadVisaContent() {
                 Can I work for an Argentine company or take local freelance gigs on this visa?
               </h3>
               <p className="text-gray-700 text-base leading-relaxed">
-                No. The digital nomad visa is explicitly for work for employers/clients outside Argentina. It does not grant work authorization for Argentine entities. If you want to work for an Argentine company, you'd need a different visa (like a work visa sponsored by that company). The nomad visa is meant to encourage you to spend your foreign income in Argentina, not to enter its labor market.
+                No. The digital nomad visa is explicitly for work for employers/clients outside Argentina. It does not grant work authorization for Argentine entities. If you want to work for an Argentine company, you&apos;d need a different visa (like a work visa sponsored by that company). The nomad visa is meant to encourage you to spend your foreign income in Argentina, not to enter its labor market.
               </p>
             </div>
 
@@ -555,7 +555,7 @@ export function DigitalNomadVisaContent() {
                 What if my digital nomad visa application is denied? Can I appeal?
               </h3>
               <p className="text-gray-700 text-base leading-relaxed">
-                If denied, understand why first. Common reasons include missing/incorrect documents or ineligibility. If it's correctable (missing document authentication, translation not provided), you generally can re-submit documents without paying again for one-time reconsideration. The $200 in fees is non-refundable, but a denial isn't permanent - you can apply again after fixing issues.
+                If denied, understand why first. Common reasons include missing/incorrect documents or ineligibility. If it&apos;s correctable (missing document authentication, translation not provided), you generally can re-submit documents without paying again for one-time reconsideration. The $200 in fees is non-refundable, but a denial isn&apos;t permanent - you can apply again after fixing issues.
               </p>
             </div>
 
@@ -565,7 +565,7 @@ export function DigitalNomadVisaContent() {
                 Can I bring my spouse or children under this digital nomad visa?
               </h3>
               <p className="text-gray-700 text-base leading-relaxed">
-                There isn't a specific family version of the nomad visa. Each adult would need to qualify and apply individually. If you have a spouse who also works remotely, they should apply separately. For dependent children, they can usually stay as tourists for up to 90 days, but for longer family stays, consider exploring other visa types or family sponsorship options.
+                There isn&apos;t a specific family version of the nomad visa. Each adult would need to qualify and apply individually. If you have a spouse who also works remotely, they should apply separately. For dependent children, they can usually stay as tourists for up to 90 days, but for longer family stays, consider exploring other visa types or family sponsorship options.
               </p>
             </div>
 
@@ -575,12 +575,12 @@ export function DigitalNomadVisaContent() {
                 Any tips to make the digital nomad visa process smoother?
               </h3>
               <div className="text-gray-700 text-base leading-relaxed space-y-2">
-                <p>• Label files clearly (e.g., "Smith_Passport.jpg", "Smith_EmploymentLetter.pdf")</p>
-                <p>• Include a line in your cover letter that you won't engage in local employment</p>
+                <p>• Label files clearly (e.g., &quot;Smith_Passport.jpg&quot;, &quot;Smith_EmploymentLetter.pdf&quot;)</p>
+                <p>• Include a line in your cover letter that you won&apos;t engage in local employment</p>
                 <p>• If you have multiple nationalities, use the passport that gives visa-free entry to Argentina</p>
                 <p>• Keep copies of everything you submit and all correspondence</p>
                 <p>• Join Buenos Aires digital nomads Facebook groups for community support</p>
-                <p>• Apply early and be patient with Argentina's bureaucracy</p>
+                <p>• Apply early and be patient with Argentina&apos;s bureaucracy</p>
               </div>
             </div>
           </div>

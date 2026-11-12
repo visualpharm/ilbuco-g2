@@ -186,7 +186,7 @@ export default function AlquilerCariloPage() {
                 </div>
                 <div className="md:col-span-2 space-y-6">
                   <p className="text-2xl font-medium">
-                    "El alquiler de la villa en Cariló superó todas nuestras expectativas. La ubicación es perfecta y las comodidades son de primera clase."
+                    &quot;El alquiler de la villa en Cariló superó todas nuestras expectativas. La ubicación es perfecta y las comodidades son de primera clase.&quot;
                   </p>
                   <p className="text-gray-600">
                     María G., Familia de Buenos Aires

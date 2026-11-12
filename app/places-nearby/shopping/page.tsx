@@ -522,7 +522,7 @@ export default function Shopping() {
                       <div>
                         <h3 className="text-lg font-semibold mb-2">La Constanza (Pinamar)</h3>
                         <p className="text-gray-700">
-                          Open during low season when Cariló's location is
+                          Open during low season when Cariló&apos;s location is
                           closed.
                         </p>
                         <p className="mt-2">
@@ -583,7 +583,7 @@ export default function Shopping() {
                     <div className="flex items-start mb-4">
                       <Icons.IceCream color="text-pink-700" />
                       <div>
-                        <h3 className="text-lg font-semibold mb-2">Lucciano's</h3>
+                        <h3 className="text-lg font-semibold mb-2">Lucciano&apos;s</h3>
                         <p className="text-gray-700">
                           The prettiest place.
                         </p>

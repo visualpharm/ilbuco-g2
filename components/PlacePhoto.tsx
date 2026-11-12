@@ -68,7 +68,7 @@ export function PlacePhoto({
         }
 
         // Find the best photo (prioritize exterior/interior shots over food)
-        const photo = detailsData.photos.find((p: any) => 
+        const photo = detailsData.photos.find((p: { name?: string }) => 
           p.name?.includes('exterior') || 
           p.name?.includes('interior') ||
           p.name?.includes('restaurant') ||

@@ -339,7 +339,7 @@ export default function TrabalhoRemotoArgentinaPage() {
                 </div>
                 <div className="md:col-span-2 space-y-6">
                   <p className="text-2xl font-medium">
-                    "<Translate text={translations.home.testimonial.quote} />"
+                    &quot;<Translate text={translations.home.testimonial.quote} />&quot;
                   </p>
                   <p className="text-gray-600">
                     <Translate text={translations.home.testimonial.author} />

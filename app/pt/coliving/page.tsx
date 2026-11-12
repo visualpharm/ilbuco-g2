@@ -273,7 +273,7 @@ export default function ColivingPage() {
                 </div>
                 <div className="md:col-span-2 space-y-6">
                   <p className="text-2xl font-medium">
-                    "O coliving no IL BUCO transformou minha experiência de trabalho remoto. A comunidade internacional e o ambiente inspirador me ajudaram a crescer pessoal e profissionalmente."
+                    &quot;O coliving no IL BUCO transformou minha experiência de trabalho remoto. A comunidade internacional e o ambiente inspirador me ajudaram a crescer pessoal e profissionalmente.&quot;
                   </p>
                   <p className="text-gray-600">
                     Marco R., Desenvolvedor - Lisboa

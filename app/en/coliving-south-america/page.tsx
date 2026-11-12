@@ -596,7 +596,7 @@ export default function ColivingSouthAmericaPage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6">
-                  "Best coliving experience I've had in South America. The community is incredibly welcoming and the location is absolutely magical."
+                  &quot;Best coliving experience I&apos;ve had in South America. The community is incredibly welcoming and the location is absolutely magical.&quot;
                 </p>
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
@@ -616,7 +616,7 @@ export default function ColivingSouthAmericaPage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6">
-                  "The perfect blend of productivity and relaxation. I've extended my stay twice and met lifelong friends here."
+                  &quot;The perfect blend of productivity and relaxation. I&apos;ve extended my stay twice and met lifelong friends here.&quot;
                 </p>
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
@@ -636,7 +636,7 @@ export default function ColivingSouthAmericaPage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6">
-                  "Finally found my ideal coliving space. The location, amenities, and community make this a standout in South America."
+                  &quot;Finally found my ideal coliving space. The location, amenities, and community make this a standout in South America.&quot;
                 </p>
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
@@ -656,10 +656,10 @@ export default function ColivingSouthAmericaPage() {
         <section className="py-16 md:py-24 bg-gradient-to-br from-emerald-600 to-blue-700 text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Join South America's Premier Coliving Community
+              Join South America&apos;s Premier Coliving Community
             </h2>
             <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
-              Experience the future of coliving in South America. Connect with like-minded professionals while enjoying luxury amenities in one of the continent's most beautiful destinations.
+              Experience the future of coliving in South America. Connect with like-minded professionals while enjoying luxury amenities in one of the continent&apos;s most beautiful destinations.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

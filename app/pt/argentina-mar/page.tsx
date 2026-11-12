@@ -325,7 +325,7 @@ export default function ArgentinaMarPage() {
                 </div>
                 <div className="md:col-span-2 space-y-6">
                   <p className="text-2xl font-medium">
-                    "Nunca imaginei que encontraria praias tão preservadas na Argentina. O acesso direto do IL BUCO ao mar, combinado com a floresta, criou a experiência perfeita de conexão com a natureza."
+                    &quot;Nunca imaginei que encontraria praias tão preservadas na Argentina. O acesso direto do IL BUCO ao mar, combinado com a floresta, criou a experiência perfeita de conexão com a natureza.&quot;
                   </p>
                   <p className="text-gray-600">
                     Ana C., Fotógrafa de Natureza - Rio de Janeiro

@@ -72,10 +72,10 @@ function ContactCard({ variant, lang }: { variant: CardVariant; lang: Lang }) {
 }
 
 const mdComponents = {
-  p: ({ children }: any) => <p className="mb-2 leading-relaxed text-stone-700">{children}</p>,
-  strong: ({ children }: any) => <strong className="font-semibold text-stone-900">{children}</strong>,
-  em: ({ children }: any) => <em className="text-stone-500">{children}</em>,
-  a: ({ href, children }: any) => (
+  p: ({ children }: { children?: React.ReactNode }) => <p className="mb-2 leading-relaxed text-stone-700">{children}</p>,
+  strong: ({ children }: { children?: React.ReactNode }) => <strong className="font-semibold text-stone-900">{children}</strong>,
+  em: ({ children }: { children?: React.ReactNode }) => <em className="text-stone-500">{children}</em>,
+  a: ({ href, children }: { href?: string; children?: React.ReactNode }) => (
     <a href={href} className="font-medium text-emerald-700 hover:text-emerald-900">{children}</a>
   ),
 }
@@ -104,7 +104,7 @@ function renderContent(content: string, lang: Lang) {
               <li key={j} className="flex gap-2 text-stone-700">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-stone-300" />
                 <span className="leading-relaxed">
-                  <ReactMarkdown components={{ ...mdComponents, p: ({ children }: any) => <span>{children}</span> }}>
+                  <ReactMarkdown components={{ ...mdComponents, p: ({ children }: { children?: React.ReactNode }) => <span>{children}</span> }}>
                     {item.replace(/^[-\s]+/, "")}
                   </ReactMarkdown>
                 </span>

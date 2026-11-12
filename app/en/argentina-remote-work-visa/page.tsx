@@ -55,11 +55,11 @@ export default function ArgentinaRemoteWorkVisaPage() {
                   <span className="text-green-600"> Visa Guide 2025</span>
                 </h1>
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  Complete guide to visa options for remote workers and digital nomads in Argentina. From tourist visas to permanent residency, here's everything about your options, requirements, and how to actually apply.
+                  Complete guide to visa options for remote workers and digital nomads in Argentina. From tourist visas to permanent residency, here&apos;s everything about your options, requirements, and how to actually apply.
                 </p>
                 <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
                   <p className="text-base text-gray-700">
-                    <strong>Good news:</strong> Argentina introduced the Digital Nomad Visa in May 2022! It's now available alongside other visa options for remote workers.
+                    <strong>Good news:</strong> Argentina introduced the Digital Nomad Visa in May 2022! It&apos;s now available alongside other visa options for remote workers.
                   </p>
                 </div>
               </div>
@@ -84,7 +84,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                 All Visa Options for Remote Workers in Argentina
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Here's every visa option for digital nomads and remote workers, from short tourist visas to permanent residency paths.
+                Here&apos;s every visa option for digital nomads and remote workers, from short tourist visas to permanent residency paths.
               </p>
             </div>
             
@@ -169,7 +169,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                   <div className="space-y-4">
                     <div>
                       <p className="font-semibold text-gray-900 mb-2">Introduced:</p>
-                      <p className="text-gray-600">May 2022 - Argentina's official visa for remote workers!</p>
+                      <p className="text-gray-600">May 2022 - Argentina&apos;s official visa for remote workers!</p>
                     </div>
                     <div>
                       <p className="font-semibold text-gray-900 mb-2">Key Benefits:</p>
@@ -325,7 +325,7 @@ export default function ArgentinaRemoteWorkVisaPage() {
                 Step-by-Step Application Process
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Here's exactly how to apply for each visa type, from getting documents to approval
+                Here&apos;s exactly how to apply for each visa type, from getting documents to approval
               </p>
             </div>
             

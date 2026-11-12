@@ -650,7 +650,7 @@ async function getDetailedAvailability(startDate: string, endDate: string, listi
       return runs;
     };
 
-    let data = await fetchCalendar(startDate, endDate);
+    const data = await fetchCalendar(startDate, endDate);
     if (!data) {
       return 'No pude verificar la disponibilidad. Por favor intentá de nuevo o visitá book punto ilbuco punto com punto ar.';
     }

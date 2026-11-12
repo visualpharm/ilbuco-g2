@@ -56,7 +56,7 @@ export default function EcoLodgeArgentinaPage() {
                   <span className="text-green-600"> Argentina</span>
                 </h1>
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  Immerse yourself in Argentina's most sustainable accommodation experience. 
+                  Immerse yourself in Argentina&apos;s most sustainable accommodation experience. 
                   Our eco lodge in Carilo combines luxury comfort with environmental responsibility, 
                   surrounded by pristine forests and beaches.
                 </p>
@@ -97,7 +97,7 @@ export default function EcoLodgeArgentinaPage() {
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Every aspect of our eco lodge is designed to minimize environmental impact 
-                while maximizing your connection to Argentina's natural beauty.
+                while maximizing your connection to Argentina&apos;s natural beauty.
               </p>
             </div>
             
