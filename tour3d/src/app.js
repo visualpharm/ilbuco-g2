@@ -179,9 +179,9 @@ const NAV = [
       { id: 'p1-sur-living', name: 'Living', box: [3.9, 3.03, 7.31, 9.86] },
       { id: 'p1-sur-dorm', name: 'Dormitorio', box: [1.55, 3.03, 5.3, 5.92] },
       { id: 'p1-balcon', name: 'Balcón', box: [7.31, 0, 12.75, 7.51] }] },
-    { id: 'p1-paraiso', name: 'Paraiso', box: [0, 9.86, 7.31, 16.9], kids: [
+    { id: 'p1-paraiso', name: 'Paraiso', box: [0, 9.86, 7.31, 16.9], az: [-1, -0.5], el: 1.45, kids: [   // почти сверху: видны обе кровати, гостиная и кухня
       { id: 'p1-norte-living', name: 'Living y cocina', box: [3.9, 9.86, 7.31, 16.9] },
-      { id: 'p1-norte-dorm', name: 'Dormitorio', box: [0, 13.81, 4.14, 16.9], az: [1, 0] }] }] },   // с востока, через стену со шкафом: с юго-запада южную кровать закрывает стена
+      { id: 'p1-norte-dorm', name: 'Dormitorio', box: [0, 13.81, 4.14, 16.9], az: [-1, -0.5], el: 1.45 }] }] },   // почти сверху с северо-запада: с юго-запада южную кровать закрывает стена, с востока — створка двери и метка фото
   { id: 'pb', name: 'Planta baja', f: 'pb', kids: [
     { id: 'pb-giardino', name: 'Giardino', box: [7.2, 0, 12.75, 7.51], kids: [
       { id: 'pb-par-living', name: 'Living', box: [9.04, 3.25, 12.75, 7.51] },
@@ -205,13 +205,13 @@ function navView(n) {
   const hgt = n.id === 'all' ? FL.roof + 1 : top ? 2.7 : 2.7;
   const base = n.id === 'all' ? 0 : FL[n.f];
   const t = new THREE.Vector3((x0 + x1) / 2, base + (n.id === 'all' ? 3.5 : top ? 0.6 : 1.0), -(y0 + y1) / 2);
-  const el = plan ? 1.55 : n.id === 'all' ? 0.42 : top ? 0.82 : 1.0;
+  const el = plan ? 1.55 : n.el != null ? n.el : n.id === 'all' ? 0.42 : top ? 0.82 : 1.0;   // n.el — свой наклон пункта; в «Плане» не действует
   // видимые размеры прямоугольника с этого азимута и угла; расстояние — чтобы он целиком влез в кадр
   const AZn = n.az ? new THREE.Vector3(n.az[0], 0, n.az[1]).normalize() : AZ;
   const ax = Math.abs(AZn.x), az = Math.abs(AZn.z);
   const sw = plan ? w : w * az + h * ax, sh = plan ? h : (w * ax + h * az) * Math.sin(el) + hgt * Math.cos(el);
   const fov = 38 * Math.PI / 180, asp = freeAspect();
-  const d = Math.max(sh, sw / asp) / (2 * Math.tan(fov / 2)) * (n.id === 'all' ? 1.3 : top ? 1.12 : 1.25) + (plan ? hgt : (w * ax + h * az) / 2 * Math.cos(el));
+  const d = Math.max(sh, sw / asp) / (2 * Math.tan(fov / 2)) * (n.id === 'all' ? 1.3 : top ? 1.12 : 1.25) + (plan ? hgt : (w * ax + h * az) / 2 * Math.cos(el) + (n.el != null ? (hgt - 1.0) * Math.sin(el) : 0));   // крутой свой наклон: верх стен ближе к камере, отступаем на него
   const dir = plan ? new THREE.Vector3(0, 1, 0.0001) : AZn.clone().multiplyScalar(Math.cos(el)).setY(Math.sin(el));
   return [t.clone().add(dir.normalize().multiplyScalar(d)), t];
 }
