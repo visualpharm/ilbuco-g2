@@ -32,7 +32,7 @@ Garden-level suite with direct terrace access and panoramic corner windows offer
 Features a large private terrace filled with live plants - like having your own secret garden in the forest.
 
 #### 3. Paraiso - Forest-View Suite with Separate Bedroom
-Premium suite with forest views and separate bedroom configuration for maximum privacy and comfort.
+Premium suite with forest views and separate bedroom configuration for maximum privacy and comfort. The bedroom has two separate single beds that can be joined.
 
 #### 4. Penthouse - Top-Floor Suite with Large Sunny Terrace
 Top floor accommodation with panoramic views and large sunny terrace for outdoor living.

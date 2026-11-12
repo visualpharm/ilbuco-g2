@@ -92,7 +92,7 @@ Our largest suite gives you a true **one-bedroom layout**—ideal for long stays
 
 ### Full Description
 #### 🛏️ Real Bedroom, Real Privacy  
-Close the door on a generous king-size sleeping space with **high-density mattress** and blackout curtains. Wake to filtered forest light through **double-glazed windows**.
+Close the door on **two separate single beds** (they can be pushed together) with **high-density mattresses** and blackout curtains. Wake to filtered forest light through **double-glazed windows**.
 
 #### 🍽️ Kitchen & Dining Table That Work  
 A 300 L fridge, oven, cooktop, microwave, and serious cookware let you shop once and cook for the week. A four-seat table doubles as a workspace (ergonomic chair free on monthly stays).

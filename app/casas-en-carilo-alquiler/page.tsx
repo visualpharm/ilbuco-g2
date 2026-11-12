@@ -133,7 +133,7 @@ export default function CasasEnCariloAlquilerPage() {
                       4 Dormitorios Amplios
                     </h3>
                     <p className="text-gray-600">
-                      Cada habitación con cama matrimonial, armarios amplios y ventanas con vista al bosque de pinos.
+                      Cada habitación con cama matrimonial (en Paraiso, dos individuales que se pueden juntar), armarios amplios y ventanas con vista al bosque de pinos.
                     </p>
                   </div>
                 </div>

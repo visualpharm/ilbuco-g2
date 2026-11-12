@@ -133,7 +133,7 @@ export default function CariloAlojamientoPage() {
                       4 Habitaciones de Lujo
                     </h3>
                     <p className="text-gray-600">
-                      Cada habitación cuenta con cama queen/king, ropa de cama premium y aire acondicionado individual.
+                      Cada habitación cuenta con cama queen/king (en Paraiso, dos individuales que se pueden juntar), ropa de cama premium y aire acondicionado individual.
                     </p>
                   </div>
                 </div>

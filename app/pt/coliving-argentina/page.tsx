@@ -227,7 +227,7 @@ export default function ColivingArgentinaPage() {
               <div className="bg-gray-50 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-4">Quarto Privativo</h3>
                 <ul className="space-y-2 text-gray-600 mb-4">
-                  <li>• Quarto individual com cama queen</li>
+                  <li>• Quarto individual com cama queen ou duas camas de solteiro</li>
                   <li>• Banheiro privativo</li>
                   <li>• Área de trabalho pessoal</li>
                   <li>• Armário completo</li>

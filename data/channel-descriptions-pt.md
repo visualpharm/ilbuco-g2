@@ -110,7 +110,7 @@ Diferente de suítes estilo hotel, seu quarto está completamente separado da á
 Cozinha real com geladeira de tamanho completo de 300L, fogão vitrocerâmico, forno, microondas e conjunto completo de utensílios. Área de jantar perfeita para trabalhar ou desfrutar refeições com espaço extra para se mover.
 
 #### 🛏️ Quarto de Luxo
-Colchão premium de espuma densa com roupa de cama de luxo no seu quarto privativo. Opções blackout disponíveis para sono perfeito. Banheiro privativo com box de vidro walk-in e máquina de lavar pessoal.
+Duas camas de solteiro que podem ser unidas, com colchões premium de espuma densa e roupa de cama de luxo, no seu quarto privativo. Opções blackout disponíveis para sono perfeito. Banheiro privativo com box de vidro walk-in e máquina de lavar pessoal.
 
 #### 💼 Trabalho e Entretenimento
 💻 Internet fibra óptica 500 Mbps + cobertura WiFi mesh

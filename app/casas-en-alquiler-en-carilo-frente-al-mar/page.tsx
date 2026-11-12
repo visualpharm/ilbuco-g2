@@ -184,7 +184,7 @@ export default function CasasEnAlquilerEnCariloFrenteAlMarPage() {
                       4 Habitaciones Premium
                     </h3>
                     <p className="text-gray-600">
-                      Cada dormitorio con vista al bosque o mar, camas king/queen y baño privado.
+                      Cada dormitorio con vista al bosque o mar, camas king/queen (en Paraiso, dos individuales que se pueden juntar) y baño privado.
                     </p>
                   </div>
                 </div>

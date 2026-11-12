@@ -107,3 +107,10 @@ Source: task d2467621.
 - **Undo:** restore the `!kids` condition in the menu click handler in `tour3d/src/app.js`.
 - **Source:** task d2514160.
 
+
+## 2026-11-12 · Paraiso has two separate single beds
+
+- **Decided:** the Paraiso bedroom has two separate single beds, heads to the west wall, the north one against the window wall, a passage between them; dark grey bedspreads, a rolled towel at the foot, no headboards or bedside tables (as in `public/photo/paraiso/paraiso7.jpg`). The 3D tour draws them with `singleBed()` and looks at the bedroom from the east, because from the south-west the wall hides the south bed. Texts that described Paraiso with one big bed or with a single mattress now say two single beds that can be pushed together: channel descriptions (root, es, en, pt), llms.txt, the autoresponder, the Spanish knowledge-base line, and the landing pages that said every room has a double/queen bed.
+- **Why:** Ivan (m2514147): «В Параисо две раздельные кровати».
+- **Undo:** `git revert` of these commits and `python3 tour3d/build.py`.
+- **Source:** task d2514187.

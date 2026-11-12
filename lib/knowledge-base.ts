@@ -223,7 +223,7 @@ PROPIEDAD:
 
 HABITACIONES:
 Tenemos 4 suites, cada una con entrada privada, bano, cocina y lavarropas:
-${p.suites.map(s => `- ${s.name}: ${s.floor === 'Ground floor' ? 'planta baja' : s.floor === 'Second floor' ? 'primer piso' : 'ultimo piso'}, ${s.highlight.toLowerCase()}, cama ${s.bedType === 'Queen' ? 'queen' : 'individuales'}`).join('\n')}
+${p.suites.map(s => `- ${s.name}: ${s.floor === 'Ground floor' ? 'planta baja' : s.floor === 'Second floor' ? 'primer piso' : 'ultimo piso'}, ${s.highlight.toLowerCase()}, ${s.bedType === 'Queen' ? 'cama queen' : 'dos camas individuales que se pueden juntar'}`).join('\n')}
 
 CAPACIDAD EXTRA:
 - Cada habitacion tiene un sofa cama de ${p.extraCapacity.sofaBed.lengthCm} centimetros de largo para ${p.extraCapacity.sofaBed.capacityPerRoom} personas adicionales

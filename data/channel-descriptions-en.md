@@ -110,7 +110,7 @@ Unlike hotel-style suites, your bedroom is completely separate from the living/k
 Real kitchen with 300L full-size fridge, vitroceramic cooktop, oven, microwave, and complete cookware set. Dining area perfect for working or enjoying meals with extra space to move around.
 #### 🛏️ Luxury Bedroom
 
-Premium dense foam mattress with luxury bedding in your private bedroom. Blackout options available for perfect sleep. Private bathroom with glass walk-in shower and personal washing machine.
+Two separate single beds that can be pushed together, with premium dense foam mattresses and luxury bedding, in your private bedroom. Blackout options available for perfect sleep. Private bathroom with glass walk-in shower and personal washing machine.
 #### 💼 Work & Entertainment
 
 💻 500 Mbps fiber internet + mesh WiFi coverage

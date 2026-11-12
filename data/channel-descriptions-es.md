@@ -110,7 +110,7 @@ A diferencia de suites estilo hotel, tu dormitorio está completamente separado 
 Cocina real con heladera de tamaño completo de 300L, anafe vitrocerámico, horno, microondas y set completo de utensilios. Área de comedor perfecta para trabajar o disfrutar comidas con espacio extra para moverse.
 
 #### 🛏️ Dormitorio de Lujo
-Colchón premium de espuma densa con ropa de cama de lujo en tu dormitorio privado. Opciones blackout disponibles para sueño perfecto. Baño privado con ducha walk-in de vidrio y lavarropas personal.
+Dos camas individuales que se pueden juntar, con colchones premium de espuma densa y ropa de cama de lujo, en tu dormitorio privado. Opciones blackout disponibles para sueño perfecto. Baño privado con ducha walk-in de vidrio y lavarropas personal.
 
 #### 💼 Trabajo y Entretenimiento
 💻 Internet fibra óptica 500 Mbps + cobertura WiFi mesh
