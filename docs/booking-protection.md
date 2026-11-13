@@ -52,6 +52,8 @@ In particular, the existing whole-house-only policy expires on 2026-11-01 while
 its protected suite nights span 2026-12-01 through 2027-02-28. Review those dates
 against live reservations and other manual blocks before releasing policy-only
 closures. Never issue a blanket availability:true sweep.
+Done 2026-11-13: 138 policy-only suite nights released, booked, held and
+conflict nights kept (docs/decisions.md).
 
 The operational Noe card remains open until independent Booking coverage and
 existing conflicting reservations are reconciled. Source access failures and

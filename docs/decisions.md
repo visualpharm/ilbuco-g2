@@ -119,3 +119,11 @@ Decided: the tour gets a first-person walk mode on the same page (button «Recor
 Undo: `git revert` of this commit and `python3 tour3d/build.py`.
 Source: task d2601590.
 
+
+## 2026-11-13 · Suites reopened after the whole-house-only window expired
+
+- **Decided:** the suite nights that stayed closed only because of the whole-house-only policy (`wholeHouseOnly.until` 2026-11-01) are open again in Hostex at property level, so every channel follows: Giardino 37 nights, Terrazzo 38, Paraiso 25, Penthouse 38 (Dec 15–21, Dec 28–29, Jan 3–31; Paraiso Dec 15–21 and Jan 14–31; Giardino from Dec 16). Kept closed: nights of each suite's own booking, every night the whole house is booked or held (Dec 22–27 with the known double-booking, Dec 30–Jan 2), closures with a Hostex parent/child remark. A night was released only with no live or pending stay on that suite or on the whole house and an unlabelled policy closure. The whole house was not touched. Readback: all 138 nights open at property level, every other night unchanged; 672 of 690 channel nights open, Paraiso on Airbnb stays closed Jan 14–31 (as it already was Feb 11–28) — a setting on the Airbnb side, not a Hostex closure. The sync code stays close-only; the release was a one-off reviewed write.
+- **Why:** the policy's stated end (Ivan's design: suites closed until Nov 1, then reopened reservation-aware; Andrés 2026-10-22: «para el 1/11 vamos a abrir los alquileres individuales»); the booking guard flagged the expired closures for this review.
+- **Rejected:** a blanket `available:true` sweep (would reopen booked and conflict nights); adding an open helper to `lib/hostex-api.ts` (the protection code must not be able to open dates).
+- **Undo:** close the same dates again with POST `/v3/availabilities` `available:false` per suite; the list is in `~/.claude/artifacts/ilbuco/policy-release-20261113/plan.json`.
+- **Source:** booking guard one-time flag; noe task 2026-11-13.
