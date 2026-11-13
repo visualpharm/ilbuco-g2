@@ -12,7 +12,7 @@ walker = (function () {
     { id: 'gi-bano', fl: 'pb', n: ['Baño de Giardino'], b: [[4.42, 3.13, 7.2, 5.02]] },
     { id: 'pb-inv', fl: 'pb', n: ['Baño de invitados'], b: [[1.55, 3.13, 4.42, 5.02]] },
     { id: 'gi-dorm', fl: 'pb', n: ['Giardino', 'Dormitorio'], b: [[7.31, 0.35, 12.75, 3.25]] },
-    { id: 'vest', fl: 'pb', n: ['Vestíbulo'], b: [[7.31, 5.2, 9.04, 7.51]], at: [8.3, 6.9, 8.3, 5.2] },
+    { id: 'vest', fl: 'pb', n: ['Vestíbulo'], b: [[7.31, 5.2, 9.04, 7.51]], at: [8.3, 6.8, 3.0, 6.3] },   // взгляд на запад, сквозь проём в общий зал: прихожая 1,7 м, в любую другую сторону — стена или дверь впритык
     { id: 'gi', fl: 'pb', n: ['Giardino'], b: [[7.31, 3.25, 12.75, 5.2], [9.04, 5.2, 12.75, 7.51]], at: [9.5, 4.4, 12.4, 7.1] },
     { id: 'pb-esc', fl: 'pb', n: ['Escalera'], b: [[0, 0, 7.2, 3.03], [0.35, 3.03, 1.55, 5.15]], st: 1, at: [1.0, 1.8, 5.0, 1.0] },
     { id: 'patio', fl: 'pb', n: ['Patio'], b: [[7.31, 7.51, 13.4, 12.5]], at: [12.6, 10.8, 8.3, 7.6] },
@@ -34,13 +34,14 @@ walker = (function () {
     { id: 'terraza', fl: 'p2', n: ['Terraza'], b: [[0, 7.51, 7.95, 18.0]], at: [3.6, 16.2, 4.5, 8.0] },
   ];
   const RM = {}; ROOMS.forEach(r => RM[r.id] = r);
-  // переходы: комната a, комната b, точка проёма, точка перед ним со стороны a, со стороны b; p — свой путь от a к b, ca/cb — где облачко
+  // переходы: комната a, комната b, точка проёма, точка перед ним со стороны a, со стороны b; p — свой путь от a к b, ca/cb — где облачко;
+  // fa/fb — куда смотреть, придя в a или в b (иначе — к главной точке комнаты)
   const LINKS = [
     ['jardin', 'pb-comun', [0, 6.25], [-0.7, 6.25], [0.8, 6.25]],
     ['jardin', 'patio', null, null, null, { p: [[-1.6, 4.5], [-1.6, -1.6], [14.3, -1.6], [14.3, 9.5], [12.6, 10.8]], ca: [-1.3, 2.0], cb: [13.6, 9.4] }],
     ['patio', 'vest', [8.3, 7.46], [8.3, 8.2], [8.3, 6.8]],
-    ['vest', 'gi', [8.32, 5.2], [8.32, 5.8], [8.32, 4.5]],
-    ['vest', 'pb-comun', [7.31, 6.4], [7.7, 6.4], [6.0, 6.5]],
+    ['vest', 'gi', [8.32, 5.2], [8.32, 5.8], [8.32, 4.5], { fa: [8.3, 8.2] }],
+    ['vest', 'pb-comun', [7.31, 6.4], [7.7, 6.4], [6.0, 6.5], { fa: [8.3, 5.2] }],
     ['gi', 'gi-dorm', [8.37, 3.25], [8.37, 3.9], [8.37, 2.6]],
     ['gi', 'gi-bano', [7.2, 4.57], [7.8, 4.57], [6.6, 4.57]],
     ['pb-esc', 'pb-inv', [1.55, 4.57], [0.95, 4.57], [2.1, 4.57]],
@@ -186,12 +187,13 @@ walker = (function () {
     LINKS.forEach(([a, b, dp, sa, sb, o]) => {
       if (a !== r.id && b !== r.id) return;
       const fwd = a === r.id, to = RM[fwd ? b : a], h = FL[r.fl] + 1.95;
-      if (o) {
+      const face = (fwd ? o && o.fb : o && o.fa) || look(to);
+      if (o && o.p) {
         const pts = fwd ? o.p : o.p.slice().reverse().slice(1).concat([to.at.slice(0, 2)]), c = fwd ? o.ca : o.cb;
-        addCloud(rCloud(to), c[0], c[1], h, () => glide(pts.map(q => [q[0], q[1], FL[r.fl]]), r.fl, false, look(to)));
+        addCloud(rCloud(to), c[0], c[1], h, () => glide(pts.map(q => [q[0], q[1], FL[r.fl]]), r.fl, false, face));
       } else {
         const s0 = fwd ? sa : sb, s1 = fwd ? sb : sa;
-        addCloud(rCloud(to), dp[0], dp[1], h, () => glide([s0, dp, s1].map(q => [q[0], q[1], FL[r.fl]]), r.fl, false, look(to)));
+        addCloud(rCloud(to), dp[0], dp[1], h, () => glide([s0, dp, s1].map(q => [q[0], q[1], FL[r.fl]]), r.fl, false, face));
       }
     });
     if (r.st) STAIRS.forEach(s => {
@@ -210,7 +212,7 @@ walker = (function () {
   // --- движение по пути (облачко, лестница): препятствия не мешают, двери по дороге открываются
   // войдя в комнату — повернуться к её главной точке (at) или к середине
   function look(r) { if (r.keep) return null; if (r.at) return r.at.slice(2); const [x0, y0, x1, y1] = r.b[0]; return [(x0 + x1) / 2, (y0 + y1) / 2]; }
-  function glide(pts, fl, stair, face) { path = { pts, i: 0, fl, stair, face }; walkTo = null; faceTo = null; }
+  function glide(pts, fl, stair, face) { path = { pts, i: 0, fl, stair, face, opened: [] }; walkTo = null; faceTo = null; }
   function tickPath(dt) {
     const q = path.pts[path.i], dx = q[0] - p.x, dy = q[1] - p.y, dh = q[2] - p.h, d = Math.hypot(dx, dy, dh);
     const step = (Math.abs(dh) > 0.01 ? 1.1 : SPEED * 1.15) * dt;   // по ступеням медленнее
@@ -221,10 +223,11 @@ walker = (function () {
       if (++path.i >= path.pts.length) {
         p.fl = path.fl; p.h = FL[p.fl];
         if (path.face && Math.hypot(path.face[0] - p.x, path.face[1] - p.y) > 0.8) faceTo = Math.atan2(path.face[1] - p.y, path.face[0] - p.x);
+        path.opened.forEach(dr => dr.open = false);   // дверь, открытую по дороге, закрыть за собой: иначе створка заслоняет комнату
         path = null;
       }
     } else { p.x += dx / d * step; p.y += dy / d * step; p.h += dh / d * step; }
-    if (path && !path.stair) DOORS.forEach(dr => { if (dr.fl === p.fl && !dr.open) { const m = doorMid(dr); if (Math.hypot(m[0] - p.x, m[1] - p.y) < 1.4) dr.open = true; } });
+    if (path && !path.stair) DOORS.forEach(dr => { if (dr.fl === p.fl && !dr.open) { const m = doorMid(dr); if (Math.hypot(m[0] - p.x, m[1] - p.y) < 1.4) { dr.open = true; path.opened.push(dr); } } });
   }
   // у подножия или наверху марша шаг вперёд на восток — лестница сама ведёт на соседний этаж
   function stairTrigger() {
