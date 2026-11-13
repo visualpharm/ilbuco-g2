@@ -1673,6 +1673,11 @@ function singleBed(x0, y0, x1, y1) {
   box(x0 + 0.08, y0 + 0.14, x0 + 0.5, y1 - 0.14, 0.1, mat.quilt, z);
   box(x1 - 0.55, m - 0.2, x1 - 0.37, m + 0.2, 0.13, mat.towel, z);
 }
+// чёрная рама стеклянной стенки душа поперёк санузла: ригель сверху, стойки по краям и у створки (фото par_bano, bano2)
+const showerFrame = (x0, x1, y) => {
+  box(x0, y - 0.03, x1, y + 0.03, 0.04, mat.black, 2.03);
+  [x0, (x0 + x1) / 2, x1 - 0.05].forEach(x => box(x, y - 0.03, x + 0.05, y + 0.03, 2.05, mat.black));
+};
 const toilet = (x, y, dir) => {   // бачок у стены, чаша — в сторону dir: 'n', 's', 'e', 'w'
   const v = { n: [0, 1], s: [0, -1], e: [1, 0], w: [-1, 0] }[dir], q = [Math.abs(v[1]), Math.abs(v[0])];
   box(x - q[0] * 0.2 - Math.abs(v[0]) * 0.1, y - q[1] * 0.2 - Math.abs(v[1]) * 0.1, x + q[0] * 0.2 + Math.abs(v[0]) * 0.1, y + q[1] * 0.2 + Math.abs(v[1]) * 0.1, 0.75, mat.white);
@@ -1789,12 +1794,14 @@ box(2.7, 3.17, 3.3, 3.62, 0.85, mat.white); box(2.8, 3.24, 3.2, 3.54, 0.02, mat.
 box(3.45, 3.15, 4.35, 4.1, 0.05, mat.white);
 box(3.43, 3.15, 3.47, 4.1, 2.0, mat.glass, 0.05, false); box(3.45, 4.08, 4.35, 4.12, 2.0, mat.glass, 0.05, false);
 box(3.42, 3.15, 3.48, 4.13, 0.04, mat.black, 2.03); box(3.42, 4.07, 4.35, 4.13, 0.04, mat.black, 2.03); box(3.42, 4.07, 3.48, 4.13, 2.05, mat.black);
+box(3.42, 3.15, 3.48, 3.2, 2.05, mat.black); box(4.3, 4.07, 4.35, 4.13, 2.05, mat.black);   // стойки рамы душа: рама чёрная по всему контуру (фото par_bano)
 box(3.67, 4.4, 4.33, 5.0, 0.9, mat.white); { const d = cyl(3.65, 4.7, 0.17, 0.05, mat.steel, 0.28, 20); d.rotation.z = Math.PI / 2; }
 box(2.2, 4.84, 2.8, 5.02, 0.03, mat.black, 1.1); box(2.25, 4.86, 2.75, 5.0, 0.12, mat.oak, 1.13);
 // ванная Giardino (по видео: душ с чёрной рамкой, унитаз, белая тумба с круглым зеркалом, стиральная машина)
 box(4.52, 3.15, 5.45, 4.1, 0.05, mat.white);
 [[4.52, 4.1, 5.45, 4.12], [5.43, 3.15, 5.45, 4.12]].forEach(([a, b, c, d]) => box(a, b, c, d, 2.0, mat.glass, 0.05, false));
 box(4.52, 4.08, 5.45, 4.14, 0.04, mat.black, 2.03); box(5.41, 3.15, 5.47, 4.14, 0.04, mat.black, 2.03);
+box(5.41, 4.08, 5.47, 4.14, 2.05, mat.black); box(4.52, 4.08, 4.57, 4.14, 2.05, mat.black); box(5.41, 3.15, 5.47, 3.2, 2.05, mat.black);
 toilet(5.9, 3.27, 'n');
 box(6.35, 3.17, 7.0, 3.62, 0.85, mat.white); box(6.45, 3.24, 6.9, 3.54, 0.02, mat.steel, 0.85);
 cyl(6.67, 3.16, 0.3, 0.02, mat.black, 1.35, 32).rotation.x = Math.PI / 2;                    // круглое зеркало
@@ -1924,14 +1931,14 @@ roundTable(5.9, 8.3, 0.45, 3, mat.chairWhite);
 kitchenette(3.97, 8.06, 9.72, 7.36, 8.06, 8.3, 9.1);
 box(1.63, 7.5, 2.13, 8.1, 0.85, mat.white); box(1.7, 7.6, 2.05, 8.0, 0.02, mat.steel, 0.85);
 toilet(3.72, 8.3, 'w');
-box(1.63, 8.87, 3.81, 9.7, 0.05, mat.white); box(1.63, 8.85, 3.81, 8.89, 2.0, mat.glass, 0.05, false);
+box(1.63, 8.87, 3.81, 9.7, 0.05, mat.white); box(1.63, 8.85, 3.81, 8.89, 2.0, mat.glass, 0.05, false); showerFrame(1.63, 3.81, 8.87);
 wallY(9.86, 1.6, 6.96, mat.plaster, 0.28);                      // стена между квартирами
 // --- Paraiso: прихожая в торце коридора, санузел и кухня в ядре, спальня на северо-западе, гостиная с угловым окном
 wallX(3.9, 10.0, 12.49, mat.plaster, 0.13);
 wall('y', 12.49, 0.35, 3.9, [[0.45, 1.4, 'i'], [2.9, 3.7, 'i', -1]], mat.plaster, 0.12);
 wall('y', 13.81, 0.35, 4.14, [[2.44, 3.35, 'i']], mat.plaster, 0.12);
 wallX(4.14, 13.81, 16.55, mat.plaster, 0.12);
-box(1.63, 10.02, 3.81, 10.9, 0.05, mat.white); box(1.63, 10.9, 3.81, 10.94, 2.0, mat.glass, 0.05, false);
+box(1.63, 10.02, 3.81, 10.9, 0.05, mat.white); box(1.63, 10.9, 3.81, 10.94, 2.0, mat.glass, 0.05, false); showerFrame(1.63, 3.81, 10.92);
 toilet(1.72, 11.3, 'e');
 box(1.63, 11.75, 2.13, 12.35, 0.85, mat.white); box(1.7, 11.85, 2.05, 12.25, 0.02, mat.steel, 0.85);
 kitchenette(3.97, 10.02, 11.75, 11.75, 12.43, 11.0, 10.2);
@@ -1985,7 +1992,7 @@ wall('y', 4.44, 4.9, 7.09, [[5.4, 6.2, 'i']], mat.plaster, 0.12);    // сану
 wallX(7.2, 4.38, 7.16, mat.plaster, 0.22);                      // санузел / кухня
 box(2.0, 3.9, 3.4, 4.32, 2.1, mat.white);                       // шкаф в прихожей
 // санузел: душ во всю ширину у фасада за стеклом, унитаз и тумба с раковиной у восточной стены
-box(4.92, 6.3, 7.07, 7.14, 0.05, mat.white); box(4.92, 6.28, 7.07, 6.32, 2.0, mat.glass, 0.05, false);
+box(4.92, 6.3, 7.07, 7.14, 0.05, mat.white); box(4.92, 6.28, 7.07, 6.32, 2.0, mat.glass, 0.05, false); showerFrame(4.92, 7.07, 6.3);
 toilet(6.97, 5.75, 'w');
 box(6.6, 4.55, 7.07, 5.25, 0.85, mat.white); box(6.68, 4.65, 7.0, 5.15, 0.02, mat.steel, 0.85);
 // quincho: кирпичный мангал с бетонным колпаком у задней стены, слева полка, справа бетонная столешница буквой Г с мойкой (видео 6:23, 6:29)
@@ -2583,6 +2590,14 @@ walker = (function () {
     ['ph', 'ph-dorm', [8.5, 3.17], [8.5, 3.8], [8.5, 2.5]],
     ['terraza', 'quincho', [3.45, 7.51], [3.3, 7.85], [3.45, 6.6]],
   ];
+  // комната без своего at: встать у входа и смотреть в дальний угол — иначе из середины взгляд упирается в стену (Иван, 13.11: «пропали текстуры, цвета»)
+  ROOMS.forEach(r => {
+    const L = !r.at && r.b.length && LINKS.find(l => l[1] === r.id && l[4]);
+    if (!L) return;
+    const q = L[4], [x0, y0, x1, y1] = r.b[0];
+    const far = [[x0, y0], [x0, y1], [x1, y0], [x1, y1]].reduce((a, c) => Math.hypot(c[0] - q[0], c[1] - q[1]) > Math.hypot(a[0] - q[0], a[1] - q[1]) ? c : a);
+    r.at = [q[0], q[1], far[0], far[1], (x1 - x0) * (y1 - y0) < 8 ? -0.3 : 0];   // в санузле — чуть вниз: видны душ, унитаз и плитка, а не белая стена
+  });
   // лестницы: П-образные марши (scene.js, stairU) — первый вдоль южной стены на восток, второй вдоль северной на запад
   const STAIRS = [
     { lo: 'sub', hi: 'pb', up: 'Subir a planta baja', down: 'Bajar al subsuelo' },
@@ -2670,7 +2685,10 @@ walker = (function () {
 
   // --- состояние
   const p = { x: 0, y: 0, h: 0, fl: 'pb', yaw: 0, pitch: 0 };
-  let room = null, path = null, walkTo = null, faceTo = null, last = 0, stuck = 0;
+  let room = null, path = null, walkTo = null, faceTo = null, pitchTo = null, last = 0, stuck = 0;
+  // лампа у глаз: в доме солнце не достаёт, и белые стены под одним рассеянным светом выходят плоскими серыми, белая дверь сливается со стеной
+  // (стекло на время прогулки матовее и прозрачнее: иначе лампа даёт на нём белую точку блика, а стенка душа выглядит белой стеной)
+  const lamp = new THREE.PointLight(0xfff4e6, 0, 10, 1.2); scene.add(lamp);
   const keys = {};
 
   function ok(nx, ny) {
@@ -2712,13 +2730,13 @@ walker = (function () {
     LINKS.forEach(([a, b, dp, sa, sb, o]) => {
       if (a !== r.id && b !== r.id) return;
       const fwd = a === r.id, to = RM[fwd ? b : a], h = FL[r.fl] + 1.95;
-      const face = (fwd ? o && o.fb : o && o.fa) || look(to);
+      const face = (fwd ? o && o.fb : o && o.fa) || look(to), tilt = to.at && to.at[4] || 0;
       if (o && o.p) {
         const pts = fwd ? o.p : o.p.slice().reverse().slice(1).concat([to.at.slice(0, 2)]), c = fwd ? o.ca : o.cb;
-        addCloud(rCloud(to), c[0], c[1], h, () => glide(pts.map(q => [q[0], q[1], FL[r.fl]]), r.fl, false, face));
+        addCloud(rCloud(to), c[0], c[1], h, () => glide(pts.map(q => [q[0], q[1], FL[r.fl]]), r.fl, false, face, tilt));
       } else {
         const s0 = fwd ? sa : sb, s1 = fwd ? sb : sa;
-        addCloud(rCloud(to), dp[0], dp[1], h, () => glide([s0, dp, s1].map(q => [q[0], q[1], FL[r.fl]]), r.fl, false, face));
+        addCloud(rCloud(to), dp[0], dp[1], h, () => glide([s0, dp, s1].map(q => [q[0], q[1], FL[r.fl]]), r.fl, false, face, tilt));
       }
     });
     if (r.st) STAIRS.forEach(s => {
@@ -2737,7 +2755,7 @@ walker = (function () {
   // --- движение по пути (облачко, лестница): препятствия не мешают, двери по дороге открываются
   // войдя в комнату — повернуться к её главной точке (at) или к середине
   function look(r) { if (r.keep) return null; if (r.at) return r.at.slice(2); const [x0, y0, x1, y1] = r.b[0]; return [(x0 + x1) / 2, (y0 + y1) / 2]; }
-  function glide(pts, fl, stair, face) { path = { pts, i: 0, fl, stair, face, opened: [] }; walkTo = null; faceTo = null; }
+  function glide(pts, fl, stair, face, tilt) { path = { pts, i: 0, fl, stair, face, tilt, opened: [] }; walkTo = null; faceTo = pitchTo = null; }
   function tickPath(dt) {
     const q = path.pts[path.i], dx = q[0] - p.x, dy = q[1] - p.y, dh = q[2] - p.h, d = Math.hypot(dx, dy, dh);
     const step = (Math.abs(dh) > 0.01 ? 1.1 : SPEED * 1.15) * dt;   // по ступеням медленнее
@@ -2748,6 +2766,7 @@ walker = (function () {
       if (++path.i >= path.pts.length) {
         p.fl = path.fl; p.h = FL[p.fl];
         if (path.face && Math.hypot(path.face[0] - p.x, path.face[1] - p.y) > 0.8) faceTo = Math.atan2(path.face[1] - p.y, path.face[0] - p.x);
+        if (path.tilt) pitchTo = path.tilt;
         path.opened.forEach(dr => dr.open = false);   // дверь, открытую по дороге, закрыть за собой: иначе створка заслоняет комнату
         path = null;
       }
@@ -2773,14 +2792,15 @@ walker = (function () {
     });
     const f = (keys.f ? 1 : 0) - (keys.b ? 1 : 0), s = (keys.r ? 1 : 0) - (keys.l ? 1 : 0), tr = (keys.tl ? 1 : 0) - (keys.tr ? 1 : 0);
     if ((f || s || tr) && path && !path.stair) path = null;
-    if (f || s || tr) walkTo = faceTo = null;
+    if (f || s || tr) walkTo = faceTo = pitchTo = null;
+    if (pitchTo != null) { p.pitch += Math.max(-dt, Math.min(dt, pitchTo - p.pitch)); if (Math.abs(pitchTo - p.pitch) < 0.005) pitchTo = null; }
     if (faceTo != null) { turnTo(faceTo, 3 * dt); if (Math.abs(Math.atan2(Math.sin(faceTo - p.yaw), Math.cos(faceTo - p.yaw))) < 0.01) faceTo = null; }
     if (path) tickPath(dt);
     else {
       p.yaw += tr * TURN * dt;
       const sp = SPEED * (keys.fast ? 1.6 : 1) * dt, c = Math.cos(p.yaw), sn = Math.sin(p.yaw);
       if (f > 0 && stairTrigger()) { /* лестница */ }
-      else if (f || s) move((f * c + s * sn) * sp, (f * sn - s * c) * sp);
+      else if (f || s) { move((f * c + s * sn) * sp, (f * sn - s * c) * sp); if (f) p.pitch -= p.pitch * Math.min(1, 2 * dt); }   // на ходу взгляд возвращается к горизонту
       else if (walkTo) {
         const dx = walkTo[0] - p.x, dy = walkTo[1] - p.y, d = Math.hypot(dx, dy);
         turnTo(Math.atan2(dy, dx), 4 * dt);
@@ -2791,7 +2811,7 @@ walker = (function () {
         }
       }
     }
-    camera.position.set(p.x, p.h + EYEW, -p.y);
+    camera.position.set(p.x, p.h + EYEW, -p.y); lamp.position.copy(camera.position);
     camera.rotation.set(p.pitch, p.yaw - Math.PI / 2, 0, 'YXZ');
     if (!path || !path.stair) { const r = roomAt(p.fl, p.x, p.y); if (r && r !== room) setRoom(r); }
     const w = innerWidth, h = innerHeight;
@@ -2811,9 +2831,9 @@ walker = (function () {
     'p2': 'ph', 'p2-penthouse': 'ph', 'p2-living': 'ph', 'p2-dorm': 'ph-dorm', 'p2-terraza': 'terraza', 'p2-quincho': 'quincho', 'sub': 'sub-esc', 'sub-escalera': 'sub-esc', 'sub-garaje': 'sub-esc' };
   function place(r) {
     const [x0, y0, x1, y1] = r.b[0] || [0, 0, 0, 0], at = r.at || [(x0 + x1) / 2, (y0 + y1) / 2, x1, (y0 + y1) / 2];
-    p.fl = r.fl; p.h = FL[r.fl]; p.x = at[0]; p.y = at[1]; p.pitch = 0;
+    p.fl = r.fl; p.h = FL[r.fl]; p.x = at[0]; p.y = at[1]; p.pitch = at[4] || 0;
     for (let k = 0; k < 400 && !free(p.fl, p.x, p.y); k++) { const a = k * 2.4, d = 0.05 * Math.sqrt(k); p.x = at[0] + d * Math.cos(a); p.y = at[1] + d * Math.sin(a); }   // спираль до свободного места
-    p.yaw = Math.atan2(at[3] - p.y, at[2] - p.x); path = walkTo = faceTo = null;
+    p.yaw = Math.atan2(at[3] - p.y, at[2] - p.x); path = walkTo = faceTo = pitchTo = null;
     setRoom(r);
   }
   const W = {
@@ -2821,14 +2841,14 @@ walker = (function () {
     enter(id) {
       if (!grids) buildGrids();
       closeCam(); anim = null; setFloor('all');
-      controls.enabled = false; W.on = true; document.body.classList.add('walking');
+      controls.enabled = false; W.on = true; document.body.classList.add('walking'); lamp.intensity = 0.8; mat.glass.roughness = 0.6; mat.glass.opacity = 0.16;
       if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
       place(RM[id] || RM[NAVROOM[curNav && curNav.id]] || RM.patio);
       scene.fog.near = 30; scene.fog.far = 130; last = 0;
       resize(); tick();
     },
     exit() {
-      W.on = false; path = walkTo = null; document.body.classList.remove('walking');
+      W.on = false; path = walkTo = null; document.body.classList.remove('walking'); lamp.intensity = 0; mat.glass.roughness = 0.05; mat.glass.opacity = 0.34;
       clouds.splice(0).forEach(c => c.el.remove());
       Object.keys(keys).forEach(k => keys[k] = false);
       controls.enabled = true;
