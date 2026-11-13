@@ -18,6 +18,8 @@ The build needs only Python 3. Commit `public/3d/index.html` together with the s
 | `src/scene.js` | The house: walls, floors, furniture, trees. Plan coordinates in metres, X to the east, Y to the north (the street side) |
 | `src/i18n.js` | Language of the page and the dictionary: Spanish text → English, Portuguese, Russian |
 | `src/app.js` | Labels, shooting points, photos and video panel, the tour's menu, camera moves |
+| `src/walk.js` | Walk mode: rooms, openings, stairs, collision grid, doors, clouds, keys and touch pad |
+| `icons/` | Icons8 icons (SF Regular) the page inlines: the walk button and the pad's arrow |
 | `photos/NN-key.jpg` | Photos shown at shooting points; `key` is what `ph('key', …)` in `src/app.js` refers to |
 | `photos-light/` | The same photos, compressed harder, for the light copy |
 | `vendor/` | three.js r147 and its OrbitControls, as shipped |
@@ -49,4 +51,4 @@ A copy of both is kept on the hub machine in `~/.claude/artifacts/ilbuco-3d/work
 
 ## The light copy
 
-`--light` builds a variant for hosts that limit page size and block media files: lighter photos, no video, whole-line comments removed. The hub's Pages copy `ilbuco-3d` is this file.
+`--light` builds a variant for hosts that limit page size and block media files: lighter photos, no video, whole-line and trailing `// ` comments removed. It is close to the 2 MiB limit (about 12 KB left), so a large addition to the code may need more trimming. The hub's Pages copy `ilbuco-3d` is this file.

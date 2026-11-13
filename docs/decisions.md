@@ -107,10 +107,15 @@ Source: task d2467621.
 - **Undo:** restore the `!kids` condition in the menu click handler in `tour3d/src/app.js`.
 - **Source:** task d2514160.
 
-
 ## 2026-11-12 · Paraiso has two separate single beds
 
 - **Decided:** the Paraiso bedroom has two separate single beds, heads to the west wall, the north one against the window wall, a passage between them; dark grey bedspreads, a rolled towel at the foot, no headboards or bedside tables (as in `public/photo/paraiso/paraiso7.jpg`). The 3D tour draws them with `singleBed()` and looks at the bedroom from the east, because from the south-west the wall hides the south bed. Texts that described Paraiso with one big bed or with a single mattress now say two single beds that can be pushed together: channel descriptions (root, es, en, pt), llms.txt, the autoresponder, the Spanish knowledge-base line, and the landing pages that said every room has a double/queen bed.
 - **Why:** Ivan (m2514147): «В Параисо две раздельные кровати».
 - **Undo:** `git revert` of these commits and `python3 tour3d/build.py`.
 - **Source:** task d2514187.
+
+## 2026-11-13 · 3D tour: walk mode, cable railing on the balcony, one table in the hall
+Decided: the tour gets a first-person walk mode on the same page (button «Recorrer caminando», `/3d?walk`): arrows/WASD or a touch pad, drag to look, tap the floor to walk there; doors swing open when you walk into them or tap them; clouds over openings and stairs carry you into the next room or up and down the stairs. Walls and furniture stop you (a collision grid built from the model itself). Corrections from Ivan: the balcony railing is a cable railing like the garage ramp and the roof terrace, not glass; the ground-floor hall has no indoor plants and only one round table with chairs. · Why: Ivan m2601500 — «чтоб можно было по нему ходить, двери открывать… активные облачки… в другую комнату перейти»; Ivan m2602440 — railings, plants, table. · Rejected: a separate page or game engine for the walk (a second copy of the model to keep in sync; the light copy would not fit 2 MiB); free walking through walls (rooms lose their shape); automatic tour only (Ivan asked to walk with the arrows).
+Undo: `git revert` of this commit and `python3 tour3d/build.py`.
+Source: task d2601590.
+

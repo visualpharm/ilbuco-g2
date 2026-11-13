@@ -54,6 +54,30 @@ body{text-wrap:pretty}
 #photo .th img.on{border-color:#222}
 #photo .x{position:absolute;right:8px;top:8px;width:32px;height:32px;border:2px solid #222;background:#ffd45c;border-radius:8px;font-size:18px;cursor:pointer;padding:0;color:#222}
 #photo .cap{order:-1}
+#walkb{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;gap:8px;align-items:center;background:#ffd45c;border:2px solid #222;border-radius:12px;padding:10px 16px 10px 12px;font:600 16px/1.2 -apple-system,"Helvetica Neue",Arial,sans-serif;color:#222;cursor:pointer;box-shadow:0 2px 0 #222;z-index:15;white-space:nowrap}
+#walkb img{width:26px;height:26px}
+#walkb:hover{background:#ffe08a}
+#photo.show~#walkb{display:none}
+#whud,#wpad{display:none}
+body.walking #nav,body.walking #photo,body.walking #walkb{display:none!important}
+body.walking #whud{display:flex}
+body.walking #wpad{display:grid}
+#whud{position:fixed;left:10px;top:calc(10px + env(safe-area-inset-top));align-items:center;gap:12px;background:#fff;border:2px solid #222;border-radius:12px;padding:6px 6px 6px 12px;z-index:15;max-width:calc(100% - 20px);box-sizing:border-box}
+#whud b{font-size:16px;line-height:1.2}
+#whud button{font:600 15px/1.2 -apple-system,"Helvetica Neue",Arial,sans-serif;color:#222;background:#ffd45c;border:2px solid #222;border-radius:8px;padding:6px 12px;cursor:pointer}
+#wpad{position:fixed;left:14px;bottom:calc(14px + env(safe-area-inset-bottom));grid-template-columns:repeat(3,60px);grid-template-rows:repeat(2,60px);gap:6px;z-index:15;touch-action:none}
+#wpad button{width:60px;height:60px;padding:0;background:#fff;border:2px solid #222;border-radius:12px;box-shadow:0 2px 0 #222;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;touch-action:none}
+#wpad button.on{background:#ffd45c}
+#wpad img{width:30px;height:30px;pointer-events:none}
+#wpad [data-k=f]{grid-column:2;grid-row:1}
+#wpad [data-k=tl]{grid-column:1;grid-row:2}#wpad [data-k=tl] img{transform:rotate(-90deg)}
+#wpad [data-k=b]{grid-column:2;grid-row:2}#wpad [data-k=b] img{transform:rotate(180deg)}
+#wpad [data-k=tr]{grid-column:3;grid-row:2}#wpad [data-k=tr] img{transform:rotate(90deg)}
+.cloud{position:absolute;left:0;top:0;width:0;height:0;pointer-events:none;will-change:transform}
+.cloud span{position:absolute;left:0;bottom:10px;transform:translateX(-50%);pointer-events:auto;cursor:pointer;background:#fff;border:2px solid #222;border-radius:18px;padding:8px 14px;font-size:16px;font-weight:600;line-height:1.2;white-space:nowrap;box-shadow:0 2px 0 #222}
+.cloud span::after{content:"";position:absolute;left:50%;bottom:-8px;width:12px;height:12px;margin-left:-7px;background:inherit;border-right:2px solid #222;border-bottom:2px solid #222;transform:rotate(45deg)}
+.cloud span:hover{background:#ffd45c}
+@media(min-width:701px){#walkb{left:calc(50% + 115px)}}
 @media(max-width:700px){
   #nav{width:auto;min-width:0;max-width:62vw;font-size:14px;padding:4px;max-height:calc(100% - 20px)}
   #nav button{padding:5px 7px}
@@ -68,6 +92,9 @@ body{text-wrap:pretty}
 <nav id="nav"><button id="navt"></button><a id="home" href="/">IL BUCO</a><ul id="navl"></ul>
 <div class="opts"><label><input type="checkbox" id="second" checked>Nombres</label><label><input type="checkbox" id="fotos" checked>Video y fotos</label><label><input type="checkbox" id="plan">Planta</label></div></nav>
 <div id="photo"><button class="x" aria-label="Cerrar">×</button><video muted playsinline controls preload="none"></video><div class="cap"></div><img class="big" alt=""><div class="use"></div><div class="th"></div></div>
+<button id="walkb"><img alt=""><span>Recorrer caminando</span></button>
+<div id="whud"><b id="wroom"></b><button id="wexit">Salir</button></div>
+<div id="wpad"><button data-k="f"><img alt=""></button><button data-k="tl"><img alt=""></button><button data-k="b"><img alt=""></button><button data-k="tr"><img alt=""></button></div>
 <script>
 // щипок двумя пальцами — только для 3D: страница не масштабируется и не сдвигается
 ['gesturestart', 'gesturechange', 'gestureend'].forEach(t => document.addEventListener(t, e => e.preventDefault(), { passive: false }));

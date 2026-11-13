@@ -32,8 +32,15 @@ def photos(folder):
     return "const PH={" + items + "};\n"
 
 
+def icons():
+    """`const IC={"walk":"data:image/png;base64,…"}`: Icons8 icons (SF Regular) of the walk mode."""
+    names = {"walk": "walking", "up": "chevron-up"}
+    items = ",".join('"%s":"data:image/png;base64,%s"' % (k, base64.b64encode((HERE / "icons" / (f + ".png")).read_bytes()).decode()) for k, f in names.items())
+    return "const IC={" + items + "};\n"
+
+
 def site():
-    model = read("src/scene.js") + photos("photos") + read("src/i18n.js") + read("src/app.js")
+    model = read("src/scene.js") + photos("photos") + read("src/i18n.js") + read("src/app.js") + icons() + read("src/walk.js")
     return (
         read("src/head.html") + "<script>\n" + read("vendor/three.min.js") + "</script><script>\n"
         + read("vendor/OrbitControls.js") + "</script><script>\n" + model + "</script></body></html>\n"
@@ -46,14 +53,15 @@ def swap(text, old, new):
 
 
 def strip(js):
-    """Drops whole-line comments; code lines stay untouched."""
-    return "\n".join(line for line in js.split("\n") if not re.match(r"^\s*//", line))
+    """Drops whole-line comments and trailing `   // comment` tails (two spaces before, no quotes after)."""
+    lines = (re.sub(r"\s{2,}// [^'\"`]*$", "", line) for line in js.split("\n") if not re.match(r"^\s*//", line))
+    return "\n".join(lines)
 
 
 def light():
     head = swap(read("src/head.html"), "Video y fotos", "Fotos")
     head = re.sub(r'<link rel="(?:canonical|alternate)"[^>]*>\n?', "", head)  # the copy is not a page of the site
-    model = "\n".join([strip(read("src/scene.js")), photos("photos-light"), strip(read("src/i18n.js")), strip(read("src/app.js"))])
+    model = "\n".join([strip(read("src/scene.js")), photos("photos-light"), strip(read("src/i18n.js")), strip(read("src/app.js")), icons(), strip(read("src/walk.js"))])
     key = "  'Video y fotos': ["
     model = swap(model, key, "  'Fotos': ['Photos', 'Fotos', 'Фото'],\n" + key)
     return (

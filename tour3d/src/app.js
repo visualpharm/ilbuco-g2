@@ -1,3 +1,4 @@
+let walker = null;   // прогулка от первого лица (walk.js): пока она идёт, камерой правит она, подписи и меню скрыты
 // --- подписи: маленькие точки, текст появляется по наведению (на телефоне — по касанию); txt — надпись видна всегда
 const labelsEl = document.getElementById('labels');
 const labels = [];
@@ -79,6 +80,7 @@ function addCam(name, fl, t, [x, y], [lx, ly], photos = [], z = EYE) {
   g.add(new THREE.Mesh(geo, coneMat), new THREE.LineSegments(new THREE.EdgesGeometry(geo), coneEdge));
   g.position.set(x, z, -y);
   g.rotation.set(0, Math.atan2(-(lx - x), (ly - y)) + Math.PI, 0);
+  g.userData.nohit = true;   // прогулка сквозь конус проходит, касание его не замечает
   floors[fl].add(g); c.cone = g;
   const el = document.createElement('div');
   el.className = 'dot cam';
@@ -148,7 +150,7 @@ document.addEventListener('click', () => labels.forEach(l => l.el.classList.remo
 const ORDER = ['sub', 'pb', 'p1', 'p2', 'roof'];
 let curF = 'all';
 function visibleFor(fl) { return curF === 'all' ? true : ORDER.indexOf(fl) <= ORDER.indexOf(curF); }
-function labelOn(l) { return l.fl === curF; }
+function labelOn(l) { return l.fl === curF && !(walker && walker.on); }
 function setFloor(f) {
   curF = f;
   ORDER.forEach(n => { if (floors[n]) floors[n].visible = visibleFor(n); });
@@ -239,6 +241,7 @@ document.getElementById('plan').onchange = e => { plan = e.target.checked; if (c
 function resize() {
   const w = innerWidth, h = innerHeight, desk = w >= 700;
   renderer.setSize(w, h);
+  if (walker && walker.on) { walker.resize(w, h); return; }
   const open = panel.classList.contains('show');
   camera.fov = 38;
   if (desk) {
@@ -265,16 +268,19 @@ const tmp = new THREE.Vector3();
 let still = qs.has('still'), n = 0;
 function frame() {
   if (!still || n++ < 1) requestAnimationFrame(frame);
-  if (anim) {
+  if (walker && walker.on) walker.tick();
+  else if (anim) {
     anim.k = Math.min(1, anim.k + 0.045);
     const e = 1 - Math.pow(1 - anim.k, 3);
     camera.position.lerpVectors(anim.from.p, anim.to.p, e);
     controls.target.lerpVectors(anim.from.t, anim.to.t, e);
     if (anim.k >= 1) anim = null;
   }
-  controls.update();
-  const cd = camera.position.distanceTo(controls.target);   // туман от расстояния до дома: издалека (телефон) дом не выбеливается
-  scene.fog.near = cd + 25; scene.fog.far = cd + 110;
+  if (!(walker && walker.on)) {
+    controls.update();
+    const cd = camera.position.distanceTo(controls.target);   // туман от расстояния до дома: издалека (телефон) дом не выбеливается
+    scene.fog.near = cd + 25; scene.fog.far = cd + 110;
+  }
   renderer.render(scene, camera);
   const w = innerWidth, h = innerHeight;
   labels.forEach(l => {

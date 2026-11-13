@@ -100,6 +100,25 @@ const TR = {
   'ducha con mampara, estante negro con toallas, inodoro.': ['shower with a screen, black shelf with towels, toilet.', 'chuveiro com box, prateleira preta com toalhas, vaso sanitário.', 'душ с перегородкой, чёрная полка с полотенцами, унитаз.'],
   'escalera de hormigón con baranda de cables negros y pasamanos de madera.': ['concrete staircase with a black cable railing and a wooden handrail.', 'escada de concreto com guarda-corpo de cabos pretos e corrimão de madeira.', 'бетонная лестница с ограждением из чёрных тросов и деревянным поручнем.'],
   'tramo superior con ventana negra y techo de hormigón.': ['upper flight with a black window and concrete ceiling.', 'lance superior com janela preta e teto de concreto.', 'верхний марш с чёрным окном и бетонным потолком.'],
+  // прогулка
+  'Recorrer caminando': ['Walk through', 'Percorrer a pé', 'Пройтись по дому'],
+  'Salir': ['Exit', 'Sair', 'Выйти'],
+  'Jardín': ['Garden', 'Jardim', 'Сад'],
+  'Vestíbulo': ['Entrance hall', 'Hall de entrada', 'Прихожая'],
+  'Pasillo': ['Hallway', 'Corredor', 'Коридор'],
+  'Baño de Terrazzo': ['Terrazzo bathroom', 'Banheiro do Terrazzo', 'Ванная Terrazzo'],
+  'Baño de Paraiso': ['Paraiso bathroom', 'Banheiro do Paraiso', 'Ванная Paraiso'],
+  'Baño del Penthouse': ['Penthouse bathroom', 'Banheiro do Penthouse', 'Ванная Penthouse'],
+  'Subir a planta baja': ['Up to the ground floor', 'Subir ao térreo', 'Подняться на 1-й этаж'],
+  'Subir al 1° piso': ['Up to the 1st floor', 'Subir ao 1º andar', 'Подняться на 2-й этаж'],
+  'Subir al 2° piso': ['Up to the 2nd floor', 'Subir ao 2º andar', 'Подняться на 3-й этаж'],
+  'Bajar a planta baja': ['Down to the ground floor', 'Descer ao térreo', 'Спуститься на 1-й этаж'],
+  'Bajar al 1° piso': ['Down to the 1st floor', 'Descer ao 1º andar', 'Спуститься на 2-й этаж'],
+  'Bajar al subsuelo': ['Down to the basement', 'Descer ao subsolo', 'Спуститься в подвал'],
+  'Adelante': ['Forward', 'Em frente', 'Вперёд'],
+  'Atrás': ['Back', 'Para trás', 'Назад'],
+  'Girar a la izquierda': ['Turn left', 'Virar à esquerda', 'Повернуть налево'],
+  'Girar a la derecha': ['Turn right', 'Virar à direita', 'Повернуть направо'],
 };
 function T(s) {
   if (LANG === 'es' || !s) return s;
