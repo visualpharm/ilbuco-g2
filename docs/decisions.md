@@ -127,3 +127,10 @@ Source: task d2601590.
 - **Rejected:** a blanket `available:true` sweep (would reopen booked and conflict nights); adding an open helper to `lib/hostex-api.ts` (the protection code must not be able to open dates).
 - **Undo:** close the same dates again with POST `/v3/availabilities` `available:false` per suite; the list is in `~/.claude/artifacts/ilbuco/policy-release-20261113/plan.json`.
 - **Source:** booking guard one-time flag; noe task 2026-11-13.
+
+## 2026-11-15 · Paraiso open on Airbnb wherever Hostex has it free
+
+- **Decided:** Paraiso's Airbnb listing (1432871950272757223) had inventory 0 on 279 nights that are free in Hostex and open on Booking.com and the direct site: Jan 14–31, Feb 11–28 and Mar 15 – Nov 12, 2027. They are open now, written per listing with POST `/v3/listings/inventories` `inventory: 1`; a property-level `available: true` (the 2026-11-13 release) does not lift a closure stored on the listing. Readback: 0 of 279 still closed, no other Airbnb night and no property night changed; prices on those nights $100–203, above the floor.
+- **Why:** hub-core task — open the nights or name the reason. The 2026-11-13 note «a setting on the Airbnb side» was wrong: it was a stale listing-level closure in Hostex; the other three suites were already open on Airbnb for the same dates.
+- **Undo:** the same call with `inventory: 0` for the dates in `~/.claude/artifacts/ilbuco/paraiso-airbnb-open-20261115/opened.json` plus Jan 14–31 (`before.json` holds the earlier state).
+- **By:** agent. Source: task d2869373.

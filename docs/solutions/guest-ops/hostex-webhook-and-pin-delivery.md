@@ -69,3 +69,10 @@ Production project: Vercel `ilbuco` (ilbuco.com.ar). The `ilbuco-g2` project has
 - Now: domain `mg.ilbuco.com.ar` on the shared Mailgun account (US region), DNS in the Cloudflare zone ilbuco.com.ar (SPF + DKIM `mailo._domainkey` TXT, `email.mg` CNAME, MX for bounces; the root MX stays ImprovMX). Vercel production env `MAILGUN_API_KEY` (a sending key limited to this domain, 1P AI «Mailgun sending key — mg.ilbuco.com.ar (Vercel ilbuco)»), `MAILGUN_DOMAIN`, `MAILGUN_FROM` = `Il Buco <ciao@ilbuco.com.ar>` (the public contact; replies go to ImprovMX). Env changes need a redeploy.
 - Pending email channels are retried by the next job, so stays already inside the delivery window got the email right after the switch. Check sends with `GET /v3/mg.ilbuco.com.ar/events`.
 
+
+## message_created carries ids only (2026-11-15)
+
+- Hostex's real `message_created` event is flat and thin — `event`, `conversation_id`, `message_id`, `timestamp` — with no sender role, name or text (other events are flat too: `listing_calendar_updated` has `channel_type`, `listing_id`, dates). Code that waited for `data.message.sender_role === 'guest'` never fired: from 10.11 to 15.11 every guest message reached the webhook and no hub wake was sent, while the hand-made test event (full shape) passed.
+- The route now reads the conversation once (`enrichMessageEvent`, lib/hub-wake.ts): the message with the event's id, else the newest; host replies are recognised as the host's. A skipped wake logs `[hub wake] skipped … role=…`.
+- Test with the thin shape, not an invented one: POST `{event, conversation_id, message_id of a real guest message, test: true}` with the `Hostex-Webhook-Secret-Token` header; the relay log (`~/Library/Logs/hub-wake-relay.log`) must show 200.
+- Vercel runtime logs live about 23 hours on this plan and have no text search: `vercel logs -p ilbuco -e production --since <ISO> --until <ISO> -q 'requestPath:*hostex-webhook*' --json` over a 20-minute window around the message, filter locally (calendar events are ~95% of the lines). The CLI token refreshes itself on any `npx vercel` call.
