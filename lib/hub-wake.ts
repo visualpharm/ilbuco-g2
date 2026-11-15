@@ -41,6 +41,37 @@ export function buildWake(body: any): WakePayload | null {
   };
 }
 
+/**
+ * Hostex's real `message_created` event is thin: ids only, no sender role, name
+ * or text. Fill them from the conversation (messages newest first): the message
+ * with the event's id, else the newest one. Returns the body in the shape
+ * buildWake and the webhook route read; a body that already has a role is kept.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function enrichMessageEvent(body: any, conv: any): any {
+  const msg = body?.data?.message || {};
+  if (msg.sender_role || body?.sender_role) return body;
+  const messages: any[] = Array.isArray(conv?.messages) ? conv.messages : []; // eslint-disable-line @typescript-eslint/no-explicit-any
+  if (!messages.length) return body;
+  const wanted = String(msg.id || body?.message_id || body?.data?.message_id || '');
+  const newest = [...messages].sort((a, b) => String(b.created_at || '').localeCompare(String(a.created_at || '')))[0];
+  const found = (wanted && messages.find(m => String(m.id) === wanted)) || newest;
+  return {
+    ...body,
+    data: {
+      ...(body?.data || {}),
+      conversation_id: body?.data?.conversation_id || body?.conversation_id || conv?.id,
+      guest: body?.data?.guest || (conv?.guest?.name ? { name: conv.guest.name } : undefined),
+      message: {
+        id: String(found.id || wanted),
+        sender_role: found.sender_role,
+        sender_name: found.sender_name || '',
+        content: found.content || '',
+      },
+    },
+  };
+}
+
 export function signWake(secret: string, ts: number, raw: string): string {
   return createHmac('sha256', secret).update(`${ts}.${raw}`).digest('hex');
 }

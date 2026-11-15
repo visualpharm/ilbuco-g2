@@ -7,7 +7,7 @@ import { syncInventories } from '@/lib/inventory-sync';
 import { loadConfig } from '@/lib/pricing-config';
 import { DEFAULT_STAY_POLICY } from '@/lib/stay-policy';
 import { todayAR } from '@/lib/run-pricing';
-import { buildWake, wakeHub } from '@/lib/hub-wake';
+import { buildWake, enrichMessageEvent, wakeHub } from '@/lib/hub-wake';
 import { appendFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
@@ -139,7 +139,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid webhook secret' }, { status: 401 });
   }
 
-  const body = await request.json();
+  let body = await request.json();
+
+  // Hostex sends message_created with ids only — who wrote it and the text come
+  // from the conversation. Without this every message looked role-less: no hub
+  // wake for guests, and host replies were not recognised as the host's.
+  const eventConversationId = body.data?.conversation_id || body.conversation_id || '';
+  let conversation: Awaited<ReturnType<typeof getConversation>> | null = null;
+  if (eventConversationId && !(body.data?.message?.sender_role || body.sender_role)) {
+    try {
+      conversation = await getConversation(eventConversationId);
+      body = enrichMessageEvent(body, conversation);
+    } catch (e) {
+      console.error(`[hostex webhook] conversation ${eventConversationId} unreadable:`, String(e).slice(0, 200));
+    }
+  }
 
   // Extract message data from webhook payload
   // Hostex webhook format may vary — handle common structures
@@ -178,6 +192,7 @@ export async function POST(request: NextRequest) {
   // fallback). Started now, not in after(): for whitelisted guests the response
   // waits for the autoresponder. after() only keeps the lambda alive for it.
   const wake = buildWake(body);
+  if (!wake) console.log(`[hub wake] skipped event=${body.event ?? ''} role=${senderRole} msg=${messageId} conv=${conversationId}`);
   if (wake) {
     const started = Date.now();
     const pending = wakeHub(wake).then(r => {
@@ -204,7 +219,7 @@ export async function POST(request: NextRequest) {
   let resolvedGuestName = guestName;
   if (!resolvedGuestName && conversationId) {
     try {
-      const conv = await getConversation(conversationId);
+      const conv = conversation ?? await getConversation(conversationId);
       resolvedGuestName = (conv.guest?.name || '').toLowerCase();
     } catch { /* proceed without name */ }
   }

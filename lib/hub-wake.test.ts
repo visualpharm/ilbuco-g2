@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createHmac } from 'node:crypto';
-import { buildWake, signWake, wakeHub } from './hub-wake.ts';
+import { buildWake, enrichMessageEvent, signWake, wakeHub } from './hub-wake.ts';
 
 const guestEvent = (over: Record<string, unknown> = {}, msg: Record<string, unknown> = {}) => ({
   event: 'message_created',
@@ -25,6 +25,37 @@ test('host, bot and non-message events do not wake', () => {
   assert.equal(buildWake(guestEvent({ event: 'reservation_created' })), null);
   assert.equal(buildWake({ event: 'message_created', data: { message: { id: 'x', sender_role: 'guest' } } }), null);
   assert.equal(buildWake(guestEvent({}, { id: '' })), null);
+});
+
+// The shape Hostex really sends (2026-11-14: Silvia Krauel and Javi reached the
+// webhook and no wake was sent) and the conversation as the API returns it.
+const thin = { event: 'message_created', conversation_id: 'conv-9', message_id: 'm-guest', timestamp: '2026-11-15T02:25:56Z' };
+const conv = {
+  id: 'conv-9', guest: { name: 'Javi' },
+  messages: [
+    { id: 'm-host', sender_role: 'host', sender_name: 'host@example.com', content: 'Hola Javi!', created_at: '2026-11-15T02:27:22+00:00' },
+    { id: 'm-guest', sender_role: 'guest', sender_name: null, content: 'Hola! que tal?', created_at: '2026-11-15T02:25:53+00:00' },
+  ],
+};
+
+test('thin Hostex event wakes once the conversation fills role and text', () => {
+  assert.equal(buildWake(thin), null);
+  assert.deepEqual(buildWake(enrichMessageEvent(thin, conv)), {
+    message_id: 'm-guest', conversation_id: 'conv-9', guest: 'Javi', text: 'Hola! que tal?', test: false,
+  });
+});
+
+test('thin event for a host reply does not wake; unknown id falls back to the newest message', () => {
+  assert.equal(buildWake(enrichMessageEvent({ ...thin, message_id: 'm-host' }, conv)), null);
+  assert.equal(enrichMessageEvent({ ...thin, message_id: 'other-format' }, conv).data.message.id, 'm-host');
+  assert.equal(enrichMessageEvent({ event: 'message_created', conversation_id: 'conv-9' }, { ...conv, messages: [conv.messages[1]] }).data.message.sender_role, 'guest');
+});
+
+test('an event that already has a role, or an empty conversation, is left alone', () => {
+  const full = guestEvent();
+  assert.equal(enrichMessageEvent(full, conv), full);
+  assert.equal(enrichMessageEvent(thin, { messages: [] }), thin);
+  assert.equal(enrichMessageEvent({ ...thin, test: true }, conv).test, true);
 });
 
 test('test flag passes through only when literally true', () => {
