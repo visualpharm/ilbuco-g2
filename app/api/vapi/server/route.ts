@@ -112,7 +112,7 @@ async function toolHoldBooking(p: Record<string, unknown>, ctx: CallCtx): Promis
   const h = r.hold;
   return `DECÍ, despacio: Listo, ${name}, te aparto ${unit.key === 'casa' ? 'la casa entera' : unit.spoken} ${rangoHablado(h.checkIn, h.checkOut)} por diez minutos. ` +
     `Para confirmarla transferí exactamente ${montoHablado(h)}, justo ese número, así reconozco tu transferencia. ` +
-    `El alias es ${aliasPorSilabas()}. ${ALIAS_PAGO}. Está en Ripio, a nombre de Ivan Boyko. ` +
+    `El alias te lo dicto por sílabas: ${aliasPorSilabas().replace(/, /g, '... ')}. O sea, ${ALIAS_PAGO.replace('.', ' punto ')}. Está en Ripio, a nombre de Ivan Boyko. ` +
     `Avisame cuando la hagas y me quedo en línea mientras llega.\n` +
     `HOLD_ID para check_payment: ${h.id}. Teléfono guardado: ${h.phone || 'ninguno'}.`;
 }

@@ -47,6 +47,20 @@ test('the whole house is quoted at the house price, not a suite price (the 138 b
   assert.doesNotMatch(q.say, /ciento treinta y ocho/);
 });
 
+test('a suite total with the cleaning fee says so, so the sum adds up to the ear', async () => {
+  const cal = calendar('2026-11-16', '2027-01-10');
+  const d = deps(cal).d;
+  const plain = d.quote;
+  d.quote = async (u, ci, co) => {
+    const q = await plain(u, ci, co);
+    return { ...q, usdTotal: q.usdTotal! + 10, arsTotal: (q.usdTotal! + 10) * RATE };
+  };
+  const two = await voiceQuote({ checkIn: '2026-12-05', checkOut: '2026-12-07', guests: 2, unit: 'paraiso' }, d);
+  assert.match(two.say, /ciento cuarenta dólares la noche, doscientos noventa dólares en total por dos noches con la limpieza/);
+  const one = await voiceQuote({ checkIn: '2026-12-05', checkOut: '2026-12-06', guests: 2, unit: 'paraiso' }, d);
+  assert.match(one.say, /ciento cuarenta dólares la noche, ciento cincuenta dólares en total con la limpieza/);
+});
+
 test('six people with no unit named means the whole house', async () => {
   const cal = calendar('2026-11-16', '2027-01-10');
   const q = await voiceQuote({ checkIn: '2026-12-05', checkOut: '2026-12-07', guests: 6, unit: 'any' }, deps(cal).d);

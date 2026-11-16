@@ -67,6 +67,8 @@ export interface Offer {
   /** Night price in USD; null when the nights differ (then the average is said) */
   usdNight: number | null;
   usdNightAvg: number;
+  /** Cleaning fee and the like: the site total minus the night prices (0 for the whole house) */
+  usdFees?: number;
 }
 
 export interface VoiceQuote {
@@ -182,7 +184,10 @@ export function offerSentence(o: Offer, withName = true, withPesos = true): stri
   const night = o.usdNight !== null
     ? `${dineroEnPalabras(o.usdNight, 'USD')} la noche`
     : `${dineroEnPalabras(o.usdNightAvg, 'USD')} la noche en promedio`;
-  const total = o.nights === 1 ? '' : `, ${dineroEnPalabras(o.usdTotal, 'USD')} en total por ${nochesHabladas(o.nights)}`;
+  const fees = (o.usdFees ?? 0) >= 1;
+  const total = o.nights === 1
+    ? (fees ? `, ${dineroEnPalabras(o.usdTotal, 'USD')} en total con la limpieza` : '')
+    : `, ${dineroEnPalabras(o.usdTotal, 'USD')} en total por ${nochesHabladas(o.nights)}${fees ? ' con la limpieza' : ''}`;
   const pesos = withPesos ? `, o sea ${pesosRedondo(o.arsTotal)}` : '';
   return `${withName ? `${o.unit.spoken}, ` : ''}${night}${total}${pesos}`;
 }
@@ -289,6 +294,7 @@ export function makeOffer(unit: UnitInfo, cal: VoiceCalendar, checkIn: string, c
     arsTotal: q.arsTotal,
     usdNight: same ? prices[0] : null,
     usdNightAvg: Math.round(prices.reduce((s, p) => s + p, 0) / prices.length),
+    usdFees: Math.round(q.usdTotal - prices.reduce((s, p) => s + p, 0)),
   };
 }
 
