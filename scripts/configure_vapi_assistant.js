@@ -188,14 +188,14 @@ const assistantConfig = {
   voice: {
     provider: '11labs',
     voiceId: 'ukupJ4zdf9bo1Py6MiO6', // Beto - Argentinian male voice
-    model: 'eleven_multilingual_v2'
+    model: 'eleven_flash_v2_5' // lowest-latency 11labs model (~75 ms vs ~300+ for multilingual_v2), Spanish supported
   },
   transcriber: {
     provider: 'deepgram',
     model: 'nova-2',
     language: 'es'
   },
-  firstMessage: 'Hola, soy el asistente virtual de Il Buco. Me podés preguntar por disponibilidad, precios, wifi, o cosas sobre Cariló. ¿En qué te puedo ayudar?',
+  firstMessage: 'Hola, soy el asistente de Il Buco. ¿En qué te ayudo?',
   firstMessageMode: 'assistant-speaks-first',
   firstMessageInterruptionsEnabled: true,
   startSpeakingPlan: {
