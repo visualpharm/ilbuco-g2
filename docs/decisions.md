@@ -155,3 +155,9 @@ Source: task d2601590.
 - Why: at these dates we are almost the only 14-guest option in Cariló; last New Year sold at ~$810/night; the pricing program (FIESTAS_PREMIUM 1.45) already sets these numbers on the website, OTA prices lagged because run-pricing writes booking_site only.
 - Minimum nights and the website unchanged. Previous prices: ~/.claude/artifacts/ilbuco/newyear-price-20261116/before.json. Review on 15.12 by booking pace.
 - Past whole-house guests were offered the dates through their Airbnb threads (3 sent; one thread closed).
+
+## 2026-11-16 · Inventory sync writes only nights that read open, and runs only on reservation webhooks
+- **Decided:** `syncInventories` reads the live calendar first (property availability + every linked channel listing) and posts closures only for intended nights that still read open there; an unchanged run writes nothing. A failed pre-read posts every intended night (protection first). The Hostex webhook runs the sync only for `reservation_*` events, never for calendar/availability events; concurrent triggers fold into one rerun instead of the old 60 s per-instance throttle, which could drop a booking's event. Close-only guarantee and readback verification unchanged.
+- **Why:** every non-message webhook re-posted all closures on all 5 properties and those writes fired the next webhook: 3,000 Hostex tasks in 82 minutes, real bookings and cancellations reached Airbnb/Booking.com ~30 minutes late (card `.claude/inbox/done/2026-11-16-hostex-webhook-sync-loop-floods-queue.md`).
+- **Rejected:** a global debounce only (still rewrites every closed night each run).
+- **By:** agent (ilbuco fix/sync-loop).

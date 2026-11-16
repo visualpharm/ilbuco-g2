@@ -4,6 +4,7 @@ import { subFloorNightlyMentions } from '@/lib/price-floor';
 import { generateAutoResponse } from '@/lib/openrouter-client';
 import { buildAutoresponderPrompt } from '@/lib/autoresponder-prompt';
 import { syncInventories } from '@/lib/inventory-sync';
+import { coalesce, isInventorySyncEvent } from '@/lib/webhook-inventory-trigger';
 import { loadConfig } from '@/lib/pricing-config';
 import { DEFAULT_STAY_POLICY } from '@/lib/stay-policy';
 import { todayAR } from '@/lib/run-pricing';
@@ -13,25 +14,16 @@ import { join } from 'path';
 
 export const maxDuration = 60;
 
-// Throttle: at most one inventory sync per 60s per lambda instance (webhooks
-// arrive in bursts when a booking syncs across channels). Short 120-day horizon
-// keeps it inside the function time limit; the daily cron covers the long tail.
-let lastInventorySync = 0;
-async function maybeSyncInventories(): Promise<string> {
-  const now = Date.now();
-  if (now - lastInventorySync < 60_000) return 'throttled';
-  lastInventorySync = now;
-  try {
-    const config = await loadConfig();
-    const stayPolicy = { ...DEFAULT_STAY_POLICY, ...(config.stayPolicy ?? {}) };
-    const result = await syncInventories(todayAR(), 120, stayPolicy, false);
-    console.log('[webhook inventory-sync]', JSON.stringify(result));
-    return 'done';
-  } catch (e) {
-    console.error('[webhook inventory-sync] error:', e);
-    return 'error';
-  }
-}
+// Runs only on reservation events (never on the calendar/availability webhooks
+// the sync's own writes produce); concurrent triggers fold into one rerun.
+// Short 120-day horizon keeps it inside the function time limit; the daily cron
+// covers the long tail.
+const syncInventoriesCoalesced = coalesce(async () => {
+  const config = await loadConfig();
+  const stayPolicy = { ...DEFAULT_STAY_POLICY, ...(config.stayPolicy ?? {}) };
+  const result = await syncInventories(todayAR(), 120, stayPolicy, false);
+  console.log('[webhook inventory-sync]', JSON.stringify(result));
+});
 
 // In-memory deduplication (good enough for serverless — duplicates arrive within ms)
 const recentMessages = new Map<string, number>();
@@ -168,7 +160,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Non-message events (reservations created/cancelled, calendar changes) have no
-  // conversation_id → run the suite↔casa inventory cross-block sync + guest-ops.
+  // conversation_id → reservation events run the suite↔casa inventory sync + guest-ops.
   if (!conversationId) {
     console.log('Webhook non-message event:', JSON.stringify(body).slice(0, 200));
 
@@ -179,13 +171,14 @@ export async function POST(request: NextRequest) {
     // Hostex waits 5s total for the response and a bare un-awaited promise is
     // frozen with the lambda on Vercel — both jobs run in after() instead.
     after(async () => {
-      const jobs: Promise<unknown>[] = [maybeSyncInventories()];
+      const jobs: Promise<unknown>[] = [];
+      if (isInventorySyncEvent(eventType)) jobs.push(syncInventoriesCoalesced());
       if (isReservationEvent) jobs.push(handleGuestOpsWebhook(reservationCode, eventType));
       const results = await Promise.allSettled(jobs);
       for (const r of results) if (r.status === 'rejected') console.error('[hostex webhook] after() job failed:', r.reason);
     });
 
-    return NextResponse.json({ ok: true, event: 'non_message', queued: true });
+    return NextResponse.json({ ok: true, event: 'non_message', queued: true, inventory_sync: isInventorySyncEvent(eventType) });
   }
 
   // Wake the hub's guest-messaging session right away (the 2-min poll is the

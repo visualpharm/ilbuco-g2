@@ -529,3 +529,51 @@ test('contradictory duplicated calendar night cannot report verified', async () 
   assert.equal(result.verification?.status,'unverified');
   assert.match(result.verification?.error ?? '', /duplicate/);
 });
+
+// ── 10. diff against the live calendar: no rewrite of nights already closed ──
+// (2026-11-16: every webhook re-posted every closure, its own writes fired the
+// next webhook, and 3,000 Hostex tasks in 82 minutes delayed real bookings ~30 min.)
+
+test('unchanged second run writes nothing and still reports verified', async () => {
+  const world = makeWorld({ reservations: [resRow({ code: 'C1', property_id: PROP.casa, ci: '2026-09-10', co: '2026-09-13' })] });
+  mockFetch(world.handler);
+  await syncInventories(TODAY, 120, undefined, false);
+  assert.ok(availabilityPosts().length > 0, 'first run closes the nights');
+
+  calls = [];
+  const second = await syncInventories(TODAY, 120, undefined, false);
+  assert.equal(availabilityPosts().length, 0, 'nights already closed are not re-posted');
+  assert.deepEqual(second.pushed, { 'Whole House': 0, Giardino: 0, Terrazzo: 0, Paraiso: 0, Penthouse: 0 });
+  assert.equal(second.verification?.status, 'verified');
+});
+
+test('only nights reading open at the property or any channel listing are posted', async () => {
+  const world = makeWorld({
+    reservations: [resRow({ code: 'G1', property_id: PROP.giardino, ci: '2026-10-01', co: '2026-10-04' })],
+    // Oct 2: property closed but one Booking.com rate plan still sells it.
+    listingsOverride: (listing, date, closed) => (listing === `booking-${PROP.casa}-b` && date === '2026-10-02' ? false : closed),
+  });
+  // Oct 1 and Oct 2 already closed at the property level; Oct 3 open.
+  world.closed.set(PROP.casa, new Set(['2026-10-01', '2026-10-02']));
+  mockFetch(world.handler);
+
+  const result = await syncInventories(TODAY, 30, undefined, false);
+
+  assert.deepEqual([...closedDatesFor(PROP.casa)].sort(), ['2026-10-02', '2026-10-03']);
+  assert.equal(result.pushed['Whole House'], 2);
+});
+
+test('failed pre-read falls back to closing every intended night (protection first)', async () => {
+  let gets = 0;
+  const world = makeWorld({ reservations: [resRow({ code: 'G1', property_id: PROP.giardino, ci: '2026-10-01', co: '2026-10-03' })] });
+  world.closed.set(PROP.casa, new Set(['2026-10-01', '2026-10-02']));
+  mockFetch((url, method, body) => {
+    if (url.pathname === '/v3/availabilities' && method === 'GET' && gets++ === 0) return { status: 500, json: envelope({}) };
+    return world.handler(url, method, body);
+  });
+
+  const result = await syncInventories(TODAY, 30, undefined, false);
+
+  assert.deepEqual([...closedDatesFor(PROP.casa)].sort(), ['2026-10-01', '2026-10-02']);
+  assert.equal(result.verification?.status, 'verified');
+});
