@@ -70,9 +70,9 @@ function holdDeps(ctx: CallCtx) {
   });
 }
 
-/** Pesos the way the agent says them, plus the digits for the model (it repeats them if asked). */
+/** Pesos only in words: digits in the spoken line come out of the voice as English ("one point…"). */
 function montoHablado(h: Hold): string {
-  return `${dineroEnPalabras(h.amount, 'ARS')} (${h.amount.toLocaleString('es-AR')})`;
+  return dineroEnPalabras(h.amount, 'ARS');
 }
 
 async function toolCheckAvailability(p: Record<string, unknown>): Promise<string> {
@@ -112,8 +112,9 @@ async function toolHoldBooking(p: Record<string, unknown>, ctx: CallCtx): Promis
   const h = r.hold;
   return `DECÍ, despacio: Listo, ${name}, te aparto ${unit.key === 'casa' ? 'la casa entera' : unit.spoken} ${rangoHablado(h.checkIn, h.checkOut)} por diez minutos. ` +
     `Para confirmarla transferí exactamente ${montoHablado(h)}, justo ese número, así reconozco tu transferencia. ` +
-    `El alias te lo dicto por sílabas: ${aliasPorSilabas().replace(/, /g, '... ')}. O sea, ${ALIAS_PAGO.replace('.', ' punto ')}. Está en Ripio, a nombre de Ivan Boyko. ` +
+    `El alias te lo dicto por sílabas: ${aliasPorSilabas()}. Está en Ripio, a nombre de Ivan Boyko. ` +
     `Avisame cuando la hagas y me quedo en línea mientras llega.\n` +
+    `(No lo leas: monto en dígitos ${h.amount.toLocaleString('es-AR')}, alias escrito ${ALIAS_PAGO}, por si te lo piden por escrito.)\n` +
     `HOLD_ID para check_payment: ${h.id}. Teléfono guardado: ${h.phone || 'ninguno'}.`;
 }
 

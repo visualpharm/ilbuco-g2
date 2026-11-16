@@ -24,6 +24,6 @@ test('date ranges and nights', () => {
 });
 
 test('the Ripio alias dictated by syllables and by letters', () => {
-  assert.equal(aliasPorSilabas(), 'il, bu, co, punto, ca, ri, lo');
+  assert.equal(aliasPorSilabas(), 'il-bu-co, punto, ca-ri-lo');
   assert.equal(aliasDeletreado(), 'i, ele, be larga, u, ce, o, punto, ce, a, ere, i, ele, o');
 });

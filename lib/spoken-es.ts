@@ -93,7 +93,7 @@ export function aliasDeletreado(alias: string = ALIAS_PAGO): string {
 
 /** Spanish syllables of the alias, for dictating it slowly: "il, bu, co, punto, ca, ri, lo". */
 export function aliasPorSilabas(alias: string = ALIAS_PAGO): string {
-  return alias.toLowerCase().split('.').map(silabas).map(s => s.join(', ')).join(', punto, ');
+  return alias.toLowerCase().split('.').map(silabas).map(s => s.join('-')).join(', punto, ');
 }
 
 /** Rough Spanish syllabification, enough for plain words like ilbuco or carilo (V, CV, VC, CVC). */
