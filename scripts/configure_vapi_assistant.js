@@ -197,6 +197,12 @@ const assistantConfig = {
   },
   firstMessage: 'Hola, soy el asistente de Il Buco. ¿En qué te ayudo?',
   firstMessageMode: 'assistant-speaks-first',
+  // the caller is silent for 7 s (often: their audio never reaches us) -> say so instead of 20 s of silence
+  messagePlan: {
+    idleTimeoutSeconds: 7,
+    idleMessageMaxSpokenCount: 2,
+    idleMessages: ['Perdón, no te escucho. ¿Me repetís?']
+  },
   firstMessageInterruptionsEnabled: true,
   startSpeakingPlan: {
     waitSeconds: 0.4,
