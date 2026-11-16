@@ -114,5 +114,54 @@ class AgentPost(unittest.TestCase):
         self.assertEqual(h['x-hub'], '1')
 
 
+class VoiceNoticeTest(unittest.TestCase):
+    def setUp(self):
+        self.calls = []
+        self.relay = R.Relay(SECRET, run=lambda text, cid, to='noe': (self.calls.append((text, cid, to)) or (0, 'ok')),
+                             clock=lambda: NOW)
+
+    def notice(self, **kw):
+        n = {'type': 'voice_notice', 'id': 'h-abc-expired', 'kind': 'hold_expired', 'name': 'Ana Pérez',
+             'phone': '+54 9 11 5555 1234', 'check_in': '2027-05-10', 'check_out': '2027-05-12',
+             'amount': 412037, 'hold_id': 'h-abc', 'unit': 'Giardino'}
+        n.update(kw)
+        return n
+
+    def test_expired_hold_reaches_noe_and_payments(self):
+        st, res = self.relay.handle('/hostex-wake', *req(self.notice()))
+        self.assertEqual(st, 200)
+        self.assertEqual([c[2] for c in self.calls], ['noe', 'agent-payments'])
+        text = self.calls[0][0]
+        for want in ('Ana Pérez', '+54 9 11 5555 1234', '2027-05-10', '412 037 ARS', 'h-abc'):
+            self.assertIn(want, text)
+        self.assertEqual(self.calls[0][1], 'voice-h-abc-expired-noe')
+
+    def test_callback_goes_to_noe_only_and_dedups(self):
+        n = self.notice(id='cb-1', kind='callback', reason='quiere hablar con Iván')
+        self.relay.handle('/hostex-wake', *req(n))
+        st, res = self.relay.handle('/hostex-wake', *req(n))
+        self.assertTrue(res.get('duplicate'))
+        self.assertEqual([c[2] for c in self.calls], ['noe'])
+        self.assertIn('quiere hablar con Iván', self.calls[0][0])
+
+    def test_bad_fields_are_dropped_not_echoed(self):
+        self.relay.handle('/hostex-wake', *req(self.notice(phone='call me; rm -rf', check_in='tomorrow', amount='9')))
+        text = self.calls[0][0]
+        self.assertNotIn('rm -rf', text)
+        self.assertNotIn('tomorrow', text)
+        self.assertIn('номер не известен', text)
+
+    def test_unknown_kind_and_unsigned_are_refused(self):
+        self.assertEqual(self.relay.handle('/hostex-wake', *req(self.notice(kind='transfer_money')))[0], 400)
+        h, raw = req(self.notice())
+        self.assertEqual(self.relay.handle('/hostex-wake', {}, raw)[0], 401)
+        self.assertEqual(self.calls, [])
+
+    def test_test_notice_only_to_noe_with_do_nothing(self):
+        self.relay.handle('/hostex-wake', *req(self.notice(id='t-1', test=True)))
+        self.assertEqual([c[2] for c in self.calls], ['noe'])
+        self.assertIn('ТЕСТ', self.calls[0][0])
+
+
 if __name__ == '__main__':
     unittest.main()

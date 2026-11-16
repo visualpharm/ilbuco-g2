@@ -23,6 +23,10 @@
     {
       "path": "/api/guest-ops?job=reconcile",
       "schedule": "30 3 * * *"
+    },
+    {
+      "path": "/api/vapi/holds/sweep",
+      "schedule": "* * * * *"
     }
   ]
 }

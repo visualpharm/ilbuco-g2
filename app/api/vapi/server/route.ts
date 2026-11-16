@@ -1,68 +1,41 @@
+/**
+ * Vapi server for the Il Buco phone agent (+54 223 432-2010).
+ *
+ * Tools (scripts/configure_vapi_assistant.js defines them for the model):
+ * - check_availability: free or not, what exactly, price per night and total (lib/voice-quote.ts)
+ * - hold_booking: hold an offer for 10 minutes, the unique peso amount, the Ripio alias (lib/voice-hold.ts)
+ * - check_payment: did the exact amount arrive (munk bridge); paid → booked in Hostex
+ * - take_message: name, number and what they need → noe; "le paso tu número a Iván y te escribe"
+ *
+ * No transfer to a person (Ivan, 2026-11-16). Every tool call first releases expired holds;
+ * the cron /api/vapi/holds/sweep does the same each minute.
+ */
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyVapiWebhookSecret, isAllowedVapiControlUrl, VAPI_WEBHOOK_SECRET_HEADER } from '@/lib/vapi-auth';
-import { hostexFetch } from '@/lib/hostex-api';
+import { verifyVapiWebhookSecret, VAPI_WEBHOOK_SECRET_HEADER } from '@/lib/vapi-auth';
 import { appendConversationLog } from '@/lib/conversation-log';
+import { notifyVoice } from '@/lib/hub-wake';
+import { findDeposit } from '@/lib/payment-bridge';
+import { checkPayment, createHold, liveHoldDeps, normalizePhone, sweepHolds, type Hold } from '@/lib/voice-hold';
+import {
+  fetchVoiceCalendar, makeOffer, offersForModel, parseOfferId, requestProblem, siteQuote, todayArt, unitByKey, voiceQuote,
+} from '@/lib/voice-quote';
+import { ALIAS_PAGO, aliasPorSilabas, dineroEnPalabras, rangoHablado } from '@/lib/spoken-es';
 
-const HOSTEX_API_URL = 'https://api.hostex.io/v3/listings/calendar';
+export const maxDuration = 60;
 
-const LISTINGS = [
-  { channel_type: 'booking_site', listing_id: '110800-13274', name: 'Giardino' },
-  { channel_type: 'booking_site', listing_id: '110801-13274', name: 'Terrazzo' },
-  { channel_type: 'booking_site', listing_id: '110802-13274', name: 'Paraiso' },
-  { channel_type: 'booking_site', listing_id: '110803-13274', name: 'Penthouse' },
-];
+/** Our own AR line: calls from it are self-tests (notices marked test, never a real booking). */
+const SELF_TEST_NUMBERS = new Set(['+542234322010']);
+const GREETING = 'Hola, Il Buco, ¿qué tal?';
 
-// Log directory for conversations
-
-interface ToolCall {
-  id: string;
-  type: string;
-  function: {
-    name: string;
-    arguments: string;
-  };
-}
+interface ToolCall { id: string; function: { name: string; arguments: unknown } }
 
 interface VapiServerMessage {
   message: {
     type: string;
-    call?: {
-      id: string;
-      customer?: {
-        number?: string;
-      };
-      monitor?: {
-        controlUrl?: string;
-      };
-      controlUrl?: string;
-    };
-    assistant?: {
-      id: string;
-      name: string;
-    };
-    // For function calls (legacy format)
-    functionCall?: {
-      id: string;
-      name: string;
-      parameters: Record<string, unknown>;
-    };
-    // For tool-calls (current Vapi format)
+    call?: { id: string; customer?: { number?: string } };
     toolCallList?: ToolCall[];
-    toolWithToolCallList?: Array<{
-      tool: unknown;
-      toolCall: ToolCall;
-    }>;
-    // For end-of-call-report
-    artifact?: {
-      transcript?: string;
-      messages?: Array<{
-        role: string;
-        message: string;
-        time: number;
-      }>;
-      recordingUrl?: string;
-    };
-    // For status-update
+    toolWithToolCallList?: Array<{ toolCall: ToolCall }>;
+    artifact?: { transcript?: string; messages?: Array<{ role: string; message: string; time: number }>; recordingUrl?: string };
     status?: string;
   };
 }
@@ -70,155 +43,126 @@ interface VapiServerMessage {
 function parseToolArguments(rawArgs: unknown): Record<string, unknown> {
   if (!rawArgs) return {};
   if (typeof rawArgs === 'string') {
-    try {
-      return JSON.parse(rawArgs) as Record<string, unknown>;
-    } catch (e) {
-      console.error('[Vapi Server] Failed to parse arguments:', e);
-      return {};
-    }
+    try { return JSON.parse(rawArgs) as Record<string, unknown>; } catch { return {}; }
   }
-  if (typeof rawArgs === 'object') {
-    return rawArgs as Record<string, unknown>;
-  }
-  return {};
+  return typeof rawArgs === 'object' ? rawArgs as Record<string, unknown> : {};
 }
 
-function normalizeDateInput(dateInput?: string): string | null {
-  if (!dateInput) return null;
-  const trimmed = dateInput.trim();
-  if (!trimmed) return null;
-
-  // YYYYMMDD
-  const compactMatch = trimmed.match(/^(\d{4})(\d{2})(\d{2})$/);
-  if (compactMatch) {
-    const [, year, month, day] = compactMatch;
-    return `${year}-${month}-${day}`;
-  }
-
-  // YYYY-MM-DD, YYYY/MM/DD, YYYY MM DD, etc
-  const match = trimmed.match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})/);
-  if (!match) return null;
-
-  const [, year, monthRaw, dayRaw] = match;
-  const month = Number(monthRaw);
-  const day = Number(dayRaw);
-  if (Number.isNaN(month) || Number.isNaN(day)) return null;
-  if (month < 1 || month > 12) return null;
-  if (day < 1 || day > 31) return null;
-
-  const monthPadded = String(month).padStart(2, '0');
-  const dayPadded = String(day).padStart(2, '0');
-  return `${year}-${monthPadded}-${dayPadded}`;
+/** "2026-12-05", "2026/12/5", "20261205" → "2026-12-05"; anything else → '' */
+function normalizeDateInput(dateInput: unknown): string {
+  const s = String(dateInput ?? '').trim();
+  const compact = /^(\d{4})(\d{2})(\d{2})$/.exec(s);
+  const m = compact ?? /(\d{4})\D+(\d{1,2})\D+(\d{1,2})/.exec(s);
+  if (!m) return '';
+  const [y, mo, d] = [Number(m[1]), Number(m[2]), Number(m[3])];
+  if (mo < 1 || mo > 12 || d < 1 || d > 31) return '';
+  return `${y}-${String(mo).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
 }
 
-// Get today's availability from Hostex
-async function getTodayAvailability(): Promise<{ available: string[]; minPrice: number | null }> {
-  const hostexKey = process.env.HOSTEX_API_KEY;
-  if (!hostexKey) {
-    return { available: [], minPrice: null };
+interface CallCtx { callId: string; caller: string; test: boolean }
+
+const str = (v: unknown, max = 200) => String(v ?? '').trim().slice(0, max);
+
+function holdDeps(ctx: CallCtx) {
+  return liveHoldDeps({
+    findDeposit: (amount, since, wait) => findDeposit(amount, since, wait),
+    notify: n => notifyVoice({ ...n, ...(ctx.test ? { test: true } : {}) }),
+  });
+}
+
+/** Pesos the way the agent says them, plus the digits for the model (it repeats them if asked). */
+function montoHablado(h: Hold): string {
+  return `${dineroEnPalabras(h.amount, 'ARS')} (${h.amount.toLocaleString('es-AR')})`;
+}
+
+async function toolCheckAvailability(p: Record<string, unknown>): Promise<string> {
+  const req = {
+    checkIn: normalizeDateInput(p.check_in),
+    checkOut: normalizeDateInput(p.check_out),
+    guests: Number(p.guests) || 0,
+    unit: str(p.unit, 20).toLowerCase() || 'any',
+  };
+  const q = await voiceQuote(req);
+  return q.offers.length
+    ? `DECÍ: ${q.say}\nOFERTAS para hold_booking: ${offersForModel(q.offers)}`
+    : `DECÍ: ${q.say}`;
+}
+
+async function toolHoldBooking(p: Record<string, unknown>, ctx: CallCtx): Promise<string> {
+  const req = parseOfferId(str(p.offer_id, 60));
+  const name = str(p.name, 80);
+  if (!req) return 'ERROR: offer_id inválido. Volvé a llamar check_availability y usá un id de OFERTAS.';
+  if (!name) return 'FALTA: preguntale el nombre antes de reservar.';
+  const problem = requestProblem(req, todayArt());
+  if (problem) return `DECÍ: ${problem}`;
+  const unit = unitByKey(req.unit)!;
+  const [cal, q] = await Promise.all([
+    fetchVoiceCalendar(req.checkIn, req.checkOut),
+    siteQuote(unit, req.checkIn, req.checkOut, req.guests),
+  ]);
+  const offer = makeOffer(unit, cal, req.checkIn, req.checkOut, req.guests, q);
+  if (!offer) return 'DECÍ: Uy, justo esas fechas se acaban de ocupar. ¿Te busco otras?';
+  const phone = normalizePhone(str(p.phone, 30)) || ctx.caller;
+  const r = await createHold(offer, { name, phone, callId: ctx.callId, test: ctx.test }, holdDeps(ctx));
+  if (!r.ok) {
+    return r.why === 'taken'
+      ? 'DECÍ: Uy, justo esas fechas se acaban de ocupar. ¿Te busco otras?'
+      : 'DECÍ: No pude dejarlo apartado ahora. Le paso tus datos a Iván y te escribe enseguida. (Llamá take_message con el motivo.)';
   }
+  const h = r.hold;
+  return `DECÍ, despacio: Listo, ${name}, te aparto ${unit.key === 'casa' ? 'la casa entera' : unit.spoken} ${rangoHablado(h.checkIn, h.checkOut)} por diez minutos. ` +
+    `Para confirmarla transferí exactamente ${montoHablado(h)}, justo ese número, así reconozco tu transferencia. ` +
+    `El alias es ${aliasPorSilabas()}. ${ALIAS_PAGO}. Está en Ripio, a nombre de Ivan Boyko. ` +
+    `Avisame cuando la hagas y me quedo en línea mientras llega.\n` +
+    `HOLD_ID para check_payment: ${h.id}. Teléfono guardado: ${h.phone || 'ninguno'}.`;
+}
 
-  const today = new Date().toISOString().split('T')[0];
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const tomorrowStr = tomorrow.toISOString().split('T')[0];
+async function toolCheckPayment(p: Record<string, unknown>, ctx: CallCtx): Promise<string> {
+  const id = str(p.hold_id, 40);
+  const r = await checkPayment(id, holdDeps(ctx));
+  switch (r.state) {
+    case 'booked':
+      return `DECÍ: ¡Llegó! Listo, quedó reservado ${rangoHablado(r.hold.checkIn, r.hold.checkOut)}. Te escribimos por WhatsApp con todos los detalles. ¡Gracias!`;
+    case 'paid_unbooked':
+      return 'DECÍ: La transferencia llegó, gracias. Termino de cargar la reserva y te la confirmo por WhatsApp en un rato.';
+    case 'pending':
+      return `TODAVÍA NO LLEGÓ (quedan ${Math.ceil(r.secondsLeft / 60)} minutos del apartado). Decile algo corto como "todavía no me aparece, a veces tarda un minutito" ` +
+        'y, si ya transfirió, volvé a llamar check_payment. No repitas el alias salvo que te lo pida.';
+    case 'expired':
+      return 'DECÍ: Todavía no me aparece la transferencia. Lo reviso y te escribo por WhatsApp apenas la vea.';
+    case 'unverified':
+      return 'DECÍ: Ahora no lo puedo ver desde acá. Apenas lo vea te confirmo por WhatsApp.';
+    default:
+      return 'ERROR: hold_id desconocido. Usá el HOLD_ID que devolvió hold_booking.';
+  }
+}
 
+async function toolTakeMessage(p: Record<string, unknown>, ctx: CallCtx): Promise<string> {
+  const name = str(p.name, 80);
+  const phone = normalizePhone(str(p.phone, 30)) || ctx.caller;
+  const reason = str(p.reason, 500);
+  const res = await notifyVoice({
+    id: `${ctx.callId}-callback-${Date.now().toString(36)}`, kind: 'callback', name, phone, reason,
+    call_id: ctx.callId, ...(ctx.test ? { test: true } : {}),
+  });
+  if (!res.ok) console.error('[Vapi Server] take_message notify failed:', res.status ?? res.error);
+  return `DECÍ: Dale${name ? `, ${name}` : ''}, le paso tu número a Iván y te escribe.`;
+}
+
+async function runTool(name: string, params: Record<string, unknown>, ctx: CallCtx): Promise<string> {
   try {
-    const response = await hostexFetch(HOSTEX_API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Hostex-Access-Token': hostexKey,
-      },
-      body: JSON.stringify({
-        start_date: today,
-        end_date: tomorrowStr,
-        listings: LISTINGS.map(l => ({
-          channel_type: l.channel_type,
-          listing_id: l.listing_id
-        })),
-      }),
-    });
-
-    if (!response.ok) {
-      console.error('[Vapi Server] Hostex API error:', response.status);
-      return { available: [], minPrice: null };
+    if (name !== 'check_availability') await sweepHolds(holdDeps(ctx)).catch(() => undefined);
+    switch (name) {
+      case 'check_availability': return await toolCheckAvailability(params);
+      case 'hold_booking': return await toolHoldBooking(params, ctx);
+      case 'check_payment': return await toolCheckPayment(params, ctx);
+      case 'take_message': return await toolTakeMessage(params, ctx);
+      default: return `ERROR: herramienta desconocida ${name}`;
     }
-
-    const data = await response.json();
-    if (data.error_code !== 200) {
-      console.error('[Vapi Server] Hostex error code:', data.error_code);
-      return { available: [], minPrice: null };
-    }
-
-    const availableRooms: string[] = [];
-    let minPrice: number | null = null;
-
-    for (const listing of data.data?.listings || []) {
-      const listingInfo = LISTINGS.find(l => l.listing_id === listing.listing_id);
-      if (!listingInfo) continue;
-
-      const todayData = listing.calendar?.find((d: { date: string }) => d.date === today);
-      if (todayData?.inventory === 1) {
-        availableRooms.push(listingInfo.name);
-        if (todayData.price && (minPrice === null || todayData.price < minPrice)) {
-          minPrice = todayData.price;
-        }
-      }
-    }
-
-    return { available: availableRooms, minPrice };
-  } catch (error) {
-    console.error('[Vapi Server] Error fetching availability:', error);
-    return { available: [], minPrice: null };
+  } catch (e) {
+    console.error(`[Vapi Server] ${name} failed:`, e);
+    return 'DECÍ: Se me trabó el sistema justo ahora. Dejame tu nombre y te escribimos enseguida. (Después llamá take_message.)';
   }
-}
-
-// Generate dynamic first message with today's availability
-async function generateDynamicGreeting(): Promise<string> {
-  const { available, minPrice } = await getTodayAvailability();
-
-  let greeting = 'Hola, soy el asistente virtual de Il Buco. ';
-
-  if (available.length === 0) {
-    greeting += 'Para hoy está todo ocupado, pero puedo ayudarte con otras fechas. ';
-  } else if (available.length === 1) {
-    greeting += `Para hoy tenemos ${available[0]} disponible`;
-    if (minPrice) {
-      greeting += ` desde ${minPrice} dólares la noche`;
-    }
-    greeting += '. ';
-  } else if (available.length === 4) {
-    greeting += 'Hoy tenemos toda la casa disponible';
-    if (minPrice) {
-      greeting += `, desde ${minPrice} dólares la noche`;
-    }
-    greeting += '. ';
-  } else {
-    const roomList = available.slice(0, -1).join(', ') + ' y ' + available[available.length - 1];
-    greeting += `Hoy tenemos ${roomList} disponibles`;
-    if (minPrice) {
-      greeting += `, desde ${minPrice} dólares la noche`;
-    }
-    greeting += '. ';
-  }
-
-  greeting += '¿Querés reservar para hoy u otras fechas?';
-
-  return greeting;
-}
-
-// Log conversation (function log on Vercel, file locally)
-async function logConversation(callId: string, data: {
-  type: 'voice' | 'chat';
-  timestamp: string;
-  transcript?: string;
-  messages?: Array<{ role: string; message: string; time?: number }>;
-  customerNumber?: string;
-  recordingUrl?: string;
-  status?: string;
-}) {
-  await appendConversationLog(data.type, { callId, ...data });
 }
 
 export async function POST(request: NextRequest) {
@@ -229,704 +173,49 @@ export async function POST(request: NextRequest) {
 
   try {
     const body: VapiServerMessage = await request.json();
-    const messageType = body.message?.type;
-    const callId = body.message?.call?.id || 'unknown';
+    const m = body.message;
+    const callId = m?.call?.id || 'unknown';
+    const caller = normalizePhone(m?.call?.customer?.number ?? '');
+    const ctx: CallCtx = { callId, caller, test: SELF_TEST_NUMBERS.has(caller) };
+    console.log(`[Vapi Server] ${m?.type}`, callId);
 
-    // Detailed logging for debugging
-    console.log(`[Vapi Server] Received: ${messageType}`, callId);
-    console.log(`[Vapi Server] Full body:`, JSON.stringify(body, null, 2));
-
-    // Handle assistant-request: Generate dynamic first message
-    if (messageType === 'assistant-request') {
-      const greeting = await generateDynamicGreeting();
-      console.log(`[Vapi Server] Dynamic greeting: ${greeting}`);
-
-      return NextResponse.json({
-        assistant: {
-          firstMessage: greeting,
-        }
-      });
+    if (m?.type === 'assistant-request') {
+      return NextResponse.json({ assistant: { firstMessage: GREETING } });
     }
 
-    // Handle end-of-call-report: Log the conversation
-    if (messageType === 'end-of-call-report') {
-      const artifact = body.message.artifact;
-
-      await logConversation(callId, {
+    if (m?.type === 'end-of-call-report') {
+      await appendConversationLog('voice', {
+        callId,
         type: 'voice',
         timestamp: new Date().toISOString(),
-        transcript: artifact?.transcript,
-        messages: artifact?.messages,
-        customerNumber: body.message.call?.customer?.number,
-        recordingUrl: artifact?.recordingUrl,
+        transcript: m.artifact?.transcript,
+        messages: m.artifact?.messages,
+        customerNumber: m.call?.customer?.number,
+        recordingUrl: m.artifact?.recordingUrl,
       });
-
       return NextResponse.json({ status: 'logged' });
     }
 
-    // Handle tool-calls (current Vapi format)
-    if (messageType === 'tool-calls') {
-      const toolCalls = body.message.toolCallList ||
-        body.message.toolWithToolCallList?.map(t => t.toolCall) || [];
-
-      console.log(`[Vapi Server] Processing ${toolCalls.length} tool calls`);
-
+    if (m?.type === 'tool-calls') {
+      const calls = m.toolCallList || m.toolWithToolCallList?.map(t => t.toolCall) || [];
       const results = [];
-
-      for (const toolCall of toolCalls) {
-        const functionName = toolCall.function.name;
-        const params = parseToolArguments(toolCall.function.arguments);
-
-        if (functionName === 'transfer_to_operator') {
-          const { reason } = params as { reason?: string };
-          console.log(`[Vapi Server] Transfer requested. Reason: ${reason}`);
-
-          // Get operator SIP/phone from environment
-          const operatorDestination = process.env.OPERATOR_SIP_URI || process.env.OPERATOR_PHONE;
-          const controlUrl = body.message.call?.monitor?.controlUrl || body.message.call?.controlUrl;
-          console.log('[Vapi Server] Transfer controlUrl present:', Boolean(controlUrl));
-
-          if (!operatorDestination) {
-            results.push({
-              name: functionName,
-              toolCallId: toolCall.id,
-              result: 'Lo siento, no puedo transferir la llamada en este momento. Por favor contactanos por WhatsApp o email.'
-            });
-            continue;
-          }
-
-          if (!controlUrl) {
-            results.push({
-              name: functionName,
-              toolCallId: toolCall.id,
-              result: 'No puedo transferir la llamada en este momento. Por favor intentá de nuevo más tarde.'
-            });
-            continue;
-          }
-
-          if (!isAllowedVapiControlUrl(controlUrl)) {
-            console.error('[Vapi Server] Rejected controlUrl outside vapi.ai allowlist:', controlUrl);
-            results.push({
-              name: functionName,
-              toolCallId: toolCall.id,
-              result: 'No puedo transferir la llamada en este momento. Por favor intentá de nuevo más tarde.'
-            });
-            continue;
-          }
-
-          // Execute transfer via call control URL
-          const isSip = operatorDestination.includes('@');
-          const transferPayload = {
-            type: 'transfer',
-            destination: isSip
-              ? { type: 'sip', sipUri: operatorDestination }
-              : { type: 'number', number: operatorDestination },
-            message: reason || 'Transferring to operator'
-          };
-
-          const transferResponse = await fetch(controlUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(transferPayload),
-          });
-
-          if (!transferResponse.ok) {
-            const responseText = await transferResponse.text();
-            console.error('[Vapi Server] Transfer failed:', transferResponse.status, responseText);
-            results.push({
-              name: functionName,
-              toolCallId: toolCall.id,
-              result: 'Lo siento, hubo un problema transfiriendo la llamada. Por favor intentá de nuevo.'
-            });
-            continue;
-          }
-
-          const responseText = await transferResponse.text();
-          console.log('[Vapi Server] Transfer response:', responseText);
-          results.push({
-            name: functionName,
-            toolCallId: toolCall.id,
-            result: 'Te transfiero con un operador ahora.'
-          });
-          continue;
-        }
-
-        if (functionName === 'check_availability') {
-          const { check_in, check_out, listing_id } = params as {
-            check_in: string;
-            check_out: string;
-            listing_id?: string;
-          };
-
-          const normalizedCheckIn = normalizeDateInput(check_in);
-          const normalizedCheckOut = normalizeDateInput(check_out);
-
-          if (!normalizedCheckIn || !normalizedCheckOut) {
-            results.push({
-              name: functionName,
-              toolCallId: toolCall.id,
-              result: 'Necesito las fechas de entrada y salida para verificar disponibilidad.'
-            });
-            continue;
-          }
-
-          console.log(`[Vapi Server] Checking availability: ${normalizedCheckIn} to ${normalizedCheckOut}`);
-          const availability = await getDetailedAvailability(normalizedCheckIn, normalizedCheckOut, listing_id);
-
-          results.push({
-            name: functionName,
-            toolCallId: toolCall.id,
-            result: availability
-          });
-        }
+      for (const call of calls) {
+        const name = call.function.name;
+        const t0 = Date.now();
+        const result = await runTool(name, parseToolArguments(call.function.arguments), ctx);
+        console.log(`[Vapi Server] ${name} ${Date.now() - t0}ms`, result.slice(0, 160));
+        results.push({ name, toolCallId: call.id, result });
       }
-
-      const response = { results };
-      console.log(`[Vapi Server] Returning:`, JSON.stringify(response));
-      return NextResponse.json(response);
+      return NextResponse.json({ results });
     }
 
-    // Handle function-call (legacy format)
-    const functionCall = body.message.functionCall || (body.message as { toolCall?: { id: string; name: string; parameters: Record<string, unknown> } }).toolCall;
-    if (messageType === 'function-call' && functionCall) {
-
-      if (functionCall.name === 'check_availability') {
-        const { check_in, check_out, listing_id } = functionCall.parameters as {
-          check_in: string;
-          check_out: string;
-          listing_id?: string;
-        };
-
-        const normalizedCheckIn = normalizeDateInput(check_in);
-        const normalizedCheckOut = normalizeDateInput(check_out);
-
-        // Validate dates
-        if (!normalizedCheckIn || !normalizedCheckOut) {
-          return NextResponse.json({
-            results: [{
-              name: functionCall.name,
-              toolCallId: functionCall.id,
-              result: 'Necesito las fechas de entrada y salida para verificar disponibilidad.'
-            }]
-          });
-        }
-
-        // Fetch availability from Hostex
-        console.log(`[Vapi Server] Checking availability: ${normalizedCheckIn} to ${normalizedCheckOut}`);
-        const availability = await getDetailedAvailability(normalizedCheckIn, normalizedCheckOut, listing_id);
-
-        const response = {
-          results: [{
-            name: functionCall.name,
-            toolCallId: functionCall.id,
-            result: availability
-          }]
-        };
-        console.log(`[Vapi Server] Returning:`, JSON.stringify(response));
-        return NextResponse.json(response);
-      }
-    }
-
-    // Handle status-update
-    if (messageType === 'status-update') {
-      console.log(`[Vapi Server] Status: ${body.message.status}`);
-      return NextResponse.json({ status: 'ok' });
-    }
-
-    // Default response
     return NextResponse.json({ status: 'ok' });
-
   } catch (error) {
     console.error('[Vapi Server] Error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
-// Get detailed availability for function calls
-async function getDetailedAvailability(startDate: string, endDate: string, listingId?: string): Promise<string> {
-  const hostexKey = process.env.HOSTEX_API_KEY;
-  if (!hostexKey) {
-    return 'Lo siento, no puedo verificar la disponibilidad en este momento. Visitá book punto ilbuco punto com punto ar para ver las fechas disponibles.';
-  }
-
-  try {
-    const listingsToCheck = listingId
-      ? LISTINGS.filter(l => l.listing_id === listingId)
-      : LISTINGS;
-
-    const addDays = (dateStr: string, days: number): string => {
-      const date = new Date(`${dateStr}T12:00:00`);
-      date.setDate(date.getDate() + days);
-      return date.toISOString().split('T')[0];
-    };
-
-    const daysBetween = getDatesBetween(startDate, endDate).length;
-
-    const fetchCalendar = async (rangeStart: string, rangeEnd: string) => {
-      const response = await hostexFetch(HOSTEX_API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Hostex-Access-Token': hostexKey,
-        },
-        body: JSON.stringify({
-          start_date: rangeStart,
-          end_date: rangeEnd,
-          listings: listingsToCheck.map(l => ({
-            channel_type: l.channel_type,
-            listing_id: l.listing_id
-          })),
-        }),
-      });
-
-      if (!response.ok) {
-        return null;
-      }
-
-      const data = await response.json();
-      if (data.error_code !== 200) {
-        return null;
-      }
-
-      return data;
-    };
-
-    const findOptionsInRange = (
-      data: { data?: { listings?: Array<{ listing_id: string; calendar?: Array<{ date: string; inventory: number; price?: number }> }> } },
-      rangeStart: string,
-      rangeEnd: string,
-      preferredNights: number[]
-    ) => {
-      const options: Array<{ name: string; start: string; end: string; price: number | null; nights: number }> = [];
-      const listings = data.data?.listings || [];
-
-      for (const listing of listings) {
-        const listingInfo = LISTINGS.find(l => l.listing_id === listing.listing_id);
-        if (!listingInfo) continue;
-
-        const calendar = listing.calendar || [];
-        const calendarByDate: Record<string, { inventory: number; price: number }> = {};
-        for (const day of calendar) {
-          calendarByDate[day.date] = {
-            inventory: day.inventory,
-            price: day.price || 0
-          };
-        }
-
-        for (const nights of preferredNights) {
-          const lastStart = addDays(rangeEnd, -nights);
-          let cursor = rangeStart;
-          let windowFound: { start: string; end: string; price: number | null } | null = null;
-
-          while (cursor <= lastStart) {
-            let ok = true;
-            let minPrice: number | null = null;
-            for (let i = 0; i < nights; i++) {
-              const dayKey = addDays(cursor, i);
-              const dayInfo = calendarByDate[dayKey];
-              if (!dayInfo || dayInfo.inventory !== 1) {
-                ok = false;
-                break;
-              }
-              if (dayInfo.price > 0 && (minPrice === null || dayInfo.price < minPrice)) {
-                minPrice = dayInfo.price;
-              }
-            }
-
-            if (ok) {
-              windowFound = {
-                start: cursor,
-                end: addDays(cursor, nights),
-                price: minPrice
-              };
-              break;
-            }
-
-            cursor = addDays(cursor, 1);
-          }
-
-          if (windowFound) {
-            options.push({
-              name: listingInfo.name,
-              start: windowFound.start,
-              end: windowFound.end,
-              price: windowFound.price,
-              nights
-            });
-            break;
-          }
-        }
-      }
-
-      return options;
-    };
-
-    const findLongestRunsInRange = (
-      data: { data?: { listings?: Array<{ listing_id: string; calendar?: Array<{ date: string; inventory: number; price?: number }> }> } }
-    ) => {
-      const runs: Array<{ name: string; start: string; end: string; nights: number; minPrice: number | null }> = [];
-      const listings = data.data?.listings || [];
-
-      for (const listing of listings) {
-        const listingInfo = LISTINGS.find(l => l.listing_id === listing.listing_id);
-        if (!listingInfo) continue;
-
-        const calendar = (listing.calendar || []).slice().sort((a, b) => a.date.localeCompare(b.date));
-        let currentStart: string | null = null;
-        let currentEnd: string | null = null;
-        let currentNights = 0;
-        let currentMinPrice: number | null = null;
-        let best: { start: string; end: string; nights: number; minPrice: number | null } | null = null;
-        let lastDate: string | null = null;
-
-        for (const day of calendar) {
-          if (day.inventory === 1) {
-            const isConsecutive = lastDate ? addDays(lastDate, 1) === day.date : false;
-            if (!currentStart || !isConsecutive) {
-              if (currentStart && (!best || currentNights > best.nights)) {
-                best = {
-                  start: currentStart,
-                  end: currentEnd || addDays(currentStart, currentNights),
-                  nights: currentNights,
-                  minPrice: currentMinPrice
-                };
-              }
-              currentStart = day.date;
-              currentEnd = addDays(day.date, 1);
-              currentNights = 1;
-              currentMinPrice = day.price || 0;
-            } else {
-              currentEnd = addDays(currentEnd ?? day.date, 1);
-              currentNights += 1;
-              if (day.price && (currentMinPrice === null || day.price < currentMinPrice)) {
-                currentMinPrice = day.price;
-              }
-            }
-            lastDate = day.date;
-          } else if (currentStart) {
-            if (!best || currentNights > best.nights) {
-              best = {
-                start: currentStart,
-                end: currentEnd || addDays(currentStart, currentNights),
-                nights: currentNights,
-                minPrice: currentMinPrice
-              };
-            }
-            currentStart = null;
-            currentEnd = null;
-            currentNights = 0;
-            currentMinPrice = null;
-            lastDate = null;
-          }
-        }
-
-        if (currentStart) {
-          if (!best || currentNights > best.nights) {
-            best = {
-              start: currentStart,
-              end: currentEnd || addDays(currentStart, currentNights),
-              nights: currentNights,
-              minPrice: currentMinPrice
-            };
-          }
-        }
-
-        if (best) {
-          runs.push({
-            name: listingInfo.name,
-            start: best.start,
-            end: best.end,
-            nights: best.nights,
-            minPrice: best.minPrice
-          });
-        }
-      }
-
-      return runs;
-    };
-
-    const data = await fetchCalendar(startDate, endDate);
-    if (!data) {
-      return 'No pude verificar la disponibilidad. Por favor intentá de nuevo o visitá book punto ilbuco punto com punto ar.';
-    }
-
-    // Parse availability
-    const requestedDates = getDatesBetween(startDate, endDate);
-    const availableRooms: Array<{ name: string; price: number }> = [];
-    const bookedRooms: string[] = [];
-
-    for (const listing of data.data?.listings || []) {
-      const listingInfo = LISTINGS.find(l => l.listing_id === listing.listing_id);
-      if (!listingInfo) continue;
-
-      const calendar = listing.calendar || [];
-      const calendarByDate: Record<string, { inventory: number; price: number }> = {};
-      for (const day of calendar) {
-        calendarByDate[day.date] = {
-          inventory: day.inventory,
-          price: day.price || 0
-        };
-      }
-
-      if (daysBetween > 10) {
-        continue;
-      }
-
-      const availableDates = calendar
-        .filter((d: { inventory: number; date: string }) => d.inventory === 1)
-        .map((d: { date: string }) => d.date);
-
-      const fullyAvailable = requestedDates.every(d => availableDates.includes(d));
-
-      if (fullyAvailable) {
-        const minPrice = calendar
-          .filter((d: { inventory: number; price: number }) => d.inventory === 1 && d.price > 0)
-          .reduce((min: number, d: { price: number }) => Math.min(min, d.price), Infinity);
-
-        availableRooms.push({
-          name: listingInfo.name,
-          price: minPrice === Infinity ? 0 : minPrice
-        });
-      } else {
-        bookedRooms.push(listingInfo.name);
-      }
-    }
-
-    // Format response for voice (spelled out, no special characters)
-    const formatDate = (dateStr: string): string => {
-      const date = new Date(dateStr + 'T12:00:00');
-      const day = date.getDate();
-      const months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-                      'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-      const month = months[date.getMonth()];
-      return `${day} de ${month}`;
-    };
-
-    const checkInFormatted = formatDate(startDate);
-    const checkOutFormatted = formatDate(endDate);
-
-    if (daysBetween > 10) {
-      const preferredNights = [4, 3, 2];
-      const maxSearchDays = 180;
-      let collectedOptions: Array<{ name: string; start: string; end: string; price: number | null; nights: number }> = [];
-      let collectedRuns: Array<{ name: string; start: string; end: string; nights: number; minPrice: number | null }> = [];
-
-      for (let offset = 0; offset < maxSearchDays; offset += 30) {
-        const rangeStart = addDays(startDate, offset);
-        const rangeEnd = addDays(rangeStart, 30);
-        const rangeData = offset === 0 ? data : await fetchCalendar(rangeStart, rangeEnd);
-        if (!rangeData) continue;
-
-        const rangeOptions = findOptionsInRange(rangeData, rangeStart, rangeEnd, preferredNights);
-        const rangeRuns = findLongestRunsInRange(rangeData);
-        collectedOptions = collectedOptions.concat(rangeOptions);
-        collectedRuns = collectedRuns.concat(rangeRuns);
-
-        if (rangeOptions.some(option => option.nights === 4)) {
-          break;
-        }
-      }
-
-      if (collectedOptions.length === 0) {
-        return 'En las proximas semanas no encuentro ventanas de dos noches disponibles. ¿Querés probar otras fechas o una estadia mas larga?';
-      }
-
-      const longRuns = collectedRuns
-        .filter(run => run.nights >= 7)
-        .sort((a, b) => b.nights - a.nights)
-        .slice(0, 3);
-
-      const optionLines = longRuns.length > 0
-        ? longRuns.map(run => {
-          const startFormatted = formatDate(run.start);
-          const endFormatted = formatDate(run.end);
-          let line = `${run.name} del ${startFormatted} al ${endFormatted}`;
-          if (run.minPrice && run.minPrice > 0) {
-            line += ` desde ${run.minPrice} dolares por noche`;
-          }
-          return line;
-        })
-        : (() => {
-          const maxNights = Math.max(...collectedOptions.map(option => option.nights));
-          const optionsForNights = collectedOptions.filter(option => option.nights === maxNights);
-          const sortedOptions = [...optionsForNights].sort((a, b) => a.start.localeCompare(b.start));
-          const topOptions = sortedOptions.slice(0, 3);
-          return topOptions.map(option => {
-            const startFormatted = formatDate(option.start);
-            const endFormatted = formatDate(option.end);
-            let line = `${option.name} del ${startFormatted} al ${endFormatted}`;
-            if (option.price && option.price > 0) {
-              line += ` desde ${option.price} dolares por noche`;
-            }
-            return line;
-          });
-        })();
-
-      let response_text = '';
-      if (longRuns.length > 0) {
-        response_text += 'En las proximas fechas tengo disponibilidad extendida: ';
-      } else {
-        const maxNights = Math.max(...collectedOptions.map(option => option.nights));
-        if (maxNights === 4) {
-          response_text += 'En las proximas fechas con cuatro noches seguidas tengo estas opciones: ';
-        } else if (maxNights === 3) {
-          response_text += 'No encuentro cuatro noches seguidas en los proximos treinta dias, pero tengo opciones de tres noches: ';
-        } else {
-          response_text += 'No encuentro cuatro ni tres noches seguidas en los proximos treinta dias, pero tengo opciones de dos noches: ';
-        }
-      }
-
-      response_text += `${optionLines.join('. ')}. `;
-      response_text += 'Si me decís un rango aproximado, reviso algo mas preciso. ¿Querés que lo haga?';
-      return response_text;
-    }
-
-    if (availableRooms.length === 0) {
-      // No rooms fully available - find best partial availability within the range
-      const partialOptions: Array<{ name: string; start: string; end: string; nights: number; price: number }> = [];
-
-      for (const listing of data.data?.listings || []) {
-        const listingInfo = LISTINGS.find(l => l.listing_id === listing.listing_id);
-        if (!listingInfo || listingInfo.name === 'Whole House') continue;
-
-        const calendar = (listing.calendar || []).slice().sort((a: { date: string }, b: { date: string }) => a.date.localeCompare(b.date));
-
-        // Find longest consecutive run within requested dates
-        let currentStart: string | null = null;
-        let currentNights = 0;
-        let currentMinPrice = 0;
-        let best: { start: string; end: string; nights: number; price: number } | null = null;
-        let lastDate: string | null = null;
-
-        for (const day of calendar) {
-          if (!requestedDates.includes(day.date)) continue;
-
-          if (day.inventory === 1) {
-            const isConsecutive = lastDate ? addDays(lastDate, 1) === day.date : false;
-            if (!currentStart || !isConsecutive) {
-              if (currentStart && currentNights >= 2 && (!best || currentNights > best.nights)) {
-                best = { start: currentStart, end: addDays(currentStart, currentNights), nights: currentNights, price: currentMinPrice };
-              }
-              currentStart = day.date;
-              currentNights = 1;
-              currentMinPrice = day.price || 0;
-            } else {
-              currentNights++;
-              if (day.price && day.price > 0 && (currentMinPrice === 0 || day.price < currentMinPrice)) {
-                currentMinPrice = day.price;
-              }
-            }
-            lastDate = day.date;
-          } else {
-            if (currentStart && currentNights >= 2 && (!best || currentNights > best.nights)) {
-              best = { start: currentStart, end: addDays(currentStart, currentNights), nights: currentNights, price: currentMinPrice };
-            }
-            currentStart = null;
-            currentNights = 0;
-            currentMinPrice = 0;
-            lastDate = null;
-          }
-        }
-
-        if (currentStart && currentNights >= 2 && (!best || currentNights > best.nights)) {
-          best = { start: currentStart, end: addDays(currentStart, currentNights), nights: currentNights, price: currentMinPrice };
-        }
-
-        if (best && best.nights >= 2) {
-          partialOptions.push({ name: listingInfo.name, ...best });
-        }
-      }
-
-      if (partialOptions.length > 0) {
-        partialOptions.sort((a, b) => b.nights - a.nights);
-        const bestOption = partialOptions[0];
-        const startFormatted = formatDate(bestOption.start);
-        const endFormatted = formatDate(bestOption.end);
-
-        let response = `Para el ${checkInFormatted} al ${checkOutFormatted}, ninguna suite tiene todas las noches. `;
-        response += `Pero ${bestOption.name} está libre del ${startFormatted} al ${endFormatted}, son ${bestOption.nights} noches`;
-        if (bestOption.price > 0) {
-          response += ` a ${bestOption.price} dólares por noche`;
-        }
-        response += '. ';
-
-        const otherGood = partialOptions.filter(o => o.name !== bestOption.name && o.nights >= bestOption.nights - 1).slice(0, 2);
-        if (otherGood.length > 0) {
-          const otherNames = otherGood.map(o => `${o.name} del ${formatDate(o.start)} al ${formatDate(o.end)}`).join(', ');
-          response += `También: ${otherNames}. `;
-        }
-
-        response += '¿Te sirve?';
-        return response;
-      }
-
-      return `Para el ${checkInFormatted} al ${checkOutFormatted}, lamentablemente todas las suites están ocupadas. ¿Querés probar otras fechas?`;
-    }
-
-    let response_text = `Para el ${checkInFormatted} al ${checkOutFormatted}: `;
-
-    if (availableRooms.length === 1) {
-      const room = availableRooms[0];
-      response_text += `tenemos ${room.name} disponible`;
-      if (room.price > 0) {
-        response_text += ` a ${room.price} dólares por noche`;
-      }
-      response_text += '.';
-    } else if (availableRooms.length === 4) {
-      const minPrice = Math.min(...availableRooms.map(r => r.price).filter(p => p > 0));
-      response_text += `toda la casa está disponible`;
-      if (minPrice > 0) {
-        response_text += `, desde ${minPrice} dólares por noche`;
-      }
-      response_text += '.';
-    } else {
-      const roomNames = availableRooms.map(r => r.name);
-      const roomList = roomNames.slice(0, -1).join(', ') + ' y ' + roomNames[roomNames.length - 1];
-      const minPrice = Math.min(...availableRooms.map(r => r.price).filter(p => p > 0));
-      response_text += `tenemos ${roomList} disponibles`;
-      if (minPrice > 0) {
-        response_text += `, desde ${minPrice} dólares por noche`;
-      }
-      response_text += '.';
-    }
-
-    if (bookedRooms.length > 0 && bookedRooms.length < 4) {
-      const bookedList = bookedRooms.join(' y ');
-      response_text += ` ${bookedList} ${bookedRooms.length === 1 ? 'está ocupada' : 'están ocupadas'}.`;
-    }
-
-    response_text += ' ¿Querés reservar?';
-
-    return response_text;
-  } catch (error) {
-    console.error('[Vapi Server] Error in getDetailedAvailability:', error);
-    return 'Hubo un problema al verificar la disponibilidad. Por favor visitá book punto ilbuco punto com punto ar.';
-  }
-}
-
-function getDatesBetween(startDate: string, endDate: string): string[] {
-  const dates: string[] = [];
-  const current = new Date(startDate);
-  const end = new Date(endDate);
-
-  while (current < end) {
-    dates.push(current.toISOString().split('T')[0]);
-    current.setDate(current.getDate() + 1);
-  }
-
-  return dates;
-}
-
-// Health check
 export async function GET() {
-  return NextResponse.json({
-    status: 'ok',
-    service: 'Il Buco Vapi Server Webhook',
-    endpoint: '/api/vapi/server'
-  });
+  return NextResponse.json({ status: 'ok', endpoint: '/api/vapi/server' });
 }

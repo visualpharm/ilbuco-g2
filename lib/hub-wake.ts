@@ -105,3 +105,54 @@ export async function wakeHub(
     clearTimeout(timer);
   }
 }
+
+/**
+ * Voice-agent notice to the hub (noe; payment kinds also agent-payments), through the same
+ * signed relay path as the Hostex wake — the tunnel forwards only that path. The relay builds
+ * the words from these fields (scripts/hub_wake_relay.py, VOICE_KINDS).
+ */
+export type VoiceNoticeKind = 'callback' | 'hold_expired' | 'payment_unverified' | 'paid' | 'paid_unbooked' | 'release_failed';
+
+export interface VoiceNotice {
+  type: 'voice_notice';
+  /** Stable id: the relay and the hub drop a repeat */
+  id: string;
+  kind: VoiceNoticeKind;
+  name?: string;
+  phone?: string;
+  unit?: string;
+  check_in?: string;
+  check_out?: string;
+  amount?: number;
+  hold_id?: string;
+  reservation?: string;
+  reason?: string;
+  call_id?: string;
+  test?: boolean;
+}
+
+export async function notifyVoice(
+  notice: Omit<VoiceNotice, 'type'>,
+  opts: { url?: string; secret?: string; fetchImpl?: typeof fetch; timeoutMs?: number; now?: () => number } = {},
+): Promise<{ ok: boolean; status?: number; error?: string }> {
+  const url = opts.url ?? process.env.HUB_WAKE_URL;
+  const secret = opts.secret ?? process.env.HUB_WAKE_SECRET;
+  if (!url || !secret) return { ok: false, error: 'not_configured' };
+  const raw = JSON.stringify({ type: 'voice_notice', ...notice });
+  const ts = Math.floor((opts.now ?? Date.now)() / 1000);
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), opts.timeoutMs ?? 25000);
+  try {
+    const res = await (opts.fetchImpl ?? fetch)(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Hub-Wake-Timestamp': String(ts), 'X-Hub-Wake-Signature': signWake(secret, ts, raw) },
+      body: raw,
+      signal: ctrl.signal,
+    });
+    return { ok: res.ok, status: res.status };
+  } catch (e) {
+    return { ok: false, error: String(e).slice(0, 200) };
+  } finally {
+    clearTimeout(timer);
+  }
+}

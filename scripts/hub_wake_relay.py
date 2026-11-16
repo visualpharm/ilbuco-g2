@@ -8,6 +8,12 @@ timestamp within 5 minutes. It then runs `hub agent-send noe … --as hostex-web
 --id hostex-<message id>` — the hub drops a repeated id, and so does this process.
 It cannot do anything else with the hub: the text is built here from fixed words.
 
+The same path also carries voice-agent notices ({"type": "voice_notice", …}, lib/hub-wake.ts
+notifyVoice): a caller who wants Ivan, a phone hold that expired unpaid, a paid booking. They go
+to noe, and the payment ones to agent-payments too; the text is again built here from checked
+fields (name, phone, dates, amount, hold id), de-duplicated by `voice-<id>`. The Cloudflare
+tunnel host only forwards /hostex-wake, so the notices share it.
+
 Env: HUB_WAKE_PORT (7391), HUB_WAKE_OP_ITEM (1Password item id, vault AI, field password)
 or HUB_WAKE_SECRET (tests only), HUB_WAKE_HUB (hub binary), HUB_WAKE_TO (noe).
 Log: one line per request on stdout (LaunchAgent -> ~/Library/Logs/hub-wake-relay.log);
@@ -40,6 +46,24 @@ AGENT_URL = os.environ.get('HUB_WAKE_AGENT_URL', '')
 AGENT_KEY_FILE = os.environ.get('HUB_WAKE_AGENT_KEY_FILE', '')
 AGENT = 'hostex-webhook'
 UNANSWERED = '~/.claude/artifacts/comms/scripts/hostex_unanswered.py'
+PAYMENTS = 'agent-payments'
+DATE_RE = re.compile(r'^\d{4}-\d{2}-\d{2}$')
+PHONE_RE = re.compile(r'^\+?[0-9 ]{6,20}$')
+# kind -> (recipients, what happened, what to do). Payment kinds also reach agent-payments.
+VOICE_KINDS = {
+    'callback': ((TO,), 'Звонивший на Il Buco просит связаться',
+                 'Бот сказал «le paso tu número a Iván y te escribe». Ответь гостю от имени Ивана или поставь Ивану пункт.'),
+    'hold_expired': ((TO, PAYMENTS), 'Удержание по телефону снято через 10 минут: перевод на точную сумму не найден',
+                     'Бот сказал гостю «lo reviso y te escribo». agent-payments: проверь Ripio — могла прийти другая сумма; '
+                     'noe: напиши гостю.'),
+    'payment_unverified': ((TO, PAYMENTS), 'Бот не смог проверить перевод (мост Ripio не ответил)',
+                           'Бот сказал «apenas lo vea te confirmo por WhatsApp». Проверь поступление и подтверди гостю.'),
+    'paid': ((TO, PAYMENTS), 'Бронь по телефону оплачена и создана в Hostex', 'Ничего делать не нужно, только сверка.'),
+    'paid_unbooked': ((TO, PAYMENTS), 'Перевод пришёл, но бронь в Hostex не создалась — даты пока закрыты удержанием',
+                      'Создай бронь вручную в Hostex (Booking Site) на эти даты и подтверди гостю.'),
+    'release_failed': ((TO,), 'Удержание по телефону не снялось — даты остаются закрытыми',
+                       'Открой эти даты в Hostex вручную, если там нет брони.'),
+}
 
 
 def load_secret():
@@ -88,6 +112,66 @@ def parse(raw):
             'text': clean(d.get('text'), 1500), 'test': d.get('test') is True}
 
 
+def is_voice(raw):
+    try:
+        d = json.loads(raw)
+    except ValueError:
+        return False
+    return isinstance(d, dict) and d.get('type') == 'voice_notice'
+
+
+def parse_voice(raw):
+    """Voice-notice fields, or None. Every field is checked or cut here — the text is built from them."""
+    try:
+        d = json.loads(raw)
+    except ValueError:
+        return None
+    if not isinstance(d, dict) or d.get('type') != 'voice_notice' or d.get('kind') not in VOICE_KINDS:
+        return None
+    nid = str(d.get('id') or '')
+    if not ID_RE.match(nid):
+        return None
+    clean = lambda v, n: ' '.join(str(v or '').split())[:n]
+    phone = clean(d.get('phone'), 24)
+    v = {'id': nid, 'kind': d['kind'], 'name': clean(d.get('name'), 80), 'phone': phone if PHONE_RE.match(phone) else '',
+         'unit': clean(d.get('unit'), 40), 'reason': clean(d.get('reason'), 500), 'hold_id': '', 'reservation': '',
+         'check_in': '', 'check_out': '', 'amount': None, 'call_id': '', 'test': d.get('test') is True}
+    for k in ('hold_id', 'reservation', 'call_id'):
+        x = str(d.get(k) or '')
+        v[k] = x if ID_RE.match(x) else ''
+    for k in ('check_in', 'check_out'):
+        x = str(d.get(k) or '')
+        v[k] = x if DATE_RE.match(x) else ''
+    a = d.get('amount')
+    v['amount'] = a if isinstance(a, int) and not isinstance(a, bool) and 0 < a < 10**9 else None
+    return v
+
+
+def voice_text(v):
+    _, what, todo = VOICE_KINDS[v['kind']]
+    if v['test']:
+        return (f"[ТЕСТ голосового агента Il Buco] {what}. Это проверка канала: гостю и Ивану не пиши, Hostex не трогай, "
+                f"ответь «—». (id {v['id']})")
+    facts = []
+    if v['name'] or v['phone']:
+        facts.append(f"кто: {v['name'] or 'имя не назвал'}, {v['phone'] or 'номер не известен'}")
+    if v['unit']:
+        facts.append(f"что: {v['unit']}")
+    if v['check_in'] and v['check_out']:
+        facts.append(f"даты: {v['check_in']} → {v['check_out']}")
+    if v['amount']:
+        facts.append(f"сумма: {v['amount']:,} ARS".replace(',', ' '))
+    if v['hold_id']:
+        facts.append(f"hold {v['hold_id']}")
+    if v['reservation']:
+        facts.append(f"бронь Hostex {v['reservation']}")
+    if v['reason']:
+        facts.append(f"суть: «{v['reason']}»")
+    if v['call_id']:
+        facts.append(f"звонок Vapi {v['call_id']}")
+    return f"Голосовой агент Il Buco: {what}. " + '; '.join(facts) + f".\n{todo}"
+
+
 def wake_text(w):
     where = f"разговор {w['conversation_id']}, сообщение {w['message_id']}"
     if w['test']:
@@ -108,17 +192,17 @@ class Relay:
         self.seen, self.inflight, self.lock = {}, set(), threading.Lock()
 
     @staticmethod
-    def _agent_send(text, cid):
+    def _agent_send(text, cid, to=TO):
         env = {k: v for k, v in os.environ.items() if k not in ('HUB_SESSION', 'HUB_TREE')}
-        p = subprocess.run([HUB, 'agent-send', TO, text, '--as', 'hostex-webhook', '--id', cid],
+        p = subprocess.run([HUB, 'agent-send', to, text, '--as', 'hostex-webhook', '--id', cid],
                            capture_output=True, text=True, timeout=20, env=env)
         return p.returncode, (p.stdout + p.stderr).strip()[-200:]
 
     @staticmethod
-    def _agent_post(text, cid, url=None, key_file=None, opener=urllib.request.urlopen, clock=time.time):
+    def _agent_post(text, cid, to=TO, url=None, key_file=None, opener=urllib.request.urlopen, clock=time.time):
         """Urgent delivery: the hub types it into the session mid-turn. -> (0, '') on 202, else (code, reason)."""
         key = Path(key_file or AGENT_KEY_FILE).expanduser().read_bytes().strip()
-        raw = json.dumps({'agent': AGENT, 'to': TO, 'text': text, 'client_id': cid, 'now': True},
+        raw = json.dumps({'agent': AGENT, 'to': to, 'text': text, 'client_id': cid, 'now': True},
                          ensure_ascii=False).encode()
         ts = str(int(clock()))
         sig = hmac.new(key, ts.encode() + b'.' + raw, hashlib.sha256).hexdigest()
@@ -142,6 +226,8 @@ class Relay:
         why = check(self.secret, headers, raw, now)
         if why:
             return 401, {'error': why}
+        if is_voice(raw):
+            return self.handle_voice(raw, now)
         w = parse(raw)
         if not w:
             return 400, {'error': 'bad_payload'}
@@ -163,6 +249,33 @@ class Relay:
         if code != 0:
             return 502, {'error': 'hub_failed', 'code': code, 'out': out, 'message_id': mid}
         return 200, {'ok': True, 'message_id': mid, 'test': w['test'], 'hub': out[-80:]}
+
+    def handle_voice(self, raw, now):
+        v = parse_voice(raw)
+        if not v:
+            return 400, {'error': 'bad_payload'}
+        key = f"voice-{v['id']}"
+        with self.lock:
+            if key in self.seen or key in self.inflight:
+                return 200, {'ok': True, 'duplicate': True, 'message_id': key, 'test': v['test']}
+            self.inflight.add(key)
+        text, failed = voice_text(v), []
+        recipients = (TO,) if v['test'] else VOICE_KINDS[v['kind']][0]
+        for to in recipients:
+            try:
+                code, out = self.run(text, f'{key}-{to}', to)
+            except (OSError, subprocess.TimeoutExpired) as e:
+                code, out = -1, str(e)[:200]
+            if code != 0:
+                failed.append((to, code, out))
+        with self.lock:
+            self.inflight.discard(key)
+            if not failed:
+                self.seen[key] = now
+        if failed:
+            to, code, out = failed[0]
+            return 502, {'error': 'hub_failed', 'code': code, 'out': out, 'message_id': key, 'to': to}
+        return 200, {'ok': True, 'message_id': key, 'test': v['test'], 'to': list(recipients)}
 
 
 def serve(relay, port):

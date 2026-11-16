@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Voice agent payment check: "did exactly N pesos arrive on Ripio since T?" (scripts/ripio_bridge.py).
+     127.0.0.1:7392 only; public through Tailscale Funnel https://munk.taila9b9c5.ts.net:10000/ripio-find, HMAC-checked.
+     Install: cp to ~/Library/LaunchAgents/ && launchctl bootstrap gui/501 <plist>
+              tailscale funnel --bg --https=10000 --set-path=/ripio-find http://127.0.0.1:7392/ripio-find
+     Rollback: launchctl bootout gui/501/com.openclaw.ilbuco-ripio-bridge (the bot then says it will confirm by WhatsApp). -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.openclaw.ilbuco-ripio-bridge</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/python3</string>
+    <string>-I</string>
+    <string>/Users/ivan/projects/ilbuco-g2/scripts/ripio_bridge.py</string>
+  </array>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>ThrottleInterval</key><integer>30</integer>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key><string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>HOME</key><string>/Users/ivan</string>
+    <key>RIPIO_BRIDGE_PORT</key><string>7392</string>
+    <key>RIPIO_BRIDGE_OP_ITEM</key><string>6vzu4g4z7wgj2m6gf5fageffye</string>
+  </dict>
+  <key>WorkingDirectory</key><string>/Users/ivan/projects/ilbuco-g2</string>
+  <key>StandardOutPath</key><string>/Users/ivan/Library/Logs/ilbuco-ripio-bridge.log</string>
+  <key>StandardErrorPath</key><string>/Users/ivan/Library/Logs/ilbuco-ripio-bridge.log</string>
+  <key>ProcessType</key><string>Background</string>
+</dict>
+</plist>
