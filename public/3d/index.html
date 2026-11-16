@@ -40,9 +40,11 @@ body{text-wrap:pretty}
 #nav .opts{display:flex;flex-wrap:wrap;gap:8px 12px;border-top:2px solid #eee;margin-top:6px;padding:8px 6px 2px;font-size:14px}
 #nav .opts label{display:flex;gap:5px;align-items:center;cursor:pointer}
 #nav .opts input{width:18px;height:18px;margin:0;accent-color:#222}
-#nav #navt{display:none}
-#nav #home{display:block;padding:6px 8px 8px;font-size:20px;font-weight:700;letter-spacing:-.025em;color:#222;text-decoration:none}
-#nav #home:hover{color:#1d4ed8}
+#navh{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#nav i{flex:none;width:16px;height:16px;background:currentColor;-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
+#nav #navt{display:none;width:auto;align-items:center;gap:7px;font-weight:700}
+#nav #home{display:flex;align-items:center;gap:5px;padding:6px 8px;border-radius:7px;font-weight:700;color:#1d4ed8;text-decoration:none;white-space:nowrap}
+#nav #home:hover{color:#1e3a8a}
 #photo{display:none;position:fixed;right:10px;top:10px;bottom:10px;width:min(500px,40vw);background:#fff;border:2px solid #222;border-radius:12px;padding:10px;box-sizing:border-box;flex-direction:column;gap:8px;overflow:auto;z-index:20;touch-action:pan-y}
 #photo.show{display:flex}
 #photo video{width:100%;aspect-ratio:16/9;background:#111;border-radius:8px;flex:none}
@@ -83,13 +85,14 @@ body.walking #wpad{display:grid}
   #nav button{padding:5px 7px}
   #nav ul ul{margin-left:8px;padding-left:5px}
   #nav.fold>ul,#nav.fold .opts,#nav.fold #home{display:none}
-  #nav #navt{display:block;font-weight:700}
+  #nav #navt{display:flex;padding:8px 9px}
+  #nav:not(.fold) #navt span{display:none}
   #photo{left:8px;right:8px;top:auto;bottom:8px;width:auto;max-height:56vh}
   #photo img.big{max-height:26vh}
 }
 </style></head><body>
 <div id="stage"></div><div id="labels"></div>
-<nav id="nav"><button id="navt"></button><a id="home" href="/">IL BUCO</a><ul id="navl"></ul>
+<nav id="nav"><div id="navh"><button id="navt"><i></i><span></span></button><a id="home" href="/">IL BUCO<i></i></a></div><ul id="navl"></ul>
 <div class="opts"><label><input type="checkbox" id="second" checked>Nombres</label><label><input type="checkbox" id="fotos" checked>Video y fotos</label><label><input type="checkbox" id="plan">Planta</label></div></nav>
 <div id="photo"><button class="x" aria-label="Cerrar">×</button><video muted playsinline controls preload="none"></video><div class="cap"></div><img class="big" alt=""><div class="use"></div><div class="th"></div></div>
 <button id="walkb"><img alt=""><span>Recorrer caminando</span></button>
@@ -2229,6 +2232,7 @@ function camTip(n, novid) {
   const W = { es: ['video', ' y ', 'foto', 'fotos'], en: ['video', ' and ', 'photo', 'photos'], pt: ['vídeo', ' e ', 'foto', 'fotos'], ru: ['видео', ' и ', 'фото', 'фото'] }[LANG];
   return (novid ? '' : W[0]) + (n ? (novid ? '' : W[1]) + n + ' ' + (n > 1 ? W[3] : W[2]) : '');
 }
+const IC={"walk":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAEyElEQVR4nO2cbagWRRSAH1/rakZkXxKB1U37EUVoF38YQgkSGRRJWH5kEfRBPwLpT0TXCoK6JVGJRPQjVKgsCD9uReEHgv6I1D6gbgX9KOhaljfLsjKrNwbmhWXZmZ3d2b1zd/Y8MFx477xnZs7Z9+zMOWcXBEEQBEEQBEEQBEEQBKE5dIAVwDBwCPhb/90OLNf/F2piFvAx0LW0j4BLQk80VuX/mKP8XlP9+kNPOCY6+sruFmgHxB1Vx4qCyu+1ZaEnHgtvlzTAttATj4XvSxpgNPTEY+FESQP8FXrisXCopAG+Cz3xWNhe0gBbQk88FpaVNMCtoSceCx3gYEHl75dzQLX0A4cdla/6XRx6wrEa4YDDlS/Kr5GOvids0/v8E/rvVuA2cTuCIAhRcKr29Vv1iVb5esl8jQPTgAeAb3J2O5L5qpizgMECWS/VJPNVARcAa4FjJcMNkvkqyWzgZR0y7no2yXwV4EpgE3CyAsX3mmS+HDjfI6yc1yTz5cDumpTf1VtUwcKCGpXflcxXPltqNsBw6AVOZC4F/s1R4C+eBlgTepETmRcNShsD1gPztQJ9DDAnMd6kgGudcJwN/G5Q2rWJfvs9lP9tSulvAAMB1johedSgtNdTJ+H/PAywLiHrIu3ufgMW03KmAj9kKOw4MDPR715P93NdQtZg4nP13MD9bQ5T3G1Q2GCq3zseyv8V6EvI+jKjzwiwtG33BrXYzw3+elqi3+nAnx4G2JyQNT+n76faEK3gBoMSlqT6LfF0Pysddlvptg+4hsjZmbHwnRn9XvFQ/km9y+pxM3C04OFNBQajY45BWZen+nUKFFpltT0ZY6t6oDcLVFOrHdNrsSV1NmYs9PmMfgOe7udByxzOBVZrv+8i62hMxVw/ZaQNp2f0u8/TACrE4cKAPnH/7GHQRvFJamH3GPo97KH8L0qeS1Tl3HuG2JS6h0TBVdoIx7TrMR2Ebvfc/6sTdFlm6vPIiA4EPtu2c4JirqcLSp4BhJJ84GmE1sd7fLneIVdga18BU0Ivouk84vkrkGRMBdyhQ8hlDPCHlChWwxWGAJ5LUxFVoQKmAi+UNEI60Cc48BBwWsbnSwsG1nqhbhXeFhw5U++ARgxRyQuBvQWNMBRgHY1lUSpNqTJoaU4BniywVVVpyMsCrKWRrMlQ4Fv6OYE0C3X9p4sRXgqwlkYybFDg18C8jP7nAe86GEBFXwUHDluUqBIqd2Z8Z5IOG+clXKKJ7df5Ar6upSmff3VOjH/M8v1bxnEtjeS5AsVWJjZYvq9u3IKB/pzHktR+/gwHOcstMt4fh3U0ls05V/9NjnLOAf4xyBhrY4LFhXk5daCvVphPiKrSoSp2WRR2BJhRUN7jFnmtqYJz5cYc17OqhExbOaKEJRJMBj6zKGtXSZ89Wf9ysmTuqGEdjcVWgn7cM6FiuqmrOiC5EesQse29n6s95d9lka0OfK3nMYuCPtRuxPcBcNPOqvWvrZyhi6i6hoLduTVV4/Xa07ScdZar/4kKxxmy3NxbzRFLbeeUCsdZaBin9aHpUUOkc0HF4/QZXF3rX+IxVDLSWdVYT9Fy+rRiRrU7Wpt6qrFKVP74Ge12RvW4dY0lCIIgCIIgCIIgCIIgCOTxP0YWiYvnrd0NAAAAAElFTkSuQmCC","up":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAACqklEQVR4nO3bvWsUURjF4d8qZrXyA7TTSgymUlKmFm0VxUbFQhCr2KhgJZb6R1hpLUJkGwtrsYmgNtotWKiNEUSTHblwL4RlZ+58v7M754ELyzLZvHPOzE5mw4KIiIiIiIiIiIiIiIiIiIiIiIgIcAA4B9zyyz3ebz1UHxwCngJbQDK13HNPgIPWQy6qk8DnGcFPr09+W6nRKWCcI/ywvgEr1kP3NfxEJdiHn6iE6pZzhP/Kr6xtxr5IqfnIf7Br+7vARGeCTfiBSjAMP1AJhuEHKsEw/EAlGIYfqATD8AOVYBh+oBIMww9UgmH4gUowDD/odQnW4fe6hNgHaxMfTBFD4KFf7nGdJYz9zAuhiSN/aepT0FGJ/wmv9+FMiIU/8UFUCb9KCbcXuYQ2w09Ugn34iUqwDz/pewldCD/pawldCj/pWwnLDYQ/BDYiAb/2K2ubjRL3CevzdJ9wwjD8oV9WJRzH2F7gvWH4gVUJ73wGZm52IHzrEm5g6G3LF9xR5KJax2sUvTC/wcge4G/KUPdaPPLbOhPup7zWH2CAgSMpA/0qONCwxvCbLGGQ8r0Etw5jYCnltHTPrRmG31QJaymvsQPsw8jHlKF+AquG4dddwqrfp1k//wFDjzN2LKuENsKvq4Ss8N16hCF3HfhRsIQ2w69aQiz871bv/7tdALZzlmARftkSYuG7fT5PR1yLlOD+enjm3y8twi9SwqafdSsSvtvnTrkK/IvsXN03SGVU/YR12/rut4kSRi1/0bpsCZ0Ov2wJI6NvuRctYS7CD64Av3Ps1POG3/Nj3O9+kWNOdz24zJxZ8UfYzowd+tKhi9jAH9lfZ8zpZn8JnGaOHQMuAXeA68AZumkAnPUzulkvAkethxIRERERERERERERERERERERERGK+Q9x2/2Pc+ykZAAAAABJRU5ErkJggg==","menu":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAp0lEQVR4nO3asQ2DUAwFwLdGBiEbAYuSdeipfoTECoktuJM8gF3YhV8CAAAAAAAAALT2TvJJciQZN6/j6vXsuYVXkr3BYMafa796L7c2GMYoqiUNLA0GMYpqTgNWUAPnQdoedIS3JFP10AEAAAAAAOA55IIKecoXkwsqJhdUzApqQC4IAAAAAAAA+CG5oEKe8sXkgorJBRWzghqQCwIAAAAAAAAA0soXCrVQlGy0EVkAAAAASUVORK5CYII=","go":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAACHElEQVR4nO3cO2sWURRG4QUBJYiFacRKRELEJgRsAhFsAgo2gtqJiHaKhaU2VknMj0mdXrQU7MRORRHBC6KoePlkZAIpnDPV5E3OrAdOv9lv8s3MuYEkSZIkSZIkSZIkSZL2lingHHANOJ4uZmymgUfApB0/gJvposbk3rbmb40/wK10YWOx8Z8AtkK4kS5uDFY6AmjGb+BKusDazQAvCyH8Ai6ni6zdLPCmJ4RL6SJrNwe8LYTQvB2dTxdZu3ngfSGE7+33gga0AHwohPAVODNkAYJF4HMhhC/A6XSRtVtqG90VwifgVLrI2i0D3wohfGx/sjSgs+3DtyuEd8DJIQsQXAB+FkJoXl9PpIus3cX2g6wrhOZr+li6yNpdbeeHukJ4ARxNF1m76+1MaVcIz4Ej6SJrd7sQQDOeAYfTRdbuTk8IT9uZVg3ofk8IT4BDQxYgigs6zXgMHEwXWbv1nhAeAgfSRe4DHvQsfNQ8NoH9yQDWdkETJuGxmgxgrH/5k22j6UHM613QgEl4ND2I8SeIf29M0Yfw2oj/EzbTD+Gare+F19BarfQ03w+xATkVEeRkXJDT0UEuyAS5JBnkonyQ21KC3JgVtOzWxJwlN+fmLLo9PWfBAxo58x5RypnzkF7OrMdUc2aAVz3N96D2gFYLzfeqgh2w0dF8L+vYIXc7mu91NTtk2gub8qa8skySJEmSJEmSJEmSJImQv3lC4bksEK8uAAAAAElFTkSuQmCC"};
 let walker = null;   // прогулка от первого лица (walk.js): пока она идёт, камерой правит она, подписи и меню скрыты
 // --- подписи: маленькие точки, текст появляется по наведению (на телефоне — по касанию); txt — надпись видна всегда
 const labelsEl = document.getElementById('labels');
@@ -2453,10 +2457,13 @@ function renderNav() {
   const path = new Set(); for (let n = curNav; n; n = n.parent) path.add(n);
   const ul = (list) => '<ul>' + list.map(n => '<li><button data-n="' + n.id + '" class="' + (n === curNav ? 'on' : path.has(n) ? 'path' : '') + '">' + T(n.name) + '</button>' + (n.kids && path.has(n) ? ul(n.kids) : '') + '</li>').join('') + '</ul>';
   navL.innerHTML = ul(NAV).slice(4, -5);
-  navT.textContent = '☰ ' + [...path].reverse().map(n => T(n.name)).join(' · ');
+  const where = [...path].reverse().map(n => T(n.name)).join(' · ');
+  navT.lastChild.textContent = where; navT.setAttribute('aria-label', where);
   navL.querySelectorAll('button').forEach(b => b.onclick = e => { e.stopPropagation(); go(byId[b.dataset.n]); });
 }
 navT.onclick = e => { e.stopPropagation(); navEl.classList.toggle('fold'); };
+// шапка меню — одна строка: на телефоне кнопка меню (свёрнутое — с путём, открытое — без: путь уже выделен в списке), справа ссылка на сайт со стрелкой
+document.head.appendChild(document.createElement('style')).textContent = [['#nav #navt i', IC.menu], ['#nav #home i', IC.go]].map(([s, u]) => s + '{-webkit-mask-image:url(' + u + ');mask-image:url(' + u + ')}').join('');
 function go(n, instant) {
   curNav = n; closeCam(); controls.minDistance = 2;
   if (innerWidth < 700 && !instant) navEl.classList.add('fold');   // телефон: выбрал пункт — меню сворачивается, выбранное не остаётся под ним (Иван)
@@ -2529,7 +2536,6 @@ document.querySelectorAll('#nav .opts label').forEach(l => { const s = l.lastChi
 panel.querySelector('.x').setAttribute('aria-label', T('Cerrar'));
 const homeEl = document.getElementById('home');
 if (NOVID || !/^https?:/.test(location.protocol)) homeEl.remove(); else homeEl.href = LANG === 'es' ? '/' : '/' + LANG;
-const IC={"walk":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAEyElEQVR4nO2cbagWRRSAH1/rakZkXxKB1U37EUVoF38YQgkSGRRJWH5kEfRBPwLpT0TXCoK6JVGJRPQjVKgsCD9uReEHgv6I1D6gbgX9KOhaljfLsjKrNwbmhWXZmZ3d2b1zd/Y8MFx477xnZs7Z9+zMOWcXBEEQBEEQBEEQBEEQBKE5dIAVwDBwCPhb/90OLNf/F2piFvAx0LW0j4BLQk80VuX/mKP8XlP9+kNPOCY6+sruFmgHxB1Vx4qCyu+1ZaEnHgtvlzTAttATj4XvSxpgNPTEY+FESQP8FXrisXCopAG+Cz3xWNhe0gBbQk88FpaVNMCtoSceCx3gYEHl75dzQLX0A4cdla/6XRx6wrEa4YDDlS/Kr5GOvids0/v8E/rvVuA2cTuCIAhRcKr29Vv1iVb5esl8jQPTgAeAb3J2O5L5qpizgMECWS/VJPNVARcAa4FjJcMNkvkqyWzgZR0y7no2yXwV4EpgE3CyAsX3mmS+HDjfI6yc1yTz5cDumpTf1VtUwcKCGpXflcxXPltqNsBw6AVOZC4F/s1R4C+eBlgTepETmRcNShsD1gPztQJ9DDAnMd6kgGudcJwN/G5Q2rWJfvs9lP9tSulvAAMB1johedSgtNdTJ+H/PAywLiHrIu3ufgMW03KmAj9kKOw4MDPR715P93NdQtZg4nP13MD9bQ5T3G1Q2GCq3zseyv8V6EvI+jKjzwiwtG33BrXYzw3+elqi3+nAnx4G2JyQNT+n76faEK3gBoMSlqT6LfF0Pysddlvptg+4hsjZmbHwnRn9XvFQ/km9y+pxM3C04OFNBQajY45BWZen+nUKFFpltT0ZY6t6oDcLVFOrHdNrsSV1NmYs9PmMfgOe7udByxzOBVZrv+8i62hMxVw/ZaQNp2f0u8/TACrE4cKAPnH/7GHQRvFJamH3GPo97KH8L0qeS1Tl3HuG2JS6h0TBVdoIx7TrMR2Ebvfc/6sTdFlm6vPIiA4EPtu2c4JirqcLSp4BhJJ84GmE1sd7fLneIVdga18BU0Ivouk84vkrkGRMBdyhQ8hlDPCHlChWwxWGAJ5LUxFVoQKmAi+UNEI60Cc48BBwWsbnSwsG1nqhbhXeFhw5U++ARgxRyQuBvQWNMBRgHY1lUSpNqTJoaU4BniywVVVpyMsCrKWRrMlQ4Fv6OYE0C3X9p4sRXgqwlkYybFDg18C8jP7nAe86GEBFXwUHDluUqBIqd2Z8Z5IOG+clXKKJ7df5Ar6upSmff3VOjH/M8v1bxnEtjeS5AsVWJjZYvq9u3IKB/pzHktR+/gwHOcstMt4fh3U0ls05V/9NjnLOAf4xyBhrY4LFhXk5daCvVphPiKrSoSp2WRR2BJhRUN7jFnmtqYJz5cYc17OqhExbOaKEJRJMBj6zKGtXSZ89Wf9ysmTuqGEdjcVWgn7cM6FiuqmrOiC5EesQse29n6s95d9lka0OfK3nMYuCPtRuxPcBcNPOqvWvrZyhi6i6hoLduTVV4/Xa07ScdZar/4kKxxmy3NxbzRFLbeeUCsdZaBin9aHpUUOkc0HF4/QZXF3rX+IxVDLSWdVYT9Fy+rRiRrU7Wpt6qrFKVP74Ge12RvW4dY0lCIIgCIIgCIIgCIIgCOTxP0YWiYvnrd0NAAAAAElFTkSuQmCC","up":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAACqklEQVR4nO3bvWsUURjF4d8qZrXyA7TTSgymUlKmFm0VxUbFQhCr2KhgJZb6R1hpLUJkGwtrsYmgNtotWKiNEUSTHblwL4RlZ+58v7M754ELyzLZvHPOzE5mw4KIiIiIiIiIiIiIiIiIiIiIiIgIcAA4B9zyyz3ebz1UHxwCngJbQDK13HNPgIPWQy6qk8DnGcFPr09+W6nRKWCcI/ywvgEr1kP3NfxEJdiHn6iE6pZzhP/Kr6xtxr5IqfnIf7Br+7vARGeCTfiBSjAMP1AJhuEHKsEw/EAlGIYfqATD8AOVYBh+oBIMww9UgmH4gUowDD/odQnW4fe6hNgHaxMfTBFD4KFf7nGdJYz9zAuhiSN/aepT0FGJ/wmv9+FMiIU/8UFUCb9KCbcXuYQ2w09Ugn34iUqwDz/pewldCD/pawldCj/pWwnLDYQ/BDYiAb/2K2ubjRL3CevzdJ9wwjD8oV9WJRzH2F7gvWH4gVUJ73wGZm52IHzrEm5g6G3LF9xR5KJax2sUvTC/wcge4G/KUPdaPPLbOhPup7zWH2CAgSMpA/0qONCwxvCbLGGQ8r0Etw5jYCnltHTPrRmG31QJaymvsQPsw8jHlKF+AquG4dddwqrfp1k//wFDjzN2LKuENsKvq4Ss8N16hCF3HfhRsIQ2w69aQiz871bv/7tdALZzlmARftkSYuG7fT5PR1yLlOD+enjm3y8twi9SwqafdSsSvtvnTrkK/IvsXN03SGVU/YR12/rut4kSRi1/0bpsCZ0Ov2wJI6NvuRctYS7CD64Av3Ps1POG3/Nj3O9+kWNOdz24zJxZ8UfYzowd+tKhi9jAH9lfZ8zpZn8JnGaOHQMuAXeA68AZumkAnPUzulkvAkethxIRERERERERERERERERERERERGK+Q9x2/2Pc+ykZAAAAABJRU5ErkJggg=="};
 // --- прогулка от первого лица (Иван, 13.11: «чтоб можно было по нему ходить, двери открывать… активные облачка… в другую комнату перейти»).
 // Стрелки/WASD — шаги и повороты, перетаскивание — взгляд, касание пола — идти туда, касание двери или E — открыть/закрыть.
 // Облачко над проёмом переводит в соседнюю комнату, над лестницей — на соседний этаж. Стены и мебель не пускают: сетка проходимости

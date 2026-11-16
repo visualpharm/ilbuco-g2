@@ -33,14 +33,14 @@ def photos(folder):
 
 
 def icons():
-    """`const IC={"walk":"data:image/png;base64,…"}`: Icons8 icons (SF Regular) of the walk mode."""
-    names = {"walk": "walking", "up": "chevron-up"}
+    """`const IC={"walk":"data:image/png;base64,…"}`: Icons8 icons (SF Regular) of the menu header and the walk mode."""
+    names = {"walk": "walking", "up": "chevron-up", "menu": "menu", "go": "right"}
     items = ",".join('"%s":"data:image/png;base64,%s"' % (k, base64.b64encode((HERE / "icons" / (f + ".png")).read_bytes()).decode()) for k, f in names.items())
     return "const IC={" + items + "};\n"
 
 
 def site():
-    model = read("src/scene.js") + photos("photos") + read("src/i18n.js") + read("src/app.js") + icons() + read("src/walk.js")
+    model = read("src/scene.js") + photos("photos") + read("src/i18n.js") + icons() + read("src/app.js") + read("src/walk.js")
     return (
         read("src/head.html") + "<script>\n" + read("vendor/three.min.js") + "</script><script>\n"
         + read("vendor/OrbitControls.js") + "</script><script>\n" + model + "</script></body></html>\n"
@@ -61,7 +61,7 @@ def strip(js):
 def light():
     head = swap(read("src/head.html"), "Video y fotos", "Fotos")
     head = re.sub(r'<link rel="(?:canonical|alternate)"[^>]*>\n?', "", head)  # the copy is not a page of the site
-    model = "\n".join([strip(read("src/scene.js")), photos("photos-light"), strip(read("src/i18n.js")), strip(read("src/app.js")), icons(), strip(read("src/walk.js"))])
+    model = "\n".join([strip(read("src/scene.js")), photos("photos-light"), strip(read("src/i18n.js")), icons(), strip(read("src/app.js")), strip(read("src/walk.js"))])
     key = "  'Video y fotos': ["
     model = swap(model, key, "  'Fotos': ['Photos', 'Fotos', 'Фото'],\n" + key)
     return (

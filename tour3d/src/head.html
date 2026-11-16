@@ -40,9 +40,11 @@ body{text-wrap:pretty}
 #nav .opts{display:flex;flex-wrap:wrap;gap:8px 12px;border-top:2px solid #eee;margin-top:6px;padding:8px 6px 2px;font-size:14px}
 #nav .opts label{display:flex;gap:5px;align-items:center;cursor:pointer}
 #nav .opts input{width:18px;height:18px;margin:0;accent-color:#222}
-#nav #navt{display:none}
-#nav #home{display:block;padding:6px 8px 8px;font-size:20px;font-weight:700;letter-spacing:-.025em;color:#222;text-decoration:none}
-#nav #home:hover{color:#1d4ed8}
+#navh{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#nav i{flex:none;width:16px;height:16px;background:currentColor;-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
+#nav #navt{display:none;width:auto;align-items:center;gap:7px;font-weight:700}
+#nav #home{display:flex;align-items:center;gap:5px;padding:6px 8px;border-radius:7px;font-weight:700;color:#1d4ed8;text-decoration:none;white-space:nowrap}
+#nav #home:hover{color:#1e3a8a}
 #photo{display:none;position:fixed;right:10px;top:10px;bottom:10px;width:min(500px,40vw);background:#fff;border:2px solid #222;border-radius:12px;padding:10px;box-sizing:border-box;flex-direction:column;gap:8px;overflow:auto;z-index:20;touch-action:pan-y}
 #photo.show{display:flex}
 #photo video{width:100%;aspect-ratio:16/9;background:#111;border-radius:8px;flex:none}
@@ -83,13 +85,14 @@ body.walking #wpad{display:grid}
   #nav button{padding:5px 7px}
   #nav ul ul{margin-left:8px;padding-left:5px}
   #nav.fold>ul,#nav.fold .opts,#nav.fold #home{display:none}
-  #nav #navt{display:block;font-weight:700}
+  #nav #navt{display:flex;padding:8px 9px}
+  #nav:not(.fold) #navt span{display:none}
   #photo{left:8px;right:8px;top:auto;bottom:8px;width:auto;max-height:56vh}
   #photo img.big{max-height:26vh}
 }
 </style></head><body>
 <div id="stage"></div><div id="labels"></div>
-<nav id="nav"><button id="navt"></button><a id="home" href="/">IL BUCO</a><ul id="navl"></ul>
+<nav id="nav"><div id="navh"><button id="navt"><i></i><span></span></button><a id="home" href="/">IL BUCO<i></i></a></div><ul id="navl"></ul>
 <div class="opts"><label><input type="checkbox" id="second" checked>Nombres</label><label><input type="checkbox" id="fotos" checked>Video y fotos</label><label><input type="checkbox" id="plan">Planta</label></div></nav>
 <div id="photo"><button class="x" aria-label="Cerrar">×</button><video muted playsinline controls preload="none"></video><div class="cap"></div><img class="big" alt=""><div class="use"></div><div class="th"></div></div>
 <button id="walkb"><img alt=""><span>Recorrer caminando</span></button>

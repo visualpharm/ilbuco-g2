@@ -19,7 +19,7 @@ The build needs only Python 3. Commit `public/3d/index.html` together with the s
 | `src/i18n.js` | Language of the page and the dictionary: Spanish text → English, Portuguese, Russian |
 | `src/app.js` | Labels, shooting points, photos and video panel, the tour's menu, camera moves |
 | `src/walk.js` | Walk mode: rooms, openings, stairs, collision grid, doors, clouds, keys and touch pad |
-| `icons/` | Icons8 icons (SF Regular) the page inlines: the walk button and the pad's arrow |
+| `icons/` | Icons8 icons (SF Regular) the page inlines: the walk button, the pad's arrow, the menu button and the arrow of the link to the site |
 | `photos/NN-key.jpg` | Photos shown at shooting points; `key` is what `ph('key', …)` in `src/app.js` refers to |
 | `photos-light/` | The same photos, compressed harder, for the light copy |
 | `vendor/` | three.js r147 and its OrbitControls, as shipped |

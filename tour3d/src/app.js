@@ -222,10 +222,13 @@ function renderNav() {
   const path = new Set(); for (let n = curNav; n; n = n.parent) path.add(n);
   const ul = (list) => '<ul>' + list.map(n => '<li><button data-n="' + n.id + '" class="' + (n === curNav ? 'on' : path.has(n) ? 'path' : '') + '">' + T(n.name) + '</button>' + (n.kids && path.has(n) ? ul(n.kids) : '') + '</li>').join('') + '</ul>';
   navL.innerHTML = ul(NAV).slice(4, -5);
-  navT.textContent = '☰ ' + [...path].reverse().map(n => T(n.name)).join(' · ');
+  const where = [...path].reverse().map(n => T(n.name)).join(' · ');
+  navT.lastChild.textContent = where; navT.setAttribute('aria-label', where);
   navL.querySelectorAll('button').forEach(b => b.onclick = e => { e.stopPropagation(); go(byId[b.dataset.n]); });
 }
 navT.onclick = e => { e.stopPropagation(); navEl.classList.toggle('fold'); };
+// шапка меню — одна строка: на телефоне кнопка меню (свёрнутое — с путём, открытое — без: путь уже выделен в списке), справа ссылка на сайт со стрелкой
+document.head.appendChild(document.createElement('style')).textContent = [['#nav #navt i', IC.menu], ['#nav #home i', IC.go]].map(([s, u]) => s + '{-webkit-mask-image:url(' + u + ');mask-image:url(' + u + ')}').join('');
 function go(n, instant) {
   curNav = n; closeCam(); controls.minDistance = 2;
   if (innerWidth < 700 && !instant) navEl.classList.add('fold');   // телефон: выбрал пункт — меню сворачивается, выбранное не остаётся под ним (Иван)
