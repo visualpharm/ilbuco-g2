@@ -76,7 +76,9 @@ test('New Year: the house is never sold for the single night of the 31st, only t
   assert.ok(!quoted.includes('casa:2026-12-31:2027-01-01'), 'the single night is never even quoted');
   assert.equal(q.offers[0].checkIn, '2026-12-30');
   assert.equal(q.offers[0].checkOut, '2027-01-03');
-  assert.match(q.say, /^La casa entera para Año Nuevo va solo por el bloque completo: del miércoles 30 de diciembre al domingo 3 de enero, cuatro noches/);
+  assert.match(q.say, /^No, la casa entera para Año Nuevo no se alquila por una sola noche: va solo por el bloque completo, del miércoles 30 de diciembre al domingo 3 de enero, cuatro noches/);
+  assert.match(q.note ?? '', /la respuesta sigue siendo no/);
+  assert.doesNotMatch(q.say, /tenés razón|se puede/i);
   assert.ok(q.offers.every(o => !(o.unit.key === 'casa' && o.nights === 1)));
 });
 

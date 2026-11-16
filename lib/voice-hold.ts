@@ -18,7 +18,12 @@
  * Paid (exact amount found) → a Hostex direct-booking reservation (Booking Site channel, ARS,
  * received = amount); the hold closures stay, the reservation occupies the nights anyway.
  * Not paid in 10 minutes → the server releases the hold (cron sweep each minute and on every
- * tool call) and noe + agent-payments get the summary.
+ * tool call) and noe + agent-payments get the summary. Before releasing, the sweep asks the bridge
+ * once more for the exact amount since the hold began: a transfer that landed after the caller
+ * hung up books the stay exactly like check_payment would.
+ *
+ * Speed: hold_booking starts a warm watcher on the bridge (mode watch), so check_payment answers
+ * in a few seconds from its last poll instead of starting the Ripio script (~20 s) mid-call.
  */
 import { createVersionedStore, type VersionedStore } from './versioned-blob-store';
 import {
@@ -26,12 +31,16 @@ import {
   hostexFetch, HOSTEX_USER_AGENT, type CreateReservationParams, type CreatedReservation, type StrictReservationSpan,
 } from './hostex-api';
 import { stayNights } from './price-floor';
-import type { DepositCheck } from './payment-bridge';
+import type { DepositCheck, DepositMode } from './payment-bridge';
 import type { VoiceNotice } from './hub-wake';
 import { CASA, SUITE_UNITS, type Offer, unitByKey, type UnitKey } from './voice-quote';
 
 export const HOLD_MS = 10 * 60_000;
 export const AMOUNT_WINDOW_MS = 15 * 60_000;
+/** The bridge cannot answer the sweep's last check: keep the hold this much longer before releasing blind */
+export const FINAL_CHECK_GRACE_MS = 5 * 60_000;
+/** check_payment waits this long on the warm watcher: the caller is on the line */
+export const LIVE_CHECK_WAIT_SEC = 3;
 const KEEP_FINISHED_MS = 14 * 24 * 3600_000;
 
 export type HoldStatus = 'held' | 'booked' | 'paid_unbooked' | 'released' | 'release_failed' | 'failed';
@@ -165,7 +174,7 @@ export interface HoldDeps {
   open: (propertyIds: number[], dates: string[]) => Promise<unknown>;
   reservations: (startNight: string, endNight: string) => Promise<StrictReservationSpan[]>;
   createReservation: (p: CreateReservationParams) => Promise<CreatedReservation>;
-  findDeposit: (amount: number, sinceIso: string, waitSec: number) => Promise<DepositCheck>;
+  findDeposit: (amount: number, sinceIso: string, waitSec: number, mode: DepositMode) => Promise<DepositCheck>;
   notify: (n: Omit<VoiceNotice, 'type'>) => Promise<unknown>;
   now: () => number;
   rand: () => number;
@@ -201,6 +210,11 @@ async function tell(h: Hold, kind: VoiceNotice['kind'], deps: HoldDeps, reason =
 }
 
 // ─── flows ──────────────────────────────────────────────────────────────────
+
+/** A transfer counts from 2 minutes before the hold: a quick caller may pay while the bot still talks. */
+export function holdSince(h: Pick<Hold, 'createdAt'>): string {
+  return new Date(h.createdAt - 2 * 60_000).toISOString();
+}
 
 export type CreateHoldResult = { ok: true; hold: Hold } | { ok: false; why: 'taken' | 'busy' | 'error'; detail?: string };
 
@@ -239,6 +253,8 @@ export async function createHold(
     await releaseHold(hold.id, 'close_failed', deps).catch(() => undefined);
     return { ok: false, why: 'error', detail: String(e).slice(0, 200) };
   }
+  // warm the bridge: its watcher polls Ripio from now on, so check_payment answers in seconds
+  await deps.findDeposit(hold.amount, holdSince(hold), 0, 'watch').catch(() => null);
   return { ok: true, hold };
 }
 
@@ -265,24 +281,42 @@ export async function releaseHold(id: string, reason: string, deps: HoldDeps): P
   h.releasedAt = deps.now();
   h.releaseReason = reason;
   await deps.store.save(state);
-  if (reason === 'expired') {
-    await tell(h, 'hold_expired', deps);
+  if (reason === 'expired' || reason === 'expired_unverified') {
+    await tell(h, 'hold_expired', deps,
+      reason === 'expired_unverified' ? 'последняя проверка Ripio перед снятием не прошла — сверь поступление вручную' : '');
     await deps.store.save(state);
   }
   return h;
 }
 
-/** Release every hold past its 10 minutes (cron each minute + every tool call); retry failed releases. */
-export async function sweepHolds(deps: HoldDeps): Promise<{ released: string[] }> {
+/**
+ * Release every hold past its 10 minutes (cron each minute + every tool call); retry failed releases.
+ * A held stay gets one last bridge check first: paid → booked (and noe + agent-payments told),
+ * not paid → released; the bridge cannot answer → kept up to FINAL_CHECK_GRACE_MS, then released.
+ */
+export async function sweepHolds(deps: HoldDeps): Promise<{ released: string[]; booked: string[] }> {
   const now = deps.now();
   const state = await deps.store.load();
   const due = state.holds.filter(h => (h.status === 'held' && now >= h.expiresAt) || h.status === 'release_failed');
-  const released: string[] = [];
+  const released: string[] = [], booked: string[] = [];
   for (const h of due) {
-    const r = await releaseHold(h.id, 'expired', deps);
+    let reason = 'expired';
+    if (h.status === 'held') {
+      const dep = await deps.findDeposit(h.amount, holdSince(h), 0, 'once').catch(() => null);
+      if (dep?.found) {
+        const b = await bookPaid(h.id, dep, deps, 'перевод нашёлся при последней проверке перед снятием удержания; гость мог уже повесить трубку — подтверди ему');
+        if (b.state === 'booked') booked.push(h.id);
+        continue;
+      }
+      if (dep === null) {
+        if (now < h.expiresAt + FINAL_CHECK_GRACE_MS) continue;
+        reason = 'expired_unverified';
+      }
+    }
+    const r = await releaseHold(h.id, reason, deps);
     if (r?.status === 'released') released.push(h.id);
   }
-  return { released };
+  return { released, booked };
 }
 
 export type PaymentResult =
@@ -293,8 +327,8 @@ export type PaymentResult =
   | { state: 'unverified'; hold: Hold }
   | { state: 'unknown' };
 
-/** check_payment: look for the exact amount (waiting up to `waitSec`), book when it is there. */
-export async function checkPayment(id: string, deps: HoldDeps, waitSec = 12): Promise<PaymentResult> {
+/** check_payment: ask the warm watcher for the exact amount (a few seconds at most), book when it is there. */
+export async function checkPayment(id: string, deps: HoldDeps, waitSec = LIVE_CHECK_WAIT_SEC): Promise<PaymentResult> {
   let state = await deps.store.load();
   let h: Hold | undefined = state.holds.find(x => x.id === id);
   if (!h) return { state: 'unknown' };
@@ -302,9 +336,9 @@ export async function checkPayment(id: string, deps: HoldDeps, waitSec = 12): Pr
   if (h.status === 'paid_unbooked') return { state: 'paid_unbooked', hold: h };
   if (h.status !== 'held') return { state: 'expired', hold: h };
 
-  const since = new Date(h.createdAt - 2 * 60_000).toISOString();
-  const left = Math.max(0, Math.floor((h.expiresAt - deps.now()) / 1000));
-  const dep = await deps.findDeposit(h.amount, since, Math.min(waitSec, left));
+  // past the 10 minutes this is the last check before release: a fresh run, not the watcher's last poll
+  const late = deps.now() >= h.expiresAt;
+  const dep = await deps.findDeposit(h.amount, holdSince(h), late ? 0 : waitSec, late ? 'once' : 'watch');
 
   if (dep === null) {
     // the check itself could not run: the agent promises a WhatsApp confirmation, noe gets the summary once
@@ -323,11 +357,35 @@ export async function checkPayment(id: string, deps: HoldDeps, waitSec = 12): Pr
     return { state: 'pending', hold: h, secondsLeft: Math.max(0, Math.floor((h.expiresAt - deps.now()) / 1000)) };
   }
 
-  // paid: book it in Hostex (direct booking channel). The hold closures stay; the reservation occupies the nights.
-  state = await deps.store.load();
-  h = state.holds.find(x => x.id === id)!;
-  if (h.status !== 'held') return { state: h.status === 'booked' ? 'booked' : 'paid_unbooked', hold: h };
+  return bookPaid(id, dep, deps);
+}
+
+/**
+ * The exact amount arrived: book it in Hostex (direct booking channel). The hold closures stay; the
+ * reservation occupies the nights. Shared by check_payment and the sweep's last check. A reservation
+ * already on the unit's nights (another run of this, or a sale elsewhere) is never doubled: paid_unbooked.
+ */
+async function bookPaid(id: string, dep: { found: true; amount: string; at: string }, deps: HoldDeps, note = ''): Promise<PaymentResult> {
+  const state = await deps.store.load();
+  const h = state.holds.find(x => x.id === id);
+  if (!h) return { state: 'unknown' };
+  if (h.status === 'booked' || h.status === 'paid_unbooked') return { state: h.status, hold: h };
+  if (h.status !== 'held') return { state: 'expired', hold: h };
   h.paidAt = dep.at;
+  const nights = stayNights(h.checkIn, h.checkOut);
+  const taken = await deps.reservations(nights[0], nights[nights.length - 1]).then(
+    rs => rs.filter(r => r.check_in_date < h.checkOut && r.check_out_date > h.checkIn &&
+      (h.propertyId === CASA.propertyId || r.property_id === h.propertyId || r.property_id === CASA.propertyId)),
+    () => null,
+  );
+  if (taken === null || taken.length) {
+    h.status = 'paid_unbooked';
+    await deps.store.save(state);
+    const why = taken === null ? 'не удалось проверить брони Hostex перед созданием' : `на эти ночи уже есть бронь ${taken.map(r => r.reservation_code).join(', ')}`;
+    await tell(h, 'paid_unbooked', deps, [note, why].filter(Boolean).join('; '));
+    await deps.store.save(state);
+    return { state: 'paid_unbooked', hold: h };
+  }
   const params: CreateReservationParams = {
     property_id: h.propertyId, check_in_date: h.checkIn, check_out_date: h.checkOut,
     guest_name: h.name || 'Huésped por teléfono', rate_amount: h.amount, received_amount: h.amount, currency: 'ARS',
@@ -345,13 +403,13 @@ export async function checkPayment(id: string, deps: HoldDeps, waitSec = 12): Pr
     h.status = 'booked';
     h.reservationCode = r.reservation_code;
     await deps.store.save(state);
-    await tell(h, 'paid', deps);
+    await tell(h, 'paid', deps, note);
     await deps.store.save(state);
     return { state: 'booked', hold: h };
   } catch (e) {
     h.status = 'paid_unbooked';
     await deps.store.save(state);
-    await tell(h, 'paid_unbooked', deps, String(e).slice(0, 200));
+    await tell(h, 'paid_unbooked', deps, [note, String(e).slice(0, 200)].filter(Boolean).join('; '));
     await deps.store.save(state);
     return { state: 'paid_unbooked', hold: h };
   }

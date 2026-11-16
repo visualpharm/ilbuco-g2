@@ -3,12 +3,17 @@
  * behind Tailscale Funnel). The Ripio key can move money, so it never leaves munk; the bridge
  * answers only found / amount / time.
  *
+ * mode "watch": the bridge keeps a warm background check for this amount and answers within
+ * `waitSec` (a caller on the line hangs up after ~10 s); "once": one synchronous run (~5–7 s),
+ * the sweep's last check before releasing a hold.
+ *
  * Env: RIPIO_BRIDGE_URL (…/ripio-find), RIPIO_BRIDGE_SECRET (HMAC key, 1Password AI
  * "ilbuco-g2 RIPIO_BRIDGE_SECRET").
  */
 import { createHmac } from 'node:crypto';
 
 export type DepositCheck = { found: true; amount: string; at: string } | { found: false } | null;
+export type DepositMode = 'watch' | 'once';
 
 export function signBridge(secret: string, ts: number, raw: string): string {
   return createHmac('sha256', secret).update(`${ts}.${raw}`).digest('hex');
@@ -19,12 +24,13 @@ export async function findDeposit(
   amount: number,
   sinceIso: string,
   waitSec: number,
+  mode: DepositMode = 'once',
   opts: { url?: string; secret?: string; fetchImpl?: typeof fetch; now?: () => number } = {},
 ): Promise<DepositCheck> {
   const url = opts.url ?? process.env.RIPIO_BRIDGE_URL;
   const secret = opts.secret ?? process.env.RIPIO_BRIDGE_SECRET;
   if (!url || !secret) return null;
-  const raw = JSON.stringify({ amount: Math.round(amount), since: sinceIso, wait: Math.max(0, Math.min(20, Math.round(waitSec))) });
+  const raw = JSON.stringify({ amount: Math.round(amount), since: sinceIso, wait: Math.max(0, Math.min(20, Math.round(waitSec))), mode });
   const ts = Math.floor((opts.now ?? Date.now)() / 1000);
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), (waitSec + 25) * 1000);

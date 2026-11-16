@@ -7,10 +7,11 @@
  * - check_payment: did the exact amount arrive (munk bridge); paid → booked in Hostex
  * - take_message: name, number and what they need → noe; "le paso tu número a Iván y te escribe"
  *
- * No transfer to a person (Ivan, 2026-11-16). Every tool call first releases expired holds;
- * the cron /api/vapi/holds/sweep does the same each minute.
+ * No transfer to a person (Ivan, 2026-11-16). After every tool call the server sweeps expired holds
+ * (after the answer: the sweep's last Ripio check of a due hold takes seconds the caller must not
+ * wait); the cron /api/vapi/holds/sweep does the same each minute.
  */
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, after } from 'next/server';
 import { verifyVapiWebhookSecret, VAPI_WEBHOOK_SECRET_HEADER } from '@/lib/vapi-auth';
 import { appendConversationLog } from '@/lib/conversation-log';
 import { notifyVoice } from '@/lib/hub-wake';
@@ -65,7 +66,7 @@ const str = (v: unknown, max = 200) => String(v ?? '').trim().slice(0, max);
 
 function holdDeps(ctx: CallCtx) {
   return liveHoldDeps({
-    findDeposit: (amount, since, wait) => findDeposit(amount, since, wait),
+    findDeposit: (amount, since, wait, mode) => findDeposit(amount, since, wait, mode),
     notify: n => notifyVoice({ ...n, ...(ctx.test ? { test: true } : {}) }),
   });
 }
@@ -83,9 +84,9 @@ async function toolCheckAvailability(p: Record<string, unknown>): Promise<string
     unit: str(p.unit, 20).toLowerCase() || 'any',
   };
   const q = await voiceQuote(req);
-  return q.offers.length
-    ? `DECÍ: ${q.say}\nOFERTAS para hold_booking: ${offersForModel(q.offers)}`
-    : `DECÍ: ${q.say}`;
+  return `DECÍ: ${q.say}` +
+    (q.offers.length ? `\nOFERTAS para hold_booking: ${offersForModel(q.offers)}` : '') +
+    (q.note ? `\nNO LO LEAS, REGLA: ${q.note}` : '');
 }
 
 async function toolHoldBooking(p: Record<string, unknown>, ctx: CallCtx): Promise<string> {
@@ -152,7 +153,8 @@ async function toolTakeMessage(p: Record<string, unknown>, ctx: CallCtx): Promis
 
 async function runTool(name: string, params: Record<string, unknown>, ctx: CallCtx): Promise<string> {
   try {
-    if (name !== 'check_availability') await sweepHolds(holdDeps(ctx)).catch(() => undefined);
+    // a hold carries its own test flag: the sweep's notices must not take this call's
+    if (name !== 'check_availability') after(() => sweepHolds(holdDeps({ ...ctx, test: false })).then(() => undefined, () => undefined));
     switch (name) {
       case 'check_availability': return await toolCheckAvailability(params);
       case 'hold_booking': return await toolHoldBooking(params, ctx);

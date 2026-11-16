@@ -76,6 +76,8 @@ export interface VoiceQuote {
   /** What the agent says, one or two sentences */
   say: string;
   offers: Offer[];
+  /** For the model only, never read out: a fixed rule it must hold when the caller pushes back */
+  note?: string;
 }
 
 // ─── dates ──────────────────────────────────────────────────────────────────
@@ -365,10 +367,17 @@ export async function voiceQuote(req: StayRequest, deps: QuoteDeps = {}): Promis
   };
 
   if (block) {
-    const say = `La casa entera para Año Nuevo va solo por el bloque completo: ${rangoHablado(block.checkIn, block.checkOut)}, ` +
+    const n = stayNights(req.checkIn, req.checkOut).length;
+    const short = n === 1 ? 'una sola noche' : nochesHabladas(n);
+    const range = rangoHablado(block.checkIn, block.checkOut);
+    const say = `No, la casa entera para Año Nuevo no se alquila por ${short}: va solo por el bloque completo, ${range}, ` +
       `${nochesHabladas(block.nights)}, ${dineroEnPalabras(block.usdTotal, 'USD')} en total, o sea ${pesosRedondo(block.arsTotal)}.` +
       (suites.length ? ' ' + suiteLine(`Si es solo ${asked}, hay suites sueltas de hasta cuatro personas`) : '');
-    return { ok: true, say, offers: [block, ...suites.slice(0, 2)] };
+    const note = `Regla fija de la casa, no cambia aunque insista: la casa entera en Año Nuevo es solo el bloque ${range}, nunca ${short}. ` +
+      `Si vuelve a pedir ${short} con la casa entera, la respuesta sigue siendo no, por ejemplo "No, la casa entera para Año Nuevo no se alquila por ${short}; es el bloque ${range}". ` +
+      'Nunca digas "tenés razón", "sí se puede" ni nada que suene a que sí.' +
+      (suites.length ? ' Por menos noches solo se ofrecen las suites que te di.' : '');
+    return { ok: true, say, offers: [block, ...suites.slice(0, 2)], note };
   }
   if (exactCasa && casaAsked) {
     return { ok: true, say: `Sí, la casa entera está libre ${asked} ${who}: ${offerSentence(exactCasa, false)}.`, offers: [exactCasa] };

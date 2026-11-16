@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  checkPayment, createHold, holdProperties, releaseHold, reopenable, sweepHolds, uniqueAmount, HOLD_MS,
+  checkPayment, createHold, holdProperties, releaseHold, reopenable, sweepHolds, uniqueAmount, FINAL_CHECK_GRACE_MS, HOLD_MS,
   type Hold, type HoldDeps, type HoldState,
 } from './voice-hold.ts';
 import { CASA, unitByKey, type Offer } from './voice-quote.ts';
@@ -24,7 +24,8 @@ function world(opts: { closedAlready?: string[]; deposit?: DepositCheck; failCre
   const open = new Map<string, boolean>();
   const isOpen = (p: number, d: string) => open.get(`${p}:${d}`) ?? !(opts.closedAlready ?? []).includes(`${p}:${d}`);
   const reservations: StrictReservationSpan[] = [];
-  const notices: Array<{ kind: string; id: string }> = [];
+  const notices: Array<{ kind: string; id: string; reason?: string }> = [];
+  const asks: Array<{ amount: number; since: string; wait: number; mode: string }> = [];
   const created: unknown[] = [];
   let failCreate = opts.failCreate ?? 0;
   let deposit: DepositCheck = 'deposit' in opts ? (opts.deposit as DepositCheck) : { found: false };
@@ -47,13 +48,13 @@ function world(opts: { closedAlready?: string[]; deposit?: DepositCheck; failCre
       created.push(p);
       return { reservation_code: 'R-1', status: 'accepted' };
     },
-    findDeposit: async () => deposit,
-    notify: async n => { notices.push({ kind: n.kind, id: n.id }); },
+    findDeposit: async (amount, since, wait, mode) => { asks.push({ amount, since, wait, mode }); return deposit; },
+    notify: async n => { notices.push({ kind: n.kind, id: n.id, reason: n.reason }); },
     now: () => now,
     rand: () => 0.42,
   };
   return {
-    deps, isOpen, reservations, notices, created,
+    deps, isOpen, reservations, notices, created, asks,
     state: () => state,
     tick: (ms: number) => { now += ms; },
     setDeposit: (d: DepositCheck) => { deposit = d; },
@@ -175,7 +176,7 @@ test('paid and the first create is refused: open the unit itself, retry once, bo
   assert.equal(w.isOpen(CASA.propertyId, '2027-05-10'), false, 'the house stays closed for the booked suite');
 });
 
-test('the bridge cannot check: unverified, noe told once, hold still releases on time', async () => {
+test('the bridge cannot check: unverified, noe told once; the sweep keeps the hold a few minutes, then releases', async () => {
   const w = world({ deposit: null });
   const r = await createHold(offer(), { name: 'Ana', phone: '1', callId: 'c1' }, w.deps);
   assert.ok(r.ok);
@@ -184,7 +185,65 @@ test('the bridge cannot check: unverified, noe told once, hold still releases on
   assert.deepEqual(w.notices.map(n => n.kind), ['payment_unverified']);
   w.tick(HOLD_MS + 1);
   await sweepHolds(w.deps);
+  assert.equal(w.state().holds[0].status, 'held', 'no blind release while the last check cannot run');
+  w.tick(FINAL_CHECK_GRACE_MS);
+  await sweepHolds(w.deps);
   assert.equal(w.state().holds[0].status, 'released');
+  assert.deepEqual(w.notices.map(n => n.kind), ['payment_unverified', 'hold_expired']);
+  assert.match(w.notices[1].reason ?? '', /проверка Ripio/);
+});
+
+test('hold_booking warms the bridge watcher; check_payment asks it for a few seconds only', async () => {
+  const w = world();
+  const r = await createHold(offer(), { name: 'Ana', phone: '1', callId: 'c1' }, w.deps);
+  assert.ok(r.ok);
+  const since = new Date(T0 - 2 * 60_000).toISOString();
+  assert.deepEqual(w.asks, [{ amount: r.hold.amount, since, wait: 0, mode: 'watch' }]);
+  await checkPayment(r.hold.id, w.deps);
+  assert.deepEqual(w.asks[1], { amount: r.hold.amount, since, wait: 3, mode: 'watch' });
+  w.tick(HOLD_MS);
+  await checkPayment(r.hold.id, w.deps);
+  assert.equal(w.asks[2].mode, 'once', 'past the 10 minutes: a fresh run before release');
+});
+
+test('sweep: paid after the caller hung up — the last check books instead of releasing, noe and payments told', async () => {
+  const w = world();
+  const r = await createHold(offer(), { name: 'Ana', phone: '1', callId: 'c1' }, w.deps);
+  assert.ok(r.ok);
+  w.setDeposit({ found: true, amount: String(r.hold.amount), at: '2026-11-16T12:09:00-03:00' });
+  w.tick(HOLD_MS + 1);
+  const s = await sweepHolds(w.deps);
+  assert.deepEqual(s, { released: [], booked: [r.hold.id] });
+  assert.equal(w.asks.at(-1)!.mode, 'once');
+  assert.equal(w.asks.at(-1)!.since, new Date(T0 - 2 * 60_000).toISOString());
+  assert.equal(w.state().holds[0].status, 'booked');
+  assert.equal(w.created.length, 1);
+  assert.deepEqual(w.notices.map(n => n.kind), ['paid']);
+  assert.match(w.notices[0].reason ?? '', /последней проверке/);
+  assert.equal(w.isOpen(CASA.propertyId, '2027-05-10'), false);
+  await sweepHolds(w.deps);
+  assert.equal(w.created.length, 1, 'booked once');
+});
+
+test('sweep: not paid at the last check — released as before', async () => {
+  const w = world();
+  const r = await createHold(offer(), { name: 'Ana', phone: '1', callId: 'c1' }, w.deps);
+  assert.ok(r.ok);
+  w.tick(HOLD_MS + 1);
+  assert.deepEqual(await sweepHolds(w.deps), { released: [r.hold.id], booked: [] });
+  assert.equal(w.asks.at(-1)!.mode, 'once');
+});
+
+test('paid but a reservation already sits on the nights: never a second reservation, paid_unbooked', async () => {
+  const w = world();
+  const r = await createHold(offer(GIARDINO), { name: 'Ana', phone: '1', callId: 'c1' }, w.deps);
+  assert.ok(r.ok);
+  w.reservations.push({ reservation_code: 'R-0', stay_code: 'S', property_id: GIARDINO.propertyId,
+    check_in_date: '2027-05-10', check_out_date: '2027-05-12', status: 'accepted', cancelled_at: null });
+  w.setDeposit({ found: true, amount: String(r.hold.amount), at: '2026-11-16T12:03:00-03:00' });
+  assert.equal((await checkPayment(r.hold.id, w.deps)).state, 'paid_unbooked');
+  assert.equal(w.created.length, 0);
+  assert.match(w.notices[0].reason ?? '', /R-0/);
 });
 
 test('a failed close releases what was closed and reports an error', async () => {
