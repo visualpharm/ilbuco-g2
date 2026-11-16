@@ -149,3 +149,9 @@ Source: task d2601590.
 - **Rejected:** more availability/inventory rewrites (they only join the back of the same queue); Hostex web UI changes (no setting was closing the nights).
 - **Undo:** nothing to undo; readbacks in `~/.claude/artifacts/ilbuco/newyear-suites-20261116/`.
 - **By:** agent (noe task).
+
+## 2026-11-16 · New Year 30.12–2.01: Airbnb and Booking raised to the website price
+- Ivan asked to raise New Year prices further. Airbnb and the Booking base rate (55828667) for 30.12–2.01 now match the pricing program's booking_site prices: house 1174 (30–31.12) / 1156 (1–2.01), was 770; Giardino, Terrazzo, Penthouse 317; Paraiso 325/305 (were 193–220). Derived Booking rates recalc automatically.
+- Why: at these dates we are almost the only 14-guest option in Cariló; last New Year sold at ~$810/night; the pricing program (FIESTAS_PREMIUM 1.45) already sets these numbers on the website, OTA prices lagged because run-pricing writes booking_site only.
+- Minimum nights and the website unchanged. Previous prices: ~/.claude/artifacts/ilbuco/newyear-price-20261116/before.json. Review on 15.12 by booking pace.
+- Past whole-house guests were offered the dates through their Airbnb threads (3 sent; one thread closed).
