@@ -134,3 +134,10 @@ Source: task d2601590.
 - **Why:** hub-core task — open the nights or name the reason. The 2026-11-13 note «a setting on the Airbnb side» was wrong: it was a stale listing-level closure in Hostex; the other three suites were already open on Airbnb for the same dates.
 - **Undo:** the same call with `inventory: 0` for the dates in `~/.claude/artifacts/ilbuco/paraiso-airbnb-open-20261115/opened.json` plus Jan 14–31 (`before.json` holds the earlier state).
 - **By:** agent. Source: task d2869373.
+
+## 2026-11-16 · New Year opened for sale (hold "Ailyn" removed)
+
+- **Decided:** the $0 direct hold 5-6BT25SF3W on the whole house, Dec 30 – Jan 3, is cancelled (Ivan via hub-core m2970488: «открывай», price, minimum and channels left to noe). Nights Dec 30 – Jan 2 are priced at January +10% on Airbnb and Booking.com (whole house $770; Giardino $198, Terrazzo $215, Paraiso $193, Penthouse $220; Booking.com derived plans follow), the direct site keeps its own prices. Minimum stay on arrival: 3 on Dec 30–31, 2 on Jan 1, 1–2 on Jan 2 (the pricing engine may rewrite these to its policy value). The whole house is open on every channel for Dec 30 – Jan 3 (4 nights between Javier's checkout and emilio's check-in in Paraiso).
+- **Open:** the four suites still read inventory 0 on every channel for those nights although property availability is true and per-listing `inventory: 1` writes returned 200 — likely Hostex parent/child linking left over from the hold. Whole house sells first; suites follow once the closure is cleared.
+- **Undo:** the hold copy is in `~/.claude/artifacts/comms/ilbuco-hold-ailyn-5-6BT25SF3W.json`; property state before in `~/.claude/artifacts/ilbuco/newyear-open-20261116/before.json`.
+- **By:** noe
