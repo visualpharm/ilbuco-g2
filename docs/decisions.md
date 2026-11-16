@@ -141,3 +141,11 @@ Source: task d2601590.
 - **Open:** the four suites still read inventory 0 on every channel for those nights although property availability is true and per-listing `inventory: 1` writes returned 200 — likely Hostex parent/child linking left over from the hold. Whole house sells first; suites follow once the closure is cleared.
 - **Undo:** the hold copy is in `~/.claude/artifacts/comms/ilbuco-hold-ailyn-5-6BT25SF3W.json`; property state before in `~/.claude/artifacts/ilbuco/newyear-open-20261116/before.json`.
 - **By:** noe
+
+## 2026-11-16 · New Year suites open: the closure was a 30-minute Hostex queue backlog
+
+- **Decided:** no extra write was needed. Giardino, Terrazzo, Paraiso and Penthouse read inventory 1 on all 20 channel listings for Dec 30 – Jan 2 since 08:46 ART, at the prices set this morning; the whole house is unchanged and also open. The cancellation's own open (Hostex «Manual», 08:14) and the earlier OpenAPI opens were queued, not ignored: Hostex pushed availability to channels about 30 minutes late (a task created 08:03:32 landed 08:33–08:34).
+- **Why:** the backlog comes from our webhook inventory sync: every non-message webhook re-posts every closure for all 5 properties (≈5 batches × 5 channels per minute plus the Gap Management tasks they trigger, 3,000 tasks in 82 minutes), and its own writes trigger the next webhook. The 2026-11-16 «Open» note (parent/child leftover) was wrong. Fix card: `.claude/inbox/2026-11-16-hostex-webhook-sync-loop-floods-queue.md`.
+- **Rejected:** more availability/inventory rewrites (they only join the back of the same queue); Hostex web UI changes (no setting was closing the nights).
+- **Undo:** nothing to undo; readbacks in `~/.claude/artifacts/ilbuco/newyear-suites-20261116/`.
+- **By:** agent (noe task).
