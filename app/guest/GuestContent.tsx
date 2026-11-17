@@ -156,7 +156,7 @@ function LanguageSwitcher({ currentLang, onChange }: { currentLang: Lang; onChan
   )
 }
 
-export default function GuestContent({ lang }: { lang: Lang }) {
+export default function GuestContent({ lang, wifiPassword }: { lang: Lang; wifiPassword: string }) {
   const router = useRouter()
   const t = guestTranslations
 
@@ -187,7 +187,7 @@ export default function GuestContent({ lang }: { lang: Lang }) {
                 </span>
                 {section.title[lang]}
               </h2>
-              <div>{renderContent(section.content[lang], lang)}</div>
+              <div>{renderContent(section.content[lang].replaceAll("{{wifiPassword}}", wifiPassword), lang)}</div>
             </section>
           ))}
         </div>

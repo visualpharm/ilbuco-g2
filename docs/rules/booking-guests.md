@@ -35,7 +35,7 @@ This page is for guests only, and contains the following information:
 Thank you for staying in our house! As any house, it comes with maintenance. Here's a self-help book to deal with the most common issues of a house, any house. Of course you can always contact us, but sometimes an easy fix is just around the corner.
 
 #### Wifi
-- Wifi network is Il Buco, password: terminator2.
+- Wifi network is Buco; the password lives only in 1Password (AI, «Il Buco WiFi (Paraíso 324)») and the Vercel env var WIFI_PASSWORD — never write it into the repo.
 - If there's no such network, watch for TP-Link standard open networks. That happens when someone restarts the access point.
 - dormitorio1 is not ours. 
 - if there is no internet, the problem is most likely with the fiber optic cable. Contact them https://fibraalhogar.com.ar/. They had bad service, sorry.

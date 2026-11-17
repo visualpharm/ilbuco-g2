@@ -58,3 +58,18 @@ test('knowledge-base Wi-Fi password is read from WIFI_PASSWORD env, not source',
     assert.equal(PROPERTY_INFO.wifi.password, '');
   });
 });
+
+// ─── Guest page Wi-Fi ────────────────────────────────────────────────────────
+
+test('guest page Wi-Fi password comes from WIFI_PASSWORD, network is Buco', async () => {
+  const { guestTranslations } = await import('../translations/guest.ts');
+  const wifi = guestTranslations.sections.find((s) => s.id === 'wifi');
+  assert.ok(wifi);
+  for (const language of ['es', 'en', 'pt'] as const) {
+    const content = wifi.content[language];
+    assert.ok(content.includes('{{wifiPassword}}'), `language ${language} has no password placeholder`);
+    assert.ok(content.includes(':** Buco\n'), `language ${language} names another network`);
+    assert.ok(!content.includes('terminator'), `language ${language} hardcodes a password`);
+    assert.ok(!content.includes('Il Buco\n'), `language ${language} names the old network`);
+  }
+});

@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 }
 
 export default function GuestPageEn() {
-  return <GuestContent lang="en" />
+  return <GuestContent lang="en" wifiPassword={process.env.WIFI_PASSWORD ?? ""} />
 }

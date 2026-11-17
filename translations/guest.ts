@@ -1,6 +1,7 @@
 // Guest house-guide content. ES = Argentinian, EN = US, PT = Brazilian.
 // Cards are inserted with the tokens :::card-electrician | :::card-plumber | :::card-internet
 // (language-independent, rendered as React ContactCard in app/guest/GuestContent.tsx).
+// {{wifiPassword}} is filled from the WIFI_PASSWORD env var (1Password AI «Il Buco WiFi (Paraíso 324)»), never typed here.
 
 export const guestTranslations = {
   title: {
@@ -20,8 +21,8 @@ export const guestTranslations = {
       emoji: "📶",
       title: { es: "WiFi", en: "WiFi", pt: "WiFi" },
       content: {
-        es: `**Red:** Il Buco
-**Contraseña:** terminator2
+        es: `**Red:** Buco
+**Contraseña:** {{wifiPassword}}
 
 Una sola red en toda la casa. Conectate a la que tengas más cerca.
 
@@ -35,8 +36,8 @@ Casi siempre es el **cable de fibra óptica**. Escribile al proveedor:
 :::card-internet
 
 Tuvieron mal servicio, perdón 😕`,
-        en: `**Network:** Il Buco
-**Password:** terminator2
+        en: `**Network:** Buco
+**Password:** {{wifiPassword}}
 
 One network across the whole house. Connect to the closest one.
 
@@ -50,8 +51,8 @@ It's almost always the **fiber optic cable**. Message the provider:
 :::card-internet
 
 They've had bad service, sorry 😕`,
-        pt: `**Rede:** Il Buco
-**Senha:** terminator2
+        pt: `**Rede:** Buco
+**Senha:** {{wifiPassword}}
 
 Uma só rede na casa toda. Conecte-se à mais próxima.
 

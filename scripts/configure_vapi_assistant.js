@@ -5,7 +5,7 @@
  *   node scripts/configure_vapi_assistant.js            # PATCH the live assistant
  *   node scripts/configure_vapi_assistant.js --dry-run  # print the config without secrets
  *
- * Reads VAPI_PRIVATE_KEY, VAPI_WEBHOOK_SECRET, VAPI_ASSISTANT_ID from the environment or
+ * Reads VAPI_PRIVATE_KEY, VAPI_WEBHOOK_SECRET, VAPI_ASSISTANT_ID, WIFI_PASSWORD from the environment or
  * .env.local (main checkout); never prints them. Optional overrides for side-by-side tests:
  * VAPI_MODEL_PROVIDER / VAPI_MODEL, VAPI_VOICE (beto-flash | beto-turbo | tomas-azure).
  *
@@ -63,6 +63,12 @@ const VOICES = {
 const VOICE = VOICES[env.VAPI_VOICE || 'beto-flash'];
 if (!VOICE) { console.error(`unknown VAPI_VOICE ${env.VAPI_VOICE}; one of ${Object.keys(VOICES).join(', ')}`); process.exit(1); }
 
+// Wi-Fi password: WIFI_PASSWORD (1Password AI «Il Buco WiFi (Paraíso 324)»), never in source.
+// Digits are spelled out in Spanish so the voice reads them as words.
+const DIGITS = ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve'];
+if (!env.WIFI_PASSWORD && !DRY) { console.error('WIFI_PASSWORD not configured (.env.local or the environment)'); process.exit(1); }
+const WIFI_SPOKEN = DRY ? '[WIFI_PASSWORD]' : env.WIFI_PASSWORD.replace(/\d/g, (d) => ` ${DIGITS[d]} `).replace(/\s+/g, ' ').trim();
+
 const PROMPT = `Atendés el teléfono de Il Buco, una casa con cuatro suites en Cariló, calle Paraíso 324. Sos alguien de la casa: hablás rioplatense, de vos, cálido y directo, como una persona que conoce la casa. Frases cortas, una o dos por turno. Nada de "estimado", "¿en qué más puedo ayudarle?" ni formalidades.
 
 QUIÉN SOS
@@ -101,7 +107,7 @@ LA CASA
 - Nunca inventes otras habitaciones.
 
 WIFI
-Solo para huéspedes. Pedí el nombre primero. Red "Il Buco", clave "terminator uno".
+Solo para huéspedes. Pedí el nombre primero. Red "Buco", clave "${WIFI_SPOKEN}".
 
 NEGOCIOS Y LUGARES
 No inventes nombres ni direcciones. Decí que en la web de la casa, ilbuco punto com punto ar, hay una guía de lugares cerca, y si quiere le pasás el link por WhatsApp.
