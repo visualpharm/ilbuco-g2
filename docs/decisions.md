@@ -176,3 +176,9 @@ Source: task d2601590.
 - **Rejected:** a shorter synchronous wait (the script start alone is ~5 s); returning "pending" at once and confirming only by WhatsApp (the caller is on the line to hear "llegó").
 - **Undo:** revert the commit and restart the bridge (`launchctl kickstart -k gui/$(id -u)/com.openclaw.ilbuco-ripio-bridge`); the old server never sends `mode`.
 - **By:** noe (task), agent (task/ilbuco-voice-pay).
+
+## 2026-11-17 · Guest message cuts into the guest session's running turn
+- **Decided:** the wake relay delivers urgently (`now: true`) through the hub's `POST /api/send/agent` as agent `hostex-webhook`, signed with its key (`HUB_WAKE_AGENT_URL`, `HUB_WAKE_AGENT_KEY_FILE` in the LaunchAgent; key file 0600 under the hub config, copy in 1Password AI "Hub agent key hostex-webhook"). The hub module allows urgency only for agents listed in its `urgent` settings.
+- **Why:** the 2026-11-10 limit — a busy session got the guest message only after its turn (~50 s median). Signed test event: typed into the busy session 0.4 s after arrival.
+- **Undo:** remove both variables from the plist and reload the LaunchAgent (the relay falls back to `hub agent-send` without urgency).
+- **By:** hub-dev (task d3233348).

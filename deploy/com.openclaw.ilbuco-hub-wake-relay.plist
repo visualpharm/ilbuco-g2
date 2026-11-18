@@ -22,6 +22,8 @@
     <key>HOME</key><string>/Users/ivan</string>
     <key>HUB_WAKE_PORT</key><string>7391</string>
     <key>HUB_WAKE_OP_ITEM</key><string>svzbscsucelp32bfigrdpri7ee</string>
+    <key>HUB_WAKE_AGENT_URL</key><string>http://127.0.0.1:8787/api/send/agent</string>
+    <key>HUB_WAKE_AGENT_KEY_FILE</key><string>/Users/ivan/.config/hub-core/agent-keys/hostex-webhook.key</string>
   </dict>
   <key>WorkingDirectory</key><string>/Users/ivan/projects/ilbuco-g2</string>
   <key>StandardOutPath</key><string>/Users/ivan/Library/Logs/hub-wake-relay.log</string>

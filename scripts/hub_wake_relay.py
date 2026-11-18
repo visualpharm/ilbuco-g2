@@ -15,7 +15,8 @@ fields (name, phone, dates, amount, hold id), de-duplicated by `voice-<id>`. The
 tunnel host only forwards /hostex-wake, so the notices share it.
 
 Env: HUB_WAKE_PORT (7391), HUB_WAKE_OP_ITEM (1Password item id, vault AI, field password)
-or HUB_WAKE_SECRET (tests only), HUB_WAKE_HUB (hub binary), HUB_WAKE_TO (noe).
+or HUB_WAKE_SECRET (tests only), HUB_WAKE_HUB (hub binary), HUB_WAKE_TO (noe),
+HUB_WAKE_AGENT_URL + HUB_WAKE_AGENT_KEY_FILE (urgent delivery, see AGENT_URL below).
 Log: one line per request on stdout (LaunchAgent -> ~/Library/Logs/hub-wake-relay.log);
 no guest text in the log.
 """
