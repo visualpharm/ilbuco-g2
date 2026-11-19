@@ -9,6 +9,12 @@ import type { NextRequest } from 'next/server';
 
 export const ROLE_COOKIE = 'pricing_role';
 
+/** Each admin role and the env var holding its password; unsetting the var revokes the role. */
+const ROLE_PASSWORD_ENV: Record<string, string> = {
+  ivan: 'PRICING_PASSWORD_IVAN',
+  andres: 'PRICING_PASSWORD_ANDRES',
+};
+
 function secret(): string {
   // Fail closed: ADMIN_TOKEN must be set in production
   const token = process.env.ADMIN_TOKEN;
@@ -30,14 +36,16 @@ export function verifyRoleCookie(value: string | undefined): string | null {
   const role = value.slice(0, dot);
   const expected = signRole(role);
   try {
-    if (timingSafeEqual(Buffer.from(value), Buffer.from(expected))) return role;
+    // A cookie outlives a removed password, so its role must still have one configured.
+    if (timingSafeEqual(Buffer.from(value), Buffer.from(expected))) return process.env[ROLE_PASSWORD_ENV[role]] ? role : null;
   } catch { /* length mismatch */ }
   return null;
 }
 
 export function roleForPassword(password: string): string | null {
-  if (process.env.PRICING_PASSWORD_IVAN && password === process.env.PRICING_PASSWORD_IVAN) return 'ivan';
-  if (process.env.PRICING_PASSWORD_ANDRES && password === process.env.PRICING_PASSWORD_ANDRES) return 'andres';
+  for (const [role, env] of Object.entries(ROLE_PASSWORD_ENV)) {
+    if (process.env[env] && password === process.env[env]) return role;
+  }
   return null;
 }
 
