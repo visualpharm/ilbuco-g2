@@ -53,6 +53,8 @@ export interface PinMessageData {
 export const DOOR_VIDEO_URL = 'https://www.youtube.com/shorts/pNSzziDel-w';
 /** Four-step picture of the same keypad with ↵ circled (public/images/door-keypad.jpg). */
 export const DOOR_PICTURE_URL = 'https://ilbuco.com.ar/images/door-keypad.jpg';
+/** The key box next to each unit's door (public/images/key-box.jpg); its code is per unit and permanent. */
+export const KEYBOX_PICTURE_URL = 'https://ilbuco.com.ar/images/key-box.jpg';
 
 /**
  * Build the PIN delivery message text (WhatsApp / Hostex thread).
@@ -71,6 +73,8 @@ export function buildPinText(data: PinMessageData): string {
   if (data.keyBoxCode) {
     msg += `Key box (${data.propertyName}): *${data.keyBoxCode}*\n`;
     msg += `Caja de llaves (${data.propertyName}): *${data.keyBoxCode}*\n`;
+    msg += `It is the box next to the door of ${data.propertyName} / Es la caja al costado de la puerta de ${data.propertyName}:\n`;
+    msg += `🖼 ${KEYBOX_PICTURE_URL}\n`;
   }
   msg += `\n`;
   msg += `How to open the front door: touch the black panel to light it up, type *${data.pin}* and press ↵ (bottom right). Green light → push the handle down.\n`;
@@ -118,7 +122,9 @@ export function buildPinEmail(data: PinMessageData): { subject: string; html: st
       <img src="${DOOR_PICTURE_URL}" alt="1 Tocá el panel · 2 Marcá tu código · 3 Apretá ↵ · 4 Luz verde: bajá la manija" width="432" style="width: 100%; max-width: 432px; height: auto; border-radius: 12px; display: block; margin: 8px 0 16px;">
       ${data.keyBoxCode ? `<div style="background: #f1f5f9; border-radius: 12px; padding: 16px; text-align: center; margin: 16px 0;">
         <p style="color: #334155; font-size: 14px; margin: 0 0 8px;">Key box / Caja de llaves — ${data.propertyName}</p>
-        <p style="font-size: 28px; font-weight: bold; letter-spacing: 6px; color: #0f172a; margin: 0;">${data.keyBoxCode}</p>
+        <p style="font-size: 28px; font-weight: bold; letter-spacing: 6px; color: #0f172a; margin: 0 0 12px;">${data.keyBoxCode}</p>
+        <img src="${KEYBOX_PICTURE_URL}" alt="Key box next to the door of ${data.propertyName} / Caja de llaves al costado de la puerta de ${data.propertyName}" width="200" style="width: 200px; max-width: 100%; height: auto; border-radius: 12px; display: block; margin: 0 auto;">
+        <p style="color: #334155; font-size: 14px; margin: 8px 0 0;">Next to the door of ${data.propertyName} / Al costado de la puerta de ${data.propertyName}</p>
       </div>` : ''}
       <table style="width: 100%; color: #475569; font-size: 14px;">
         <tr><td style="padding: 4px 0;">Check-in:</td><td style="font-weight: 600;">${dateStr(data.checkIn)}</td></tr>

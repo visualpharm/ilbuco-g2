@@ -22,6 +22,18 @@ test('check-in text carries the key box code only when present', () => {
   const t = buildPinText({ ...base, keyBoxCode: '1111' });
   assert.ok(t.includes('Caja de llaves (Giardino): *1111*'));
   assert.ok(t.includes('Tu código de puerta: *4821*'));
+  assert.ok(t.includes('ilbuco.com.ar/images/key-box.jpg'));
+  assert.ok(!buildPinText(base).includes('key-box.jpg'));
+});
+
+test('key box photo sits next to its code in the email, only when the unit has a box', () => {
+  const base = { guestName: 'Ana', pin: 4821, propertyName: 'Paraíso', checkIn: '2026-11-06', checkOut: '2026-11-08' };
+  const { html } = buildPinEmail({ ...base, keyBoxCode: '2222' });
+  const code = html.indexOf('>2222<');
+  const img = html.indexOf('<img src="https://ilbuco.com.ar/images/key-box.jpg"');
+  assert.ok(code > 0 && img > code && img - code < 400);
+  assert.ok(html.includes('Al costado de la puerta de Paraíso'));
+  assert.ok(!buildPinEmail(base).html.includes('key-box.jpg'));
 });
 
 test('door code message says how to enter it: panel, code, ↵, video', () => {
