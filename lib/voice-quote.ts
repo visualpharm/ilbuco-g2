@@ -456,7 +456,9 @@ export function earliestStays(cal: VoiceCalendar, units: UnitInfo[], from: strin
     }
   }
   const night = (st: { unit: UnitInfo; checkIn: string }) => cal[st.unit.key].get(st.checkIn)?.usd ?? 0;
-  return out.sort((a, b) => a.checkIn.localeCompare(b.checkIn) || night(a) - night(b));
+  // Shortest stay first (a 14-night minimum is a worse opener than a 7-night one later), then earliest, then cheapest.
+  const len = (x: { checkIn: string; checkOut: string }) => stayNights(x.checkIn, x.checkOut).length;
+  return out.sort((a, b) => len(a) - len(b) || a.checkIn.localeCompare(b.checkIn) || night(a) - night(b));
 }
 
 /** suggest_stays: the caller has no exact dates — the code picks them, the agent sells them. */

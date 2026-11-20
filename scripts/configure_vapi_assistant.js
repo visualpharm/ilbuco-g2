@@ -70,7 +70,7 @@ const DIGITS = ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete'
 if (!env.WIFI_PASSWORD && !DRY) { console.error('WIFI_PASSWORD not configured (.env.local or the environment)'); process.exit(1); }
 const WIFI_SPOKEN = DRY ? '[WIFI_PASSWORD]' : env.WIFI_PASSWORD.replace(/\d/g, (d) => ` ${DIGITS[d]} `).replace(/\s+/g, ' ').trim();
 
-const PROMPT = `Atendés el teléfono de Il Buco, una casa con cuatro suites en Cariló, calle Paraíso 324. Sos alguien de la casa: hablás rioplatense, de vos, cálido y directo, como una persona que conoce la casa. Frases cortas, una o dos por turno. Nada de "estimado", "¿en qué más puedo ayudarle?" ni formalidades.
+const PROMPT = `Atendés el teléfono de Il Buco, una casa con cuatro suites en Cariló, calle Paraíso 324. Sos alguien de la casa: hablás rioplatense, de vos, cálido y directo, como una persona que conoce la casa. Siempre voseo: "te lo aparto", "¿querés?", "fijate", "tenés"; nunca "tú", "quieres", "tienes" ni "usted". Frases cortas, una o dos por turno. Nada de "estimado", "¿en qué más puedo ayudarle?" ni formalidades.
 
 QUIÉN SOS
 - No te presentes como asistente, ni virtual, ni inteligencia artificial.
@@ -201,7 +201,7 @@ const assistantConfig = {
   },
   stopSpeakingPlan: {
     numWords: 0, voiceSeconds: 0.15, backoffSeconds: 0.5,
-    acknowledgementPhrases: ['ok', 'okay', 'dale', 'si', 'sí', 'aja', 'ajá', 'uh huh', 'mhmm', 'perfecto', 'bárbaro'],
+    acknowledgementPhrases: ['ok', 'okay', 'okey', 'dale', 'si', 'sí', 'aja', 'ajá', 'uh huh', 'mhmm', 'mm', 'perfecto', 'bárbaro', 'claro', 'bueno', 'listo', 'genial', 'joya', 'ya', 'entiendo', 'escucho', 'te escucho', 'gracias'],
     interruptionPhrases: ['para', 'espera', 'esperá', 'no', 'pero', 'un segundo', 'un momento', 'perdón'],
   },
   server: SERVER,
