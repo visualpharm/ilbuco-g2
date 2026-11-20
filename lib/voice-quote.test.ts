@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  addDays, newYearBlock, stayBlocker, voiceQuote, CASA, UNITS, unitByKey,
+  addDays, freeUntil, newYearBlock, stayBlocker, voiceQuote, voiceSuggest, CASA, UNITS, unitByKey,
   type NightCell, type SiteQuote, type UnitInfo, type UnitKey, type VoiceCalendar,
 } from './voice-quote.ts';
 
@@ -124,4 +124,67 @@ test('requests that cannot be quoted say what is missing', async () => {
   assert.match(past.say, /ya pasó/);
   const many = await voiceQuote({ checkIn: '2026-12-05', checkOut: '2026-12-07', guests: 20, unit: 'any' }, deps(cal).d);
   assert.match(many.say, /dieciséis/);
+});
+
+// ─── suggest_stays: no exact dates ───────────────────────────────────────────
+
+test('"desde hoy unos días" with no dates: today, three nights, priced, and how long it stays free', async () => {
+  // today (ART) is 2026-11-16; Giardino taken from the 22nd
+  const closed = ['giardino:2026-11-22', 'giardino:2026-11-23'];
+  const cal = calendar('2026-11-16', '2027-01-10', closed);
+  const q = await voiceSuggest({ from: '', until: '', nights: 0, guests: 0, unit: 'any' }, deps(cal).d);
+  assert.equal(q.ok, true);
+  assert.equal(q.offers[0].checkIn, '2026-11-16');
+  assert.equal(q.offers[0].checkOut, '2026-11-19');
+  assert.equal(q.offers[0].unit.key, 'giardino');
+  assert.match(q.say, /^Sí, desde hoy tengo Giardino, del lunes 16 al jueves 19 de noviembre, para dos: ciento treinta y ocho dólares la noche/);
+  assert.match(q.say, /está libre hasta el domingo 22 de noviembre/);
+  assert.match(q.say, /En esas mismas fechas también está libre Paraíso: ciento cuarenta dólares/);
+  assert.match(q.note ?? '', /cuántos serían/);
+  assert.equal(freeUntil(cal, unitByKey('giardino')!, '2026-11-16'), '2026-11-22');
+});
+
+test('a weekend window gives the two nights of it, people said', async () => {
+  const cal = calendar('2026-11-16', '2027-01-10');
+  const q = await voiceSuggest({ from: '2026-11-20', until: '2026-11-22', nights: 0, guests: 3, unit: 'suite' }, deps(cal).d);
+  assert.equal(q.offers[0].checkIn, '2026-11-20');
+  assert.equal(q.offers[0].checkOut, '2026-11-22');
+  assert.equal(q.offers[0].guests, 3);
+  assert.equal(q.note, undefined);
+  assert.match(q.say, /^Lo primero que tengo libre es Giardino, del viernes 20 al domingo 22 de noviembre, para tres:/);
+});
+
+test('a month ask finds the first free stay inside the month, skipping taken nights', async () => {
+  const closed: string[] = [];
+  for (let d = '2027-01-01'; d <= '2027-01-09'; d = addDays(d, 1)) for (const u of UNITS) closed.push(`${u.key}:${d}`);
+  const cal = calendar('2026-11-16', '2027-02-28', closed);
+  const q = await voiceSuggest({ from: '2027-01-01', until: '2027-01-31', nights: 0, guests: 4, unit: 'any' }, deps(cal).d);
+  assert.equal(q.offers[0].checkIn, '2027-01-10');
+  assert.equal(q.offers[0].nights, 3);
+});
+
+test('six people with no dates: the whole house, never sold as a single New Year night', async () => {
+  const cal = calendar('2026-11-16', '2027-02-28');
+  const q = await voiceSuggest({ from: '2026-12-30', until: '2027-01-02', nights: 1, guests: 6, unit: 'any' }, deps(cal).d);
+  assert.equal(q.offers[0].unit.key, 'casa');
+  assert.ok(q.offers[0].checkIn >= '2027-01-03', q.offers[0].id);
+});
+
+test('a minimum stay stretches the suggestion instead of skipping the night', async () => {
+  const over: Record<string, Partial<NightCell>> = {};
+  for (const u of UNITS) over[`${u.key}:2026-11-16`] = { minStay: 4 };
+  const cal = calendar('2026-11-16', '2027-01-10', [], over);
+  const q = await voiceSuggest({ from: '', until: '', nights: 2, guests: 2, unit: 'terrazzo' }, deps(cal).d);
+  assert.equal(q.offers[0].checkIn, '2026-11-16');
+  assert.equal(q.offers[0].nights, 4);
+});
+
+test('a full weekend moves on to the next free one instead of asking', async () => {
+  const closed: string[] = [];
+  for (const d of ['2026-11-20', '2026-11-21']) for (const u of UNITS) closed.push(`${u.key}:${d}`);
+  const cal = calendar('2026-11-16', '2027-01-10', closed);
+  const q = await voiceSuggest({ from: '2026-11-20', until: '2026-11-22', nights: 0, guests: 2, unit: 'any' }, deps(cal).d);
+  assert.equal(q.offers[0].checkIn, '2026-11-27');
+  assert.equal(q.offers[0].checkOut, '2026-11-29');
+  assert.match(q.say, /^Del viernes 20 al domingo 22 de noviembre está todo ocupado; lo más cerca que tengo es Giardino, del viernes 27 al domingo 29 de noviembre/);
 });

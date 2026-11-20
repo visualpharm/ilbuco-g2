@@ -3,6 +3,7 @@
  *
  * Tools (scripts/configure_vapi_assistant.js defines them for the model):
  * - check_availability: free or not, what exactly, price per night and total (lib/voice-quote.ts)
+ * - suggest_stays: no exact dates yet — the earliest free stays in a window, priced, and how long it stays free
  * - hold_booking: hold an offer for 10 minutes, the unique peso amount, the Ripio alias (lib/voice-hold.ts)
  * - check_payment: did the exact amount arrive (munk bridge); paid → booked in Hostex
  * - take_message: name, number and what they need → noe; "le paso tu número a Iván y te escribe"
@@ -18,7 +19,7 @@ import { notifyVoice } from '@/lib/hub-wake';
 import { findDeposit } from '@/lib/payment-bridge';
 import { checkPayment, createHold, liveHoldDeps, normalizePhone, sweepHolds, type Hold } from '@/lib/voice-hold';
 import {
-  fetchVoiceCalendar, makeOffer, offersForModel, parseOfferId, requestProblem, siteQuote, todayArt, unitByKey, voiceQuote,
+  fetchVoiceCalendar, makeOffer, offersForModel, parseOfferId, requestProblem, siteQuote, todayArt, unitByKey, voiceQuote, voiceSuggest,
 } from '@/lib/voice-quote';
 import { ALIAS_PAGO, aliasPorSilabas, dineroEnPalabras, rangoHablado } from '@/lib/spoken-es';
 
@@ -76,17 +77,36 @@ function montoHablado(h: Hold): string {
   return dineroEnPalabras(h.amount, 'ARS');
 }
 
-async function toolCheckAvailability(p: Record<string, unknown>): Promise<string> {
-  const req = {
-    checkIn: normalizeDateInput(p.check_in),
-    checkOut: normalizeDateInput(p.check_out),
-    guests: Number(p.guests) || 0,
-    unit: str(p.unit, 20).toLowerCase() || 'any',
-  };
-  const q = await voiceQuote(req);
+function quoteAnswer(q: { say: string; offers: Parameters<typeof offersForModel>[0]; note?: string }): string {
   return `DECÍ: ${q.say}` +
     (q.offers.length ? `\nOFERTAS para hold_booking: ${offersForModel(q.offers)}` : '') +
     (q.note ? `\nNO LO LEAS, REGLA: ${q.note}` : '');
+}
+
+async function toolCheckAvailability(p: Record<string, unknown>): Promise<string> {
+  const guests = Number(p.guests) || 0;
+  const req = {
+    checkIn: normalizeDateInput(p.check_in),
+    checkOut: normalizeDateInput(p.check_out),
+    // people not said yet: quote for two and ask after the price, not before
+    guests: guests || 2,
+    unit: str(p.unit, 20).toLowerCase() || 'any',
+  };
+  const q = await voiceQuote(req);
+  const note = guests ? q.note : [q.note, 'No sabés cuántos son: el precio es para dos. Después preguntá solo "¿cuántos serían?" y, si son más, volvé a buscar.'].filter(Boolean).join(' ');
+  return quoteAnswer({ ...q, note });
+}
+
+/** No exact dates ("desde hoy unos días", "el finde", "en enero"): the code picks the stays. */
+async function toolSuggestStays(p: Record<string, unknown>): Promise<string> {
+  const q = await voiceSuggest({
+    from: normalizeDateInput(p.from),
+    until: normalizeDateInput(p.until),
+    nights: Number(p.nights) || 0,
+    guests: Number(p.guests) || 0,
+    unit: str(p.unit, 20).toLowerCase() || 'any',
+  });
+  return quoteAnswer(q);
 }
 
 async function toolHoldBooking(p: Record<string, unknown>, ctx: CallCtx): Promise<string> {
@@ -154,9 +174,10 @@ async function toolTakeMessage(p: Record<string, unknown>, ctx: CallCtx): Promis
 async function runTool(name: string, params: Record<string, unknown>, ctx: CallCtx): Promise<string> {
   try {
     // a hold carries its own test flag: the sweep's notices must not take this call's
-    if (name !== 'check_availability') after(() => sweepHolds(holdDeps({ ...ctx, test: false })).then(() => undefined, () => undefined));
+    if (name !== 'check_availability' && name !== 'suggest_stays') after(() => sweepHolds(holdDeps({ ...ctx, test: false })).then(() => undefined, () => undefined));
     switch (name) {
       case 'check_availability': return await toolCheckAvailability(params);
+      case 'suggest_stays': return await toolSuggestStays(params);
       case 'hold_booking': return await toolHoldBooking(params, ctx);
       case 'check_payment': return await toolCheckPayment(params, ctx);
       case 'take_message': return await toolTakeMessage(params, ctx);

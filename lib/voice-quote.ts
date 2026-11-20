@@ -16,7 +16,7 @@
  */
 import { hostexFetch, HOSTEX_USER_AGENT } from './hostex-api';
 import { guestNightPrice, stayNights } from './price-floor';
-import { dineroEnPalabras, nochesHabladas, numeroEnPalabras, rangoHablado } from './spoken-es';
+import { dineroEnPalabras, fechaHablada, nochesHabladas, numeroEnPalabras, rangoHablado } from './spoken-es';
 
 export type UnitKey = 'casa' | 'giardino' | 'terrazzo' | 'paraiso' | 'penthouse';
 
@@ -415,4 +415,117 @@ export async function voiceQuote(req: StayRequest, deps: QuoteDeps = {}): Promis
   if (!alts.length) return { ok: false, say: `${reason} Cerca de esas fechas tampoco veo lugar; ¿te sirve otra semana?`, offers: [] };
   const altSay = alts.map(o => `${altUnits.length > 1 ? `${o.unit.spoken} ` : ''}${rangoHablado(o.checkIn, o.checkOut)}, ${offerSentence(o, false, alts.length === 1)}`).join('; o ');
   return { ok: true, say: `${reason} Lo más cerca que tengo: ${altSay}.`, offers: alts };
+}
+
+// ─── flexible asks: "desde hoy unos días", "el finde", "en enero" ──────────────
+
+export interface SuggestRequest {
+  /** Earliest arrival, YYYY-MM-DD; '' = today */
+  from: string;
+  /** Latest departure, YYYY-MM-DD; '' = a month after `from` */
+  until: string;
+  /** Nights wanted; 0 = not said (three by default, two for a window of a weekend) */
+  nights: number;
+  /** People; 0 = not said (quoted for two) */
+  guests: number;
+  unit: string;
+}
+
+/** How far a unit stays free from `checkIn` on: the departure date of the open run (capped by the calendar). */
+export function freeUntil(cal: VoiceCalendar, unit: UnitInfo, checkIn: string): string {
+  let d = checkIn;
+  while (cal[unit.key].get(d)?.open === true && !(unit.key === 'casa' && nyYearFor(d) !== null)) d = addDays(d, 1);
+  return d;
+}
+
+/**
+ * The earliest stays Hostex can sell inside the window, one per unit, the soonest first.
+ * The minimum stay of the arrival night stretches a short ask instead of skipping the night.
+ */
+export function earliestStays(cal: VoiceCalendar, units: UnitInfo[], from: string, until: string, nights: number, guests: number): Array<{ unit: UnitInfo; checkIn: string; checkOut: string }> {
+  const out: Array<{ unit: UnitInfo; checkIn: string; checkOut: string }> = [];
+  for (const unit of units) {
+    for (let ci = from; addDays(ci, 1) <= until; ci = addDays(ci, 1)) {
+      const cell = cal[unit.key].get(ci);
+      if (!cell?.open) continue;
+      const n = Math.max(nights, cell.minStay);
+      let co = addDays(ci, n);
+      if (co > until) co = until;
+      if (stayNights(ci, co).length < cell.minStay) continue;
+      if (!stayBlocker(cal, unit, ci, co, guests)) { out.push({ unit, checkIn: ci, checkOut: co }); break; }
+    }
+  }
+  const night = (st: { unit: UnitInfo; checkIn: string }) => cal[st.unit.key].get(st.checkIn)?.usd ?? 0;
+  return out.sort((a, b) => a.checkIn.localeCompare(b.checkIn) || night(a) - night(b));
+}
+
+/** suggest_stays: the caller has no exact dates — the code picks them, the agent sells them. */
+export async function voiceSuggest(r: SuggestRequest, deps: QuoteDeps = {}): Promise<VoiceQuote> {
+  const today = todayArt(deps.now);
+  let from = ISO_RE.test(r.from) && r.from > today ? r.from : today;
+  const span = (a: string, b: string) => stayNights(a, b).length;
+  let until = ISO_RE.test(r.until) && r.until > from ? r.until : addDays(from, 30);
+  if (span(from, until) > 62) until = addDays(from, 62);
+  const windowNights = span(from, until);
+  const nights = Math.min(r.nights > 0 ? Math.min(r.nights, 30) : windowNights <= 3 ? windowNights : 3, windowNights);
+  const guestsSaid = Number.isInteger(r.guests) && r.guests > 0;
+  const guests = guestsSaid ? Math.min(r.guests, 16) : 2;
+  const req: StayRequest = { checkIn: from, checkOut: addDays(from, nights), guests, unit: (r.unit || 'any').toLowerCase() };
+
+  const getCal = deps.calendar ?? fetchVoiceCalendar;
+  const getQuote = deps.quote ?? ((u, ci, co, g) => siteQuote(u, ci, co, g));
+  // a full short window (a weekend) moves a week on, up to three times; a long one looks a month further
+  const shifts = windowNights <= 4 ? [0, 7, 14, 21] : [0];
+  const lastUntil = windowNights <= 4 ? addDays(until, 21) : addDays(until, 30);
+  const cal = await getCal(from, addDays(lastUntil, 21));
+  const units = candidateUnits(req);
+  const casaAsked = wantsCasa(req);
+  // the house when asked or needed; suites otherwise, the house only when no suite fits
+  const pool = casaAsked ? [CASA] : units.filter(u => u.key !== 'casa');
+  const find = (a: string, b: string) => {
+    const st = earliestStays(cal, pool, a, b, nights, guests);
+    return st.length || casaAsked || !units.includes(CASA) ? st : earliestStays(cal, [CASA], a, b, nights, guests);
+  };
+  let stays: ReturnType<typeof earliestStays> = [];
+  let moved = false;
+  for (const k of shifts) {
+    stays = find(addDays(from, k), addDays(until, k));
+    if (stays.length) { moved = k > 0; break; }
+  }
+  if (!stays.length && windowNights > 4) { stays = find(until, lastUntil); moved = stays.length > 0; }
+
+  const quotes = await Promise.all(stays.slice(0, 3).map(st =>
+    getQuote(st.unit, st.checkIn, st.checkOut, guests).catch(() => ({ bookable: false, usdTotal: null, arsTotal: null, arsPerUsd: null }))));
+  const offers: Offer[] = [];
+  stays.slice(0, 3).forEach((st, i) => {
+    if (offers.length >= 2) return;
+    const o = makeOffer(st.unit, cal, st.checkIn, st.checkOut, guests, quotes[i]);
+    // a second option only if it is a real choice: the same dates in another suite, or a cheaper one
+    if (o && (!offers.length || o.checkIn === offers[0].checkIn || o.usdTotal < offers[0].usdTotal)) offers.push(o);
+  });
+  if (offers.length === 2 && offers[1].checkIn === offers[0].checkIn && offers[1].usdTotal < offers[0].usdTotal) offers.reverse();
+  const forWho = guestsSaid ? `para ${numeroEnPalabras(guests)}` : 'para dos';
+  if (!offers.length) {
+    const what = casaAsked ? 'la casa entera' : 'nada';
+    return { ok: false, say: `${capitalize(rangoHablado(from, until))} no tengo ${what} libre ${forWho}, y las semanas siguientes tampoco. ¿Te sirve más adelante?`, offers: [] };
+  }
+  const first = offers[0];
+  const run = freeUntil(cal, first.unit, first.checkIn);
+  const name = (o: Offer) => (o.unit.key === 'casa' ? 'la casa entera' : o.unit.spoken);
+  const startsToday = first.checkIn === today;
+  const asked = rangoHablado(from, until);
+  const lead = startsToday ? `Sí, desde hoy tengo ${name(first)}`
+    : moved ? `${capitalize(asked)} está todo ocupado; lo más cerca que tengo es ${name(first)}, ${rangoHablado(first.checkIn, first.checkOut)}`
+      : `Lo primero que tengo libre es ${name(first)}, ${rangoHablado(first.checkIn, first.checkOut)}`;
+  let say = `${lead}${startsToday ? `, ${rangoHablado(first.checkIn, first.checkOut)}` : ''}, ${forWho}: ${offerSentence(first, false, offers.length === 1)}.`;
+  if (run > first.checkOut) say += ` Y si querés quedarte más, está libre hasta el ${fechaHablada(run)}.`;
+  if (offers[1]) {
+    const o = offers[1];
+    say += o.checkIn === first.checkIn && o.checkOut === first.checkOut
+      ? ` En esas mismas fechas también está libre ${name(o)}: ${offerSentence(o, false, false)}.`
+      : ` También ${name(o)} ${rangoHablado(o.checkIn, o.checkOut)}: ${offerSentence(o, false, false)}.`;
+  }
+  const note = guestsSaid ? undefined
+    : 'No sabés cuántos son: el precio es para dos. Después de decirlo preguntá solo "¿cuántos serían?"; si son más, volvé a buscar con ese número.';
+  return { ok: true, say, offers, ...(note ? { note } : {}) };
 }
