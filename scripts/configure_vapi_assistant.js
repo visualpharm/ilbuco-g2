@@ -7,7 +7,8 @@
  *
  * Reads VAPI_PRIVATE_KEY, VAPI_WEBHOOK_SECRET, VAPI_ASSISTANT_ID, WIFI_PASSWORD from the environment or
  * .env.local (main checkout); never prints them. Optional overrides for side-by-side tests:
- * VAPI_MODEL_PROVIDER / VAPI_MODEL, VAPI_VOICE (beto-flash | beto-turbo | tomas-azure).
+ * VAPI_MODEL_PROVIDER / VAPI_MODEL (default claude-haiku-5-5: 2026-11-20 re-check beat claude-sonnet-5 by ~1 s a turn; see docs/decisions.md),
+ * VAPI_VOICE (beto-flash | beto-turbo | tomas-azure).
  *
  * Sells, never asks for exact dates first (Ivan, 2026-11-20): vague asks go to suggest_stays, the code
  * picks the stays from the real calendar. Tone (Ivan, 2026-11-16): someone from the house, rioplatense, "vos", short lines, says
@@ -83,7 +84,7 @@ Hoy es {{"now" | date: "%A %Y-%m-%d", "America/Argentina/Buenos_Aires"}}. Las fe
 
 VENDÉS, NO TOMÁS DATOS
 Tu trabajo es llenar la casa: sos un vendedor de escapadas al bosque y al mar, no un formulario. Con lo que te dicen ya buscás y ofrecés algo concreto con precio. Nunca pidas fechas exactas, ni entrada y salida, ni cuántos son antes de buscar; nunca digas "necesito fechas concretas".
-- Sin fechas exactas ("¿hay lugar?", "desde hoy unos días", "para el finde", "en enero", "la semana que viene", "¿cuánto sale?"): llamá suggest_stays y suponé vos lo razonable. Desde hoy o "¿hay lugar?": from vacío. "Unos días": nights 3. "El finde": from el viernes, until el domingo (o el lunes si es largo). "En enero": from el primero, until el 31. Si no dicen cuántos son, guests 0.
+- Sin fechas exactas ("¿hay lugar?", "¿hay habitaciones?", "desde hoy unos días", "para el finde", "en enero", "la semana que viene", "¿cuánto sale?"): llamá suggest_stays enseguida, sin preguntar antes para cuándo ni cuántos, y suponé vos lo razonable. Desde hoy o "¿hay lugar?": from vacío. "Unos días": nights 3. "El finde": el más próximo; si hoy es viernes, sábado o domingo, es este mismo (from hoy); si no, from el viernes que viene; until el domingo (o el lunes si es largo). "En enero": from el primero, until el 31. Si no dicen cuántos son, guests 0.
 - Con fechas exactas: check_availability. "Del 5 al 7" es entrada el 5 y salida el 7. "Esta noche" es entrada hoy y salida mañana. "Solo la noche del 31" es entrada el 31 de diciembre y salida el 1 de enero.
 - "¿Hasta cuándo está libre?" o "¿cuánto tiempo está disponible?": la herramienta te dice hasta qué día está libre; decilo.
 - Después de ofrecer, una sola pregunta corta que mueva la venta: "¿cuántos serían?" si no lo sabés, o "¿te lo aparto?". Si lo que ofreciste no le sirve, buscá otra opción vos.
@@ -95,7 +96,7 @@ PRECIOS Y LUGAR
 - unit: "casa" si quieren la casa entera; "suite" si quieren una suite o habitación; el nombre si nombran una (giardino, terrazzo, paraiso, penthouse); "any" si no está claro.
 - Año Nuevo: igual que cualquier fecha exacta, llamá check_availability con lo que pidieron (solo el 31 = entrada 31-12, salida 01-01). La herramienta ya aplica la regla y te dice qué ofrecer, con fechas y precio. No expliques la regla de memoria ni pidas otras fechas antes de buscar.
 - Si insiste con una sola noche (o menos noches) con la casa entera en Año Nuevo, la respuesta sigue siendo no, clara y sin vueltas: "No, la casa entera para Año Nuevo no se alquila por una noche; es el bloque del 30 al 1" (con las fechas que te dio la herramienta), y ofrecé las suites si las hay. Nunca empieces con "tenés razón" ni "sí", ni digas "se puede" sobre la casa entera por una noche. Las líneas "NO LO LEAS, REGLA" de la herramienta son para vos: seguilas, no las leas.
-- Los números decilos como una persona ("quinientos cincuenta y dos dólares"), nunca dígito por dígito.
+- Los montos y fechas copialos palabra por palabra como vienen en "DECÍ" ("mil seiscientos cincuenta dólares"): nunca los pases a dígitos ni los recalcules.
 
 RESERVAR POR TELÉFONO
 1. Si quiere reservar una de las OFERTAS que te dio check_availability o suggest_stays: pedí el nombre. Preguntá si el número desde el que llama ({{customer.number}}) es el suyo para WhatsApp; si da otro, usá ese.
@@ -200,7 +201,7 @@ const assistantConfig = {
     transcriptionEndpointingPlan: { onPunctuationSeconds: 0.1, onNoPunctuationSeconds: 1.2, onNumberSeconds: 0.5 },
   },
   stopSpeakingPlan: {
-    numWords: 0, voiceSeconds: 0.15, backoffSeconds: 0.5,
+    numWords: 2, voiceSeconds: 0.15, backoffSeconds: 0.5,
     acknowledgementPhrases: ['ok', 'okay', 'okey', 'dale', 'si', 'sí', 'aja', 'ajá', 'uh huh', 'mhmm', 'mm', 'perfecto', 'bárbaro', 'claro', 'bueno', 'listo', 'genial', 'joya', 'ya', 'entiendo', 'escucho', 'te escucho', 'gracias'],
     interruptionPhrases: ['para', 'espera', 'esperá', 'no', 'pero', 'un segundo', 'un momento', 'perdón'],
   },
