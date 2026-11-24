@@ -167,7 +167,7 @@ Learn pottery and ceramic arts in a creative environment in Valeria del Mar. Con
 - **Standard Capacity**: 8 guests (2 per room)
 - **Extended Capacity**: +2 additional on futons with extra payment
 - **Utilities Included**: Heating, air conditioning, internet, electricity, water
-- **Pet Policy**: Pets allowed with hypoallergenic cleaning fee + US $300 deposit
+- **Pet Policy**: Pets allowed with hypoallergenic cleaning fee US $30 per stay + US $300 deposit
 
 ## SEO Landing Pages
 

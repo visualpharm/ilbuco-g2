@@ -104,10 +104,10 @@ export default function Contact() {
                     </h3>
                     <p className="text-gray-700 whitespace-pre-line">
                       <Translate text={{
-                        en: "Yes. A hypoallergenic cleaning fee plus a refundable $300 USD deposit applies.",
-                        es: "Sí. Se aplica una tarifa de limpieza hipoalergénica más un depósito de US$300 reembolsable.",
-                        pt: "Sim. Aplica-se uma taxa de limpeza hipoalergênica mais um depósito reembolsável de US$300.",
-                        ru: "Да. Взимается плата за гипоаллергенную уборку плюс возвратный залог $300 USD.",
+                        en: "Yes. A hypoallergenic cleaning fee of US$30 per stay plus a refundable $300 USD deposit applies.",
+                        es: "Sí. Se aplica una tarifa de limpieza hipoalergénica de US$30 por estadía más un depósito de US$300 reembolsable.",
+                        pt: "Sim. Aplica-se uma taxa de limpeza hipoalergênica de US$30 por estadia mais um depósito reembolsável de US$300.",
+                        ru: "Да. Взимается плата за гипоаллергенную уборку $30 USD за проживание плюс возвратный залог $300 USD.",
                       }} />
                     </p>
                   </div>

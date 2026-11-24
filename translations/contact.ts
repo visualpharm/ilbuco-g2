@@ -129,10 +129,10 @@ export const contactTranslations = {
         ru: "Можно ли с питомцами?",
       },
       answer: {
-        en: "Yes, pets are allowed with a hypo-allergenic fee and US $300 deposit.",
-        es: "Sí, se permiten mascotas con una tarifa hipoalergénica y un depósito de US $300.",
-        pt: "Sim, animais de estimação são permitidos com uma taxa hipoalergênica e depósito de US $300.",
-        ru: "Да, питомцы разрешены с гипоаллергенной уборкой и залогом US $300.",
+        en: "Yes, pets are allowed with a US $30 hypo-allergenic cleaning fee per stay and a US $300 deposit.",
+        es: "Sí, se permiten mascotas con una tarifa de limpieza hipoalergénica de US $30 por estadía y un depósito de US $300.",
+        pt: "Sim, animais de estimação são permitidos com uma taxa de limpeza hipoalergênica de US $30 por estadia e depósito de US $300.",
+        ru: "Да, питомцы разрешены с гипоаллергенной уборкой US $30 за проживание и залогом US $300.",
       },
     },
     housekeeping: {

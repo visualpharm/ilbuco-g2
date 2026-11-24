@@ -417,10 +417,10 @@ export const translations = {
       ru: "Отопление, кондиционер, интернет, электричество, вода включены",
     },
     petFee: {
-      en: "Hypoallergenic cleaning fee + US $300 deposit",
-      es: "Tarifa de limpieza hipoalergénica + depósito de US $300",
-      pt: "Taxa de limpeza hipoalergênica + depósito de US $300",
-      ru: "Гипоаллергенная уборка + депозит US $300",
+      en: "Hypoallergenic cleaning US $30 per stay + US $300 deposit",
+      es: "Limpieza hipoalergénica US $30 por estadía + depósito de US $300",
+      pt: "Limpeza hipoalergênica US $30 por estadia + depósito de US $300",
+      ru: "Гипоаллергенная уборка US $30 за проживание + депозит US $300",
     },
     clickToEnlarge: {
       en: "Click to enlarge",
