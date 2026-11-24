@@ -20,6 +20,11 @@ giardino https://www.airbnb.com/rooms/1393460027877444232?source_impression_id=p
 terrazzo https://www.airbnb.com/rooms/1422046866284999348?source_impression_id=p3_1749914061_P38mVIuZYIb4ompa
 (penthous is on a long term rental, so no airbnb link)
 
+## Late checkout
+- Checkout is 11:00; a guest may pay to stay until 13:00 at most — never later (Melody needs two hours before the 15:00 check-in).
+- Never sold when someone checks in to that room (or the whole house) the same day.
+- Price: `LATE_CHECKOUT_PRICE` in `lib/late-checkout.ts`, only Ivan sets it. Signs: QR per room to `/late-checkout?room=<giardino|terrazzo|paraiso|penthouse>`.
+
 ## Payment options
 For spanish version, direct booking button should have the payement options: CBU, Mercado Pago, tarjetas internacionales Visa, Mastercard, Amex, etc., PayPal, USDT.
 

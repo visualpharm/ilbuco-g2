@@ -183,3 +183,10 @@ Source: task d2601590.
 - **Why:** the 2026-11-10 limit — a busy session got the guest message only after its turn (~50 s median). Signed test event: typed into the busy session 0.4 s after arrival.
 - **Undo:** remove both variables from the plist and reload the LaunchAgent (the relay falls back to `hub agent-send` without urgency).
 - **By:** hub-dev (task d3233348).
+
+## 2026-11-24 · Paid late checkout by QR in each room
+- **Decided:** a sign in every room (QR → `/late-checkout?room=<room>`) sells staying until 13:00 for $ 50.000 (Ivan's number, meeting Ivan · Jennifer · Melody 2026-11-24; one rule `LATE_CHECKOUT_PRICE` in `lib/late-checkout.ts`). Standard checkout stays 11:00. The option is closed when Hostex shows a check-in that day to the room or the whole house (whole house leaving → any arrival closes it), and once already bought. Payment is Mercado Pago Checkout Pro on the Il Buco account; MP is the only record (approved payments with `external_reference` `ilbuco-late:…`). Each purchase goes to noe → Melody (`late_checkout` voice notice via the wake relay; the return page and a 10-minute cron sweep both announce, ids dedup). Melody's list: `/late-checkout/staff?key=…` (1Password AI "ilbuco-g2 LATE_CHECKOUT_STAFF_KEY").
+- **Why:** meeting quote «aunque pagues un millón, no se puede porque está llegando gente»; Melody needs two hours before the 15:00 check-in.
+- **Rejected:** 20 000 per hour; 25 % of a night (card options, Ivan chose the flat 50 000).
+- **Undo:** set `LATE_CHECKOUT_PRICE` to null (page shows availability, takes no payment) or remove the signs.
+- **By:** meetings-2411 (task), agent (task/late-checkout).

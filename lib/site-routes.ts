@@ -1,6 +1,6 @@
 // Which pages the sitemap lists, derived from the real app/ routes so a removed page never lingers as a 404.
 
-const PRIVATE = /^\/(admin|dashboard|nimda|vanish|voice|reservar)(\/|$)|^\/([a-z]{2}\/)?guest(\/|$)/
+const PRIVATE = /^\/(admin|dashboard|nimda|vanish|voice|reservar|late-checkout)(\/|$)|^\/([a-z]{2}\/)?guest(\/|$)/
 
 /** Translated pages: same content in every language (docs/rules/seo.md). */
 export const TRANSLATED: Record<string, Record<string, string>> = {

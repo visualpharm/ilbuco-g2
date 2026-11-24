@@ -64,7 +64,12 @@ VOICE_KINDS = {
                       'Создай бронь вручную в Hostex (Booking Site) на эти даты и подтверди гостю.'),
     'release_failed': ((TO,), 'Удержание по телефону не снялось — даты остаются закрытыми',
                        'Открой эти даты в Hostex вручную, если там нет брони.'),
+    # Website, not the phone agent: a guest paid a late checkout through the room's QR (lib/late-checkout.ts).
+    'late_checkout': ((TO,), 'Гость оплатил поздний выезд на сайте (QR в комнате)',
+                      'Передай Мелоди: комната, день и до какого часа гость остаётся — уборку этой комнаты '
+                      'начать после этого часа. Гостю ничего писать не нужно, сайт уже подтвердил ему.'),
 }
+SOURCE = {'late_checkout': 'Сайт Il Buco'}
 
 
 def load_secret():
@@ -150,8 +155,9 @@ def parse_voice(raw):
 
 def voice_text(v):
     _, what, todo = VOICE_KINDS[v['kind']]
+    source = SOURCE.get(v['kind'], 'Голосовой агент Il Buco')
     if v['test']:
-        return (f"[ТЕСТ голосового агента Il Buco] {what}. Это проверка канала: гостю и Ивану не пиши, Hostex не трогай, "
+        return (f"[ТЕСТ: {source}] {what}. Это проверка канала: гостю и Ивану не пиши, Hostex не трогай, "
                 f"ответь «—». (id {v['id']})")
     facts = []
     if v['name'] or v['phone']:
@@ -170,7 +176,7 @@ def voice_text(v):
         facts.append(f"суть: «{v['reason']}»")
     if v['call_id']:
         facts.append(f"звонок Vapi {v['call_id']}")
-    return f"Голосовой агент Il Buco: {what}. " + '; '.join(facts) + f".\n{todo}"
+    return f"{source}: {what}. " + '; '.join(facts) + f".\n{todo}"
 
 
 def wake_text(w):

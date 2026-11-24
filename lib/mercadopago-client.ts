@@ -55,6 +55,9 @@ export interface CreatePreferenceParams {
   expiration_date_from?: string;
   expiration_date_to?: string;
   statement_descriptor?: string;
+  notification_url?: string;
+  /** e.g. ['ticket', 'atm'] — cash vouchers settle days later, useless for a same-day service. */
+  excluded_payment_types?: string[];
 }
 
 export interface CreatedPreference {
@@ -101,6 +104,10 @@ export async function createPreference(
           : undefined,
       },
     }),
+    ...(params.notification_url && { notification_url: params.notification_url }),
+    ...(params.excluded_payment_types?.length && {
+      payment_methods: { excluded_payment_types: params.excluded_payment_types.map((id) => ({ id })) },
+    }),
     ...(params.expires && {
       expires: true,
       expiration_date_from: params.expiration_date_from,
@@ -109,9 +116,9 @@ export async function createPreference(
     statement_descriptor: params.statement_descriptor ?? 'IL BUCO Carilo',
   };
 
-  const res = await fetch(`${MP_API}/checkout/preferences?access_token=${getAccessToken()}`, {
+  const res = await fetch(`${MP_API}/checkout/preferences`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getAccessToken()}` },
     body: JSON.stringify(body),
   });
 
@@ -145,8 +152,8 @@ export interface PaymentInfo {
  * Used in the webhook handler to verify payment before creating the Hostex reservation.
  */
 export async function getPayment(paymentId: number | string): Promise<PaymentInfo> {
-  const res = await fetch(`${MP_API}/v1/payments/${paymentId}?access_token=${getAccessToken()}`, {
-    headers: { 'Content-Type': 'application/json' },
+  const res = await fetch(`${MP_API}/v1/payments/${encodeURIComponent(String(paymentId))}`, {
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getAccessToken()}` },
   });
 
   if (!res.ok) {
@@ -154,7 +161,11 @@ export async function getPayment(paymentId: number | string): Promise<PaymentInf
     throw new Error(`Mercado Pago get-payment error (${res.status}): ${errText.slice(0, 300)}`);
   }
 
-  const data = await res.json();
+  return mapPayment(await res.json());
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapPayment(data: any): PaymentInfo {
   return {
     id: data.id,
     status: data.status,
@@ -207,4 +218,20 @@ export function verifyWebhookSignature(
   } catch {
     return false;
   }
+}
+
+/**
+ * Payments created in the last `days` days, newest first (one page of up to 100 — far more
+ * than this account takes in a week of late checkouts).
+ */
+export async function searchRecentPayments(days: number): Promise<PaymentInfo[]> {
+  const url = `${MP_API}/v1/payments/search?sort=date_created&criteria=desc&range=date_created` +
+    `&begin_date=NOW-${Math.max(1, Math.round(days))}DAYS&end_date=NOW&limit=100`;
+  const res = await fetch(url, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`Mercado Pago payment-search error (${res.status}): ${errText.slice(0, 300)}`);
+  }
+  const data = await res.json();
+  return (Array.isArray(data.results) ? data.results : []).map(mapPayment);
 }

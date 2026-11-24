@@ -162,6 +162,17 @@ class VoiceNoticeTest(unittest.TestCase):
         self.assertEqual([c[2] for c in self.calls], ['noe'])
         self.assertIn('ТЕСТ', self.calls[0][0])
 
+    def test_late_checkout_reaches_noe_for_melody(self):
+        n = {'type': 'voice_notice', 'id': 'late-123', 'kind': 'late_checkout', 'name': 'Ana Pérez', 'unit': 'Giardino',
+             'reason': 'выезд 2026-11-25 до 13:00', 'amount': 50000, 'reservation': '5-6CIPR80FI'}
+        st, _ = self.relay.handle('/hostex-wake', *req(n))
+        self.assertEqual(st, 200)
+        self.assertEqual([c[2] for c in self.calls], ['noe'])
+        text = self.calls[0][0]
+        self.assertTrue(text.startswith('Сайт Il Buco: Гость оплатил поздний выезд'))
+        for want in ('Giardino', 'до 13:00', '50 000 ARS', '5-6CIPR80FI', 'Мелоди'):
+            self.assertIn(want, text)
+
 
 if __name__ == '__main__':
     unittest.main()

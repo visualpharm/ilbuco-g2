@@ -111,7 +111,7 @@ export async function wakeHub(
  * signed relay path as the Hostex wake — the tunnel forwards only that path. The relay builds
  * the words from these fields (scripts/hub_wake_relay.py, VOICE_KINDS).
  */
-export type VoiceNoticeKind = 'callback' | 'hold_expired' | 'payment_unverified' | 'paid' | 'paid_unbooked' | 'release_failed';
+export type VoiceNoticeKind = 'callback' | 'hold_expired' | 'payment_unverified' | 'paid' | 'paid_unbooked' | 'release_failed' | 'late_checkout';
 
 export interface VoiceNotice {
   type: 'voice_notice';
