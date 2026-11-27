@@ -47,6 +47,10 @@ function LateCheckout() {
   }, [])
 
   useEffect(() => {
+    if (!roomParam) fetch("/api/late-checkout", { cache: "no-store" }).then((r) => r.json()).then((b) => setGuests(b.guests)).catch(() => {})
+  }, [roomParam])
+
+  useEffect(() => {
     load(targetKey ? JSON.parse(targetKey) : null)
   }, [targetKey, load])
 
@@ -171,9 +175,9 @@ function LateCheckout() {
               >
                 {paying ? "Abriendo Mercado Pago…" : `Pagar ${pesos(chosen.ars)}`}
               </button>
-            ) : (
+            ) : !priced ? (
               <p className="text-lg text-gray-800">El precio se publica en breve.</p>
-            )}
+            ) : null}
           </>
         )}
       </main>
