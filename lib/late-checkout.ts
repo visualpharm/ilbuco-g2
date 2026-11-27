@@ -60,6 +60,7 @@ export interface Stay {
   property_id: number;
   check_in_date: string;
   check_out_date: string;
+  guest_name?: string;
 }
 
 export type ClosedReason =
@@ -116,6 +117,27 @@ export function departingStay(room: RoomKey, stays: Stay[], today: string): Stay
     if (s) return s;
   }
   return null;
+}
+
+/** "Maria G." — first name and the first letter of the surname; nothing else about the guest is shown. */
+export function guestLabel(full: string | undefined): string {
+  const parts = (full ?? '').trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) return 'Huésped';
+  const cap = (w: string) => w.charAt(0).toLocaleUpperCase('es-AR') + w.slice(1).toLocaleLowerCase('es-AR');
+  const first = cap(parts[0]);
+  return parts.length > 1 ? `${first} ${parts[parts.length - 1].charAt(0).toLocaleUpperCase('es-AR')}.` : first;
+}
+
+export interface DepartingGuest { id: string; label: string; room: RoomKey }
+
+/** Guests leaving today or tomorrow, one entry per stay (a whole-house stay appears once). */
+export function departingGuests(stays: Stay[], today: string): DepartingGuest[] {
+  const out: DepartingGuest[] = [];
+  for (const r of ROOMS) {
+    const s = departingStay(r.key, stays, today);
+    if (s && !out.some(g => g.id === s.reservation_code)) out.push({ id: s.reservation_code, label: guestLabel(s.guest_name), room: r.key });
+  }
+  return out;
 }
 
 /** Someone arrives that day in this room — or anywhere, when the whole house is leaving. */

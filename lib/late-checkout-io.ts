@@ -7,7 +7,7 @@ import { getOverlappingReservations, getReservation } from './hostex-api';
 import { createPreference, getPayment, searchRecentPayments, type PaymentInfo } from './mercadopago-client';
 import { notifyVoice } from './hub-wake';
 import {
-  addDays, artNow, buildOffer, makeRef, parseRef, priceRule, roomByKey,
+  addDays, artNow, buildOffer, departingGuests, type DepartingGuest, makeRef, parseRef, priceRule, roomByKey,
   type LateOffer, type LateRef, type Paid, type RoomKey, type Stay,
 } from './late-checkout';
 
@@ -23,6 +23,16 @@ async function staysAround(today: string): Promise<Stay[]> {
   const stays = await getOverlappingReservations(addDays(today, -1), addDays(today, 1));
   stayCache = { at: Date.now(), key, stays };
   return stays;
+}
+
+/** The guests who can still buy a late checkout, as first name + surname initial. No room, no code beyond an opaque id. */
+export async function departingList(now = Date.now()): Promise<DepartingGuest[]> {
+  return departingGuests(await staysAround(artNow(now).date), artNow(now).date);
+}
+
+/** Which room does this stay belong to (a whole-house stay is priced as the first room). */
+export async function roomOfStay(code: string, now = Date.now()): Promise<RoomKey | null> {
+  return (await departingList(now)).find(g => g.id === code)?.room ?? null;
 }
 
 export interface LatePurchase extends LateRef {

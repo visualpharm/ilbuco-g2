@@ -791,6 +791,7 @@ export interface StrictReservationSpan {
   check_out_date: string;
   status: string;
   cancelled_at: string | null;
+  guest_name?: string;
 }
 
 /**
@@ -847,6 +848,7 @@ export async function getOverlappingReservations(
           check_out_date: r.check_out_date,
           status: r.status,
           cancelled_at: typeof r.cancelled_at === 'string' ? r.cancelled_at : null,
+          guest_name: typeof r.guest_name === 'string' ? r.guest_name : undefined,
         } satisfies StrictReservationSpan;
       });
     });

@@ -10,26 +10,35 @@ type Offer = Omit<LateOffer, "reservationCode">
 function LateCheckout() {
   const params = useSearchParams()
   const router = useRouter()
-  const initial = ROOMS.find((r) => r.key === params.get("room"))?.key ?? null
-  const [room, setRoom] = useState<RoomKey | null>(initial)
+  // A QR inside a room carries ?room=; the open page lists the guests who leave soon.
+  const roomParam = ROOMS.find((r) => r.key === params.get("room"))?.key ?? null
+  const guestParam = params.get("guest")
+  const target: { guest?: string; room?: RoomKey } | null = guestParam ? { guest: guestParam } : roomParam ? { room: roomParam } : null
+  const targetKey = target ? JSON.stringify(target) : null
+  const [guests, setGuests] = useState<{ id: string; label: string }[] | null>(null)
   const [offer, setOffer] = useState<Offer | null>(null)
   const [loading, setLoading] = useState(false)
   const [failed, setFailed] = useState(false)
   const [until, setUntil] = useState<string | null>(null)
   const [paying, setPaying] = useState(false)
 
-  const load = useCallback(async (r: RoomKey) => {
+  const load = useCallback(async (t: { guest?: string; room?: RoomKey } | null) => {
     setLoading(true)
     setFailed(false)
     setOffer(null)
     setUntil(null)
     try {
-      const res = await fetch(`/api/late-checkout?room=${r}`, { cache: "no-store" })
+      const res = await fetch(`/api/late-checkout${t ? `?${t.guest ? `guest=${encodeURIComponent(t.guest)}` : `room=${t.room}`}` : ""}`, { cache: "no-store" })
       if (!res.ok) throw new Error(String(res.status))
-      const o: Offer = await res.json()
-      setOffer(o)
-      const open = o.options.filter((x) => !x.past)
-      setUntil(open.length ? open[open.length - 1].until : null)
+      const body = await res.json()
+      if (!t) {
+        setGuests(body.guests)
+      } else {
+        const o: Offer = body
+        setOffer(o)
+        const open = o.options.filter((x) => !x.past)
+        setUntil(open.length ? open[open.length - 1].until : null)
+      }
     } catch {
       setFailed(true)
     } finally {
@@ -38,29 +47,26 @@ function LateCheckout() {
   }, [])
 
   useEffect(() => {
-    if (room) load(room)
-  }, [room, load])
+    load(targetKey ? JSON.parse(targetKey) : null)
+  }, [targetKey, load])
 
-  const pick = (r: RoomKey) => {
-    setRoom(r)
-    router.replace(`/late-checkout?room=${r}`, { scroll: false })
-  }
+  const pick = (id: string) => router.replace(`/late-checkout?guest=${encodeURIComponent(id)}`, { scroll: false })
 
   const pay = async () => {
-    if (!room || !until) return
+    if (!target || !until) return
     setPaying(true)
     try {
       const res = await fetch("/api/late-checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ room, until }),
+        body: JSON.stringify({ ...target, until }),
       })
       const body = await res.json()
       if (!res.ok || !body.init_point) throw new Error(body.error || "error")
       window.location.href = body.init_point
     } catch {
       setPaying(false)
-      if (room) load(room)
+      load(target)
     }
   }
 
@@ -76,30 +82,33 @@ function LateCheckout() {
           La salida es a las {hhmm(STANDARD_CHECKOUT_HOUR)}. Si querés quedarte un rato más, pagalo acá.
         </p>
 
-        <fieldset className="mb-8">
-          <legend className="text-base font-semibold mb-3">Tu habitación</legend>
-          <div className="grid grid-cols-2 gap-2">
-            {ROOMS.map((r) => (
-              <button
-                key={r.key}
-                type="button"
-                onClick={() => pick(r.key)}
-                aria-pressed={room === r.key}
-                className={`h-14 rounded-lg border-2 text-lg font-medium transition-colors ${
-                  room === r.key ? "border-gray-900 bg-gray-900 text-white" : "border-gray-300 bg-white text-gray-900 hover:border-gray-500"
-                }`}
-              >
-                {r.name}
-              </button>
-            ))}
-          </div>
-        </fieldset>
+        {!roomParam && (
+          <fieldset className="mb-8">
+            <legend className="text-base font-semibold mb-3">¿Quién se va?</legend>
+            {guests && guests.length === 0 && <p className="text-lg text-gray-800">Hoy y mañana no hay salidas.</p>}
+            <div className="grid grid-cols-2 gap-2">
+              {guests?.map((g) => (
+                <button
+                  key={g.id}
+                  type="button"
+                  onClick={() => pick(g.id)}
+                  aria-pressed={guestParam === g.id}
+                  className={`min-h-14 px-2 rounded-lg border-2 text-lg font-medium transition-colors ${
+                    guestParam === g.id ? "border-gray-900 bg-gray-900 text-white" : "border-gray-300 bg-white text-gray-900 hover:border-gray-500"
+                  }`}
+                >
+                  {g.label}
+                </button>
+              ))}
+            </div>
+          </fieldset>
+        )}
 
         {loading && <p className="text-lg text-gray-700">Consultando…</p>}
         {failed && (
           <p className="text-lg text-gray-900">
-            No pudimos consultar la habitación.{" "}
-            <button type="button" className="underline font-medium" onClick={() => room && load(room)}>
+            No pudimos consultar.{" "}
+            <button type="button" className="underline font-medium" onClick={() => load(target)}>
               Probar de nuevo
             </button>
           </p>
@@ -108,12 +117,12 @@ function LateCheckout() {
         {offer?.closed === "arrival" && (
           <div className="rounded-lg bg-gray-100 p-5 text-lg [text-wrap:pretty]">
             <p className="font-semibold mb-1">Hoy no se puede, perdón</p>
-            <p>El {fechaLarga(offer.date!)} llegan huéspedes a esta habitación y necesitamos prepararla. La salida es a las {hhmm(STANDARD_CHECKOUT_HOUR)}.</p>
+            <p>El {fechaLarga(offer.date!)} llegan huéspedes y necesitamos prepararla. La salida es a las {hhmm(STANDARD_CHECKOUT_HOUR)}.</p>
           </div>
         )}
         {offer?.closed === "no_checkout" && (
           <div className="rounded-lg bg-gray-100 p-5 text-lg [text-wrap:pretty]">
-            Esta habitación no tiene salida hoy ni mañana. Podés pagar la salida tardía desde el día anterior a tu salida.
+            No hay salida hoy ni mañana. Podés pagar la salida tardía desde el día anterior a tu salida.
           </div>
         )}
         {offer?.closed === "already_paid" && (

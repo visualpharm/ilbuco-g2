@@ -78,3 +78,12 @@ test('reference round-trips and rejects junk', () => {
   assert.equal(parseRef('ilbuco:giardino:1:2'), null);
   assert.equal(parseRef('ilbuco-late:kitchen:2026-11-25:1300:X:1'), null);
 });
+
+test('guest label: first name + surname initial only', async () => {
+  const { guestLabel, departingGuests } = await import('./late-checkout');
+  assert.equal(guestLabel('maría de los Ángeles gómez'), 'María G.');
+  assert.equal(guestLabel('JOHN'), 'John');
+  assert.equal(guestLabel(''), 'Huésped');
+  const stays = [{ ...stay('A', GIARDINO, '2026-11-22', '2026-11-25'), guest_name: 'Ana Pérez' }, { ...stay('H', HOUSE, '2026-11-20', '2026-11-25'), guest_name: 'Luis Ruiz' }];
+  assert.deepEqual(departingGuests(stays, '2026-11-25').map(g => g.label), ['Ana P.', 'Luis R.']);
+});
