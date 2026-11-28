@@ -36,6 +36,9 @@ export function keyBoxCodeFor(propertyName: string, raw = process.env.KEYBOX_COD
 
 // ─── Message templates ───────────────────────────────────────────────────────
 
+/** Melody, who looks after the house: guests reach her for anything on site (Melody 28.11: guests did not have her number). */
+export const HOUSE_MANAGER_WA = 'https://wa.me/5492254612897';
+
 export interface PinMessageData {
   guestName: string;
   pin: number | string;
@@ -90,6 +93,7 @@ export function buildPinText(data: PinMessageData): string {
   }
   msg += `\nThe code works during your stay only.\n`;
   msg += `El código funciona solo durante tu estadía.\n`;
+  msg += `\n🏠 House manager / Encargada de la casa: Melody, ${HOUSE_MANAGER_WA}\n`;
   if (data.wabaNumber) {
     msg += `\n📱 Questions? WhatsApp us: https://wa.me/${data.wabaNumber.replace(/[^\d]/g, '')}`;
   }
@@ -134,6 +138,7 @@ export function buildPinEmail(data: PinMessageData): { subject: string; html: st
       <p style="color: #94a3b8; font-size: 12px; margin-top: 24px;">
         The code works during your stay only. El código funciona solo durante tu estadía.
       </p>
+      <p style="color: #0f172a; font-size: 16px;">🏠 House manager / Encargada de la casa: <a href="${HOUSE_MANAGER_WA}">Melody</a></p>
       ${data.wabaNumber ? `<p style="color: #64748b; font-size: 14px;"><a href="https://wa.me/${data.wabaNumber.replace(/[^\d]/g, '')}">📱 Questions? WhatsApp us</a></p>` : ''}
     </div>
   `;

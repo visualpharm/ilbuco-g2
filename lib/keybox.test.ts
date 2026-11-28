@@ -48,3 +48,9 @@ test('door code message says how to enter it: panel, code, ↵, video', () => {
   assert.ok(t.includes('ilbuco.com.ar/images/door-keypad.jpg'));
   assert.ok(html.includes('<img src="https://ilbuco.com.ar/images/door-keypad.jpg"'));
 });
+
+test('check-in message gives the house manager contact', () => {
+  const base = { guestName: 'Ana', pin: 4821, propertyName: 'Giardino', checkIn: '2026-11-06', checkOut: '2026-11-08' };
+  assert.ok(buildPinText(base).includes('wa.me/5492254612897'));
+  assert.ok(buildPinEmail(base).html.includes('wa.me/5492254612897'));
+});
