@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { Button } from "@/components/ui/button"
 import { CheckCircle2, MessageCircle, Clock, KeyRound, Mail } from "@/components/icons8-lucide"
 import { useLanguage } from "@/contexts/language-context"
+import { CONTACT } from "@/lib/contact"
 
 function ConfirmationContent() {
   const searchParams = useSearchParams()
@@ -172,7 +173,7 @@ function ConfirmationContent() {
             {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
-                href="https://wa.me/5491121275492"
+                href={CONTACT.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >

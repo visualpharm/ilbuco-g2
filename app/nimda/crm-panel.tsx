@@ -145,7 +145,7 @@ function phoneToWaLink(phone?: string): string {
   return `https://wa.me/${digits}`;
 }
 
-/** Format phone for display: +54 9 11 2127-5492 */
+/** Format phone for display: +54 9 11 1234-5678 */
 function formatPhone(phone?: string): string {
   if (!phone) return '—';
   const digits = phone.replace(/[^\d]/g, '');
